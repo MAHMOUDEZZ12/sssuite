@@ -65,10 +65,12 @@ import {
   Users2,
   Clock2,
   BadgeCheck,
-Wallet,
+  Wallet,
   Phone,
   Database,
   Search,
+  Contact,
+  UserPlus,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -497,6 +499,64 @@ const features = [
       }
     ],
   },
+    {
+    id: 'tiktok-editor',
+    title: 'TikTok Video Editor',
+    description: 'Produce viral-ready TikToks with trending sounds and effects in minutes.',
+    icon: <Video />,
+    color: 'from-red-500/80 to-red-600/80',
+    cta: 'TikTok',
+    details: {
+      steps: [
+        { text: 'Upload short video clips or photos', icon: <Upload className="h-6 w-6" /> },
+        { text: 'Pick a trending TikTok sound', icon: <Sparkles className="h-6 w-6" /> },
+        { text: 'Generate a fast-paced, engaging video', icon: <Send className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        {
+          metric: 'Time to Edit',
+          manual: '1-2 hours syncing clips to audio',
+          ai: 'Under 5 minutes',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Trend Analysis',
+          manual: 'Hours scrolling to find trends',
+          ai: 'Identifies trending audio for you',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'Visual Effects',
+          manual: 'Complex editing software needed',
+          ai: 'Applies popular effects automatically',
+          icon: <BadgeCheck />,
+        },
+      ],
+      synergy: [
+        { tool: "Social Lead Generation", benefit: "Use your viral TikTok to drive traffic and capture leads directly from the platform." },
+        { tool: "AI Page Admin", benefit: "Schedule your new TikTok to post at the optimal time for maximum visibility and engagement." }
+      ]
+    },
+    creationFields: [
+      { id: 'media', name: 'Video Clips or Photos', type: 'file', multiple: true, description: 'Upload your visual assets.' },
+      { id: 'sound', name: 'Sound or Vibe', type: 'text', placeholder: 'e.g., "Upbeat dance track" or paste a TikTok sound link', description: 'The AI will find or match the audio.' },
+      { id: 'textOverlays', name: 'Text Overlays', type: 'textarea', placeholder: '- POV: You found your dream home\n- Wait for the kitchen reveal!', description: 'Add engaging text to your video.' },
+    ],
+    faqs: [
+      {
+        question: "Does the AI suggest what's currently trending on TikTok?",
+        answer: "Yes, our AI constantly analyzes TikTok trends and can suggest popular sounds, effects, and video formats to increase your chances of going viral."
+      },
+      {
+        question: "Can I add my own branding?",
+        answer: "Absolutely. You can add your logo as a watermark and ensure the video aligns with your brand's color scheme."
+      },
+      {
+        question: "Is the generated video ready to post?",
+        answer: "Yes, the video is generated in the correct vertical aspect ratio (9:16) and is optimized for the TikTok platform. You can download and upload it directly."
+      }
+    ],
+  },
   {
     id: 'page-admin',
     title: 'AI Page Admin',
@@ -665,6 +725,64 @@ const features = [
       {
         question: "Is my client data secure?",
         answer: "Absolutely. Security is our top priority. All data is encrypted and stored in isolation. Your data is your own and is never shared or viewed."
+      }
+    ],
+  },
+    {
+    id: 'lead-generation',
+    title: 'Social Lead Generation',
+    description: 'Find and engage potential clients on social media before they even start searching.',
+    icon: <UserPlus />,
+    color: 'from-sky-500/80 to-sky-600/80',
+    cta: 'Lead List',
+    details: {
+      steps: [
+        { text: 'Define your target area and property type', icon: <MapPin className="h-6 w-6" /> },
+        { text: 'AI scans social media for buying signals', icon: <Search className="h-6 w-6" /> },
+        { text: 'Get a list of potential leads to engage', icon: <Contact className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        {
+          metric: 'Prospecting Time',
+          manual: 'Hours of manual searching and scrolling',
+          ai: 'Automated, continuous monitoring',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Lead Quality',
+          manual: 'Cold outreach based on profiles',
+          ai: 'Warm leads based on active intent signals',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'Engagement Strategy',
+          manual: 'Generic DMs or comments',
+          ai: 'Suggests personalized conversation starters',
+          icon: <BadgeCheck />,
+        },
+      ],
+      synergy: [
+        { tool: "CRM Memory Assistant", benefit: "Once a lead is identified, create a new profile for them in the CRM instantly." },
+        { tool: "AI Social Post Writer", benefit: "Create content that directly targets the interests and pain points of the leads you've discovered." }
+      ]
+    },
+    creationFields: [
+      { id: 'area', name: 'Target Area', type: 'text', placeholder: 'e.g., "Downtown Toronto" or "Williamsburg, Brooklyn"', description: 'The geographic area to monitor.' },
+      { id: 'propertyType', name: 'Property Type', type: 'text', placeholder: 'e.g., "Luxury condos", "Family homes"', description: 'The type of property your leads would be interested in.' },
+      { id: 'platforms', name: 'Social Platforms', type: 'text', placeholder: 'e.g., "Facebook groups", "Instagram hashtags"', description: 'Where should the AI look for leads?' },
+    ],
+    faqs: [
+      {
+        question: "How does the AI find these leads?",
+        answer: "The AI looks for public posts and comments that indicate an intent to move, such as people asking for realtor recommendations, discussing mortgage rates, or talking about wanting more space."
+      },
+      {
+        question: "Is this compliant with platform terms of service?",
+        answer: "Yes, the tool only analyzes publicly available data and does not engage in spamming or unauthorized messaging. It provides you with insights to conduct manual, personalized outreach."
+      },
+      {
+        question: "Does it give me contact information?",
+        answer: "No, it does not provide private contact information. It identifies public social media profiles of individuals showing intent, and suggests strategies for you to engage with them authentically on the platform."
       }
     ],
   },
@@ -1032,9 +1150,11 @@ const FeatureCard = ({
     'Social Post': 'Write a',
     'Story': 'Design a',
     'Reel': 'Produce a',
+    'TikTok': 'Create a',
     'Page Admin': 'Set up your',
     'Chat Session': 'Start a',
     'Client Record': 'Look up a',
+    'Lead List': 'Generate a',
     'Market Report': 'Generate a',
     'Investor Match': 'Find an',
     'Listing': 'Write your first',
@@ -1252,5 +1372,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
