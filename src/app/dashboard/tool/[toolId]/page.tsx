@@ -149,9 +149,16 @@ export default function ToolPage() {
       
         let fieldSchema;
         if (field.type === 'file') {
-            fieldSchema = z.any().refine(file => file, "File is required.");
+            fieldSchema = z.instanceof(File, {message: "File is required."}).optional();
         } else {
             fieldSchema = z.string().min(1, `${field.name} is required`);
+        }
+        
+        // Handle optional fields for rebranding tool
+        if (tool.id === 'rebranding' && field.id === 'companyLogoDataUri') {
+          fieldSchema = fieldSchema.optional();
+        } else if (field.type === 'file') {
+          fieldSchema = z.instanceof(File, { message: 'File is required.' });
         }
       
         shape[field.id] = fieldSchema;
@@ -187,7 +194,7 @@ export default function ToolPage() {
             const value = data[field.id];
             if (field.type === 'file' && value instanceof File) {
                 payload[field.id] = await fileToDataUri(value);
-            } else {
+            } else if (value) {
                 payload[field.id] = value;
             }
         }
@@ -308,7 +315,7 @@ export default function ToolPage() {
           </CardHeader>
           <CardContent>
             {renderResult(tool.id, result, copyToClipboard)}
-          </CardContent>
+          </CiardContent>
         </Card>
       )}
     </main>
