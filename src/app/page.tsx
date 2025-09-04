@@ -50,6 +50,10 @@ import {
   Building,
   Key,
   X,
+  Clapperboard,
+  Film,
+  UserCog,
+  MessageSquare,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -139,6 +143,54 @@ const features = [
       rebranding: 'Generate on-brand content.',
       'landing-pages': 'Drive traffic to pages.',
       'social-posts': "Write Social Content",
+    },
+  },
+  {
+    id: 'story-designer',
+    title: 'AI Story Designer',
+    description: 'Craft compelling stories for Instagram and Facebook in seconds.',
+    longDescription: 'Transform your listings into captivating visual stories. Our AI Story Designer helps you create engaging, multi-slide stories for Instagram and Facebook with just a few clicks. No design skills needed, just your property details.',
+    icon: <Film />,
+    color: 'from-fuchsia-500/80 to-fuchsia-600/80',
+    cta: 'Design a Story',
+    synergies: {
+      'story-designer': "Design Engaging Stories",
+    },
+  },
+  {
+    id: 'reel-designer',
+    title: 'AI Reel Designer',
+    description: 'Create professional video reels from photos and text effortlessly.',
+    longDescription: 'Turn your property photos and key selling points into a dynamic, attention-grabbing video reel for Instagram or TikTok. Our AI handles the editing, transitions, and music, delivering a ready-to-post video in minutes. No video editing experience required.',
+    icon: <Clapperboard />,
+    color: 'from-violet-500/80 to-violet-600/80',
+    cta: 'Design a Reel',
+    synergies: {
+      'reel-designer': "Produce Viral Reels",
+    },
+  },
+  {
+    id: 'page-admin',
+    title: 'AI Page Admin',
+    description: 'Your personal AI assistant to manage your social media pages.',
+    longDescription: 'Let our AI Page Admin handle the day-to-day of your social media presence. It can schedule posts, respond to common inquiries, and flag important comments for your attention, freeing you up to focus on closing deals. It\'s like having a social media manager on your team 24/7.',
+    icon: <UserCog />,
+    color: 'from-cyan-500/80 to-cyan-600/80',
+    cta: 'Manage My Page',
+    synergies: {
+      'page-admin': "Automate Page Management",
+    },
+  },
+  {
+    id: 'sales-master-chat',
+    title: 'AI Sales Master Chat',
+    description: 'Chat with legendary sales personas to sharpen your skills.',
+    longDescription: 'Learn from the best, anytime. Our AI Sales Master Chat lets you interact with different famous seller personas to get advice, practice negotiation, and brainstorm strategies. It\'s an interactive, on-demand sales coach that makes learning easy and fun.',
+    icon: <MessageSquare />,
+    color: 'from-lime-500/80 to-lime-600/80',
+    cta: 'Start a Chat',
+    synergies: {
+      'sales-master-chat': "Chat with Sales Legends",
     },
   },
   {
@@ -835,7 +887,6 @@ const FeatureCard = ({
     <div
       className={cn(
         "group relative flex flex-col [perspective:1000px] transition-all duration-300",
-        isHovered ? 'z-10' : '',
         'hover:shadow-2xl hover:!opacity-100 hover:z-20 hover:-translate-y-2'
       )}
       onMouseEnter={() => setHoveredId(feature.id)}
