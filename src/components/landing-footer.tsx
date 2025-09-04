@@ -6,7 +6,7 @@ import { ShinyButton } from './ui/shiny-button';
 
 export function LandingFooter() {
   return (
-    <footer className="relative w-full overflow-hidden mt-32 border-t">
+    <footer className="relative w-full overflow-hidden mt-32">
       <div className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-[150%] h-[150%] bg-gradient-to-t from-primary/20 to-transparent rounded-t-full" />
       <div className="container relative z-10 py-24">
         <div className="max-w-4xl mx-auto">

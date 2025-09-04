@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from 'next/link';
@@ -19,10 +20,14 @@ export function LandingHeader() {
           <Link href="#" className="text-foreground/60 transition-colors hover:text-foreground/80">Community</Link>
         </nav>
         <div className="ml-auto flex items-center gap-4">
-          <Button variant="ghost">Log In</Button>
-          <Button>
-            Sign Up
-          </Button>
+          <Link href="#">
+            <Button variant="ghost">Log In</Button>
+          </Link>
+          <Link href="#">
+            <Button>
+              Sign Up
+            </Button>
+          </Link>
         </div>
       </div>
     </header>
