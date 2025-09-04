@@ -148,13 +148,16 @@ export default function ToolPage() {
       
         let fieldSchema;
         if (field.type === 'file') {
-            fieldSchema = z.instanceof(File, { message: 'File is required' }).optional();
-             if (tool.id === 'rebranding' && field.id === 'companyLogoDataUri') {
-                fieldSchema = fieldSchema.optional();
-            } else if (tool.id === 'landing-pages' && field.id === 'projectBrochureDataUri') {
-                fieldSchema = fieldSchema.optional();
+            const isOptional = 
+              (tool.id === 'rebranding' && field.id === 'companyLogoDataUri') ||
+              (tool.id === 'landing-pages' && field.id === 'projectBrochureDataUri');
+
+            let fileSchema = z.custom<File>(val => val instanceof File, 'Please upload a file');
+
+            if (isOptional) {
+                fieldSchema = fileSchema.optional().nullable();
             } else {
-                fieldSchema = z.instanceof(File, { message: 'A file is required for this field.' });
+                fieldSchema = fileSchema;
             }
         } else {
             fieldSchema = z.string().min(1, `${field.name} is required`);
@@ -247,15 +250,14 @@ export default function ToolPage() {
                    <Controller
                       name={field.id}
                       control={control}
-                      render={({ field: controllerField }) => {
-                        const { onChange, value, ...rest } = controllerField;
+                      render={({ field: { onChange, value, ...rest } }) => {
                          switch (field.type) {
                             case 'text':
-                              return <Input id={field.id} placeholder={field.placeholder} onChange={onChange} {...rest} />;
+                              return <Input id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} {...rest} />;
                             case 'textarea':
-                              return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} {...rest} />;
+                              return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} {...rest} />;
                             case 'file':
-                                return <Input id={field.id} type="file" onChange={e => onChange(e.target.files ? e.target.files[0] : null)} />;
+                                return <Input id={field.id} type="file" onChange={e => onChange(e.target.files ? e.target.files[0] : null)} {...rest} />;
                             case 'select':
                               return (
                                 <Select onValueChange={onChange} defaultValue={value}>
