@@ -66,7 +66,7 @@ const features = [
     color: 'from-pink-500/80 to-pink-600/80',
     isIntro: true,
     synergies: {
-      'ad-creation': "Genesis: Spark brilliant campaigns.",
+      'ad-creation': "Create High-Converting Ads",
       targeting: 'Fine-tune with buyer personas.',
       rebranding: 'Match your new brand.',
       'landing-pages': 'Drive traffic to pages.',
@@ -138,7 +138,7 @@ const features = [
     isIntro: true,
     synergies: {
       'ad-creation': 'Power ads with audience.',
-      'targeting': "Bullseye: Zero in on profits.",
+      'targeting': "Target Your Ideal Buyers",
       rebranding: 'Rebrand for niche markets.',
       'landing-pages': 'Drive high-intent buyers.',
       'social-posts': 'Tailor content to demos.',
@@ -210,7 +210,7 @@ const features = [
     synergies: {
       'ad-creation': 'Generate on-brand ads.',
       targeting: 'Adapt voice for segments.',
-      'rebranding': "Makeover: Instantly apply brand.",
+      'rebranding': "Apply Your Branding",
       'landing-pages': 'Brand landing pages instantly.',
       'social-posts': 'Maintain consistent brand voice.',
       'lead-gen': 'Match forms to brand.',
@@ -282,7 +282,7 @@ const features = [
       'ad-creation': 'Perfect destination for clicks.',
       targeting: 'Build pages for audiences.',
       rebranding: 'Generate branded pages.',
-      'landing-pages': "Engine: Turn clicks to clients.",
+      'landing-pages': "Generate Landing Pages",
       'social-posts': 'Link posts to pages.',
       'lead-gen': 'Pages are lead machines.',
       'competitor-analysis': 'Build better pages.',
@@ -354,7 +354,7 @@ const features = [
       targeting: 'Write posts that resonate.',
       rebranding: 'Generate on-brand content.',
       'landing-pages': 'Drive traffic to pages.',
-      'social-posts': "Megaphone: Amplify your message.",
+      'social-posts': "Write Social Content",
       'lead-gen': 'Use social for traffic.',
       'competitor-analysis': 'See what content works.',
       'market-analysis': 'Create posts about trends.',
@@ -426,7 +426,7 @@ const features = [
       rebranding: 'Strong brand attracts leads.',
       'landing-pages': 'Convert traffic to leads.',
       'social-posts': 'Turn engagement to leads.',
-      'lead-gen': 'Magnet: Attract, qualify leads.',
+      'lead-gen': 'Automate Lead Generation',
       'competitor-analysis': 'Find competitor-ignored sources.',
       'market-analysis': 'Offer valuable market insights.',
       'auto-follow-up': 'Follow-up begins instantly.',
@@ -498,7 +498,7 @@ const features = [
       'landing-pages': 'Build better landing pages.',
       'social-posts': 'Create hijacking social content.',
       'lead-gen': 'Find unknown lead sources.',
-      'competitor-analysis': 'Spyglass: See their strategy.',
+      'competitor-analysis': 'Analyze Competitor Strategy',
       'market-analysis': 'Combine data for picture.',
       'auto-follow-up': 'Craft counter-messages.',
       'performance-dashboard': 'Benchmark against competition.',
@@ -570,7 +570,7 @@ const features = [
       'social-posts': 'Post market updates.',
       'lead-gen': 'Offer exclusive market reports.',
       'competitor-analysis': 'See competitor market reactions.',
-      'market-analysis': 'Crystal Ball: See trends.',
+      'market-analysis': 'Get Real-Time Market Data',
       'auto-follow-up': 'Send market update emails.',
       'performance-dashboard': 'Correlate performance with market.',
       'email-campaigns': 'Create data-driven campaigns.',
@@ -641,7 +641,7 @@ const features = [
       'lead-gen': 'Convert leads with speed.',
       'competitor-analysis': 'Craft counter-competitor messages.',
       'market-analysis': 'Send automated market updates.',
-      'auto-follow-up': 'Autopilot: Nurture leads 24/7.',
+      'auto-follow-up': 'Automate Lead Follow-Up',
       'performance-dashboard': 'Track opens, clicks, replies.',
       'email-campaigns': 'Engine for automated email.',
       'crm-integration': 'Trigger sequences from CRM.',
@@ -712,7 +712,7 @@ const features = [
       'competitor-analysis': 'Benchmark against the competition.',
       'market-analysis': 'Correlate with market trends.',
       'auto-follow-up': 'See best converting sequences.',
-      'performance-dashboard': 'Command Center: Business glance.',
+      'performance-dashboard': 'Track Your Performance',
       'email-campaigns': 'Track email campaign metrics.',
       'crm-integration': 'Single source of truth.',
       'brochure-rebrand': 'See new brochure engagement.',
@@ -783,7 +783,7 @@ const features = [
       'market-analysis': 'Send data-driven updates.',
       'auto-follow-up': 'Engine for automated emails.',
       'performance-dashboard': 'Track opens, clicks, conversions.',
-      'email-campaigns': 'Inbox Infiltrator: Get clicks.',
+      'email-campaigns': 'Launch Email Campaigns',
       'crm-integration': 'Sync lists with CRM.',
       'brochure-rebrand': 'Send brochures via email.',
       'offer-management': 'Email offers to buyers.',
@@ -854,7 +854,7 @@ const features = [
       'auto-follow-up': 'Trigger CRM workflows.',
       'performance-dashboard': 'Unify data for 360 view.',
       'email-campaigns': 'Sync lists, data with CRM.',
-      'crm-integration': 'Central Nervous System.',
+      'crm-integration': 'Connect Your CRM',
       'brochure-rebrand': 'Log brochure sends in CRM.',
       'offer-management': 'Manage offers in CRM.',
       'calendar-sync': 'Sync meetings with CRM.',
@@ -925,7 +925,7 @@ const features = [
       'performance-dashboard': 'Track downloads and views.',
       'email-campaigns': 'Attach brochures to emails.',
       'crm-integration': 'Log sends, views in CRM.',
-      'brochure-rebrand': 'Alchemist: Turn brochure to gold.',
+      'brochure-rebrand': 'Rebrand Any Brochure',
       'offer-management': 'Include link with offers.',
       'calendar-sync': 'Send brochure before meeting.',
       'bulk-actions': 'Rebrand, distribute all listings.',
@@ -984,7 +984,7 @@ const features = [
     color: 'from-yellow-500/80 to-yellow-600/80',
     synergies: {
       'ad-creation': 'Drive ad traffic.',
-      'offer-management': 'Deal Table: Manage offers.',
+      'offer-management': 'Manage All Your Offers',
     },
   },
   {
@@ -995,7 +995,7 @@ const features = [
     color: 'from-violet-500/80 to-violet-600/80',
     synergies: {
       'ad-creation': 'Leads book meetings directly.',
-      'calendar-sync': 'Time Saver: Automate schedule.',
+      'calendar-sync': 'Sync Your Calendar',
     },
   },
   {
@@ -1006,7 +1006,7 @@ const features = [
     color: 'from-stone-500/80 to-stone-600/80',
     synergies: {
       'ad-creation': 'Launch a dozen variations.',
-      'bulk-actions': 'Multiplier: Act in minutes.',
+      'bulk-actions': 'Perform Bulk Actions',
     },
   },
   {
@@ -1017,7 +1017,7 @@ const features = [
     color: 'from-sky-500/80 to-sky-600/80',
     synergies: {
       'ad-creation': 'Qualify ad leads 24/7.',
-      'ai-chatbot': 'Night Owl: Never sleeps.',
+      'ai-chatbot': 'Engage Visitors 24/7',
     },
   },
   {
@@ -1028,7 +1028,7 @@ const features = [
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
     synergies: {
       'ad-creation': 'Convert PDFs to ads.',
-      'pdf-ads': 'Document Dynamo: Turn PDF to lead machine.',
+      'pdf-ads': 'Make PDFs Interactive',
     },
   },
   {
@@ -1039,7 +1039,7 @@ const features = [
     color: 'from-orange-400/80 to-orange-500/80',
     synergies: {
       'ad-creation': 'Generate compelling video ads.',
-      'video-ads': 'Director: Create video ads.',
+      'video-ads': 'Generate Video Ads',
     },
   },
   {
@@ -1050,7 +1050,7 @@ const features = [
     color: 'from-green-400/80 to-green-500/80',
     synergies: {
       'ad-creation': 'Push content across platforms.',
-      'content-syndication': 'Amplifier: Get seen everywhere.',
+      'content-syndication': 'Syndicate Your Content',
     },
   },
   {
@@ -1061,7 +1061,7 @@ const features = [
     color: 'from-blue-400/80 to-blue-500/80',
     synergies: {
       'ad-creation': 'Give clients real-time view.',
-      'client-portal': 'VIP Room: Branded experience.',
+      'client-portal': 'Provide a Client Portal',
     },
   },
   {
@@ -1072,7 +1072,7 @@ const features = [
     color: 'from-pink-400/80 to-pink-500/80',
     synergies: {
       'ad-creation': 'AI handles initial offers.',
-      'ai-negotiator': 'Closer: AI handles negotiation.',
+      'ai-negotiator': 'Let AI Negotiate',
     },
   },
   {
@@ -1083,7 +1083,7 @@ const features = [
     color: 'from-teal-400/80 to-teal-500/80',
     synergies: {
       'ad-creation': 'Sync ad campaigns with PMS.',
-      'pms-integration': 'Bridge: Connect sales and data.',
+      'pms-integration': 'Connect Your PMS',
     },
   },
   {
@@ -1094,7 +1094,7 @@ const features = [
     color: 'from-indigo-400/80 to-indigo-500/80',
     synergies: {
       'ad-creation': 'Learn high-converting ad copy.',
-      'training-modules': 'Dojo: Sharpen your skills.',
+      'training-modules': 'Access Agent Training',
     },
   },
   {
@@ -1105,7 +1105,7 @@ const features = [
     color: 'from-rose-400/80 to-rose-500/80',
     synergies: {
       'ad-creation': 'Embed 3D tours in ads.',
-      'virtual-tours': 'Holodeck: Walk through home.',
+      'virtual-tours': 'Create Immersive Virtual Tours',
     },
   },
   {
@@ -1116,7 +1116,7 @@ const features = [
     color: 'from-lime-400/80 to-lime-600/80',
     synergies: {
       'ad-creation': 'Project ad campaign return.',
-      'roi-calculator': 'Oracle: Prove investment value.',
+      'roi-calculator': 'Calculate Property ROI',
     },
   },
   {
@@ -1127,7 +1127,7 @@ const features = [
     color: 'from-amber-400/80 to-amber-500/80',
     synergies: {
       'ad-creation': 'Create ads for listings.',
-      'listing-management': 'Master Key: Manage listings.',
+      'listing-management': 'Manage All Your Listings',
     },
   },
   {
@@ -1138,7 +1138,7 @@ const features = [
     color: 'from-purple-400/80 to-purple-500/80',
     synergies: {
       'ad-creation': 'Funnel traffic to sign-ups.',
-      'open-house-scheduler': 'Host: Plan flawless open houses.',
+      'open-house-scheduler': 'Schedule Open Houses',
     },
   },
   {
@@ -1149,7 +1149,7 @@ const features = [
     color: 'from-cyan-400/80 to-cyan-500/80',
     synergies: {
       'ad-creation': 'Generate docs from leads.',
-      'closing-assistance': 'Concierge: Ensure smooth closing.',
+      'closing-assistance': 'Automate Your Closings',
     },
   },
   {
@@ -1160,7 +1160,7 @@ const features = [
     color: 'from-red-400/80 to-red-500/80',
     synergies: {
       'ad-creation': 'Anticipate best creative.',
-      'predictive-analytics': 'Fortune Teller: Predict leads.',
+      'predictive-analytics': 'Predict Which Leads Convert',
     },
   },
   {
@@ -1171,7 +1171,7 @@ const features = [
     color: 'from-emerald-400/80 to-emerald-500/80',
     synergies: {
       'ad-creation': 'Build referral campaigns.',
-      'referral-program': 'Networker: Clients are sales force.',
+      'referral-program': 'Automate Your Referrals',
     },
   },
   {
@@ -1182,7 +1182,7 @@ const features = [
     color: 'from-yellow-400/80 to-yellow-500/80',
     synergies: {
       'ad-creation': 'Drive friendly competition.',
-      'gamified-sales': 'Arena: Turn sales into sport.',
+      'gamified-sales': 'Gamify Your Sales',
     },
   },
   {
@@ -1193,7 +1193,7 @@ const features = [
     color: 'from-violet-400/80 to-violet-500/80',
     synergies: {
       'ad-creation': 'Adjust ad offers.',
-      'dynamic-pricing': 'Price is Right: Know price.',
+      'dynamic-pricing': 'Get Dynamic Price Suggestions',
     },
   },
   {
@@ -1204,7 +1204,7 @@ const features = [
     color: 'from-stone-400/80 to-stone-500/80',
     synergies: {
       'ad-creation': 'Test ad versions.',
-      'a/b-testing': 'Scientist: Find what works.',
+      'a/b-testing': 'A/B Test Everything',
     },
   },
   {
@@ -1215,7 +1215,7 @@ const features = [
     color: 'from-sky-400/80 to-sky-500/80',
     synergies: {
       'ad-creation': 'Boost ad visibility.',
-      'local-seo': 'Mayor: Become #1 agent.',
+      'local-seo': 'Boost Your Local SEO',
     },
   },
   {
@@ -1226,7 +1226,7 @@ const features = [
     color: 'from-fuchsia-400/80 to-fuchsia-500/80',
     synergies: {
       'ad-creation': 'Target community groups.',
-      'community-engagement': 'Town Square: Build community.',
+      'community-engagement': 'Engage Your Community',
     },
   },
   {
@@ -1237,7 +1237,7 @@ const features = [
     color: 'from-orange-300/80 to-orange-400/80',
     synergies: {
       'ad-creation': 'Send automated ad reports.',
-      'automated-reporting': 'Analyst: Deliver stunning reports.',
+      'automated-reporting': 'Automate Client Reports',
     },
   },
   {
@@ -1248,7 +1248,7 @@ const features = [
     color: 'from-green-300/80 to-green-400/80',
     synergies: {
       'ad-creation': 'Generate video ad scripts.',
-      'script-generator': 'Playwright: Never be wordless.',
+      'script-generator': 'Generate Sales Scripts',
     },
   },
   {
@@ -1259,7 +1259,7 @@ const features = [
     color: 'from-blue-300/80 to-blue-400/80',
     synergies: {
       'ad-creation': 'Nurture ad leads long-term.',
-      'drip-campaigns': 'Gardener: Nurture ready leads.',
+      'drip-campaigns': 'Create Drip Campaigns',
     },
   },
   {
@@ -1270,7 +1270,7 @@ const features = [
     color: 'from-pink-300/80 to-pink-400/80',
     synergies: {
       'ad-creation': 'Create new lead tasks.',
-      'task-automation': 'Butler: AI handles busywork.',
+      'task-automation': 'Automate Your Tasks',
     },
   },
   {
@@ -1281,7 +1281,7 @@ const features = [
     color: 'from-teal-300/80 to-teal-400/80',
     synergies: {
       'ad-creation': 'Survey ad respondents.',
-      'feedback-surveys': 'Listener: Gather feedback.',
+      'feedback-surveys': 'Collect Client Feedback',
     },
   },
   {
@@ -1292,7 +1292,7 @@ const features = [
     color: 'from-indigo-300/80 to-indigo-400/80',
     synergies: {
       'ad-creation': 'Instant new lead notifications.',
-      'real-time-alerts': 'Watchtower: Never miss opportunity.',
+      'real-time-alerts': 'Get Real-Time Alerts',
     },
   },
   {
@@ -1303,7 +1303,7 @@ const features = [
     color: 'from-rose-300/80 to-rose-400/80',
     synergies: {
       'ad-creation': 'Ensure ads meet standards.',
-      'compliance-checker': 'Guardian: Stay safe, compliant.',
+      'compliance-checker': 'Ensure Compliance',
     },
   },
   {
@@ -1314,7 +1314,7 @@ const features = [
     color: 'from-lime-300/80 to-lime-400/80',
     synergies: {
       'ad-creation': 'Generate contracts from leads.',
-      'document-generator': 'Scribe: Generate all docs.',
+      'document-generator': 'Generate Documents',
     },
   },
   {
@@ -1325,7 +1325,7 @@ const features = [
     color: 'from-amber-300/80 to-amber-400/80',
     synergies: {
       'ad-creation': 'Create a unique website.',
-      'property-websites': 'Architect: Build stunning website.',
+      'property-websites': 'Create Property Websites',
     },
   },
   {
@@ -1336,7 +1336,7 @@ const features = [
     color: 'from-purple-300/80 to-purple-400/80',
     synergies: {
       'ad-creation': 'Generate ads in many languages.',
-      'multi-language': 'Translator: Speak client\'s language.',
+      'multi-language': 'Translate Your Content',
     },
   },
   {
@@ -1347,7 +1347,7 @@ const features = [
     color: 'from-cyan-300/80 to-cyan-400/80',
     synergies: {
       'ad-creation': 'Optimize for voice queries.',
-      'voice-search': 'Herald: Be the answer.',
+      'voice-search': 'Optimize for Voice Search',
     },
   },
   {
@@ -1358,7 +1358,7 @@ const features = [
     color: 'from-red-300/80 to-red-400/80',
     synergies: {
       'ad-creation': 'Use virtually staged photos.',
-      'vr-staging': 'Dream Weaver: Stage any home.',
+      'vr-staging': 'Virtually Stage Homes',
     },
   },
   {
@@ -1369,7 +1369,7 @@ const features = [
     color: 'from-emerald-300/80 to-emerald-400/80',
     synergies: {
       'ad-creation': 'Incorporate hyper-local data.',
-      'market-reports': 'Town Crier: Generate reports.',
+      'market-reports': 'Generate Market Reports',
     },
   },
   {
@@ -1380,7 +1380,7 @@ const features = [
     color: 'from-yellow-300/80 to-yellow-400/80',
     synergies: {
       'ad-creation': 'Collaborate on ad campaigns.',
-      'agent-collaboration': 'Round Table: Achieve more.',
+      'agent-collaboration': 'Collaborate With Your Team',
     },
   },
   {
@@ -1391,7 +1391,7 @@ const features = [
     color: 'from-violet-300/80 to-violet-400/80',
     synergies: {
       'ad-creation': 'Track ad-generated commissions.',
-      'commission-tracking': 'Treasurer: Watch earnings grow.',
+      'commission-tracking': 'Track Your Commissions',
     },
   },
   {
@@ -1402,7 +1402,7 @@ const features = [
     color: 'from-stone-300/80 to-stone-400/80',
     synergies: {
       'ad-creation': 'Discover new ad angles.',
-      'social-listening': 'Ear: Hear hidden opportunities.',
+      'social-listening': 'Listen to Social Media',
     },
   },
   {
@@ -1413,7 +1413,7 @@ const features = [
     color: 'from-sky-300/80 to-sky-400/80',
     synergies: {
       'ad-creation': 'Engage leads via chat.',
-      'chat-integration': 'Concierge Desk: Be there.',
+      'chat-integration': 'Add Live Chat',
     },
   },
   {
@@ -1424,7 +1424,7 @@ const features = [
     color: 'from-fuchsia-300/80 to-fuchsia-400/80',
     synergies: {
       'ad-creation': 'Manage contracts from leads.',
-      'contract-management': 'Dealmaker: Streamline contracts.',
+      'contract-management': 'Manage Your Contracts',
     },
   },
   {
@@ -1435,7 +1435,7 @@ const features = [
     color: 'from-orange-200/80 to-orange-300/80',
     synergies: {
       'ad-creation': 'Collect feedback from showings.',
-      'showing-feedback': 'Critic: Get honest feedback.',
+      'showing-feedback': 'Get Showing Feedback',
     },
   },
   {
@@ -1446,7 +1446,7 @@ const features = [
     color: 'from-green-200/80 to-green-300/80',
     synergies: {
       'ad-creation': 'Track all ad spend.',
-      'expense-tracking': 'Accountant: Keep finances in order.',
+      'expense-tracking': 'Track Your Expenses',
     },
   },
   {
@@ -1457,7 +1457,7 @@ const features = [
     color: 'from-blue-200/80 to-blue-300/80',
     synergies: {
       'ad-creation': 'Ensure ads are on-brand.',
-      'brand-kit': 'Style Guide: Ensure consistency.',
+      'brand-kit': 'Create Your Brand Kit',
     },
   },
   {
@@ -1468,7 +1468,7 @@ const features = [
     color: 'from-pink-200/80 to-pink-300/80',
     synergies: {
       'ad-creation': 'Include maps in pages.',
-      'interactive-maps': 'Cartographer: Bring listings to life.',
+      'interactive-maps': 'Create Interactive Maps',
     },
   },
   {
@@ -1479,7 +1479,7 @@ const features = [
     color: 'from-teal-200/80 to-teal-300/80',
     synergies: {
       'ad-creation': 'Promote events with ads.',
-      'event-promotion': 'Party Planner: Pack events.',
+      'event-promotion': 'Promote Your Events',
     },
   },
   {
@@ -1490,7 +1490,7 @@ const features = [
     color: 'from-indigo-200/80 to-indigo-300/80',
     synergies: {
       'ad-creation': 'Schedule ad campaigns visually.',
-      'content-calendar': 'Strategist: Plan your marketing.',
+      'content-calendar': 'Plan Your Content',
     },
   },
   {
@@ -1501,7 +1501,7 @@ const features = [
     color: 'from-rose-200/80 to-rose-300/80',
     synergies: {
       'ad-creation': 'Showcase with 3D plans.',
-      '3d-floor-plans': 'Dollhouse: Explore in 3D.',
+      '3d-floor-plans': 'Generate 3D Floor Plans',
     },
   },
 ];
