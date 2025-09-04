@@ -13,7 +13,7 @@
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 34 90% 50%; /* Fiery Orange for text */
+    --primary: 220 90% 60%; /* Vibrant Blue */
     --primary-foreground: 0 0% 98%;
 
     --secondary: 240 3.7% 15.9%;
@@ -30,7 +30,7 @@
     
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 34 90% 50%;
+    --ring: 220 90% 60%;
     --radius: 0.75rem;
   }
  
@@ -44,7 +44,7 @@
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 34 90% 50%;
+    --primary: 220 90% 60%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 240 3.7% 15.9%;
@@ -61,7 +61,7 @@
     
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 34 90% 50%;
+    --ring: 220 90% 60%;
   }
 }
  
@@ -77,8 +77,20 @@
 
 @layer components {
   .bg-primary {
-    background: linear-gradient(to right, hsl(var(--primary)), #ef4444, #f97316);
+    background: linear-gradient(to right, #6366f1, #3b82f6, #6366f1);
     background-size: 200% 200%;
     animation: background-pan 3s linear infinite;
+  }
+
+  @keyframes background-pan {
+    0% {
+      background-position: 0% center;
+    }
+    50% {
+      background-position: 100% center;
+    }
+    100% {
+      background-position: 0% center;
+    }
   }
 }
