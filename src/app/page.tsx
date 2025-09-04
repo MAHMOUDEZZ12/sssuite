@@ -113,7 +113,7 @@ const FeatureCard = ({
 
         <div
           className={cn(
-            'relative w-full h-[420px] flex flex-col justify-between p-8 bg-gradient-to-br rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300',
+            'relative w-full h-full flex flex-col justify-between p-8 bg-gradient-to-br rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300',
             feature.color
           )}
         >
