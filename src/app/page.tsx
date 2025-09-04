@@ -77,7 +77,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import {
   Accordion,
   AccordionContent,
@@ -146,7 +146,9 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                       {React.cloneElement(feature.icon, { className: 'h-10 w-10 text-white' })}
                     </div>
                     <div>
-                      <h2 className="text-4xl font-bold text-white mb-1">{feature.title}</h2>
+                      <DialogTitle asChild>
+                        <h2 className="text-4xl font-bold text-white mb-1">{feature.title}</h2>
+                      </DialogTitle>
                       <p className="text-lg text-white/80">{feature.description}</p>
                     </div>
                   </div>
