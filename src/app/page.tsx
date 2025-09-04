@@ -100,6 +100,7 @@ const features = [
     icon: <Megaphone />,
     color: 'from-pink-500/80 to-pink-600/80',
     cta: 'Ad',
+    backsideValue: "Turn a brochure into a campaign.",
     details: {
       steps: [
           { text: 'Upload your property brochure (PDF)', icon: <FileUp className="h-6 w-6" /> },
@@ -158,6 +159,7 @@ const features = [
     icon: <Target />,
     color: 'from-blue-500/80 to-blue-600/80',
     cta: 'Targeting Profile',
+    backsideValue: "Find your buyers before they find you.",
     details: {
       steps: [
         { text: 'Describe your ideal buyer persona', icon: <PenTool className="h-6 w-6" /> },
@@ -215,6 +217,7 @@ const features = [
     icon: <Palette />,
     color: 'from-orange-500/80 to-orange-600/80',
     cta: 'Rebranded Brochure',
+    backsideValue: "Make any brochure your own in one click.",
     details: {
       steps: [
         { text: 'Upload any developer\'s brochure (PDF)', icon: <Upload className="h-6 w-6" /> },
@@ -274,6 +277,7 @@ const features = [
     icon: <PenTool />,
     color: 'from-yellow-500/80 to-yellow-600/80',
     cta: 'Edited PDF',
+    backsideValue: "Edit the uneditable, instantly.",
     details: {
       steps: [
         { text: 'Upload your PDF document', icon: <Upload className="h-6 w-6" /> },
@@ -332,6 +336,7 @@ const features = [
     icon: <LayoutTemplate />,
     color: 'from-green-500/80 to-green-600/80',
     cta: 'Landing Page',
+    backsideValue: "Create a stunning property website in 60 seconds.",
     details: {
       steps: [
         { text: 'Provide a property brochure or link', icon: <Link className="h-6 w-6" /> },
@@ -390,6 +395,7 @@ const features = [
     icon: <Share2 />,
     color: 'from-rose-500/80 to-rose-600/80',
     cta: 'Social Post',
+    backsideValue: "Never run out of content ideas again.",
     details: {
       steps: [
         { text: 'Enter a topic, URL, or property address', icon: <PenTool className="h-6 w-6" /> },
@@ -448,6 +454,7 @@ const features = [
     icon: <Film />,
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
     cta: 'Story',
+    backsideValue: "Create thumb-stopping animated stories.",
     details: {
       steps: [
         { text: 'Upload 3-5 property photos', icon: <Camera className="h-6 w-6" /> },
@@ -506,6 +513,7 @@ const features = [
     icon: <Clapperboard />,
     color: 'from-violet-500/80 to-violet-600/80',
     cta: 'Reel',
+    backsideValue: "Turn photos into professional video reels.",
     details: {
       steps: [
         { text: 'Upload photos or video clips', icon: <Video className="h-6 w-6" /> },
@@ -564,6 +572,7 @@ const features = [
     icon: <Video />,
     color: 'from-red-500/80 to-red-600/80',
     cta: 'TikTok',
+    backsideValue: "Create TikToks that capture attention.",
     details: {
       steps: [
         { text: 'Upload short video clips or photos', icon: <Upload className="h-6 w-6" /> },
@@ -622,6 +631,7 @@ const features = [
     icon: <UserCog />,
     color: 'from-cyan-500/80 to-cyan-600/80',
     cta: 'Page Admin',
+    backsideValue: "Put your social media on autopilot.",
     details: {
       steps: [
         { text: 'Connect your Facebook & Instagram pages', icon: <Network className="h-6 w-6" /> },
@@ -679,6 +689,7 @@ const features = [
     icon: <MessageSquare />,
     color: 'from-lime-500/80 to-lime-600/80',
     cta: 'Chat Session',
+    backsideValue: "Practice any sales call, risk-free.",
     details: {
       steps: [
         { text: 'Choose an AI sales persona to chat with', icon: <Users className="h-6 w-6" /> },
@@ -736,6 +747,7 @@ const features = [
     icon: <Database />,
     color: 'from-teal-500/80 to-teal-600/80',
     cta: 'Client Record',
+    backsideValue: "Remember everything about every client.",
     details: {
       steps: [
         { text: 'Connect your contacts or calendar', icon: <Network className="h-6 w-6" /> },
@@ -793,6 +805,7 @@ const features = [
     icon: <UserPlus />,
     color: 'from-sky-500/80 to-sky-600/80',
     cta: 'Lead List',
+    backsideValue: "Find leads who don't know they're looking yet.",
     details: {
       steps: [
         { text: 'Define your target area and property type', icon: <MapPin className="h-6 w-6" /> },
@@ -851,6 +864,7 @@ const features = [
     icon: <LineChart />,
     color: 'from-amber-500/80 to-amber-600/80',
     cta: 'Market Report',
+    backsideValue: "Become the neighborhood expert overnight.",
     details: {
       steps: [
         { text: 'Enter a neighborhood, zip code, or city', icon: <MapPin className="h-6 w-6" /> },
@@ -909,6 +923,7 @@ const features = [
     icon: <Users2 />,
     color: 'from-indigo-500/80 to-indigo-600/80',
     cta: 'Investor Match',
+    backsideValue: "Know which investor to call instantly.",
     details: {
       steps: [
         { text: 'Provide details on a new investment property', icon: <Building className="h-6 w-6" /> },
@@ -966,6 +981,7 @@ const features = [
     icon: <FileText />,
     color: 'from-gray-500/80 to-gray-600/80',
     cta: 'Listing',
+    backsideValue: "Write perfect property descriptions in seconds.",
     details: {
       steps: [
         { text: 'Enter key property details (address, beds, baths)', icon: <PenTool className="h-6 w-6" /> },
@@ -1024,6 +1040,7 @@ const features = [
     icon: <Briefcase />,
     color: 'from-stone-500/80 to-stone-600/80',
     cta: 'Offer Package',
+    backsideValue: "Present multiple offers beautifully.",
     details: {
       steps: [
         { text: 'Select multiple properties for the client', icon: <Building className="h-6 w-6" /> },
@@ -1040,7 +1057,7 @@ const features = [
         {
           metric: 'Accuracy',
           manual: 'Prone to copy-paste errors and typos',
-          ai: 'Calculations and details are always accurate',
+ai: 'Calculations and details are always accurate',
           icon: <BadgeCheck />,
         },
         {
@@ -1082,6 +1099,7 @@ const features = [
     icon: <Mail />,
     color: 'from-sky-500/80 to-sky-600/80',
     cta: 'Email Campaign',
+    backsideValue: "Launch an entire email campaign in minutes.",
     details: {
       steps: [
         { text: 'Define your campaign goal (e.g., New Listing)', icon: <Target className="h-6 w-6" /> },
@@ -1140,6 +1158,7 @@ const features = [
     icon: <Bot />,
     color: 'from-rose-500/80 to-rose-600/80',
     cta: 'Chat Bot',
+    backsideValue: "Never miss an Instagram lead again.",
     details: {
       steps: [
         { text: 'Connect your Instagram account securely', icon: <Link className="h-6 w-6" /> },
@@ -1198,6 +1217,7 @@ const features = [
     icon: <Phone />,
     color: 'from-green-500/80 to-green-600/80',
     cta: 'WhatsApp Campaign',
+    backsideValue: "Reach your entire client list on WhatsApp instantly.",
     details: {
       steps: [
         { text: 'Upload your client contact list', icon: <Upload className="h-6 w-6" /> },
@@ -1285,8 +1305,7 @@ const FeatureCard = ({
   return (
     <div
       className={cn(
-        'group relative flex flex-col [perspective:1000px] transition-all duration-300',
-        'hover:shadow-2xl hover:z-20 hover:-translate-y-2'
+        'group relative flex flex-col [perspective:1000px]',
       )}
       onClick={() => onClick(feature)}
     >
@@ -1294,12 +1313,13 @@ const FeatureCard = ({
         className={cn(
           'relative w-full h-[420px] text-white rounded-3xl cursor-pointer',
           'transition-transform duration-700 ease-in-out [transform-style:preserve-3d]',
+           'group-hover:[transform:rotateY(180deg)]'
         )}
       >
+        {/* Front Face */}
         <div
           className={cn(
-            'absolute inset-0 flex flex-col justify-between p-8 bg-gradient-to-br rounded-3xl',
-            'transition-opacity duration-500',
+            'absolute inset-0 flex flex-col justify-between p-8 bg-gradient-to-br rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300',
             feature.color,
             '[backface-visibility:hidden]',
           )}
@@ -1317,6 +1337,17 @@ const FeatureCard = ({
                 <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
               </div>
             </div>
+        </div>
+
+         {/* Back Face */}
+        <div
+          className={cn(
+            'absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-br rounded-3xl',
+            feature.color,
+            '[backface-visibility:hidden] [transform:rotateY(180deg)]',
+          )}
+        >
+            <h3 className="text-3xl font-bold text-center text-white/90">{feature.backsideValue}</h3>
         </div>
       </div>
     </div>
