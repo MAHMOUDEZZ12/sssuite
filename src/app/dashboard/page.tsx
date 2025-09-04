@@ -2,28 +2,8 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { PlusCircle, Facebook, Instagram, Mail, MessageCircle, Link as LinkIcon, ArrowRight, Target, Palette, Share2, LineChart, LayoutTemplate, PenTool } from 'lucide-react';
+import { PlusCircle, Link as LinkIcon, ArrowRight, Target, Palette, Share2, LineChart, PenTool } from 'lucide-react';
 import Link from 'next/link';
-
-const ConnectAccountCard = ({
-  icon,
-  title,
-  children,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  children: React.ReactNode;
-}) => (
-  <Card className="flex flex-col items-center justify-center p-6 text-center bg-card/50 border-primary/10">
-    <div className="mb-4 text-primary">{icon}</div>
-    <h4 className="font-semibold text-lg mb-1">{title}</h4>
-    <p className="text-sm text-muted-foreground mb-4">{children}</p>
-    <Button variant="outline">
-        <LinkIcon className="mr-2 h-4 w-4" />
-        Connect
-    </Button>
-  </Card>
-);
 
 const QuickStartCard = ({ title, description, icon, href }: { title: string; description: string; icon: React.ReactNode; href: string; }) => (
     <Link href={href}>
@@ -50,25 +30,11 @@ export default function DashboardPage() {
         <CardHeader>
           <CardTitle>Welcome to your Super Sales Suite!</CardTitle>
           <CardDescription>
-            Get started by connecting your accounts. This will enable the AI to work across your platforms, saving you time and unlocking powerful automations.
+            Get started by exploring some of our most powerful AI tools below.
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <ConnectAccountCard icon={<Facebook className="h-10 w-10" />} title="Facebook">
-                Connect your Facebook page to manage posts, comments, and run ad campaigns.
-            </ConnectAccountCard>
-             <ConnectAccountCard icon={<Instagram className="h-10 w-10" />} title="Instagram">
-                Link your Instagram account for AI-powered DM responses and story creation.
-            </ConnectAccountCard>
-             <ConnectAccountCard icon={<Mail className="h-10 w-10" />} title="Google/Outlook">
-                Allow access to your calendar and email for the CRM Memory Assistant.
-            </ConnectAccountCard>
-             <ConnectAccountCard icon={<MessageCircle className="h-10 w-10" />} title="WhatsApp">
-                Enable direct client communication and automated campaign messages.
-            </ConnectAccountCard>
-        </CardContent>
       </Card>
-      
+
         <div>
             <h3 className="text-2xl font-bold tracking-tight mb-4">
                 Ready to create?
@@ -112,6 +78,32 @@ export default function DashboardPage() {
                 />
              </div>
         </div>
+
+        <div>
+            <h3 className="text-2xl font-bold tracking-tight mb-4">
+                Connect Your Accounts
+            </h3>
+            <Card>
+                <CardHeader>
+                    <CardTitle className='flex items-center gap-4'>
+                        <div className='p-3 bg-primary/10 text-primary rounded-lg'>
+                           <Share2 className='h-6 w-6' />
+                        </div>
+                       <span>Unlock powerful automations</span>
+                    </CardTitle>
+                    <CardDescription>
+                        Connect your social media and email accounts to enable the AI to work across your platforms, saving you time and unlocking features like automated post scheduling and CRM integration.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Button>
+                        <LinkIcon className="mr-2 h-4 w-4" />
+                        Go to Connection Settings
+                    </Button>
+                </CardContent>
+            </Card>
+        </div>
+
     </main>
   );
 }
