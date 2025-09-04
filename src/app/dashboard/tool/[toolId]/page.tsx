@@ -50,6 +50,19 @@ const flowRunner: Record<string, (data: any) => Promise<any>> = {
     'social-posts': generateSocialPost,
     'targeting': suggestTargetingOptions,
     'pdf-editor': editPdf,
+    'tiktok-editor': (data) => Promise.resolve({ media: 'https://placehold.co/400x800.mp4' }), // Mock implementation
+    'story-designer': (data) => Promise.resolve({ media: 'https://placehold.co/400x800.mp4' }), // Mock implementation
+    'reel-designer': (data) => Promise.resolve({ media: 'https://placehold.co/400x800.mp4' }), // Mock implementation
+    'page-admin': (data) => Promise.resolve({ success: true }), // Mock implementation
+    'crm-assistant': (data) => Promise.resolve({ response: 'Client summary...' }), // Mock implementation
+    'lead-generation': (data) => Promise.resolve({ leads: [] }), // Mock implementation
+    'market-reports': (data) => Promise.resolve({ reportUri: '...' }), // Mock implementation
+    'investor-matching': (data) => Promise.resolve({ matches: [] }), // Mock implementation
+    'listing-generator': (data) => Promise.resolve({ listing: '...' }), // Mock implementation
+    'offer-generator': (data) => Promise.resolve({ offerPackage: '...' }), // Mock implementation
+    'email-creator': (data) => Promise.resolve({ emails: [] }), // Mock implementation
+    'instagram-bot': (data) => Promise.resolve({ success: true }), // Mock implementation
+    'whatsapp-campaigns': (data) => Promise.resolve({ success: true }), // Mock implementation
 }
 
 const renderResult = (toolId: string, result: any, copyToClipboard: (text: string) => void) => {
@@ -333,7 +346,7 @@ export default function ToolPage() {
                               );
                              case 'button':
                                 return (
-                                     <Link href="/dashboard" className='w-full'>
+                                     <Link href="/dashboard/settings?tab=connections" className='w-full'>
                                        <Button type="button" variant="outline" className='w-full justify-start'>
                                           {field.cta}
                                       </Button>
