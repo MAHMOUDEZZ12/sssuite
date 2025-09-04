@@ -108,7 +108,10 @@ const FeatureCard = ({
         onClick={() => onClick(feature)}
     >
       <CardHeader>
-        <div className={`p-3 rounded-lg w-fit text-white ${feature.color}`}>
+        <div 
+          className="p-3 rounded-lg w-fit text-white"
+          style={{ backgroundColor: feature.color }}
+        >
             {React.cloneElement(feature.icon, { className: 'h-8 w-8' })}
         </div>
       </CardHeader>
@@ -116,7 +119,10 @@ const FeatureCard = ({
         <h2 className="text-2xl font-bold mb-2 text-foreground">{feature.title}</h2>
         <p className="text-lg text-foreground/70 flex-grow">{feature.description}</p>
          <div className="mt-6">
-            <div className={`inline-flex items-center justify-center gap-2 text-white font-semibold py-2 px-4 rounded-md ${feature.color}`}>
+            <div 
+              className="inline-flex items-center justify-center gap-2 text-white font-semibold py-2 px-4 rounded-md"
+              style={{ backgroundColor: feature.color }}
+            >
                 <span>Details</span>
                 <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
             </div>
@@ -133,7 +139,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
     <Dialog open={!!feature} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="bg-card/90 backdrop-blur-lg border-primary/20 text-foreground max-w-5xl w-[95vw] p-0 rounded-2xl">
           <div className="relative">
-            <div className={cn("p-8 rounded-t-2xl bg-gradient-to-br", feature.color)}>
+            <div className="p-8 rounded-t-2xl bg-gradient-to-br" style={{'--tw-gradient-from': feature.color, '--tw-gradient-to': 'transparent'} as React.CSSProperties}>
                <div className="flex items-start justify-between">
                   <div className='flex items-center gap-4'>
                     <div className="p-4 bg-white/20 rounded-full w-fit">

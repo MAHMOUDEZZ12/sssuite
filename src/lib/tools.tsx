@@ -111,7 +111,7 @@ export const tools: Feature[] = [
     title: 'Instant Ad Creation',
     description: 'Generate high-performance ad copy, visuals, and flyers from any brochure in seconds.',
     icon: <Megaphone />,
-    color: 'bg-pink-600',
+    color: '#ec4899', // bg-pink-500
     cta: 'Ad',
     categories: ['Creative', 'Ads'],
     backsideValue: "Turn a brochure into a campaign.",
@@ -175,7 +175,7 @@ export const tools: Feature[] = [
     title: 'Precision Targeting',
     description: 'Our AI analyzes your project and identifies high-intent buyers before they even search.',
     icon: <Target />,
-    color: 'bg-blue-600',
+    color: '#3b82f6', // bg-blue-600
     cta: 'Targeting Profile',
     categories: ['Lead Gen', 'Ads'],
     backsideValue: "Find your buyers before they find you.",
@@ -234,7 +234,7 @@ export const tools: Feature[] = [
     title: 'Automated Rebranding',
     description: 'Instantly rebrand any brochure with your logo, colors, and contact info.',
     icon: <Palette />,
-    color: 'bg-orange-600',
+    color: '#f97316', // bg-orange-600
     cta: 'Rebranded Brochure',
     categories: ['Creative', 'Editing'],
     backsideValue: "Make any brochure your own in one click.",
@@ -297,7 +297,7 @@ export const tools: Feature[] = [
     title: 'AI PDF Editor',
     description: 'Edit text, swap images, and update layouts in any PDF brochure with simple commands.',
     icon: <PenTool />,
-    color: 'bg-yellow-500',
+    color: '#eab308', // bg-yellow-500
     cta: 'Edited PDF',
     categories: ['Creative', 'Editing'],
     backsideValue: "Edit the uneditable, instantly.",
@@ -357,7 +357,7 @@ export const tools: Feature[] = [
     title: 'Landing Page Generator',
     description: 'Generate persuasive, high-converting landing pages that captivate buyers.',
     icon: <LayoutTemplate />,
-    color: 'bg-green-600',
+    color: '#22c55e', // bg-green-600
     cta: 'Landing Page',
     categories: ['Creative', 'Web'],
     backsideValue: "Create a stunning property website in 60 seconds.",
@@ -419,7 +419,7 @@ export const tools: Feature[] = [
     title: 'AI Social Post Writer',
     description: "Generate a week's worth of social content from a single link or topic.",
     icon: <Share2 />,
-    color: 'bg-rose-600',
+    color: '#e11d48', // bg-rose-600
     cta: 'Social Post',
     categories: ['Social & Comms', 'Creative'],
     backsideValue: "Never run out of content ideas again.",
@@ -479,7 +479,7 @@ export const tools: Feature[] = [
     title: 'AI Story Designer',
     description: 'Craft compelling, animated stories for Instagram and Facebook in seconds.',
     icon: <Film />,
-    color: 'bg-fuchsia-600',
+    color: '#a855f7', // bg-fuchsia-600
     cta: 'Story',
     categories: ['Creative', 'Social & Comms'],
     backsideValue: "Create thumb-stopping animated stories.",
@@ -539,7 +539,7 @@ export const tools: Feature[] = [
     title: 'AI Reel Designer',
     description: 'Create professional video reels from photos and text effortlessly, with auto-captions.',
     icon: <Clapperboard />,
-    color: 'bg-violet-600',
+    color: '#8b5cf6', // bg-violet-600
     cta: 'Reel',
     categories: ['Creative', 'Social & Comms', 'Editing'],
     backsideValue: "Turn photos into professional video reels.",
@@ -599,7 +599,7 @@ export const tools: Feature[] = [
     title: 'TikTok Video Editor',
     description: 'Produce viral-ready TikToks with trending sounds and effects in minutes.',
     icon: <Video />,
-    color: 'bg-red-600',
+    color: '#dc2626', // bg-red-600
     cta: 'TikTok',
     categories: ['Creative', 'Social & Comms', 'Editing'],
     backsideValue: "Create TikToks that capture attention.",
@@ -659,7 +659,7 @@ export const tools: Feature[] = [
     title: 'AI Page Admin',
     description: 'Your personal AI assistant to manage social media pages 24/7.',
     icon: <UserCog />,
-    color: 'bg-cyan-600',
+    color: '#0891b2', // bg-cyan-600
     cta: 'Page Admin',
     categories: ['Social & Comms', 'Sales Tools'],
     backsideValue: "Put your social media on autopilot.",
@@ -718,7 +718,7 @@ export const tools: Feature[] = [
     title: 'CRM Memory Assistant',
     description: 'Your AI brain that remembers every client detail, conversation, and deadline.',
     icon: <Database />,
-    color: 'bg-teal-600',
+    color: '#0d9488', // bg-teal-600
     cta: 'Client Record',
     categories: ['Sales Tools'],
     backsideValue: "Remember everything about every client.",
@@ -777,7 +777,7 @@ export const tools: Feature[] = [
     title: 'Social Lead Generation',
     description: 'Find and engage potential clients on social media before they even start searching.',
     icon: <UserPlus />,
-    color: 'bg-sky-600',
+    color: '#0284c7', // bg-sky-600
     cta: 'Lead List',
     categories: ['Lead Gen', 'Social & Comms'],
     backsideValue: "Find leads who don't know they're looking yet.",
@@ -837,7 +837,7 @@ export const tools: Feature[] = [
     title: 'Precision Market Reports',
     description: 'Go beyond MLS data. Generate hyper-local reports with AI-powered predictive insights.',
     icon: <LineChart />,
-    color: 'bg-amber-500',
+    color: '#f59e0b', // bg-amber-500
     cta: 'Market Report',
     categories: ['Sales Tools', 'Creative'],
     backsideValue: "Become the neighborhood expert overnight.",
@@ -897,7 +897,7 @@ export const tools: Feature[] = [
     title: 'Investor Matching',
     description: 'AI-powered tool that matches your investor clients with their perfect properties.',
     icon: <Users2 />,
-    color: 'bg-indigo-600',
+    color: '#6366f1', // bg-indigo-600
     cta: 'Investor Match',
     categories: ['Lead Gen', 'Sales Tools'],
     backsideValue: "Know which investor to call instantly.",
@@ -956,7 +956,7 @@ export const tools: Feature[] = [
     title: 'Listing Details Generator',
     description: 'Create compelling, SEO-friendly property listings from a few key details.',
     icon: <FileText />,
-    color: 'bg-gray-600',
+    color: '#64748b', // bg-gray-600
     cta: 'Listing',
     categories: ['Creative', 'Web'],
     backsideValue: "Write perfect property descriptions in seconds.",
@@ -1016,7 +1016,7 @@ export const tools: Feature[] = [
     title: 'Multi-Project Offer Generator',
     description: 'Create and compare customized offer packages for clients interested in multiple properties.',
     icon: <Briefcase />,
-    color: 'bg-stone-600',
+    color: '#78716c', // bg-stone-600
     cta: 'Offer Package',
     categories: ['Sales Tools'],
     backsideValue: "Present multiple offers beautifully.",
@@ -1076,7 +1076,7 @@ ai: 'Calculations and details are always accurate',
     title: 'Email Marketing Creator',
     description: 'Design and write compelling email campaigns that nurture leads and drive sales.',
     icon: <Mail />,
-    color: 'bg-sky-600',
+    color: '#0ea5e9', // bg-sky-500
     cta: 'Email Campaign',
     categories: ['Social & Comms', 'Creative'],
     backsideValue: "Launch an entire email campaign in minutes.",
@@ -1136,7 +1136,7 @@ ai: 'Calculations and details are always accurate',
     title: 'Instagram Chat Bot',
     description: 'An AI assistant to manage your DMs, answer questions, and capture leads 24/7.',
     icon: <Bot />,
-    color: 'bg-rose-600',
+    color: '#f43f5e', // bg-rose-500
     cta: 'Chat Bot',
     categories: ['Social & Comms', 'Lead Gen'],
     backsideValue: "Never miss an Instagram lead again.",
@@ -1196,7 +1196,7 @@ ai: 'Calculations and details are always accurate',
     title: 'WhatsApp Campaign Manager',
     description: 'Engage clients directly with personalized WhatsApp messages, broadcasts, and automated follow-ups.',
     icon: <Phone />,
-    color: 'bg-green-600',
+    color: '#22c55e', // bg-green-500
     cta: 'WhatsApp Campaign',
     categories: ['Social & Comms', 'Lead Gen'],
     backsideValue: "Reach your entire client list on WhatsApp instantly.",
