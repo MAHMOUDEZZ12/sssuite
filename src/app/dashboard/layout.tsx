@@ -43,6 +43,8 @@ import {
   Video,
   Briefcase,
   ChevronRight,
+  Contact,
+  Brush
 } from 'lucide-react';
 
 const marketingTools = [
@@ -52,15 +54,26 @@ const marketingTools = [
   { id: 'lead-generation', title: 'Social Lead Generation', icon: <UserPlus /> },
 ];
 
-const creativeTools = [
-  { id: 'rebranding', title: 'Automated Rebranding', icon: <Palette /> },
-  { id: 'pdf-editor', title: 'PDF Smart Editor', icon: <PenTool /> },
-  { id: 'landing-pages', title: 'Landing Page Generator', icon: <LayoutTemplate /> },
-  { id: 'listing-generator', title: 'Listing Details Generator', icon: <FileText /> },
+const designTools = [
+  { id: 'rebranding', title: 'Automated Rebranding', icon: <Brush /> },
   { id: 'story-designer', title: 'AI Story Designer', icon: <Film /> },
   { id: 'reel-designer', title: 'AI Reel Designer', icon: <Clapperboard /> },
   { id: 'tiktok-editor', title: 'TikTok Video Editor', icon: <Video /> },
+]
+
+const contentTools = [
+  { id: 'pdf-editor', title: 'PDF Smart Editor', icon: <PenTool /> },
+  { id: 'listing-generator', title: 'Listing Details Generator', icon: <FileText /> },
+  { id: 'landing-pages', title: 'Landing Page Generator', icon: <LayoutTemplate /> },
+  { id: 'email-creator', title: 'Email Marketing Creator', icon: <Mail /> },
 ];
+
+const socialMediaTools = [
+    { id: 'social-posts', title: 'Social Post Writer', icon: <Share2 /> },
+    { id: 'page-admin', title: 'AI Page Admin', icon: <UserCog /> },
+    { id: 'instagram-bot', title: 'Instagram Chat Bot', icon: <Bot /> },
+    { id: 'whatsapp-campaigns', title: 'WhatsApp Campaign Manager', icon: <Phone /> },
+]
 
 const salesTools = [
   { id: 'sales-master-chat', title: 'AI Sales Master Chat', icon: <MessageSquare /> },
@@ -69,13 +82,6 @@ const salesTools = [
   { id: 'offer-generator', title: 'Multi-Project Offer Generator', icon: <Briefcase /> },
 ];
 
-const communicationTools = [
-  { id: 'social-posts', title: 'Social Post Writer', icon: <Share2 /> },
-  { id: 'page-admin', title: 'AI Page Admin', icon: <UserCog /> },
-  { id: 'email-creator', title: 'Email Marketing Creator', icon: <Mail /> },
-  { id: 'instagram-bot', title: 'Instagram Chat Bot', icon: <Bot /> },
-  { id: 'whatsapp-campaigns', title: 'WhatsApp Campaign Manager', icon: <Phone /> },
-];
 
 const SidebarMenuGroup = ({
   title,
@@ -125,9 +131,10 @@ export default function DashboardLayout({
         <SidebarContent>
           <div className="flex flex-col gap-2 p-2">
             <SidebarMenuGroup title="Marketing" tools={marketingTools} isActive />
-            <SidebarMenuGroup title="Creative" tools={creativeTools} />
-            <SidebarMenuGroup title="Sales" tools={salesTools} />
-            <SidebarMenuGroup title="Communication" tools={communicationTools} />
+            <SidebarMenuGroup title="Design Tools" tools={designTools} />
+            <SidebarMenuGroup title="Content Tools" tools={contentTools} />
+            <SidebarMenuGroup title="Social Media" tools={socialMediaTools} />
+            <SidebarMenuGroup title="Sales & CRM" tools={salesTools} />
           </div>
         </SidebarContent>
         <SidebarFooter>
