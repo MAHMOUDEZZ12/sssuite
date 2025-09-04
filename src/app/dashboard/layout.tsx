@@ -111,8 +111,9 @@ export default function DashboardLayout({
   return (
     <SidebarProvider>
       <Sidebar>
-        <SidebarHeader>
+        <SidebarHeader className="flex items-center justify-between">
           <Logo />
+          <SidebarTrigger />
         </SidebarHeader>
         <SidebarContent>
           <div className="flex flex-col gap-2 p-2">
@@ -211,7 +212,6 @@ export default function DashboardLayout({
                 john.doe@example.com
               </p>
             </div>
-             <SidebarTrigger className="ml-auto" />
           </div>
         </SidebarFooter>
       </Sidebar>
