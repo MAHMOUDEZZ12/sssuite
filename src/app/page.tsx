@@ -64,6 +64,7 @@ const features = [
     description: 'Generate high-performance ad copy and visuals from any brochure in seconds.',
     icon: <Megaphone />,
     color: 'from-pink-500/80 to-pink-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': "The Genesis: Spark brilliant campaigns from a single idea.",
       targeting: 'Fine-tune ads with hyper-specific buyer personas.',
@@ -134,6 +135,7 @@ const features = [
     description: 'Our AI analyzes your project and identifies high-intent buyers.',
     icon: <Target />,
     color: 'from-blue-500/80 to-blue-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': 'Power your ad campaigns with the perfect audience.',
       'targeting': "The Bullseye: Zero in on your most profitable customers.",
@@ -204,6 +206,7 @@ const features = [
     description: 'Instantly rebrand any brochure with your logo, colors, and voice.',
     icon: <Palette />,
     color: 'from-orange-500/80 to-orange-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': 'Generate on-brand ads in a single click.',
       targeting: 'Adapt your brand voice for different buyer segments.',
@@ -274,6 +277,7 @@ const features = [
     description: 'Generate persuasive landing pages that captivate buyers.',
     icon: <LayoutTemplate />,
     color: 'from-green-500/80 to-green-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': 'Create the perfect destination for your ad clicks.',
       targeting: 'Build unique landing pages for each target audience.',
@@ -344,6 +348,7 @@ const features = [
     description: "Generate a week's worth of social content from a single link or topic.",
     icon: <Share2 />,
     color: 'from-rose-500/80 to-rose-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': 'Promote your ad campaigns across social media.',
       targeting: 'Write social posts that resonate with your target market.',
@@ -414,6 +419,7 @@ const features = [
     description: 'Find and qualify high-intent buyers and sellers automatically.',
     icon: <Users />,
     color: 'from-teal-500/80 to-teal-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': 'Capture leads from every ad campaign.',
       targeting: 'Focus your efforts on the highest quality leads.',
@@ -484,6 +490,7 @@ const features = [
     description: 'See your competitors\' ads, targeting, and messaging.',
     icon: <Binoculars />,
     color: 'from-indigo-500/80 to-indigo-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': 'Create ads that are guaranteed to stand out.',
       targeting: 'Discover untapped audiences your competitors have missed.',
@@ -554,6 +561,7 @@ const features = [
     description: 'Access live data on pricing, trends, and inventory.',
     icon: <TrendingUp />,
     color: 'from-cyan-500/80 to-cyan-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': 'Create ads that reflect the current state of the market.',
       targeting: 'Target buyers who are looking in trending neighborhoods.',
@@ -624,6 +632,7 @@ const features = [
     description: 'Engage every lead instantly with personalized email and SMS sequences.',
     icon: <Repeat />,
     color: 'from-amber-500/80 to-amber-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': 'Instantly engage leads the moment they respond to an ad.',
       targeting: 'Customize follow-up sequences for different buyer personas.',
@@ -694,6 +703,7 @@ const features = [
     description: 'Track every metric, from ad clicks to closed deals, in one place.',
     icon: <Gauge />,
     color: 'from-purple-500/80 to-purple-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': 'See which ads are performing best and double down.',
       targeting: 'Analyze the profitability of each target audience.',
@@ -764,6 +774,7 @@ const features = [
     description: 'Create and automate beautiful, high-converting email blasts.',
     icon: <Mail />,
     color: 'from-lime-500/80 to-lime-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': 'Use ad visuals and copy in your email blasts.',
       targeting: 'Segment your email lists with incredible precision.',
@@ -834,6 +845,7 @@ const features = [
     description: 'Sync all your data with the CRM you already use.',
     icon: <Network />,
     color: 'from-red-500/80 to-red-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': 'Pipe leads from ads directly into your CRM.',
       targeting: 'Enrich your CRM contacts with detailed targeting data.',
@@ -904,6 +916,7 @@ const features = [
     description: 'Upload any project brochure. Our AI instantly rebrands it.',
     icon: <FilePlus />,
     color: 'from-emerald-500/80 to-emerald-600/80',
+    isIntro: true,
     synergies: {
       'ad-creation': 'Use your rebranded brochures in your ad campaigns.',
       targeting: 'Create different brochure versions for different audiences.',
@@ -1513,6 +1526,7 @@ const FeatureCard = ({
   onClick: (id: string) => void;
 }) => {
   const isHovered = hoveredId === feature.id;
+  const hoveredFeature = features.find(f => f.id === hoveredId);
   const isSomeoneElseHovered = hoveredId !== null && !isHovered;
 
   const getCardState = () => {
@@ -1522,7 +1536,11 @@ const FeatureCard = ({
   };
   
   const cardState = getCardState();
-  const synergyText = hoveredId ? (features.find(f => f.id === hoveredId)?.synergies as any)?.[feature.id] : null;
+  let synergyText = hoveredFeature ? (hoveredFeature.synergies as any)?.[feature.id] : null;
+
+  if (feature.isIntro && hoveredFeature?.isIntro) {
+    synergyText = "Everything is Connected. Explore how our tools work together to create a seamless workflow.";
+  }
 
   return (
     <div
@@ -1596,7 +1614,7 @@ const FeatureCard = ({
           <div
             className={cn(
               'absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-br rounded-3xl',
-              features.find(f => f.id === hoveredId)?.color,
+              hoveredFeature?.color,
               'transition-opacity duration-500 ease-in-out',
                cardState === 'synergy' ? 'opacity-100' : 'opacity-0',
               '[backface-visibility:hidden] '
