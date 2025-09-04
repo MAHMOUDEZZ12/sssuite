@@ -395,7 +395,7 @@ export default function Home() {
                         </Link>
                     </div>
                     <div className="hidden lg:block relative w-full h-[400px] overflow-hidden rounded-r-2xl">
-                         <Image src="https://picsum.photos/600/600" alt="AI Assistant" fill objectFit="cover" data-ai-hint="abstract technology" />
+                         <Image src="https://placehold.co/600x400/1e293b/ffffff?text=AI+Personality+Settings" alt="AI Assistant training dashboard" fill style={{objectFit: 'cover', objectPosition: "left center"}} data-ai-hint="dashboard screenshot" />
                          <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent"></div>
                     </div>
                 </div>
