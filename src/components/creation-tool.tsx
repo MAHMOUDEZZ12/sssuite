@@ -69,7 +69,6 @@ export function CreationTool({ feature }: CreationToolProps) {
                   placeholder={field.placeholder}
                   onChange={(e) => handleInputChange(field.id, e.target.value)}
                   className="bg-background/50"
-                  disabled
                 />
               )}
               {field.type === 'textarea' && (
@@ -79,7 +78,6 @@ export function CreationTool({ feature }: CreationToolProps) {
                   onChange={(e) => handleInputChange(field.id, e.target.value)}
                   className="bg-background/50"
                   rows={4}
-                  disabled
                 />
               )}
               {field.type === 'file' && (
@@ -89,11 +87,10 @@ export function CreationTool({ feature }: CreationToolProps) {
                   onChange={(e) => handleFileChange(field.id, e.target.files)}
                   multiple={field.multiple}
                   className="bg-background/50 file:text-primary file:font-semibold"
-                  disabled
                 />
               )}
               {field.type === 'select' && (
-                <Select onValueChange={(value) => handleInputChange(field.id, value)} disabled>
+                <Select onValueChange={(value) => handleInputChange(field.id, value)}>
                   <SelectTrigger className="w-full bg-background/50">
                     <SelectValue placeholder={field.placeholder || `Select ${field.name}`} />
                   </SelectTrigger>
