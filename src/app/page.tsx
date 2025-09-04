@@ -149,7 +149,17 @@ const features = [
     id: 'story-designer',
     title: 'AI Story Designer',
     description: 'Craft compelling stories for Instagram and Facebook in seconds.',
-    longDescription: 'Transform your listings into captivating visual stories. Our AI Story Designer helps you create engaging, multi-slide stories for Instagram and Facebook with just a few clicks. No design skills needed, just your property details.',
+    longDescription: `**What it is:** A tool that transforms your property photos and key details into engaging, multi-slide stories for Instagram and Facebook, complete with animated text, graphics, and your branding.
+
+**AI vs. Manual:** Manually, creating a single story with varied layouts, text animations, and graphics in an app like Canva or Instagram itself can take 15-30 minutes. The AI Story Designer generates 3-5 unique, ready-to-post story variants in under 60 seconds.
+
+**Features & Options:** You can upload photos, provide key text points (e.g., "3 Bed, 2 Bath," "Just Listed," "Open House Sunday 2-4 PM"), choose a visual style (e.g., Modern, Luxurious, Cozy), and our AI handles the rest.
+
+**Experience Level:** Zero. If you can upload a photo and type a sentence, you can create professional-grade stories.
+
+**Synergy:** Combine with **AI Social Post Writer** to get the copy for your story, then use **AI Page Admin** to schedule it for the optimal time.
+
+**In-Action Example:** You provide 3 photos of a new listing and the text "Stunning new condo!". The AI generates a 5-slide story with your logo, an animated "Just Listed" sticker, slides showcasing each photo with elegant text overlays, and a final slide with a "Swipe Up to Learn More" call to action.`,
     icon: <Film />,
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
     cta: 'Design a Story',
@@ -161,10 +171,20 @@ const features = [
     id: 'reel-designer',
     title: 'AI Reel Designer',
     description: 'Create professional video reels from photos and text effortlessly.',
-    longDescription: 'Turn your property photos and key selling points into a dynamic, attention-grabbing video reel for Instagram or TikTok. Our AI handles the editing, transitions, and music, delivering a ready-to-post video in minutes. No video editing experience required.',
+    longDescription: `**What it is:** An AI-powered video editor that turns your static property photos and text descriptions into dynamic, attention-grabbing video reels for platforms like Instagram, TikTok, and YouTube Shorts.
+
+**AI vs. Manual:** Manually, editing a simple video reel with transitions, text overlays, and music can take hours using complex software like CapCut or Adobe Premiere. The AI Reel Designer produces a polished, ready-to-post video in under 3 minutes.
+
+**Features & Options:** You provide property photos, key features, and choose a vibe (e.g., "Upbeat & Modern," "Cinematic & Luxurious"). The AI selects trending audio, applies dynamic transitions (like Ken Burns effects on photos), animates text on screen, and renders a complete video.
+
+**Experience Level:** Zero. No video editing knowledge is required.
+
+**Synergy:** Use photos from a **Virtual Tour** or a listing, pull copy from the **AI Script Generator**, and promote the final reel with an **Instant Ad Campaign**.
+
+**In-Action Example:** You upload 5 photos and enter "Waterfront views, newly renovated kitchen." The AI generates a 15-second reel showing the photos with smooth zooms and pans, text like "Dreamy Waterfront Views" fading in and out, all set to an inspiring, trending audio track.`,
     icon: <Clapperboard />,
     color: 'from-violet-500/80 to-violet-600/80',
-    cta: 'Design a Reel',
+    cta: 'Produce Viral Reels',
     synergies: {
       'reel-designer': "Produce Viral Reels",
     },
@@ -173,7 +193,21 @@ const features = [
     id: 'page-admin',
     title: 'AI Page Admin',
     description: 'Your personal AI assistant to manage your social media pages.',
-    longDescription: 'Imagine your social media pages running on intelligent autopilot. Our AI Page Admin is more than a scheduler—it\'s a digital extension of you. It analyzes your follower patterns to post content at the exact moments of peak engagement. It instantly responds to common inquiries like "How much?" or "Is this available?" with pre-approved answers, ensuring every potential lead gets an immediate response, 24/7. The AI also acts as your vigilant moderator, filtering spam and negativity while intelligently flagging comments and messages that show real buying intent, so you only spend time on conversations that matter. This isn\'t just page management; it\'s about reclaiming your time to focus on what you do best: building relationships and closing deals.',
+    longDescription: `**What it is:** Imagine your social media pages running on intelligent autopilot. Our AI Page Admin is more than a scheduler—it's a digital extension of you.
+
+**AI vs. Manual:** Manually, you'd spend hours each week scheduling posts, checking comments, replying to DMs, and trying to find real leads in a sea of spam. The AI Page Admin automates this entire process, saving you 5-10 hours per week while ensuring 24/7 responsiveness.
+
+**Features & Options:**
+- **Intelligent Scheduling:** Analyzes your follower patterns to post content at the exact moments of peak engagement.
+- **Instant Auto-Reply:** Immediately responds to common DMs and comments like "How much?" or "Is this available?" with pre-approved answers.
+- **Smart Moderation:** Acts as your vigilant moderator, automatically hiding spam and negativity.
+- **Lead Flagging:** Intelligently identifies comments and messages that show real buying intent and flags them for your immediate attention.
+
+**Experience Level:** Zero. Simply connect your social pages and set up your response preferences one time.
+
+**Synergy:** Connect it to your **AI Social Post Writer** to create a fully automated content pipeline. Let it handle inquiries from your **Instant Ad Campaigns** around the clock.
+
+**In-Action Example:** Your ad for 123 Main St runs overnight. The AI Page Admin instantly replies to 15 comments asking for the price, hides 3 spam comments, and flags a comment saying "My lease is up next month, I'd love to see this!" for you to follow up with first thing in the morning.`,
     icon: <UserCog />,
     color: 'from-cyan-500/80 to-cyan-600/80',
     cta: 'Put Your Page on Autopilot',
@@ -185,10 +219,24 @@ const features = [
     id: 'sales-master-chat',
     title: 'AI Sales Master Chat',
     description: 'Chat with legendary sales personas to sharpen your skills.',
-    longDescription: 'Learn from the best, anytime. Our AI Sales Master Chat lets you interact with different famous seller personas to get advice, practice negotiation, and brainstorm strategies. It\'s an interactive, on-demand sales coach that makes learning easy and fun.',
+    longDescription: `**What it is:** An interactive chat simulator where you can practice sales scripts, brainstorm negotiation tactics, and get advice from a variety of AI-powered sales personas.
+
+**AI vs. Manual:** Manually, sales training involves expensive seminars, role-playing with colleagues (who are often too busy), or trial-and-error with real clients (which can cost you deals). The AI Sales Master Chat provides a safe, on-demand training ground available 24/7.
+
+**Features & Options:** You can choose from different personas, each with a unique style:
+- **The Challenger:** Pushes back on your assumptions and forces you to justify your value.
+- **The Relationship Builder:** Focuses on empathy and long-term connection.
+- **The Closer:** Aggressive and direct, helps you practice asking for the sale.
+- **The New Lead:** Simulate a first-time conversation with a cold or warm lead.
+
+**Experience Level:** Zero. It's a simple chat interface. Just type your question or scenario and get an instant response.
+
+**Synergy:** Use the **AI Script Generator** to create a cold call script, then practice it with the **AI Sales Master** before making real calls. After a tough negotiation, debrief with a persona to see how you could have handled it differently.
+
+**In-Action Example:** You type, "A seller says my commission is too high. What do I say?" The Challenger persona might reply: "Instead of defending your price, have you clearly demonstrated the value that makes your commission an investment, not a cost? Let's reframe it. Start by asking them..."`,
     icon: <MessageSquare />,
     color: 'from-lime-500/80 to-lime-600/80',
-    cta: 'Start a Chat',
+    cta: 'Chat with Sales Legends',
     synergies: {
       'sales-master-chat': "Chat with Sales Legends",
     },
@@ -955,7 +1003,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
             </div>
             <div className='p-8 pt-4 text-center'>
               <h2 className="text-4xl font-bold mb-4">{feature.title}</h2>
-              <p className="text-lg text-foreground/80 mb-8">{feature.longDescription}</p>
+              <p className="text-lg text-foreground/80 mb-8 whitespace-pre-wrap">{feature.longDescription}</p>
                <ShinyButton>
                 {feature.cta}
                 <ArrowRight />
@@ -1012,5 +1060,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
