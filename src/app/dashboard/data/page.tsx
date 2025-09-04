@@ -2,9 +2,10 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Upload, FileText, ImageIcon, FileSpreadsheet, Trash2, Download, Database, Users } from 'lucide-react';
+import { Upload, FileText, ImageIcon, FileSpreadsheet, Trash2, Download, Database, Users, BrainCircuit } from 'lucide-react';
 import { PageHeader } from '@/components/ui/page-header';
 import { Input } from '@/components/ui/input';
 
@@ -39,6 +40,12 @@ export default function DataStoragePage() {
         <div className='flex items-center gap-2'>
             <Button variant="outline"><Database className="mr-2 h-4 w-4" /> Connect Google Drive</Button>
             <Button variant="outline"><Users className="mr-2 h-4 w-4" /> Connect CRM</Button>
+             <Link href="/dashboard/assistant">
+                <Button variant="outline">
+                    <BrainCircuit className="mr-2 h-4 w-4" />
+                    Train Assistant
+                </Button>
+             </Link>
              <Button onClick={() => fileInputRef.current?.click()}>
                 <Upload className="mr-2 h-4 w-4" />
                 Upload New File
