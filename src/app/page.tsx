@@ -239,13 +239,13 @@ const FeatureCard = ({
   onHover: (feature: (typeof features)[0]) => void;
 }) => (
   <div
-    className="group flex flex-col [perspective:1000px] animate-fade-in-up"
+    className="group flex flex-col [perspective:1000px] animate-fade-in-up min-h-[480px]"
     style={{ animationDelay: `${index * 100}ms` }}
     onMouseEnter={() => onHover(feature)}
   >
     <div
       className={cn(
-        'relative w-full h-full text-white transition-transform duration-700 ease-in-out flex-grow',
+        'relative w-full text-white transition-transform duration-700 ease-in-out flex-grow',
         'shadow-2xl hover:shadow-primary/50',
         feature.shape,
         '[transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]'
@@ -344,7 +344,7 @@ export default function Home() {
             <Spotlight feature={spotlightFeature} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8 lg:gap-12">
           {features.map((feature, index) => (
             <FeatureCard key={feature.title} feature={feature} index={index} onHover={setSpotlightFeature} />
           ))}
