@@ -160,7 +160,9 @@ export default function ToolPage() {
 
   const schema = React.useMemo(() => {
     if (!tool) return z.object({});
+    
     const shape: Record<string, z.ZodType<any, any>> = {};
+    
     tool.creationFields.forEach((field) => {
         if(field.type === 'button') return;
       
@@ -170,13 +172,17 @@ export default function ToolPage() {
               (tool.id === 'pdf-editor' && field.id === 'newImages');
 
         if (field.type === 'file') {
-             const fileSchema = z.custom<FileList>().refine(val => val instanceof FileList && val.length > 0, `${field.name} is required.`);
+             const fileSchema = z.custom<FileList>()
+                .refine(files => files?.length > 0, `${field.name} is required.`);
+             
              const optionalFileSchema = z.custom<FileList>().optional();
+             
              shape[field.id] = isOptional ? optionalFileSchema : fileSchema;
         } else {
             shape[field.id] = z.string().min(1, `${field.name} is required`);
         }
     });
+
     return z.object(shape);
   }, [tool]);
 
@@ -188,7 +194,7 @@ export default function ToolPage() {
     resolver: zodResolver(schema),
     defaultValues: tool?.creationFields.reduce((acc, field) => {
       if (field.type !== 'button') {
-        (acc as any)[field.id] = '';
+        (acc as any)[field.id] = field.type === 'file' ? null : '';
       }
       return acc;
     }, {})
@@ -196,7 +202,16 @@ export default function ToolPage() {
 
 
   if (!tool) {
-    return <div>Tool not found</div>;
+    return (
+        <div className="flex h-[80vh] items-center justify-center">
+            <Card className="m-4">
+                <CardHeader>
+                    <CardTitle>Tool not found</CardTitle>
+                    <CardDescription>Please select a tool from the sidebar to get started.</CardDescription>
+                </CardHeader>
+            </Card>
+        </div>
+    );
   }
   
   const onSubmit = async (data: Record<string, any>) => {
@@ -218,7 +233,7 @@ export default function ToolPage() {
                 } else {
                     payload[field.id] = await fileToDataUri(value[0]);
                 }
-            } else if (value) {
+            } else if (field.type !== 'file' && value) {
                 payload[field.id] = value;
             }
         }
@@ -352,3 +367,5 @@ export default function ToolPage() {
     </main>
   );
 }
+
+    
