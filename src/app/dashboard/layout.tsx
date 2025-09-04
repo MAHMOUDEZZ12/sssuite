@@ -137,40 +137,52 @@ export default function DashboardLayout({
                  <Separator className='mb-2' />
                  <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton href="#">
-                            <Briefcase />
-                            <span>My Projects</span>
-                        </SidebarMenuButton>
+                        <Link href="/dashboard/projects">
+                            <SidebarMenuButton>
+                                <Briefcase />
+                                <span>My Projects</span>
+                            </SidebarMenuButton>
+                        </Link>
                     </SidebarMenuItem>
                      <SidebarMenuItem>
-                        <SidebarMenuButton href="#">
-                            <Contact />
-                            <span>Leads (CRM)</span>
-                        </SidebarMenuButton>
+                        <Link href="/dashboard/leads">
+                            <SidebarMenuButton>
+                                <Contact />
+                                <span>Leads (CRM)</span>
+                            </SidebarMenuButton>
+                        </Link>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                        <SidebarMenuButton href="#">
-                            <Database />
-                            <span>Data Storage</span>
-                        </SidebarMenuButton>
+                        <Link href="/dashboard/data">
+                            <SidebarMenuButton>
+                                <Database />
+                                <span>Data Storage</span>
+                            </SidebarMenuButton>
+                        </Link>
                     </SidebarMenuItem>
                      <SidebarMenuItem>
-                        <SidebarMenuButton href="#">
-                            <Palette />
-                            <span>My Brand</span>
-                        </SidebarMenuButton>
+                        <Link href="/dashboard/brand">
+                            <SidebarMenuButton>
+                                <Palette />
+                                <span>My Brand</span>
+                            </SidebarMenuButton>
+                        </Link>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                        <SidebarMenuButton href="#">
-                            <Share2 />
-                            <span>Connection</span>
-                        </SidebarMenuButton>
+                        <Link href="/dashboard/connections">
+                            <SidebarMenuButton>
+                                <Share2 />
+                                <span>Connections</span>
+                            </SidebarMenuButton>
+                        </Link>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                        <SidebarMenuButton href="#">
-                            <Settings />
-                            <span>Setting</span>
-                        </SidebarMenuButton>
+                         <Link href="/dashboard/settings">
+                            <SidebarMenuButton>
+                                <Settings />
+                                <span>Settings</span>
+                            </SidebarMenuButton>
+                        </Link>
                     </SidebarMenuItem>
                  </SidebarMenu>
             </div>
