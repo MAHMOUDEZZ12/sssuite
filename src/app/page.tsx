@@ -91,6 +91,7 @@ import { CreationTool } from '@/components/creation-tool';
 
 
 type Feature = (typeof features)[0];
+type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms';
 
 const features = [
   {
@@ -100,6 +101,7 @@ const features = [
     icon: <Megaphone />,
     color: 'from-pink-500/80 to-pink-600/80',
     cta: 'Ad',
+    category: 'Creative',
     backsideValue: "Turn a brochure into a campaign.",
     details: {
       steps: [
@@ -159,6 +161,7 @@ const features = [
     icon: <Target />,
     color: 'from-blue-500/80 to-blue-600/80',
     cta: 'Targeting Profile',
+    category: 'Lead Gen',
     backsideValue: "Find your buyers before they find you.",
     details: {
       steps: [
@@ -217,6 +220,7 @@ const features = [
     icon: <Palette />,
     color: 'from-orange-500/80 to-orange-600/80',
     cta: 'Rebranded Brochure',
+    category: 'Creative',
     backsideValue: "Make any brochure your own in one click.",
     details: {
       steps: [
@@ -277,6 +281,7 @@ const features = [
     icon: <PenTool />,
     color: 'from-yellow-500/80 to-yellow-600/80',
     cta: 'Edited PDF',
+    category: 'Creative',
     backsideValue: "Edit the uneditable, instantly.",
     details: {
       steps: [
@@ -336,6 +341,7 @@ const features = [
     icon: <LayoutTemplate />,
     color: 'from-green-500/80 to-green-600/80',
     cta: 'Landing Page',
+    category: 'Creative',
     backsideValue: "Create a stunning property website in 60 seconds.",
     details: {
       steps: [
@@ -395,6 +401,7 @@ const features = [
     icon: <Share2 />,
     color: 'from-rose-500/80 to-rose-600/80',
     cta: 'Social Post',
+    category: 'Social & Comms',
     backsideValue: "Never run out of content ideas again.",
     details: {
       steps: [
@@ -454,6 +461,7 @@ const features = [
     icon: <Film />,
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
     cta: 'Story',
+    category: 'Creative',
     backsideValue: "Create thumb-stopping animated stories.",
     details: {
       steps: [
@@ -513,6 +521,7 @@ const features = [
     icon: <Clapperboard />,
     color: 'from-violet-500/80 to-violet-600/80',
     cta: 'Reel',
+    category: 'Creative',
     backsideValue: "Turn photos into professional video reels.",
     details: {
       steps: [
@@ -572,6 +581,7 @@ const features = [
     icon: <Video />,
     color: 'from-red-500/80 to-red-600/80',
     cta: 'TikTok',
+    category: 'Creative',
     backsideValue: "Create TikToks that capture attention.",
     details: {
       steps: [
@@ -631,6 +641,7 @@ const features = [
     icon: <UserCog />,
     color: 'from-cyan-500/80 to-cyan-600/80',
     cta: 'Page Admin',
+    category: 'Social & Comms',
     backsideValue: "Put your social media on autopilot.",
     details: {
       steps: [
@@ -689,6 +700,7 @@ const features = [
     icon: <MessageSquare />,
     color: 'from-lime-500/80 to-lime-600/80',
     cta: 'Chat Session',
+    category: 'Sales Tools',
     backsideValue: "Practice any sales call, risk-free.",
     details: {
       steps: [
@@ -747,6 +759,7 @@ const features = [
     icon: <Database />,
     color: 'from-teal-500/80 to-teal-600/80',
     cta: 'Client Record',
+    category: 'Sales Tools',
     backsideValue: "Remember everything about every client.",
     details: {
       steps: [
@@ -805,6 +818,7 @@ const features = [
     icon: <UserPlus />,
     color: 'from-sky-500/80 to-sky-600/80',
     cta: 'Lead List',
+    category: 'Lead Gen',
     backsideValue: "Find leads who don't know they're looking yet.",
     details: {
       steps: [
@@ -864,6 +878,7 @@ const features = [
     icon: <LineChart />,
     color: 'from-amber-500/80 to-amber-600/80',
     cta: 'Market Report',
+    category: 'Sales Tools',
     backsideValue: "Become the neighborhood expert overnight.",
     details: {
       steps: [
@@ -923,6 +938,7 @@ const features = [
     icon: <Users2 />,
     color: 'from-indigo-500/80 to-indigo-600/80',
     cta: 'Investor Match',
+    category: 'Lead Gen',
     backsideValue: "Know which investor to call instantly.",
     details: {
       steps: [
@@ -981,6 +997,7 @@ const features = [
     icon: <FileText />,
     color: 'from-gray-500/80 to-gray-600/80',
     cta: 'Listing',
+    category: 'Creative',
     backsideValue: "Write perfect property descriptions in seconds.",
     details: {
       steps: [
@@ -1040,6 +1057,7 @@ const features = [
     icon: <Briefcase />,
     color: 'from-stone-500/80 to-stone-600/80',
     cta: 'Offer Package',
+    category: 'Sales Tools',
     backsideValue: "Present multiple offers beautifully.",
     details: {
       steps: [
@@ -1057,7 +1075,7 @@ const features = [
         {
           metric: 'Accuracy',
           manual: 'Prone to copy-paste errors and typos',
-ai: 'Calculations and details are always accurate',
+          ai: 'Calculations and details are always accurate',
           icon: <BadgeCheck />,
         },
         {
@@ -1099,6 +1117,7 @@ ai: 'Calculations and details are always accurate',
     icon: <Mail />,
     color: 'from-sky-500/80 to-sky-600/80',
     cta: 'Email Campaign',
+    category: 'Social & Comms',
     backsideValue: "Launch an entire email campaign in minutes.",
     details: {
       steps: [
@@ -1158,6 +1177,7 @@ ai: 'Calculations and details are always accurate',
     icon: <Bot />,
     color: 'from-rose-500/80 to-rose-600/80',
     cta: 'Chat Bot',
+    category: 'Social & Comms',
     backsideValue: "Never miss an Instagram lead again.",
     details: {
       steps: [
@@ -1217,6 +1237,7 @@ ai: 'Calculations and details are always accurate',
     icon: <Phone />,
     color: 'from-green-500/80 to-green-600/80',
     cta: 'WhatsApp Campaign',
+    category: 'Social & Comms',
     backsideValue: "Reach your entire client list on WhatsApp instantly.",
     details: {
       steps: [
@@ -1270,6 +1291,8 @@ ai: 'Calculations and details are always accurate',
     ],
   },
 ];
+
+const filterCategories: FilterCategory[] = ['All', 'Lead Gen', 'Creative', 'Sales Tools', 'Social & Comms'];
 
 const FeatureCard = ({
   feature,
@@ -1486,16 +1509,21 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
 
 export default function Home() {
   const [selectedFeature, setSelectedFeature] = React.useState<Feature | null>(null);
+  const [activeFilter, setActiveFilter] = React.useState<FilterCategory>('All');
 
   const handleCardClick = (feature: Feature) => {
     setSelectedFeature(feature);
   };
 
+  const filteredFeatures = activeFilter === 'All'
+    ? features
+    : features.filter(feature => feature.category === activeFilter);
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
       <main className="flex-1 w-full max-w-full px-4 md:px-6 lg:px-8 py-12 md:py-20">
-        <div className="text-center mb-16 max-w-5xl mx-auto">
+        <div className="text-center mb-12 max-w-5xl mx-auto">
           <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
             A salesperson with tools is a super-seller.
           </h1>
@@ -1504,10 +1532,26 @@ export default function Home() {
           </p>
         </div>
 
+        <div className="flex justify-center gap-2 md:gap-4 mb-12 flex-wrap">
+          {filterCategories.map(category => (
+            <Button
+              key={category}
+              variant={activeFilter === category ? 'default' : 'outline'}
+              onClick={() => setActiveFilter(category)}
+              className={cn(
+                'rounded-full px-6 py-2 text-base transition-all duration-200',
+                activeFilter === category ? 'shadow-lg shadow-primary/20' : 'text-foreground/70'
+              )}
+            >
+              {category}
+            </Button>
+          ))}
+        </div>
+
         <div 
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 lg:gap-12 max-w-[120rem] mx-auto"
         >
-          {features.map((feature) => (
+          {filteredFeatures.map((feature) => (
             <FeatureCard 
                 key={feature.id} 
                 feature={feature} 
