@@ -89,6 +89,7 @@ const features = [
     icon: <Megaphone />,
     color: 'from-pink-500/80 to-pink-600/80',
     cta: 'Create an Ad',
+    statement: "Why spend hours on one ad when your AI can generate five in a minute? Let's get started.",
     details: {
       steps: [
           { text: 'Upload your property brochure (PDF)', icon: <FileUp className="h-6 w-6" /> },
@@ -126,6 +127,7 @@ const features = [
     icon: <Target />,
     color: 'from-blue-500/80 to-blue-600/80',
     cta: 'Target Buyers',
+    statement: "Stop guessing who your buyers are. Let the data show you exactly where to find them.",
     details: {
       steps: [
         { text: 'Describe your ideal buyer persona', icon: <PenTool className="h-6 w-6" /> },
@@ -162,6 +164,7 @@ const features = [
     icon: <Palette />,
     color: 'from-orange-500/80 to-orange-600/80',
     cta: 'Rebrand a Brochure',
+    statement: "Your brand, on every document, in seconds. It's time to look professional on every single page.",
     details: {
       steps: [
         { text: 'Upload any developer\'s brochure (PDF)', icon: <Upload className="h-6 w-6" /> },
@@ -200,6 +203,7 @@ const features = [
     icon: <LayoutTemplate />,
     color: 'from-green-500/80 to-green-600/80',
     cta: 'Generate a Page',
+    statement: "Go from brochure to beautiful, high-converting landing page in less time than it takes to make coffee.",
     details: {
       steps: [
         { text: 'Provide a property brochure or link', icon: <Link className="h-6 w-6" /> },
@@ -237,6 +241,7 @@ const features = [
     icon: <Share2 />,
     color: 'from-rose-500/80 to-rose-600/80',
     cta: 'Write Social Posts',
+    statement: "While others are stuck for ideas, your AI will make daily posting fun and super easy.",
     details: {
       steps: [
         { text: 'Enter a topic, URL, or property address', icon: <PenTool className="h-6 w-6" /> },
@@ -274,6 +279,7 @@ const features = [
     icon: <Film />,
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
     cta: 'Design a Story',
+    statement: "Turn a handful of photos into a captivating, animated story that stops the scroll.",
     details: {
       steps: [
         { text: 'Upload 3-5 property photos', icon: <Camera className="h-6 w-6" /> },
@@ -311,6 +317,7 @@ const features = [
     icon: <Clapperboard />,
     color: 'from-violet-500/80 to-violet-600/80',
     cta: 'Produce Viral Reels',
+    statement: "Create polished, engaging video reels synced to trending audio—no editing skills required.",
     details: {
       steps: [
         { text: 'Upload photos or video clips', icon: <Video className="h-6 w-6" /> },
@@ -348,6 +355,7 @@ const features = [
     icon: <UserCog />,
     color: 'from-cyan-500/80 to-cyan-600/80',
     cta: 'Put Your Page on Autopilot',
+    statement: "Focus on closing deals, not on checking comments. Your 24/7 AI page admin is on the job.",
     details: {
       steps: [
         { text: 'Connect your Facebook & Instagram pages', icon: <Network className="h-6 w-6" /> },
@@ -384,6 +392,7 @@ const features = [
     icon: <MessageSquare />,
     color: 'from-lime-500/80 to-lime-600/80',
     cta: 'Chat with Sales Legends',
+    statement: "Practice makes perfect. Sharpen your negotiation and sales skills with an AI that's trained by the best.",
     details: {
       steps: [
         { text: 'Choose an AI sales persona to chat with', icon: <Users className="h-6 w-6" /> },
@@ -472,14 +481,22 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
       <DialogContent className="bg-card/90 backdrop-blur-lg border-primary/20 text-foreground max-w-5xl w-[95vw] p-0 rounded-2xl">
           <div className="relative">
             <div className={cn("p-8 rounded-t-2xl bg-gradient-to-br", feature.color)}>
-               <div className="flex items-center gap-4">
-                  <div className="p-4 bg-white/20 rounded-full w-fit">
-                    {React.cloneElement(feature.icon, { className: 'h-10 w-10 text-white' })}
+               <div className="flex items-center justify-between">
+                  <div className='flex items-center gap-4'>
+                    <div className="p-4 bg-white/20 rounded-full w-fit">
+                      {React.cloneElement(feature.icon, { className: 'h-10 w-10 text-white' })}
+                    </div>
+                    <div>
+                      <h2 className="text-4xl font-bold text-white mb-1">{feature.title}</h2>
+                      <p className="text-lg text-white/80">{feature.description}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h2 className="text-4xl font-bold text-white mb-1">{feature.title}</h2>
-                    <p className="text-lg text-white/80">{feature.description}</p>
-                  </div>
+                   <div className='flex items-center gap-2'>
+                     <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/20">Login</Button>
+                     <button onClick={onClose} className="text-white/60 hover:text-white transition-colors z-20">
+                      <X className="h-6 w-6" />
+                    </button>
+                   </div>
                </div>
             </div>
             
@@ -518,7 +535,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
 
                 <TabsContent value="synergy" className="space-y-4 text-foreground/90">
                   <h3 className="text-2xl font-semibold text-primary">Works Best With</h3>
-                  <p dangerouslySetInnerHTML={{ __html: feature.details.synergy.replace(/\*\*(.*?)\*\*/g, "<span class='font-semibold text-primary/90 bg-primary/10 py-1 px-2 rounded-md'>$1</span>") }} />
+                  <p dangerouslySetInnerHTML={{ __html: feature.details.synergy.replace(/\*\*(.*?)\*\*/g, "<span class='font-semibold text-primary/90 bg-primary/10 py-1 px-2 rounded-md cursor-pointer hover:bg-primary/20'>$1</span>") }} />
                 </TabsContent>
 
                 <TabsContent value="faq">
@@ -536,15 +553,10 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
 
             <Separator />
 
-            <div className="p-8 text-center bg-card/50 rounded-b-2xl">
-               <Button size="lg">
-                Login to Get Started
-              </Button>
+            <div className="p-6 text-center text-muted-foreground italic">
+              {feature.statement}
             </div>
             
-            <button onClick={onClose} className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors z-20">
-              <X className="h-6 w-6" />
-            </button>
           </div>
       </DialogContent>
     </Dialog>
@@ -589,5 +601,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
