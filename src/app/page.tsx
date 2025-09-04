@@ -595,7 +595,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
             </div>
             
             <div className='p-8'>
-              <Tabs defaultValue="overview" className="w-full">
+              <Tabs defaultValue="use-cases" className="w-full">
                 <TabsList className="grid w-full grid-cols-5 mb-6">
                   <TabsTrigger value="overview">Overview</TabsTrigger>
                   <TabsTrigger value="comparison">AI vs. Manual</TabsTrigger>
