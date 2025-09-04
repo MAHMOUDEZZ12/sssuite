@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { PageHeader } from '@/components/ui/page-header';
-import { Settings, Palette, User, CreditCard, Paintbrush, Text, Sun, Moon, Laptop, Bot } from 'lucide-react';
+import { Settings, Palette, User, CreditCard, Paintbrush, Text, Sun, Moon, Laptop, Bot, BrainCircuit } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
