@@ -1462,11 +1462,23 @@ const FeatureCard = ({
               <Button
                 size="lg"
                 variant="ghost"
-                className="bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20 mt-auto"
+                className={cn(
+                    'bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20 mt-auto',
+                    cardState === 'synergy' && 'hidden' // Hide button in synergy state
+                )}
                 onClick={() => onClick(feature.id)}
               >
-                Learn more
-                <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                {isHovered ? (
+                  <>
+                    Explore Synergy
+                    <Zap className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                  </>
+                ) : (
+                  <>
+                    Learn more
+                    <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                  </>
+                )}
               </Button>
             </div>
         </div>
