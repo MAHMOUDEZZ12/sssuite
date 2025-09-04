@@ -2,6 +2,7 @@
 'use client';
 
 import * as React from 'react';
+import { usePathname } from 'next/navigation';
 import {
   SidebarProvider,
   Sidebar,
@@ -50,79 +51,57 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { tools } from '@/lib/tools';
 
-const marketingTools = [
-  { id: 'ad-creation', title: 'Instant Ad Creation', icon: <Megaphone /> },
-  { id: 'targeting', title: 'Precision Targeting', icon: <Target /> },
-  { id: 'market-reports', title: 'Market Trend Reports', icon: <LineChart /> },
-  { id: 'lead-generation', title: 'Social Lead Generation', icon: <UserPlus /> },
-];
-
-const designTools = [
-  { id: 'rebranding', title: 'Automated Rebranding', icon: <Brush /> },
-  { id: 'story-designer', title: 'AI Story Designer', icon: <Film /> },
-  { id: 'reel-designer', title: 'AI Reel Designer', icon: <Clapperboard /> },
-  { id: 'tiktok-editor', title: 'TikTok Video Editor', icon: <Video /> },
-]
-
-const contentTools = [
-  { id: 'pdf-editor', title: 'PDF Smart Editor', icon: <PenTool /> },
-  { id: 'listing-generator', title: 'Listing Details Generator', icon: <FileText /> },
-  { id: 'landing-pages', title: 'Landing Page Generator', icon: <LayoutTemplate /> },
-  { id: 'email-creator', title: 'Email Marketing Creator', icon: <Mail /> },
-];
-
-const socialMediaTools = [
-    { id: 'social-posts', title: 'Social Post Writer', icon: <Share2 /> },
-    { id: 'page-admin', title: 'AI Page Admin', icon: <UserCog /> },
-    { id: 'instagram-bot', title: 'Instagram Chat Bot', icon: <Bot /> },
-    { id: 'whatsapp-campaigns', title: 'WhatsApp Campaign Manager', icon: <Phone /> },
-]
-
-const salesTools = [
-  { id: 'sales-master-chat', title: 'AI Sales Master Chat', icon: <MessageSquare /> },
-  { id: 'crm-assistant', title: 'CRM Memory Assistant', icon: <Database /> },
-  { id: 'investor-matching', title: 'Investor Matching', icon: <Users2 /> },
-  { id: 'offer-generator', title: 'Multi-Project Offer Generator', icon: <Briefcase /> },
-];
+const marketingTools = tools.filter(t => t.categories.includes('Ads') || t.categories.includes('Lead Gen'));
+const designTools = tools.filter(t => t.categories.includes('Creative') && (t.categories.includes('Editing') || t.categories.includes('Social & Comms')));
+const contentTools = tools.filter(t => t.categories.includes('Creative') && (t.categories.includes('Web') || t.categories.includes('Editing')));
+const socialMediaTools = tools.filter(t => t.categories.includes('Social & Comms'));
+const salesTools = tools.filter(t => t.categories.includes('Sales Tools'));
 
 
 const SidebarMenuGroup = ({
   title,
   tools,
-  isActive,
 }: {
   title: string;
   tools: { id: string; title: string; icon: React.ReactNode }[];
-  isActive?: boolean;
-}) => (
-  <Collapsible defaultOpen={isActive}>
-    <CollapsibleTrigger asChild>
-      <div className="flex items-center justify-between px-2 py-1 cursor-pointer hover:bg-muted rounded-md">
-        <span className="text-sm font-semibold">{title}</span>
-        <ChevronRight className="h-4 w-4 transition-transform duration-200 [&[data-state=open]]:rotate-90" />
-      </div>
-    </CollapsibleTrigger>
-    <CollapsibleContent>
-      <SidebarMenu className="pl-4 py-2">
-        {tools.map((tool, index) => (
-          <SidebarMenuItem key={tool.id}>
-            <SidebarMenuButton href="#" isActive={isActive && index === 0} tooltip={{ children: tool.title }}>
-              {tool.icon}
-              <span>{tool.title}</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        ))}
-      </SidebarMenu>
-    </CollapsibleContent>
-  </Collapsible>
-);
+}) => {
+    const pathname = usePathname();
+    const isActive = tools.some(tool => pathname.endsWith(tool.id));
+    
+    return (
+      <Collapsible defaultOpen={isActive}>
+        <CollapsibleTrigger asChild>
+          <div className="flex items-center justify-between px-2 py-1 cursor-pointer hover:bg-muted rounded-md">
+            <span className="text-sm font-semibold">{title}</span>
+            <ChevronRight className="h-4 w-4 transition-transform duration-200 [&[data-state=open]]:rotate-90" />
+          </div>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <SidebarMenu className="pl-4 py-2">
+            {tools.map((tool) => (
+              <SidebarMenuItem key={tool.id}>
+                <SidebarMenuButton href={`/dashboard/tool/${tool.id}`} isActive={pathname.endsWith(tool.id)} tooltip={{ children: tool.title }}>
+                  {tool.icon}
+                  <span>{tool.title}</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </CollapsibleContent>
+      </Collapsible>
+    );
+}
+
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
   return (
     <SidebarProvider>
       <Sidebar>
@@ -140,7 +119,7 @@ export default function DashboardLayout({
               </Button>
             </div>
           <div className="flex flex-col gap-2 p-2">
-            <SidebarMenuGroup title="Marketing" tools={marketingTools} isActive />
+            <SidebarMenuGroup title="Marketing" tools={marketingTools} />
             <SidebarMenuGroup title="Design Tools" tools={designTools} />
             <SidebarMenuGroup title="Content Tools" tools={contentTools} />
             <SidebarMenuGroup title="Social Media" tools={socialMediaTools} />
