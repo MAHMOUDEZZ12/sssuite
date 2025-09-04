@@ -170,14 +170,9 @@ export default function ToolPage() {
               (tool.id === 'pdf-editor' && field.id === 'newImages');
 
         if (field.type === 'file') {
-             const fileSchema = z.any().refine(val => val instanceof FileList && val.length > 0, `${field.name} is required.`);
-             const optionalFileSchema = z.any().optional();
-
-            if(field.multiple){
-                 shape[field.id] = isOptional ? optionalFileSchema : z.any().refine(val => val instanceof FileList && val.length > 0, 'Please upload at least one file.');
-            } else {
-                 shape[field.id] = isOptional ? optionalFileSchema : z.any().refine(val => val instanceof FileList && val.length === 1, 'Please upload one file.');
-            }
+             const fileSchema = z.custom<FileList>().refine(val => val instanceof FileList && val.length > 0, `${field.name} is required.`);
+             const optionalFileSchema = z.custom<FileList>().optional();
+             shape[field.id] = isOptional ? optionalFileSchema : fileSchema;
         } else {
             shape[field.id] = z.string().min(1, `${field.name} is required`);
         }
@@ -357,5 +352,3 @@ export default function ToolPage() {
     </main>
   );
 }
-
-    
