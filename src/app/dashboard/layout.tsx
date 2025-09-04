@@ -14,6 +14,11 @@ import {
   SidebarMenuButton,
   SidebarInset,
 } from '@/components/ui/sidebar';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import { Logo } from '@/components/logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -37,30 +42,71 @@ import {
   Users2,
   Video,
   Briefcase,
+  ChevronRight,
 } from 'lucide-react';
 
-const allTools = [
-    { id: 'ad-creation', title: 'Instant Ad Creation', icon: <Megaphone /> },
-    { id: 'targeting', title: 'Precision Targeting', icon: <Target /> },
-    { id: 'rebranding', title: 'Automated Rebranding', icon: <Palette /> },
-    { id: 'pdf-editor', title: 'PDF Smart Editor', icon: <PenTool /> },
-    { id: 'landing-pages', title: 'Landing Page Generator', icon: <LayoutTemplate /> },
-    { id: 'social-posts', title: 'Social Post Writer', icon: <Share2 /> },
-    { id: 'story-designer', title: 'AI Story Designer', icon: <Film /> },
-    { id: 'reel-designer', title: 'AI Reel Designer', icon: <Clapperboard /> },
-    { id: 'tiktok-editor', title: 'TikTok Video Editor', icon: <Video /> },
-    { id: 'page-admin', title: 'AI Page Admin', icon: <UserCog /> },
-    { id: 'sales-master-chat', title: 'AI Sales Master Chat', icon: <MessageSquare /> },
-    { id: 'crm-assistant', title: 'CRM Memory Assistant', icon: <Database /> },
-    { id: 'lead-generation', title: 'Social Lead Generation', icon: <UserPlus /> },
-    { id: 'market-reports', title: 'Market Trend Reports', icon: <LineChart /> },
-    { id: 'investor-matching', title: 'Investor Matching', icon: <Users2 /> },
-    { id: 'listing-generator', title: 'Listing Details Generator', icon: <FileText /> },
-    { id: 'offer-generator', title: 'Multi-Project Offer Generator', icon: <Briefcase /> },
-    { id: 'email-creator', title: 'Email Marketing Creator', icon: <Mail /> },
-    { id: 'instagram-bot', title: 'Instagram Chat Bot', icon: <Bot /> },
-    { id: 'whatsapp-campaigns', title: 'WhatsApp Campaign Manager', icon: <Phone /> },
+const marketingTools = [
+  { id: 'ad-creation', title: 'Instant Ad Creation', icon: <Megaphone /> },
+  { id: 'targeting', title: 'Precision Targeting', icon: <Target /> },
+  { id: 'market-reports', title: 'Market Trend Reports', icon: <LineChart /> },
+  { id: 'lead-generation', title: 'Social Lead Generation', icon: <UserPlus /> },
 ];
+
+const creativeTools = [
+  { id: 'rebranding', title: 'Automated Rebranding', icon: <Palette /> },
+  { id: 'pdf-editor', title: 'PDF Smart Editor', icon: <PenTool /> },
+  { id: 'landing-pages', title: 'Landing Page Generator', icon: <LayoutTemplate /> },
+  { id: 'listing-generator', title: 'Listing Details Generator', icon: <FileText /> },
+  { id: 'story-designer', title: 'AI Story Designer', icon: <Film /> },
+  { id: 'reel-designer', title: 'AI Reel Designer', icon: <Clapperboard /> },
+  { id: 'tiktok-editor', title: 'TikTok Video Editor', icon: <Video /> },
+];
+
+const salesTools = [
+  { id: 'sales-master-chat', title: 'AI Sales Master Chat', icon: <MessageSquare /> },
+  { id: 'crm-assistant', title: 'CRM Memory Assistant', icon: <Database /> },
+  { id: 'investor-matching', title: 'Investor Matching', icon: <Users2 /> },
+  { id: 'offer-generator', title: 'Multi-Project Offer Generator', icon: <Briefcase /> },
+];
+
+const communicationTools = [
+  { id: 'social-posts', title: 'Social Post Writer', icon: <Share2 /> },
+  { id: 'page-admin', title: 'AI Page Admin', icon: <UserCog /> },
+  { id: 'email-creator', title: 'Email Marketing Creator', icon: <Mail /> },
+  { id: 'instagram-bot', title: 'Instagram Chat Bot', icon: <Bot /> },
+  { id: 'whatsapp-campaigns', title: 'WhatsApp Campaign Manager', icon: <Phone /> },
+];
+
+const SidebarMenuGroup = ({
+  title,
+  tools,
+  isActive,
+}: {
+  title: string;
+  tools: { id: string; title: string; icon: React.ReactNode }[];
+  isActive?: boolean;
+}) => (
+  <Collapsible defaultOpen={isActive}>
+    <CollapsibleTrigger asChild>
+      <div className="flex items-center justify-between px-2 py-1 cursor-pointer hover:bg-muted rounded-md">
+        <span className="text-sm font-semibold">{title}</span>
+        <ChevronRight className="h-4 w-4 transition-transform duration-200 [&[data-state=open]]:rotate-90" />
+      </div>
+    </CollapsibleTrigger>
+    <CollapsibleContent>
+      <SidebarMenu className="pl-4 py-2">
+        {tools.map((tool, index) => (
+          <SidebarMenuItem key={tool.id}>
+            <SidebarMenuButton href="#" isActive={isActive && index === 0} tooltip={{ children: tool.title }}>
+              {tool.icon}
+              <span>{tool.title}</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        ))}
+      </SidebarMenu>
+    </CollapsibleContent>
+  </Collapsible>
+);
 
 export default function DashboardLayout({
   children,
@@ -77,16 +123,12 @@ export default function DashboardLayout({
           </div>
         </SidebarHeader>
         <SidebarContent>
-          <SidebarMenu>
-            {allTools.map((tool, index) => (
-                <SidebarMenuItem key={tool.id}>
-                    <SidebarMenuButton href="#" isActive={index === 0} tooltip={{children: tool.title}}>
-                        {tool.icon}
-                        <span>{tool.title}</span>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
+          <div className="flex flex-col gap-2 p-2">
+            <SidebarMenuGroup title="Marketing" tools={marketingTools} isActive />
+            <SidebarMenuGroup title="Creative" tools={creativeTools} />
+            <SidebarMenuGroup title="Sales" tools={salesTools} />
+            <SidebarMenuGroup title="Communication" tools={communicationTools} />
+          </div>
         </SidebarContent>
         <SidebarFooter>
           <div className="flex items-center gap-3">
