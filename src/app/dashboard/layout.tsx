@@ -113,6 +113,7 @@ export default function DashboardLayout({
       <Sidebar>
         <SidebarHeader className="flex items-center justify-between">
           <Logo />
+          <SidebarTrigger />
         </SidebarHeader>
         <SidebarContent>
           <div className="flex flex-col gap-2 p-2">
@@ -178,7 +179,7 @@ export default function DashboardLayout({
                     </SidebarMenuItem>
                     <Separator />
                      <SidebarMenuItem>
-                        <Link href="/dashboard/status">
+                        <Link href="/status">
                             <SidebarMenuButton>
                                 <Server />
                                 <span>System Status</span>
@@ -215,9 +216,6 @@ export default function DashboardLayout({
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-         <div className="p-2 md:hidden">
-            <SidebarTrigger />
-        </div>
         {children}
         <AssistantChat />
       </SidebarInset>

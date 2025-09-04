@@ -2,7 +2,8 @@
 'use client';
 
 import React from 'react';
-import { PageHeader } from '@/components/ui/page-header';
+import { LandingHeader } from '@/components/landing-header';
+import { LandingFooter } from '@/components/landing-footer';
 import { Server, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -44,14 +45,20 @@ export default function StatusPage() {
   const allOperational = services.every(s => s.status === 'Operational');
 
   return (
-    <main className="p-4 md:p-10 space-y-8">
-       <PageHeader
-        title="System Status"
-        description="Monitor the real-time status of all our services and integrations."
-        icon={<Server className="h-8 w-8" />}
-      />
+    <div className="flex min-h-screen flex-col bg-background">
+      <LandingHeader />
+      <main className="flex-1 w-full max-w-4xl mx-auto px-4 md:px-6 py-12 md:py-20">
+       <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
+                System Status
+            </h1>
+            <p className="text-lg md:text-xl text-foreground/60 max-w-3xl mx-auto">
+                Monitor the real-time status of all our services and integrations.
+            </p>
+        </div>
 
-      <Card>
+
+      <Card className="bg-card/50 backdrop-blur-lg border-primary/10">
         <CardHeader>
            <div className={cn(
              "flex items-center gap-3 p-4 rounded-lg",
@@ -79,7 +86,8 @@ export default function StatusPage() {
             ))}
         </CardContent>
       </Card>
-    </main>
+      </main>
+      <LandingFooter />
+    </div>
   );
 }
-
