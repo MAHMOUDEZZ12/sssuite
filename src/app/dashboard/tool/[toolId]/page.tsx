@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { tools, Field } from '@/lib/tools.tsx';
+import { tools } from '@/lib/tools.tsx';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -140,7 +140,6 @@ export default function ToolPage() {
   const [showConfetti, setShowConfetti] = useState(false);
   const { toast } = useToast();
 
-  // Dynamically create Zod schema from creationFields
   const schema = React.useMemo(() => {
     if (!tool) return z.object({});
     const shape: Record<string, z.ZodType<any, any>> = {};
@@ -149,18 +148,18 @@ export default function ToolPage() {
       
         let fieldSchema;
         if (field.type === 'file') {
-            fieldSchema = z.instanceof(File, {message: "File is required."}).optional();
+            fieldSchema = z.instanceof(File, { message: 'File is required' }).optional();
+             if (tool.id === 'rebranding' && field.id === 'companyLogoDataUri') {
+                fieldSchema = fieldSchema.optional();
+            } else if (tool.id === 'landing-pages' && field.id === 'projectBrochureDataUri') {
+                fieldSchema = fieldSchema.optional();
+            } else {
+                fieldSchema = z.instanceof(File, { message: 'A file is required for this field.' });
+            }
         } else {
             fieldSchema = z.string().min(1, `${field.name} is required`);
         }
         
-        // Handle optional fields for rebranding tool
-        if (tool.id === 'rebranding' && field.id === 'companyLogoDataUri') {
-          fieldSchema = fieldSchema.optional();
-        } else if (field.type === 'file') {
-          fieldSchema = z.instanceof(File, { message: 'File is required.' });
-        }
-      
         shape[field.id] = fieldSchema;
     });
     return z.object(shape);
@@ -315,7 +314,7 @@ export default function ToolPage() {
           </CardHeader>
           <CardContent>
             {renderResult(tool.id, result, copyToClipboard)}
-          </CiardContent>
+          </CardContent>
         </Card>
       )}
     </main>
