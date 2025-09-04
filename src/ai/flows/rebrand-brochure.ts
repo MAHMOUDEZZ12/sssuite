@@ -123,10 +123,6 @@ Colors: {{{colors}}}
 Brochure: {{media url=brochureDataUri}}
 
 Output the rebranded brochure as a data URI.
-{
- rebrandedBrochureDataUri: dataUri,
- logoDataUri: dataUri, // only if a logo was generated
-}
 `,
 });
 
@@ -151,6 +147,9 @@ const generateLogo = ai.defineFlow(
       model: 'googleai/imagen-4.0-fast-generate-001',
       prompt: `Generate a simple and memorable logo for the company "${input.companyName}" with the tone of voice "${input.toneOfVoice}" and colors "${input.colors}".`,
     });
+    if (!media) {
+      throw new Error('Failed to generate logo.');
+    }
     return {logoDataUri: media.url!};
   }
 );
@@ -162,27 +161,31 @@ const rebrandBrochureFlow = ai.defineFlow(
     outputSchema: RebrandBrochureOutputSchema,
   },
   async input => {
-    let logoDataUri: string | undefined = input.companyLogoDataUri;
-    let generatedLogo = false;
+    let logoToUse: string | undefined = input.companyLogoDataUri;
+    let generatedLogoUri: string | undefined;
 
-    if (!logoDataUri) {
+    if (!logoToUse) {
       const logoResult = await generateLogo({
         companyName: input.companyName,
         toneOfVoice: input.toneOfVoice,
         colors: input.colors,
       });
-      logoDataUri = logoResult.logoDataUri;
-      generatedLogo = true;
+      logoToUse = logoResult.logoDataUri;
+      generatedLogoUri = logoResult.logoDataUri;
     }
 
     const {output} = await rebrandBrochurePrompt({
       ...input,
-      companyLogoDataUri: logoDataUri,
+      companyLogoDataUri: logoToUse,
     });
 
+    if (!output) {
+      throw new Error('Failed to rebrand brochure.');
+    }
+
     return {
-      rebrandedBrochureDataUri: output!.rebrandedBrochureDataUri,
-      logoDataUri: generatedLogo ? logoDataUri : undefined,
+      rebrandedBrochureDataUri: output.rebrandedBrochureDataUri,
+      logoDataUri: generatedLogoUri,
     };
   }
 );
