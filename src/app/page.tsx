@@ -503,9 +503,6 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                   </div>
                    <div className='flex items-center gap-2'>
                      <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/20">Login</Button>
-                     <button onClick={onClose} className="text-white/60 hover:text-white transition-colors z-20">
-                      <X className="h-6 w-6" />
-                    </button>
                    </div>
                </div>
             </div>
@@ -544,17 +541,19 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                 </TabsContent>
 
                 <TabsContent value="synergy" className="space-y-4 text-foreground/90">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {feature.details.synergy.map((s, index) => (
-                      <div key={index} className="bg-card p-4 rounded-lg border flex items-center gap-4">
-                        <div className="p-2 bg-primary/10 text-primary rounded-md">
-                          <h4 className="font-semibold">{feature.title}</h4>
+                      <div key={index} className="bg-card p-4 rounded-lg border flex flex-col gap-3">
+                         <div className="flex items-center gap-2">
+                            <div className="p-2 bg-primary/10 text-primary rounded-md">
+                                <h4 className="font-semibold text-sm">{feature.title}</h4>
+                            </div>
+                            <Plus className="h-5 w-5 text-muted-foreground shrink-0" />
+                            <div className="p-2 bg-secondary text-secondary-foreground rounded-md">
+                               <h4 className="font-semibold text-sm">{s.tool}</h4>
+                            </div>
                         </div>
-                        <Plus className="h-5 w-5 text-muted-foreground" />
-                        <div className="p-2 bg-secondary text-secondary-foreground rounded-md">
-                           <h4 className="font-semibold">{s.tool}</h4>
-                        </div>
-                        <div className="flex-1 text-sm text-foreground/80">
+                        <div className="text-sm text-foreground/80 pl-1">
                           <p>{s.benefit}</p>
                         </div>
                       </div>
