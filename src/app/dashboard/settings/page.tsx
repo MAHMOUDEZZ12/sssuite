@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { PageHeader } from '@/components/ui/page-header';
-import { Settings, Palette, User, CreditCard, Paintbrush, Text, Sun, Moon, Laptop, Bot, BrainCircuit } from 'lucide-react';
+import { Settings, Palette, User, CreditCard, Paintbrush, Text, Sun, Moon, Laptop, Bot, BrainCircuit, Network, Database, Users } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -49,11 +49,12 @@ export default function SettingsPage() {
       />
 
       <Tabs defaultValue="account" className="w-full">
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="account"><User className="mr-2 h-4 w-4" /> Account</TabsTrigger>
           <TabsTrigger value="appearance"><Palette className="mr-2 h-4 w-4" /> Appearance</TabsTrigger>
           <TabsTrigger value="assistant"><Bot className="mr-2 h-4 w-4" /> Assistant</TabsTrigger>
           <TabsTrigger value="brand"><Paintbrush className="mr-2 h-4 w-4" /> Brand</TabsTrigger>
+          <TabsTrigger value="connections"><Network className="mr-2 h-4 w-4" /> Connections</TabsTrigger>
           <TabsTrigger value="subscription"><CreditCard className="mr-2 h-4 w-4" /> Subscription</TabsTrigger>
         </TabsList>
         
@@ -193,6 +194,39 @@ export default function SettingsPage() {
                         <Paintbrush className="mr-2 h-5 w-5" /> Go to Full Brand Management
                     </Button>
                 </Link>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="connections">
+          <Card>
+            <CardHeader>
+              <CardTitle>External Connections</CardTitle>
+              <CardDescription>
+                Connect your external accounts to unlock powerful integrations and automations.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                <div className="flex items-center justify-between rounded-lg border p-4">
+                    <div className="flex items-center gap-4">
+                        <Database className="h-6 w-6 text-muted-foreground" />
+                        <div>
+                            <h4 className="font-medium">Google Drive</h4>
+                            <p className="text-sm text-muted-foreground">Sync documents and files from your Google Drive.</p>
+                        </div>
+                    </div>
+                    <Button variant="outline">Connect</Button>
+                </div>
+                <div className="flex items-center justify-between rounded-lg border p-4">
+                    <div className="flex items-center gap-4">
+                        <Users className="h-6 w-6 text-muted-foreground" />
+                        <div>
+                            <h4 className="font-medium">CRM</h4>
+                            <p className="text-sm text-muted-foreground">Connect to your sales CRM to sync leads and contacts.</p>
+                        </div>
+                    </div>
+                    <Button variant="outline">Connect</Button>
+                </div>
             </CardContent>
           </Card>
         </TabsContent>

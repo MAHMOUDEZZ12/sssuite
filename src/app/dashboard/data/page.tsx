@@ -38,8 +38,6 @@ export default function DataStoragePage() {
         icon={<Database className="h-8 w-8" />}
       >
         <div className='flex items-center gap-2'>
-            <Button variant="outline"><Database className="mr-2 h-4 w-4" /> Connect Google Drive</Button>
-            <Button variant="outline"><Users className="mr-2 h-4 w-4" /> Connect CRM</Button>
              <Link href="/dashboard/assistant">
                 <Button variant="outline">
                     <BrainCircuit className="mr-2 h-4 w-4" />
@@ -53,7 +51,9 @@ export default function DataStoragePage() {
         </div>
       </PageHeader>
       
+        <label htmlFor='file-upload' className="sr-only">Upload file</label>
         <Input
+            id="file-upload"
             type="file"
             ref={fileInputRef}
             className="hidden"
