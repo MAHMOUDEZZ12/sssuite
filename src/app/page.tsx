@@ -632,7 +632,6 @@ const features = [
     description: 'Engage every lead instantly with personalized email and SMS sequences.',
     icon: <Repeat />,
     color: 'from-amber-500/80 to-amber-600/80',
-    isIntro: true,
     synergies: {
       'ad-creation': 'Engage leads from ads.',
       targeting: 'Customize for buyer personas.',
@@ -703,7 +702,6 @@ const features = [
     description: 'Track every metric, from ad clicks to closed deals, in one place.',
     icon: <Gauge />,
     color: 'from-purple-500/80 to-purple-600/80',
-    isIntro: true,
     synergies: {
       'ad-creation': 'See best performing ads.',
       targeting: 'Analyze audience profitability.',
@@ -774,7 +772,6 @@ const features = [
     description: 'Create and automate beautiful, high-converting email blasts.',
     icon: <Mail />,
     color: 'from-lime-500/80 to-lime-600/80',
-    isIntro: true,
     synergies: {
       'ad-creation': 'Use ad visuals in emails.',
       targeting: 'Segment lists with precision.',
@@ -845,7 +842,6 @@ const features = [
     description: 'Sync all your data with the CRM you already use.',
     icon: <Network />,
     color: 'from-red-500/80 to-red-600/80',
-    isIntro: true,
     synergies: {
       'ad-creation': 'Pipe leads to CRM.',
       targeting: 'Enrich CRM with data.',
@@ -916,7 +912,6 @@ const features = [
     description: 'Upload any project brochure. Our AI instantly rebrands it.',
     icon: <FilePlus />,
     color: 'from-emerald-500/80 to-emerald-600/80',
-    isIntro: true,
     synergies: {
       'ad-creation': 'Use brochures in ads.',
       targeting: 'Create versions for audiences.',
@@ -1511,6 +1506,7 @@ const features = [
   },
 ];
 
+const INTRO_CARD_COUNT = 8;
 
 const FeatureCard = ({
   feature,
@@ -1526,36 +1522,47 @@ const FeatureCard = ({
   onClick: (id: string) => void;
 }) => {
   const isHovered = hoveredId === feature.id;
-  const hoveredFeature = features.find(f => f.id === hoveredId);
-  const isSomeoneElseHovered = hoveredId !== null && !isHovered;
-
-  const getCardState = () => {
-    if (isHovered) return 'active';
-    if (isSomeoneElseHovered) return 'synergy';
-    return 'default';
-  };
+  const isAnyCardHovered = hoveredId !== null;
+  const isIntroSection = index < INTRO_CARD_COUNT;
   
-  const cardState = getCardState();
-  let synergyText = hoveredFeature ? (hoveredFeature.synergies as any)?.[feature.id] : null;
+  let cardClasses = 'transition-all duration-500 ease-in-out';
 
-  if (feature.isIntro && hoveredFeature?.isIntro) {
-    synergyText = "Everything is Connected. Explore how our tools work together to create a seamless workflow.";
+  if (isIntroSection) {
+    // Intro Section Logic: Disappear and Expand
+    if (isAnyCardHovered) {
+      if (isHovered) {
+        cardClasses = `${cardClasses} scale-105 z-10`;
+      } else {
+        cardClasses = `${cardClasses} opacity-0 scale-95 pointer-events-none`;
+      }
+    }
+  } else {
+    // Main Section Logic: Spotlight/Blind Hover
+    if (isAnyCardHovered) {
+      if (isHovered) {
+        cardClasses = `${cardClasses} scale-105 z-10`;
+      } else {
+        cardClasses = `${cardClasses} opacity-40 brightness-75 blur-[1px]`;
+      }
+    }
   }
+
 
   return (
     <div
       className={cn(
-        "group flex flex-col [perspective:1000px] animate-fade-in-up",
-        cardState === 'synergy' ? "animate-float" : ""
+        "group relative flex flex-col [perspective:1000px] animate-fade-in-up",
+        cardClasses
       )}
       style={{ animationDelay: `${index * 20}ms` }}
       onMouseEnter={() => setHoveredId(feature.id)}
+      onClick={() => onClick(feature.id)}
     >
       <div
         className={cn(
-          'relative w-full h-[420px] text-white transition-transform duration-700 ease-in-out rounded-3xl',
-          '[transform-style:preserve-3d]',
-          cardState === 'active' && '[transform:rotateY(180deg)]',
+          'relative w-full h-[420px] text-white rounded-3xl',
+          'transition-transform duration-700 ease-in-out [transform-style:preserve-3d]',
+           isHovered && !isIntroSection ? '[transform:rotateY(180deg)]' : ''
         )}
       >
         {/* Front of the card */}
@@ -1565,7 +1572,6 @@ const FeatureCard = ({
             'transition-opacity duration-500',
             feature.color,
             '[backface-visibility:hidden]',
-            cardState === 'synergy' && 'opacity-0' 
           )}
         >
             <div className="z-10 flex flex-col h-full">
@@ -1577,57 +1583,26 @@ const FeatureCard = ({
               <Button
                 size="lg"
                 variant="ghost"
-                className={cn(
-                    'bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20 mt-auto',
-                    cardState === 'synergy' && 'hidden'
-                )}
-                onClick={() => onClick(feature.id)}
+                className='bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20 mt-auto'
               >
-                {isHovered ? (
-                  <>
-                    Explore Synergy
-                    <Zap className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-                  </>
-                ) : (
-                  <>
-                    Learn more
-                    <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-                  </>
-                )}
+                Learn more
+                <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
               </Button>
             </div>
         </div>
 
         {/* Back of the card - Active State */}
-        <div
-          className={cn(
-            'absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-br rounded-3xl',
-            feature.color,
-            '[backface-visibility:hidden] [transform:rotateY(180deg)]'
-          )}
-        >
-            <h3 className="text-4xl font-bold text-center drop-shadow-lg">
-              { (feature.synergies as any)[feature.id] || "Unlock Potential"}
-            </h3>
-        </div>
-        
-        {/* Third Face - Synergy State */}
-        {synergyText && (
+        {!isIntroSection && (
           <div
             className={cn(
               'absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-br rounded-3xl',
-              'transition-opacity duration-500 ease-in-out',
-               cardState === 'synergy' ? 'opacity-100' : 'opacity-0',
-              '[backface-visibility:hidden]',
-              hoveredFeature?.color,
+              feature.color,
+              '[backface-visibility:hidden] [transform:rotateY(180deg)]'
             )}
           >
-            <div className="text-center">
-              <Zap className="h-12 w-12 text-white/80 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-center text-white">
-                {synergyText}
+              <h3 className="text-4xl font-bold text-center drop-shadow-lg">
+                { (feature.synergies as any)[feature.id] || "Unlock Potential"}
               </h3>
-            </div>
           </div>
         )}
       </div>
@@ -1676,7 +1651,7 @@ export default function Home() {
         </div>
 
         <div 
-            className="group/main grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 lg:gap-12 max-w-[120rem] mx-auto"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 lg:gap-12 max-w-[120rem] mx-auto"
             onMouseLeave={() => setHoveredId(null)}
         >
           {features.map((feature, index) => (
@@ -1695,3 +1670,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
