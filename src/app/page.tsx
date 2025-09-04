@@ -91,7 +91,7 @@ import { CreationTool } from '@/components/creation-tool';
 
 
 type Feature = (typeof features)[0];
-type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms';
+type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads';
 
 const features = [
   {
@@ -101,7 +101,7 @@ const features = [
     icon: <Megaphone />,
     color: 'from-pink-500/80 to-pink-600/80',
     cta: 'Ad',
-    category: 'Creative',
+    categories: ['Creative', 'Ads'],
     backsideValue: "Turn a brochure into a campaign.",
     details: {
       steps: [
@@ -161,7 +161,7 @@ const features = [
     icon: <Target />,
     color: 'from-blue-500/80 to-blue-600/80',
     cta: 'Targeting Profile',
-    category: 'Lead Gen',
+    categories: ['Lead Gen', 'Ads'],
     backsideValue: "Find your buyers before they find you.",
     details: {
       steps: [
@@ -220,7 +220,7 @@ const features = [
     icon: <Palette />,
     color: 'from-orange-500/80 to-orange-600/80',
     cta: 'Rebranded Brochure',
-    category: 'Creative',
+    categories: ['Creative', 'Editing'],
     backsideValue: "Make any brochure your own in one click.",
     details: {
       steps: [
@@ -281,7 +281,7 @@ const features = [
     icon: <PenTool />,
     color: 'from-yellow-500/80 to-yellow-600/80',
     cta: 'Edited PDF',
-    category: 'Creative',
+    categories: ['Creative', 'Editing'],
     backsideValue: "Edit the uneditable, instantly.",
     details: {
       steps: [
@@ -341,7 +341,7 @@ const features = [
     icon: <LayoutTemplate />,
     color: 'from-green-500/80 to-green-600/80',
     cta: 'Landing Page',
-    category: 'Creative',
+    categories: ['Creative', 'Web'],
     backsideValue: "Create a stunning property website in 60 seconds.",
     details: {
       steps: [
@@ -401,7 +401,7 @@ const features = [
     icon: <Share2 />,
     color: 'from-rose-500/80 to-rose-600/80',
     cta: 'Social Post',
-    category: 'Social & Comms',
+    categories: ['Social & Comms', 'Creative'],
     backsideValue: "Never run out of content ideas again.",
     details: {
       steps: [
@@ -461,7 +461,7 @@ const features = [
     icon: <Film />,
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
     cta: 'Story',
-    category: 'Creative',
+    categories: ['Creative', 'Social & Comms'],
     backsideValue: "Create thumb-stopping animated stories.",
     details: {
       steps: [
@@ -521,7 +521,7 @@ const features = [
     icon: <Clapperboard />,
     color: 'from-violet-500/80 to-violet-600/80',
     cta: 'Reel',
-    category: 'Creative',
+    categories: ['Creative', 'Social & Comms', 'Editing'],
     backsideValue: "Turn photos into professional video reels.",
     details: {
       steps: [
@@ -581,7 +581,7 @@ const features = [
     icon: <Video />,
     color: 'from-red-500/80 to-red-600/80',
     cta: 'TikTok',
-    category: 'Creative',
+    categories: ['Creative', 'Social & Comms', 'Editing'],
     backsideValue: "Create TikToks that capture attention.",
     details: {
       steps: [
@@ -641,7 +641,7 @@ const features = [
     icon: <UserCog />,
     color: 'from-cyan-500/80 to-cyan-600/80',
     cta: 'Page Admin',
-    category: 'Social & Comms',
+    categories: ['Social & Comms', 'Sales Tools'],
     backsideValue: "Put your social media on autopilot.",
     details: {
       steps: [
@@ -700,7 +700,7 @@ const features = [
     icon: <MessageSquare />,
     color: 'from-lime-500/80 to-lime-600/80',
     cta: 'Chat Session',
-    category: 'Sales Tools',
+    categories: ['Sales Tools'],
     backsideValue: "Practice any sales call, risk-free.",
     details: {
       steps: [
@@ -759,7 +759,7 @@ const features = [
     icon: <Database />,
     color: 'from-teal-500/80 to-teal-600/80',
     cta: 'Client Record',
-    category: 'Sales Tools',
+    categories: ['Sales Tools'],
     backsideValue: "Remember everything about every client.",
     details: {
       steps: [
@@ -818,7 +818,7 @@ const features = [
     icon: <UserPlus />,
     color: 'from-sky-500/80 to-sky-600/80',
     cta: 'Lead List',
-    category: 'Lead Gen',
+    categories: ['Lead Gen', 'Social & Comms'],
     backsideValue: "Find leads who don't know they're looking yet.",
     details: {
       steps: [
@@ -878,7 +878,7 @@ const features = [
     icon: <LineChart />,
     color: 'from-amber-500/80 to-amber-600/80',
     cta: 'Market Report',
-    category: 'Sales Tools',
+    categories: ['Sales Tools', 'Creative'],
     backsideValue: "Become the neighborhood expert overnight.",
     details: {
       steps: [
@@ -938,7 +938,7 @@ const features = [
     icon: <Users2 />,
     color: 'from-indigo-500/80 to-indigo-600/80',
     cta: 'Investor Match',
-    category: 'Lead Gen',
+    categories: ['Lead Gen', 'Sales Tools'],
     backsideValue: "Know which investor to call instantly.",
     details: {
       steps: [
@@ -997,7 +997,7 @@ const features = [
     icon: <FileText />,
     color: 'from-gray-500/80 to-gray-600/80',
     cta: 'Listing',
-    category: 'Creative',
+    categories: ['Creative', 'Web'],
     backsideValue: "Write perfect property descriptions in seconds.",
     details: {
       steps: [
@@ -1057,7 +1057,7 @@ const features = [
     icon: <Briefcase />,
     color: 'from-stone-500/80 to-stone-600/80',
     cta: 'Offer Package',
-    category: 'Sales Tools',
+    categories: ['Sales Tools'],
     backsideValue: "Present multiple offers beautifully.",
     details: {
       steps: [
@@ -1117,7 +1117,7 @@ const features = [
     icon: <Mail />,
     color: 'from-sky-500/80 to-sky-600/80',
     cta: 'Email Campaign',
-    category: 'Social & Comms',
+    categories: ['Social & Comms', 'Creative'],
     backsideValue: "Launch an entire email campaign in minutes.",
     details: {
       steps: [
@@ -1177,7 +1177,7 @@ const features = [
     icon: <Bot />,
     color: 'from-rose-500/80 to-rose-600/80',
     cta: 'Chat Bot',
-    category: 'Social & Comms',
+    categories: ['Social & Comms', 'Lead Gen'],
     backsideValue: "Never miss an Instagram lead again.",
     details: {
       steps: [
@@ -1237,7 +1237,7 @@ const features = [
     icon: <Phone />,
     color: 'from-green-500/80 to-green-600/80',
     cta: 'WhatsApp Campaign',
-    category: 'Social & Comms',
+    categories: ['Social & Comms', 'Lead Gen'],
     backsideValue: "Reach your entire client list on WhatsApp instantly.",
     details: {
       steps: [
@@ -1292,7 +1292,7 @@ const features = [
   },
 ];
 
-const filterCategories: FilterCategory[] = ['All', 'Lead Gen', 'Creative', 'Sales Tools', 'Social & Comms'];
+const filterCategories: FilterCategory[] = ['All', 'Lead Gen', 'Creative', 'Sales Tools', 'Social & Comms', 'Web', 'Editing', 'Ads'];
 
 const FeatureCard = ({
   feature,
@@ -1517,7 +1517,7 @@ export default function Home() {
 
   const filteredFeatures = activeFilter === 'All'
     ? features
-    : features.filter(feature => feature.category === activeFilter);
+    : features.filter(feature => feature.categories.includes(activeFilter));
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
