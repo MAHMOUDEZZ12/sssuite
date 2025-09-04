@@ -37,8 +37,9 @@ const fileToDataUri = (file: File): Promise<string> => {
   });
 };
 
-const filesToDataUris = (files: File[]): Promise<string[]> => {
-    return Promise.all(files.map(fileToDataUri));
+const filesToDataUris = (files: FileList | null): Promise<string[]> => {
+    if (!files) return Promise.resolve([]);
+    return Promise.all(Array.from(files).map(fileToDataUri));
 };
 
 
@@ -165,18 +166,27 @@ export default function ToolPage() {
     const shape = tool.creationFields.reduce((acc, field) => {
         if (field.type === 'button') return acc;
         
-        const isOptional =
-              (tool.id === 'rebranding' && field.id === 'companyLogoDataUri') ||
-              (tool.id === 'landing-pages' && field.id === 'projectBrochureDataUri') ||
-              (tool.id === 'pdf-editor' && field.id === 'newImages');
+        let fieldSchema;
 
         if (field.type === 'file') {
-             const fileSchema = z.custom<FileList>().refine(files => files && files.length > 0, `${field.name} is required.`);
-             const optionalFileSchema = z.custom<FileList>().optional();
-             (acc as any)[field.id] = isOptional ? optionalFileSchema : fileSchema;
+            const baseSchema = z.custom<FileList>().nullable();
+            if (field.multiple) {
+                 fieldSchema = baseSchema; // Optional for multiple files
+            } else {
+                 // Required for single file uploads unless specifically optional
+                const isOptional = (tool.id === 'rebranding' && field.id === 'companyLogoDataUri') || 
+                                 (tool.id === 'landing-pages' && field.id === 'projectBrochureDataUri');
+                fieldSchema = isOptional ? baseSchema : baseSchema.refine(files => files && files.length > 0, `${field.name} is required.`);
+            }
         } else {
-            (acc as any)[field.id] = z.string().min(1, `${field.name} is required`);
+            fieldSchema = z.string().min(1, `${field.name} is required`);
         }
+         // pdf-editor newImages is optional
+        if (tool.id === 'pdf-editor' && field.id === 'newImages') {
+             fieldSchema = z.custom<FileList>().nullable().optional();
+        }
+
+        (acc as any)[field.id] = fieldSchema;
         return acc;
     }, {});
 
@@ -222,12 +232,12 @@ export default function ToolPage() {
         const payload: Record<string, any> = {};
         
         for (const field of tool.creationFields) {
-             if(field.type === 'button') continue;
+            if(field.type === 'button') continue;
 
             const value = data[field.id];
-             if (field.type === 'file' && value instanceof FileList && value.length > 0) {
+            if (field.type === 'file' && value instanceof FileList && value.length > 0) {
                  if (field.multiple) {
-                    payload[field.id] = await filesToDataUris(Array.from(value));
+                    payload[field.id] = await filesToDataUris(value);
                 } else {
                     payload[field.id] = await fileToDataUri(value[0]);
                 }
@@ -291,7 +301,7 @@ export default function ToolPage() {
                             case 'text':
                               return <Input id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
                             case 'textarea':
-                              return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
+                              return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} rows={field.id === 'editInstructions' ? 5 : 3} />;
                             case 'file':
                                 return (
                                    <div>

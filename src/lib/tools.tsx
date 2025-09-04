@@ -294,8 +294,8 @@ export const tools: Feature[] = [
   },
    {
     id: 'pdf-editor',
-    title: 'PDF Smart Editor',
-    description: 'Edit text, swap images, and update layouts in any PDF brochure with AI assistance.',
+    title: 'AI PDF Editor',
+    description: 'Edit text, swap images, and update layouts in any PDF brochure with simple commands.',
     icon: <PenTool />,
     color: 'from-yellow-500/80 to-yellow-600/80',
     cta: 'Edited PDF',
@@ -304,7 +304,7 @@ export const tools: Feature[] = [
     details: {
       steps: [
         { text: 'Upload your PDF document', icon: <Upload className="h-6 w-6" /> },
-        { text: 'Tell the AI what to change (e.g., "Update the price to $750k")', icon: <MessageCircle className="h-6 w-6" /> },
+        { text: 'Tell the AI what to change in plain English', icon: <MessageCircle className="h-6 w-6" /> },
         { text: 'Download your edited PDF instantly', icon: <FileText className="h-6 w-6" /> },
       ],
       aiVsManual: [
@@ -348,8 +348,8 @@ export const tools: Feature[] = [
     },
     creationFields: [
       { id: 'sourcePdf', name: 'Source PDF', type: 'file', description: 'Upload the PDF you want to edit.' },
-      { id: 'editInstructions', name: 'Editing Instructions', type: 'textarea', placeholder: 'e.g., - Change the main contact name to "Jane Smith".\n- Replace the hero image with the one I uploaded.\n- Update the completion date to "Fall 2025".', description: 'Be specific about the changes you want to make.' },
-      { id: 'newImages', name: 'New Images (Optional)', type: 'file', multiple: true, description: 'Upload any new images to be swapped in.' },
+      { id: 'editInstructions', name: 'Editing Instructions', type: 'textarea', placeholder: 'e.g., - Change the main contact name to "Jane Smith".\n- Replace the hero image with the one I uploaded.\n- Update the completion date to "Fall 2025".', description: 'Be specific. The more detailed your command, the better the result.' },
+      { id: 'newImages', name: 'New Images (Optional)', type: 'file', multiple: true, description: 'Only upload images if your instructions refer to them.' },
     ],
   },
   {
@@ -416,7 +416,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'social-posts',
-    title: 'Social Post Writer',
+    title: 'AI Social Post Writer',
     description: "Generate a week's worth of social content from a single link or topic.",
     icon: <Share2 />,
     color: 'from-rose-500/80 to-rose-600/80',
@@ -470,8 +470,8 @@ export const tools: Feature[] = [
     },
     creationFields: [
       { id: 'source', name: 'Content Source', type: 'text', placeholder: 'Paste a URL or type a topic, e.g., "Market update for downtown"', description: 'The AI will use this as inspiration.' },
-      { id: 'platform', name: 'Platforms', type: 'text', placeholder: 'e.g., Facebook, Instagram', description: 'Tailor the posts for specific platforms.' },
-      { id: 'tone', name: 'Tone of Voice', type: 'text', placeholder: 'e.g., Informative, Humorous, Urgent', description: 'Set the mood for your posts.' },
+      { id: 'platform', name: 'Platform', type: 'select', options: ['Facebook', 'Instagram', 'LinkedIn', 'X (Twitter)', 'Email Newsletter'], placeholder: 'Select a platform', description: 'Tailor the posts for specific platforms.' },
+      { id: 'tone', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Urgent', 'Humorous', 'Informative'], placeholder: 'Select a tone', description: 'Set the mood for your posts.' },
     ],
   },
   {

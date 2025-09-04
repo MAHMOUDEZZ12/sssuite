@@ -42,7 +42,7 @@ const EditPdfInputSchema = z.object({
     .array(z.string())
     .optional()
     .describe(
-      "An array of new images to be used, as data URIs. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+      "An optional array of new images to be used, as data URIs. Expected format: 'data:<mimetype>;base64,<encoded_data>'. Only provide if your instructions reference replacing an image."
     ),
 });
 
@@ -85,9 +85,9 @@ const editPdfPrompt = ai.definePrompt({
   {{{editInstructions}}}
 
   {{#if newImages}}
-  New Images to use:
+  New Images to use (if referenced in instructions):
   {{#each newImages}}
-  {{media url=this}}
+  - Image {{add @index 1}}: {{media url=this}}
   {{/each}}
   {{/if}}
 
