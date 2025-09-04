@@ -32,7 +32,6 @@ import {
   LineChart,
   Mail,
   Megaphone,
-  MessageSquare,
   Palette,
   PenTool,
   Phone,
@@ -51,7 +50,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { tools } from '@/lib/tools';
+import { tools } from '@/lib/tools.tsx';
 
 const marketingTools = tools.filter(t => t.categories.includes('Ads') || t.categories.includes('Lead Gen'));
 const designTools = tools.filter(t => t.categories.includes('Creative') && (t.categories.includes('Editing') || t.categories.includes('Social & Comms')));

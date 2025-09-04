@@ -88,7 +88,7 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from '@/components/ui/progress';
 import { CreationTool } from '@/components/creation-tool';
-import { Feature, tools as features } from '@/lib/tools';
+import { Feature, tools as features } from '@/lib/tools.tsx';
 
 
 type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads';
