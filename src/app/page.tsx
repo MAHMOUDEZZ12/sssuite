@@ -65,7 +65,7 @@ import {
   Users2,
   Clock2,
   BadgeCheck,
-  Wallet,
+Wallet,
   Phone,
   Database,
   Search,
@@ -256,7 +256,7 @@ const features = [
         answer: "It works best with text-based PDFs, which are standard for most property brochures. It may be less effective on image-only PDFs or scans."
       },
       {
-        question: "What if I don't have a logo?",
+        question: "What if I don\'t have a logo?",
         answer: "No problem. The tool can generate a professional logo for you based on your company name and brand colors, or simply add your name and contact information in a clean format."
       },
        {
@@ -325,15 +325,15 @@ const features = [
   },
   {
     id: 'social-posts',
-    title: 'Email & Social Post Writer',
-    description: "Generate a week's worth of social content or a full email campaign from a single link or topic.",
+    title: 'Social Post Writer',
+    description: "Generate a week's worth of social content from a single link or topic.",
     icon: <Share2 />,
     color: 'from-rose-500/80 to-rose-600/80',
     cta: 'Social Post',
     details: {
       steps: [
         { text: 'Enter a topic, URL, or property address', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Choose your platforms (e.g., FB, IG, Email)', icon: <Share2 className="h-6 w-6" /> },
+        { text: 'Choose your platforms (e.g., FB, IG)', icon: <Share2 className="h-6 w-6" /> },
         { text: 'Get a week of content with images & hashtags', icon: <CalendarCheck className="h-6 w-6" /> },
       ],
       aiVsManual: [
@@ -363,7 +363,7 @@ const features = [
     },
     creationFields: [
       { id: 'source', name: 'Content Source', type: 'text', placeholder: 'Paste a URL or type a topic, e.g., "Market update for downtown"', description: 'The AI will use this as inspiration.' },
-      { id: 'platforms', name: 'Platforms', type: 'text', placeholder: 'e.g., Facebook, Instagram, Email Newsletter', description: 'Tailor the posts for specific platforms.' },
+      { id: 'platforms', name: 'Platforms', type: 'text', placeholder: 'e.g., Facebook, Instagram', description: 'Tailor the posts for specific platforms.' },
       { id: 'tone', name: 'Tone of Voice', type: 'text', placeholder: 'e.g., Informative, Humorous, Urgent', description: 'Set the mood for your posts.' },
     ],
     faqs: [
@@ -500,7 +500,7 @@ const features = [
   {
     id: 'page-admin',
     title: 'AI Page Admin',
-    description: 'Your personal AI assistant to manage social media pages and WhatsApp 24/7.',
+    description: 'Your personal AI assistant to manage social media pages 24/7.',
     icon: <UserCog />,
     color: 'from-cyan-500/80 to-cyan-600/80',
     cta: 'Page Admin',
@@ -545,8 +545,8 @@ const features = [
         answer: "The AI is trained to handle common, factual questions (price, square footage, open house times). For complex or nuanced inquiries, it will intelligently flag the conversation and notify you for personal review."
       },
       {
-        question: "Can it send bulk WhatsApp messages?",
-        answer: "Yes, you can upload a contact list and compose a message, and the AI Page Admin will schedule and send it according to best practices to maximize engagement and avoid being marked as spam."
+        question: "Can it handle post scheduling?",
+        answer: "Yes, you can approve generated content and the AI will schedule it for optimal posting times based on your audience's activity."
       },
       {
         question: "Will it post without my approval?",
@@ -899,6 +899,122 @@ const features = [
       }
     ],
   },
+  {
+    id: 'email-creator',
+    title: 'Email Marketing Creator',
+    description: 'Design and write compelling email campaigns that nurture leads and drive sales.',
+    icon: <Mail />,
+    color: 'from-sky-500/80 to-sky-600/80',
+    cta: 'Email Campaign',
+    details: {
+      steps: [
+        { text: 'Define your campaign goal (e.g., New Listing)', icon: <Target className="h-6 w-6" /> },
+        { text: 'Provide a link or topic for content', icon: <PenTool className="h-6 w-6" /> },
+        { text: 'Generate a sequence of emails instantly', icon: <Mails className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        {
+          metric: 'Writing Time',
+          manual: '2-4 hours for a 3-part sequence',
+          ai: 'Under 90 seconds',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Design & Layout',
+          manual: 'Requires knowledge of email builders',
+          ai: 'Generates clean, mobile-friendly HTML',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'Subject Lines',
+          manual: 'Guesswork, low open rates',
+          ai: 'A/B tested variations for high engagement',
+          icon: <BadgeCheck />,
+        },
+      ],
+      synergy: [
+        { tool: "Market Trend Reports", benefit: "Generate a local report, then use this tool to create an email campaign to share it with your list." },
+        { tool: "CRM Memory Assistant", benefit: "Personalize your email campaigns at scale using deep client insights from the assistant." }
+      ]
+    },
+    creationFields: [
+      { id: 'goal', name: 'Campaign Goal', type: 'text', placeholder: 'e.g., Announce a new listing, Nurture cold leads', description: 'What is the purpose of this email campaign?' },
+      { id: 'source', name: 'Content Source', type: 'text', placeholder: 'Paste a URL or type a topic', description: 'The AI will use this as the basis for the content.' },
+      { id: 'tone', name: 'Tone of Voice', type: 'text', placeholder: 'e.g., Professional, Urgent, Informative', description: 'Set the mood for your emails.' },
+    ],
+    faqs: [
+      {
+        question: "Can I connect this to my email provider?",
+        answer: "The AI generates the raw content (subject lines) and HTML for the email bodies. You can then easily copy and paste this into any major email marketing platform like Mailchimp, Constant Contact, or others."
+      },
+      {
+        question: "Does it write a single email or a sequence?",
+        answer: "It can do both! You can ask for a single promotional email or specify a multi-part sequence, such as a 3-day follow-up campaign for new leads."
+      },
+      {
+        question: "Are the emails personalized?",
+        answer: "Yes, the AI can insert placeholders like `[First Name]` that your email marketing tool will automatically populate, making your campaigns feel personal to each recipient."
+      }
+    ],
+  },
+  {
+    id: 'instagram-bot',
+    title: 'Instagram Chat Bot',
+    description: 'An AI assistant to manage your DMs, answer questions, and capture leads 24/7.',
+    icon: <Bot />,
+    color: 'from-rose-500/80 to-rose-600/80',
+    cta: 'Chat Bot',
+    details: {
+      steps: [
+        { text: 'Connect your Instagram account securely', icon: <Link className="h-6 w-6" /> },
+        { text: 'Provide FAQs about your listings/services', icon: <PenTool className="h-6 w-6" /> },
+        { text: 'The bot starts managing your DMs instantly', icon: <Sparkles className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        {
+          metric: 'Response Time',
+          manual: 'Can take hours, leads go cold',
+          ai: 'Instant, 24/7 engagement',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Lead Qualification',
+          manual: 'Forgets to ask key questions',
+          ai: 'Asks qualifying questions every time',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'After-Hours Coverage',
+          manual: 'No coverage, missed opportunities',
+          ai: 'Always on, capturing leads while you sleep',
+          icon: <BadgeCheck />,
+        },
+      ],
+      synergy: [
+        { tool: "AI Story Designer", benefit: "Run a story with a 'DM for info' poll, and let the chatbot handle all the incoming inquiries automatically." },
+        { tool: "CRM Memory Assistant", benefit: "When the chatbot identifies a hot lead, it can automatically create a new contact in your CRM with the conversation summary." }
+      ]
+    },
+    creationFields: [
+      { id: 'connect', name: 'Connect Instagram', type: 'button', cta: 'Connect Instagram Account', description: 'Authorize the AI to manage your DMs.' },
+      { id: 'faq', name: 'Frequently Asked Questions', type: 'textarea', placeholder: 'Q: Price?\nA: Starts at $450k.\nQ: Open house?\nA: Sun 1-4 PM.', description: 'Provide answers for the bot to use.' },
+      { id: 'escalation', name: 'Escalation Keyword', type: 'text', placeholder: 'e.g., "human" or "agent"', description: 'If a user types this, the bot will notify you.' },
+    ],
+    faqs: [
+      {
+        question: "Is this against Instagram's terms of service?",
+        answer: "No, this tool uses the official Instagram Messaging API. It operates within their guidelines and is completely safe for your account."
+      },
+      {
+        question: "Can the bot understand typos and slang?",
+        answer: "Yes, the AI is designed to understand the nuances of human conversation, including common typos and informal language, ensuring a smooth experience for your clients."
+      },
+      {
+        question: "When does it hand over a conversation to me?",
+        answer: "You can set custom rules. The bot can hand over the conversation if it doesn't know the answer, if the user asks to speak to a human, or if it detects high-intent language like 'I want to make an offer.'"
+      }
+    ],
+  },
 ];
 
 const FeatureCard = ({
@@ -922,7 +1038,9 @@ const FeatureCard = ({
     'Market Report': 'Generate a',
     'Investor Match': 'Find an',
     'Listing': 'Write your first',
-    'Offer Package': 'Create an'
+    'Offer Package': 'Create an',
+    'Email Campaign': 'Launch an',
+    'Chat Bot': 'Activate your'
   }[feature.cta] || 'Create your first';
 
 
@@ -1134,3 +1252,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
