@@ -173,10 +173,10 @@ const features = [
     id: 'page-admin',
     title: 'AI Page Admin',
     description: 'Your personal AI assistant to manage your social media pages.',
-    longDescription: 'Let our AI Page Admin handle the day-to-day of your social media presence. It can schedule posts, respond to common inquiries, and flag important comments for your attention, freeing you up to focus on closing deals. It\'s like having a social media manager on your team 24/7.',
+    longDescription: 'Imagine your social media pages running on intelligent autopilot. Our AI Page Admin is more than a scheduler—it\'s a digital extension of you. It analyzes your follower patterns to post content at the exact moments of peak engagement. It instantly responds to common inquiries like "How much?" or "Is this available?" with pre-approved answers, ensuring every potential lead gets an immediate response, 24/7. The AI also acts as your vigilant moderator, filtering spam and negativity while intelligently flagging comments and messages that show real buying intent, so you only spend time on conversations that matter. This isn\'t just page management; it\'s about reclaiming your time to focus on what you do best: building relationships and closing deals.',
     icon: <UserCog />,
     color: 'from-cyan-500/80 to-cyan-600/80',
-    cta: 'Manage My Page',
+    cta: 'Put Your Page on Autopilot',
     synergies: {
       'page-admin': "Automate Page Management",
     },
