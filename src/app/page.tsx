@@ -1522,37 +1522,12 @@ const FeatureCard = ({
   onClick: (id: string) => void;
 }) => {
   const isHovered = hoveredId === feature.id;
-  const isAnyCardHovered = hoveredId !== null;
-  const isIntroSection = index < INTRO_CARD_COUNT;
-  
-  let cardClasses = 'transition-all duration-500 ease-in-out';
-
-  if (isIntroSection) {
-    // Intro Section Logic: Disappear and Expand
-    if (isAnyCardHovered) {
-      if (isHovered) {
-        cardClasses = `${cardClasses} scale-105 z-10`;
-      } else {
-        cardClasses = `${cardClasses} opacity-0 scale-95 pointer-events-none`;
-      }
-    }
-  } else {
-    // Main Section Logic: Spotlight/Blind Hover
-    if (isAnyCardHovered) {
-      if (isHovered) {
-        cardClasses = `${cardClasses} scale-105 z-10`;
-      } else {
-        cardClasses = `${cardClasses} opacity-50 brightness-50 blur-[2px]`;
-      }
-    }
-  }
-
 
   return (
     <div
       className={cn(
-        "group relative flex flex-col [perspective:1000px] animate-fade-in-up",
-        cardClasses
+        "group relative flex flex-col [perspective:1000px] animate-fade-in-up transition-all duration-300",
+        isHovered ? 'scale-105 z-10' : 'hover:scale-105',
       )}
       style={{ animationDelay: `${index * 20}ms` }}
       onMouseEnter={() => setHoveredId(feature.id)}
@@ -1562,7 +1537,7 @@ const FeatureCard = ({
         className={cn(
           'relative w-full h-[420px] text-white rounded-3xl',
           'transition-transform duration-700 ease-in-out [transform-style:preserve-3d]',
-           isHovered && !isIntroSection ? '[transform:rotateY(180deg)]' : ''
+           isHovered ? '[transform:rotateY(180deg)]' : ''
         )}
       >
         {/* Front of the card */}
@@ -1572,7 +1547,6 @@ const FeatureCard = ({
             'transition-opacity duration-500',
             feature.color,
             '[backface-visibility:hidden]',
-            isAnyCardHovered && !isIntroSection && !isHovered ? 'opacity-0' : 'opacity-100'
           )}
         >
             <div className="z-10 flex flex-col h-full">
@@ -1593,19 +1567,17 @@ const FeatureCard = ({
         </div>
 
         {/* Back of the card - Active State */}
-        {!isIntroSection && (
-          <div
-            className={cn(
-              'absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-br rounded-3xl',
-              feature.color,
-              '[backface-visibility:hidden] [transform:rotateY(180deg)]'
-            )}
-          >
-              <h3 className="text-4xl font-bold text-center drop-shadow-lg">
-                { (feature.synergies as any)[feature.id] || "Unlock Potential"}
-              </h3>
-          </div>
-        )}
+        <div
+          className={cn(
+            'absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-br rounded-3xl',
+            feature.color,
+            '[backface-visibility:hidden] [transform:rotateY(180deg)]'
+          )}
+        >
+            <h3 className="text-4xl font-bold text-center drop-shadow-lg">
+              { (feature.synergies as any)[feature.id] || "Unlock Potential"}
+            </h3>
+        </div>
       </div>
     </div>
   );
@@ -1671,3 +1643,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
