@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sparkles, Lock } from 'lucide-react';
+import Link from 'next/link';
 
 type Field = {
   id: string;
@@ -102,19 +103,23 @@ export function CreationTool({ feature }: CreationToolProps) {
                 </Select>
               )}
               {field.type === 'button' && (
-                 <Button type="button" variant="outline" className='w-full justify-start' disabled>
-                    {field.cta}
-                </Button>
+                <Link href="/dashboard" className='w-full'>
+                   <Button type="button" variant="outline" className='w-full justify-start'>
+                      {field.cta}
+                  </Button>
+                </Link>
               )}
               <p className="text-xs text-muted-foreground">{field.description}</p>
             </div>
           ))}
         </div>
         <div className="flex justify-end pt-4">
-          <Button type="submit" disabled size="lg">
-              <Lock className="mr-2 h-5 w-5" />
-              Login to Generate
-          </Button>
+            <Link href="/dashboard">
+              <Button type="submit" size="lg">
+                  <Lock className="mr-2 h-5 w-5" />
+                  Login to Generate
+              </Button>
+            </Link>
         </div>
       </form>
 

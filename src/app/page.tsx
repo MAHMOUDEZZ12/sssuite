@@ -1396,7 +1396,9 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                     </div>
                   </div>
                    <div className='flex items-center gap-2'>
-                     <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/20">Login</Button>
+                     <Link href="/dashboard">
+                        <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/20">Login</Button>
+                      </Link>
                    </div>
                </div>
             </div>
@@ -1481,7 +1483,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
 
                 <TabsContent value="faq">
                   <Accordion type="single" collapsible className="w-full">
-                    {feature.faqs.map((faq, index) => (
+                    {feature.details.faqs.map((faq, index) => (
                       <AccordionItem value={`item-${index}`} key={index}>
                         <AccordionTrigger className='text-left'>{faq.question}</AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80">{faq.answer}</AccordionContent>
