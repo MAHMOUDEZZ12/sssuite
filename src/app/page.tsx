@@ -65,6 +65,9 @@ import {
   Clock2,
   BadgeCheck,
   Wallet,
+  Phone,
+  Database,
+  Search,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -90,7 +93,7 @@ const features = [
   {
     id: 'ad-creation',
     title: 'Instant Ad Creation',
-    description: 'Generate high-performance ad copy and visuals from any brochure in seconds.',
+    description: 'Generate high-performance ad copy, visuals, and flyers from any brochure in seconds.',
     icon: <Megaphone />,
     color: 'from-pink-500/80 to-pink-600/80',
     cta: 'Ad',
@@ -148,7 +151,7 @@ const features = [
   {
     id: 'targeting',
     title: 'Precision Targeting',
-    description: 'Our AI analyzes your project and identifies high-intent buyers.',
+    description: 'Our AI analyzes your project and identifies high-intent buyers before they even search.',
     icon: <Target />,
     color: 'from-blue-500/80 to-blue-600/80',
     cta: 'Targeting Profile',
@@ -180,7 +183,7 @@ const features = [
       ],
       synergy: [
         { tool: "Instant Ad Creation", benefit: "Design the perfect ad for the high-intent audience you've just identified." },
-        { tool: "AI Social Post Writer", benefit: "Create organic posts that speak directly to the interests of your target persona." }
+        { tool: "AI Sales Master Chat", benefit: "Create organic posts that speak directly to the interests of your target persona." }
       ]
     },
     creationFields: [
@@ -205,7 +208,7 @@ const features = [
   {
     id: 'rebranding',
     title: 'Automated Rebranding',
-    description: 'Instantly rebrand any brochure with your logo, colors, and voice.',
+    description: 'Instantly rebrand any brochure with your logo, colors, and contact info.',
     icon: <Palette />,
     color: 'from-orange-500/80 to-orange-600/80',
     cta: 'Rebranded Brochure',
@@ -253,7 +256,7 @@ const features = [
       },
       {
         question: "What if I don't have a logo?",
-        answer: "No problem. You can simply add your name and contact information. The tool will format it professionally within the brochure."
+        answer: "No problem. The tool can generate a professional logo for you based on your company name and brand colors, or simply add your name and contact information in a clean format."
       },
        {
         question: "Can it change the text to match my 'brand voice'?",
@@ -264,7 +267,7 @@ const features = [
   {
     id: 'landing-pages',
     title: 'Landing Page Generator',
-    description: 'Generate persuasive landing pages that captivate buyers.',
+    description: 'Generate persuasive, high-converting landing pages that captivate buyers.',
     icon: <LayoutTemplate />,
     color: 'from-green-500/80 to-green-600/80',
     cta: 'Landing Page',
@@ -319,7 +322,7 @@ const features = [
       }
     ],
   },
-  {
+    {
     id: 'social-posts',
     title: 'AI Social Post Writer',
     description: "Generate a week's worth of social content from a single link or topic.",
@@ -380,7 +383,7 @@ const features = [
   {
     id: 'story-designer',
     title: 'AI Story Designer',
-    description: 'Craft compelling stories for Instagram and Facebook in seconds.',
+    description: 'Craft compelling, animated stories for Instagram and Facebook in seconds.',
     icon: <Film />,
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
     cta: 'Story',
@@ -435,10 +438,10 @@ const features = [
       }
     ],
   },
-  {
+    {
     id: 'reel-designer',
     title: 'AI Reel Designer',
-    description: 'Create professional video reels from photos and text effortlessly.',
+    description: 'Create professional video reels from photos and text effortlessly, with auto-captions.',
     icon: <Clapperboard />,
     color: 'from-violet-500/80 to-violet-600/80',
     cta: 'Reel',
@@ -488,22 +491,22 @@ const features = [
         answer: "That's fine! The AI is skilled at creating dynamic videos even with a small number of assets by using effects like zooms and pans to make static images feel alive."
       },
       {
-        question: "Can I add a voiceover?",
-        answer: "Yes. You can record a voiceover directly in the tool, or upload a pre-recorded audio file. The AI can even generate a voiceover for you."
+        question: "Can it add captions automatically?",
+        answer: "Yes. The AI can automatically generate and sync captions (subtitles) for any voiceover or spoken audio in your video, making it more accessible and engaging."
       }
     ],
   },
   {
     id: 'page-admin',
     title: 'AI Page Admin',
-    description: 'Your personal AI assistant to manage your social media pages.',
+    description: 'Your personal AI assistant to manage your social media pages 24/7.',
     icon: <UserCog />,
     color: 'from-cyan-500/80 to-cyan-600/80',
-    cta: 'Page Admin Setup',
+    cta: 'Page Admin',
     details: {
       steps: [
         { text: 'Connect your Facebook & Instagram pages', icon: <Network className="h-6 w-6" /> },
-        { text: 'Set your response preferences', icon: <UserCog className="h-6 w-6" /> },
+        { text: 'Set your response preferences & FAQs', icon: <UserCog className="h-6 w-6" /> },
         { text: 'Let the AI handle scheduling and replies 24/7', icon: <Clock className="h-6 w-6" /> },
       ],
       aiVsManual: [
@@ -528,7 +531,7 @@ const features = [
       ],
       synergy: [
         { tool: "AI Social Post Writer", benefit: "Create a fully automated content pipeline from idea to publication." },
-        { tool: "AI Sales Master Chat", benefit: "When the AI flags a high-intent lead, use the chat to practice your response." }
+        { tool: "CRM Memory Assistant", benefit: "When the AI flags a high-intent lead, automatically add them to your CRM with all known details." }
       ]
     },
     creationFields: [
@@ -545,15 +548,15 @@ const features = [
         answer: "You have full control. You can set the AI to be fully autonomous, or have it queue up all posts in a 'drafts' folder for you to approve with one click."
       },
       {
-        question: "Which social media platforms are supported?",
-        answer: "Currently, the AI Page Admin integrates with Facebook Pages and Instagram Business accounts. We are actively working on adding support for other platforms like LinkedIn."
+        question: "Can it understand sentiment in messages?",
+        answer: "Yes. The Page Admin can analyze incoming messages and comments to gauge client sentiment (e.g., happy, frustrated, very interested) and prioritize inquiries for you."
       }
     ],
   },
   {
     id: 'sales-master-chat',
     title: 'AI Sales Master Chat',
-    description: 'Chat with legendary sales personas to sharpen your skills.',
+    description: 'Chat with legendary sales personas to sharpen your skills and close more deals.',
     icon: <MessageSquare />,
     color: 'from-lime-500/80 to-lime-600/80',
     cta: 'Chat Session',
@@ -585,7 +588,7 @@ const features = [
       ],
       synergy: [
         { tool: "Precision Targeting", benefit: "Practice handling objections and questions from the specific buyer personas you've identified." },
-        { tool: "AI Page Admin", benefit: "After the AI flags a high-intent lead, use the chat to prepare for your first call." }
+        { tool: "CRM Memory Assistant", benefit: "After a tough client call, use the chat to analyze the conversation and prepare a better follow-up." }
       ]
     },
     creationFields: [
@@ -607,6 +610,178 @@ const features = [
       }
     ],
   },
+  {
+    id: 'crm-assistant',
+    title: 'CRM Memory Assistant',
+    description: 'Your AI brain that remembers every client detail, conversation, and deadline.',
+    icon: <Database />,
+    color: 'from-teal-500/80 to-teal-600/80',
+    cta: 'Client Record',
+    details: {
+      steps: [
+        { text: 'Connect your contacts or calendar', icon: <Network className="h-6 w-6" /> },
+        { text: 'Ask about any client (e.g., "What did I promise Jane?")', icon: <Search className="h-6 w-6" /> },
+        { text: 'Get instant summaries, reminders, and insights', icon: <FileText className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        {
+          metric: 'Recall Speed',
+          manual: 'Minutes searching notes/emails',
+          ai: 'Instantaneous',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Data Points',
+          manual: 'Relies on what you remember to write down',
+          ai: 'Catches every detail from calls, emails, texts',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'Proactive Reminders',
+          manual: 'You have to set them yourself',
+          ai: 'Nudges you about birthdays, follow-ups',
+          icon: <BadgeCheck />,
+        },
+      ],
+      synergy: [
+        { tool: "AI Sales Dialer", benefit: "Get a full client brief from the assistant moments before the AI places the call." },
+        { tool: "Investor Matching", benefit: "The assistant can proactively suggest which clients are a perfect match for a new investment property." }
+      ]
+    },
+    creationFields: [
+      { id: 'clientName', name: 'Client Name', type: 'text', placeholder: 'e.g., "Jane Doe" or "the buyer for 123 Main St"', description: 'Ask about a specific client.' },
+      { id: 'query', name: 'Your Question', type: 'textarea', placeholder: 'e.g., "Summarize my last call with her" or "Does she have kids?"', description: 'What do you need to know?' },
+    ],
+    faqs: [
+      {
+        question: "Where does the AI get its information?",
+        answer: "The assistant securely integrates with your approved sources, like your Google/Outlook calendar, email, and call logs. All data is kept private and is not used for training other models."
+      },
+      {
+        question: "Can it summarize an entire call?",
+        answer: "Yes. After you finish a phone call, the assistant can provide a concise summary, pull out action items, and update the client's record automatically."
+      },
+      {
+        question: "Is my client data secure?",
+        answer: "Absolutely. Security is our top priority. All data is encrypted and stored in isolation. Your data is your own and is never shared or viewed."
+      }
+    ],
+  },
+   {
+    id: 'market-reports',
+    title: 'Market Trend Reports',
+    description: 'Generate hyper-local real estate market reports with AI-powered insights.',
+    icon: <LineChart />,
+    color: 'from-amber-500/80 to-amber-600/80',
+    cta: 'Market Report',
+    details: {
+      steps: [
+        { text: 'Enter a neighborhood, zip code, or city', icon: <MapPin className="h-6 w-6" /> },
+        { text: 'Select report type (e.g., buyer, seller, investor)', icon: <FileSearch className="h-6 w-6" /> },
+        { text: 'Generate a branded, data-rich PDF report', icon: <FileText className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        {
+          metric: 'Time to Create',
+          manual: 'Hours pulling MLS data and designing',
+          ai: 'Under 2 minutes',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Data Scope',
+          manual: 'Limited to basic MLS stats',
+          ai: 'Includes supply/demand, price trends, sentiment',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'Branding',
+          manual: 'Requires manual design work',
+          ai: 'Automatically branded with your logo & colors',
+          icon: <BadgeCheck />,
+        },
+      ],
+      synergy: [
+        { tool: "Landing Page Generator", benefit: "Create a landing page with a lead form to download your hyper-local market report." },
+        { tool: "AI Social Post Writer", benefit: "Generate a week's worth of posts summarizing the key findings from your new report." }
+      ]
+    },
+    creationFields: [
+      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Beverly Hills, CA" or "90210"', description: 'The area you want to analyze.' },
+      { id: 'reportType', name: 'Report Type', type: 'select', options: ['For Buyers', 'For Sellers', 'For Investors', 'General Overview'], description: 'Tailor the report for a specific audience.' },
+      { id: 'yourBranding', name: 'Your Branding', type: 'file', description: 'Upload your logo to brand the report. (Optional)' },
+    ],
+    faqs: [
+      {
+        question: "Where does the market data come from?",
+        answer: "Our AI synthesizes data from multiple trusted sources, including public records, MLS data feeds, and local economic indicators to provide a comprehensive and up-to-date market snapshot."
+      },
+      {
+        question: "Can I customize the reports?",
+        answer: "Yes, you can add your own commentary, select which sections to include, and ensure your branding is prominently displayed before finalizing the report."
+      },
+      {
+        question: "How are these different from standard MLS reports?",
+        answer: "While they use MLS data as a foundation, our AI reports add another layer of insight, analyzing trends, predicting future movements, and presenting the information in a client-friendly, easy-to-understand format."
+      }
+    ],
+  },
+  {
+    id: 'investor-matching',
+    title: 'Investor Matching',
+    description: 'AI-powered tool that matches your investor clients with their perfect properties.',
+    icon: <Users2 />,
+    color: 'from-indigo-500/80 to-indigo-600/80',
+    cta: 'Investor Match',
+    details: {
+      steps: [
+        { text: 'Provide details on a new investment property', icon: <Building className="h-6 w-6" /> },
+        { text: 'The AI scans your client database for matches', icon: <Search className="h-6 w-6" /> },
+        { text: 'Get a ranked list of best-fit investors', icon: <ClipboardList className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        {
+          metric: 'Time to Match',
+          manual: 'Hours reviewing CRM and spreadsheets',
+          ai: 'Under 30 seconds',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Match Accuracy',
+          manual: 'Relies on memory, may miss clients',
+          ai: 'Data-driven, based on past deals & stated goals',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'Personalization',
+          manual: 'Generic email blast to all investors',
+          ai: 'Generates personalized outreach for each match',
+          icon: <BadgeCheck />,
+        },
+      ],
+      synergy: [
+        { tool: "CRM Memory Assistant", benefit: "The investor matcher uses the deep client knowledge from the CRM assistant to find non-obvious matches based on past conversations." },
+        { tool: "Automated Rebranding", benefit: "Instantly create a personalized, rebranded brochure of the property for each of the top investor matches." }
+      ]
+    },
+    creationFields: [
+      { id: 'propertyDetails', name: 'Investment Property Details', type: 'textarea', placeholder: 'e.g., Duplex in Austin, TX. Cap rate: 6%. Needs light renovation. Zoned for short-term rentals.', description: 'Describe the investment opportunity.' },
+      { id: 'clientDatabase', name: 'Your Client List (Optional)', type: 'file', description: 'Upload a CSV of your investor contacts for the AI to analyze.' },
+    ],
+    faqs: [
+      {
+        question: "How does the AI know what my investors want?",
+        answer: "The AI learns from your CRM data—past purchases, stated investment goals, budget ranges, and even notes from conversations. The more data you provide, the smarter the matching becomes."
+      },
+      {
+        question: "Can I use this for off-market deals?",
+        answer: "Absolutely. This tool is perfect for quickly and discreetly finding the right buyer for an off-market or pocket listing from within your existing network."
+      },
+      {
+        question: "Does this replace my own judgment?",
+        answer: "Not at all. It's a powerful assistant that ensures you never miss an opportunity. It presents you with a data-backed shortlist, but you always have the final say on who to contact."
+      }
+    ],
+  },
 ];
 
 const FeatureCard = ({
@@ -624,8 +799,11 @@ const FeatureCard = ({
     'Social Post': 'Write a',
     'Story': 'Design a',
     'Reel': 'Produce a',
-    'Page Admin Setup': 'Set up your',
-    'Chat Session': 'Start a'
+    'Page Admin': 'Set up your',
+    'Chat Session': 'Start a',
+    'Client Record': 'Look up a',
+    'Market Report': 'Generate a',
+    'Investor Match': 'Find an'
   }[feature.cta] || 'Create your first';
 
 
@@ -837,3 +1015,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
