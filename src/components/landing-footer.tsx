@@ -19,6 +19,7 @@ export function LandingFooter() {
         { name: 'Blog', href: '/blog' },
         { name: 'Documentation', href: '/documentation' },
         { name: 'Technology', href: '/technology' },
+        { name: 'System Status', href: '/dashboard/status' },
     ],
     company: [
       { name: 'About Us', href: '/about' },
