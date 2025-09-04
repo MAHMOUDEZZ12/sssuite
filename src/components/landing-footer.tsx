@@ -20,6 +20,7 @@ export function LandingFooter() {
       { name: 'Careers', href: '#' },
       { name: 'Blog', href: '#' },
       { name: 'Contact Us', href: '#' },
+      { name: 'Documentation', href: '/documentation' },
     ],
     legal: [
       { name: 'Privacy Policy', href: '#' },
