@@ -163,6 +163,7 @@ const rebrandBrochureFlow = ai.defineFlow(
   },
   async input => {
     let logoDataUri: string | undefined = input.companyLogoDataUri;
+    let generatedLogo = false;
 
     if (!logoDataUri) {
       const logoResult = await generateLogo({
@@ -171,6 +172,7 @@ const rebrandBrochureFlow = ai.defineFlow(
         colors: input.colors,
       });
       logoDataUri = logoResult.logoDataUri;
+      generatedLogo = true;
     }
 
     const {output} = await rebrandBrochurePrompt({
@@ -180,7 +182,7 @@ const rebrandBrochureFlow = ai.defineFlow(
 
     return {
       rebrandedBrochureDataUri: output!.rebrandedBrochureDataUri,
-      logoDataUri: logoDataUri,
+      logoDataUri: generatedLogo ? logoDataUri : undefined,
     };
   }
 );
