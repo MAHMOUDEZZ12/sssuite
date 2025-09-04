@@ -68,13 +68,6 @@ import { LandingFooter } from '@/components/landing-footer';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { ShinyButton } from '@/components/ui/shiny-button';
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -83,6 +76,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from '@/components/ui/progress';
+import { CreationTool } from '@/components/creation-tool';
 
 
 type Feature = (typeof features)[0];
@@ -105,22 +99,10 @@ const features = [
       experienceLevel: 5,
       synergy: "Use **Precision Targeting** to identify the perfect audience for your new ad, then deploy it across your social channels with the **AI Page Admin** to maximize reach and engagement."
     },
-    sliderContent: [
-      {
-        image: 'https://picsum.photos/600/400?random=1',
-        dataAiHint: 'modern living room',
-        description: 'AI-generated ad for a luxury downtown condo.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=2',
-        dataAiHint: 'suburban house',
-        description: 'Facebook ad variant focusing on a family-friendly layout.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=3',
-        dataAiHint: 'apartment amenities',
-        description: 'Instagram ad highlighting community amenities like the pool and gym.'
-      }
+    creationFields: [
+      { id: 'brochure', name: 'Property Brochure', type: 'file', description: 'Upload the PDF brochure.' },
+      { id: 'focus', name: 'Ad Focus', type: 'text', placeholder: 'e.g., Family-friendly, Luxury, Investment', description: 'What aspect should the ad highlight?' },
+      { id: 'tone', name: 'Tone of Voice', type: 'text', placeholder: 'e.g., Professional, Exciting, Welcoming', description: 'Set the tone for the ad copy.' },
     ],
     faqs: [
       {
@@ -154,22 +136,9 @@ const features = [
       experienceLevel: 5,
       synergy: "Combine with **Instant Ad Creation** to ensure your perfect ads are seen by people ready to buy. Use the generated audience to create a lookalike audience for even broader reach."
     },
-    sliderContent: [
-      {
-        image: 'https://picsum.photos/600/400?random=4',
-        dataAiHint: 'data dashboard',
-        description: 'Audience profile for "First-Time Homebuyers in Tech".'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=5',
-        dataAiHint: 'map targeting',
-        description: 'Geographic targeting for users who have shown interest in moving.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=6',
-        dataAiHint: 'interest graph',
-        description: 'Interest-based targeting for "Luxury Investors".'
-      }
+    creationFields: [
+      { id: 'propertyDetails', name: 'Property Details', type: 'textarea', placeholder: 'e.g., 3-bed condo in downtown, waterfront views, near tech hub...', description: 'Describe the property and its key selling points.' },
+      { id: 'audiencePersona', name: 'Ideal Buyer Persona', type: 'textarea', placeholder: 'e.g., Young professionals in tech, aged 25-35, interested in smart homes and city living...', description: 'Describe the person you want to reach.' },
     ],
     faqs: [
       {
@@ -203,22 +172,11 @@ const features = [
       experienceLevel: 5,
       synergy: "Use your newly rebranded brochure to power an **Instant Ad Campaign** or generate a branded **Landing Page** in seconds."
     },
-    sliderContent: [
-      {
-        image: 'https://picsum.photos/600/400?random=7',
-        dataAiHint: 'brochure before',
-        description: 'Original developer brochure with generic branding.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=8',
-        dataAiHint: 'brochure after',
-        description: 'The same brochure, instantly rebranded with your logo and contact information.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=9',
-        dataAiHint: 'logo color palette',
-        description: 'AI automatically applies your brand\'s color palette.'
-      }
+    creationFields: [
+      { id: 'developerBrochure', name: 'Developer Brochure', type: 'file', description: 'Upload the original PDF.' },
+      { id: 'yourLogo', name: 'Your Logo', type: 'file', description: 'Upload your personal or company logo (PNG, JPG). Optional.' },
+      { id: 'contactInfo', name: 'Your Contact Info', type: 'text', placeholder: 'e.g., John Doe - 555-123-4567', description: 'This will be added to the brochure.' },
+      { id: 'brandColors', name: 'Brand Colors', type: 'text', placeholder: 'e.g., Royal Blue and Gold', description: 'Primary colors for accents.' },
     ],
     faqs: [
       {
@@ -252,22 +210,10 @@ const features = [
       experienceLevel: 5,
       synergy: "Drive traffic to your new page by linking it from your **AI Social Posts** and **Instant Ad Campaigns**. The leads generated can be nurtured using scripts from the **AI Sales Master Chat**."
     },
-    sliderContent: [
-      {
-        image: 'https://picsum.photos/600/400?random=10',
-        dataAiHint: 'website hero section',
-        description: 'A beautiful hero section with a compelling headline and lead capture form.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=11',
-        dataAiHint: 'photo gallery',
-        description: 'An elegant, automatically generated photo gallery of the property.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=12',
-        dataAiHint: 'map view',
-        description: 'An embedded map showing the location and nearby amenities.'
-      }
+    creationFields: [
+      { id: 'source', name: 'Content Source', type: 'text', placeholder: 'Link to property info or upload brochure below', description: 'Provide a URL to the property listing or website.' },
+      { id: 'brochure', name: 'Or Upload Brochure', type: 'file', description: 'Alternatively, upload a PDF brochure.' },
+      { id: 'branding', name: 'Branding Style', type: 'text', placeholder: 'e.g., Modern, Minimalist, Luxury', description: 'Describe the desired look and feel.' },
     ],
     faqs: [
       {
@@ -301,22 +247,10 @@ const features = [
       experienceLevel: 5,
       synergy: "Use the **AI Page Admin** to automatically schedule the generated posts for maximum engagement. Create a **Landing Page** for a new listing and use this tool to generate promotional posts for it."
     },
-    sliderContent: [
-      {
-        image: 'https://picsum.photos/600/400?random=13',
-        dataAiHint: 'twitter post',
-        description: 'A concise, engaging Twitter post with relevant hashtags.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=14',
-        dataAiHint: 'linkedin article',
-        description: 'A professional LinkedIn post perfect for building your authority.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=15',
-        dataAiHint: 'facebook post',
-        description: 'A more detailed Facebook post with an image suggestion.'
-      }
+    creationFields: [
+      { id: 'source', name: 'Content Source', type: 'text', placeholder: 'Paste a URL or type a topic, e.g., "Market update for downtown"', description: 'The AI will use this as inspiration.' },
+      { id: 'platforms', name: 'Social Platforms', type: 'text', placeholder: 'e.g., Facebook, Instagram, LinkedIn', description: 'Tailor the posts for specific platforms.' },
+      { id: 'tone', name: 'Tone of Voice', type: 'text', placeholder: 'e.g., Informative, Humorous, Urgent', description: 'Set the mood for your posts.' },
     ],
     faqs: [
       {
@@ -350,22 +284,10 @@ const features = [
       experienceLevel: 5,
       synergy: "Use the **AI Social Post Writer** to get caption ideas for your story, then use the **AI Page Admin** to schedule it for the perfect time."
     },
-    sliderContent: [
-      {
-        image: 'https://picsum.photos/600/400?random=16',
-        dataAiHint: 'instagram story modern',
-        description: 'A "Just Listed" story with a modern, animated text overlay.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=17',
-        dataAiHint: 'facebook story luxury',
-        description: 'A multi-slide story showcasing luxury features with elegant transitions.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=18',
-        dataAiHint: 'open house invite',
-        description: 'An animated Open House invitation with a countdown sticker.'
-      }
+    creationFields: [
+      { id: 'photos', name: 'Property Photos', type: 'file', multiple: true, description: 'Upload 3-5 high-quality images.' },
+      { id: 'vibe', name: 'Story Vibe', type: 'text', placeholder: 'e.g., Upbeat & Modern, Elegant & Luxurious, Cozy & Warm', description: 'This influences music, text, and effects.' },
+      { id: 'callToAction', name: 'Call to Action', type: 'text', placeholder: 'e.g., "Swipe up for tour!", "DM for info"', description: 'The final text prompt for viewers.' },
     ],
     faqs: [
       {
@@ -399,22 +321,10 @@ const features = [
       experienceLevel: 5,
       synergy: "Promote your final reel with an **Instant Ad Campaign** to reach thousands of potential buyers. Share it with the **AI Page Admin** for automatic posting."
     },
-    sliderContent: [
-      {
-        image: 'https://picsum.photos/600/400?random=19',
-        dataAiHint: 'video editor interface',
-        description: 'AI automatically syncs photo transitions to the beat of the music.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=20',
-        dataAiHint: 'real estate reel',
-        description: 'A finished 15-second reel showcasing a property\'s best features.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=21',
-        dataAiHint: 'text animation',
-        description: 'Dynamic text overlays that highlight key information.'
-      }
+    creationFields: [
+      { id: 'media', name: 'Photos or Video Clips', type: 'file', multiple: true, description: 'Upload your visual assets.' },
+      { id: 'sellingPoints', name: 'Key Selling Points', type: 'textarea', placeholder: '- Breathtaking ocean views\n- Newly renovated kitchen\n- 5 minutes from the beach', description: 'Use bullet points for text overlays in the video.' },
+      { id: 'vibe', name: 'Reel Vibe', type: 'text', placeholder: 'e.g., High-energy, Cinematic, Relaxing', description: 'This influences the music and editing style.' },
     ],
     faqs: [
       {
@@ -448,22 +358,9 @@ const features = [
       experienceLevel: 5,
       synergy: "Connect it to your **AI Social Post Writer** to create a fully automated content pipeline from idea to publication. When the AI flags a high-intent lead, use the **AI Sales Master Chat** to practice your response."
     },
-    sliderContent: [
-      {
-        image: 'https://picsum.photos/600/400?random=22',
-        dataAiHint: 'social media dashboard',
-        description: 'The main dashboard showing scheduled posts and recent activity.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=23',
-        dataAiHint: 'automated response',
-        description: 'An example of the AI instantly replying to a comment asking for the price.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=24',
-        dataAiHint: 'lead notification',
-        description: 'A lead with high buying intent is automatically flagged for your attention.'
-      }
+    creationFields: [
+      { id: 'connect', name: 'Connect Accounts', type: 'button', cta: 'Connect Facebook & Instagram', description: 'Authorize the AI to manage your pages.' },
+      { id: 'faq', name: 'Property FAQ', type: 'textarea', placeholder: 'Price: $550,000\nBedrooms: 3\nOpen House: Sat 1-3 PM', description: 'Provide info for the AI to answer common questions.' },
     ],
     faqs: [
       {
@@ -497,22 +394,9 @@ const features = [
       experienceLevel: 5,
       synergy: "Use the **AI Social Post Writer** to generate a post about a new listing, then jump into the chat to practice handling incoming calls and objections about it. After a tough negotiation, use the chat to debrief and find better approaches for next time."
     },
-    sliderContent: [
-      {
-        image: 'https://picsum.photos/600/400?random=25',
-        dataAiHint: 'chat interface',
-        description: 'Choose your persona: The Challenger, The Closer, or The Relationship Builder.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=26',
-        dataAiHint: 'sales conversation',
-        description: 'Role-playing a negotiation scenario for a higher commission.'
-      },
-      {
-        image: 'https://picsum.photos/600/400?random=27',
-        dataAiHint: 'script feedback',
-        description: 'Getting instant feedback on how to improve your opening line.'
-      }
+    creationFields: [
+      { id: 'persona', name: 'Choose Persona', type: 'select', options: ['The Challenger', 'The Closer', 'The Relationship Builder'], description: 'Select an AI sales coach to chat with.' },
+      { id: 'scenario', name: 'Your Scenario', type: 'textarea', placeholder: 'My client wants to lowball the offer on 123 Main St. How should I respond?', description: 'Describe the situation you want to practice.' },
     ],
     faqs: [
       {
@@ -600,10 +484,10 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
             </div>
             
             <div className='p-8'>
-              <Tabs defaultValue="use-cases" className="w-full">
+              <Tabs defaultValue="create" className="w-full">
                 <TabsList className="grid w-full grid-cols-5 mb-6">
                   <TabsTrigger value="overview">How to Use</TabsTrigger>
-                  <TabsTrigger value="use-cases">In Action</TabsTrigger>
+                  <TabsTrigger value="create">Create</TabsTrigger>
                   <TabsTrigger value="comparison">AI vs. Manual</TabsTrigger>
                   <TabsTrigger value="synergy">Synergy</TabsTrigger>
                   <TabsTrigger value="faq">FAQs</TabsTrigger>
@@ -632,23 +516,8 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                     <p>{feature.details.aiVsManual}</p>
                 </TabsContent>
 
-                <TabsContent value="use-cases">
-                  <Carousel className="w-full max-w-xl mx-auto">
-                    <CarouselContent>
-                      {feature.sliderContent.map((slide, index) => (
-                        <CarouselItem key={index}>
-                          <div className="p-1">
-                            <div className="rounded-lg overflow-hidden border">
-                              <Image src={slide.image} alt={slide.description} width={600} height={400} data-ai-hint={slide.dataAiHint}/>
-                            </div>
-                            <p className="text-center text-sm text-foreground/70 mt-2">{slide.description}</p>
-                          </div>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselPrevious className='-left-8' />
-                    <CarouselNext className='-right-8' />
-                  </Carousel>
+                <TabsContent value="create">
+                  <CreationTool feature={feature} />
                 </TabsContent>
 
                 <TabsContent value="synergy" className="space-y-4 text-foreground/90">
