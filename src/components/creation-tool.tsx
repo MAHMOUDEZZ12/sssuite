@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Lock } from 'lucide-react';
 
 type Field = {
   id: string;
@@ -51,27 +51,8 @@ export function CreationTool({ feature }: CreationToolProps) {
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    setResult(null);
-
-    // In a real app, you would call the appropriate AI function here
-    // For example:
-    // if (feature.id === 'ad-creation') {
-    //   const response = await generateAdFromBrochure(formState);
-    //   setResult(response);
-    // }
-    console.log(`Submitting for feature: ${feature.id}`, formState);
-
-    // Simulate API call
-    setTimeout(() => {
-      // Mock result based on feature
-      const mockResult = {
-        output: `This is a mock result for "${feature.title}".`,
-        formData: formState
-      };
-      setResult(mockResult);
-      setIsLoading(false);
-    }, 2000);
+    // This functionality is disabled for logged-out users.
+    // In a real app, this would be handled by checking authentication state.
   };
 
   return (
@@ -88,6 +69,7 @@ export function CreationTool({ feature }: CreationToolProps) {
                   placeholder={field.placeholder}
                   onChange={(e) => handleInputChange(field.id, e.target.value)}
                   className="bg-background/50"
+                  disabled
                 />
               )}
               {field.type === 'textarea' && (
@@ -97,6 +79,7 @@ export function CreationTool({ feature }: CreationToolProps) {
                   onChange={(e) => handleInputChange(field.id, e.target.value)}
                   className="bg-background/50"
                   rows={4}
+                  disabled
                 />
               )}
               {field.type === 'file' && (
@@ -106,10 +89,11 @@ export function CreationTool({ feature }: CreationToolProps) {
                   onChange={(e) => handleFileChange(field.id, e.target.files)}
                   multiple={field.multiple}
                   className="bg-background/50 file:text-primary file:font-semibold"
+                  disabled
                 />
               )}
               {field.type === 'select' && (
-                <Select onValueChange={(value) => handleInputChange(field.id, value)}>
+                <Select onValueChange={(value) => handleInputChange(field.id, value)} disabled>
                   <SelectTrigger className="w-full bg-background/50">
                     <SelectValue placeholder={field.placeholder || `Select ${field.name}`} />
                   </SelectTrigger>
@@ -121,7 +105,7 @@ export function CreationTool({ feature }: CreationToolProps) {
                 </Select>
               )}
               {field.type === 'button' && (
-                 <Button type="button" variant="outline" className='w-full justify-start'>
+                 <Button type="button" variant="outline" className='w-full justify-start' disabled>
                     {field.cta}
                 </Button>
               )}
@@ -130,15 +114,9 @@ export function CreationTool({ feature }: CreationToolProps) {
           ))}
         </div>
         <div className="flex justify-end pt-4">
-          <Button type="submit" disabled={isLoading} size="lg">
-            {isLoading ? (
-              'Generating...'
-            ) : (
-              <>
-                <Sparkles className="mr-2 h-5 w-5" />
-                Generate
-              </>
-            )}
+          <Button type="submit" disabled size="lg">
+              <Lock className="mr-2 h-5 w-5" />
+              Login to Generate
           </Button>
         </div>
       </form>

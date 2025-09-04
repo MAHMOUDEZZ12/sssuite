@@ -538,7 +538,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
 
             <div className="p-8 text-center bg-card/50 rounded-b-2xl">
                <Button size="lg">
-                Start {feature.cta} Now
+                Login to Get Started
               </Button>
             </div>
             
