@@ -20,22 +20,13 @@ import {
   Repeat,
   CalendarCheck,
   Award,
-
-  FileText,
   Megaphone,
-  Users,
-  BookOpen,
-  Tag,
-  Blocks,
-  MessageSquare,
-  Link,
   Zap,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const features = [
   {
@@ -46,7 +37,12 @@ const features = [
     icon: <Megaphone />,
     color: 'from-pink-500/80 to-pink-600/80',
     backText: 'Generate Your Leads with AI',
-    synergyText: 'Synergizes with Ad Creation'
+    synergies: {
+      targeting: 'Fine-tune ads with hyper-specific buyer personas.',
+      rebranding: 'Ensure every ad matches your new brand identity.',
+      'landing-pages': 'Create ads that drive traffic to optimized pages.',
+      'social-posts': 'Turn ad concepts into a full social media blitz.',
+    },
   },
   {
     id: 'targeting',
@@ -56,7 +52,12 @@ const features = [
     icon: <Target />,
     color: 'from-blue-500/80 to-blue-600/80',
     backText: 'Close More Deals, Faster',
-    synergyText: 'Enhances Targeting'
+    synergies: {
+      'ad-creation': 'Power your ad campaigns with the perfect audience.',
+      rebranding: 'Rebrand your materials for a specific niche market.',
+      'landing-pages': 'Drive high-intent buyers to your landing pages.',
+      'social-posts': 'Tailor social content to high-value demographics.',
+    },
   },
   {
     id: 'rebranding',
@@ -66,7 +67,12 @@ const features = [
     icon: <Palette />,
     color: 'from-orange-500/80 to-orange-600/80',
     backText: 'Achieve Perfect Brand Synergy',
-    synergyText: 'Powers Rebranding'
+    synergies: {
+      'ad-creation': 'Generate on-brand ads in a single click.',
+      targeting: 'Adapt your brand voice for different buyer segments.',
+      'landing-pages': 'Instantly apply your branding to new landing pages.',
+      'social-posts': 'Maintain a consistent brand voice across all social channels.',
+    },
   },
   {
     id: 'landing-pages',
@@ -76,16 +82,27 @@ const features = [
     icon: <LayoutTemplate />,
     color: 'from-green-500/80 to-green-600/80',
     backText: 'Captivate Buyers Instantly',
-    synergyText: 'Builds Landing Pages'
+    synergies: {
+      'ad-creation': 'Create the perfect destination for your ad clicks.',
+      targeting: 'Build unique landing pages for each target audience.',
+      rebranding: 'Generate a dozen branded landing pages in minutes.',
+      'social-posts': 'Link social posts to high-converting pages.',
+    },
   },
   {
     id: 'social-posts',
     title: 'AI Social Post Writer',
-    description: 'Instantly generate a week\'s worth of social media content from a single link or topic.',
+    description:
+      "Instantly generate a week's worth of social media content from a single link or topic.",
     icon: <Share2 />,
     color: 'from-rose-500/80 to-rose-600/80',
     backText: 'Fill Your Content Calendar',
-    synergyText: 'Automates Social Media'
+    synergies: {
+      'ad-creation': 'Promote your ad campaigns across social media.',
+      targeting: 'Write social posts that resonate with your target market.',
+      rebranding: 'Generate a week of on-brand social content instantly.',
+      'landing-pages': 'Drive social traffic to your beautiful new pages.',
+    },
   },
 ];
 
@@ -110,6 +127,7 @@ const FeatureCard = ({
   };
   
   const cardState = getCardState();
+  const synergyText = hoveredId ? feature.synergies[hoveredId] : null;
 
   return (
     <div
@@ -121,7 +139,8 @@ const FeatureCard = ({
         className={cn(
           'relative w-full h-[420px] text-white transition-transform duration-700 ease-in-out rounded-3xl',
           '[transform-style:preserve-3d]',
-          cardState === 'active' && '[transform:rotateY(180deg)]'
+          cardState === 'active' && '[transform:rotateY(180deg)]',
+          cardState === 'synergy' && 'group-hover/main:animate-float' // Floating animation for synergy
         )}
       >
         {/* Front of the card */}
@@ -131,7 +150,8 @@ const FeatureCard = ({
             'transition-opacity duration-500',
             feature.color,
             '[backface-visibility:hidden]',
-            isSomeoneElseHovered ? 'opacity-20' : 'opacity-100'
+            // Fade the front if someone else is hovered to make the synergy view more prominent
+            cardState === 'synergy' && 'opacity-0' 
           )}
         >
             <div className="z-10 flex flex-col h-full">
@@ -163,22 +183,26 @@ const FeatureCard = ({
               {feature.backText}
             </h3>
         </div>
-
+        
         {/* Third Face - Synergy State */}
-        <div
-          className={cn(
-            'absolute inset-0 flex flex-col items-center justify-center p-8 bg-card/80 backdrop-blur-sm rounded-3xl',
-            'transition-opacity duration-500 ease-in-out',
-            isSomeoneElseHovered ? 'opacity-100' : 'opacity-0',
-            '[backface-visibility:hidden]'
-          )}
-        >
-          <Zap className="h-12 w-12 text-primary mb-4" />
-          <h3 className="text-2xl font-bold text-center text-primary">
-            {features.find(f => f.id === hoveredId)?.synergyText || "Synergy"}
-          </h3>
-        </div>
-
+        {synergyText && (
+          <div
+            className={cn(
+              'absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-br rounded-3xl',
+              features.find(f => f.id === hoveredId)?.color, // Use the color of the hovered card
+              'transition-opacity duration-500 ease-in-out',
+               cardState === 'synergy' ? 'opacity-100' : 'opacity-0', // Show only in synergy state
+              '[backface-visibility:hidden] '
+            )}
+          >
+            <div className="text-center">
+              <Zap className="h-12 w-12 text-white/80 mx-auto mb-4" />
+              <h3 className="text-2xl font-bold text-center text-white">
+                {synergyText}
+              </h3>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -210,7 +234,7 @@ export default function Home() {
         </div>
 
         <div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 lg:gap-12 max-w-[90rem] mx-auto"
+            className="group/main grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 lg:gap-12 max-w-[90rem] mx-auto"
             onMouseLeave={() => setHoveredId(null)}
         >
           {features.map((feature, index) => (
