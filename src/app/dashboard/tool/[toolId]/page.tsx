@@ -14,7 +14,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
-import { Loader, Sparkles, Download, Copy, AlertCircle } from 'lucide-react';
+import { Loader, Sparkles, Download, Copy, AlertCircle, Upload } from 'lucide-react';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { Confetti } from '@/components/confetti';
@@ -26,6 +26,7 @@ import { rebrandBrochure } from '@/ai/flows/rebrand-brochure';
 import { generateSocialPost } from '@/ai/flows/generate-social-post';
 import { suggestTargetingOptions } from '@/ai/flows/suggest-targeting-options';
 import { editPdf } from '@/ai/flows/edit-pdf';
+import { cn } from '@/lib/utils';
 
 const fileToDataUri = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -185,6 +186,7 @@ export default function ToolPage() {
   const {
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -284,13 +286,28 @@ export default function ToolPage() {
                       name={field.id}
                       control={control}
                       render={({ field: { onChange, onBlur, value, name, ref } }) => {
+                         const fileList: FileList | null = value;
                          switch (field.type) {
                             case 'text':
                               return <Input id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
                             case 'textarea':
                               return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
                             case 'file':
-                                return <Input id={field.id} type="file" multiple={field.multiple} onBlur={onBlur} name={name} ref={ref} onChange={e => onChange(e.target.files)} />;
+                                return (
+                                   <div>
+                                    <Input id={field.id} type="file" multiple={field.multiple} onBlur={onBlur} name={name} ref={ref} onChange={e => onChange(e.target.files)} className="sr-only" />
+                                     <label 
+                                        htmlFor={field.id} 
+                                        className={cn(
+                                            "flex items-center justify-center gap-2 w-full h-10 px-3 py-2 text-sm border-input border rounded-md cursor-pointer bg-background hover:bg-muted/50",
+                                            fileList && fileList.length > 0 && "text-primary"
+                                        )}
+                                    >
+                                        <Upload className="h-4 w-4"/>
+                                        <span>{fileList && fileList.length > 0 ? `${fileList.length} file(s) selected` : `Choose file(s)...`}</span>
+                                    </label>
+                                   </div>
+                                );
                             case 'select':
                               return (
                                 <Select onValueChange={onChange} defaultValue={value}>

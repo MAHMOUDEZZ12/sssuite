@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Upload, FileText, ImageIcon, FileSpreadsheet, Trash2, Download } from 'lucide-react';
 import { PageHeader } from '@/components/ui/page-header';
+import { Input } from '@/components/ui/input';
 
 const mockFiles = [
   { id: 1, name: 'Luxury_Condo_Brochure.pdf', type: 'PDF', icon: <FileText className="h-10 w-10 text-destructive" />, size: '2.5 MB' },
@@ -18,6 +19,16 @@ const mockFiles = [
 
 
 export default function DataStoragePage() {
+    const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        if (files) {
+            console.log('Uploading files:', files);
+            // Add actual upload logic here
+        }
+    };
+
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
@@ -25,7 +36,14 @@ export default function DataStoragePage() {
         description="Manage all your uploaded assets and AI-generated files in one place."
         icon={<Upload className="h-8 w-8" />}
       >
-         <Button>
+        <Input
+            type="file"
+            ref={fileInputRef}
+            className="hidden"
+            onChange={handleFileUpload}
+            multiple
+        />
+         <Button onClick={() => fileInputRef.current?.click()}>
             <Upload className="mr-2 h-4 w-4" />
             Upload New File
         </Button>

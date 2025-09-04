@@ -10,9 +10,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Palette, Upload, Save } from 'lucide-react';
+import { Palette, Upload, Save, Image as ImageIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
 const brandSchema = z.object({
   companyName: z.string().min(2, 'Company name is required.'),
@@ -27,12 +28,14 @@ type BrandFormValues = z.infer<typeof brandSchema>;
 export default function BrandPage() {
   const { toast } = useToast();
   const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
+  const [isDragging, setIsDragging] = React.useState(false);
 
   // In a real app, you would fetch and set default values from a database
   const {
     control,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<BrandFormValues>({
     resolver: zodResolver(brandSchema),
@@ -56,9 +59,10 @@ export default function BrandPage() {
     });
   };
   
-  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleFileChange = (files: FileList | null) => {
+    const file = files?.[0];
     if (file) {
+      setValue("logo", file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setLogoPreview(reader.result as string);
@@ -90,31 +94,8 @@ export default function BrandPage() {
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div className="space-y-2">
-                <Label htmlFor="logo" className="font-semibold text-lg">Company Logo</Label>
-                <div className="flex items-center gap-4">
-                  <div className="w-24 h-24 rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/50">
-                    {logoPreview ? (
-                      <Image src={logoPreview} alt="Logo preview" width={80} height={80} className="object-contain rounded-md" />
-                    ) : (
-                      <Upload className="h-8 w-8 text-muted-foreground" />
-                    )}
-                  </div>
-                  <Controller
-                    name="logo"
-                    control={control}
-                    render={({ field }) => (
-                       <Input id="logo" type="file" accept="image/*" onChange={(e) => {
-                         field.onChange(e.target.files);
-                         handleLogoChange(e);
-                       }} className="max-w-xs" />
-                    )}
-                  />
-                </div>
-                 {errors.logo && <p className="text-sm text-destructive">{errors.logo.message as string}</p>}
-              </div>
-              <div className="space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+               <div className="space-y-2">
                 <Label htmlFor="companyName" className="font-semibold text-lg">Company Name</Label>
                  <Controller
                     name="companyName"
@@ -124,6 +105,50 @@ export default function BrandPage() {
                     )}
                   />
                  {errors.companyName && <p className="text-sm text-destructive">{errors.companyName.message}</p>}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="logo" className="font-semibold text-lg">Company Logo</Label>
+                <Controller
+                  name="logo"
+                  control={control}
+                  render={({ field }) => (
+                     <div 
+                        className={cn(
+                          "relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer bg-muted/20 hover:bg-muted/50 transition-colors",
+                          isDragging && "border-primary bg-primary/10"
+                        )}
+                        onDragEnter={() => setIsDragging(true)}
+                        onDragLeave={() => setIsDragging(false)}
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={(e) => {
+                          e.preventDefault();
+                          setIsDragging(false);
+                          handleFileChange(e.dataTransfer.files);
+                        }}
+                      >
+                       <Input 
+                        id="logo" 
+                        type="file" 
+                        accept="image/*" 
+                        className="sr-only" 
+                        onChange={(e) => handleFileChange(e.target.files)}
+                        ref={field.ref}
+                      />
+                       <label htmlFor="logo" className="w-full h-full flex flex-col items-center justify-center cursor-pointer">
+                         {logoPreview ? (
+                            <Image src={logoPreview} alt="Logo preview" width={120} height={120} className="object-contain max-h-36 rounded-md" />
+                         ) : (
+                           <div className="text-center text-muted-foreground">
+                             <Upload className="mx-auto h-10 w-10 mb-2" />
+                             <p className="font-semibold">Click to upload or drag and drop</p>
+                             <p className="text-xs">PNG, JPG, or SVG (max. 800x400px)</p>
+                           </div>
+                         )}
+                       </label>
+                    </div>
+                  )}
+                 />
+                 {errors.logo && <p className="text-sm text-destructive">{errors.logo.message as string}</p>}
               </div>
             </div>
 
