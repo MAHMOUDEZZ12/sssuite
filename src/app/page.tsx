@@ -484,7 +484,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
             </div>
             
             <div className='p-8'>
-              <Tabs defaultValue="create" className="w-full">
+              <Tabs defaultValue="overview" className="w-full">
                 <TabsList className="grid w-full grid-cols-5 mb-6">
                   <TabsTrigger value="overview">How to Use</TabsTrigger>
                   <TabsTrigger value="create">Create</TabsTrigger>
@@ -496,7 +496,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                 <TabsContent value="overview" className="space-y-6 text-foreground/90">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       {feature.details.steps.map((step, i) => (
-                        <div key={i} className="flex flex-col items-center text-center p-4 bg-card rounded-lg">
+                        <div key={i} className="flex flex-col items-center text-center p-4 bg-card rounded-lg border">
                           <div className='p-3 bg-primary/10 rounded-full mb-3 text-primary'>
                             {step.icon}
                           </div>
@@ -504,10 +504,6 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                           <p className='text-sm text-foreground/70'>{step.text}</p>
                         </div>
                       ))}
-                    </div>
-                    <div className="!mt-8">
-                      <label className='font-semibold text-primary mb-2 block'>Experience Needed: None</label> 
-                      <Progress value={feature.details.experienceLevel} className="h-2" />
                     </div>
                 </TabsContent>
                 
@@ -541,10 +537,9 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
             <Separator />
 
             <div className="p-8 text-center bg-card/50 rounded-b-2xl">
-               <ShinyButton>
-                {feature.cta}
-                <ArrowRight />
-              </ShinyButton>
+               <Button size="lg">
+                Start {feature.cta} Now
+              </Button>
             </div>
             
             <button onClick={onClose} className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors z-20">
@@ -594,3 +589,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
