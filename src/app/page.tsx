@@ -61,6 +61,10 @@ import {
   Send,
   Plus,
   Link,
+  Users2,
+  Clock2,
+  BadgeCheck,
+  Wallet,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -96,7 +100,26 @@ const features = [
           { text: 'Select a focus (e.g., "luxury", "family")', icon: <Target className="h-6 w-6" /> },
           { text: 'Generate multiple ad variants instantly', icon: <Sparkles className="h-6 w-6" /> },
       ],
-      aiVsManual: "A manual campaign involves hours of brainstorming, copywriting, and graphic design, often with inconsistent results. Our AI delivers multiple, data-driven ad options in under 60 seconds, allowing you to test and deploy campaigns at a fraction of the time and cost.",
+      aiVsManual: [
+        {
+          metric: 'Time Investment',
+          manual: '5-10 hours per campaign',
+          ai: 'Under 60 seconds',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Cost & Resources',
+          manual: 'Requires copywriter & designer',
+          ai: 'Included in your subscription',
+          icon: <Wallet />,
+        },
+        {
+          metric: 'Quality & Testing',
+          manual: 'Relies on guesswork, 1-2 variations',
+          ai: 'Data-driven, 5+ variations to test',
+          icon: <BadgeCheck />,
+        },
+      ],
       synergy: [
         { tool: "Precision Targeting", benefit: "Ensure your perfect ads are seen by people ready to buy." },
         { tool: "AI Page Admin", benefit: "Deploy your new ad across social channels to maximize reach." }
@@ -135,7 +158,26 @@ const features = [
         { text: 'Provide details about the property', icon: <Building className="h-6 w-6" /> },
         { text: 'Get detailed audience settings for ads', icon: <ClipboardList className="h-6 w-6" /> },
       ],
-      aiVsManual: "Manual targeting is a guessing game of trial and error, wasting ad spend on overly broad audiences. Our AI analyzes millions of data points to find niche, high-intent audiences you'd never think of, drastically improving your ad spend effectiveness and lead quality.",
+      aiVsManual: [
+        {
+          metric: 'Audience Discovery',
+          manual: 'Broad guessing (e.g., "Age 30-50")',
+          ai: 'Niche, high-intent segments',
+          icon: <Users2 />,
+        },
+        {
+          metric: 'Time to Research',
+          manual: 'Hours of market research',
+          ai: 'Under 30 seconds',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Budget Efficiency',
+          manual: 'High waste on wrong audiences',
+          ai: 'Optimized ad spend, higher ROI',
+          icon: <Wallet />,
+        },
+      ],
       synergy: [
         { tool: "Instant Ad Creation", benefit: "Design the perfect ad for the high-intent audience you've just identified." },
         { tool: "AI Social Post Writer", benefit: "Create organic posts that speak directly to the interests of your target persona." }
@@ -173,7 +215,26 @@ const features = [
         { text: 'Provide your logo & contact info', icon: <FilePlus className="h-6 w-6" /> },
         { text: 'Download the rebranded brochure instantly', icon: <FileText className="h-6 w-6" /> },
       ],
-      aiVsManual: "Manually rebranding a 20-page PDF in design software can take hours of tedious work. Our AI applies your branding—logo, contact info, colors, and even tone of voice—across the entire document in under a minute.",
+      aiVsManual: [
+         {
+          metric: 'Time to Rebrand',
+          manual: '2-4 hours in design software',
+          ai: 'Under 1 minute',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Required Skill',
+          manual: 'Proficiency in Adobe InDesign/Canva',
+          ai: 'Ability to upload a file',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'Consistency',
+          manual: 'Prone to human error and typos',
+          ai: 'Perfectly consistent every time',
+          icon: <BadgeCheck />,
+        },
+      ],
       synergy: [
         { tool: "Instant Ad Creation", benefit: "Use your newly rebranded brochure to power an ad campaign." },
         { tool: "Landing Page Generator", benefit: "Generate a branded landing page that perfectly matches your rebranded brochure." }
@@ -213,7 +274,26 @@ const features = [
         { text: 'Specify your branding preferences', icon: <Palette className="h-6 w-6" /> },
         { text: 'Generate a complete landing page', icon: <LayoutTemplate className="h-6 w-6" /> },
       ],
-      aiVsManual: "Building a single-property website manually takes hours or days and requires technical skills. Our AI generates a complete, mobile-responsive, and SEO-friendly page with a gallery and lead form in under 60 seconds.",
+      aiVsManual: [
+        {
+          metric: 'Time to Build',
+          manual: '1-2 days using a website builder',
+          ai: 'Under 60 seconds',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Technical Skill',
+          manual: 'Requires web design & dev knowledge',
+          ai: 'None. Just provide the source.',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'Features',
+          manual: 'Lead forms, galleries added manually',
+          ai: 'All features included automatically',
+          icon: <BadgeCheck />,
+        },
+      ],
       synergy: [
         { tool: "AI Social Post Writer", benefit: "Generate promotional posts to drive traffic to your new landing page." },
         { tool: "Instant Ad Creation", benefit: "Run a targeted ad campaign that clicks through to your beautiful new page." }
@@ -252,7 +332,26 @@ const features = [
         { text: 'Choose your platforms (e.g., FB, IG)', icon: <Share2 className="h-6 w-6" /> },
         { text: 'Get a week of content with images & hashtags', icon: <CalendarCheck className="h-6 w-6" /> },
       ],
-      aiVsManual: "Manually creating a week of varied, high-quality social content can take hours of research and writing. Our AI generates a full content calendar, tailored to different platforms, in under a minute.",
+      aiVsManual: [
+        {
+          metric: 'Content Creation Time',
+          manual: '2-3 hours for a week\'s content',
+          ai: 'Under 1 minute',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Creativity',
+          manual: 'Struggles with writer\'s block',
+          ai: 'Generates endless creative angles',
+          icon: <Lightbulb />,
+        },
+        {
+          metric: 'Completeness',
+          manual: 'Forgets hashtags or image ideas',
+          ai: 'Includes text, hashtags, and visuals',
+          icon: <BadgeCheck />,
+        },
+      ],
       synergy: [
         { tool: "AI Page Admin", benefit: "Automatically schedule your newly generated posts for maximum engagement." },
         { tool: "Landing Page Generator", benefit: "Create a page for a new listing and then use this tool to generate promotional posts for it." }
@@ -291,7 +390,26 @@ const features = [
         { text: 'Choose a vibe (e.g., "Modern", "Luxury")', icon: <Palette className="h-6 w-6" /> },
         { text: 'Generate multiple story variants to post', icon: <Clapperboard className="h-6 w-6" /> },
       ],
-      aiVsManual: "Manually creating a single animated story in an app like Canva can take 15-30 minutes of fighting with templates and animations. The AI generates 3-5 unique, professional-grade variants in under 60 seconds.",
+      aiVsManual: [
+         {
+          metric: 'Design Time',
+          manual: '15-30 minutes per story in Canva',
+          ai: 'Under 60 seconds for 3-5 variants',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Design Skill',
+          manual: 'Requires a good eye for design',
+          ai: 'Professional designs, automatically',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'Visual Appeal',
+          manual: 'Static templates',
+          ai: 'Dynamic animations & trending effects',
+          icon: <Sparkles />,
+        },
+      ],
       synergy: [
         { tool: "AI Social Post Writer", benefit: "Get caption ideas for your story to make it even more engaging." },
         { tool: "AI Page Admin", benefit: "Schedule your new story to post at the perfect time for maximum views." }
@@ -330,7 +448,26 @@ const features = [
         { text: 'Provide key selling points as text', icon: <PenTool className="h-6 w-6" /> },
         { text: 'Get a polished reel synced to trending audio', icon: <Send className="h-6 w-6" /> },
       ],
-      aiVsManual: "Manually editing a reel with video software can take hours of complex timeline editing and searching for audio. The AI produces a polished, ready-to-post video, intelligently synced to trending audio, in under 3 minutes.",
+      aiVsManual: [
+        {
+          metric: 'Editing Time',
+          manual: 'Hours of complex timeline editing',
+          ai: 'Under 3 minutes',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Audio',
+          manual: 'Difficult to find trending audio',
+          ai: 'Synced automatically to licensed audio',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'Pacing & Effects',
+          manual: 'Hard to get right',
+          ai: 'Intelligently paced with effects',
+          icon: <Sparkles />,
+        },
+      ],
       synergy: [
         { tool: "Instant Ad Creation", benefit: "Promote your final reel with a targeted ad campaign to reach thousands." },
         { tool: "AI Page Admin", benefit: "Share your reel with the Page Admin for automatic posting at peak times." }
@@ -369,7 +506,26 @@ const features = [
         { text: 'Set your response preferences', icon: <UserCog className="h-6 w-6" /> },
         { text: 'Let the AI handle scheduling and replies 24/7', icon: <Clock className="h-6 w-6" /> },
       ],
-      aiVsManual: "Manually, an agent might spend 5-10 hours per week just checking comments, answering repetitive questions ('what's the price?'), and scheduling posts. The AI Page Admin automates all of this while ensuring instant responsiveness, 24/7.",
+      aiVsManual: [
+        {
+          metric: 'Weekly Time Spent',
+          manual: '5-10 hours managing pages',
+          ai: 'Minutes to review suggestions',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Response Time',
+          manual: 'Hours, misses messages overnight',
+          ai: 'Instant, 24/7 responsiveness',
+          icon: <MessageCircle />,
+        },
+        {
+          metric: 'Lead Capture',
+          manual: 'Inconsistent, easy to miss',
+          ai: 'Flags high-intent leads automatically',
+          icon: <Filter />,
+        },
+      ],
       synergy: [
         { tool: "AI Social Post Writer", benefit: "Create a fully automated content pipeline from idea to publication." },
         { tool: "AI Sales Master Chat", benefit: "When the AI flags a high-intent lead, use the chat to practice your response." }
@@ -407,7 +563,26 @@ const features = [
         { text: 'Role-play a client scenario (e.g., negotiation)', icon: <Handshake className="h-6 w-6" /> },
         { text: 'Get instant feedback on your approach', icon: <Lightbulb className="h-6 w-6" /> },
       ],
-      aiVsManual: "Manual sales training involves expensive seminars, finding a mentor, or worse, trial-and-error with real clients where a mistake can cost a commission. The AI provides an on-demand, 24/7 training ground to practice and refine your skills in a completely risk-free environment.",
+      aiVsManual: [
+        {
+          metric: 'Training Availability',
+          manual: 'Expensive seminars, finding a mentor',
+          ai: 'On-demand, 24/7, risk-free practice',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Feedback',
+          manual: 'Subjective, not always available',
+          ai: 'Instant, objective, based on proven models',
+          icon: <BadgeCheck />,
+        },
+        {
+          metric: 'Cost',
+          manual: 'Can cost thousands for coaching',
+          ai: 'Included in your subscription',
+          icon: <Wallet />,
+        },
+      ],
       synergy: [
         { tool: "Precision Targeting", benefit: "Practice handling objections and questions from the specific buyer personas you've identified." },
         { tool: "AI Page Admin", benefit: "After the AI flags a high-intent lead, use the chat to prepare for your first call." }
@@ -532,8 +707,32 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                 </TabsContent>
                 
                 <TabsContent value="comparison" className="space-y-4 text-foreground/90">
-                    <h3 className="text-2xl font-semibold text-primary">AI vs. Manual</h3>
-                    <p>{feature.details.aiVsManual}</p>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-6">
+                    <div className="space-y-4">
+                      <h3 className="text-2xl font-semibold text-center text-primary">Manual Process</h3>
+                       {feature.details.aiVsManual.map((item, index) => (
+                        <div key={index} className="p-4 bg-card rounded-lg border">
+                           <div className="flex items-center gap-3 mb-2">
+                            {React.cloneElement(item.icon, { className: "h-5 w-5 text-muted-foreground" })}
+                            <h4 className="font-semibold text-foreground">{item.metric}</h4>
+                          </div>
+                          <p className="text-foreground/80 pl-8">{item.manual}</p>
+                        </div>
+                      ))}
+                    </div>
+                     <div className="space-y-4">
+                      <h3 className="text-2xl font-semibold text-center text-primary">AI-Powered Suite</h3>
+                       {feature.details.aiVsManual.map((item, index) => (
+                        <div key={index} className="p-4 bg-card rounded-lg border border-primary/20 shadow-lg shadow-primary/5">
+                           <div className="flex items-center gap-3 mb-2">
+                             {React.cloneElement(item.icon, { className: "h-5 w-5 text-primary" })}
+                            <h4 className="font-semibold text-primary">{item.metric}</h4>
+                          </div>
+                          <p className="text-foreground/80 pl-8">{item.ai}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </TabsContent>
 
                 <TabsContent value="create">
