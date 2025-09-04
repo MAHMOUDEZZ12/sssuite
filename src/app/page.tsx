@@ -267,6 +267,64 @@ const features = [
       }
     ],
   },
+   {
+    id: 'pdf-editor',
+    title: 'PDF Smart Editor',
+    description: 'Edit text, swap images, and update layouts in any PDF brochure with AI assistance.',
+    icon: <PenTool />,
+    color: 'from-yellow-500/80 to-yellow-600/80',
+    cta: 'Edited PDF',
+    details: {
+      steps: [
+        { text: 'Upload your PDF document', icon: <Upload className="h-6 w-6" /> },
+        { text: 'Tell the AI what to change (e.g., "Update the price to $750k")', icon: <MessageCircle className="h-6 w-6" /> },
+        { text: 'Download your edited PDF instantly', icon: <FileText className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+         {
+          metric: 'Time to Edit',
+          manual: 'Hours finding source files or using clunky editors',
+          ai: 'Under 2 minutes with simple commands',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Software Cost',
+          manual: 'Requires expensive Acrobat Pro subscription',
+          ai: 'Included in your suite',
+          icon: <Wallet />,
+        },
+        {
+          metric: 'Ease of Use',
+          manual: 'Complex tools and formatting issues',
+          ai: 'As easy as sending a text message',
+          icon: <BrainCircuit />,
+        },
+      ],
+      synergy: [
+        { tool: "Automated Rebranding", benefit: "After rebranding a brochure, use the editor to make final tweaks to pricing or contact info." },
+        { tool: "Listing Details Generator", benefit: "Generate a new listing description and then use the editor to paste it into your existing brochure." }
+      ]
+    },
+    creationFields: [
+      { id: 'sourcePdf', name: 'Source PDF', type: 'file', description: 'Upload the PDF you want to edit.' },
+      { id: 'editInstructions', name: 'Editing Instructions', type: 'textarea', placeholder: 'e.g., - Change the main contact name to "Jane Smith".\n- Replace the hero image with the one I uploaded.\n- Update the completion date to "Fall 2025".', description: 'Be specific about the changes you want to make.' },
+      { id: 'newImages', name: 'New Images (Optional)', type: 'file', multiple: true, description: 'Upload any new images to be swapped in.' },
+    ],
+    faqs: [
+      {
+        question: "Can it change complex layouts?",
+        answer: "For best results, focus on targeted edits like text, images, and colors. While the AI can make layout adjustments, complex redesigns are better suited for the Landing Page Generator."
+      },
+      {
+        question: "What if the PDF is just an image?",
+        answer: "The AI's OCR (Optical Character Recognition) capabilities can often identify and replace text even in image-based PDFs, but results are best with text-based documents."
+      },
+       {
+        question: "Can it edit a 50-page document?",
+        answer: "Yes, though processing time will increase with the document's length and complexity. For very large documents, it's best to specify the page numbers you want to edit in your instructions."
+      }
+    ],
+  },
   {
     id: 'landing-pages',
     title: 'Landing Page Generator',
@@ -1204,6 +1262,7 @@ const FeatureCard = ({
     'Ad': 'Generate your first',
     'Targeting Profile': 'Build a',
     'Rebranded Brochure': 'Create your',
+    'Edited PDF': 'Edit your first',
     'Landing Page': 'Generate a',
     'Social Post': 'Write a',
     'Story': 'Design a',
@@ -1348,8 +1407,8 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                 <TabsContent value="synergy" className="space-y-4 text-foreground/90">
                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {feature.details.synergy.map((s, index) => (
-                      <div key={index} className="bg-card p-4 rounded-lg border flex flex-col gap-3">
-                         <div className="flex items-center gap-2">
+                      <div key={index} className="bg-card p-6 rounded-lg border flex flex-col justify-center">
+                         <div className="flex items-center gap-2 mb-3">
                             <div className="p-2 bg-primary/10 text-primary rounded-md">
                                 <h4 className="font-semibold text-sm">{feature.title}</h4>
                             </div>
