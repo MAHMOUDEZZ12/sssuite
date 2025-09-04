@@ -735,7 +735,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                      <div className="space-y-4">
                       <h3 className="text-2xl font-semibold text-center text-primary">AI-Powered Suite</h3>
                        {feature.details.aiVsManual.map((item, index) => (
-                        <div key_={index} className="p-4 bg-card rounded-lg border border-primary/20 shadow-lg shadow-primary/5">
+                        <div key={index} className="p-4 bg-card rounded-lg border border-primary/20 shadow-lg shadow-primary/5">
                            <div className="flex items-center gap-3 mb-2">
                              {React.cloneElement(item.icon, { className: "h-5 w-5 text-primary" })}
                             <h4 className="font-semibold text-primary">{item.metric}</h4>
@@ -837,5 +837,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
