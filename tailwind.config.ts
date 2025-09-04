@@ -100,6 +100,9 @@ export default {
         'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
         'float': 'float 3s ease-in-out infinite',
       },
+      screens: {
+        '2xl': '1600px',
+      }
     },
   },
   plugins: [require('tailwindcss-animate')],
