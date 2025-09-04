@@ -18,6 +18,13 @@ import {
   Repeat,
   CalendarCheck,
   Award,
+  FileText,
+  Megaphone,
+  Users,
+  BookOpen,
+  Tag,
+  Blocks,
+  MessageSquare,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -108,7 +115,7 @@ const features = [
   {
     title: 'Competitor Ad Analysis',
     description:
-      'Spy on your competition. Instantly analyze their ad campaigns to uncover winning strategies and find your edge.',
+      'Instantly analyze competitor ad campaigns to uncover winning strategies and find your edge.',
     icon: <Binoculars />,
     callToAction: 'Gain the Upper Hand',
     backText: 'Outsmart the Competition',
@@ -118,7 +125,7 @@ const features = [
   {
     title: 'Dynamic Video Ads',
     description:
-      'Turn static listings into compelling video ads. Our AI generates engaging videos that stop the scroll and grab attention.',
+      'Turn static listings into compelling video ads that stop the scroll and grab attention.',
     icon: <Video />,
     callToAction: 'Create Video Magic',
     backText: 'Bring Your Listings to Life',
@@ -138,7 +145,7 @@ const features = [
   {
     title: 'Automated Retargeting',
     description:
-      'Re-engage past website visitors with perfectly timed ads that bring them back to your listings and convert them into clients.',
+      'Re-engage past website visitors with perfectly timed ads that bring them back to your listings.',
     icon: <Repeat />,
     callToAction: 'Win Back Visitors',
     backText: 'Never Lose a Lead Again',
@@ -158,7 +165,7 @@ const features = [
   {
     title: 'Copywriting Assistant',
     description:
-      'Never stare at a blank page again. Generate persuasive property descriptions, emails, and social posts in any tone of voice.',
+      'Generate persuasive property descriptions, emails, and social posts in any tone of voice.',
     icon: <Sparkles />,
     callToAction: 'Write Like a Pro',
     backText: 'Find the Perfect Words, Instantly',
@@ -188,7 +195,7 @@ const features = [
 ];
 
 const Card = ({ feature }: { feature: (typeof features)[0] }) => (
-  <div className="group flex flex-col" style={{ perspective: '1000px' }}>
+  <div className="group flex flex-col [perspective:1000px]">
     <div
       className={cn(
         'relative w-full h-[32rem] text-white transition-transform duration-700 ease-in-out flex-grow',
