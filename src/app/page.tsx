@@ -141,13 +141,13 @@ const features = [
     cta: 'Target Buyers',
     details: {
       useCase: [
-        'Identifies high-intent buyer personas by analyzing millions of data points.',
-        'Goes beyond basic demographics to include online behavior and life events.',
-        'Generates the perfect audience profile for Facebook and Google Ads.'
-      ],
-      aiVsManual: "Manual targeting relies on guesswork and broad categories ('interested in real estate'). Our AI builds a detailed profile of your ideal buyer, finding niche audiences you'd never think of, which drastically improves your return on ad spend and lead quality.",
-      experienceLevel: "Zero. Describe your property and ideal buyer in plain English (e.g., 'young families looking for a 3-bedroom house near good schools'), and the AI will generate the perfect audience profile for you to use on platforms like Facebook and Google.",
-      synergy: "Once you've created a campaign with **Instant Ad Creation**, apply your new Precision Targeting audience to ensure your perfectly crafted ads are seen by people ready to make a move."
+          'Describe your property and ideal buyer in plain English.',
+          'AI generates a detailed profile with specific demographics, interests, and online behaviors.',
+          'Get the exact audience settings to use for Facebook & Google Ads.'
+        ],
+      aiVsManual: "Manual targeting is a guessing game. Our AI finds niche audiences you'd never think of, drastically improving your ad spend and lead quality.",
+      experienceLevel: 'Zero. If you can describe your client, you can use this tool.',
+      synergy: "Combine with **Instant Ad Creation** to ensure your perfect ads are seen by people ready to buy."
     },
     sliderContent: [
       {
@@ -158,12 +158,12 @@ const features = [
       {
         image: 'https://picsum.photos/600/400?random=5',
         dataAiHint: 'map targeting',
-        description: 'Geographic targeting focused on users within a 10-mile radius who have shown interest in moving.'
+        description: 'Geographic targeting for users who have shown interest in moving.'
       },
       {
         image: 'https://picsum.photos/600/400?random=6',
         dataAiHint: 'interest graph',
-        description: 'Interest-based targeting for "Luxury Investors" who follow high-end financial publications.'
+        description: 'Interest-based targeting for "Luxury Investors".'
       }
     ],
     faqs: [
@@ -190,13 +190,13 @@ const features = [
     cta: 'Rebrand a Brochure',
     details: {
       useCase: [
-        'Upload any developer\'s project brochure to get started.',
-        'Instantly applies your logo, contact information, and brand colors.',
-        'Adjusts headings and key phrases to align with your brand\'s tone of voice.'
-      ],
-      aiVsManual: "Manually rebranding a PDF requires design software like Adobe InDesign and hours of tedious work. Our AI reads the document, identifies the correct places for your branding, and applies it flawlessly in under a minute.",
-      experienceLevel: "Zero. If you have your logo and contact info, you're ready to go. The AI handles all the complex formatting and placement automatically.",
-      synergy: "After rebranding a brochure, use it to power an **Instant Ad Campaign** or generate a beautiful **Landing Page**. It becomes the source material for your entire marketing funnel."
+          'Upload any developer\'s project brochure.',
+          'Instantly applies your logo, contact info, and brand colors.',
+          'Adjusts headings to align with your brand\'s tone of voice.'
+        ],
+      aiVsManual: "Manually rebranding a PDF requires design software and hours of work. Our AI does it in under a minute.",
+      experienceLevel: "Zero. If you have your logo and contact info, you're ready.",
+      synergy: "Use your rebranded brochure to power an **Instant Ad Campaign** or generate a **Landing Page**."
     },
 sliderContent: [
       {
@@ -212,21 +212,21 @@ sliderContent: [
       {
         image: 'https://picsum.photos/600/400?random=9',
         dataAiHint: 'logo color palette',
-        description: 'AI automatically applies your brand\'s color palette throughout the document.'
+        description: 'AI automatically applies your brand\'s color palette.'
       }
     ],
     faqs: [
       {
         question: "Will this work with any PDF?",
-        answer: "It works best with text-based PDFs, which are standard for most property brochures. The AI can read the text and identify where to place your information. It may be less effective on image-only PDFs or scans."
+        answer: "It works best with text-based PDFs, which are standard for most property brochures. It may be less effective on image-only PDFs or scans."
       },
       {
         question: "What if I don't have a logo?",
-        answer: "No problem. You can simply add your name and contact information. The tool will format it professionally within the brochure. You can also use our **AI Logo Generator** to create one on the fly."
+        answer: "No problem. You can simply add your name and contact information. The tool will format it professionally within the brochure."
       },
        {
         question: "Can it change the text to match my 'brand voice'?",
-        answer: "Yes. You can specify a tone (e.g., 'professional,' 'friendly,' 'luxurious'), and the AI can subtly adjust headings and key phrases to align with your brand's voice while keeping the core facts of the brochure intact."
+        answer: "Yes. You can specify a tone (e.g., 'professional,' 'friendly,' 'luxurious'), and the AI can subtly adjust headings and key phrases to align with your brand's voice."
       }
     ],
   },
@@ -239,13 +239,13 @@ sliderContent: [
     cta: 'Generate a Page',
     details: {
       useCase: [
-        'Creates stunning, high-converting single-property websites with one click.',
-        'Pulls property details, images, and features from brochures or MLS listings.',
-        'Builds a complete, mobile-responsive page with a photo gallery and lead form.'
-      ],
-      aiVsManual: "Building a landing page manually requires web development skills or complex page-builder tools like Squarespace, taking hours or even days. Our AI generates a complete, professional page in seconds, including a photo gallery, features list, and contact form.",
-      experienceLevel: "Zero. No coding or design skills are required. If you can provide a property address or a brochure, you can generate a gorgeous landing page. It's that easy.",
-      synergy: "Drive traffic to your new page by linking it from your **AI Social Posts** and **Instant Ad Campaigns**. All leads captured on the page will be automatically added to your CRM."
+          'Creates stunning single-property websites with one click.',
+          'Pulls property details, images, and features from brochures or MLS listings.',
+          'Builds a complete, mobile-responsive page with a photo gallery and lead form.'
+        ],
+      aiVsManual: "Building a landing page manually takes hours or days. Our AI generates a complete, professional page in seconds.",
+      experienceLevel: 'Zero. No coding or design skills required.',
+      synergy: "Drive traffic to your new page by linking it from your **AI Social Posts** and **Instant Ad Campaigns**."
     },
     sliderContent: [
       {
@@ -275,7 +275,7 @@ sliderContent: [
       },
       {
         question: "Is it optimized for SEO?",
-        answer: "Yes. The AI automatically generates SEO-friendly titles, meta descriptions, and image alt-tags based on the property details to help your page rank better on search engines like Google."
+        answer: "Yes. The AI automatically generates SEO-friendly titles, meta descriptions, and image alt-tags to help your page rank better on search engines."
       }
     ],
   },
@@ -288,13 +288,13 @@ sliderContent: [
     cta: 'Write Social Posts',
     details: {
       useCase: [
-        'Generates a full week of social content from a single URL or topic.',
-        'Creates tailored posts for Twitter, Facebook, LinkedIn, and Instagram.',
-        'Suggests relevant hashtags and eye-catching images for you.'
-      ],
-      aiVsManual: "Manually creating a week of content can take hours of brainstorming, writing, and tailoring posts for different platforms. Our AI does the heavy lifting in under a minute, providing a variety of high-quality posts, each adapted to the specific format and tone of each platform.",
-      experienceLevel: "Zero. If you can copy and paste a link or type a phrase, you can create an entire social media content calendar. The AI suggests relevant hashtags and images for you.",
-      synergy: "Use the **AI Page Admin** to automatically schedule the generated posts at the optimal times for maximum engagement. This creates a fully automated content pipeline, from idea to publication."
+          'Generates a full week of social content from a single URL or topic.',
+          'Creates tailored posts for Twitter, Facebook, LinkedIn, and Instagram.',
+          'Suggests relevant hashtags and eye-catching images.'
+        ],
+      aiVsManual: "Manually creating a week of content can take hours. Our AI does it in under a minute, providing a variety of high-quality posts.",
+      experienceLevel: "Zero. If you can copy and paste a link, you can create a content calendar.",
+      synergy: "Use the **AI Page Admin** to automatically schedule the generated posts for maximum engagement."
     },
     sliderContent: [
       {
@@ -305,22 +305,22 @@ sliderContent: [
       {
         image: 'https://picsum.photos/600/400?random=14',
         dataAiHint: 'linkedin article',
-        description: 'A professional LinkedIn post perfect for building your authority in the market.'
+        description: 'A professional LinkedIn post perfect for building your authority.'
       },
       {
         image: 'https://picsum.photos/600/400?random=15',
         dataAiHint: 'facebook post',
-        description: 'A more detailed Facebook post with an eye-catching image suggestion.'
+        description: 'A more detailed Facebook post with an image suggestion.'
       }
     ],
     faqs: [
       {
         question: "What kind of topics work best?",
-        answer: "You can use local market news, articles about home improvement, community events, or even just a property address. The more specific the source, the more tailored the content will be."
+        answer: "You can use local market news, articles about home improvement, community events, or even just a property address. The more specific the source, the more tailored the content."
       },
       {
         question: "Can I generate content for Instagram?",
-        answer: "Yes! The AI can generate captions, hashtag suggestions, and ideas for visuals (like carousels or polls) that are perfectly suited for Instagram's format."
+        answer: "Yes! The AI can generate captions, hashtag suggestions, and ideas for visuals that are perfectly suited for Instagram's format."
       },
       {
         question: "Can I review the posts before they are published?",
@@ -337,13 +337,13 @@ sliderContent: [
     cta: 'Design a Story',
     details: {
       useCase: [
-        'Transforms property photos into engaging, multi-slide social media stories.',
-        'Automatically adds animated text, stylish graphics, and your branding.',
-        'Generates 3-5 unique, ready-to-post story variants in under 60 seconds.'
-      ],
-      aiVsManual: "Manually creating a single animated story with varied layouts in an app like Canva can take 15-30 minutes. The AI Story Designer generates 3-5 unique, ready-to-post story variants in under 60 seconds, complete with music suggestions.",
-      experienceLevel: "Zero. If you can upload a photo and type a key feature (e.g., 'Newly Renovated Kitchen'), you can create a professional-grade social media story. No design or animation skills needed.",
-      synergy: "Use the **AI Social Post Writer** to get caption ideas for your story, then use the **AI Page Admin** to schedule it for the optimal time. You can also use it to promote an open house from a **Landing Page**."
+          'Transforms property photos into engaging, multi-slide social media stories.',
+          'Automatically adds animated text, stylish graphics, and your branding.',
+          'Generates 3-5 unique, ready-to-post story variants in under 60 seconds.'
+        ],
+      aiVsManual: "Manually creating a single animated story in Canva can take 15-30 minutes. The AI generates 3-5 unique variants in under 60 seconds.",
+      experienceLevel: 'Zero. If you can upload a photo, you can create a professional-grade story.',
+      synergy: "Use the **AI Social Post Writer** to get caption ideas for your story, then use the **AI Page Admin** to schedule it."
     },
     sliderContent: [
       {
@@ -365,15 +365,15 @@ sliderContent: [
     faqs: [
       {
         question: "Can I add music?",
-        answer: "Yes. The AI suggests royalty-free music that matches the 'vibe' you select (e.g., 'Modern', 'Luxurious', 'Upbeat'). You can also upload your own audio tracks to maintain brand consistency."
+        answer: "Yes. The AI suggests royalty-free music that matches the 'vibe' you select. You can also upload your own audio tracks."
       },
       {
         question: "Is my branding automatically added?",
-        answer: "Yes, once you set up your brand kit with your logo and colors in your profile, the AI automatically incorporates them into every story design, ensuring a consistent and professional look."
+        answer: "Yes, once you set up your brand kit with your logo and colors, the AI automatically incorporates them into every story design."
       },
       {
         question: "Can I customize the text and images?",
-        answer: "Absolutely. The AI provides a finished product as a starting point. You have full control to edit the text, swap out images, and change the animations before finalizing your story."
+        answer: "Absolutely. The AI provides a finished product as a starting point. You have full control to edit the text, swap out images, and change the animations."
       }
     ],
   },
@@ -386,13 +386,13 @@ sliderContent: [
     cta: 'Produce Viral Reels',
     details: {
       useCase: [
-        'Turns static photos into dynamic, attention-grabbing video reels.',
-        'Intelligently adds transitions and syncs them to trending audio.',
-        'Perfect for creating content for Instagram, TikTok, and YouTube Shorts.'
-      ],
-      aiVsManual: "Manually editing a simple video reel can take hours using complex software like Adobe Premiere Pro. The AI Reel Designer produces a polished, ready-to-post video in under 3 minutes, handling all the technical editing for you.",
-      experienceLevel: "Zero. No video editing knowledge is required. Simply upload your photos or short video clips, provide some key features as text, and the AI does the rest.",
-      synergy: "Use photos from a listing, pull a compelling narrative from the **AI Sales Master Chat**, and promote the final reel with an **Instant Ad Campaign** to reach thousands of potential buyers."
+          'Turns static photos into dynamic, attention-grabbing video reels.',
+          'Intelligently adds transitions and syncs them to trending audio.',
+          'Perfect for Instagram, TikTok, and YouTube Shorts.'
+        ],
+      aiVsManual: "Manually editing a reel can take hours with complex software. The AI produces a polished, ready-to-post video in under 3 minutes.",
+      experienceLevel: 'Zero. No video editing knowledge is required. Upload photos and the AI does the rest.',
+      synergy: "Promote your final reel with an **Instant Ad Campaign** to reach thousands of potential buyers."
     },
     sliderContent: [
       {
@@ -408,21 +408,21 @@ sliderContent: [
       {
         image: 'https://picsum.photos/600/400?random=21',
         dataAiHint: 'text animation',
-        description: 'Dynamic text overlays that highlight key information like "Waterfront Views".'
+        description: 'Dynamic text overlays that highlight key information.'
       }
     ],
     faqs: [
       {
         question: "Does the AI choose the music?",
-        answer: "Yes, the AI analyzes your footage and selects from a library of trending, commercially-licensed audio tracks that match the 'vibe' you select, ensuring your video feels current and engaging."
+        answer: "Yes, the AI analyzes your footage and selects from a library of trending, commercially-licensed audio tracks that match the 'vibe' you select."
       },
       {
         question: "What if I only have a few photos?",
-        answer: "That's perfectly fine! The AI is skilled at creating dynamic videos even with a small number of assets by using effects like Ken Burns (slow zoom/pan) and parallax to make static images feel alive."
+        answer: "That's fine! The AI is skilled at creating dynamic videos even with a small number of assets by using effects to make static images feel alive."
       },
       {
         question: "Can I add a voiceover?",
-        answer: "Yes. You can record a voiceover directly in the tool, or upload a pre-recorded audio file. The AI can even generate a voiceover for you based on a script you provide."
+        answer: "Yes. You can record a voiceover directly in the tool, or upload a pre-recorded audio file. The AI can even generate a voiceover for you."
       }
     ],
   },
@@ -435,13 +435,13 @@ sliderContent: [
     cta: 'Put Your Page on Autopilot',
     details: {
       useCase: [
-        'Handles day-to-day social media management 24/7.',
-        'Schedules posts for peak engagement times.',
-        'Instantly responds to common inquiries and flags important comments.'
-      ],
-      aiVsManual: "Manually, you'd spend 5-10 hours per week checking comments, responding to DMs, and scheduling posts. The AI Page Admin automates this entire process while ensuring instant responsiveness, so no lead is ever left waiting.",
-      experienceLevel: "Zero. Simply connect your social pages and set up your response preferences one time. The AI learns from your properties and your brand voice to provide authentic, helpful interactions.",
-      synergy: "Connect it to your **AI Social Post Writer** to create a fully automated content pipeline. Let it handle inquiries from your **Instant Ad Campaigns** around the clock, even while you sleep."
+          'Handles day-to-day social media management 24/7.',
+          'Schedules posts for peak engagement times.',
+          'Instantly responds to common inquiries and flags important comments.'
+        ],
+      aiVsManual: "Manually, you'd spend 5-10 hours per week checking comments and scheduling posts. The AI Page Admin automates this while ensuring instant responsiveness.",
+      experienceLevel: "Zero. Simply connect your social pages and set your preferences one time.",
+      synergy: "Connect it to your **AI Social Post Writer** to create a fully automated content pipeline."
     },
     sliderContent: [
       {
@@ -457,21 +457,21 @@ sliderContent: [
       {
         image: 'https://picsum.photos/600/400?random=24',
         dataAiHint: 'lead notification',
-        description: 'A lead with high buying intent is automatically flagged for your personal attention.'
+        description: 'A lead with high buying intent is automatically flagged for your attention.'
       }
     ],
     faqs: [
       {
         question: "Can the AI answer complex questions?",
-        answer: "The AI is trained to handle common, factual questions (e.g., 'How many bedrooms?', 'What's the square footage?'). For complex or nuanced inquiries, it will intelligently flag the conversation and notify you for personal review."
+        answer: "The AI is trained to handle common, factual questions. For complex inquiries, it will intelligently flag the conversation and notify you for personal review."
       },
       {
         question: "Will it post without my approval?",
-        answer: "You have full control. You can set the AI to be fully autonomous, or you can have it queue up all posts and responses in a 'drafts' folder for you to approve with a single click."
+        answer: "You have full control. You can set the AI to be fully autonomous, or have it queue up all posts in a 'drafts' folder for you to approve."
       },
       {
         question: "Which social media platforms are supported?",
-        answer: "Currently, the AI Page Admin integrates with Facebook Pages and Instagram Business accounts. We are actively working on adding support for LinkedIn and other platforms."
+        answer: "Currently, the AI Page Admin integrates with Facebook Pages and Instagram Business accounts. We are actively working on adding support for other platforms."
       }
     ],
   },
@@ -484,13 +484,13 @@ sliderContent: [
     cta: 'Chat with Sales Legends',
     details: {
       useCase: [
-        'Practice sales scripts and negotiation tactics in a risk-free environment.',
-        'Chat with AI personas modeled after legendary sales archetypes.',
-        'Get instant, insightful feedback to hone your skills 24/7.'
-      ],
-      aiVsManual: "Manual sales training involves expensive seminars, role-playing with colleagues (who are often too busy), or trial-and-error with real clients where mistakes can be costly. The AI Sales Master Chat provides an on-demand, 24/7 training ground that's always available.",
-      experienceLevel: "Zero. It's a simple chat interface. Just choose your persona, type your question or sales scenario, and get an instant, insightful response.",
-      synergy: "Use the **AI Social Post Writer** to generate a post about a new listing, then jump into the **Sales Master Chat** to practice how you'd handle incoming calls about it. Role-play overcoming objections before you ever face them in real life."
+          'Practice sales scripts and negotiation tactics in a risk-free environment.',
+          'Chat with AI personas modeled after legendary sales archetypes.',
+          'Get instant, insightful feedback to hone your skills 24/7.'
+        ],
+      aiVsManual: "Manual sales training involves expensive seminars or trial-and-error with real clients. The AI provides an on-demand, 24/7 training ground.",
+      experienceLevel: "Zero. It's a simple chat interface. Choose your persona and start typing.",
+      synergy: "Use the **AI Social Post Writer** to generate a post, then jump into the chat to practice handling incoming calls about it."
     },
     sliderContent: [
       {
@@ -506,17 +506,17 @@ sliderContent: [
       {
         image: 'https://picsum.photos/600/400?random=27',
         dataAiHint: 'script feedback',
-        description: 'Getting instant feedback on how to improve your opening line for a cold call.'
+        description: 'Getting instant feedback on how to improve your opening line.'
       }
     ],
     faqs: [
       {
         question: "Are the personas based on real people?",
-        answer: "The personas are archetypes based on well-known sales methodologies (e.g., 'The Challenger Sale', 'SPIN Selling'). They are designed to embody specific, proven strategies to give you a well-rounded training experience."
+        answer: "The personas are archetypes based on well-known sales methodologies (e.g., 'The Challenger Sale'). They are designed to embody specific, proven strategies."
       },
       {
         question: "Can I upload my own scripts for practice?",
-        answer: "Yes, you can paste your own scripts into the chat and ask the AI persona to critique them, provide feedback, or even role-play the other side of the conversation with you."
+        answer: "Yes, you can paste your own scripts into the chat and ask the AI persona to critique them or role-play the other side of the conversation."
       },
       {
         question: "Does the chat save my conversations?",
