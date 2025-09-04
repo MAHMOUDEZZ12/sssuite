@@ -17,12 +17,50 @@ import {
 import { Logo } from '@/components/logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
-  FolderKanban,
-  Paintbrush,
-  Rocket,
+  Bot,
   Clapperboard,
+  Database,
+  FileText,
+  Film,
+  LayoutTemplate,
+  LineChart,
+  Mail,
+  Megaphone,
+  MessageSquare,
+  Palette,
+  PenTool,
+  Phone,
+  Share2,
+  Target,
+  UserCog,
+  UserPlus,
+  Users2,
+  Video,
+  Briefcase,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+
+const allTools = [
+    { id: 'ad-creation', title: 'Instant Ad Creation', icon: <Megaphone /> },
+    { id: 'targeting', title: 'Precision Targeting', icon: <Target /> },
+    { id: 'rebranding', title: 'Automated Rebranding', icon: <Palette /> },
+    { id: 'pdf-editor', title: 'PDF Smart Editor', icon: <PenTool /> },
+    { id: 'landing-pages', title: 'Landing Page Generator', icon: <LayoutTemplate /> },
+    { id: 'social-posts', title: 'Social Post Writer', icon: <Share2 /> },
+    { id: 'story-designer', title: 'AI Story Designer', icon: <Film /> },
+    { id: 'reel-designer', title: 'AI Reel Designer', icon: <Clapperboard /> },
+    { id: 'tiktok-editor', title: 'TikTok Video Editor', icon: <Video /> },
+    { id: 'page-admin', title: 'AI Page Admin', icon: <UserCog /> },
+    { id: 'sales-master-chat', title: 'AI Sales Master Chat', icon: <MessageSquare /> },
+    { id: 'crm-assistant', title: 'CRM Memory Assistant', icon: <Database /> },
+    { id: 'lead-generation', title: 'Social Lead Generation', icon: <UserPlus /> },
+    { id: 'market-reports', title: 'Market Trend Reports', icon: <LineChart /> },
+    { id: 'investor-matching', title: 'Investor Matching', icon: <Users2 /> },
+    { id: 'listing-generator', title: 'Listing Details Generator', icon: <FileText /> },
+    { id: 'offer-generator', title: 'Multi-Project Offer Generator', icon: <Briefcase /> },
+    { id: 'email-creator', title: 'Email Marketing Creator', icon: <Mail /> },
+    { id: 'instagram-bot', title: 'Instagram Chat Bot', icon: <Bot /> },
+    { id: 'whatsapp-campaigns', title: 'WhatsApp Campaign Manager', icon: <Phone /> },
+];
 
 export default function DashboardLayout({
   children,
@@ -40,34 +78,14 @@ export default function DashboardLayout({
         </SidebarHeader>
         <SidebarContent>
           <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                href="#"
-                isActive
-                tooltip={{ children: 'Brand Assets' }}
-              >
-                <Paintbrush />
-                <span>Brand Assets</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton href="#" tooltip={{ children: 'Projects' }}>
-                <FolderKanban />
-                <span>Projects</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton href="#" tooltip={{ children: 'Media' }}>
-                <Clapperboard />
-                <span>Media</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton href="#" tooltip={{ children: 'Marketing' }}>
-                <Rocket />
-                <span>Marketing</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+            {allTools.map((tool, index) => (
+                <SidebarMenuItem key={tool.id}>
+                    <SidebarMenuButton href="#" isActive={index === 0} tooltip={{children: tool.title}}>
+                        {tool.icon}
+                        <span>{tool.title}</span>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+            ))}
           </SidebarMenu>
         </SidebarContent>
         <SidebarFooter>
