@@ -8,6 +8,16 @@ import {
   Palette,
   Target,
   Share2,
+  Gem,
+  Sparkles,
+  Gauge,
+  Mails,
+  Binoculars,
+  Video,
+  BarChart,
+  Repeat,
+  CalendarCheck,
+  Award,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -75,13 +85,113 @@ const features = [
     color: 'from-teal-500/80 to-teal-600/80',
     shape: 'rounded-tr-[60px] rounded-bl-[60px] rounded-2xl',
   },
+  {
+    title: 'AI Lead Scoring',
+    description:
+      'Prioritize your hottest leads. Our AI analyzes engagement and predicts which prospects are most likely to convert.',
+    icon: <Gauge />,
+    callToAction: 'Focus Your Energy',
+    backText: 'Focus on Ready-to-Buy Leads',
+    color: 'from-red-500/80 to-red-600/80',
+    shape: 'rounded-3xl',
+  },
+  {
+    title: 'Automated Email Nurturing',
+    description:
+      'Engage leads on autopilot with personalized email sequences that build trust and keep your brand top-of-mind.',
+    icon: <Mails />,
+    callToAction: 'Nurture Your Leads',
+    backText: 'Convert Leads While You Sleep',
+    color: 'from-indigo-500/80 to-indigo-600/80',
+    shape: 'rounded-tl-[60px] rounded-br-[60px] rounded-2xl',
+  },
+  {
+    title: 'Competitor Ad Analysis',
+    description:
+      'Spy on your competition. Instantly analyze their ad campaigns to uncover winning strategies and find your edge.',
+    icon: <Binoculars />,
+    callToAction: 'Gain the Upper Hand',
+    backText: 'Outsmart the Competition',
+    color: 'from-yellow-500/80 to-yellow-600/80',
+    shape: 'rounded-tr-[60px] rounded-bl-[60px] rounded-2xl',
+  },
+  {
+    title: 'Dynamic Video Ads',
+    description:
+      'Turn static listings into compelling video ads. Our AI generates engaging videos that stop the scroll and grab attention.',
+    icon: <Video />,
+    callToAction: 'Create Video Magic',
+    backText: 'Bring Your Listings to Life',
+    color: 'from-cyan-500/80 to-cyan-600/80',
+    shape: 'rounded-3xl',
+  },
+  {
+    title: 'Predictive Market Analytics',
+    description:
+      "Make data-driven decisions. Get AI-powered insights into market trends, pricing, and buyer behavior.",
+    icon: <BarChart />,
+    callToAction: 'Predict the Future',
+    backText: 'Become a Market Expert',
+    color: 'from-lime-500/80 to-lime-600/80',
+    shape: 'rounded-tl-[60px] rounded-br-[60px] rounded-2xl',
+  },
+  {
+    title: 'Automated Retargeting',
+    description:
+      'Re-engage past website visitors with perfectly timed ads that bring them back to your listings and convert them into clients.',
+    icon: <Repeat />,
+    callToAction: 'Win Back Visitors',
+    backText: 'Never Lose a Lead Again',
+    color: 'from-fuchsia-500/80 to-fuchsia-600/80',
+    shape: 'rounded-tr-[60px] rounded-bl-[60px] rounded-2xl',
+  },
+  {
+    title: 'AI Appointment Scheduling',
+    description:
+      'Let your AI assistant handle the back-and-forth. Automatically schedule viewings and meetings with qualified leads.',
+    icon: <CalendarCheck />,
+    callToAction: 'Automate Your Calendar',
+    backText: 'Fill Your Calendar, Effortlessly',
+    color: 'from-sky-500/80 to-sky-600/80',
+    shape: 'rounded-3xl',
+  },
+  {
+    title: 'Copywriting Assistant',
+    description:
+      'Never stare at a blank page again. Generate persuasive property descriptions, emails, and social posts in any tone of voice.',
+    icon: <Sparkles />,
+    callToAction: 'Write Like a Pro',
+    backText: 'Find the Perfect Words, Instantly',
+    color: 'from-amber-500/80 to-amber-600/80',
+    shape: 'rounded-tl-[60px] rounded-br-[60px] rounded-2xl',
+  },
+  {
+    title: 'Premium Brand Kits',
+    description:
+      'Establish a high-end brand identity. Generate complete brand kits with premium logos, color palettes, and fonts.',
+    icon: <Gem />,
+    callToAction: 'Define Your Brand',
+    backText: 'Build a Premium Brand Image',
+    color: 'from-rose-500/80 to-rose-600/80',
+    shape: 'rounded-tr-[60px] rounded-bl-[60px] rounded-2xl',
+  },
+  {
+    title: 'Closing Intelligence',
+    description:
+      'Get the final advantage. AI-powered insights and talking points to help you navigate negotiations and close the deal.',
+    icon: <Award />,
+    callToAction: 'Close with Confidence',
+    backText: 'Seal the Deal, Every Time',
+    color: 'from-emerald-500/80 to-emerald-600/80',
+    shape: 'rounded-3xl',
+  },
 ];
 
 const Card = ({ feature }: { feature: (typeof features)[0] }) => (
   <div className="group flex flex-col" style={{ perspective: '1000px' }}>
     <div
       className={cn(
-        'relative w-full h-[28rem] text-white transition-transform duration-700 ease-in-out flex-grow',
+        'relative w-full h-[32rem] text-white transition-transform duration-700 ease-in-out flex-grow',
         'shadow-2xl hover:shadow-primary/50',
         feature.shape,
         '[transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]'
@@ -96,12 +206,20 @@ const Card = ({ feature }: { feature: (typeof features)[0] }) => (
           '[backface-visibility:hidden]'
         )}
       >
-        <div className="z-10">
+        <div className="z-10 flex flex-col h-full">
           <div className="mb-4 p-3 bg-white/20 rounded-full w-fit">
             {React.cloneElement(feature.icon, { className: 'h-8 w-8' })}
           </div>
           <h2 className="text-3xl font-bold mb-3">{feature.title}</h2>
-          <p className="text-lg opacity-90">{feature.description}</p>
+          <p className="text-lg opacity-90 flex-grow">{feature.description}</p>
+          <Button
+            size="lg"
+            variant="ghost"
+            className="bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20 mt-auto"
+          >
+            {feature.callToAction}{' '}
+            <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+          </Button>
         </div>
       </div>
 
@@ -119,16 +237,6 @@ const Card = ({ feature }: { feature: (typeof features)[0] }) => (
         </h3>
       </div>
     </div>
-    <div className="relative z-10 p-4 -mt-20">
-      <Button
-        size="lg"
-        variant="ghost"
-        className="bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20"
-      >
-        {feature.callToAction}{' '}
-        <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-      </Button>
-    </div>
   </div>
 );
 
@@ -136,7 +244,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20">
+      <main className="flex-1 w-full max-w-full px-4 md:px-6 lg:px-8 py-12 md:py-20">
         <div className="text-center mb-24 max-w-5xl mx-auto">
           <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
             Your Real Estate Sales, Amplified.
@@ -154,7 +262,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {features.map(feature => (
             <Card key={feature.title} feature={feature} />
           ))}
