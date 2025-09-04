@@ -48,6 +48,8 @@ import {
   Brush,
   Star,
   Settings,
+  LifeBuoy,
+  Server,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -168,21 +170,30 @@ export default function DashboardLayout({
                             </SidebarMenuButton>
                         </Link>
                     </SidebarMenuItem>
-                    <SidebarMenuItem>
-                        <Link href="/dashboard/connections">
-                            <SidebarMenuButton>
-                                <Share2 />
-                                <span>Connections</span>
-                            </SidebarMenuButton>
-                        </Link>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
+                     <SidebarMenuItem>
                          <Link href="/dashboard/settings">
                             <SidebarMenuButton>
                                 <Settings />
                                 <span>Settings</span>
                             </SidebarMenuButton>
                         </Link>
+                    </SidebarMenuItem>
+                    <Separator />
+                     <SidebarMenuItem>
+                        <Link href="/dashboard/status">
+                            <SidebarMenuButton>
+                                <Server />
+                                <span>System Status</span>
+                            </SidebarMenuButton>
+                        </Link>
+                    </SidebarMenuItem>
+                     <SidebarMenuItem>
+                        <a href="mailto:support@supersalessuite.com">
+                            <SidebarMenuButton>
+                                <LifeBuoy />
+                                <span>Report an Issue</span>
+                            </SidebarMenuButton>
+                        </a>
                     </SidebarMenuItem>
                  </SidebarMenu>
             </div>
