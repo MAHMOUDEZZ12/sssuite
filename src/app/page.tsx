@@ -55,6 +55,7 @@ import {
   Film,
   UserCog,
   MessageSquare,
+  CheckCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -90,7 +91,11 @@ const features = [
     color: 'from-pink-500/80 to-pink-600/80',
     cta: 'Create an Ad',
     details: {
-      useCase: "Our AI analyzes your property brochures and instantly generates multiple high-converting ad variants optimized for platforms like Facebook, Instagram, and Google. It understands the unique selling points, target demographics, and creates compelling copy and visuals to match.",
+      useCase: [
+          'Analyzes property brochures to understand unique selling points.',
+          'Instantly generates multiple high-converting ad variants.',
+          'Optimizes copy and visuals for Facebook, Instagram, and Google.'
+        ],
       aiVsManual: "A manual campaign involves hours of brainstorming, copywriting, and graphic design, often with inconsistent results. Our AI delivers multiple, data-driven ad options in under 60 seconds, allowing you to test and deploy campaigns at a fraction of the time and cost.",
       experienceLevel: "Zero. If you can upload a PDF brochure, you can generate a professional ad campaign. The AI handles all the creative and strategic heavy lifting.",
       synergy: "Use **Precision Targeting** to identify the perfect audience for your new ad, then deploy it across your social channels with the **AI Page Admin** to maximize reach and engagement."
@@ -135,7 +140,11 @@ const features = [
     color: 'from-blue-500/80 to-blue-600/80',
     cta: 'Target Buyers',
     details: {
-      useCase: "Move beyond basic demographics like age and location. Our AI identifies high-intent buyer personas by analyzing millions of data points, including online behavior, life events (like a new job or growing family), and psychographic signals, ensuring your ads reach the most qualified audience.",
+      useCase: [
+        'Identifies high-intent buyer personas by analyzing millions of data points.',
+        'Goes beyond basic demographics to include online behavior and life events.',
+        'Generates the perfect audience profile for Facebook and Google Ads.'
+      ],
       aiVsManual: "Manual targeting relies on guesswork and broad categories ('interested in real estate'). Our AI builds a detailed profile of your ideal buyer, finding niche audiences you'd never think of, which drastically improves your return on ad spend and lead quality.",
       experienceLevel: "Zero. Describe your property and ideal buyer in plain English (e.g., 'young families looking for a 3-bedroom house near good schools'), and the AI will generate the perfect audience profile for you to use on platforms like Facebook and Google.",
       synergy: "Once you've created a campaign with **Instant Ad Creation**, apply your new Precision Targeting audience to ensure your perfectly crafted ads are seen by people ready to make a move."
@@ -180,7 +189,11 @@ const features = [
     color: 'from-orange-500/80 to-orange-600/80',
     cta: 'Rebrand a Brochure',
     details: {
-      useCase: "Upload any developer's project brochure, and our AI will instantly rebrand it with your logo, contact information, and brand colors, giving you a polished, professional marketing asset in seconds. It's perfect for quickly preparing materials for a client or an open house.",
+      useCase: [
+        'Upload any developer\'s project brochure to get started.',
+        'Instantly applies your logo, contact information, and brand colors.',
+        'Adjusts headings and key phrases to align with your brand\'s tone of voice.'
+      ],
       aiVsManual: "Manually rebranding a PDF requires design software like Adobe InDesign and hours of tedious work. Our AI reads the document, identifies the correct places for your branding, and applies it flawlessly in under a minute.",
       experienceLevel: "Zero. If you have your logo and contact info, you're ready to go. The AI handles all the complex formatting and placement automatically.",
       synergy: "After rebranding a brochure, use it to power an **Instant Ad Campaign** or generate a beautiful **Landing Page**. It becomes the source material for your entire marketing funnel."
@@ -225,7 +238,11 @@ sliderContent: [
     color: 'from-green-500/80 to-green-600/80',
     cta: 'Generate a Page',
     details: {
-      useCase: "Create stunning, high-converting single-property websites with a single click. Our AI pulls property details, images, and key features from a brochure or MLS listing to build a beautiful, mobile-responsive landing page designed to capture leads.",
+      useCase: [
+        'Creates stunning, high-converting single-property websites with one click.',
+        'Pulls property details, images, and features from brochures or MLS listings.',
+        'Builds a complete, mobile-responsive page with a photo gallery and lead form.'
+      ],
       aiVsManual: "Building a landing page manually requires web development skills or complex page-builder tools like Squarespace, taking hours or even days. Our AI generates a complete, professional page in seconds, including a photo gallery, features list, and contact form.",
       experienceLevel: "Zero. No coding or design skills are required. If you can provide a property address or a brochure, you can generate a gorgeous landing page. It's that easy.",
       synergy: "Drive traffic to your new page by linking it from your **AI Social Posts** and **Instant Ad Campaigns**. All leads captured on the page will be automatically added to your CRM."
@@ -270,7 +287,11 @@ sliderContent: [
     color: 'from-rose-500/80 to-rose-600/80',
     cta: 'Write Social Posts',
     details: {
-      useCase: "Never worry about what to post again. Give our AI a link to a news article, a blog post, or just a topic (e.g., 'local market update'), and it will generate a full week's worth of engaging social media content for Twitter, Facebook, LinkedIn, and Instagram.",
+      useCase: [
+        'Generates a full week of social content from a single URL or topic.',
+        'Creates tailored posts for Twitter, Facebook, LinkedIn, and Instagram.',
+        'Suggests relevant hashtags and eye-catching images for you.'
+      ],
       aiVsManual: "Manually creating a week of content can take hours of brainstorming, writing, and tailoring posts for different platforms. Our AI does the heavy lifting in under a minute, providing a variety of high-quality posts, each adapted to the specific format and tone of each platform.",
       experienceLevel: "Zero. If you can copy and paste a link or type a phrase, you can create an entire social media content calendar. The AI suggests relevant hashtags and images for you.",
       synergy: "Use the **AI Page Admin** to automatically schedule the generated posts at the optimal times for maximum engagement. This creates a fully automated content pipeline, from idea to publication."
@@ -315,7 +336,11 @@ sliderContent: [
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
     cta: 'Design a Story',
     details: {
-      useCase: "This tool transforms your property photos and key details into engaging, multi-slide stories for Instagram and Facebook. It automatically adds animated text, stylish graphics, and your branding, creating a professional-looking story that grabs attention and stops the scroll.",
+      useCase: [
+        'Transforms property photos into engaging, multi-slide social media stories.',
+        'Automatically adds animated text, stylish graphics, and your branding.',
+        'Generates 3-5 unique, ready-to-post story variants in under 60 seconds.'
+      ],
       aiVsManual: "Manually creating a single animated story with varied layouts in an app like Canva can take 15-30 minutes. The AI Story Designer generates 3-5 unique, ready-to-post story variants in under 60 seconds, complete with music suggestions.",
       experienceLevel: "Zero. If you can upload a photo and type a key feature (e.g., 'Newly Renovated Kitchen'), you can create a professional-grade social media story. No design or animation skills needed.",
       synergy: "Use the **AI Social Post Writer** to get caption ideas for your story, then use the **AI Page Admin** to schedule it for the optimal time. You can also use it to promote an open house from a **Landing Page**."
@@ -360,7 +385,11 @@ sliderContent: [
     color: 'from-violet-500/80 to-violet-600/80',
     cta: 'Produce Viral Reels',
     details: {
-      useCase: "An AI-powered video editor that turns your static property photos and text descriptions into dynamic, attention-grabbing video reels. It's perfect for platforms like Instagram, TikTok, and YouTube Shorts. The AI intelligently edits your clips, adds transitions, and syncs them to trending audio.",
+      useCase: [
+        'Turns static photos into dynamic, attention-grabbing video reels.',
+        'Intelligently adds transitions and syncs them to trending audio.',
+        'Perfect for creating content for Instagram, TikTok, and YouTube Shorts.'
+      ],
       aiVsManual: "Manually editing a simple video reel can take hours using complex software like Adobe Premiere Pro. The AI Reel Designer produces a polished, ready-to-post video in under 3 minutes, handling all the technical editing for you.",
       experienceLevel: "Zero. No video editing knowledge is required. Simply upload your photos or short video clips, provide some key features as text, and the AI does the rest.",
       synergy: "Use photos from a listing, pull a compelling narrative from the **AI Sales Master Chat**, and promote the final reel with an **Instant Ad Campaign** to reach thousands of potential buyers."
@@ -405,7 +434,11 @@ sliderContent: [
     color: 'from-cyan-500/80 to-cyan-600/80',
     cta: 'Put Your Page on Autopilot',
     details: {
-      useCase: "Let our AI Page Admin handle the day-to-day of your social media presence. It can schedule posts, respond to common inquiries, and flag important comments for your attention, freeing you up to focus on closing deals. It's like having a social media manager on your team 24/7.",
+      useCase: [
+        'Handles day-to-day social media management 24/7.',
+        'Schedules posts for peak engagement times.',
+        'Instantly responds to common inquiries and flags important comments.'
+      ],
       aiVsManual: "Manually, you'd spend 5-10 hours per week checking comments, responding to DMs, and scheduling posts. The AI Page Admin automates this entire process while ensuring instant responsiveness, so no lead is ever left waiting.",
       experienceLevel: "Zero. Simply connect your social pages and set up your response preferences one time. The AI learns from your properties and your brand voice to provide authentic, helpful interactions.",
       synergy: "Connect it to your **AI Social Post Writer** to create a fully automated content pipeline. Let it handle inquiries from your **Instant Ad Campaigns** around the clock, even while you sleep."
@@ -450,7 +483,11 @@ sliderContent: [
     color: 'from-lime-500/80 to-lime-600/80',
     cta: 'Chat with Sales Legends',
     details: {
-      useCase: "An interactive chat simulator where you can practice sales scripts, brainstorm negotiation tactics, and get advice from a variety of AI-powered sales personas, each modeled after a legendary sales archetype. It's a risk-free environment to hone your skills.",
+      useCase: [
+        'Practice sales scripts and negotiation tactics in a risk-free environment.',
+        'Chat with AI personas modeled after legendary sales archetypes.',
+        'Get instant, insightful feedback to hone your skills 24/7.'
+      ],
       aiVsManual: "Manual sales training involves expensive seminars, role-playing with colleagues (who are often too busy), or trial-and-error with real clients where mistakes can be costly. The AI Sales Master Chat provides an on-demand, 24/7 training ground that's always available.",
       experienceLevel: "Zero. It's a simple chat interface. Just choose your persona, type your question or sales scenario, and get an instant, insightful response.",
       synergy: "Use the **AI Social Post Writer** to generate a post about a new listing, then jump into the **Sales Master Chat** to practice how you'd handle incoming calls about it. Role-play overcoming objections before you ever face them in real life."
@@ -567,14 +604,26 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                   <TabsTrigger value="faq">FAQs</TabsTrigger>
                 </TabsList>
                 
-                <TabsContent value="overview" className="space-y-4 text-foreground/90">
-                    <h3 className="text-2xl font-semibold">How It Works</h3>
-                    <p>{feature.details.useCase}</p>
-                    <p><strong className='text-primary'>Experience Level:</strong> {feature.details.experienceLevel}</p>
+                <TabsContent value="overview" className="space-y-6 text-foreground/90">
+                    <h3 className="text-2xl font-semibold text-primary">How It Works</h3>
+                    <ul className="space-y-3">
+                      {feature.details.useCase.map((point, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <CheckCircle className="h-5 w-5 mt-1 text-primary flex-shrink-0" />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="!mt-8">
+                      <span className='font-semibold text-primary'>Experience Level:</span> 
+                      <span className='ml-2 bg-primary/10 text-primary-foreground/90 py-1 px-3 rounded-full text-sm font-medium'>
+                        {feature.details.experienceLevel}
+                      </span>
+                    </div>
                 </TabsContent>
                 
                 <TabsContent value="comparison" className="space-y-4 text-foreground/90">
-                    <h3 className="text-2xl font-semibold">AI vs. Manual</h3>
+                    <h3 className="text-2xl font-semibold text-primary">AI vs. Manual</h3>
                     <p>{feature.details.aiVsManual}</p>
                 </TabsContent>
 
@@ -598,7 +647,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                 </TabsContent>
 
                 <TabsContent value="synergy" className="space-y-4 text-foreground/90">
-                  <h3 className="text-2xl font-semibold">Works Best With</h3>
+                  <h3 className="text-2xl font-semibold text-primary">Works Best With</h3>
                   <p dangerouslySetInnerHTML={{ __html: feature.details.synergy.replace(/\*\*(.*?)\*\*/g, "<span class='font-semibold text-primary/90 bg-primary/10 py-1 px-2 rounded-md'>$1</span>") }} />
                 </TabsContent>
 
@@ -606,7 +655,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                   <Accordion type="single" collapsible className="w-full">
                     {feature.faqs.map((faq, index) => (
                       <AccordionItem value={`item-${index}`} key={index}>
-                        <AccordionTrigger>{faq.question}</AccordionTrigger>
+                        <AccordionTrigger className='text-left'>{faq.question}</AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80">{faq.answer}</AccordionContent>
                       </AccordionItem>
                     ))}
