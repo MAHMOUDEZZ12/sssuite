@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ArrowRight,
   Bot,
@@ -54,6 +54,8 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
+import { useToast } from "@/hooks/use-toast";
+import { Confetti } from "@/components/confetti";
 
 const features = [
   {
@@ -1406,11 +1408,13 @@ const FeatureCard = ({
   index,
   hoveredId,
   setHoveredId,
+  onClick,
 }: {
   feature: (typeof features)[0];
   index: number;
   hoveredId: string | null;
   setHoveredId: (id: string | null) => void;
+  onClick: (id: string) => void;
 }) => {
   const isHovered = hoveredId === feature.id;
   const isSomeoneElseHovered = hoveredId !== null && !isHovered;
@@ -1459,6 +1463,7 @@ const FeatureCard = ({
                 size="lg"
                 variant="ghost"
                 className="bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20 mt-auto"
+                onClick={() => onClick(feature.id)}
               >
                 Learn more
                 <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
@@ -1506,9 +1511,36 @@ const FeatureCard = ({
 
 export default function Home() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const { toast } = useToast();
+  const [clickedCards, setClickedCards] = useState<Set<string>>(new Set());
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  const handleCardClick = (id: string) => {
+    const newClickedCards = new Set(clickedCards);
+    newClickedCards.add(id);
+    
+    if (newClickedCards.size > clickedCards.size) {
+        setClickedCards(newClickedCards);
+        
+        if (newClickedCards.size === 1) {
+            toast({
+                title: "Great start!",
+                description: "Click two more to see the magic.",
+            });
+        } else if (newClickedCards.size === 3) {
+            toast({
+                title: "Awesome! You're getting the hang of it.",
+                description: "The possibilities are endless.",
+            });
+            setShowConfetti(true);
+        }
+    }
+  };
+
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      {showConfetti && <Confetti />}
       <LandingHeader />
       <main className="flex-1 w-full max-w-full px-4 md:px-6 lg:px-8 py-12 md:py-20">
         <div className="text-center mb-16 max-w-5xl mx-auto">
@@ -1539,6 +1571,7 @@ export default function Home() {
                 index={index} 
                 hoveredId={hoveredId}
                 setHoveredId={setHoveredId}
+                onClick={handleCardClick}
             />
           ))}
         </div>
