@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React from 'react';
@@ -22,6 +23,8 @@ import {
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { Switch } from '@/components/ui/switch';
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import Image from 'next/image';
 
 const mockBillingHistory = [
   { id: 'inv-001', date: 'Feb 20, 2024', amount: '$99.00', status: 'Paid' },
@@ -240,7 +243,22 @@ export default function SettingsPage() {
                             <p className="text-sm text-muted-foreground">Connect your WhatsApp Business account.</p>
                         </div>
                     </div>
-                    <Button variant="outline">Connect</Button>
+                    <Dialog>
+                       <DialogTrigger asChild>
+                           <Button variant="outline">Connect</Button>
+                       </DialogTrigger>
+                       <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Connect WhatsApp Business</DialogTitle>
+                                <DialogDescription>
+                                    Scan this QR code from your WhatsApp Business app to link your account.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div className="p-4 bg-white rounded-md flex justify-center">
+                                <Image src="https://picsum.photos/200" alt="QR Code" width={200} height={200} data-ai-hint="QR code" />
+                            </div>
+                       </DialogContent>
+                    </Dialog>
                 </div>
                 <div className="flex items-center justify-between rounded-lg border p-4">
                     <div className="flex items-center gap-4">

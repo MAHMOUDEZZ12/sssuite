@@ -714,65 +714,6 @@ export const tools: Feature[] = [
     ],
   },
   {
-    id: 'sales-master-chat',
-    title: 'AI Sales Master Chat',
-    description: 'Chat with legendary sales personas to sharpen your skills and close more deals.',
-    icon: <MessageSquare />,
-    color: 'from-lime-500/80 to-lime-600/80',
-    cta: 'Chat Session',
-    categories: ['Sales Tools'],
-    backsideValue: "Practice any sales call, risk-free.",
-    details: {
-      steps: [
-        { text: 'Choose an AI sales persona to chat with', icon: <Users className="h-6 w-6" /> },
-        { text: 'Role-play a client scenario (e.g., negotiation)', icon: <Handshake className="h-6 w-6" /> },
-        { text: 'Get instant feedback on your approach', icon: <Lightbulb className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        {
-          metric: 'Training Availability',
-          manual: 'Expensive seminars, finding a mentor',
-          ai: 'On-demand, 24/7, risk-free practice',
-          icon: <Clock2 />,
-        },
-        {
-          metric: 'Feedback',
-          manual: 'Subjective, not always available',
-          ai: 'Instant, objective, based on proven models',
-          icon: <BadgeCheck />,
-        },
-        {
-          metric: 'Cost',
-          manual: 'Can cost thousands for coaching',
-          ai: 'Included in your subscription',
-          icon: <Wallet />,
-        },
-      ],
-      synergy: [
-        { tool: "Precision Targeting", benefit: "Practice handling objections and questions from the specific buyer personas you've identified." },
-        { tool: "CRM Memory Assistant", benefit: "After a tough client call, use the chat to analyze the conversation and prepare a better follow-up." }
-      ],
-       faqs: [
-      {
-        question: "Are the personas based on real people?",
-        answer: "The personas are archetypes based on well-known sales methodologies (e.g., 'The Challenger Sale,' 'SPIN Selling'). They are designed to embody specific, proven strategies to challenge your thinking."
-      },
-      {
-        question: "Can I upload my own scripts for practice?",
-        answer: "Yes, you can paste your own scripts into the chat and ask the AI persona to critique them or role-play the other side of the conversation. It's a great way to prepare for a specific call."
-      },
-      {
-        question: "Does the chat save my conversations?",
-        answer: "Yes, your conversations are saved privately in your account, so you can review them later to track your progress and revisit key insights and feedback."
-      }
-    ],
-    },
-    creationFields: [
-      { id: 'persona', name: 'Choose Persona', type: 'select', options: ['The Challenger', 'The Closer', 'The Relationship Builder'], description: 'Select an AI sales coach to chat with.' },
-      { id: 'scenario', name: 'Your Scenario', type: 'textarea', placeholder: 'My client wants to lowball the offer on 123 Main St. How should I respond?', description: 'Describe the situation you want to practice.' },
-    ],
-  },
-  {
     id: 'crm-assistant',
     title: 'CRM Memory Assistant',
     description: 'Your AI brain that remembers every client detail, conversation, and deadline.',
