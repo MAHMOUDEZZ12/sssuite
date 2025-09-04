@@ -87,6 +87,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Feature, tools as features } from '@/lib/tools.tsx';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 
 type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads';
@@ -358,6 +359,49 @@ export default function Home() {
             />
           ))}
         </div>
+        
+        <section className="mt-24 max-w-6xl mx-auto">
+            <Card className="bg-card/50 backdrop-blur-lg border-primary/10 shadow-xl shadow-primary/10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
+                    <div className="p-8 md:p-12">
+                         <div className="p-3 bg-primary/10 text-primary rounded-full w-fit mb-4">
+                            <Bot className="h-8 w-8" />
+                        </div>
+                        <h2 className="text-4xl font-bold tracking-tight mb-4">Meet Your AI Partner</h2>
+                        <p className="text-lg text-foreground/70 mb-6">
+                            Beyond individual tools, the Super Sales Suite is powered by a central AI assistant you can train. Give it a personality, feed it your knowledge, and watch it become the most valuable member of your team.
+                        </p>
+                        <div className="space-y-4 mb-8">
+                            <div className="flex items-start gap-4">
+                                <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><BrainCircuit className="h-5 w-5" /></div>
+                                <div>
+                                    <h4 className="font-semibold">Personalized Instructions</h4>
+                                    <p className="text-sm text-foreground/60">Tell your assistant its name, purpose, and how to interact.</p>
+                                </div>
+                            </div>
+                             <div className="flex items-start gap-4">
+                                <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Upload className="h-5 w-5" /></div>
+                                <div>
+                                    <h4 className="font-semibold">Knowledge Base</h4>
+                                    <p className="text-sm text-foreground/60">Upload market reports, brochures, and past sales data to give it context.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <Link href="/dashboard/assistant">
+                            <Button size="lg" variant="outline">
+                                Train Your Assistant
+                                <ArrowRight className="ml-2" />
+                            </Button>
+                        </Link>
+                    </div>
+                    <div className="hidden lg:block relative w-full h-[400px] overflow-hidden rounded-r-2xl">
+                         <Image src="https://picsum.photos/600/600" alt="AI Assistant" layout="fill" objectFit="cover" data-ai-hint="abstract technology" />
+                         <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent"></div>
+                    </div>
+                </div>
+            </Card>
+        </section>
+
       </main>
       <FeatureModal feature={selectedFeature} onClose={() => setSelectedFeature(null)} />
       <LandingFooter />
