@@ -30,7 +30,7 @@ export function LandingFooter() {
           </div>
         </div>
         <div className="text-center mt-12 text-sm text-foreground/50">
-          &copy; {new Date().getFullYear()} Treble S AI. All rights reserved.
+          &copy; {new Date().getFullYear()} Super Sales Suite. All rights reserved.
         </div>
       </div>
     </footer>

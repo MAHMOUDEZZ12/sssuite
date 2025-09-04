@@ -1105,7 +1105,7 @@ const features = [
     title: 'ROI Calculator',
     description: 'Project and prove the value of an investment property.',
     icon: <DollarSign />,
-    color: 'from-lime-400/80 to-lime-500/80',
+    color: 'from-lime-400/80 to-lime-600/80',
     synergies: {
       'ad-creation': 'Project the potential return of your ad campaigns.',
       'roi-calculator': 'The Oracle: Prove the value of an investment with hard data.',
@@ -1651,7 +1651,7 @@ export default function Home() {
             A salesperson with tools is a super-seller.
           </h1>
           <p className="text-lg md:text-xl text-foreground/60">
-            A salesperson without tools is just a marketer. Explore the tools below.
+            A salesperson without tools is just looking for help. Explore the tools below.
           </p>
         </div>
 

@@ -16,7 +16,7 @@ export const Logo = ({ className }: { className?: string }) => (
       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
     </svg>
     <span className="text-lg font-semibold text-primary">
-      Treble S AI
+      Super Sales Suite
     </span>
   </Link>
 );
