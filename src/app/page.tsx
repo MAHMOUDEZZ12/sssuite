@@ -54,6 +54,8 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
+import { Confetti } from '@/components/confetti';
+import { useToast } from '@/hooks/use-toast';
 
 const features = [
   {
@@ -63,6 +65,7 @@ const features = [
     icon: <Megaphone />,
     color: 'from-pink-500/80 to-pink-600/80',
     synergies: {
+      'ad-creation': "The Genesis: Spark brilliant campaigns from a single idea.",
       targeting: 'Fine-tune ads with hyper-specific buyer personas.',
       rebranding: 'Ensure every ad matches your new brand identity.',
       'landing-pages': 'Create ads that drive traffic to optimized pages.',
@@ -133,6 +136,7 @@ const features = [
     color: 'from-blue-500/80 to-blue-600/80',
     synergies: {
       'ad-creation': 'Power your ad campaigns with the perfect audience.',
+      'targeting': "The Bullseye: Zero in on your most profitable customers.",
       rebranding: 'Rebrand your materials for a specific niche market.',
       'landing-pages': 'Drive high-intent buyers to your landing pages.',
       'social-posts': 'Tailor social content to high-value demographics.',
@@ -203,6 +207,7 @@ const features = [
     synergies: {
       'ad-creation': 'Generate on-brand ads in a single click.',
       targeting: 'Adapt your brand voice for different buyer segments.',
+      'rebranding': "The Makeover: Instantly apply your brand to any asset.",
       'landing-pages': 'Instantly apply your branding to new landing pages.',
       'social-posts': 'Maintain a consistent brand voice across all social channels.',
       'lead-gen': 'Ensure all your lead capture forms match your brand.',
@@ -273,6 +278,7 @@ const features = [
       'ad-creation': 'Create the perfect destination for your ad clicks.',
       targeting: 'Build unique landing pages for each target audience.',
       rebranding: 'Generate a dozen branded landing pages in minutes.',
+      'landing-pages': "The Conversion Engine: Build pages that turn clicks into clients.",
       'social-posts': 'Link social posts to high-converting pages.',
       'lead-gen': 'High-converting landing pages are lead-generation machines.',
       'competitor-analysis': 'Build pages that are better than your competitors\'.',
@@ -343,6 +349,7 @@ const features = [
       targeting: 'Write social posts that resonate with your target market.',
       rebranding: 'Generate a week of on-brand social content instantly.',
       'landing-pages': 'Drive social traffic to your beautiful new pages.',
+      'social-posts': "The Megaphone: Amplify your message across every social channel.",
       'lead-gen': 'Use social media to drive traffic to your lead capture forms.',
       'competitor-analysis': 'See what kind of content is working for your competitors.',
       'market-analysis': 'Create posts about current market trends and news.',
@@ -413,6 +420,7 @@ const features = [
       rebranding: 'A strong brand attracts better leads.',
       'landing-pages': 'The ultimate tool for converting traffic into leads.',
       'social-posts': 'Turn social engagement into tangible leads.',
+      'lead-gen': 'The Magnet: Attract and qualify high-intent leads automatically.',
       'competitor-analysis': 'Find lead sources your competitors are ignoring.',
       'market-analysis': 'Generate leads by offering valuable market insights.',
       'auto-follow-up': 'The moment a lead comes in, the follow-up begins.',
@@ -483,6 +491,7 @@ const features = [
       'landing-pages': 'Build landing pages that convert better than your rivals\'.',
       'social-posts': 'Create social content that hijacks the conversation.',
       'lead-gen': 'Find lead sources that your competition doesn\'t know about.',
+      'competitor-analysis': 'The Spyglass: See what\'s working for your competition.',
       'market-analysis': 'Combine competitor data with market trends for a complete picture.',
       'auto-follow-up': 'Craft follow-up messages that counter your competitors\' claims.',
       'performance-dashboard': 'Benchmark your performance against the competition.',
@@ -553,6 +562,7 @@ const features = [
       'social-posts': 'Post daily or weekly market updates to engage your audience.',
       'lead-gen': 'Generate leads by offering exclusive market reports.',
       'competitor-analysis': 'See how your competitors are reacting to market changes.',
+      'market-analysis': 'The Crystal Ball: See market trends before they happen.',
       'auto-follow-up': 'Send market update emails to your leads and clients.',
       'performance-dashboard': 'Correlate your performance with market movements.',
       'email-campaigns': 'Create data-driven email campaigns about market opportunities.',
@@ -623,6 +633,7 @@ const features = [
       'lead-gen': 'The key to converting new leads is speed-to-lead.',
       'competitor-analysis': 'Craft follow-up messages that counter competitor claims.',
       'market-analysis': 'Send automated market updates to your database.',
+      'auto-follow-up': 'The Autopilot: Nurture leads and clients 24/7.',
       'performance-dashboard': 'Track open rates, click rates, and reply rates.',
       'email-campaigns': 'The engine for your automated email marketing.',
       'crm-integration': 'Trigger follow-up sequences based on lead status changes in your CRM.',
@@ -693,6 +704,7 @@ const features = [
       'competitor-analysis': 'Benchmark your key metrics against the competition.',
       'market-analysis': 'Correlate your performance with broader market trends.',
       'auto-follow-up': 'See which follow-up sequences are converting the best.',
+      'performance-dashboard': 'The Command Center: Your entire business at a glance.',
       'email-campaigns': 'Track open rates, click rates, and unsubscribes.',
       'crm-integration': 'A single source of truth for all your sales and marketing data.',
       'brochure-rebrand': 'See if your new brochures are getting more engagement.',
@@ -763,6 +775,7 @@ const features = [
       'market-analysis': 'Send data-driven market updates to your database.',
       'auto-follow-up': 'The engine for your automated email sequences.',
       'performance-dashboard': 'Track opens, clicks, and conversions for every campaign.',
+      'email-campaigns': 'The Inbox Infiltrator: Create emails that get opened and clicked.',
       'crm-integration': 'Sync your email lists and campaign data with your CRM.',
       'brochure-rebrand': 'Send out your stunning rebranded brochures via email.',
       'offer-management': 'Email targeted offers to interested buyers.',
@@ -833,6 +846,7 @@ const features = [
       'auto-follow-up': 'Trigger CRM workflows with our automation.',
       'performance-dashboard': 'Unify all your data for a 360-degree view.',
       'email-campaigns': 'Sync email lists and engagement data with your CRM.',
+      'crm-integration': 'The Central Nervous System: Connect all your tools and data.',
       'brochure-rebrand': 'Log brochure sends and views on a contact\'s record.',
       'offer-management': 'Manage offers and negotiations within your CRM.',
       'calendar-sync': 'Sync meetings and appointments with your CRM contacts.',
@@ -903,6 +917,7 @@ const features = [
       'performance-dashboard': 'Track downloads and views of your brochures.',
       'email-campaigns': 'Attach your rebranded brochures to your email campaigns.',
       'crm-integration': 'Log brochure sends and views in your CRM.',
+      'brochure-rebrand': 'The Alchemist: Turn any brochure into branded gold.',
       'offer-management': 'Include a link to your rebranded brochure with every offer.',
       'calendar-sync': 'Send a brochure to leads before a scheduled meeting.',
       'bulk-actions': 'Rebrand and distribute brochures for all your listings at once.',
@@ -959,7 +974,10 @@ const features = [
     description: 'Receive, counter, and accept offers in one streamlined portal.',
     icon: <Handshake />,
     color: 'from-yellow-500/80 to-yellow-600/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Send ad traffic to a dedicated offer portal.',
+      'offer-management': 'The Deal Table: Manage offers and negotiations with ease.',
+    },
   },
   {
     id: 'calendar-sync',
@@ -967,7 +985,10 @@ const features = [
     description: 'Sync your schedule and let qualified leads book meetings.',
     icon: <Calendar />,
     color: 'from-violet-500/80 to-violet-600/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Let ad leads book meetings directly in your calendar.',
+      'calendar-sync': 'The Time Saver: Automate your scheduling and never double-book.',
+    },
   },
   {
     id: 'bulk-actions',
@@ -975,7 +996,10 @@ const features = [
     description: 'Launch ads, emails, and updates across all listings at once.',
     icon: <ClipboardList />,
     color: 'from-stone-500/80 to-stone-600/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Launch a dozen ad variations with a single click.',
+      'bulk-actions': 'The Multiplier: Do in minutes what used to take days.',
+    },
   },
   {
     id: 'ai-chatbot',
@@ -983,7 +1007,10 @@ const features = [
     description: 'Engage and qualify website visitors, even when you\'re asleep.',
     icon: <Bot />,
     color: 'from-sky-500/80 to-sky-600/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Qualify ad leads 24/7 with an AI assistant.',
+      'ai-chatbot': 'The Night Owl: Your 24/7 sales assistant that never sleeps.',
+    },
   },
   {
     id: 'pdf-ads',
@@ -991,7 +1018,10 @@ const features = [
     description: 'Convert static PDFs into engaging, trackable lead magnets.',
     icon: <FileText />,
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Convert static PDFs into interactive, lead-generating ads.',
+      'pdf-ads': 'The Document Dynamo: Turn any PDF into a lead machine.',
+    },
   },
   {
     id: 'video-ads',
@@ -999,7 +1029,10 @@ const features = [
     description: 'Create compelling short-form video ads from photos and text.',
     icon: <Video />,
     color: 'from-orange-400/80 to-orange-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Generate compelling video ads that stop the scroll.',
+      'video-ads': 'The Director: Create scroll-stopping video ads in seconds.',
+    },
   },
   {
     id: 'content-syndication',
@@ -1007,7 +1040,10 @@ const features = [
     description: 'Automatically push your listings and content to partner sites.',
     icon: <Network />,
     color: 'from-green-400/80 to-green-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Push your ad content across a network of platforms.',
+      'content-syndication': 'The Amplifier: Get your content seen everywhere.',
+    },
   },
   {
     id: 'client-portal',
@@ -1015,7 +1051,10 @@ const features = [
     description: 'Give clients a branded, real-time view of their campaign performance.',
     icon: <Briefcase />,
     color: 'from-blue-400/80 to-blue-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Give clients a real-time view of their ad campaigns.',
+      'client-portal': 'The VIP Room: Give clients a branded, transparent experience.',
+    },
   },
   {
     id: 'ai-negotiator',
@@ -1023,7 +1062,10 @@ const features = [
     description: 'Let our AI handle initial offers and counter-offers for you.',
     icon: <BrainCircuit />,
     color: 'from-pink-400/80 to-pink-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Let AI handle initial offers from ad leads.',
+      'ai-negotiator': 'The Closer: Let AI handle the tough negotiations for you.',
+    },
   },
   {
     id: 'pms-integration',
@@ -1031,7 +1073,10 @@ const features = [
     description: 'Sync with your property management software for seamless data flow.',
     icon: <Building />,
     color: 'from-teal-400/80 to-teal-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Sync ad campaigns with your property management system.',
+      'pms-integration': 'The Bridge: Connect your sales and property management data.',
+    },
   },
   {
     id: 'training-modules',
@@ -1039,7 +1084,10 @@ const features = [
     description: 'Access a library of AI-powered training to sharpen your skills.',
     icon: <BookOpen />,
     color: 'from-indigo-400/80 to-indigo-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Learn the secrets of high-converting ad copy.',
+      'training-modules': 'The Dojo: Sharpen your skills and become a top producer.',
+    },
   },
   {
     id: 'virtual-tours',
@@ -1047,7 +1095,10 @@ const features = [
     description: 'Create and embed stunning 3D tours that captivate buyers.',
     icon: <Camera />,
     color: 'from-rose-400/80 to-rose-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Embed immersive 3D tours directly into your ads.',
+      'virtual-tours': 'The Holodeck: Let buyers walk through a home from anywhere.',
+    },
   },
   {
     id: 'roi-calculator',
@@ -1055,7 +1106,10 @@ const features = [
     description: 'Project and prove the value of an investment property.',
     icon: <DollarSign />,
     color: 'from-lime-400/80 to-lime-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Project the potential return of your ad campaigns.',
+      'roi-calculator': 'The Oracle: Prove the value of an investment with hard data.',
+    },
   },
   {
     id: 'listing-management',
@@ -1063,7 +1117,10 @@ const features = [
     description: 'Manage all your listings across all platforms from one place.',
     icon: <ClipboardCheck />,
     color: 'from-amber-400/80 to-amber-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Create ads for all your listings automatically.',
+      'listing-management': 'The Master Key: Manage all your listings in one place.',
+    },
   },
   {
     id: 'open-house-scheduler',
@@ -1071,7 +1128,10 @@ const features = [
     description: 'Plan, promote, and manage open house attendance.',
     icon: <CalendarCheck />,
     color: 'from-purple-400/80 to-purple-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Funnel ad traffic to open house sign-up forms.',
+      'open-house-scheduler': 'The Host: Plan and promote flawless open houses.',
+    },
   },
   {
     id: 'closing-assistance',
@@ -1079,7 +1139,10 @@ const features = [
     description: 'Automate document collection and deadline reminders for smooth closings.',
     icon: <Key />,
     color: 'from-cyan-400/80 to-cyan-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Generate all necessary closing docs from ad lead data.',
+      'closing-assistance': 'The Concierge: Ensure every closing is smooth and stress-free.',
+    },
   },
   {
     id: 'predictive-analytics',
@@ -1087,7 +1150,10 @@ const features = [
     description: 'Our AI predicts which leads will convert and which houses will sell.',
     icon: <Lightbulb />,
     color: 'from-red-400/80 to-red-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Anticipate which ad creative will perform best.',
+      'predictive-analytics': 'The Fortune Teller: Predict which leads will close.',
+    },
   },
   {
     id: 'referral-program',
@@ -1095,7 +1161,10 @@ const features = [
     description: 'Turn your happy clients into a powerful referral engine.',
     icon: <Users />,
     color: 'from-emerald-400/80 to-emerald-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Build referral campaigns to amplify your ads.',
+      'referral-program': 'The Networker: Turn happy clients into your best sales force.',
+    },
   },
   {
     id: 'gamified-sales',
@@ -1103,7 +1172,10 @@ const features = [
     description: 'Boost team motivation with leaderboards, badges, and rewards.',
     icon: <Award />,
     color: 'from-yellow-400/80 to-yellow-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Create ad campaigns that drive friendly competition.',
+      'gamified-sales': 'The Arena: Turn sales into a fun, competitive sport.',
+    },
   },
   {
     id: 'dynamic-pricing',
@@ -1111,7 +1183,10 @@ const features = [
     description: 'Use AI to recommend the optimal price based on market data.',
     icon: <Sparkles />,
     color: 'from-violet-400/80 to-violet-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Automatically adjust ad offers based on demand.',
+      'dynamic-pricing': 'The Price is Right: Always know the perfect price.',
+    },
   },
   {
     id: 'a/b-testing',
@@ -1119,7 +1194,10 @@ const features = [
     description: 'Test everything from ad copy to email subject lines to find what works.',
     icon: <Filter />,
     color: 'from-stone-400/80 to-stone-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Test multiple ad versions to find the winner.',
+      'a/b-testing': 'The Scientist: Find out what really works with data.',
+    },
   },
   {
     id: 'local-seo',
@@ -1127,7 +1205,10 @@ const features = [
     description: 'Dominate local search results and be the go-to agent in your area.',
     icon: <MapPin />,
     color: 'from-sky-400/80 to-sky-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Boost your ad visibility in local search results.',
+      'local-seo': 'The Mayor: Become the #1 agent in your local market.',
+    },
   },
   {
     id: 'community-engagement',
@@ -1135,7 +1216,10 @@ const features = [
     description: 'Build and manage your online community with AI-powered tools.',
     icon: <Headset />,
     color: 'from-fuchsia-400/80 to-fuchsia-500/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Target community groups with tailored ads.',
+      'community-engagement': 'The Town Square: Build a thriving online community.',
+    },
   },
   {
     id: 'automated-reporting',
@@ -1143,7 +1227,10 @@ const features = [
     description: 'Send beautiful, automated performance reports to your clients.',
     icon: <BarChart />,
     color: 'from-orange-300/80 to-orange-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Send clients beautiful, automated ad performance reports.',
+      'automated-reporting': 'The Analyst: Deliver stunning, automated reports.',
+    },
   },
   {
     id: 'script-generator',
@@ -1151,7 +1238,10 @@ const features = [
     description: 'Generate scripts for cold calls, video ads, and follow-up messages.',
     icon: <PenTool />,
     color: 'from-green-300/80 to-green-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Generate scripts for video ads or sales calls.',
+      'script-generator': 'The Playwright: Never be at a loss for words again.',
+    },
   },
   {
     id: 'drip-campaigns',
@@ -1159,7 +1249,10 @@ const features = [
     description: 'Nurture leads for months or even years with automated campaigns.',
     icon: <Mails />,
     color: 'from-blue-300/80 to-blue-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Nurture ad leads with long-term, automated email drips.',
+      'drip-campaigns': 'The Gardener: Nurture leads until they are ready to bloom.',
+    },
   },
   {
     id: 'task-automation',
@@ -1167,7 +1260,10 @@ const features = [
     description: 'Automate your to-do list and focus on what matters most.',
     icon: <ClipboardList />,
     color: 'from-pink-300/80 to-pink-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Automatically create follow-up tasks for new ad leads.',
+      'task-automation': 'The Butler: Let AI handle your busywork, so you can focus on clients.',
+    },
   },
   {
     id: 'feedback-surveys',
@@ -1175,7 +1271,10 @@ const features = [
     description: 'Collect valuable feedback from clients and leads automatically.',
     icon: <MessageCircle />,
     color: 'from-teal-300/80 to-teal-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Survey ad respondents to refine your messaging.',
+      'feedback-surveys': 'The Listener: Gather priceless feedback to constantly improve.',
+    },
   },
   {
     id: 'real-time-alerts',
@@ -1183,7 +1282,10 @@ const features = [
     description: 'Get instant notifications for hot lead activity on your site.',
     icon: <Zap />,
     color: 'from-indigo-300/80 to-indigo-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Get instant notifications for new ad leads.',
+      'real-time-alerts': 'The Watchtower: Never miss an opportunity with instant alerts.',
+    },
   },
   {
     id: 'compliance-checker',
@@ -1191,7 +1293,10 @@ const features = [
     description: 'Ensure your marketing materials meet all regulatory standards.',
     icon: <ShieldCheck />,
     color: 'from-rose-300/80 to-rose-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Ensure your ads meet all regulatory standards.',
+      'compliance-checker': 'The Guardian: Stay safe and compliant with automated checks.',
+    },
   },
   {
     id: 'document-generator',
@@ -1199,7 +1304,10 @@ const features = [
     description: 'Automatically generate contracts, CMAs, and other documents.',
     icon: <FileUp />,
     color: 'from-lime-300/80 to-lime-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Generate contracts from ad lead information.',
+      'document-generator': 'The Scribe: Generate all your documents in a single click.',
+    },
   },
   {
     id: 'property-websites',
@@ -1207,7 +1315,10 @@ const features = [
     description: 'Create a stunning, dedicated website for each listing in minutes.',
     icon: <LayoutTemplate />,
     color: 'from-amber-300/80 to-amber-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Create a unique website for each property you advertise.',
+      'property-websites': 'The Architect: Build a stunning website for every listing.',
+    },
   },
   {
     id: 'multi-language',
@@ -1215,7 +1326,10 @@ const features = [
     description: 'Translate your marketing materials into multiple languages.',
     icon: <MessageCircle />,
     color: 'from-purple-300/80 to-purple-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Generate ads in multiple languages to reach a wider audience.',
+      'multi-language': 'The Translator: Speak your clients\' language, literally.',
+    },
   },
   {
     id: 'voice-search',
@@ -1223,7 +1337,10 @@ const features = [
     description: 'Optimize your content to be found via voice assistants.',
     icon: <Headset />,
     color: 'from-cyan-300/80 to-cyan-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Optimize your ad campaigns for voice search queries.',
+      'voice-search': 'The Herald: Be the answer when clients ask Alexa or Siri.',
+    },
   },
   {
     id: 'vr-staging',
@@ -1231,7 +1348,10 @@ const features = [
     description: 'Stage properties virtually to help buyers visualize their new home.',
     icon: <Gem />,
     color: 'from-red-300/80 to-red-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Use virtually staged photos in your property ads.',
+      'vr-staging': 'The Dream Weaver: Stage any home virtually to inspire buyers.',
+    },
   },
   {
     id: 'market-reports',
@@ -1239,7 +1359,10 @@ const features = [
     description: 'Generate beautiful, data-rich reports for any neighborhood.',
     icon: <FileSearch />,
     color: 'from-emerald-300/80 to-emerald-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Incorporate hyper-local market data into your ads.',
+      'market-reports': 'The Town Crier: Generate hyper-local reports that build trust.',
+    },
   },
   {
     id: 'agent-collaboration',
@@ -1247,7 +1370,10 @@ const features = [
     description: 'Collaborate with your team on listings, leads, and campaigns.',
     icon: <Users />,
     color: 'from-yellow-300/80 to-yellow-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Collaborate with your team on ad campaigns.',
+      'agent-collaboration': 'The Round Table: Achieve more by working together seamlessly.',
+    },
   },
   {
     id: 'commission-tracking',
@@ -1255,7 +1381,10 @@ const features = [
     description: 'Track your commissions and get projections for future earnings.',
     icon: <LineChart />,
     color: 'from-violet-300/80 to-violet-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Track commissions earned from ad-generated leads.',
+      'commission-tracking': 'The Treasurer: Watch your earnings grow in real-time.',
+    },
   },
   {
     id: 'social-listening',
@@ -1263,7 +1392,10 @@ const features = [
     description: 'Track mentions of your brand and identify potential leads.',
     icon: <Binoculars />,
     color: 'from-stone-300/80 to-stone-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Discover new ad angles by listening to social conversations.',
+      'social-listening': 'The Ear: Hear what people are saying and find hidden opportunities.',
+    },
   },
   {
     id: 'chat-integration',
@@ -1271,7 +1403,10 @@ const features = [
     description: 'Add live chat to your website and talk to visitors in real-time.',
     icon: <MessageCircle />,
     color: 'from-sky-300/80 to-sky-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Engage with ad leads instantly via live chat.',
+      'chat-integration': 'The Concierge Desk: Be there for your clients, instantly.',
+    },
   },
   {
     id: 'contract-management',
@@ -1279,7 +1414,10 @@ const features = [
     description: 'Manage the entire lifecycle of your contracts, from draft to signature.',
     icon: <FileText />,
     color: 'from-fuchsia-300/80 to-fuchsia-400/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Manage the entire contract lifecycle from an ad lead.',
+      'contract-management': 'The Dealmaker: Streamline your contracts from draft to signature.',
+    },
   },
   {
     id: 'showing-feedback',
@@ -1287,7 +1425,10 @@ const features = [
     description: 'Automatically request and collect feedback after every showing.',
     icon: <ClipboardCheck />,
     color: 'from-orange-200/80 to-orange-300/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Collect feedback from showings generated by your ads.',
+      'showing-feedback': 'The Critic: Get honest feedback to sell homes faster.',
+    },
   },
   {
     id: 'expense-tracking',
@@ -1295,7 +1436,10 @@ const features = [
     description: 'Track all your business expenses and see where your money is going.',
     icon: <DollarSign />,
     color: 'from-green-200/80 to-green-300/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Track every dollar spent on your ad campaigns.',
+      'expense-tracking': 'The Accountant: Keep your finances in perfect order, effortlessly.',
+    },
   },
   {
     id: 'brand-kit',
@@ -1303,7 +1447,10 @@ const features = [
     description: 'Store your logos, colors, and fonts for easy access.',
     icon: <Briefcase />,
     color: 'from-blue-200/80 to-blue-300/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Ensure all your ads are perfectly on-brand.',
+      'brand-kit': 'The Style Guide: Ensure perfect brand consistency, every time.',
+    },
   },
   {
     id: 'interactive-maps',
@@ -1311,7 +1458,10 @@ const features = [
     description: 'Create beautiful, interactive maps of your listings.',
     icon: <MapPin />,
     color: 'from-pink-200/80 to-pink-300/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Include interactive maps in your ad landing pages.',
+      'interactive-maps': 'The Cartographer: Bring your listings and neighborhoods to life.',
+    },
   },
   {
     id: 'event-promotion',
@@ -1319,7 +1469,10 @@ const features = [
     description: 'Promote your open houses, webinars, and other events.',
     icon: <Megaphone />,
     color: 'from-teal-200/80 to-teal-300/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Promote open houses and other events with targeted ads.',
+      'event-promotion': 'The Party Planner: Pack your events with the right people.',
+    },
   },
   {
     id: 'content-calendar',
@@ -1327,7 +1480,10 @@ const features = [
     description: 'Plan and schedule all your content in one visual calendar.',
     icon: <Calendar />,
     color: 'from-indigo-200/80 to-indigo-300/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Schedule your ad campaigns in a visual calendar.',
+      'content-calendar': 'The Strategist: Plan your marketing for months in advance.',
+    },
   },
   {
     id: '3d-floor-plans',
@@ -1335,7 +1491,10 @@ const features = [
     description: 'Turn standard floor plans into immersive 3D models.',
     icon: <Gem />,
     color: 'from-rose-200/80 to-rose-300/80',
-    synergies: {},
+    synergies: {
+      'ad-creation': 'Showcase properties with immersive 3D floor plans in your ads.',
+      '3d-floor-plans': 'The Dollhouse: Let buyers explore a home in stunning 3D.',
+    },
   },
 ];
 
@@ -1458,10 +1617,33 @@ const FeatureCard = ({
 
 
 export default function Home() {
+  const { toast } = useToast();
   const [hoveredId, setHoveredId] = React.useState<string | null>(null);
+  const [clickedCards, setClickedCards] = React.useState<Set<string>>(new Set());
+  const [showConfetti, setShowConfetti] = React.useState(false);
+
+  const handleCardClick = (id: string) => {
+    const newClicked = new Set(clickedCards);
+    newClicked.add(id);
+    setClickedCards(newClicked);
+
+    if (newClicked.size === 1) {
+      toast({
+        title: "Great start! ✨",
+        description: "Click two more cards to see the magic.",
+      });
+    } else if (newClicked.size === 3) {
+      toast({
+        title: "Awesome! You're getting it. 🚀",
+        description: "The possibilities are endless.",
+      });
+      setShowConfetti(true);
+    }
+  };
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      {showConfetti && <Confetti />}
       <LandingHeader />
       <main className="flex-1 w-full max-w-full px-4 md:px-6 lg:px-8 py-12 md:py-20">
         <div className="text-center mb-16 max-w-5xl mx-auto">
@@ -1482,7 +1664,7 @@ export default function Home() {
         </div>
 
         <div 
-            className="group/main grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-8 lg:gap-12 max-w-[120rem] mx-auto"
+            className="group/main grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 lg:gap-12 max-w-[120rem] mx-auto"
             onMouseLeave={() => setHoveredId(null)}
         >
           {features.map((feature, index) => (
@@ -1492,7 +1674,7 @@ export default function Home() {
                 index={index} 
                 hoveredId={hoveredId}
                 setHoveredId={setHoveredId}
-                onClick={() => {}}
+                onClick={handleCardClick}
             />
           ))}
         </div>
