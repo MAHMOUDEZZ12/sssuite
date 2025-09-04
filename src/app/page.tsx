@@ -728,7 +728,7 @@ const features = [
       }
     ],
   },
-    {
+  {
     id: 'lead-generation',
     title: 'Social Lead Generation',
     description: 'Find and engage potential clients on social media before they even start searching.',
@@ -1133,6 +1133,64 @@ const features = [
       }
     ],
   },
+  {
+    id: 'whatsapp-campaigns',
+    title: 'WhatsApp Campaign Manager',
+    description: 'Engage clients directly with personalized WhatsApp messages, broadcasts, and automated follow-ups.',
+    icon: <Phone />,
+    color: 'from-green-500/80 to-green-600/80',
+    cta: 'WhatsApp Campaign',
+    details: {
+      steps: [
+        { text: 'Upload your client contact list', icon: <Upload className="h-6 w-6" /> },
+        { text: 'Draft your message or follow-up sequence', icon: <PenTool className="h-6 w-6" /> },
+        { text: 'Send or schedule your campaign instantly', icon: <Send className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        {
+          metric: 'Time to Contact 100 Clients',
+          manual: 'Hours of manual copy-pasting',
+          ai: 'Under 1 minute',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Personalization',
+          manual: 'Generic, prone to errors',
+          ai: 'Personalized with [Name], [Property], etc.',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'Follow-up Consistency',
+          manual: 'Easy to forget or miss someone',
+          ai: 'Automated sequences ensure no lead is lost',
+          icon: <BadgeCheck />,
+        },
+      ],
+      synergy: [
+        { tool: "Social Lead Generation", benefit: "Directly import new leads and add them to an automated welcome message sequence on WhatsApp." },
+        { tool: "CRM Memory Assistant", benefit: "Use insights from the CRM to send highly targeted messages, like wishing a client a happy birthday or reminding them of an anniversary." }
+      ]
+    },
+    creationFields: [
+      { id: 'contacts', name: 'Contact List', type: 'file', description: 'Upload a CSV with names and numbers.' },
+      { id: 'message', name: 'Message Template', type: 'textarea', placeholder: 'Hi [Name], just wanted to share this new listing...', description: 'Craft your message. Use [Name] for personalization.' },
+      { id: 'sendTime', name: 'Schedule', type: 'text', placeholder: 'e.g., "Now" or "Tomorrow at 10 AM"', description: 'When should the campaign be sent?' },
+    ],
+    faqs: [
+      {
+        question: "Is this compliant with WhatsApp's policies?",
+        answer: "Yes, this tool is designed to work within WhatsApp's Business Platform policies. It's intended for sending transactional messages and engaging with clients who have opted in to communication, not for spam."
+      },
+      {
+        question: "Can it handle replies?",
+        answer: "The tool is primarily for outbound campaigns. For managing two-way conversations, it works best when integrated with our AI Page Admin or Instagram Chat Bot."
+      },
+      {
+        question: "What does 'personalization' mean?",
+        answer: "If you upload a contact list with columns like 'Name' or 'Property of Interest', you can use placeholders like [Name] in your message. The tool will automatically replace the placeholder with the correct data for each contact, making your messages feel personal."
+      }
+    ],
+  },
 ];
 
 const FeatureCard = ({
@@ -1160,7 +1218,8 @@ const FeatureCard = ({
     'Listing': 'Write your first',
     'Offer Package': 'Create an',
     'Email Campaign': 'Launch an',
-    'Chat Bot': 'Activate your'
+    'Chat Bot': 'Activate your',
+    'WhatsApp Campaign': 'Send a'
   }[feature.cta] || 'Create your first';
 
 
