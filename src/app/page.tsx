@@ -78,10 +78,10 @@ const features = [
 ];
 
 const Card = ({ feature }: { feature: (typeof features)[0] }) => (
-  <div className="group" style={{ perspective: '1000px' }}>
+  <div className="group flex flex-col" style={{ perspective: '1000px' }}>
     <div
       className={cn(
-        'relative w-full h-96 text-white transition-transform duration-700 ease-in-out',
+        'relative w-full h-[28rem] text-white transition-transform duration-700 ease-in-out flex-grow',
         'shadow-2xl hover:shadow-primary/50',
         feature.shape,
         '[transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]'
@@ -90,7 +90,7 @@ const Card = ({ feature }: { feature: (typeof features)[0] }) => (
       {/* Front of the card */}
       <div
         className={cn(
-          'absolute inset-0 flex flex-col justify-between p-8 bg-gradient-to-br',
+          'absolute inset-0 flex flex-col justify-start p-8 bg-gradient-to-br',
           feature.color,
           feature.shape,
           '[backface-visibility:hidden]'
@@ -102,16 +102,6 @@ const Card = ({ feature }: { feature: (typeof features)[0] }) => (
           </div>
           <h2 className="text-3xl font-bold mb-3">{feature.title}</h2>
           <p className="text-lg opacity-90">{feature.description}</p>
-        </div>
-        <div className="relative z-10">
-          <Button
-            size="lg"
-            variant="ghost"
-            className="bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20"
-          >
-            {feature.callToAction}{' '}
-            <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-          </Button>
         </div>
       </div>
 
@@ -129,6 +119,16 @@ const Card = ({ feature }: { feature: (typeof features)[0] }) => (
         </h3>
       </div>
     </div>
+    <div className="relative z-10 p-4 -mt-20">
+      <Button
+        size="lg"
+        variant="ghost"
+        className="bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20"
+      >
+        {feature.callToAction}{' '}
+        <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+      </Button>
+    </div>
   </div>
 );
 
@@ -136,8 +136,8 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
-      <main className="flex-1 w-full container mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20">
-        <div className="text-center mb-24 max-w-4xl mx-auto">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20">
+        <div className="text-center mb-24 max-w-5xl mx-auto">
           <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
             Your Real Estate Sales, Amplified.
           </h1>
