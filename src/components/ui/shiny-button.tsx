@@ -11,7 +11,7 @@ export const ShinyButton = React.forwardRef<HTMLButtonElement, ButtonProps>(({ c
         ref={ref}
         {...props}
         className={cn(
-          "relative overflow-hidden",
+          "relative overflow-hidden group",
           "text-lg py-7 px-8",
           className
         )}
