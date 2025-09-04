@@ -153,8 +153,20 @@ export default function DashboardLayout({
                  <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton href="#">
-                            <Settings />
-                            <span>Lead Storage</span>
+                            <Briefcase />
+                            <span>My Projects</span>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                     <SidebarMenuItem>
+                        <SidebarMenuButton href="#">
+                            <Contact />
+                            <span>Leads (CRM)</span>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton href="#">
+                            <Database />
+                            <span>Data Storage</span>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                  </SidebarMenu>
