@@ -13,7 +13,7 @@
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 262.1 83.3% 57.8%;
+    --primary: 34 90% 50%; /* Fiery Orange for text */
     --primary-foreground: 0 0% 98%;
 
     --secondary: 240 3.7% 15.9%;
@@ -30,7 +30,7 @@
     
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 262.1 83.3% 57.8%;
+    --ring: 34 90% 50%;
     --radius: 0.75rem;
   }
  
@@ -44,7 +44,7 @@
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 262.1 83.3% 57.8%;
+    --primary: 34 90% 50%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 240 3.7% 15.9%;
@@ -61,7 +61,7 @@
     
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 262.1 83.3% 57.8%;
+    --ring: 34 90% 50%;
   }
 }
  
@@ -72,5 +72,13 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .bg-primary {
+    background: linear-gradient(to right, hsl(var(--primary)), #ef4444, #f97316);
+    background-size: 200% 200%;
+    animation: background-pan 3s linear infinite;
   }
 }
