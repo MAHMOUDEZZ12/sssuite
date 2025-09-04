@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { PageHeader } from '@/components/ui/page-header';
-import { Settings, Palette, User, CreditCard, Paintbrush, Text, Sun, Moon, Laptop } from 'lucide-react';
+import { Settings, Palette, User, CreditCard, Paintbrush, Text, Sun, Moon, Laptop, Bot } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/table"
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
+import { Switch } from '@/components/ui/switch';
 
 const mockBillingHistory = [
   { id: 'inv-001', date: 'Feb 20, 2024', amount: '$99.00', status: 'Paid' },
@@ -47,14 +48,41 @@ export default function SettingsPage() {
         icon={<Settings className="h-8 w-8" />}
       />
 
-      <Tabs defaultValue="appearance" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="appearance"><Palette className="mr-2 h-4 w-4" /> Appearance</TabsTrigger>
+      <Tabs defaultValue="account" className="w-full">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="account"><User className="mr-2 h-4 w-4" /> Account</TabsTrigger>
-          <TabsTrigger value="subscription"><CreditCard className="mr-2 h-4 w-4" /> Subscription</TabsTrigger>
+          <TabsTrigger value="appearance"><Palette className="mr-2 h-4 w-4" /> Appearance</TabsTrigger>
+          <TabsTrigger value="assistant"><Bot className="mr-2 h-4 w-4" /> Assistant</TabsTrigger>
           <TabsTrigger value="brand"><Paintbrush className="mr-2 h-4 w-4" /> Brand</TabsTrigger>
+          <TabsTrigger value="subscription"><CreditCard className="mr-2 h-4 w-4" /> Subscription</TabsTrigger>
         </TabsList>
         
+        <TabsContent value="account">
+          <Card>
+            <CardHeader>
+              <CardTitle>Account Information</CardTitle>
+              <CardDescription>Update your email address and manage your password.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+                <div className="space-y-2">
+                    <Label htmlFor="email">Email Address</Label>
+                    <Input id="email" type="email" defaultValue="john.doe@example.com" />
+                </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="current-password">Current Password</Label>
+                    <Input id="current-password" type="password" />
+                </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="new-password">New Password</Label>
+                    <Input id="new-password" type="password" />
+                </div>
+            </CardContent>
+             <CardFooter>
+                 <Button onClick={() => handleSaveChanges('Account')}>Save Changes</Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+
         <TabsContent value="appearance">
           <Card>
             <CardHeader>
@@ -108,33 +136,54 @@ export default function SettingsPage() {
           </Card>
         </TabsContent>
         
-        <TabsContent value="account">
+        <TabsContent value="assistant">
           <Card>
             <CardHeader>
-              <CardTitle>Account Information</CardTitle>
-              <CardDescription>Update your email address and manage your password.</CardDescription>
+              <CardTitle>AI Assistant Settings</CardTitle>
+              <CardDescription>Manage the behavior and appearance of your AI assistant.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-                <div className="space-y-2">
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input id="email" type="email" defaultValue="john.doe@example.com" />
+                <div className="flex items-center justify-between rounded-lg border p-4">
+                  <div>
+                    <Label htmlFor="show-floating-chat">Show Floating Chat Button</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Display the assistant chat button on all dashboard pages.
+                    </p>
+                  </div>
+                  <Switch id="show-floating-chat" defaultChecked />
                 </div>
-                 <div className="space-y-2">
-                    <Label htmlFor="current-password">Current Password</Label>
-                    <Input id="current-password" type="password" />
-                </div>
-                 <div className="space-y-2">
-                    <Label htmlFor="new-password">New Password</Label>
-                    <Input id="new-password" type="password" />
-                </div>
+                 <Link href="/dashboard/assistant">
+                    <Button variant="outline">
+                        <BrainCircuit className="mr-2 h-4 w-4" />
+                        Go to Assistant Training Center
+                    </Button>
+                 </Link>
             </CardContent>
              <CardFooter>
-                 <Button onClick={() => handleSaveChanges('Account')}>Save Changes</Button>
+                 <Button onClick={() => handleSaveChanges('Assistant')}>Save Changes</Button>
             </CardFooter>
           </Card>
         </TabsContent>
 
-        <TabsContent value="subscription">
+        <TabsContent value="brand">
+          <Card>
+            <CardHeader>
+              <CardTitle>Brand Assets</CardTitle>
+              <CardDescription>
+                This is where you manage your company's branding. These assets are used by the AI to personalize generated content.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex items-center justify-center py-12">
+               <Link href="/dashboard/brand">
+                    <Button size="lg" variant="outline">
+                        <Paintbrush className="mr-2 h-5 w-5" /> Go to Full Brand Management
+                    </Button>
+                </Link>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+         <TabsContent value="subscription">
           <Card>
             <CardHeader>
               <CardTitle>Subscription & Billing</CardTitle>
@@ -181,26 +230,6 @@ export default function SettingsPage() {
                         </Table>
                    </div>
                 </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="brand">
-          <Card>
-            <CardHeader>
-              <CardTitle>Brand Assets</CardTitle>
-              <CardDescription>
-                This is where you manage your company's branding. These assets are used by the AI to personalize generated content.
-                <br />
-                For more detailed control, visit the full brand management page.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex items-center justify-center py-12">
-               <Link href="/dashboard/brand">
-                    <Button size="lg" variant="outline">
-                        <Paintbrush className="mr-2 h-5 w-5" /> Go to Brand Management
-                    </Button>
-                </Link>
             </CardContent>
           </Card>
         </TabsContent>

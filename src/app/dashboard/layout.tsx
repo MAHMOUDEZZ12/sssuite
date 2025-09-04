@@ -50,10 +50,12 @@ import {
   Settings,
   LifeBuoy,
   Server,
+  BrainCircuit,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { tools } from '@/lib/tools.tsx';
+import { AssistantChat } from '@/components/assistant-chat';
 
 const marketingTools = tools.filter(t => t.categories.includes('Ads') || t.categories.includes('Lead Gen'));
 const designTools = tools.filter(t => t.categories.includes('Creative') && (t.categories.includes('Editing') || t.categories.includes('Social & Comms')));
@@ -84,12 +86,10 @@ const SidebarMenuGroup = ({
           <SidebarMenu className="pl-4 py-2">
             {tools.map((tool) => (
               <SidebarMenuItem key={tool.id}>
-                <Link href={`/dashboard/tool/${tool.id}`} passHref>
-                  <SidebarMenuButton asChild isActive={pathname.endsWith(tool.id)} tooltip={{ children: tool.title }}>
-                    <span>
+                <Link href={`/dashboard/tool/${tool.id}`}>
+                  <SidebarMenuButton isActive={pathname.endsWith(tool.id)} tooltip={{ children: tool.title }}>
                       {tool.icon}
                       <span>{tool.title}</span>
-                    </span>
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
@@ -138,6 +138,15 @@ export default function DashboardLayout({
             <div className='flex flex-col gap-2 p-2'>
                  <Separator className='mb-2' />
                  <SidebarMenu>
+                    <SidebarMenuItem>
+                        <Link href="/dashboard/assistant">
+                            <SidebarMenuButton>
+                                <BrainCircuit />
+                                <span>Train Assistant</span>
+                            </SidebarMenuButton>
+                        </Link>
+                    </SidebarMenuItem>
+                    <Separator />
                     <SidebarMenuItem>
                         <Link href="/dashboard/projects">
                             <SidebarMenuButton>
@@ -215,7 +224,10 @@ export default function DashboardLayout({
           </div>
         </SidebarFooter>
       </Sidebar>
-      <SidebarInset>{children}</SidebarInset>
+      <SidebarInset>
+        {children}
+        <AssistantChat />
+      </SidebarInset>
     </SidebarProvider>
   );
 }

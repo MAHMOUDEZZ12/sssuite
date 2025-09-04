@@ -4,7 +4,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Upload, FileText, ImageIcon, FileSpreadsheet, Trash2, Download } from 'lucide-react';
+import { Upload, FileText, ImageIcon, FileSpreadsheet, Trash2, Download, Database, Users } from 'lucide-react';
 import { PageHeader } from '@/components/ui/page-header';
 import { Input } from '@/components/ui/input';
 
@@ -34,8 +34,18 @@ export default function DataStoragePage() {
       <PageHeader
         title="Data Storage"
         description="Manage all your uploaded assets and AI-generated files in one place."
-        icon={<Upload className="h-8 w-8" />}
+        icon={<Database className="h-8 w-8" />}
       >
+        <div className='flex items-center gap-2'>
+            <Button variant="outline"><Database className="mr-2 h-4 w-4" /> Connect Google Drive</Button>
+            <Button variant="outline"><Users className="mr-2 h-4 w-4" /> Connect CRM</Button>
+             <Button onClick={() => fileInputRef.current?.click()}>
+                <Upload className="mr-2 h-4 w-4" />
+                Upload New File
+            </Button>
+        </div>
+      </PageHeader>
+      
         <Input
             type="file"
             ref={fileInputRef}
@@ -43,12 +53,7 @@ export default function DataStoragePage() {
             onChange={handleFileUpload}
             multiple
         />
-         <Button onClick={() => fileInputRef.current?.click()}>
-            <Upload className="mr-2 h-4 w-4" />
-            Upload New File
-        </Button>
-      </PageHeader>
-      
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {mockFiles.map((file) => (
           <Card key={file.id} className="group relative">
