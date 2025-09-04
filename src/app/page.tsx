@@ -3,6 +3,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   ArrowRight,
   Bot,
@@ -59,7 +60,6 @@ import {
   Upload,
   MousePointerClick,
   Send,
-  Link,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -553,7 +553,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
 
             <Separator />
 
-            <div className="p-6 text-center text-muted-foreground italic">
+            <div className="p-6 text-center text-muted-foreground italic bg-card/50">
               {feature.statement}
             </div>
             
