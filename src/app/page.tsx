@@ -102,50 +102,19 @@ const FeatureCard = ({
   feature: Feature;
   onClick: (feature: Feature) => void;
 }) => {
-  const ctaPrefix = {
-    'Ad': 'Generate your first',
-    'Targeting Profile': 'Build a',
-    'Rebranded Brochure': 'Create your',
-    'Edited PDF': 'Edit your first',
-    'Landing Page': 'Generate a',
-    'Social Post': 'Write a',
-    'Story': 'Design a',
-    'Reel': 'Produce a',
-    'TikTok': 'Create a',
-    'Page Admin': 'Set up your',
-    'Chat Session': 'Start a',
-    'Client Record': 'Look up a',
-    'Lead List': 'Generate a',
-    'Market Report': 'Generate a',
-    'Investor Match': 'Find an',
-    'Listing': 'Write your first',
-    'Offer Package': 'Create an',
-    'Email Campaign': 'Launch an',
-    'Chat Bot': 'Activate your',
-    'WhatsApp Campaign': 'Send a'
-  }[feature.cta] || 'Create your first';
-
-
   return (
     <div
       className={cn(
-        'group relative flex flex-col [perspective:1000px]',
+        'group relative flex flex-col text-white rounded-3xl cursor-pointer overflow-hidden transition-transform duration-300 ease-in-out hover:-translate-y-2'
       )}
       onClick={() => onClick(feature)}
     >
-      <div
-        className={cn(
-          'relative w-full h-[420px] text-white rounded-3xl cursor-pointer',
-          'transition-transform duration-700 ease-in-out [transform-style:preserve-3d]',
-           'group-hover:[transform:rotateY(180deg)]'
-        )}
-      >
-        {/* Front Face */}
+        <div className={cn("absolute -inset-0.5 group-hover:inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-75 transition-all duration-300", feature.color)} />
+
         <div
           className={cn(
-            'absolute inset-0 flex flex-col justify-between p-8 bg-gradient-to-br rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300',
-            feature.color,
-            '[backface-visibility:hidden]',
+            'relative w-full h-[420px] flex flex-col justify-between p-8 bg-gradient-to-br rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300',
+            feature.color
           )}
         >
             <div className="z-10 flex flex-col h-full">
@@ -155,25 +124,13 @@ const FeatureCard = ({
               <h2 className="text-3xl font-bold mb-3">{feature.title}</h2>
               <p className="text-lg opacity-90 flex-grow">{feature.description}</p>
               <div
-                className='bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20 mt-auto rounded-md text-sm font-medium h-11 px-8 inline-flex items-center justify-center gap-2'
+                className='bg-white/10 group-hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20 mt-auto rounded-md text-sm font-medium h-11 px-8 inline-flex items-center justify-center gap-2 transition-colors'
               >
-                <span>{ctaPrefix} <strong className="font-semibold">{feature.cta}</strong></span>
+                <span>Details</span>
                 <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
               </div>
             </div>
         </div>
-
-         {/* Back Face */}
-        <div
-          className={cn(
-            'absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-br rounded-3xl',
-            feature.color,
-            '[backface-visibility:hidden] [transform:rotateY(180deg)]',
-          )}
-        >
-            <h3 className="text-3xl font-bold text-center text-white/90">{feature.backsideValue}</h3>
-        </div>
-      </div>
     </div>
   );
 };
