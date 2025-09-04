@@ -169,6 +169,24 @@ export default function DashboardLayout({
                             <span>Data Storage</span>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
+                     <SidebarMenuItem>
+                        <SidebarMenuButton href="#">
+                            <Palette />
+                            <span>My Brand</span>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton href="#">
+                            <Share2 />
+                            <span>Connection</span>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton href="#">
+                            <Settings />
+                            <span>Setting</span>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
                  </SidebarMenu>
             </div>
           <div className="flex items-center gap-3 p-2 pt-0">
