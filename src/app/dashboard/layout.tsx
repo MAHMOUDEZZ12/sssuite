@@ -112,10 +112,7 @@ export default function DashboardLayout({
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader>
-          <div className="flex items-center gap-2">
-            <Logo />
-            <SidebarTrigger className="ml-auto" />
-          </div>
+          <Logo />
         </SidebarHeader>
         <SidebarContent>
           <div className="flex flex-col gap-2 p-2">
@@ -198,7 +195,8 @@ export default function DashboardLayout({
                     </SidebarMenuItem>
                  </SidebarMenu>
             </div>
-          <div className="flex items-center gap-3 p-2 pt-0">
+            <Separator />
+          <div className="flex items-center gap-3 p-2">
             <Avatar className="size-8">
               <AvatarImage
                 src="https://picsum.photos/100"
@@ -213,6 +211,7 @@ export default function DashboardLayout({
                 john.doe@example.com
               </p>
             </div>
+             <SidebarTrigger className="ml-auto" />
           </div>
         </SidebarFooter>
       </Sidebar>
