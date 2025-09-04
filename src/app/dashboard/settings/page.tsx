@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { PageHeader } from '@/components/ui/page-header';
-import { Settings, Palette, User, CreditCard, Paintbrush, Text, Sun, Moon, Laptop, Bot, BrainCircuit, Network, Database, Users } from 'lucide-react';
+import { Settings, Palette, User, CreditCard, Paintbrush, Text, Sun, Moon, Laptop, Bot, BrainCircuit, Network, Database, Users, Instagram, Facebook, Linkedin, Mail, MessageCircle, Twitter } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -209,10 +209,35 @@ export default function SettingsPage() {
             <CardContent className="space-y-4">
                 <div className="flex items-center justify-between rounded-lg border p-4">
                     <div className="flex items-center gap-4">
-                        <Database className="h-6 w-6 text-muted-foreground" />
+                        <div className="flex items-center gap-2">
+                           <Instagram className="h-6 w-6 text-muted-foreground" />
+                           <Facebook className="h-6 w-6 text-muted-foreground" />
+                           <Linkedin className="h-6 w-6 text-muted-foreground" />
+                           <Twitter className="h-6 w-6 text-muted-foreground" />
+                        </div>
                         <div>
-                            <h4 className="font-medium">Google Drive</h4>
-                            <p className="text-sm text-muted-foreground">Sync documents and files from your Google Drive.</p>
+                            <h4 className="font-medium">Social Media</h4>
+                            <p className="text-sm text-muted-foreground">Connect Instagram, Facebook, LinkedIn, and X.</p>
+                        </div>
+                    </div>
+                    <Button variant="outline">Connect</Button>
+                </div>
+                <div className="flex items-center justify-between rounded-lg border p-4">
+                    <div className="flex items-center gap-4">
+                        <Mail className="h-6 w-6 text-muted-foreground" />
+                        <div>
+                            <h4 className="font-medium">Email</h4>
+                            <p className="text-sm text-muted-foreground">Connect your Gmail or Outlook account.</p>
+                        </div>
+                    </div>
+                    <Button variant="outline">Connect</Button>
+                </div>
+                 <div className="flex items-center justify-between rounded-lg border p-4">
+                    <div className="flex items-center gap-4">
+                        <MessageCircle className="h-6 w-6 text-muted-foreground" />
+                        <div>
+                            <h4 className="font-medium">WhatsApp</h4>
+                            <p className="text-sm text-muted-foreground">Connect your WhatsApp Business account.</p>
                         </div>
                     </div>
                     <Button variant="outline">Connect</Button>
@@ -223,6 +248,16 @@ export default function SettingsPage() {
                         <div>
                             <h4 className="font-medium">CRM</h4>
                             <p className="text-sm text-muted-foreground">Connect to your sales CRM to sync leads and contacts.</p>
+                        </div>
+                    </div>
+                    <Button variant="outline">Connect</Button>
+                </div>
+                 <div className="flex items-center justify-between rounded-lg border p-4">
+                    <div className="flex items-center gap-4">
+                        <Database className="h-6 w-6 text-muted-foreground" />
+                        <div>
+                            <h4 className="font-medium">Google Drive</h4>
+                            <p className="text-sm text-muted-foreground">Sync documents and files from your Google Drive.</p>
                         </div>
                     </div>
                     <Button variant="outline">Connect</Button>
