@@ -186,7 +186,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
       <DialogContent className="bg-card/90 backdrop-blur-lg border-primary/20 text-foreground max-w-5xl w-[95vw] p-0 rounded-2xl">
           <div className="relative">
             <div className={cn("p-8 rounded-t-2xl bg-gradient-to-br", feature.color)}>
-               <div className="flex items-center justify-between">
+               <div className="flex items-start justify-between">
                   <div className='flex items-center gap-4'>
                     <div className="p-4 bg-white/20 rounded-full w-fit">
                       {React.cloneElement(feature.icon, { className: 'h-10 w-10 text-white' })}
@@ -197,6 +197,9 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                     </div>
                   </div>
                    <div className='flex items-center gap-2'>
+                     <Link href={`/blog/${feature.id}`}>
+                         <Button variant="link" className="text-white/80 hover:text-white">Read More</Button>
+                      </Link>
                      <Link href="/dashboard">
                         <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/20">Login</Button>
                       </Link>
@@ -395,7 +398,7 @@ export default function Home() {
                         </Link>
                     </div>
                     <div className="hidden lg:block relative w-full h-[400px] overflow-hidden rounded-r-2xl">
-                         <Image src="https://placehold.co/600x400/1e293b/ffffff?text=AI+Personality+Settings" alt="AI Assistant training dashboard" fill style={{objectFit: 'cover', objectPosition: "left center"}} data-ai-hint="dashboard screenshot" />
+                         <Image src="https://placehold.co/600/400/1e293b/ffffff?text=AI+Personality+Settings" alt="AI Assistant training dashboard" fill style={{objectFit: 'cover', objectPosition: "left center"}} data-ai-hint="dashboard screenshot" />
                          <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent"></div>
                     </div>
                 </div>

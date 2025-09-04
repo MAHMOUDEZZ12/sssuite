@@ -16,19 +16,19 @@ export function LandingFooter() {
       { name: 'Marketing', href: '#' },
     ],
     resources: [
-        { name: 'Blog', href: '#' },
+        { name: 'Blog', href: '/blog' },
         { name: 'Documentation', href: '/documentation' },
         { name: 'Technology', href: '/technology' },
     ],
     company: [
-      { name: 'About Us', href: '#' },
-      { name: 'Careers', href: '#' },
-      { name: 'Contact Us', href: '#' },
+      { name: 'About Us', href: '/about' },
+      { name: 'Careers', href: '/careers' },
+      { name: 'Contact Us', href: '/contact' },
     ],
     legal: [
-      { name: 'Privacy Policy', href: '#' },
-      { name: 'Terms of Service', href: '#' },
-      { name: 'Cookie Policy', href: '#' },
+      { name: 'Privacy Policy', href: '/privacy' },
+      { name: 'Terms of Service', href: '/terms' },
+      { name: 'Cookie Policy', href: '/cookies' },
     ],
   };
 
