@@ -82,7 +82,7 @@ const SidebarMenuGroup = ({
           <SidebarMenu className="pl-4 py-2">
             {tools.map((tool) => (
               <SidebarMenuItem key={tool.id}>
-                <Link href={`/dashboard/tool/${tool.id}`} passHref>
+                <Link href={`/dashboard/tool/${tool.id}`} passHref legacyBehavior>
                   <SidebarMenuButton asChild isActive={pathname.endsWith(tool.id)} tooltip={{ children: tool.title }}>
                     <a>
                       {tool.icon}
