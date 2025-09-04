@@ -3,48 +3,88 @@
 /**
  * @fileOverview AI flow to generate a landing page for a specific project based on project details and user branding.
  *
- * @fileOverview Generates a landing page for a specific project, incorporating project details and user branding preferences.
- * - generateLandingPage - Function to generate the landing page.
- * - GenerateLandingPageInput - Input type for the function.
- * - GenerateLandingPageOutput - Output type for the function.
+ * This flow generates the HTML for a complete landing page, incorporating project details,
+ * user branding preferences, and information from an optional brochure.
+ *
+ * @module AI/Flows/GenerateLandingPage
+ *
+ * @export {function} generateLandingPage - The main function to generate a landing page.
+ * @export {type} GenerateLandingPageInput - The Zod schema for the input of the generateLandingPage flow.
+ * @export {type} GenerateLandingPageOutput - The Zod schema for the output of the generateLandingPage flow.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-// Define the input schema
+/**
+ * Defines the schema for the input of the landing page generation flow.
+ */
 const GenerateLandingPageInputSchema = z.object({
+  /**
+   * The name of the project.
+   */
   projectName: z.string().describe('The name of the project.'),
-  projectDetails: z.string().describe('Detailed information about the project.'),
+  /**
+   * Detailed information about the project.
+   */
+  projectDetails: z
+    .string()
+    .describe('Detailed information about the project.'),
+  /**
+   * User preferences for branding, including company name, logo, tone of voice, and colors.
+   */
   userBrandingPreferences: z
     .string()
     .describe(
       'User preferences for branding, including company name, logo data URI, tone of voice, and colors.'
     ),
+  /**
+   * An optional project brochure, encoded as a Base64 data URI.
+   * @example "data:application/pdf;base64,..."
+   */
   projectBrochureDataUri: z
     .string()
     .optional()
     .describe(
-      'A project brochure, as a data URI that must include a MIME type and use Base64 encoding. Expected format: \'data:<mimetype>;base64,<encoded_data>\'.'      
+      "A project brochure, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
+  /**
+   * Optional official project links.
+   */
   officialProjectLinks: z.string().optional().describe('Official project links'),
 });
-export type GenerateLandingPageInput = z.infer<typeof GenerateLandingPageInputSchema>;
+export type GenerateLandingPageInput = z.infer<
+  typeof GenerateLandingPageInputSchema
+>;
 
-// Define the output schema
+/**
+ * Defines the schema for the output of the landing page generation flow.
+ */
 const GenerateLandingPageOutputSchema = z.object({
+  /**
+   * The generated HTML content for the landing page.
+   */
   landingPageHtml: z
     .string()
     .describe('The generated HTML content for the landing page.'),
 });
-export type GenerateLandingPageOutput = z.infer<typeof GenerateLandingPageOutputSchema>;
+export type GenerateLandingPageOutput = z.infer<
+  typeof GenerateLandingPageOutputSchema
+>;
 
-// Exported function to call the flow
-export async function generateLandingPage(input: GenerateLandingPageInput): Promise<GenerateLandingPageOutput> {
+/**
+ * An AI flow that generates the HTML for a landing page.
+ * This function serves as a wrapper for the underlying Genkit flow.
+ *
+ * @param {GenerateLandingPageInput} input - The input data for generating the landing page.
+ * @returns {Promise<GenerateLandingPageOutput>} A promise that resolves with the generated landing page HTML.
+ */
+export async function generateLandingPage(
+  input: GenerateLandingPageInput
+): Promise<GenerateLandingPageOutput> {
   return generateLandingPageFlow(input);
 }
 
-// Define the prompt
 const landingPagePrompt = ai.definePrompt({
   name: 'landingPagePrompt',
   input: {schema: GenerateLandingPageInputSchema},
@@ -71,7 +111,6 @@ const landingPagePrompt = ai.definePrompt({
   `,
 });
 
-// Define the flow
 const generateLandingPageFlow = ai.defineFlow(
   {
     name: 'generateLandingPageFlow',
