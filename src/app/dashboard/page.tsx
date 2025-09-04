@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { PlusCircle, Link as LinkIcon, ArrowRight, Target, Palette, Share2, LineChart, PenTool } from 'lucide-react';
+import { PlusCircle, Link as LinkIcon, ArrowRight, Target, Palette, Share2, LineChart, PenTool, LayoutTemplate } from 'lucide-react';
 import Link from 'next/link';
 
 const QuickStartCard = ({ title, description, icon, href }: { title: string; description: string; icon: React.ReactNode; href: string; }) => (
