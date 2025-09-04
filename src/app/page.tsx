@@ -58,6 +58,7 @@ import { LandingFooter } from '@/components/landing-footer';
 import { Confetti } from '@/components/confetti';
 import { useToast } from '@/hooks/use-toast';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { ShinyButton } from '@/components/ui/shiny-button';
 
 type Feature = (typeof features)[0];
 
@@ -837,7 +838,7 @@ const FeatureCard = ({
       className={cn(
         "group relative flex flex-col [perspective:1000px] transition-all duration-300",
         isHovered ? 'z-10' : '',
-        'hover:shadow-2xl hover:!opacity-100 hover:z-20 animate-float'
+        'hover:shadow-2xl hover:!opacity-100 hover:z-20 hover:-translate-y-2'
       )}
       onMouseEnter={() => setHoveredId(feature.id)}
       onMouseLeave={() => setHoveredId(null)}
