@@ -1,5 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
+
+'use client';
+
+import React, { useState } from 'react';
 import {
   ArrowRight,
   Bot,
@@ -18,6 +20,7 @@ import {
   Repeat,
   CalendarCheck,
   Award,
+
   FileText,
   Megaphone,
   Users,
@@ -30,6 +33,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const features = [
   {
@@ -41,6 +45,8 @@ const features = [
     backText: 'Generate Your Leads with AI',
     color: 'from-pink-500/80 to-pink-600/80',
     shape: 'rounded-3xl',
+    spotlightTitle: 'AI-Powered Ad Generation',
+    spotlightDescription: 'Transform your marketing with AI-driven ad creation. Upload a brochure, and our system generates multiple ad variations, complete with compelling copy and visuals, all tailored to your target audience. A/B test different approaches and optimize for maximum engagement.'
   },
   {
     title: 'Precision Targeting',
@@ -51,6 +57,8 @@ const features = [
     backText: 'Close More Deals, Faster',
     color: 'from-blue-500/80 to-blue-600/80',
     shape: 'rounded-tl-[60px] rounded-br-[60px] rounded-2xl',
+    spotlightTitle: 'Hyper-Specific Audience Targeting',
+    spotlightDescription: 'Our AI goes beyond simple demographics. It analyzes online behavior, life events, and purchasing patterns to identify high-intent buyers. Get detailed audience personas and targeting parameters for platforms like Facebook, Google, and LinkedIn.'
   },
   {
     title: 'Automated Rebranding',
@@ -61,6 +69,8 @@ const features = [
     backText: 'Achieve Perfect Brand Synergy',
     color: 'from-orange-500/80 to-orange-600/80',
     shape: 'rounded-tr-[60px] rounded-bl-[60px] rounded-2xl',
+    spotlightTitle: 'Instant Brochure Rebranding',
+    spotlightDescription: 'Maintain brand consistency across all your marketing materials. Upload any developer brochure, and our AI will instantly apply your branding—logo, color palette, and tone of voice—creating a professional, cohesive look in seconds.'
   },
   {
     title: 'Landing Page Generator',
@@ -71,6 +81,8 @@ const features = [
     backText: 'Captivate Buyers Instantly',
     color: 'from-green-500/80 to-green-600/80',
     shape: 'rounded-3xl',
+    spotlightTitle: 'High-Conversion Landing Pages',
+    spotlightDescription: 'Generate stunning, mobile-responsive landing pages with a single click. Our AI uses proven marketing frameworks to write persuasive copy and select engaging visuals, ensuring your pages are optimized for lead capture.'
   },
   {
     title: 'Full Campaign Automation',
@@ -81,6 +93,8 @@ const features = [
     backText: 'Launch a Full Campaign in One Click',
     color: 'from-purple-500/80 to-purple-600/80',
     shape: 'rounded-tl-[60px] rounded-br-[60px] rounded-2xl',
+    spotlightTitle: 'One-Click Campaign Deployment',
+    spotlightDescription: 'The ultimate sales accelerator. Upload a single brochure, and our AI will orchestrate an entire marketing campaign: ads, landing pages, social media posts, and email follow-ups, all branded and ready to launch.'
   },
   {
     title: 'PDF Ads',
@@ -91,6 +105,8 @@ const features = [
     backText: 'Make PDFs Perform',
     color: 'from-teal-500/80 to-teal-600/80',
     shape: 'rounded-tr-[60px] rounded-bl-[60px] rounded-2xl',
+    spotlightTitle: 'Dynamic PDF Advertisements',
+    spotlightDescription: 'Breathe new life into your existing marketing materials. Transform static PDF brochures into interactive, clickable ads perfect for social media and email campaigns, driving engagement and capturing leads directly from the document.'
   },
   {
     title: 'Lead Management',
@@ -101,6 +117,8 @@ const features = [
     backText: 'Never Miss an Opportunity',
     color: 'from-red-500/80 to-red-600/80',
     shape: 'rounded-3xl',
+    spotlightTitle: 'Intelligent Lead Management',
+    spotlightDescription: 'Our smart CRM automatically organizes and scores your leads based on their engagement and profile data. Get at-a-glance insights into your most promising prospects, so you can focus your energy where it counts.'
   },
   {
     title: 'Brochure Rebranding',
@@ -111,6 +129,8 @@ const features = [
     backText: 'Brand it Yours',
     color: 'from-indigo-500/80 to-indigo-600/80',
     shape: 'rounded-tl-[60px] rounded-br-[60px] rounded-2xl',
+    spotlightTitle: 'Effortless Brochure Rebranding',
+    spotlightDescription: 'Instantly rebrand any developer brochure with your own logo, contact information, and color scheme. Project a professional, unified brand image across all your marketing materials, without any design work.'
   },
   {
     title: 'Offer Management',
@@ -121,6 +141,8 @@ const features = [
     backText: 'Close Deals Faster',
     color: 'from-yellow-500/80 to-yellow-600/80',
     shape: 'rounded-tr-[60px] rounded-bl-[60px] rounded-2xl',
+    spotlightTitle: 'Seamless Offer Management',
+    spotlightDescription: 'Streamline your sales process with our offer management system. Create, send, and track offers in one place. Automated reminders and follow-ups ensure you never miss a deadline, helping you close deals faster.'
   },
   {
     title: 'Calendar Sync',
@@ -131,6 +153,8 @@ const features = [
     backText: 'Fill Your Calendar',
     color: 'from-cyan-500/80 to-cyan-600/80',
     shape: 'rounded-3xl',
+    spotlightTitle: 'Automated Calendar Coordination',
+    spotlightDescription: 'Eliminate the back-and-forth of scheduling. Qualified leads can book viewings and meetings directly from your landing pages and ads, with events automatically synced to your personal calendar.'
   },
   {
     title: 'Bulk Actions',
@@ -141,6 +165,8 @@ const features = [
     backText: 'Multiply Your Efforts',
     color: 'from-lime-500/80 to-lime-600/80',
     shape: 'rounded-tl-[60px] rounded-br-[60px] rounded-2xl',
+    spotlightTitle: 'Efficient Bulk Operations',
+    spotlightDescription: 'Save hours of manual work. Send personalized email campaigns, update lead statuses, and organize your pipeline with powerful bulk actions. Work smarter, not harder.'
   },
   {
     title: 'AI Chatbot',
@@ -151,6 +177,8 @@ const features = [
     backText: 'Never Lose a Visitor',
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
     shape: 'rounded-tr-[60px] rounded-bl-[60px] rounded-2xl',
+    spotlightTitle: '24/7 AI-Powered Chatbot',
+    spotlightDescription: 'Turn your website into a lead generation machine. Our AI chatbot engages visitors 24/7, answering common questions, qualifying prospects, and scheduling appointments, even while you sleep.'
   },
   {
     title: 'AI Lead Scoring',
@@ -161,6 +189,8 @@ const features = [
     backText: 'Focus on Ready-to-Buy Leads',
     color: 'from-sky-500/80 to-sky-600/80',
     shape: 'rounded-3xl',
+    spotlightTitle: 'Predictive Lead Scoring',
+    spotlightDescription: 'Focus your time and energy on the leads that matter most. Our AI analyzes user behavior, engagement data, and demographic information to score your prospects, predicting their likelihood to convert.'
   },
   {
     title: 'Copywriting Assistant',
@@ -171,16 +201,19 @@ const features = [
     backText: 'Find the Perfect Words, Instantly',
     color: 'from-amber-500/80 to-amber-600/80',
     shape: 'rounded-tl-[60px] rounded-br-[60px] rounded-2xl',
+    spotlightTitle: 'AI Copywriting Assistant',
+    spotlightDescription: "Never stare at a blank page again. Generate persuasive property descriptions, engaging email newsletters, and captivating social media posts in any tone of voice. Let our AI be your creative partner."
   },
   {
-    title: 'Premium Brand Kits',
-    description:
-      'Establish a high-end brand identity. Generate complete brand kits with premium logos, color palettes, and fonts.',
-    icon: <Gem />,
-    callToAction: 'Define Your Brand',
-    backText: 'Build a Premium Brand Image',
+    title: 'AI Social Post Writer',
+    description: 'Instantly generate a week\'s worth of social media content from a single link or topic.',
+    icon: <Share2 />,
+    callToAction: 'Automate Social Media',
+    backText: 'Fill Your Content Calendar',
     color: 'from-rose-500/80 to-rose-600/80',
     shape: 'rounded-tr-[60px] rounded-bl-[60px] rounded-2xl',
+    spotlightTitle: 'Automated Social Content',
+    spotlightDescription: "Feed the content beast without the burnout. Provide a link or a topic, and our AI will generate a week's worth of engaging social media posts, complete with hashtags and suggested imagery."
   },
   {
     title: 'Closing Intelligence',
@@ -191,14 +224,28 @@ const features = [
     backText: 'Seal the Deal, Every Time',
     color: 'from-emerald-500/80 to-emerald-600/80',
     shape: 'rounded-3xl',
+    spotlightTitle: 'AI-Powered Negotiation Insights',
+    spotlightDescription: "Enter the negotiation with an unfair advantage. Our AI provides data-driven talking points, objection handling strategies, and insights into buyer motivations to help you close with confidence and secure the best terms."
   },
 ];
 
-const Card = ({ feature, index }: { feature: (typeof features)[0], index: number }) => (
-  <div className="group flex flex-col [perspective:1000px] animate-fade-in-up" style={{ animationDelay: `${index * 100}ms`}}>
+const FeatureCard = ({
+  feature,
+  index,
+  onHover,
+}: {
+  feature: (typeof features)[0];
+  index: number;
+  onHover: (feature: (typeof features)[0]) => void;
+}) => (
+  <div
+    className="group flex flex-col [perspective:1000px] animate-fade-in-up"
+    style={{ animationDelay: `${index * 100}ms` }}
+    onMouseEnter={() => onHover(feature)}
+  >
     <div
       className={cn(
-        'relative w-full h-[32rem] text-white transition-transform duration-700 ease-in-out flex-grow',
+        'relative w-full h-full text-white transition-transform duration-700 ease-in-out flex-grow',
         'shadow-2xl hover:shadow-primary/50',
         feature.shape,
         '[transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]'
@@ -207,7 +254,7 @@ const Card = ({ feature, index }: { feature: (typeof features)[0], index: number
       {/* Front of the card */}
       <div
         className={cn(
-          'absolute inset-0 flex flex-col justify-start p-8 bg-gradient-to-br',
+          'absolute inset-0 flex flex-col justify-between p-8 bg-gradient-to-br',
           feature.color,
           feature.shape,
           '[backface-visibility:hidden]'
@@ -247,12 +294,36 @@ const Card = ({ feature, index }: { feature: (typeof features)[0], index: number
   </div>
 );
 
+const Spotlight = ({
+  feature,
+}: {
+  feature: (typeof features)[0] | null;
+}) => (
+  <Card className="mb-12 lg:mb-24 bg-card/50 border-border/20 backdrop-blur-sm min-h-[200px]">
+    <CardContent className="p-8">
+      {feature ? (
+        <div className="animate-fade-in-up">
+          <h2 className="text-3xl font-bold mb-4 text-primary">{feature.spotlightTitle}</h2>
+          <p className="text-lg text-foreground/80">{feature.spotlightDescription}</p>
+        </div>
+      ) : (
+        <div className="flex items-center justify-center h-full">
+            <p className="text-lg text-foreground/60">Hover over a card to see the details</p>
+        </div>
+      )}
+    </CardContent>
+  </Card>
+);
+
+
 export default function Home() {
+  const [spotlightFeature, setSpotlightFeature] = useState<(typeof features)[0] | null>(null);
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
       <main className="flex-1 w-full max-w-full px-4 md:px-6 lg:px-8 py-12 md:py-20">
-        <div className="text-center mb-24 max-w-5xl mx-auto">
+        <div className="text-center mb-16 max-w-5xl mx-auto">
           <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
             Your Real Estate Sales, Amplified.
           </h1>
@@ -269,9 +340,13 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="max-w-7xl mx-auto">
+            <Spotlight feature={spotlightFeature} />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {features.map((feature, index) => (
-            <Card key={feature.title} feature={feature} index={index} />
+            <FeatureCard key={feature.title} feature={feature} index={index} onHover={setSpotlightFeature} />
           ))}
         </div>
       </main>

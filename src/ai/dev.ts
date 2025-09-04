@@ -5,3 +5,4 @@ import '@/ai/flows/suggest-targeting-options.ts';
 import '@/ai/flows/generate-ad-from-brochure.ts';
 import '@/ai/flows/generate-landing-page.ts';
 import '@/ai/flows/rebrand-brochure.ts';
+import '@/ai/flows/generate-social-post.ts';
