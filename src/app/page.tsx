@@ -616,11 +616,23 @@ const FeatureCard = ({
   feature: Feature;
   onClick: (feature: Feature) => void;
 }) => {
+  const ctaPrefix = {
+    'Ad': 'Generate your first',
+    'Targeting Profile': 'Build a',
+    'Rebranded Brochure': 'Create your',
+    'Landing Page': 'Generate a',
+    'Social Post': 'Write a',
+    'Story': 'Design a',
+    'Reel': 'Produce a',
+    'Page Admin Setup': 'Set up your',
+    'Chat Session': 'Start a'
+  }[feature.cta] || 'Create your first';
+
 
   return (
     <div
       className={cn(
-        "group relative flex flex-col [perspective:1000px] transition-all duration-300",
+        'group relative flex flex-col [perspective:1000px] transition-all duration-300',
         'hover:shadow-2xl hover:z-20 hover:-translate-y-2'
       )}
       onClick={() => onClick(feature)}
@@ -648,7 +660,7 @@ const FeatureCard = ({
               <div
                 className='bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20 mt-auto rounded-md text-sm font-medium h-11 px-8 inline-flex items-center justify-center gap-2'
               >
-                Create your first {feature.cta} today
+                <span>{ctaPrefix} <strong className="font-semibold">{feature.cta}</strong></span>
                 <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
               </div>
             </div>
@@ -723,7 +735,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                      <div className="space-y-4">
                       <h3 className="text-2xl font-semibold text-center text-primary">AI-Powered Suite</h3>
                        {feature.details.aiVsManual.map((item, index) => (
-                        <div key={index} className="p-4 bg-card rounded-lg border border-primary/20 shadow-lg shadow-primary/5">
+                        <div key_={index} className="p-4 bg-card rounded-lg border border-primary/20 shadow-lg shadow-primary/5">
                            <div className="flex items-center gap-3 mb-2">
                              {React.cloneElement(item.icon, { className: "h-5 w-5 text-primary" })}
                             <h4 className="font-semibold text-primary">{item.metric}</h4>
@@ -825,3 +837,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
