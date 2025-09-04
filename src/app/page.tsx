@@ -1542,7 +1542,7 @@ const FeatureCard = ({
       if (isHovered) {
         cardClasses = `${cardClasses} scale-105 z-10`;
       } else {
-        cardClasses = `${cardClasses} opacity-40 brightness-75 blur-[1px]`;
+        cardClasses = `${cardClasses} opacity-50 brightness-50 blur-[2px]`;
       }
     }
   }
@@ -1572,6 +1572,7 @@ const FeatureCard = ({
             'transition-opacity duration-500',
             feature.color,
             '[backface-visibility:hidden]',
+            isAnyCardHovered && !isIntroSection && !isHovered ? 'opacity-0' : 'opacity-100'
           )}
         >
             <div className="z-10 flex flex-col h-full">
@@ -1670,5 +1671,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
