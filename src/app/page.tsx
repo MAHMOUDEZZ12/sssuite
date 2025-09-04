@@ -344,7 +344,7 @@ export default function Home() {
             <Spotlight feature={spotlightFeature} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8 lg:gap-12 max-w-7xl mx-auto">
           {features.map((feature, index) => (
             <FeatureCard key={feature.title} feature={feature} index={index} onHover={setSpotlightFeature} />
           ))}
@@ -354,3 +354,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
