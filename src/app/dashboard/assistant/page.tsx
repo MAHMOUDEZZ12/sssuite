@@ -30,13 +30,12 @@ const samplePrompts = [
 
 
 export default function AssistantPage() {
-  const [assistantName, setAssistantName] = useState('Casey');
 
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
         title="Train Your Assistant"
-        description="Personalize your AI assistant by giving it a name, instructions, and knowledge."
+        description="Personalize your AI assistant by giving it instructions and knowledge."
         icon={<BrainCircuit className="h-8 w-8" />}
       />
 
@@ -58,10 +57,10 @@ export default function AssistantPage() {
                   <Label htmlFor="assistant-name">Assistant Name</Label>
                   <Input 
                     id="assistant-name" 
-                    placeholder="e.g., 'Market Maven' or 'Casey'" 
-                    value={assistantName}
-                    onChange={(e) => setAssistantName(e.target.value)}
+                    value="My Assistant"
+                    disabled
                   />
+                  <p className="text-sm text-muted-foreground">The assistant's name is not editable.</p>
                </div>
                <div className="space-y-2">
                   <Label htmlFor="assistant-instructions">Core Instructions</Label>

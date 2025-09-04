@@ -1,19 +1,27 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './ui/card';
 import { Input } from './ui/input';
 import { ScrollArea } from './ui/scroll-area';
-import { Bot, Send, X } from 'lucide-react';
+import { Bot, Send, X, GripVertical } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { Separator } from './ui/separator';
 
+
+const DEFAULT_POSITION = { x: 24, y: 24 };
+
 export function AssistantChat() {
   const [isOpen, setIsOpen] = useState(false);
-  const [assistantName, setAssistantName] = useState('Casey');
+  const [position, setPosition] = useState(DEFAULT_POSITION);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragRef = useRef<HTMLDivElement>(null);
+  const offsetRef = useRef({ x: 0, y: 0 });
+
+  const assistantName = 'My Assistant';
 
   const mockMessages = [
     { from: 'ai', text: "Hello! How can I help you accelerate your sales today?" },
@@ -21,13 +29,69 @@ export function AssistantChat() {
     { from: 'ai', text: "Based on the brochure, the key selling points for Azure Lofts are: 1) Panoramic ocean views from every unit, 2) State-of-the-art amenities including a rooftop pool and private cinema, and 3) A prime downtown location with a 98 walk score." },
   ];
 
+   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (dragRef.current) {
+      setIsDragging(true);
+      const rect = dragRef.current.getBoundingClientRect();
+      offsetRef.current = {
+        x: e.clientX - rect.left - rect.width / 2,
+        y: e.clientY - rect.top - rect.height / 2,
+      };
+      // Prevent text selection while dragging
+      e.preventDefault();
+    }
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (isDragging) {
+      const newX = window.innerWidth - e.clientX + offsetRef.current.x;
+      const newY = window.innerHeight - e.clientY + offsetRef.current.y;
+      
+      // Clamp position to be within viewport
+      const clampedX = Math.max(8, Math.min(newX, window.innerWidth - (dragRef.current?.offsetWidth || 64) - 8));
+      const clampedY = Math.max(8, Math.min(newY, window.innerHeight - (dragRef.current?.offsetHeight || 64) - 8));
+
+      setPosition({ x: clampedX, y: clampedY });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+  
+  const resetPosition = () => {
+    setPosition(DEFAULT_POSITION);
+  }
+
+  useEffect(() => {
+    window.addEventListener('resetChatPosition', resetPosition);
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+    return () => {
+      window.removeEventListener('resetChatPosition', resetPosition);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
+
   return (
     <>
-      <div className="fixed bottom-6 right-6 z-50">
+      <div
+        ref={dragRef}
+        className="fixed z-50"
+        style={{
+          right: `${position.x}px`,
+          bottom: `${position.y}px`,
+          cursor: isDragging ? 'grabbing' : 'grab',
+        }}
+      >
         <Button
           size="icon"
-          className="rounded-full h-16 w-16 shadow-lg"
-          onClick={() => setIsOpen(!isOpen)}
+          className="rounded-full h-16 w-16 shadow-lg flex-col"
+          onClick={() => !isDragging && setIsOpen(!isOpen)}
+          onMouseDown={handleMouseDown}
           aria-label="Toggle Assistant Chat"
         >
           {isOpen ? <X className="h-8 w-8" /> : <Bot className="h-8 w-8" />}
@@ -36,9 +100,13 @@ export function AssistantChat() {
 
       <div
         className={cn(
-          "fixed bottom-24 right-6 z-50 w-full max-w-md transition-all duration-300 ease-in-out",
+          "fixed z-50 w-full max-w-md transition-all duration-300 ease-in-out",
           isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         )}
+         style={{
+          right: `${position.x}px`,
+          bottom: `${position.y + 80}px`,
+        }}
       >
         <Card className="shadow-2xl">
           <CardHeader className="flex flex-row items-center justify-between">
