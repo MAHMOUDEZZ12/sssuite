@@ -20,6 +20,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import Link from 'next/link';
+import { useToast } from '@/hooks/use-toast';
 
 const mockBillingHistory = [
   { id: 'inv-001', date: 'Feb 20, 2024', amount: '$99.00', status: 'Paid' },
@@ -29,6 +30,15 @@ const mockBillingHistory = [
 
 
 export default function SettingsPage() {
+  const { toast } = useToast();
+
+  const handleSaveChanges = (area: string) => {
+    toast({
+        title: `${area} Settings Saved`,
+        description: `Your ${area.toLowerCase()} settings have been successfully updated.`
+    });
+  }
+
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
@@ -93,7 +103,7 @@ export default function SettingsPage() {
               </div>
             </CardContent>
             <CardFooter>
-                 <Button>Save Changes</Button>
+                 <Button onClick={() => handleSaveChanges('Appearance')}>Save Changes</Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -119,7 +129,7 @@ export default function SettingsPage() {
                 </div>
             </CardContent>
              <CardFooter>
-                 <Button>Save Changes</Button>
+                 <Button onClick={() => handleSaveChanges('Account')}>Save Changes</Button>
             </CardFooter>
           </Card>
         </TabsContent>
