@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React from 'react';
@@ -322,17 +323,17 @@ const features = [
       }
     ],
   },
-    {
+  {
     id: 'social-posts',
-    title: 'AI Social Post Writer',
-    description: "Generate a week's worth of social content from a single link or topic.",
+    title: 'Email & Social Post Writer',
+    description: "Generate a week's worth of social content or a full email campaign from a single link or topic.",
     icon: <Share2 />,
     color: 'from-rose-500/80 to-rose-600/80',
     cta: 'Social Post',
     details: {
       steps: [
         { text: 'Enter a topic, URL, or property address', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Choose your platforms (e.g., FB, IG)', icon: <Share2 className="h-6 w-6" /> },
+        { text: 'Choose your platforms (e.g., FB, IG, Email)', icon: <Share2 className="h-6 w-6" /> },
         { text: 'Get a week of content with images & hashtags', icon: <CalendarCheck className="h-6 w-6" /> },
       ],
       aiVsManual: [
@@ -362,7 +363,7 @@ const features = [
     },
     creationFields: [
       { id: 'source', name: 'Content Source', type: 'text', placeholder: 'Paste a URL or type a topic, e.g., "Market update for downtown"', description: 'The AI will use this as inspiration.' },
-      { id: 'platforms', name: 'Social Platforms', type: 'text', placeholder: 'e.g., Facebook, Instagram, LinkedIn', description: 'Tailor the posts for specific platforms.' },
+      { id: 'platforms', name: 'Platforms', type: 'text', placeholder: 'e.g., Facebook, Instagram, Email Newsletter', description: 'Tailor the posts for specific platforms.' },
       { id: 'tone', name: 'Tone of Voice', type: 'text', placeholder: 'e.g., Informative, Humorous, Urgent', description: 'Set the mood for your posts.' },
     ],
     faqs: [
@@ -371,8 +372,8 @@ const features = [
         answer: "You can use local market news, articles about home improvement, community events, or even just a property address. The more specific the source, the more tailored the content."
       },
       {
-        question: "Can I generate content for Instagram?",
-        answer: "Yes! The AI can generate captions, hashtag suggestions, and ideas for visuals that are perfectly suited for Instagram's format."
+        question: "Can it generate an email newsletter?",
+        answer: "Yes! You can specify 'Email Newsletter' as a platform, and the AI will generate subject lines, engaging body copy, and clear calls-to-action suitable for an email campaign."
       },
       {
         question: "Can I review the posts before they are published?",
@@ -438,7 +439,7 @@ const features = [
       }
     ],
   },
-    {
+  {
     id: 'reel-designer',
     title: 'AI Reel Designer',
     description: 'Create professional video reels from photos and text effortlessly, with auto-captions.',
@@ -499,7 +500,7 @@ const features = [
   {
     id: 'page-admin',
     title: 'AI Page Admin',
-    description: 'Your personal AI assistant to manage your social media pages 24/7.',
+    description: 'Your personal AI assistant to manage social media pages and WhatsApp 24/7.',
     icon: <UserCog />,
     color: 'from-cyan-500/80 to-cyan-600/80',
     cta: 'Page Admin',
@@ -544,12 +545,12 @@ const features = [
         answer: "The AI is trained to handle common, factual questions (price, square footage, open house times). For complex or nuanced inquiries, it will intelligently flag the conversation and notify you for personal review."
       },
       {
-        question: "Will it post without my approval?",
-        answer: "You have full control. You can set the AI to be fully autonomous, or have it queue up all posts in a 'drafts' folder for you to approve with one click."
+        question: "Can it send bulk WhatsApp messages?",
+        answer: "Yes, you can upload a contact list and compose a message, and the AI Page Admin will schedule and send it according to best practices to maximize engagement and avoid being marked as spam."
       },
       {
-        question: "Can it understand sentiment in messages?",
-        answer: "Yes. The Page Admin can analyze incoming messages and comments to gauge client sentiment (e.g., happy, frustrated, very interested) and prioritize inquiries for you."
+        question: "Will it post without my approval?",
+        answer: "You have full control. You can set the AI to be fully autonomous, or have it queue up all posts in a 'drafts' folder for you to approve with one click."
       }
     ],
   },
@@ -667,7 +668,7 @@ const features = [
       }
     ],
   },
-   {
+  {
     id: 'market-reports',
     title: 'Market Trend Reports',
     description: 'Generate hyper-local real estate market reports with AI-powered insights.',
@@ -782,6 +783,122 @@ const features = [
       }
     ],
   },
+  {
+    id: 'listing-generator',
+    title: 'Listing Details Generator',
+    description: 'Create compelling, SEO-friendly property listings from a few key details.',
+    icon: <FileText />,
+    color: 'from-gray-500/80 to-gray-600/80',
+    cta: 'Listing',
+    details: {
+      steps: [
+        { text: 'Enter key property details (address, beds, baths)', icon: <PenTool className="h-6 w-6" /> },
+        { text: 'Mention 1-2 unique features', icon: <Sparkles className="h-6 w-6" /> },
+        { text: 'Generate a full, persuasive listing description', icon: <CheckCircle className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        {
+          metric: 'Writing Time',
+          manual: '30-60 minutes of creative writing',
+          ai: 'Under 1 minute',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'SEO & Keywords',
+          manual: 'Guesswork on what terms to use',
+          ai: 'Automatically includes relevant local keywords',
+          icon: <BrainCircuit />,
+        },
+        {
+          metric: 'Completeness',
+          manual: 'Often forgets key selling points',
+          ai: 'Structured to include all critical information',
+          icon: <BadgeCheck />,
+        },
+      ],
+      synergy: [
+        { tool: "Instant Ad Creation", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
+        { tool: "Landing Page Generator", benefit: "Instantly create a beautiful single-property website using your new listing details." }
+      ]
+    },
+    creationFields: [
+      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., 123 Main St, Anytown, USA', description: 'The address of the property.' },
+      { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 4 beds, 3 baths, 2,500 sqft', description: 'Provide the basic stats.' },
+      { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Renovated kitchen with quartz countertops, backyard oasis with a pool', description: 'What makes this property special?' },
+    ],
+    faqs: [
+      {
+        question: "Can I choose the tone of the listing?",
+        answer: "Yes, you can specify a tone such as 'Luxurious,' 'Family-Friendly,' or 'Great for First-Time Buyers,' and the AI will adjust its language and emphasis accordingly."
+      },
+      {
+        question: "Is the output ready to copy and paste into the MLS?",
+        answer: "Absolutely. The generated text is formatted to be easily copied and pasted into MLS systems and other listing sites like Zillow or Redfin."
+      },
+      {
+        question: "How does it know what keywords to use for SEO?",
+        answer: "The AI analyzes the property's location and features to include relevant local keywords (like neighborhood names, school districts, or nearby landmarks) that potential buyers are likely to search for."
+      }
+    ],
+  },
+  {
+    id: 'offer-generator',
+    title: 'Multi-Project Offer Generator',
+    description: 'Create and compare customized offer packages for clients interested in multiple properties.',
+    icon: <Briefcase />,
+    color: 'from-stone-500/80 to-stone-600/80',
+    cta: 'Offer Package',
+    details: {
+      steps: [
+        { text: 'Select multiple properties for the client', icon: <Building className="h-6 w-6" /> },
+        { text: 'Input the client\'s budget and terms', icon: <Wallet className="h-6 w-6" /> },
+        { text: 'Generate a professional offer comparison PDF', icon: <FileText className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        {
+          metric: 'Document Creation Time',
+          manual: '1-2 hours in Word or Excel',
+          ai: 'Under 2 minutes',
+          icon: <Clock2 />,
+        },
+        {
+          metric: 'Accuracy',
+          manual: 'Prone to copy-paste errors and typos',
+          ai: 'Calculations and details are always accurate',
+          icon: <BadgeCheck />,
+        },
+        {
+          metric: 'Professionalism',
+          manual: 'Inconsistent formatting',
+          ai: 'Generates a clean, branded, client-ready document',
+          icon: <Award />,
+        },
+      ],
+      synergy: [
+        { tool: "Investor Matching", benefit: "After finding the top properties for an investor, use this tool to present them in a professional package." },
+        { tool: "CRM Memory Assistant", benefit: "Pull the client's specific requirements directly from the CRM to pre-fill the offer terms." }
+      ]
+    },
+    creationFields: [
+      { id: 'properties', name: 'Properties', type: 'textarea', placeholder: 'List property addresses, one per line', description: 'The properties to include in the offer package.' },
+      { id: 'clientInfo', name: 'Client Info', type: 'text', placeholder: 'e.g., John Smith, Budget: $1.5M', description: 'Basic information about the client.' },
+      { id: 'terms', name: 'Offer Terms', type: 'textarea', placeholder: 'e.g., 20% down, 30-day closing, inspection contingency', description: 'Key terms to include in the offers.' },
+    ],
+    faqs: [
+      {
+        question: "Can I add my own branding to the offer document?",
+        answer: "Yes, you can upload your logo and brand colors, and the AI will automatically apply them to the generated PDF for a professional, personalized touch."
+      },
+      {
+        question: "Does this actually submit the offers?",
+        answer: "No, this tool generates a client-facing document that clearly outlines and compares the offers for their review and approval. It does not submit legally binding offers on your behalf."
+      },
+      {
+        question: "Can it handle different offer amounts for each property?",
+        answer: "Absolutely. You can specify different offer prices and terms for each property, and the tool will present them in a clear, side-by-side comparison format."
+      }
+    ],
+  },
 ];
 
 const FeatureCard = ({
@@ -803,7 +920,9 @@ const FeatureCard = ({
     'Chat Session': 'Start a',
     'Client Record': 'Look up a',
     'Market Report': 'Generate a',
-    'Investor Match': 'Find an'
+    'Investor Match': 'Find an',
+    'Listing': 'Write your first',
+    'Offer Package': 'Create an'
   }[feature.cta] || 'Create your first';
 
 
@@ -1015,5 +1134,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
