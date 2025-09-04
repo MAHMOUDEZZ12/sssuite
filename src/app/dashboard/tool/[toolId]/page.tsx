@@ -24,6 +24,7 @@ import { generateLandingPage } from '@/ai/flows/generate-landing-page';
 import { rebrandBrochure } from '@/ai/flows/rebrand-brochure';
 import { generateSocialPost } from '@/ai/flows/generate-social-post';
 import { suggestTargetingOptions } from '@/ai/flows/suggest-targeting-options';
+import { editPdf } from '@/ai/flows/edit-pdf';
 
 const fileToDataUri = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -34,6 +35,10 @@ const fileToDataUri = (file: File): Promise<string> => {
   });
 };
 
+const filesToDataUris = (files: File[]): Promise<string[]> => {
+    return Promise.all(files.map(fileToDataUri));
+};
+
 
 const flowRunner: Record<string, (data: any) => Promise<any>> = {
     'ad-creation': generateAdFromBrochure,
@@ -41,6 +46,7 @@ const flowRunner: Record<string, (data: any) => Promise<any>> = {
     'rebranding': rebrandBrochure,
     'social-posts': generateSocialPost,
     'targeting': suggestTargetingOptions,
+    'pdf-editor': editPdf,
 }
 
 const renderResult = (toolId: string, result: any, copyToClipboard: (text: string) => void) => {
@@ -82,6 +88,17 @@ const renderResult = (toolId: string, result: any, copyToClipboard: (text: strin
           )}
         </div>
       );
+    case 'pdf-editor':
+        return (
+             <div className="space-y-6">
+                <div>
+                    <h3 className="font-semibold text-lg mb-2">Edited PDF</h3>
+                    <a href={result.editedPdfDataUri} download="edited.pdf">
+                        <Button><Download className="mr-2 h-4 w-4"/>Download Edited PDF</Button>
+                    </a>
+                </div>
+            </div>
+        )
     case 'landing-pages':
       return (
         <div>
@@ -148,17 +165,24 @@ export default function ToolPage() {
       
         let fieldSchema;
         if (field.type === 'file') {
-            const isOptional = 
+            const fileSchema = z.instanceof(File, { message: 'Please upload a file' });
+            const fileListSchema = z.array(z.instanceof(File, { message: 'Please upload a file' }));
+
+            const isOptional =
               (tool.id === 'rebranding' && field.id === 'companyLogoDataUri') ||
-              (tool.id === 'landing-pages' && field.id === 'projectBrochureDataUri');
+              (tool.id === 'landing-pages' && field.id === 'projectBrochureDataUri') ||
+              (tool.id === 'pdf-editor' && field.id === 'newImages');
 
-            let fileSchema = z.custom<File>(val => val instanceof File, 'Please upload a file');
-
-            if (isOptional) {
-                fieldSchema = fileSchema.optional().nullable();
+            if (field.multiple) {
+                fieldSchema = fileListSchema;
             } else {
                 fieldSchema = fileSchema;
             }
+
+            if (isOptional) {
+                fieldSchema = fieldSchema.optional().nullable();
+            }
+
         } else {
             fieldSchema = z.string().min(1, `${field.name} is required`);
         }
@@ -194,8 +218,12 @@ export default function ToolPage() {
             if(field.type === 'button') continue;
 
             const value = data[field.id];
-            if (field.type === 'file' && value instanceof File) {
-                payload[field.id] = await fileToDataUri(value);
+             if (field.type === 'file' && value) {
+                if (field.multiple && Array.isArray(value) && value.length > 0) {
+                    payload[field.id] = await filesToDataUris(value);
+                } else if (value instanceof File) {
+                    payload[field.id] = await fileToDataUri(value);
+                }
             } else if (value) {
                 payload[field.id] = value;
             }
@@ -257,7 +285,13 @@ export default function ToolPage() {
                             case 'textarea':
                               return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} {...rest} />;
                             case 'file':
-                                return <Input id={field.id} type="file" onChange={e => onChange(e.target.files ? e.target.files[0] : null)} {...rest} />;
+                                return <Input id={field.id} type="file" multiple={field.multiple} onChange={e => {
+                                    if(field.multiple) {
+                                        onChange(e.target.files ? Array.from(e.target.files) : []);
+                                    } else {
+                                        onChange(e.target.files ? e.target.files[0] : null);
+                                    }
+                                }} {...rest} />;
                             case 'select':
                               return (
                                 <Select onValueChange={onChange} defaultValue={value}>
