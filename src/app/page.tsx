@@ -87,7 +87,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Feature, tools as features } from '@/lib/tools.tsx';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 
 type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads';
@@ -103,35 +103,26 @@ const FeatureCard = ({
   onClick: (feature: Feature) => void;
 }) => {
   return (
-    <div
-      className={cn(
-        'group relative flex flex-col text-white rounded-3xl cursor-pointer overflow-hidden transition-transform duration-300 ease-in-out hover:-translate-y-2'
-      )}
-      onClick={() => onClick(feature)}
+    <Card 
+        className="group flex flex-col bg-card/50 backdrop-blur-lg border-primary/10 hover:border-primary/30 transition-all duration-300 cursor-pointer hover:-translate-y-2"
+        onClick={() => onClick(feature)}
     >
-        <div className={cn("absolute -inset-0.5 group-hover:inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-75 transition-all duration-300", feature.color)} />
-
-        <div
-          className={cn(
-            'relative w-full h-full flex flex-col justify-between p-8 bg-gradient-to-br rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300',
-            feature.color
-          )}
-        >
-            <div className="z-10 flex flex-col h-full">
-              <div className="mb-4 p-3 bg-white/20 rounded-full w-fit">
-                {React.cloneElement(feature.icon, { className: 'h-8 w-8' })}
-              </div>
-              <h2 className="text-3xl font-bold mb-3">{feature.title}</h2>
-              <p className="text-lg opacity-90 flex-grow">{feature.description}</p>
-              <div
-                className='bg-white/10 group-hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20 mt-auto rounded-md text-sm font-medium h-11 px-8 inline-flex items-center justify-center gap-2 transition-colors'
-              >
+      <CardHeader>
+        <div className={cn("p-3 rounded-lg w-fit text-white", feature.color)}>
+            {React.cloneElement(feature.icon, { className: 'h-8 w-8' })}
+        </div>
+      </CardHeader>
+      <CardContent className="flex flex-col flex-grow">
+        <h2 className="text-2xl font-bold mb-2 text-foreground">{feature.title}</h2>
+        <p className="text-lg text-foreground/70 flex-grow">{feature.description}</p>
+         <div className="mt-6">
+            <div className={cn('inline-flex items-center justify-center gap-2 text-white font-semibold py-2 px-4 rounded-md', feature.color)}>
                 <span>Details</span>
                 <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
-              </div>
             </div>
-        </div>
-    </div>
+         </div>
+      </CardContent>
+    </Card>
   );
 };
 
@@ -368,5 +359,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
