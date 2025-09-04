@@ -719,9 +719,9 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                 </TabsContent>
                 
                 <TabsContent value="comparison" className="space-y-4 text-foreground/90">
-                  <div className="grid grid-cols-2 gap-x-8 gap-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                     <div className="space-y-4">
-                      <h3 className="text-2xl font-semibold text-center text-primary">Manual Process</h3>
+                      <h3 className="text-2xl font-semibold text-center text-foreground/80">Manual Process</h3>
                        {feature.details.aiVsManual.map((item, index) => (
                         <div key={index} className="p-4 bg-card rounded-lg border">
                            <div className="flex items-center gap-3 mb-2">
@@ -837,5 +837,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
