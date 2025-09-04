@@ -117,7 +117,7 @@ const renderResult = (toolId: string, result: any, copyToClipboard: (text: strin
             <h3 className="font-semibold text-lg mb-2">Post Content</h3>
              <div className="p-4 bg-muted rounded-md relative group">
                 <p className="whitespace-pre-wrap">{result.postContent}</p>
-                <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.postContent)}><Copy className="h-4 w-4" /></Button>
+                <Button variant="ghost" size="icon" className="absolute top-2 right-2 aopacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.postContent)}><Copy className="h-4 w-4" /></Button>
              </div>
           </div>
            <div>
