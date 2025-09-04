@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   ArrowRight,
   Bot,
@@ -54,8 +54,6 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
-import { useToast } from "@/hooks/use-toast";
-import { Confetti } from "@/components/confetti";
 
 const features = [
   {
@@ -64,7 +62,6 @@ const features = [
     description: 'Generate high-performance ad copy and visuals from any brochure in seconds.',
     icon: <Megaphone />,
     color: 'from-pink-500/80 to-pink-600/80',
-    backText: 'Generate Your Leads with AI',
     synergies: {
       targeting: 'Fine-tune ads with hyper-specific buyer personas.',
       rebranding: 'Ensure every ad matches your new brand identity.',
@@ -134,7 +131,6 @@ const features = [
     description: 'Our AI analyzes your project and identifies high-intent buyers.',
     icon: <Target />,
     color: 'from-blue-500/80 to-blue-600/80',
-    backText: 'Close More Deals, Faster',
     synergies: {
       'ad-creation': 'Power your ad campaigns with the perfect audience.',
       rebranding: 'Rebrand your materials for a specific niche market.',
@@ -204,7 +200,6 @@ const features = [
     description: 'Instantly rebrand any brochure with your logo, colors, and voice.',
     icon: <Palette />,
     color: 'from-orange-500/80 to-orange-600/80',
-    backText: 'Achieve Perfect Brand Synergy',
     synergies: {
       'ad-creation': 'Generate on-brand ads in a single click.',
       targeting: 'Adapt your brand voice for different buyer segments.',
@@ -274,7 +269,6 @@ const features = [
     description: 'Generate persuasive landing pages that captivate buyers.',
     icon: <LayoutTemplate />,
     color: 'from-green-500/80 to-green-600/80',
-    backText: 'Captivate Buyers Instantly',
     synergies: {
       'ad-creation': 'Create the perfect destination for your ad clicks.',
       targeting: 'Build unique landing pages for each target audience.',
@@ -344,7 +338,6 @@ const features = [
     description: "Generate a week's worth of social content from a single link or topic.",
     icon: <Share2 />,
     color: 'from-rose-500/80 to-rose-600/80',
-    backText: 'Fill Your Content Calendar',
     synergies: {
       'ad-creation': 'Promote your ad campaigns across social media.',
       targeting: 'Write social posts that resonate with your target market.',
@@ -414,7 +407,6 @@ const features = [
     description: 'Find and qualify high-intent buyers and sellers automatically.',
     icon: <Users />,
     color: 'from-teal-500/80 to-teal-600/80',
-    backText: 'Never Prospect Again',
     synergies: {
       'ad-creation': 'Capture leads from every ad campaign.',
       targeting: 'Focus your efforts on the highest quality leads.',
@@ -484,7 +476,6 @@ const features = [
     description: 'See your competitors\' ads, targeting, and messaging.',
     icon: <Binoculars />,
     color: 'from-indigo-500/80 to-indigo-600/80',
-    backText: 'Outsmart the Competition',
     synergies: {
       'ad-creation': 'Create ads that are guaranteed to stand out.',
       targeting: 'Discover untapped audiences your competitors have missed.',
@@ -554,7 +545,6 @@ const features = [
     description: 'Access live data on pricing, trends, and inventory.',
     icon: <TrendingUp />,
     color: 'from-cyan-500/80 to-cyan-600/80',
-    backText: 'Become the Market Expert',
     synergies: {
       'ad-creation': 'Create ads that reflect the current state of the market.',
       targeting: 'Target buyers who are looking in trending neighborhoods.',
@@ -624,7 +614,6 @@ const features = [
     description: 'Engage every lead instantly with personalized email and SMS sequences.',
     icon: <Repeat />,
     color: 'from-amber-500/80 to-amber-600/80',
-    backText: 'Convert Leads in Your Sleep',
     synergies: {
       'ad-creation': 'Instantly engage leads the moment they respond to an ad.',
       targeting: 'Customize follow-up sequences for different buyer personas.',
@@ -694,7 +683,6 @@ const features = [
     description: 'Track every metric, from ad clicks to closed deals, in one place.',
     icon: <Gauge />,
     color: 'from-purple-500/80 to-purple-600/80',
-    backText: 'Know Your Numbers, Grow Your Business',
     synergies: {
       'ad-creation': 'See which ads are performing best and double down.',
       targeting: 'Analyze the profitability of each target audience.',
@@ -764,7 +752,6 @@ const features = [
     description: 'Create and automate beautiful, high-converting email blasts.',
     icon: <Mail />,
     color: 'from-lime-500/80 to-lime-600/80',
-    backText: 'Win the Inbox, Win the Deal',
     synergies: {
       'ad-creation': 'Use ad visuals and copy in your email blasts.',
       targeting: 'Segment your email lists with incredible precision.',
@@ -834,7 +821,6 @@ const features = [
     description: 'Sync all your data with the CRM you already use.',
     icon: <Network />,
     color: 'from-red-500/80 to-red-600/80',
-    backText: 'Your Single Source of Truth',
     synergies: {
       'ad-creation': 'Pipe leads from ads directly into your CRM.',
       targeting: 'Enrich your CRM contacts with detailed targeting data.',
@@ -904,7 +890,6 @@ const features = [
     description: 'Upload any project brochure. Our AI instantly rebrands it.',
     icon: <FilePlus />,
     color: 'from-emerald-500/80 to-emerald-600/80',
-    backText: 'Your Brand, On Everything',
     synergies: {
       'ad-creation': 'Use your rebranded brochures in your ad campaigns.',
       targeting: 'Create different brochure versions for different audiences.',
@@ -974,7 +959,6 @@ const features = [
     description: 'Receive, counter, and accept offers in one streamlined portal.',
     icon: <Handshake />,
     color: 'from-yellow-500/80 to-yellow-600/80',
-    backText: 'Close Deals with Confidence',
     synergies: {},
   },
   {
@@ -983,7 +967,6 @@ const features = [
     description: 'Sync your schedule and let qualified leads book meetings.',
     icon: <Calendar />,
     color: 'from-violet-500/80 to-violet-600/80',
-    backText: 'Automate Your Agenda',
     synergies: {},
   },
   {
@@ -992,7 +975,6 @@ const features = [
     description: 'Launch ads, emails, and updates across all listings at once.',
     icon: <ClipboardList />,
     color: 'from-stone-500/80 to-stone-600/80',
-    backText: 'Maximum Impact, Minimum Effort',
     synergies: {},
   },
   {
@@ -1001,7 +983,6 @@ const features = [
     description: 'Engage and qualify website visitors, even when you\'re asleep.',
     icon: <Bot />,
     color: 'from-sky-500/80 to-sky-600/80',
-    backText: 'Your Always-On Assistant',
     synergies: {},
   },
   {
@@ -1010,7 +991,6 @@ const features = [
     description: 'Convert static PDFs into engaging, trackable lead magnets.',
     icon: <FileText />,
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
-    backText: 'Bring Your Documents to Life',
     synergies: {},
   },
   {
@@ -1019,7 +999,6 @@ const features = [
     description: 'Create compelling short-form video ads from photos and text.',
     icon: <Video />,
     color: 'from-orange-400/80 to-orange-500/80',
-    backText: 'Stop the Scroll, Start the Sale',
     synergies: {},
   },
   {
@@ -1028,7 +1007,6 @@ const features = [
     description: 'Automatically push your listings and content to partner sites.',
     icon: <Network />,
     color: 'from-green-400/80 to-green-500/80',
-    backText: 'Maximize Your Reach',
     synergies: {},
   },
   {
@@ -1037,7 +1015,6 @@ const features = [
     description: 'Give clients a branded, real-time view of their campaign performance.',
     icon: <Briefcase />,
     color: 'from-blue-400/80 to-blue-500/80',
-    backText: 'Impress Your Clients, Effortlessly',
     synergies: {},
   },
   {
@@ -1046,7 +1023,6 @@ const features = [
     description: 'Let our AI handle initial offers and counter-offers for you.',
     icon: <BrainCircuit />,
     color: 'from-pink-400/80 to-pink-500/80',
-    backText: 'Negotiate Like a Pro, Automatically',
     synergies: {},
   },
   {
@@ -1055,7 +1031,6 @@ const features = [
     description: 'Sync with your property management software for seamless data flow.',
     icon: <Building />,
     color: 'from-teal-400/80 to-teal-500/80',
-    backText: 'Unify Your Rental & Sales Data',
     synergies: {},
   },
   {
@@ -1064,7 +1039,6 @@ const features = [
     description: 'Access a library of AI-powered training to sharpen your skills.',
     icon: <BookOpen />,
     color: 'from-indigo-400/80 to-indigo-500/80',
-    backText: 'Level Up Your Sales Game',
     synergies: {},
   },
   {
@@ -1073,7 +1047,6 @@ const features = [
     description: 'Create and embed stunning 3D tours that captivate buyers.',
     icon: <Camera />,
     color: 'from-rose-400/80 to-rose-500/80',
-    backText: 'Sell the Experience, Not Just the Space',
     synergies: {},
   },
   {
@@ -1082,7 +1055,6 @@ const features = [
     description: 'Project and prove the value of an investment property.',
     icon: <DollarSign />,
     color: 'from-lime-400/80 to-lime-500/80',
-    backText: 'Speak the Language of Investors',
     synergies: {},
   },
   {
@@ -1091,7 +1063,6 @@ const features = [
     description: 'Manage all your listings across all platforms from one place.',
     icon: <ClipboardCheck />,
     color: 'from-amber-400/80 to-amber-500/80',
-    backText: 'Your Single Source for Listings',
     synergies: {},
   },
   {
@@ -1100,7 +1071,6 @@ const features = [
     description: 'Plan, promote, and manage open house attendance.',
     icon: <CalendarCheck />,
     color: 'from-purple-400/80 to-purple-500/80',
-    backText: 'Pack Your Open Houses',
     synergies: {},
   },
   {
@@ -1109,7 +1079,6 @@ const features = [
     description: 'Automate document collection and deadline reminders for smooth closings.',
     icon: <Key />,
     color: 'from-cyan-400/80 to-cyan-500/80',
-    backText: 'Close Deals Faster, with Less Stress',
     synergies: {},
   },
   {
@@ -1118,7 +1087,6 @@ const features = [
     description: 'Our AI predicts which leads will convert and which houses will sell.',
     icon: <Lightbulb />,
     color: 'from-red-400/80 to-red-500/80',
-    backText: 'See the Future of Your Business',
     synergies: {},
   },
   {
@@ -1127,7 +1095,6 @@ const features = [
     description: 'Turn your happy clients into a powerful referral engine.',
     icon: <Users />,
     color: 'from-emerald-400/80 to-emerald-500/80',
-    backText: 'Grow Your Business Organically',
     synergies: {},
   },
   {
@@ -1136,7 +1103,6 @@ const features = [
     description: 'Boost team motivation with leaderboards, badges, and rewards.',
     icon: <Award />,
     color: 'from-yellow-400/80 to-yellow-500/80',
-    backText: 'Turn Work into Play',
     synergies: {},
   },
   {
@@ -1145,7 +1111,6 @@ const features = [
     description: 'Use AI to recommend the optimal price based on market data.',
     icon: <Sparkles />,
     color: 'from-violet-400/80 to-violet-500/80',
-    backText: 'Price it Right, Every Time',
     synergies: {},
   },
   {
@@ -1154,7 +1119,6 @@ const features = [
     description: 'Test everything from ad copy to email subject lines to find what works.',
     icon: <Filter />,
     color: 'from-stone-400/80 to-stone-500/80',
-    backText: 'Let the Data Decide',
     synergies: {},
   },
   {
@@ -1163,7 +1127,6 @@ const features = [
     description: 'Dominate local search results and be the go-to agent in your area.',
     icon: <MapPin />,
     color: 'from-sky-400/80 to-sky-500/80',
-    backText: 'Own Your Local Market',
     synergies: {},
   },
   {
@@ -1172,7 +1135,6 @@ const features = [
     description: 'Build and manage your online community with AI-powered tools.',
     icon: <Headset />,
     color: 'from-fuchsia-400/80 to-fuchsia-500/80',
-    backText: 'Build Relationships, Not Just Leads',
     synergies: {},
   },
   {
@@ -1181,7 +1143,6 @@ const features = [
     description: 'Send beautiful, automated performance reports to your clients.',
     icon: <BarChart />,
     color: 'from-orange-300/80 to-orange-400/80',
-    backText: 'Keep Your Clients Informed',
     synergies: {},
   },
   {
@@ -1190,7 +1151,6 @@ const features = [
     description: 'Generate scripts for cold calls, video ads, and follow-up messages.',
     icon: <PenTool />,
     color: 'from-green-300/80 to-green-400/80',
-    backText: 'Always Know What to Say',
     synergies: {},
   },
   {
@@ -1199,7 +1159,6 @@ const features = [
     description: 'Nurture leads for months or even years with automated campaigns.',
     icon: <Mails />,
     color: 'from-blue-300/80 to-blue-400/80',
-    backText: 'Stay Top of Mind, Forever',
     synergies: {},
   },
   {
@@ -1208,7 +1167,6 @@ const features = [
     description: 'Automate your to-do list and focus on what matters most.',
     icon: <ClipboardList />,
     color: 'from-pink-300/80 to-pink-400/80',
-    backText: 'Work Smarter, Not Harder',
     synergies: {},
   },
   {
@@ -1217,7 +1175,6 @@ const features = [
     description: 'Collect valuable feedback from clients and leads automatically.',
     icon: <MessageCircle />,
     color: 'from-teal-300/80 to-teal-400/80',
-    backText: 'Continuously Improve Your Service',
     synergies: {},
   },
   {
@@ -1226,7 +1183,6 @@ const features = [
     description: 'Get instant notifications for hot lead activity on your site.',
     icon: <Zap />,
     color: 'from-indigo-300/80 to-indigo-400/80',
-    backText: 'Never Miss an Opportunity',
     synergies: {},
   },
   {
@@ -1235,7 +1191,6 @@ const features = [
     description: 'Ensure your marketing materials meet all regulatory standards.',
     icon: <ShieldCheck />,
     color: 'from-rose-300/80 to-rose-400/80',
-    backText: 'Market with Confidence',
     synergies: {},
   },
   {
@@ -1244,7 +1199,6 @@ const features = [
     description: 'Automatically generate contracts, CMAs, and other documents.',
     icon: <FileUp />,
     color: 'from-lime-300/80 to-lime-400/80',
-    backText: 'Eliminate Paperwork Bottlenecks',
     synergies: {},
   },
   {
@@ -1253,7 +1207,6 @@ const features = [
     description: 'Create a stunning, dedicated website for each listing in minutes.',
     icon: <LayoutTemplate />,
     color: 'from-amber-300/80 to-amber-400/80',
-    backText: 'Give Every Listing the Spotlight',
     synergies: {},
   },
   {
@@ -1262,7 +1215,6 @@ const features = [
     description: 'Translate your marketing materials into multiple languages.',
     icon: <MessageCircle />,
     color: 'from-purple-300/80 to-purple-400/80',
-    backText: 'Reach a Global Audience',
     synergies: {},
   },
   {
@@ -1271,7 +1223,6 @@ const features = [
     description: 'Optimize your content to be found via voice assistants.',
     icon: <Headset />,
     color: 'from-cyan-300/80 to-cyan-400/80',
-    backText: 'Be the Answer',
     synergies: {},
   },
   {
@@ -1280,7 +1231,6 @@ const features = [
     description: 'Stage properties virtually to help buyers visualize their new home.',
     icon: <Gem />,
     color: 'from-red-300/80 to-red-400/80',
-    backText: 'Sell the Dream, Virtually',
     synergies: {},
   },
   {
@@ -1289,7 +1239,6 @@ const features = [
     description: 'Generate beautiful, data-rich reports for any neighborhood.',
     icon: <FileSearch />,
     color: 'from-emerald-300/80 to-emerald-400/80',
-    backText: 'Your Source for Local Insights',
     synergies: {},
   },
   {
@@ -1298,7 +1247,6 @@ const features = [
     description: 'Collaborate with your team on listings, leads, and campaigns.',
     icon: <Users />,
     color: 'from-yellow-300/80 to-yellow-400/80',
-    backText: 'Teamwork Makes the Dream Work',
     synergies: {},
   },
   {
@@ -1307,7 +1255,6 @@ const features = [
     description: 'Track your commissions and get projections for future earnings.',
     icon: <LineChart />,
     color: 'from-violet-300/80 to-violet-400/80',
-    backText: 'Know Your Worth',
     synergies: {},
   },
   {
@@ -1316,7 +1263,6 @@ const features = [
     description: 'Track mentions of your brand and identify potential leads.',
     icon: <Binoculars />,
     color: 'from-stone-300/80 to-stone-400/80',
-    backText: 'Hear What People Are Saying',
     synergies: {},
   },
   {
@@ -1325,7 +1271,6 @@ const features = [
     description: 'Add live chat to your website and talk to visitors in real-time.',
     icon: <MessageCircle />,
     color: 'from-sky-300/80 to-sky-400/80',
-    backText: 'Convert Visitors into Clients',
     synergies: {},
   },
   {
@@ -1334,7 +1279,6 @@ const features = [
     description: 'Manage the entire lifecycle of your contracts, from draft to signature.',
     icon: <FileText />,
     color: 'from-fuchsia-300/80 to-fuchsia-400/80',
-    backText: 'Streamline Your Paperwork',
     synergies: {},
   },
   {
@@ -1343,7 +1287,6 @@ const features = [
     description: 'Automatically request and collect feedback after every showing.',
     icon: <ClipboardCheck />,
     color: 'from-orange-200/80 to-orange-300/80',
-    backText: 'Get the Insights You Need',
     synergies: {},
   },
   {
@@ -1352,7 +1295,6 @@ const features = [
     description: 'Track all your business expenses and see where your money is going.',
     icon: <DollarSign />,
     color: 'from-green-200/80 to-green-300/80',
-    backText: 'Take Control of Your Finances',
     synergies: {},
   },
   {
@@ -1361,7 +1303,6 @@ const features = [
     description: 'Store your logos, colors, and fonts for easy access.',
     icon: <Briefcase />,
     color: 'from-blue-200/80 to-blue-300/80',
-    backText: 'Your Brand, Centralized',
     synergies: {},
   },
   {
@@ -1370,7 +1311,6 @@ const features = [
     description: 'Create beautiful, interactive maps of your listings.',
     icon: <MapPin />,
     color: 'from-pink-200/80 to-pink-300/80',
-    backText: 'Help Buyers Explore the Area',
     synergies: {},
   },
   {
@@ -1379,7 +1319,6 @@ const features = [
     description: 'Promote your open houses, webinars, and other events.',
     icon: <Megaphone />,
     color: 'from-teal-200/80 to-teal-300/80',
-    backText: 'Pack Your Events',
     synergies: {},
   },
   {
@@ -1388,7 +1327,6 @@ const features = [
     description: 'Plan and schedule all your content in one visual calendar.',
     icon: <Calendar />,
     color: 'from-indigo-200/80 to-indigo-300/80',
-    backText: 'Stay Organized, Stay Consistent',
     synergies: {},
   },
   {
@@ -1397,7 +1335,6 @@ const features = [
     description: 'Turn standard floor plans into immersive 3D models.',
     icon: <Gem />,
     color: 'from-rose-200/80 to-rose-300/80',
-    backText: 'Help Buyers See the Potential',
     synergies: {},
   },
 ];
@@ -1426,7 +1363,7 @@ const FeatureCard = ({
   };
   
   const cardState = getCardState();
-  const synergyText = hoveredId ? (feature.synergies as any)[hoveredId] : null;
+  const synergyText = hoveredId ? (features.find(f => f.id === hoveredId)?.synergies as any)?.[feature.id] : null;
 
   return (
     <div
@@ -1439,7 +1376,7 @@ const FeatureCard = ({
           'relative w-full h-[420px] text-white transition-transform duration-700 ease-in-out rounded-3xl',
           '[transform-style:preserve-3d]',
           cardState === 'active' && '[transform:rotateY(180deg)]',
-          cardState === 'synergy' && 'group-hover/main:animate-float' // Floating animation for synergy
+          cardState === 'synergy' && 'group-hover/main:animate-float'
         )}
       >
         {/* Front of the card */}
@@ -1449,7 +1386,6 @@ const FeatureCard = ({
             'transition-opacity duration-500',
             feature.color,
             '[backface-visibility:hidden]',
-            // Fade the front if someone else is hovered to make the synergy view more prominent
             cardState === 'synergy' && 'opacity-0' 
           )}
         >
@@ -1464,7 +1400,7 @@ const FeatureCard = ({
                 variant="ghost"
                 className={cn(
                     'bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20 mt-auto',
-                    cardState === 'synergy' && 'hidden' // Hide button in synergy state
+                    cardState === 'synergy' && 'hidden'
                 )}
                 onClick={() => onClick(feature.id)}
               >
@@ -1492,7 +1428,7 @@ const FeatureCard = ({
           )}
         >
             <h3 className="text-4xl font-bold text-center drop-shadow-lg">
-              {feature.backText}
+              { (feature.synergies as any)[feature.id] || "Unlock Potential"}
             </h3>
         </div>
         
@@ -1501,9 +1437,9 @@ const FeatureCard = ({
           <div
             className={cn(
               'absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-br rounded-3xl',
-              features.find(f => f.id === hoveredId)?.color, // Use the color of the hovered card
+              features.find(f => f.id === hoveredId)?.color,
               'transition-opacity duration-500 ease-in-out',
-               cardState === 'synergy' ? 'opacity-100' : 'opacity-0', // Show only in synergy state
+               cardState === 'synergy' ? 'opacity-100' : 'opacity-0',
               '[backface-visibility:hidden] '
             )}
           >
@@ -1522,37 +1458,10 @@ const FeatureCard = ({
 
 
 export default function Home() {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const { toast } = useToast();
-  const [clickedCards, setClickedCards] = useState<Set<string>>(new Set());
-  const [showConfetti, setShowConfetti] = useState(false);
-
-  const handleCardClick = (id: string) => {
-    const newClickedCards = new Set(clickedCards);
-    newClickedCards.add(id);
-    
-    if (newClickedCards.size > clickedCards.size) {
-        setClickedCards(newClickedCards);
-        
-        if (newClickedCards.size === 1) {
-            toast({
-                title: "Great start!",
-                description: "Click two more to see the magic.",
-            });
-        } else if (newClickedCards.size === 3) {
-            toast({
-                title: "Awesome! You're getting the hang of it.",
-                description: "The possibilities are endless.",
-            });
-            setShowConfetti(true);
-        }
-    }
-  };
-
+  const [hoveredId, setHoveredId] = React.useState<string | null>(null);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      {showConfetti && <Confetti />}
       <LandingHeader />
       <main className="flex-1 w-full max-w-full px-4 md:px-6 lg:px-8 py-12 md:py-20">
         <div className="text-center mb-16 max-w-5xl mx-auto">
@@ -1583,7 +1492,7 @@ export default function Home() {
                 index={index} 
                 hoveredId={hoveredId}
                 setHoveredId={setHoveredId}
-                onClick={handleCardClick}
+                onClick={() => {}}
             />
           ))}
         </div>
