@@ -163,31 +163,30 @@ export default function ToolPage() {
     tool.creationFields.forEach((field) => {
         if(field.type === 'button') return;
       
-        let fieldSchema;
-        if (field.type === 'file') {
-            const fileSchema = z.instanceof(File, { message: 'Please upload a file' });
-            const fileListSchema = z.array(z.instanceof(File, { message: 'Please upload a file' }));
-
-            const isOptional =
+        const isOptional =
               (tool.id === 'rebranding' && field.id === 'companyLogoDataUri') ||
               (tool.id === 'landing-pages' && field.id === 'projectBrochureDataUri') ||
               (tool.id === 'pdf-editor' && field.id === 'newImages');
 
+        if (field.type === 'file') {
+            const baseSchema = z.any();
+            let refinedSchema;
+
             if (field.multiple) {
-                fieldSchema = fileListSchema;
+                refinedSchema = baseSchema.refine((files: FileList) => files?.length > 0, 'Please upload at least one file.');
+                 if (isOptional) {
+                    refinedSchema = baseSchema.refine((files: FileList) => files === undefined || files === null || files.length > 0, 'Please upload at least one file.').optional().nullable();
+                }
             } else {
-                fieldSchema = fileSchema;
+                refinedSchema = baseSchema.refine((file: File) => file, 'Please upload a file.');
+                if (isOptional) {
+                    refinedSchema = baseSchema.refine((file: File) => file === undefined || file === null || !!file, 'Please upload a file.').optional().nullable();
+                }
             }
-
-            if (isOptional) {
-                fieldSchema = fieldSchema.optional().nullable();
-            }
-
+            shape[field.id] = refinedSchema;
         } else {
-            fieldSchema = z.string().min(1, `${field.name} is required`);
+            shape[field.id] = z.string().min(1, `${field.name} is required`);
         }
-        
-        shape[field.id] = fieldSchema;
     });
     return z.object(shape);
   }, [tool]);
@@ -198,6 +197,12 @@ export default function ToolPage() {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
+    defaultValues: tool?.creationFields.reduce((acc, field) => {
+      if (field.type !== 'button') {
+        (acc as any)[field.id] = undefined;
+      }
+      return acc;
+    }, {})
   });
 
 
@@ -213,15 +218,15 @@ export default function ToolPage() {
 
     try {
         const payload: Record<string, any> = {};
-
+        
         for (const field of tool.creationFields) {
             if(field.type === 'button') continue;
 
             const value = data[field.id];
              if (field.type === 'file' && value) {
-                if (field.multiple && Array.isArray(value) && value.length > 0) {
-                    payload[field.id] = await filesToDataUris(value);
-                } else if (value instanceof File) {
+                 if (field.multiple && value instanceof FileList && value.length > 0) {
+                    payload[field.id] = await filesToDataUris(Array.from(value));
+                } else if (!field.multiple && value instanceof File) {
                     payload[field.id] = await fileToDataUri(value);
                 }
             } else if (value) {
@@ -285,13 +290,13 @@ export default function ToolPage() {
                             case 'textarea':
                               return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} {...rest} />;
                             case 'file':
-                                return <Input id={field.id} type="file" multiple={field.multiple} onChange={e => {
+                                return <Input id={field.id} type="file" multiple={field.multiple} {...rest} onChange={e => {
                                     if(field.multiple) {
-                                        onChange(e.target.files ? Array.from(e.target.files) : []);
+                                        onChange(e.target.files);
                                     } else {
                                         onChange(e.target.files ? e.target.files[0] : null);
                                     }
-                                }} {...rest} />;
+                                }} />;
                             case 'select':
                               return (
                                 <Select onValueChange={onChange} defaultValue={value}>
@@ -356,3 +361,5 @@ export default function ToolPage() {
     </main>
   );
 }
+
+    
