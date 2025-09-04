@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { PlusCircle, Facebook, Instagram, Mail, MessageCircle, Link as LinkIcon, ArrowRight, Target, Palette, Share2, LineChart } from 'lucide-react';
+import { PlusCircle, Facebook, Instagram, Mail, MessageCircle, Link as LinkIcon, ArrowRight, Target, Palette, Share2, LineChart, LayoutTemplate, PenTool } from 'lucide-react';
 import Link from 'next/link';
 
 const ConnectAccountCard = ({
