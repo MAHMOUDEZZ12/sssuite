@@ -1,7 +1,7 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { PageHeader } from '@/components/ui/page-header';
 import { BrainCircuit, Upload, Sparkles, BookOpen, Wand2, FileText, Bot } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -30,6 +30,7 @@ const samplePrompts = [
 
 
 export default function AssistantPage() {
+  const [assistantName, setAssistantName] = useState('Casey');
 
   return (
     <main className="p-4 md:p-10 space-y-8">
@@ -55,7 +56,12 @@ export default function AssistantPage() {
             <CardContent className="space-y-6">
                <div className="space-y-2">
                   <Label htmlFor="assistant-name">Assistant Name</Label>
-                  <Input id="assistant-name" placeholder="e.g., 'Market Maven' or 'Casey'" defaultValue="My Assistant" />
+                  <Input 
+                    id="assistant-name" 
+                    placeholder="e.g., 'Market Maven' or 'Casey'" 
+                    value={assistantName}
+                    onChange={(e) => setAssistantName(e.target.value)}
+                  />
                </div>
                <div className="space-y-2">
                   <Label htmlFor="assistant-instructions">Core Instructions</Label>

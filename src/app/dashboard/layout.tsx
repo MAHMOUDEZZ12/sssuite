@@ -118,14 +118,6 @@ export default function DashboardLayout({
           </div>
         </SidebarHeader>
         <SidebarContent>
-            <div className='p-2'>
-              <Link href="/dashboard">
-                <Button className="w-full justify-start bg-primary/10 hover:bg-primary/20 text-primary-foreground font-semibold border-2 border-primary/20">
-                    <Star className="mr-2 h-5 w-5 text-yellow-400" />
-                    My Assistant
-                </Button>
-              </Link>
-            </div>
           <div className="flex flex-col gap-2 p-2">
             <SidebarMenuGroup title="Marketing" tools={marketingTools} />
             <SidebarMenuGroup title="Design Tools" tools={designTools} />

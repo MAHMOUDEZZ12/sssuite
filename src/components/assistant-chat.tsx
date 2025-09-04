@@ -13,6 +13,7 @@ import { Separator } from './ui/separator';
 
 export function AssistantChat() {
   const [isOpen, setIsOpen] = useState(false);
+  const [assistantName, setAssistantName] = useState('Casey');
 
   const mockMessages = [
     { from: 'ai', text: "Hello! How can I help you accelerate your sales today?" },
@@ -51,7 +52,7 @@ export function AssistantChat() {
                 <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-green-500 border-2 border-card" />
               </div>
               <div>
-                <CardTitle>My Assistant</CardTitle>
+                <CardTitle>{assistantName}</CardTitle>
                 <p className="text-sm text-muted-foreground">Online</p>
               </div>
             </div>
@@ -97,7 +98,7 @@ export function AssistantChat() {
           </CardContent>
           <CardFooter className="p-4 border-t">
             <div className="flex w-full items-center gap-2">
-              <Input placeholder="Ask your assistant..." />
+              <Input placeholder={`Ask ${assistantName}...`} />
               <Button size="icon">
                 <Send className="h-4 w-4" />
               </Button>
