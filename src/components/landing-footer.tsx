@@ -15,12 +15,15 @@ export function LandingFooter() {
       { name: 'Media', href: '#' },
       { name: 'Marketing', href: '#' },
     ],
+    resources: [
+        { name: 'Blog', href: '#' },
+        { name: 'Documentation', href: '/documentation' },
+        { name: 'Technology', href: '/technology' },
+    ],
     company: [
       { name: 'About Us', href: '#' },
       { name: 'Careers', href: '#' },
-      { name: 'Blog', href: '#' },
       { name: 'Contact Us', href: '#' },
-      { name: 'Documentation', href: '/documentation' },
     ],
     legal: [
       { name: 'Privacy Policy', href: '#' },
@@ -63,9 +66,9 @@ export function LandingFooter() {
                     </p>
                 </div>
                 <div>
-                    <h3 className="font-semibold text-foreground">Modules</h3>
+                    <h3 className="font-semibold text-foreground">Resources</h3>
                     <ul className="mt-4 space-y-2">
-                        {footerLinks.modules.map((link) => (
+                        {footerLinks.resources.map((link) => (
                             <li key={link.name}>
                                 <Link href={link.href} className="text-foreground/60 hover:text-primary transition-colors">
                                     {link.name}
