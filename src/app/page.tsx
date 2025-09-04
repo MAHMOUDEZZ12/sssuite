@@ -108,7 +108,7 @@ const FeatureCard = ({
         onClick={() => onClick(feature)}
     >
       <CardHeader>
-        <div className={cn("p-3 rounded-lg w-fit text-white", feature.color)}>
+        <div className={`p-3 rounded-lg w-fit text-white ${feature.color}`}>
             {React.cloneElement(feature.icon, { className: 'h-8 w-8' })}
         </div>
       </CardHeader>
@@ -116,7 +116,7 @@ const FeatureCard = ({
         <h2 className="text-2xl font-bold mb-2 text-foreground">{feature.title}</h2>
         <p className="text-lg text-foreground/70 flex-grow">{feature.description}</p>
          <div className="mt-6">
-            <div className={cn('inline-flex items-center justify-center gap-2 text-white font-semibold py-2 px-4 rounded-md', feature.color)}>
+            <div className={`inline-flex items-center justify-center gap-2 text-white font-semibold py-2 px-4 rounded-md ${feature.color}`}>
                 <span>Details</span>
                 <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
             </div>
@@ -312,7 +312,7 @@ export default function Home() {
         </div>
         
         <section className="mt-24 max-w-6xl mx-auto">
-            <Card className="bg-card/50 backdrop-blur-lg border-primary/10 shadow-xl shadow-primary/10">
+            <Card className="bg-card/50 backdrop-blur-lg border-primary/10 shadow-xl shadow-primary/10 overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
                     <div className="p-8 md:p-12">
                          <div className="p-3 bg-primary/10 text-primary rounded-full w-fit mb-4">
@@ -345,9 +345,30 @@ export default function Home() {
                             </Button>
                         </Link>
                     </div>
-                    <div className="hidden lg:block relative w-full h-[400px] overflow-hidden rounded-r-2xl">
-                         <Image src="https://placehold.co/600/400/1e293b/ffffff?text=AI+Personality+Settings" alt="AI Assistant training dashboard" fill style={{objectFit: 'cover', objectPosition: "left center"}} data-ai-hint="dashboard screenshot" />
-                         <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent"></div>
+                    <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center">
+                         <h3 className="text-xl font-semibold mb-4 text-foreground/90">Assistant Capabilities</h3>
+                         <ul className="space-y-3">
+                             <li className="flex items-center gap-3">
+                                 <CheckCircle className="h-5 w-5 text-primary" />
+                                 <span className="text-foreground/80">Summarize documents and reports</span>
+                            </li>
+                             <li className="flex items-center gap-3">
+                                 <CheckCircle className="h-5 w-5 text-primary" />
+                                 <span className="text-foreground/80">Draft emails and social posts</span>
+                            </li>
+                             <li className="flex items-center gap-3">
+                                 <CheckCircle className="h-5 w-5 text-primary" />
+                                 <span className="text-foreground/80">Compare properties for clients</span>
+                            </li>
+                             <li className="flex items-center gap-3">
+                                 <CheckCircle className="h-5 w-5 text-primary" />
+                                 <span className="text-foreground/80">Role-play negotiations</span>
+                            </li>
+                             <li className="flex items-center gap-3">
+                                 <CheckCircle className="h-5 w-5 text-primary" />
+                                 <span className="text-foreground/80">Answer questions based on your data</span>
+                            </li>
+                         </ul>
                     </div>
                 </div>
             </Card>
