@@ -161,27 +161,23 @@ export default function ToolPage() {
   const schema = React.useMemo(() => {
     if (!tool) return z.object({});
     
-    const shape: Record<string, z.ZodType<any, any>> = {};
-    
-    tool.creationFields.forEach((field) => {
-        if(field.type === 'button') return;
-      
+    const shape = tool.creationFields.reduce((acc, field) => {
+        if (field.type === 'button') return acc;
+        
         const isOptional =
               (tool.id === 'rebranding' && field.id === 'companyLogoDataUri') ||
               (tool.id === 'landing-pages' && field.id === 'projectBrochureDataUri') ||
               (tool.id === 'pdf-editor' && field.id === 'newImages');
 
         if (field.type === 'file') {
-             const fileSchema = z.custom<FileList>()
-                .refine(files => files?.length > 0, `${field.name} is required.`);
-             
+             const fileSchema = z.custom<FileList>().refine(files => files && files.length > 0, `${field.name} is required.`);
              const optionalFileSchema = z.custom<FileList>().optional();
-             
-             shape[field.id] = isOptional ? optionalFileSchema : fileSchema;
+             (acc as any)[field.id] = isOptional ? optionalFileSchema : fileSchema;
         } else {
-            shape[field.id] = z.string().min(1, `${field.name} is required`);
+            (acc as any)[field.id] = z.string().min(1, `${field.name} is required`);
         }
-    });
+        return acc;
+    }, {});
 
     return z.object(shape);
   }, [tool]);
@@ -367,5 +363,3 @@ export default function ToolPage() {
     </main>
   );
 }
-
-    

@@ -3,6 +3,7 @@
 
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import {
   SidebarProvider,
   Sidebar,
@@ -81,10 +82,14 @@ const SidebarMenuGroup = ({
           <SidebarMenu className="pl-4 py-2">
             {tools.map((tool) => (
               <SidebarMenuItem key={tool.id}>
-                <SidebarMenuButton href={`/dashboard/tool/${tool.id}`} isActive={pathname.endsWith(tool.id)} tooltip={{ children: tool.title }}>
-                  {tool.icon}
-                  <span>{tool.title}</span>
-                </SidebarMenuButton>
+                <Link href={`/dashboard/tool/${tool.id}`} passHref>
+                  <SidebarMenuButton asChild isActive={pathname.endsWith(tool.id)} tooltip={{ children: tool.title }}>
+                    <a>
+                      {tool.icon}
+                      <span>{tool.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
             ))}
           </SidebarMenu>

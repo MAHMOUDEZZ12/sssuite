@@ -4,6 +4,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   ArrowRight,
   Bot,
@@ -61,7 +62,7 @@ import {
   MousePointerClick,
   Send,
   Plus,
-  Link,
+  Link as LinkIcon,
   Users2,
   Clock2,
   BadgeCheck,
@@ -77,7 +78,6 @@ import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { ShinyButton } from '@/components/ui/shiny-button';
 import {
   Accordion,
   AccordionContent,
@@ -86,7 +86,6 @@ import {
 } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Progress } from '@/components/ui/progress';
 import { Feature, tools as features } from '@/lib/tools.tsx';
 
 
@@ -365,5 +364,3 @@ export default function Home() {
     </div>
   );
 }
-
-    

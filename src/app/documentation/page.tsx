@@ -59,7 +59,7 @@ const GenerateLandingPageInputSchema = z.object({
 });
     `,
     outputSchema: `
-const GenerateLandingPageOutputSchema = zלא.object({
+const GenerateLandingPageOutputSchema = z.object({
   landingPageHtml: z.string().describe("The generated HTML..."),
 });
     `,
@@ -114,6 +114,22 @@ const SuggestTargetingOptionsInputSchema = z.object({
     outputSchema: `
 const SuggestTargetingOptionsOutputSchema = z.object({
   suggestedTargetingOptions: z.string().describe("..."),
+});
+    `,
+  },
+    {
+    name: 'editPdf',
+    description: 'This flow takes a source PDF, a set of instructions, and optional new images, and returns a new, edited PDF.',
+    inputSchema: `
+const EditPdfInputSchema = z.object({
+  sourcePdf: z.string().describe("The source PDF document..."),
+  editInstructions: z.string().describe("The instructions for editing..."),
+  newImages: z.array(z.string()).optional().describe("Optional new images..."),
+});
+    `,
+    outputSchema: `
+const EditPdfOutputSchema = z.object({
+  editedPdfDataUri: z.string().describe("The edited PDF document..."),
 });
     `,
   },
