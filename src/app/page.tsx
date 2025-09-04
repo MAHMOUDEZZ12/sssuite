@@ -108,7 +108,7 @@ const features = [
     synergies: {
       'ad-creation': 'Generate on-brand ads.',
       targeting: 'Adapt voice for segments.',
-      'rebranding': "Apply Your Branding",
+      rebranding: "Apply Your Branding",
       'landing-pages': 'Brand landing pages instantly.',
       'social-posts': 'Maintain consistent brand voice.',
     },
@@ -957,7 +957,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
               <h2 className="text-4xl font-bold mb-4">{feature.title}</h2>
               <p className="text-lg text-foreground/80 mb-8">{feature.longDescription}</p>
                <ShinyButton>
-                Start Your Free Trial
+                {feature.cta}
                 <ArrowRight />
               </ShinyButton>
             </div>
