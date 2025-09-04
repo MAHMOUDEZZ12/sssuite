@@ -55,8 +55,6 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
-import { Confetti } from '@/components/confetti';
-import { useToast } from '@/hooks/use-toast';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { ShinyButton } from '@/components/ui/shiny-button';
 
@@ -67,7 +65,7 @@ const features = [
     id: 'ad-creation',
     title: 'Instant Ad Creation',
     description: 'Generate high-performance ad copy and visuals from any brochure in seconds.',
-    longDescription: 'Our AI analyzes your property brochures and instantly generates multiple high-converting ad variants optimized for platforms like Facebook, Instagram, and Google. Say goodbye to writer\'s block and hello to effortless, effective advertising.',
+    longDescription: 'Our AI analyzes your property brochures and instantly generates multiple high-converting ad variants optimized for platforms like Facebook, Instagram, and Google. Say goodbye to writer\'s block and hello to effortless, effective advertising. No design or copywriting experience needed.',
     icon: <Megaphone />,
     color: 'from-pink-500/80 to-pink-600/80',
     cta: 'Create an Ad',
@@ -83,7 +81,7 @@ const features = [
     id: 'targeting',
     title: 'Precision Targeting',
     description: 'Our AI analyzes your project and identifies high-intent buyers.',
-    longDescription: 'Move beyond basic demographics. Our AI identifies high-intent buyer personas based on online behavior, life events, and psychographic data, ensuring your ads reach the most qualified audience.',
+    longDescription: 'Move beyond basic demographics. Our AI identifies high-intent buyer personas based on online behavior, life events, and psychographic data, ensuring your ads reach the most qualified audience. It\'s powerful targeting, made simple.',
     icon: <Target />,
     color: 'from-blue-500/80 to-blue-600/80',
     cta: 'Target Buyers',
@@ -99,7 +97,7 @@ const features = [
     id: 'rebranding',
     title: 'Automated Rebranding',
     description: 'Instantly rebrand any brochure with your logo, colors, and voice.',
-    longDescription: 'Upload any developer\'s project brochure, and our AI will instantly rebrand it with your logo, contact information, and brand colors, giving you a polished, professional asset in seconds.',
+    longDescription: 'Upload any developer\'s project brochure, and our AI will instantly rebrand it with your logo, contact information, and brand colors, giving you a polished, professional asset in seconds. It\'s as easy as clicking a button.',
     icon: <Palette />,
     color: 'from-orange-500/80 to-orange-600/80',
     cta: 'Rebrand a Brochure',
@@ -115,7 +113,7 @@ const features = [
     id: 'landing-pages',
     title: 'Landing Page Generator',
     description: 'Generate persuasive landing pages that captivate buyers.',
-    longDescription: 'Create stunning, high-converting landing pages for your listings with a single click. Our AI pulls property details and images to build a beautiful page designed to capture leads.',
+    longDescription: 'Create stunning, high-converting landing pages for your listings with a single click. Our AI pulls property details and images to build a beautiful page designed to capture leads, no coding or design skills required. It\'s that easy.',
     icon: <LayoutTemplate />,
     color: 'from-green-500/80 to-green-600/80',
     cta: 'Generate a Page',
@@ -131,7 +129,7 @@ const features = [
     id: 'social-posts',
     title: 'AI Social Post Writer',
     description: "Generate a week's worth of social content from a single link or topic.",
-    longDescription: 'Never worry about what to post again. Give our AI a link to a news article, a blog post, or just a topic, and it will generate a full week\'s worth of engaging social media content for all your platforms.',
+    longDescription: 'Never worry about what to post again. Give our AI a link to a news article, a blog post, or just a topic, and it will generate a full week\'s worth of engaging social media content for all your platforms. Content creation has never been this simple.',
     icon: <Share2 />,
     color: 'from-rose-500/80 to-rose-600/80',
     cta: 'Write Social Posts',
@@ -150,7 +148,7 @@ const features = [
     icon: <Users />,
     color: 'from-teal-500/80 to-teal-600/80',
     cta: 'Generate Leads',
-    longDescription: 'Our platform actively scours public data and online signals to identify potential buyers and sellers in your market, delivering a stream of qualified leads directly to your dashboard.',
+    longDescription: 'Our platform actively scours public data and online signals to identify potential buyers and sellers in your market, delivering a stream of qualified leads directly to your dashboard. Let the AI do the prospecting for you.',
     synergies: {
       'ad-creation': 'Capture leads from campaigns.',
       'lead-gen': 'Automate Lead Generation',
@@ -163,7 +161,7 @@ const features = [
     icon: <Binoculars />,
     color: 'from-indigo-500/80 to-indigo-600/80',
     cta: 'Analyze Competitors',
-    longDescription: 'Get a strategic advantage by analyzing your competitors\' marketing efforts. See their ads, understand their messaging, and discover the audiences they\'re targeting to find opportunities to outperform them.',
+    longDescription: 'Get a strategic advantage by analyzing your competitors\' marketing efforts. See their ads, understand their messaging, and discover the audiences they\'re targeting to find opportunities to outperform them. It\'s simple to get started.',
     synergies: {
       'ad-creation': 'Create standout ads.',
       'competitor-analysis': 'Analyze Competitor Strategy',
@@ -176,7 +174,7 @@ const features = [
     icon: <TrendingUp />,
     color: 'from-cyan-500/80 to-cyan-600/80',
     cta: 'Analyze the Market',
-    longDescription: 'Make data-driven decisions with access to real-time market trends, pricing insights, and inventory levels. Position yourself as the market expert and provide invaluable advice to your clients.',
+    longDescription: 'Make data-driven decisions with access to real-time market trends, pricing insights, and inventory levels. Position yourself as the market expert and provide invaluable advice to your clients, all with easy-to-understand dashboards.',
     synergies: {
       'ad-creation': 'Create ads reflecting market.',
       'market-analysis': 'Get Real-Time Market Data',
@@ -189,7 +187,7 @@ const features = [
     icon: <Repeat />,
     color: 'from-amber-500/80 to-amber-600/80',
     cta: 'Automate Follow-Ups',
-    longDescription: 'Instantly engage every new lead with intelligent, multi-touch follow-up campaigns. Our AI-powered sequences nurture leads via email and SMS, ensuring you\'re always top-of-mind.',
+    longDescription: 'Instantly engage every new lead with intelligent, multi-touch follow-up campaigns. Our AI-powered sequences nurture leads via email and SMS, ensuring you\'re always top-of-mind, with no manual effort required.',
     synergies: {
       'auto-follow-up': 'Automate Lead Follow-Up',
     },
@@ -201,7 +199,7 @@ const features = [
     icon: <Gauge />,
     color: 'from-purple-500/80 to-purple-600/80',
     cta: 'View Dashboard',
-    longDescription: 'Get a 360-degree view of your business with our comprehensive performance dashboard. Track ad spend, lead conversion rates, ROI, and your entire sales funnel in one intuitive interface.',
+    longDescription: 'Get a 360-degree view of your business with our comprehensive performance dashboard. Track ad spend, lead conversion rates, ROI, and your entire sales funnel in one intuitive interface. No complicated setup needed.',
     synergies: {
       'performance-dashboard': 'Track Your Performance',
     },
@@ -213,7 +211,7 @@ const features = [
     icon: <Mail />,
     color: 'from-lime-500/80 to-lime-600/80',
     cta: 'Launch a Campaign',
-    longDescription: 'Design and send stunning email newsletters and marketing blasts with our AI-powered editor. Generate compelling copy, choose from beautiful templates, and automate your sends to nurture your audience.',
+    longDescription: 'Design and send stunning email newsletters and marketing blasts with our AI-powered editor. Generate compelling copy, choose from beautiful templates, and automate your sends to nurture your audience. It\'s professional-grade email marketing, simplified.',
     synergies: {
       'email-campaigns': 'Launch Email Campaigns',
     },
@@ -225,7 +223,7 @@ const features = [
     icon: <Network />,
     color: 'from-red-500/80 to-red-600/80',
     cta: 'Connect Your CRM',
-    longDescription: 'Super Sales Suite seamlessly integrates with the CRM you already know and love. Keep your data synchronized and your workflow efficient without having to switch platforms.',
+    longDescription: 'Super Sales Suite seamlessly integrates with the CRM you already know and love. Keep your data synchronized and your workflow efficient without having to switch platforms. Connection is just a few clicks.',
     synergies: {
       'crm-integration': 'Connect Your CRM',
     },
@@ -237,7 +235,7 @@ const features = [
     icon: <FilePlus />,
     color: 'from-emerald-500/80 to-emerald-600/80',
     cta: 'Rebrand a Brochure',
-    longDescription: 'Take any property brochure and make it your own. Our AI rebranding tool lets you add your logo, contact details, and brand styling to any PDF, creating a professional marketing asset in seconds.',
+    longDescription: 'Take any property brochure and make it your own. Our AI rebranding tool lets you add your logo, contact details, and brand styling to any PDF, creating a professional marketing asset in seconds. No design skills are necessary.',
     synergies: {
       'brochure-rebrand': 'Rebrand Any Brochure',
     },
@@ -249,7 +247,7 @@ const features = [
     icon: <Handshake />,
     color: 'from-yellow-500/80 to-yellow-600/80',
     cta: 'Manage Offers',
-    longDescription: 'Streamline the negotiation process. Our offer management portal allows you to receive, review, counter, and accept offers digitally, keeping all communication logged and organized.',
+    longDescription: 'Streamline the negotiation process. Our offer management portal allows you to receive, review, counter, and accept offers digitally, keeping all communication logged and organized in one easy-to-use place.',
     synergies: {
       'offer-management': 'Manage All Your Offers',
     },
@@ -261,7 +259,7 @@ const features = [
     icon: <Calendar />,
     color: 'from-violet-500/80 to-violet-600/80',
     cta: 'Sync Your Calendar',
-    longDescription: 'Connect your calendar and let our system book meetings for you. Qualified leads can see your availability and schedule a showing or consultation directly, eliminating back-and-forth emails.',
+    longDescription: 'Connect your calendar and let our system book meetings for you. Qualified leads can see your availability and schedule a showing or consultation directly, eliminating the back-and-forth emails. It\'s automation that works for you.',
     synergies: {
       'calendar-sync': 'Sync Your Calendar',
     },
@@ -273,7 +271,7 @@ const features = [
     icon: <ClipboardList />,
     color: 'from-stone-500/80 to-stone-600/80',
     cta: 'Perform Bulk Actions',
-    longDescription: 'Efficiency is key. With bulk actions, you can launch a new ad campaign, send an email update, or apply a price change across dozens of listings simultaneously.',
+    longDescription: 'Efficiency is key. With bulk actions, you can launch a new ad campaign, send an email update, or apply a price change across dozens of listings simultaneously. Save time and scale your efforts effortlessly.',
     synergies: {
       'bulk-actions': 'Perform Bulk Actions',
     },
@@ -285,7 +283,7 @@ const features = [
     icon: <Bot />,
     color: 'from-sky-500/80 to-sky-600/80',
     cta: 'Activate AI Chatbot',
-    longDescription: 'Deploy an AI-powered chatbot on your website to engage visitors 24/7. It can answer common questions, qualify leads, and even book appointments, ensuring you never miss an opportunity.',
+    longDescription: 'Deploy an AI-powered chatbot on your website to engage visitors 24/7. It can answer common questions, qualify leads, and even book appointments, ensuring you never miss an opportunity. No coding required for setup.',
     synergies: {
       'ai-chatbot': 'Engage Visitors 24/7',
     },
@@ -297,7 +295,7 @@ const features = [
     icon: <FileText />,
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
     cta: 'Make PDFs Interactive',
-    longDescription: 'Turn your static brochures and flyers into interactive lead generation tools. Embed videos, forms, and links directly into your PDFs and track engagement to see what\'s working.',
+    longDescription: 'Turn your static brochures and flyers into interactive lead generation tools. Embed videos, forms, and links directly into your PDFs and track engagement to see what\'s working, all with a simple interface.',
     synergies: {
       'pdf-ads': 'Make PDFs Interactive',
     },
@@ -309,7 +307,7 @@ const features = [
     icon: <Video />,
     color: 'from-orange-400/80 to-orange-500/80',
     cta: 'Generate Video Ads',
-    longDescription: 'No video editing skills? No problem. Our AI can create dynamic, short-form video ads for social media using your property photos, ad copy, and branding.',
+    longDescription: 'No video editing skills? No problem. Our AI can create dynamic, short-form video ads for social media using your property photos, ad copy, and branding. Create professional videos in minutes.',
     synergies: {
       'video-ads': 'Generate Video Ads',
     },
@@ -321,7 +319,7 @@ const features = [
     icon: <Network />,
     color: 'from-green-400/80 to-green-500/80',
     cta: 'Syndicate Content',
-    longDescription: 'Amplify your reach by automatically syndicating your listings and content to a network of real estate portals and partner websites, driving more traffic and visibility.',
+    longDescription: 'Amplify your reach by automatically syndicating your listings and content to a network of real estate portals and partner websites, driving more traffic and visibility. Set it up once and let it run.',
     synergies: {
       'content-syndication': 'Syndicate Your Content',
     },
@@ -333,7 +331,7 @@ const features = [
     icon: <Briefcase />,
     color: 'from-blue-400/80 to-blue-500/80',
     cta: 'Launch Client Portal',
-    longDescription: 'Impress your clients with a professional, white-labeled portal where they can log in to see their campaign performance, review leads, and track progress in real-time.',
+    longDescription: 'Impress your clients with a professional, white-labeled portal where they can log in to see their campaign performance, review leads, and track progress in real-time. It\'s an easy way to provide exceptional service.',
     synergies: {
       'client-portal': 'Provide a Client Portal',
     },
@@ -345,7 +343,7 @@ const features = [
     icon: <BrainCircuit />,
     color: 'from-pink-400/80 to-pink-500/80',
     cta: 'Let AI Negotiate',
-    longDescription: 'Save time and let our AI handle the initial back-and-forth of negotiation. Set your parameters, and the AI will field initial offers and counter-offers, only looping you in when it\'s time for a final decision.',
+    longDescription: 'Save time and let our AI handle the initial back-and-forth of negotiation. Set your parameters, and the AI will field initial offers and counter-offers, only looping you in when it\'s time for a final decision. It\'s your expert assistant.',
     synergies: {
       'ai-negotiator': 'Let AI Negotiate',
     },
@@ -357,7 +355,7 @@ const features = [
     icon: <Building />,
     color: 'from-teal-400/80 to-teal-500/80',
     cta: 'Connect Your PMS',
-    longDescription: 'For agents who also handle property management, our platform integrates with popular PMS software to keep tenant data, maintenance requests, and financials all in sync.',
+    longDescription: 'For agents who also handle property management, our platform integrates with popular PMS software to keep tenant data, maintenance requests, and financials all in sync. Easy integration, powerful results.',
     synergies: {
       'pms-integration': 'Connect Your PMS',
     },
@@ -369,7 +367,7 @@ const features = [
     icon: <BookOpen />,
     color: 'from-indigo-400/80 to-indigo-500/80',
     cta: 'Start Training',
-    longDescription: 'Sharpen your skills with our built-in library of training modules. Learn about the latest in digital marketing, AI best practices, and advanced sales techniques.',
+    longDescription: 'Sharpen your skills with our built-in library of training modules. Learn about the latest in digital marketing, AI best practices, and advanced sales techniques, all at your own pace.',
     synergies: {
       'training-modules': 'Access Agent Training',
     },
@@ -381,7 +379,7 @@ const features = [
     icon: <Camera />,
     color: 'from-rose-400/80 to-rose-500/80',
     cta: 'Create Virtual Tours',
-    longDescription: 'Create and showcase stunning 3D virtual tours of your properties. Our platform makes it easy to embed these tours into landing pages and share them in your marketing campaigns.',
+    longDescription: 'Create and showcase stunning 3D virtual tours of your properties. Our platform makes it easy to embed these tours into landing pages and share them in your marketing campaigns. No technical skills required.',
     synergies: {
       'virtual-tours': 'Create Immersive Virtual Tours',
     },
@@ -393,7 +391,7 @@ const features = [
     icon: <DollarSign />,
     color: 'from-lime-400/80 to-lime-600/80',
     cta: 'Calculate ROI',
-    longDescription: 'Empower your investor clients by quickly calculating the potential ROI on any property. Input key figures to generate a professional report showcasing cap rate, cash flow, and long-term value.',
+    longDescription: 'Empower your investor clients by quickly calculating the potential ROI on any property. Input key figures to generate a professional report showcasing cap rate, cash flow, and long-term value. It\'s simple and powerful.',
     synergies: {
       'roi-calculator': 'Calculate Property ROI',
     },
@@ -405,7 +403,7 @@ const features = [
     icon: <ClipboardCheck />,
     color: 'from-amber-400/80 to-amber-500/80',
     cta: 'Manage Listings',
-    longDescription: 'Manage all your property listings from a single dashboard. Update pricing, edit descriptions, and syndicate changes to all connected platforms with a single click.',
+    longDescription: 'Manage all your property listings from a single dashboard. Update pricing, edit descriptions, and syndicate changes to all connected platforms with a single click. Save time and reduce errors.',
     synergies: {
       'listing-management': 'Manage All Your Listings',
     },
@@ -417,7 +415,7 @@ const features = [
     icon: <CalendarCheck />,
     color: 'from-purple-400/80 to-purple-500/80',
     cta: 'Schedule Open Houses',
-    longDescription: 'Organize and promote your open houses effortlessly. Create event pages, send invitations, manage RSVPs, and follow up with attendees automatically.',
+    longDescription: 'Organize and promote your open houses effortlessly. Create event pages, send invitations, manage RSVPs, and follow up with attendees automatically. It\'s event management made easy.',
     synergies: {
       'open-house-scheduler': 'Schedule Open Houses',
     },
@@ -429,7 +427,7 @@ const features = [
     icon: <Key />,
     color: 'from-cyan-400/80 to-cyan-500/80',
     cta: 'Automate Closings',
-    longDescription: 'Ensure a smooth closing process every time. Our AI assistant helps you track deadlines, automate document requests, and keep all parties informed, reducing stress and saving time.',
+    longDescription: 'Ensure a smooth closing process every time. Our AI assistant helps you track deadlines, automate document requests, and keep all parties informed, reducing stress and saving time. It\'s your personal closing coordinator.',
     synergies: {
       'closing-assistance': 'Automate Your Closings',
     },
@@ -441,7 +439,7 @@ const features = [
     icon: <Lightbulb />,
     color: 'from-red-400/80 to-red-500/80',
     cta: 'Get Predictions',
-    longDescription: 'Leverage the power of predictive analytics to focus your efforts. Our AI scores leads based on their likelihood to convert and identifies properties that are poised to sell, helping you work smarter.',
+    longDescription: 'Leverage the power of predictive analytics to focus your efforts. Our AI scores leads based on their likelihood to convert and identifies properties that are poised to sell, helping you work smarter, not harder.',
     synergies: {
       'predictive-analytics': 'Predict Which Leads Convert',
     },
@@ -453,7 +451,7 @@ const features = [
     icon: <Users />,
     color: 'from-emerald-400/80 to-emerald-500/80',
     cta: 'Automate Referrals',
-    longDescription: 'Create a powerful referral engine with our automated program. Systematically ask satisfied clients for referrals and track the new business they generate.',
+    longDescription: 'Create a powerful referral engine with our automated program. Systematically ask satisfied clients for referrals and track the new business they generate. It\'s an easy way to grow your business.',
     synergies: {
       'referral-program': 'Automate Your Referrals',
     },
@@ -465,7 +463,7 @@ const features = [
     icon: <Award />,
     color: 'from-yellow-400/80 to-yellow-500/80',
     cta: 'Gamify Sales',
-    longDescription: 'Foster friendly competition and boost motivation with gamified sales contests. Track progress on leaderboards, award badges for achievements, and keep your team engaged and performing at their best.',
+    longDescription: 'Foster friendly competition and boost motivation with gamified sales contests. Track progress on leaderboards, award badges for achievements, and keep your team engaged and performing at their best. It\'s easy to set up and manage.',
     synergies: {
       'gamified-sales': 'Gamify Your Sales',
     },
@@ -477,7 +475,7 @@ const features = [
     icon: <Sparkles />,
     color: 'from-violet-400/80 to-violet-500/80',
     cta: 'Get Price Suggestions',
-    longDescription: 'Price your listings with confidence. Our AI analyzes comparable properties, market velocity, and unique features to suggest the optimal listing price to attract buyers and maximize value.',
+    longDescription: 'Price your listings with confidence. Our AI analyzes comparable properties, market velocity, and unique features to suggest the optimal listing price to attract buyers and maximize value. No more guesswork.',
     synergies: {
       'dynamic-pricing': 'Get Dynamic Price Suggestions',
     },
@@ -501,7 +499,7 @@ const features = [
     icon: <MapPin />,
     color: 'from-sky-400/80 to-sky-500/80',
     cta: 'Boost Local SEO',
-    longDescription: 'Become the go-to agent in your neighborhood. Our Local SEO Booster helps you optimize your online presence to rank higher in local search results and attract more organic leads.',
+    longDescription: 'Become the go-to agent in your neighborhood. Our Local SEO Booster helps you optimize your online presence to rank higher in local search results and attract more organic leads, with simple steps.',
     synergies: {
       'local-seo': 'Boost Your Local SEO',
     },
@@ -513,7 +511,7 @@ const features = [
     icon: <Headset />,
     color: 'from-fuchsia-400/80 to-fuchsia-500/80',
     cta: 'Engage Your Community',
-    longDescription: 'Build a thriving online community around your brand. Our tools help you manage Facebook groups, schedule content, and engage with members to establish yourself as a trusted local expert.',
+    longDescription: 'Build a thriving online community around your brand. Our tools help you manage Facebook groups, schedule content, and engage with members to establish yourself as a trusted local expert. It\'s community building, simplified.',
     synergies: {
       'community-engagement': 'Engage Your Community',
     },
@@ -525,7 +523,7 @@ const features = [
     icon: <BarChart />,
     color: 'from-orange-300/80 to-orange-400/80',
     cta: 'Automate Reports',
-    longDescription: 'Keep your clients informed and impressed with automated, professional-looking performance reports. Schedule weekly or monthly updates that showcase the value you\'re providing.',
+    longDescription: 'Keep your clients informed and impressed with automated, professional-looking performance reports. Schedule weekly or monthly updates that showcase the value you\'re providing, without any manual report creation.',
     synergies: {
       'automated-reporting': 'Automate Client Reports',
     },
@@ -537,7 +535,7 @@ const features = [
     icon: <PenTool />,
     color: 'from-green-300/80 to-green-400/80',
     cta: 'Generate Scripts',
-    longDescription: 'Always know what to say. Our AI script generator creates effective scripts for cold calls, video ads, voicemail messages, and follow-up emails, tailored to your specific goals and tone of voice.',
+    longDescription: 'Always know what to say. Our AI script generator creates effective scripts for cold calls, video ads, voicemail messages, and follow-up emails, tailored to your specific goals and tone of voice. No experience needed.',
     synergies: {
       'script-generator': 'Generate Sales Scripts',
     },
@@ -549,7 +547,7 @@ const features = [
     icon: <Mails />,
     color: 'from-blue-300/80 to-blue-400/80',
     cta: 'Create Drip Campaigns',
-    longDescription: 'Play the long game with automated drip campaigns. Nurture cold leads and past clients for months or even years with a steady stream of valuable content, keeping you top-of-mind when they\'re ready to act.',
+    longDescription: 'Play the long game with automated drip campaigns. Nurture cold leads and past clients for months or even years with a steady stream of valuable content, keeping you top-of-mind when they\'re ready to act. It\'s easy to set and forget.',
     synergies: {
       'drip-campaigns': 'Create Drip Campaigns',
     },
@@ -561,7 +559,7 @@ const features = [
     icon: <ClipboardList />,
     color: 'from-pink-300/80 to-pink-400/80',
     cta: 'Automate Tasks',
-    longDescription: 'Automate the repetitive tasks that fill up your day. Create workflows that trigger tasks, send notifications, and update your CRM, freeing you up to focus on dollar-producing activities.',
+    longDescription: 'Automate the repetitive tasks that fill up your day. Create workflows that trigger tasks, send notifications, and update your CRM, freeing you up to focus on dollar-producing activities. It is incredibly easy.',
     synergies: {
       'task-automation': 'Automate Your Tasks',
     },
@@ -573,7 +571,7 @@ const features = [
     icon: <MessageCircle />,
     color: 'from-teal-300/80 to-teal-400/80',
     cta: 'Collect Feedback',
-    longDescription: 'Systematically collect feedback to improve your services. Automatically send surveys to new leads, post-showing, or post-closing to gather valuable insights and testimonials.',
+    longDescription: 'Systematically collect feedback to improve your services. Automatically send surveys to new leads, post-showing, or post-closing to gather valuable insights and testimonials. Simple to create and send.',
     synergies: {
       'feedback-surveys': 'Collect Client Feedback',
     },
@@ -585,7 +583,7 @@ const features = [
     icon: <Zap />,
     color: 'from-indigo-300/80 to-indigo-400/80',
     cta: 'Get Real-Time Alerts',
-    longDescription: 'Speed-to-lead is critical. Get instant notifications on your phone or desktop the moment a hot lead takes action, like visiting a pricing page or re-visiting a listing.',
+    longDescription: 'Speed-to-lead is critical. Get instant notifications on your phone or desktop the moment a hot lead takes action, like visiting a pricing page or re-visiting a listing. It is easy to configure.',
     synergies: {
       'real-time-alerts': 'Get Real-Time Alerts',
     },
@@ -597,7 +595,7 @@ const features = [
     icon: <ShieldCheck />,
     color: 'from-rose-300/80 to-rose-400/80',
     cta: 'Ensure Compliance',
-    longDescription: 'Stay out of trouble with our built-in compliance checker. Our AI scans your ad copy and marketing materials to flag potential issues with fair housing, RESPA, and local advertising regulations.',
+    longDescription: 'Stay out of trouble with our built-in compliance checker. Our AI scans your ad copy and marketing materials to flag potential issues with fair housing, RESPA, and local advertising regulations. No legal expertise needed.',
     synergies: {
       'compliance-checker': 'Ensure Compliance',
     },
@@ -609,7 +607,7 @@ const features = [
     icon: <FileUp />,
     color: 'from-lime-300/80 to-lime-400/80',
     cta: 'Generate Documents',
-    longDescription: 'Save hours of paperwork. Automatically generate Comparative Market Analyses (CMAs), purchase agreements, and other essential documents using templates and data from your listings and CRM.',
+    longDescription: 'Save hours of paperwork. Automatically generate Comparative Market Analyses (CMAs), purchase agreements, and other essential documents using templates and data from your listings and CRM. It\'s incredibly easy.',
     synergies: {
       'document-generator': 'Generate Documents',
     },
@@ -621,7 +619,7 @@ const features = [
     icon: <LayoutTemplate />,
     color: 'from-amber-300/80 to-amber-400/80',
     cta: 'Create Property Websites',
-    longDescription: 'Give your premier listings the attention they deserve. In minutes, you can create a beautiful, single-page website for a property, complete with a gallery, virtual tour, and lead capture form.',
+    longDescription: 'Give your premier listings the attention they deserve. In minutes, you can create a beautiful, single-page website for a property, complete with a gallery, virtual tour, and lead capture form, with no web design experience.',
     synergies: {
       'property-websites': 'Create Property Websites',
     },
@@ -633,7 +631,7 @@ const features = [
     icon: <MessageCircle />,
     color: 'from-purple-300/80 to-purple-400/80',
     cta: 'Translate Content',
-    longDescription: 'Serve a diverse clientele by translating your marketing materials into multiple languages. Our AI provides high-quality translations for ads, landing pages, and email campaigns.',
+    longDescription: 'Serve a diverse clientele by translating your marketing materials into multiple languages. Our AI provides high-quality translations for ads, landing pages, and email campaigns with one click.',
     synergies: {
       'multi-language': 'Translate Your Content',
     },
@@ -645,7 +643,7 @@ const features = [
     icon: <Headset />,
     color: 'from-cyan-300/80 to-cyan-400/80',
     cta: 'Optimize for Voice',
-    longDescription: 'Capture the growing traffic from voice search. We help optimize your online content to answer the types of questions people ask Siri, Alexa, and Google Assistant.',
+    longDescription: 'Capture the growing traffic from voice search. We help optimize your online content to answer the types of questions people ask Siri, Alexa, and Google Assistant. No technical SEO knowledge needed.',
     synergies: {
       'voice-search': 'Optimize for Voice Search',
     },
@@ -657,7 +655,7 @@ const features = [
     icon: <Gem />,
     color: 'from-red-300/80 to-red-400/80',
     cta: 'Virtually Stage Homes',
-    longDescription: 'Help buyers visualize a vacant property\'s potential with virtual staging. Choose from various furniture styles to digitally furnish photos and create a more appealing online presentation.',
+    longDescription: 'Help buyers visualize a vacant property\'s potential with virtual staging. Choose from various furniture styles to digitally furnish photos and create a more appealing online presentation. It\'s easy and fast.',
     synergies: {
       'vr-staging': 'Virtually Stage Homes',
     },
@@ -669,7 +667,7 @@ const features = [
     icon: <FileSearch />,
     color: 'from-emerald-300/80 to-emerald-400/80',
     cta: 'Generate Market Reports',
-    longDescription: 'Generate beautiful, data-rich market reports for any neighborhood or zip code. Use them as powerful lead magnets or to inform your clients and position yourself as a local expert.',
+    longDescription: 'Generate beautiful, data-rich market reports for any neighborhood or zip code. Use them as powerful lead magnets or to inform your clients and position yourself as a local expert. It is very easy to use.',
     synergies: {
       'market-reports': 'Generate Market Reports',
     },
@@ -681,7 +679,7 @@ const features = [
     icon: <Users />,
     color: 'from-yellow-300/80 to-yellow-400/80',
     cta: 'Collaborate With Team',
-    longDescription: 'Work more effectively as a team. Collaborate on ad campaigns, share leads, manage team tasks, and maintain a unified brand presence across all your marketing efforts.',
+    longDescription: 'Work more effectively as a team. Collaborate on ad campaigns, share leads, manage team tasks, and maintain a unified brand presence across all your marketing efforts. Seamless collaboration, no training required.',
     synergies: {
       'agent-collaboration': 'Collaborate With Your Team',
     },
@@ -693,7 +691,7 @@ const features = [
     icon: <LineChart />,
     color: 'from-violet-300/80 to-violet-400/80',
     cta: 'Track Commissions',
-    longDescription: 'Get a clear picture of your earnings. Track commissions from closed deals, monitor your pipeline, and get accurate projections for your future income.',
+    longDescription: 'Get a clear picture of your earnings. Track commissions from closed deals, monitor your pipeline, and get accurate projections for your future income, all from an easy-to-use dashboard.',
     synergies: {
       'commission-tracking': 'Track Your Commissions',
     },
@@ -705,7 +703,7 @@ const features = [
     icon: <Binoculars />,
     color: 'from-stone-300/80 to-stone-400/80',
     cta: 'Listen to Social Media',
-    longDescription: 'Monitor social media for mentions of your brand, your competitors, and keywords that indicate buying or selling intent. Join relevant conversations and identify leads in real-time.',
+    longDescription: 'Monitor social media for mentions of your brand, your competitors, and keywords that indicate buying or selling intent. Join relevant conversations and identify leads in real-time. It\'s simple to set up alerts.',
     synergies: {
       'social-listening': 'Listen to Social Media',
     },
@@ -717,7 +715,7 @@ const features = [
     icon: <MessageCircle />,
     color: 'from-sky-300/80 to-sky-400/80',
     cta: 'Add Live Chat',
-    longDescription: 'Engage website visitors in real-time with live chat. Answer questions, provide information, and convert more visitors into qualified leads without them having to pick up the phone.',
+    longDescription: 'Engage website visitors in real-time with live chat. Answer questions, provide information, and convert more visitors into qualified leads without them having to pick up the phone. Easy to install on any website.',
     synergies: {
       'chat-integration': 'Add Live Chat',
     },
@@ -729,7 +727,7 @@ const features = [
     icon: <FileText />,
     color: 'from-fuchsia-300/80 to-fuchsia-400/80',
     cta: 'Manage Contracts',
-    longDescription: 'Streamline your paperwork with our contract management system. Draft contracts from templates, send them for e-signature, and track their status all in one place.',
+    longDescription: 'Streamline your paperwork with our contract management system. Draft contracts from templates, send them for e-signature, and track their status all in one place. It makes contract work easy.',
     synergies: {
       'contract-management': 'Manage Your Contracts',
     },
@@ -741,7 +739,7 @@ const features = [
     icon: <ClipboardCheck />,
     color: 'from-orange-200/80 to-orange-300/80',
     cta: 'Get Showing Feedback',
-    longDescription: 'Automatically request feedback from buyer\'s agents after every showing. Collect valuable insights to share with your sellers and make strategic adjustments to your listing.',
+    longDescription: 'Automatically request feedback from buyer\'s agents after every showing. Collect valuable insights to share with your sellers and make strategic adjustments to your listing. It is simple to automate.',
     synergies: {
       'showing-feedback': 'Get Showing Feedback',
     },
@@ -753,7 +751,7 @@ const features = [
     icon: <DollarSign />,
     color: 'from-green-200/80 to-green-300/80',
     cta: 'Track Expenses',
-    longDescription: 'Keep your finances in order. Track all your business expenses, from marketing spend to software subscriptions, to get a clear picture of your profitability and prepare for tax time.',
+    longDescription: 'Keep your finances in order. Track all your business expenses, from marketing spend to software subscriptions, to get a clear picture of your profitability and prepare for tax time. No accounting experience needed.',
     synergies: {
       'expense-tracking': 'Track Your Expenses',
     },
@@ -765,7 +763,7 @@ const features = [
     icon: <Briefcase />,
     color: 'from-blue-200/80 to-blue-300/80',
     cta: 'Create Brand Kit',
-    longDescription: 'Ensure brand consistency across all your marketing. Store your logos, color palettes, fonts, and brand voice guidelines in a central kit for easy access by you or your team.',
+    longDescription: 'Ensure brand consistency across all your marketing. Store your logos, color palettes, fonts, and brand voice guidelines in a central kit for easy access by you or your team. Simple to set up and use.',
     synergies: {
       'brand-kit': 'Create Your Brand Kit',
     },
@@ -777,7 +775,7 @@ const features = [
     icon: <MapPin />,
     color: 'from-pink-200/80 to-pink-300/80',
     cta: 'Create Interactive Maps',
-    longDescription: 'Bring your listings to life with interactive maps. Showcase property locations, nearby amenities, school districts, and points of interest to give buyers a comprehensive view of the area.',
+    longDescription: 'Bring your listings to life with interactive maps. Showcase property locations, nearby amenities, school districts, and points of interest to give buyers a comprehensive view of the area. It\'s easy to create and embed.',
     synergies: {
       'interactive-maps': 'Create Interactive Maps',
     },
@@ -789,7 +787,7 @@ const features = [
     icon: <Megaphone />,
     color: 'from-teal-200/80 to-teal-300/80',
     cta: 'Promote Events',
-    longDescription: 'Maximize attendance for your open houses, webinars, and client appreciation events. Our tools help you create registration pages, send promotional emails, and manage your attendee list.',
+    longDescription: 'Maximize attendance for your open houses, webinars, and client appreciation events. Our tools help you create registration pages, send promotional emails, and manage your attendee list. No experience necessary.',
     synergies: {
       'event-promotion': 'Promote Your Events',
     },
@@ -801,7 +799,7 @@ const features = [
     icon: <Calendar />,
     color: 'from-indigo-200/80 to-indigo-300/80',
     cta: 'Plan Content',
-    longDescription: 'Plan your marketing with a visual content calendar. Schedule social media posts, email newsletters, and blog articles to maintain a consistent and strategic online presence.',
+    longDescription: 'Plan your marketing with a visual content calendar. Schedule social media posts, email newsletters, and blog articles to maintain a consistent and strategic online presence. It\'s drag-and-drop simple.',
     synergies: {
       'content-calendar': 'Plan Your Content',
     },
@@ -813,7 +811,7 @@ const features = [
     icon: <Gem />,
     color: 'from-rose-200/80 to-rose-300/80',
     cta: 'Generate 3D Floor Plans',
-    longDescription: 'Transform flat, boring floor plans into immersive 3D models. Help buyers understand the layout and flow of a home before they ever step inside.',
+    longDescription: 'Transform flat, boring floor plans into immersive 3D models. Help buyers understand the layout and flow of a home before they ever step inside. It\'s an easy way to elevate your listings.',
     synergies: {
       '3d-floor-plans': 'Generate 3D Floor Plans',
     },
@@ -923,37 +921,16 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
 
 
 export default function Home() {
-  const { toast } = useToast();
   const [hoveredId, setHoveredId] = React.useState<string | null>(null);
-  const [clickedCards, setClickedCards] = React.useState<Set<string>>(new Set());
-  const [showConfetti, setShowConfetti] = React.useState(false);
   const [selectedFeature, setSelectedFeature] = React.useState<Feature | null>(null);
 
 
   const handleCardClick = (feature: Feature) => {
     setSelectedFeature(feature);
-
-    const newClicked = new Set(clickedCards);
-    newClicked.add(feature.id);
-    setClickedCards(newClicked);
-
-    if (newClicked.size === 1) {
-      toast({
-        title: "Great start! ✨",
-        description: "Click two more cards to see the magic.",
-      });
-    } else if (newClicked.size === 3) {
-      toast({
-        title: "Awesome! You're getting it. 🚀",
-        description: "The possibilities are endless.",
-      });
-      setShowConfetti(true);
-    }
   };
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      {showConfetti && <Confetti />}
       <LandingHeader />
       <main className="flex-1 w-full max-w-full px-4 md:px-6 lg:px-8 py-12 md:py-20">
         <div className="text-center mb-16 max-w-5xl mx-auto">
@@ -984,3 +961,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
