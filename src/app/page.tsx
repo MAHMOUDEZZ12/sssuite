@@ -3,7 +3,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import {
   ArrowRight,
   Bot,
@@ -60,6 +59,8 @@ import {
   Upload,
   MousePointerClick,
   Send,
+  Plus,
+  Link,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -88,8 +89,7 @@ const features = [
     description: 'Generate high-performance ad copy and visuals from any brochure in seconds.',
     icon: <Megaphone />,
     color: 'from-pink-500/80 to-pink-600/80',
-    cta: 'Create an Ad',
-    statement: "Why spend hours on one ad when your AI can generate five in a minute? Let's get started.",
+    cta: 'Ad',
     details: {
       steps: [
           { text: 'Upload your property brochure (PDF)', icon: <FileUp className="h-6 w-6" /> },
@@ -97,8 +97,10 @@ const features = [
           { text: 'Generate multiple ad variants instantly', icon: <Sparkles className="h-6 w-6" /> },
       ],
       aiVsManual: "A manual campaign involves hours of brainstorming, copywriting, and graphic design, often with inconsistent results. Our AI delivers multiple, data-driven ad options in under 60 seconds, allowing you to test and deploy campaigns at a fraction of the time and cost.",
-      experienceLevel: 5,
-      synergy: "Use **Precision Targeting** to identify the perfect audience for your new ad, then deploy it across your social channels with the **AI Page Admin** to maximize reach and engagement."
+      synergy: [
+        { tool: "Precision Targeting", benefit: "Ensure your perfect ads are seen by people ready to buy." },
+        { tool: "AI Page Admin", benefit: "Deploy your new ad across social channels to maximize reach." }
+      ]
     },
     creationFields: [
       { id: 'brochure', name: 'Property Brochure', type: 'file', description: 'Upload the PDF brochure.' },
@@ -126,8 +128,7 @@ const features = [
     description: 'Our AI analyzes your project and identifies high-intent buyers.',
     icon: <Target />,
     color: 'from-blue-500/80 to-blue-600/80',
-    cta: 'Target Buyers',
-    statement: "Stop guessing who your buyers are. Let the data show you exactly where to find them.",
+    cta: 'Targeting Profile',
     details: {
       steps: [
         { text: 'Describe your ideal buyer persona', icon: <PenTool className="h-6 w-6" /> },
@@ -135,8 +136,10 @@ const features = [
         { text: 'Get detailed audience settings for ads', icon: <ClipboardList className="h-6 w-6" /> },
       ],
       aiVsManual: "Manual targeting is a guessing game of trial and error, wasting ad spend on overly broad audiences. Our AI analyzes millions of data points to find niche, high-intent audiences you'd never think of, drastically improving your ad spend effectiveness and lead quality.",
-      experienceLevel: 5,
-      synergy: "Combine with **Instant Ad Creation** to ensure your perfect ads are seen by people ready to buy. Use the generated audience to create a lookalike audience for even broader reach."
+      synergy: [
+        { tool: "Instant Ad Creation", benefit: "Design the perfect ad for the high-intent audience you've just identified." },
+        { tool: "AI Social Post Writer", benefit: "Create organic posts that speak directly to the interests of your target persona." }
+      ]
     },
     creationFields: [
       { id: 'propertyDetails', name: 'Property Details', type: 'textarea', placeholder: 'e.g., 3-bed condo in downtown, waterfront views, near tech hub...', description: 'Describe the property and its key selling points.' },
@@ -163,8 +166,7 @@ const features = [
     description: 'Instantly rebrand any brochure with your logo, colors, and voice.',
     icon: <Palette />,
     color: 'from-orange-500/80 to-orange-600/80',
-    cta: 'Rebrand a Brochure',
-    statement: "Your brand, on every document, in seconds. It's time to look professional on every single page.",
+    cta: 'Rebranded Brochure',
     details: {
       steps: [
         { text: 'Upload any developer\'s brochure (PDF)', icon: <Upload className="h-6 w-6" /> },
@@ -172,8 +174,10 @@ const features = [
         { text: 'Download the rebranded brochure instantly', icon: <FileText className="h-6 w-6" /> },
       ],
       aiVsManual: "Manually rebranding a 20-page PDF in design software can take hours of tedious work. Our AI applies your branding—logo, contact info, colors, and even tone of voice—across the entire document in under a minute.",
-      experienceLevel: 5,
-      synergy: "Use your newly rebranded brochure to power an **Instant Ad Campaign** or generate a branded **Landing Page** in seconds."
+      synergy: [
+        { tool: "Instant Ad Creation", benefit: "Use your newly rebranded brochure to power an ad campaign." },
+        { tool: "Landing Page Generator", benefit: "Generate a branded landing page that perfectly matches your rebranded brochure." }
+      ]
     },
     creationFields: [
       { id: 'developerBrochure', name: 'Developer Brochure', type: 'file', description: 'Upload the original PDF.' },
@@ -202,8 +206,7 @@ const features = [
     description: 'Generate persuasive landing pages that captivate buyers.',
     icon: <LayoutTemplate />,
     color: 'from-green-500/80 to-green-600/80',
-    cta: 'Generate a Page',
-    statement: "Go from brochure to beautiful, high-converting landing page in less time than it takes to make coffee.",
+    cta: 'Landing Page',
     details: {
       steps: [
         { text: 'Provide a property brochure or link', icon: <Link className="h-6 w-6" /> },
@@ -211,8 +214,10 @@ const features = [
         { text: 'Generate a complete landing page', icon: <LayoutTemplate className="h-6 w-6" /> },
       ],
       aiVsManual: "Building a single-property website manually takes hours or days and requires technical skills. Our AI generates a complete, mobile-responsive, and SEO-friendly page with a gallery and lead form in under 60 seconds.",
-      experienceLevel: 5,
-      synergy: "Drive traffic to your new page by linking it from your **AI Social Posts** and **Instant Ad Campaigns**. The leads generated can be nurtured using scripts from the **AI Sales Master Chat**."
+      synergy: [
+        { tool: "AI Social Post Writer", benefit: "Generate promotional posts to drive traffic to your new landing page." },
+        { tool: "Instant Ad Creation", benefit: "Run a targeted ad campaign that clicks through to your beautiful new page." }
+      ]
     },
     creationFields: [
       { id: 'source', name: 'Content Source', type: 'text', placeholder: 'Link to property info or upload brochure below', description: 'Provide a URL to the property listing or website.' },
@@ -240,8 +245,7 @@ const features = [
     description: "Generate a week's worth of social content from a single link or topic.",
     icon: <Share2 />,
     color: 'from-rose-500/80 to-rose-600/80',
-    cta: 'Write Social Posts',
-    statement: "While others are stuck for ideas, your AI will make daily posting fun and super easy.",
+    cta: 'Social Post',
     details: {
       steps: [
         { text: 'Enter a topic, URL, or property address', icon: <PenTool className="h-6 w-6" /> },
@@ -249,8 +253,10 @@ const features = [
         { text: 'Get a week of content with images & hashtags', icon: <CalendarCheck className="h-6 w-6" /> },
       ],
       aiVsManual: "Manually creating a week of varied, high-quality social content can take hours of research and writing. Our AI generates a full content calendar, tailored to different platforms, in under a minute.",
-      experienceLevel: 5,
-      synergy: "Use the **AI Page Admin** to automatically schedule the generated posts for maximum engagement. Create a **Landing Page** for a new listing and use this tool to generate promotional posts for it."
+      synergy: [
+        { tool: "AI Page Admin", benefit: "Automatically schedule your newly generated posts for maximum engagement." },
+        { tool: "Landing Page Generator", benefit: "Create a page for a new listing and then use this tool to generate promotional posts for it." }
+      ]
     },
     creationFields: [
       { id: 'source', name: 'Content Source', type: 'text', placeholder: 'Paste a URL or type a topic, e.g., "Market update for downtown"', description: 'The AI will use this as inspiration.' },
@@ -278,8 +284,7 @@ const features = [
     description: 'Craft compelling stories for Instagram and Facebook in seconds.',
     icon: <Film />,
     color: 'from-fuchsia-500/80 to-fuchsia-600/80',
-    cta: 'Design a Story',
-    statement: "Turn a handful of photos into a captivating, animated story that stops the scroll.",
+    cta: 'Story',
     details: {
       steps: [
         { text: 'Upload 3-5 property photos', icon: <Camera className="h-6 w-6" /> },
@@ -287,8 +292,10 @@ const features = [
         { text: 'Generate multiple story variants to post', icon: <Clapperboard className="h-6 w-6" /> },
       ],
       aiVsManual: "Manually creating a single animated story in an app like Canva can take 15-30 minutes of fighting with templates and animations. The AI generates 3-5 unique, professional-grade variants in under 60 seconds.",
-      experienceLevel: 5,
-      synergy: "Use the **AI Social Post Writer** to get caption ideas for your story, then use the **AI Page Admin** to schedule it for the perfect time."
+      synergy: [
+        { tool: "AI Social Post Writer", benefit: "Get caption ideas for your story to make it even more engaging." },
+        { tool: "AI Page Admin", benefit: "Schedule your new story to post at the perfect time for maximum views." }
+      ]
     },
     creationFields: [
       { id: 'photos', name: 'Property Photos', type: 'file', multiple: true, description: 'Upload 3-5 high-quality images.' },
@@ -316,8 +323,7 @@ const features = [
     description: 'Create professional video reels from photos and text effortlessly.',
     icon: <Clapperboard />,
     color: 'from-violet-500/80 to-violet-600/80',
-    cta: 'Produce Viral Reels',
-    statement: "Create polished, engaging video reels synced to trending audio—no editing skills required.",
+    cta: 'Reel',
     details: {
       steps: [
         { text: 'Upload photos or video clips', icon: <Video className="h-6 w-6" /> },
@@ -325,8 +331,10 @@ const features = [
         { text: 'Get a polished reel synced to trending audio', icon: <Send className="h-6 w-6" /> },
       ],
       aiVsManual: "Manually editing a reel with video software can take hours of complex timeline editing and searching for audio. The AI produces a polished, ready-to-post video, intelligently synced to trending audio, in under 3 minutes.",
-      experienceLevel: 5,
-      synergy: "Promote your final reel with an **Instant Ad Campaign** to reach thousands of potential buyers. Share it with the **AI Page Admin** for automatic posting."
+      synergy: [
+        { tool: "Instant Ad Creation", benefit: "Promote your final reel with a targeted ad campaign to reach thousands." },
+        { tool: "AI Page Admin", benefit: "Share your reel with the Page Admin for automatic posting at peak times." }
+      ]
     },
     creationFields: [
       { id: 'media', name: 'Photos or Video Clips', type: 'file', multiple: true, description: 'Upload your visual assets.' },
@@ -354,8 +362,7 @@ const features = [
     description: 'Your personal AI assistant to manage your social media pages.',
     icon: <UserCog />,
     color: 'from-cyan-500/80 to-cyan-600/80',
-    cta: 'Put Your Page on Autopilot',
-    statement: "Focus on closing deals, not on checking comments. Your 24/7 AI page admin is on the job.",
+    cta: 'Page Admin Setup',
     details: {
       steps: [
         { text: 'Connect your Facebook & Instagram pages', icon: <Network className="h-6 w-6" /> },
@@ -363,8 +370,10 @@ const features = [
         { text: 'Let the AI handle scheduling and replies 24/7', icon: <Clock className="h-6 w-6" /> },
       ],
       aiVsManual: "Manually, an agent might spend 5-10 hours per week just checking comments, answering repetitive questions ('what's the price?'), and scheduling posts. The AI Page Admin automates all of this while ensuring instant responsiveness, 24/7.",
-      experienceLevel: 5,
-      synergy: "Connect it to your **AI Social Post Writer** to create a fully automated content pipeline from idea to publication. When the AI flags a high-intent lead, use the **AI Sales Master Chat** to practice your response."
+      synergy: [
+        { tool: "AI Social Post Writer", benefit: "Create a fully automated content pipeline from idea to publication." },
+        { tool: "AI Sales Master Chat", benefit: "When the AI flags a high-intent lead, use the chat to practice your response." }
+      ]
     },
     creationFields: [
       { id: 'connect', name: 'Connect Accounts', type: 'button', cta: 'Connect Facebook & Instagram', description: 'Authorize the AI to manage your pages.' },
@@ -391,8 +400,7 @@ const features = [
     description: 'Chat with legendary sales personas to sharpen your skills.',
     icon: <MessageSquare />,
     color: 'from-lime-500/80 to-lime-600/80',
-    cta: 'Chat with Sales Legends',
-    statement: "Practice makes perfect. Sharpen your negotiation and sales skills with an AI that's trained by the best.",
+    cta: 'Chat Session',
     details: {
       steps: [
         { text: 'Choose an AI sales persona to chat with', icon: <Users className="h-6 w-6" /> },
@@ -400,8 +408,10 @@ const features = [
         { text: 'Get instant feedback on your approach', icon: <Lightbulb className="h-6 w-6" /> },
       ],
       aiVsManual: "Manual sales training involves expensive seminars, finding a mentor, or worse, trial-and-error with real clients where a mistake can cost a commission. The AI provides an on-demand, 24/7 training ground to practice and refine your skills in a completely risk-free environment.",
-      experienceLevel: 5,
-      synergy: "Use the **AI Social Post Writer** to generate a post about a new listing, then jump into the chat to practice handling incoming calls and objections about it. After a tough negotiation, use the chat to debrief and find better approaches for next time."
+      synergy: [
+        { tool: "Precision Targeting", benefit: "Practice handling objections and questions from the specific buyer personas you've identified." },
+        { tool: "AI Page Admin", benefit: "After the AI flags a high-intent lead, use the chat to prepare for your first call." }
+      ]
     },
     creationFields: [
       { id: 'persona', name: 'Choose Persona', type: 'select', options: ['The Challenger', 'The Closer', 'The Relationship Builder'], description: 'Select an AI sales coach to chat with.' },
@@ -463,7 +473,7 @@ const FeatureCard = ({
               <div
                 className='bg-white/10 hover:bg-white/20 text-white w-full backdrop-blur-sm border border-white/20 mt-auto rounded-md text-sm font-medium h-11 px-8 inline-flex items-center justify-center gap-2'
               >
-                {feature.cta}
+                Create your first {feature.cta} today
                 <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
               </div>
             </div>
@@ -534,8 +544,22 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                 </TabsContent>
 
                 <TabsContent value="synergy" className="space-y-4 text-foreground/90">
-                  <h3 className="text-2xl font-semibold text-primary">Works Best With</h3>
-                  <p dangerouslySetInnerHTML={{ __html: feature.details.synergy.replace(/\*\*(.*?)\*\*/g, "<span class='font-semibold text-primary/90 bg-primary/10 py-1 px-2 rounded-md cursor-pointer hover:bg-primary/20'>$1</span>") }} />
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {feature.details.synergy.map((s, index) => (
+                      <div key={index} className="bg-card p-4 rounded-lg border flex items-center gap-4">
+                        <div className="p-2 bg-primary/10 text-primary rounded-md">
+                          <h4 className="font-semibold">{feature.title}</h4>
+                        </div>
+                        <Plus className="h-5 w-5 text-muted-foreground" />
+                        <div className="p-2 bg-secondary text-secondary-foreground rounded-md">
+                           <h4 className="font-semibold">{s.tool}</h4>
+                        </div>
+                        <div className="flex-1 text-sm text-foreground/80">
+                          <p>{s.benefit}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </TabsContent>
 
                 <TabsContent value="faq">
@@ -553,8 +577,10 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
 
             <Separator />
 
-            <div className="p-6 text-center text-muted-foreground italic bg-card/50">
-              {feature.statement}
+            <div className="p-6 text-center">
+              <Button variant="outline" size="lg" className='text-base'>
+                  Create your first {feature.cta} today
+              </Button>
             </div>
             
           </div>
