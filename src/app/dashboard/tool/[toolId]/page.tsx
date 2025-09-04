@@ -18,6 +18,7 @@ import { Loader, Sparkles, Download, Copy, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { Confetti } from '@/components/confetti';
+import Link from 'next/link';
 
 import { generateAdFromBrochure } from '@/ai/flows/generate-ad-from-brochure';
 import { generateLandingPage } from '@/ai/flows/generate-landing-page';
@@ -169,21 +170,14 @@ export default function ToolPage() {
               (tool.id === 'pdf-editor' && field.id === 'newImages');
 
         if (field.type === 'file') {
-            const baseSchema = z.any();
-            let refinedSchema;
+             const fileSchema = z.any().refine(val => val instanceof FileList && val.length > 0, `${field.name} is required.`);
+             const optionalFileSchema = z.any().optional();
 
-            if (field.multiple) {
-                refinedSchema = baseSchema.refine((files: FileList) => files?.length > 0, 'Please upload at least one file.');
-                 if (isOptional) {
-                    refinedSchema = baseSchema.refine((files: FileList) => files === undefined || files === null || files.length > 0, 'Please upload at least one file.').optional().nullable();
-                }
+            if(field.multiple){
+                 shape[field.id] = isOptional ? optionalFileSchema : z.any().refine(val => val instanceof FileList && val.length > 0, 'Please upload at least one file.');
             } else {
-                refinedSchema = baseSchema.refine((file: File) => file, 'Please upload a file.');
-                if (isOptional) {
-                    refinedSchema = baseSchema.refine((file: File) => file === undefined || file === null || !!file, 'Please upload a file.').optional().nullable();
-                }
+                 shape[field.id] = isOptional ? optionalFileSchema : z.any().refine(val => val instanceof FileList && val.length === 1, 'Please upload one file.');
             }
-            shape[field.id] = refinedSchema;
         } else {
             shape[field.id] = z.string().min(1, `${field.name} is required`);
         }
@@ -199,7 +193,7 @@ export default function ToolPage() {
     resolver: zodResolver(schema),
     defaultValues: tool?.creationFields.reduce((acc, field) => {
       if (field.type !== 'button') {
-        (acc as any)[field.id] = undefined;
+        (acc as any)[field.id] = '';
       }
       return acc;
     }, {})
@@ -220,14 +214,14 @@ export default function ToolPage() {
         const payload: Record<string, any> = {};
         
         for (const field of tool.creationFields) {
-            if(field.type === 'button') continue;
+             if(field.type === 'button') continue;
 
             const value = data[field.id];
-             if (field.type === 'file' && value) {
-                 if (field.multiple && value instanceof FileList && value.length > 0) {
+             if (field.type === 'file' && value instanceof FileList && value.length > 0) {
+                 if (field.multiple) {
                     payload[field.id] = await filesToDataUris(Array.from(value));
-                } else if (!field.multiple && value instanceof File) {
-                    payload[field.id] = await fileToDataUri(value);
+                } else {
+                    payload[field.id] = await fileToDataUri(value[0]);
                 }
             } else if (value) {
                 payload[field.id] = value;
@@ -277,26 +271,20 @@ export default function ToolPage() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {tool.creationFields.filter(f => f.type !== 'button').map((field) => (
+              {tool.creationFields.map((field) => (
                 <div key={field.id} className="space-y-2">
-                  <Label htmlFor={field.id} className="font-semibold">{field.name}</Label>
+                   {field.type !== 'button' && <Label htmlFor={field.id} className="font-semibold">{field.name}</Label>}
                    <Controller
                       name={field.id}
                       control={control}
-                      render={({ field: { onChange, value, ...rest } }) => {
+                      render={({ field: { onChange, onBlur, value, name, ref } }) => {
                          switch (field.type) {
                             case 'text':
-                              return <Input id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} {...rest} />;
+                              return <Input id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
                             case 'textarea':
-                              return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} {...rest} />;
+                              return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
                             case 'file':
-                                return <Input id={field.id} type="file" multiple={field.multiple} {...rest} onChange={e => {
-                                    if(field.multiple) {
-                                        onChange(e.target.files);
-                                    } else {
-                                        onChange(e.target.files ? e.target.files[0] : null);
-                                    }
-                                }} />;
+                                return <Input id={field.id} type="file" multiple={field.multiple} onBlur={onBlur} name={name} ref={ref} onChange={e => onChange(e.target.files)} />;
                             case 'select':
                               return (
                                 <Select onValueChange={onChange} defaultValue={value}>
@@ -310,6 +298,14 @@ export default function ToolPage() {
                                   </SelectContent>
                                 </Select>
                               );
+                             case 'button':
+                                return (
+                                     <Link href="/dashboard" className='w-full'>
+                                       <Button type="button" variant="outline" className='w-full justify-start'>
+                                          {field.cta}
+                                      </Button>
+                                    </Link>
+                                )
                             default:
                               return null;
                           }

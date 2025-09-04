@@ -87,7 +87,6 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from '@/components/ui/progress';
-import { CreationTool } from '@/components/creation-tool';
 import { Feature, tools as features } from '@/lib/tools.tsx';
 
 
@@ -207,9 +206,8 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
             
             <div className='p-8'>
               <Tabs defaultValue="overview" className="w-full">
-                <TabsList className="grid w-full grid-cols-5 mb-6">
+                <TabsList className="grid w-full grid-cols-4 mb-6">
                   <TabsTrigger value="overview">How to Use</TabsTrigger>
-                  <TabsTrigger value="create">Create</TabsTrigger>
                   <TabsTrigger value="comparison">AI vs. Manual</TabsTrigger>
                   <TabsTrigger value="synergy">Synergy</TabsTrigger>
                   <TabsTrigger value="faq">FAQs</TabsTrigger>
@@ -258,10 +256,6 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                   </div>
                 </TabsContent>
 
-                <TabsContent value="create">
-                  <CreationTool feature={feature} />
-                </TabsContent>
-
                 <TabsContent value="synergy" className="space-y-4 text-foreground/90">
                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {feature.details.synergy.map((s, index) => (
@@ -299,9 +293,11 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
             <Separator />
 
             <div className="p-6 text-center">
-              <Button variant="outline" size="lg" className='text-base'>
-                  Create your first {feature.cta} today
-              </Button>
+                <Link href={`/dashboard/tool/${feature.id}`}>
+                    <Button variant="outline" size="lg" className='text-base'>
+                      Create your first {feature.cta} today
+                    </Button>
+                </Link>
             </div>
             
           </div>
@@ -369,3 +365,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
