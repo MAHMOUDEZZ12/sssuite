@@ -207,7 +207,7 @@ export const tools: Feature[] = [
       ],
       synergy: [
         { tool: "Instant Ad Creation", benefit: "Design the perfect ad for the high-intent audience you've just identified." },
-        { tool: "AI Sales Master Chat", benefit: "Create organic posts that speak directly to the interests of your target persona." }
+        { tool: "AI Social Post Writer", benefit: "Create organic posts that speak directly to the interests of your target persona." }
       ],
        faqs: [
       {
@@ -834,8 +834,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'market-reports',
-    title: 'Market Trend Reports',
-    description: 'Generate hyper-local real estate market reports with AI-powered insights.',
+    title: 'Precision Market Reports',
+    description: 'Go beyond MLS data. Generate hyper-local reports with AI-powered predictive insights.',
     icon: <LineChart />,
     color: 'from-amber-500/80 to-amber-600/80',
     cta: 'Market Report',
@@ -888,8 +888,8 @@ export const tools: Feature[] = [
     },
     creationFields: [
       { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Beverly Hills, CA" or "90210"', description: 'The area you want to analyze.' },
-      { id: 'reportType', name: 'Report Type', type: 'select', options: ['For Buyers', 'For Sellers', 'For Investors', 'General Overview'], description: 'Tailor the report for a specific audience.' },
-      { id: 'yourBranding', name: 'Your Branding', type: 'file', description: 'Upload your logo to brand the report. (Optional)' },
+      { id: 'reportFocus', name: 'Report Focus', type: 'text', placeholder: 'e.g., "2-bedroom condos" or "New construction"', description: 'Specify a property type or focus for the report.' },
+      { id: 'specificProperty', name: 'Specific Property Address (Optional)', type: 'text', placeholder: 'e.g., 123 Main St, Beverly Hills, CA', description: 'Generate a detailed report for a single listing.' },
     ],
   },
   {
