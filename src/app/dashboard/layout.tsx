@@ -44,8 +44,12 @@ import {
   Briefcase,
   ChevronRight,
   Contact,
-  Brush
+  Brush,
+  Star,
+  Settings,
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 
 const marketingTools = [
   { id: 'ad-creation', title: 'Instant Ad Creation', icon: <Megaphone /> },
@@ -129,6 +133,12 @@ export default function DashboardLayout({
           </div>
         </SidebarHeader>
         <SidebarContent>
+            <div className='p-2'>
+              <Button className="w-full justify-start bg-primary/10 hover:bg-primary/20 text-primary-foreground font-semibold border-2 border-primary/20">
+                  <Star className="mr-2 h-5 w-5 text-yellow-400" />
+                  My Assistant
+              </Button>
+            </div>
           <div className="flex flex-col gap-2 p-2">
             <SidebarMenuGroup title="Marketing" tools={marketingTools} isActive />
             <SidebarMenuGroup title="Design Tools" tools={designTools} />
@@ -138,7 +148,18 @@ export default function DashboardLayout({
           </div>
         </SidebarContent>
         <SidebarFooter>
-          <div className="flex items-center gap-3">
+            <div className='flex flex-col gap-2 p-2'>
+                 <Separator className='mb-2' />
+                 <SidebarMenu>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton href="#">
+                            <Settings />
+                            <span>Lead Storage</span>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                 </SidebarMenu>
+            </div>
+          <div className="flex items-center gap-3 p-2 pt-0">
             <Avatar className="size-8">
               <AvatarImage
                 src="https://picsum.photos/100"
