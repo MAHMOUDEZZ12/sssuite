@@ -1648,19 +1648,11 @@ export default function Home() {
       <main className="flex-1 w-full max-w-full px-4 md:px-6 lg:px-8 py-12 md:py-20">
         <div className="text-center mb-16 max-w-5xl mx-auto">
           <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
-            Your Real Estate Sales, Amplified.
+            A salesperson with tools is a super-seller.
           </h1>
           <p className="text-lg md:text-xl text-foreground/60">
-            Unlock AI-powered tools to create stunning marketing, find
-            high-intent buyers, and close deals faster. Level up your sales
-            game.
+            A salesperson without tools is just a marketer. Explore the tools below.
           </p>
-          <div className="mt-8 flex gap-4 justify-center">
-            <Button size="lg" className="text-lg py-7 px-8">Start Your Free Trial</Button>
-            <Button size="lg" variant="outline" className="text-lg py-7 px-8">
-              See it in Action
-            </Button>
-          </div>
         </div>
 
         <div 

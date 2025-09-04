@@ -14,19 +14,9 @@ export function LandingHeader() {
         <div className="mr-auto">
             <Logo />
         </div>
-        <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
-          <Link href="#" className="text-foreground/60 transition-colors hover:text-foreground/80">Features</Link>
-          <Link href="#" className="text-foreground/60 transition-colors hover:text-foreground/80">Pricing</Link>
-          <Link href="#" className="text-foreground/60 transition-colors hover:text-foreground/80">Community</Link>
-        </nav>
         <div className="ml-auto flex items-center gap-4">
           <Link href="#">
             <Button variant="ghost">Log In</Button>
-          </Link>
-          <Link href="#">
-            <Button>
-              Sign Up
-            </Button>
           </Link>
         </div>
       </div>
