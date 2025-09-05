@@ -76,7 +76,7 @@ export function LandingFooter() {
                         <h3 className="font-semibold text-foreground">Featured Posts</h3>
                         <ul className="mt-4 space-y-2">
                             {footerLinks.featuredPosts.map((link) => (
-                                <li key={link.name}>-
+                                <li key={link.name}>
                                     <Link href={link.href} className="text-foreground/60 hover:text-primary transition-colors">
                                         {link.name}
                                     </Link>
