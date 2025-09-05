@@ -18,8 +18,14 @@ const fontHeading = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Super Seller Suite: Your AI Co-Pilot for Real Estate',
-  description: 'The AI-powered suite for real estate agents. Generate ads, target buyers, rebrand brochures, and close deals faster. Your new co-pilot for sales and marketing.',
+  title: 'Super Seller Suite — AI tools for ads, creatives, and sales',
+  description: 'Use AI tools for ads, rebranding, pages, posts, CRM, and reports—all in one sales suite.',
+  openGraph: {
+    title: 'Super Seller Suite',
+    description: 'Create ads, pages, PDFs, emails, and reports from any brochure. Train your AI assistant.',
+    // You would replace this with a URL to your actual OpenGraph image
+    // images: ['/og-image.png'],
+  },
 };
 
 export default function RootLayout({
@@ -41,5 +47,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-    

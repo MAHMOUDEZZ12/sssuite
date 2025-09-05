@@ -24,33 +24,21 @@ import {
 import { Logo } from '@/components/logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
-  Bot,
-  Clapperboard,
-  Database,
-  FileText,
-  Film,
-  LayoutTemplate,
-  LineChart,
-  Mail,
-  Megaphone,
-  Palette,
-  PenTool,
-  Phone,
-  Share2,
-  Target,
-  UserCog,
-  UserPlus,
-  Users2,
-  Video,
+  Home,
   Briefcase,
+  Palette,
+  Database,
+  Megaphone,
+  Brush,
+  Users2,
+  Share2,
+  LineChart,
+  BrainCircuit,
+  Settings,
+  Server,
+  LifeBuoy,
   ChevronRight,
   Contact,
-  Brush,
-  Star,
-  Settings,
-  LifeBuoy,
-  Server,
-  BrainCircuit,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -60,14 +48,16 @@ import { AssistantChat } from '@/components/assistant-chat';
 const marketingTools = tools.filter(t => t.mindMapCategory === 'Marketing');
 const creativeTools = tools.filter(t => t.mindMapCategory === 'Creative Suite');
 const salesTools = tools.filter(t => t.mindMapCategory === 'Sales Enablement');
-const socialTools = tools.filter(t => t.categories.includes('Social & Comms'));
+const coreIntelTools = tools.filter(t => t.mindMapCategory === 'Core Intelligence');
 
 
 const SidebarMenuGroup = ({
   title,
+  icon,
   tools,
 }: {
   title: string;
+  icon: React.ReactNode;
   tools: { id: string; title: string; icon: React.ReactNode }[];
 }) => {
     const pathname = usePathname();
@@ -77,7 +67,10 @@ const SidebarMenuGroup = ({
       <Collapsible defaultOpen={isActive}>
         <CollapsibleTrigger asChild>
           <div className="flex items-center justify-between px-2 py-1 cursor-pointer hover:bg-muted rounded-md group-data-[collapsible=icon]:hidden">
-            <span className="text-sm font-semibold">{title}</span>
+            <span className="flex items-center gap-2 text-sm font-semibold">
+                {icon}
+                {title}
+            </span>
             <ChevronRight className="h-4 w-4 transition-transform duration-200 [&[data-state=open]]:rotate-90" />
           </div>
         </CollapsibleTrigger>
@@ -116,10 +109,45 @@ export default function DashboardLayout({
         </SidebarHeader>
         <SidebarContent>
           <div className="flex flex-col gap-2 p-2">
-            <SidebarMenuGroup title="Marketing" tools={marketingTools} />
-            <SidebarMenuGroup title="Creative Suite" tools={creativeTools} />
-            <SidebarMenuGroup title="Sales & CRM" tools={salesTools} />
-            <SidebarMenuGroup title="Social Media" tools={socialTools} />
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <Link href="/dashboard">
+                      <SidebarMenuButton isActive={pathname === '/dashboard'}>
+                          <Home />
+                          <span className="group-data-[collapsible=icon]:hidden">Home</span>
+                      </SidebarMenuButton>
+                  </Link>
+                </SidebarMenuItem>
+                 <SidebarMenuItem>
+                  <Link href="/dashboard/projects">
+                      <SidebarMenuButton isActive={pathname.startsWith('/dashboard/projects')}>
+                          <Briefcase />
+                          <span className="group-data-[collapsible=icon]:hidden">Projects</span>
+                      </SidebarMenuButton>
+                  </Link>
+                </SidebarMenuItem>
+                 <SidebarMenuItem>
+                  <Link href="/dashboard/brand">
+                      <SidebarMenuButton isActive={pathname.startsWith('/dashboard/brand')}>
+                          <Palette />
+                          <span className="group-data-[collapsible=icon]:hidden">Brand & Assets</span>
+                      </SidebarMenuButton>
+                  </Link>
+                </SidebarMenuItem>
+                 <SidebarMenuItem>
+                  <Link href="/dashboard/data">
+                      <SidebarMenuButton isActive={pathname.startsWith('/dashboard/data')}>
+                          <Database />
+                          <span className="group-data-[collapsible=icon]:hidden">Storage</span>
+                      </SidebarMenuButton>
+                  </Link>
+                </SidebarMenuItem>
+              </SidebarMenu>
+              <Separator />
+            <SidebarMenuGroup title="Marketing" icon={<Megaphone/>} tools={marketingTools} />
+            <SidebarMenuGroup title="Creative Suite" icon={<Brush />} tools={creativeTools} />
+            <SidebarMenuGroup title="Sales Enablement" icon={<Users2 />} tools={salesTools} />
+             <SidebarMenuGroup title="Core Intelligence" icon={<BrainCircuit />} tools={coreIntelTools} />
           </div>
         </SidebarContent>
         <SidebarFooter>
@@ -130,45 +158,12 @@ export default function DashboardLayout({
                         <Link href="/dashboard/assistant">
                             <SidebarMenuButton isActive={pathname.startsWith('/dashboard/assistant')}>
                                 <BrainCircuit />
-                                <span className="group-data-[collapsible=icon]:hidden">Train Assistant</span>
-                            </SidebarMenuButton>
-                        </Link>
-                    </SidebarMenuItem>
-                    <Separator />
-                    <SidebarMenuItem>
-                        <Link href="/dashboard/projects">
-                            <SidebarMenuButton isActive={pathname.startsWith('/dashboard/projects')}>
-                                <Briefcase />
-                                <span className="group-data-[collapsible=icon]:hidden">My Projects</span>
+                                <span className="group-data-[collapsible=icon]:hidden">Your AI Assistant</span>
                             </SidebarMenuButton>
                         </Link>
                     </SidebarMenuItem>
                      <SidebarMenuItem>
-                        <Link href="/dashboard/leads">
-                            <SidebarMenuButton isActive={pathname.startsWith('/dashboard/leads')}>
-                                <Contact />
-                                <span className="group-data-[collapsible=icon]:hidden">Leads (CRM)</span>
-                            </SidebarMenuButton>
-                        </Link>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                        <Link href="/dashboard/data">
-                            <SidebarMenuButton isActive={pathname.startsWith('/dashboard/data')}>
-                                <Database />
-                                <span className="group-data-[collapsible=icon]:hidden">Data Storage</span>
-                            </SidebarMenuButton>
-                        </Link>
-                    </SidebarMenuItem>
-                     <SidebarMenuItem>
-                        <Link href="/dashboard/brand">
-                            <SidebarMenuButton isActive={pathname.startsWith('/dashboard/brand')}>
-                                <Palette />
-                                <span className="group-data-[collapsible=icon]:hidden">My Brand</span>
-                            </SidebarMenuButton>
-                        </Link>
-                    </SidebarMenuItem>
-                     <SidebarMenuItem>
-                         <Link href="/dashboard/settings">
+                        <Link href="/dashboard/settings">
                             <SidebarMenuButton isActive={pathname.startsWith('/dashboard/settings')}>
                                 <Settings />
                                 <span className="group-data-[collapsible=icon]:hidden">Settings</span>
