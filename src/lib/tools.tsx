@@ -40,6 +40,7 @@ import {
   Download,
   Binoculars,
   LineChart,
+  BrainCircuit,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -125,7 +126,7 @@ export const tools: Tool[] = [
     icon: <Target />,
     color: '#ec4899', // pink-500
     cta: 'Ad',
-    categories: ['Creative', 'Ads'],
+    categories: ['Creative', 'Ads', 'Marketing'],
     backsideValue: "Turn a brochure into a campaign.",
     flowRunner: generateAdFromBrochure,
     renderResult: (result, toast) => (
@@ -182,7 +183,7 @@ export const tools: Tool[] = [
     icon: <Binoculars />,
     color: '#3b82f6', // blue-600
     cta: 'Targeting Profile',
-    categories: ['Lead Gen', 'Ads'],
+    categories: ['Lead Gen', 'Ads', 'Marketing'],
     backsideValue: "Find your buyers before they find you.",
     flowRunner: suggestTargetingOptions,
     renderResult: (result, toast) => (
@@ -331,7 +332,7 @@ export const tools: Tool[] = [
     icon: <LayoutTemplate />,
     color: '#22c55e', // green-500
     cta: 'Landing Page',
-    categories: ['Creative', 'Web'],
+    categories: ['Creative', 'Web', 'Marketing'],
     backsideValue: "Create a stunning property website in 60 seconds.",
     flowRunner: generateLandingPage,
     renderResult: (result, toast) => (
@@ -377,7 +378,7 @@ export const tools: Tool[] = [
     icon: <Share2 />,
     color: '#e11d48', // rose-600
     cta: 'Social Post',
-    categories: ['Social & Comms', 'Creative'],
+    categories: ['Social & Comms', 'Creative', 'Marketing'],
     backsideValue: "Never run out of content ideas again.",
     flowRunner: generateSocialPost,
     renderResult: (result, toast) => (
@@ -831,7 +832,7 @@ export const tools: Tool[] = [
         { metric: 'Subject Lines', manual: 'Guesswork, low open rates', ai: 'A/B tested variations for high engagement', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "Market Trend Reports", benefit: "Generate a local report, then use this tool to create an email campaign to share it with your list." },
+        { tool: "Precision Market Reports", benefit: "Generate a local report, then use this tool to create an email campaign to share it with your list." },
         { tool: "CRM Memory Assistant", benefit: "Personalize your email campaigns at scale using deep client insights from the assistant." }
       ],
        faqs: [
@@ -914,6 +915,40 @@ export const tools: Tool[] = [
       { id: 'contacts', name: 'Contact List', type: 'file', description: 'Upload a CSV with names and numbers.' },
       { id: 'campaignType', name: 'Campaign Type', type: 'select', options: ["New Listing Announcement", "Open House Invitation", "Price Reduction Alert", "Post-Viewing Follow-up"], placeholder: 'Select a message template', description: 'Choose the goal of your campaign.' },
       { id: 'sendTime', name: 'Schedule', type: 'select', options: ['Send Immediately', 'Schedule for 1 hour from now', 'Schedule for tomorrow at 9 AM'], placeholder: 'Select send time', description: 'When should the campaign be sent?' },
+    ],
+  },
+  {
+    id: 'ai-assistant',
+    title: 'AI Assistant',
+    description: 'The central, trainable intelligence that powers your entire suite.',
+    icon: <BrainCircuit />,
+    color: '#84cc16', // lime-500
+    cta: 'Assistant',
+    categories: ['Core Intelligence'],
+    backsideValue: "Your personal, trainable AI partner.",
+    details: {
+      steps: [
+        { text: 'Give your assistant core instructions', icon: <PenTool className="h-6 w-6" /> },
+        { text: 'Upload documents to its knowledge base', icon: <Upload className="h-6 w-6" /> },
+        { text: 'Chat with it anywhere in the app', icon: <MessageCircle className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Knowledge Recall', manual: 'Limited to your own memory and notes', ai: 'Instantly recalls every detail from every file', icon: <Database /> },
+        { metric: 'Task Execution', manual: 'You have to do everything yourself', ai: 'Can summarize, draft, compare, and role-play', icon: <Sparkles /> },
+        { metric: 'Availability', manual: 'You need sleep and breaks', ai: 'Always on, always ready to assist 24/7', icon: <Clock2 /> },
+      ],
+      synergy: [
+        { tool: "CRM Memory Assistant", benefit: "The Assistant is the user-facing interface for the powerful memory stored in the CRM." },
+        { tool: "All Tools", benefit: "The Assistant has access to all uploaded documents, making every tool more context-aware and powerful." }
+      ],
+       faqs: [
+        { question: "What's the difference between this and ChatGPT?", answer: "While both are powered by advanced AI, the Super Seller Suite Assistant is specifically designed for real estate and is integrated with your private data. You can upload brochures, reports, and client lists, and the assistant will use that private knowledge to give you hyper-relevant, contextual answers that a public tool like ChatGPT could never provide." },
+        { question: "Is my data used to train Google's models?", answer: "No. Absolutely not. The knowledge base you provide for your assistant is kept completely private and secure. It is only used to inform the responses for your account and is never used for training the underlying AI models." },
+        { question: "What kind of documents can I upload?", answer: "You can upload PDFs, text files, and CSVs. This is perfect for market reports, property brochures, client databases, legal documents, and more. The more knowledge you give your assistant, the more powerful it becomes." }
+      ],
+    },
+    creationFields: [
+       { id: 'assistant-redirect', name: 'Train Your Assistant', type: 'button', cta: 'Go to Assistant Training', description: 'Personalize your AI by giving it instructions and knowledge.' },
     ],
   },
 ];

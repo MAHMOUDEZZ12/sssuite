@@ -197,13 +197,15 @@ export default function SX3MindmapPage() {
     const [selectedFeature, setSelectedFeature] = React.useState<Feature | null>(null);
 
     const marketingTools = tools.filter(t => t.categories.includes('Marketing'));
-    const creativeTools = tools.filter(t => t.categories.includes('Creative'));
+    const creativeTools = tools.filter(t => t.categories.includes('Creative Suite'));
     const salesTools = tools.filter(t => t.categories.includes('Sales Tools'));
+    const coreTools = tools.filter(t => t.categories.includes('Core Intelligence'));
     
     const toolCategories = [
         { name: "Marketing", tools: marketingTools },
         { name: "Creative Suite", tools: creativeTools },
         { name: "Sales Enablement", tools: salesTools },
+        { name: "Core Intelligence", tools: coreTools },
     ];
 
   return (
@@ -224,7 +226,7 @@ export default function SX3MindmapPage() {
                  <MindMapNode title="Super Seller Suite" isRoot />
             </div>
 
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {toolCategories.map((category) => (
                     <MindMapNode key={category.name} title={category.name}>
                         {category.tools.map(tool => (
