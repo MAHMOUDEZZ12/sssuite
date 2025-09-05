@@ -54,7 +54,7 @@ export function CookieConsent() {
                   <h3 className="font-semibold">Cookie Preferences</h3>
                   <p className="text-sm text-muted-foreground">
                     We use cookies to enhance your browsing experience and analyze site traffic. By clicking &quot;Accept&quot;, you consent to our use of cookies.
-                     <Link href="/privacy" className="underline ml-1">Learn more</Link>.
+                     <Link href="/cookies" className="underline ml-1">Learn more</Link>.
                   </p>
                 </div>
             </div>
