@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Key, Bomb, X, Search, Lightbulb, Briefcase, UserPlus, Clock, Copy } from 'lucide-react';
+import { Key, Bomb, X, Search, Lightbulb, Briefcase, UserPlus, Clock, Copy, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
@@ -210,7 +210,7 @@ export default function SuperFreeTimePage() {
                             <>
                                 <Button onClick={resetGame} size="lg" variant="outline">One More Game</Button>
                                 {foundKey ? (
-                                    <Button size="lg" onClick={() => setShowReward(true)}><UserPlus className="mr-2 h-4 w-4"/> Claim Your Prize</Button>
+                                    <Button size="lg" onClick={() => setShowReward(true)}>Claim Your Prize</Button>
                                 ) : (
                                     <Link href="/login">
                                         <Button size="lg"><UserPlus className="mr-2 h-4 w-4"/> Let's Get To Business</Button>
