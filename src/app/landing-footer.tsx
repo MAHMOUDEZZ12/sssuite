@@ -54,11 +54,23 @@ export function LandingFooter() {
                         The ultimate sales suite, empowering agents to create stunning marketing campaigns and close more deals.
                     </p>
                 </div>
-                <div className='md:col-span-3 grid grid-cols-1 gap-8'>
+                <div className='md:col-span-3 grid grid-cols-2 gap-8'>
                     <div>
                         <h3 className="font-semibold text-foreground">Resources</h3>
                         <ul className="mt-4 space-y-2">
                             {footerLinks.resources.map((link) => (
+                                <li key={link.name}>
+                                    <Link href={link.href} className="text-foreground/60 hover:text-primary transition-colors">
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 className="font-semibold text-foreground">Legal</h3>
+                        <ul className="mt-4 space-y-2">
+                            {footerLinks.legal.map((link) => (
                                 <li key={link.name}>
                                     <Link href={link.href} className="text-foreground/60 hover:text-primary transition-colors">
                                         {link.name}
@@ -72,11 +84,11 @@ export function LandingFooter() {
 
             <Separator className="my-8" />
 
-            <div className="flex flex-col md:flex-row justify-between items-center">
-                 <p className="text-sm text-foreground/50">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                 <p className="text-sm text-foreground/50 text-center md:text-left">
                     Super Seller Suite © 2025 <a href="https://mtcmartech.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">mtc'</a>. All rights reserved.
                 </p>
-                <div className="flex items-center gap-4 mt-4 md:mt-0">
+                <div className="flex items-center gap-4">
                     <Link href="#" aria-label="Twitter">
                         <Twitter className="h-5 w-5 text-foreground/60 hover:text-primary transition-colors" />
                     </Link>
