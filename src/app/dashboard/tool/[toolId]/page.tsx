@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,12 +15,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
-import { Loader, Sparkles, AlertCircle, Upload, CreditCard, ArrowRight } from 'lucide-react';
+import { Loader, Sparkles, AlertCircle, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Confetti } from '@/components/confetti';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 
 const getToolSchema = (tool: Tool | undefined) => {
@@ -32,18 +31,12 @@ const getToolSchema = (tool: Tool | undefined) => {
         let fieldSchema;
 
         if (field.type === 'file') {
-            const baseSchema = z.custom<FileList>().nullable();
-            
-            const isOptional = (field.id === 'companyLogoDataUri') || 
-                             (field.id === 'projectBrochureDataUri') ||
-                             (field.id === 'inspirationImageDataUri') ||
-                             (field.id === 'newImages');
+            const isOptional = field.multiple || ['companyLogoDataUri', 'projectBrochureDataUri', 'inspirationImageDataUri', 'newImages'].includes(field.id);
 
-            if (field.multiple || isOptional) {
-                fieldSchema = baseSchema.optional();
-            } else {
-                fieldSchema = baseSchema.refine(files => files && files.length > 0, `${field.name} is required.`);
-            }
+            fieldSchema = z.custom<FileList>().nullable().refine(files => {
+                if (isOptional) return true;
+                return files && files.length > 0;
+            }, `${field.name} is required.`);
 
         } else if (field.type === 'number') {
             fieldSchema = z.string().min(1, `${field.name} is required`).refine(val => !isNaN(Number(val)), { message: "Must be a number" });
@@ -65,17 +58,14 @@ const getToolSchema = (tool: Tool | undefined) => {
 export default function ToolPage() {
   const { toolId } = useParams<{ toolId: string }>();
   const router = useRouter();
-  const [tool, setTool] = useState<Tool | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<any | null>(null);
-  const [showConfetti, setShowConfetti] = useState(false);
+  const [tool, setTool] = React.useState<Tool | undefined>(undefined);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+  const [result, setResult] = React.useState<any | null>(null);
+  const [showConfetti, setShowConfetti] = React.useState(false);
   const { toast } = useToast();
-  
-  const [hasPaymentDetails, setHasPaymentDetails] = useState(true);
-  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const currentTool = clientTools.find((t) => t.id === toolId);
     setTool(currentTool);
   }, [toolId]);
@@ -180,11 +170,7 @@ export default function ToolPage() {
   };
 
   const onSubmit = (data: Record<string, any>) => {
-    if (hasPaymentDetails) {
-        handleGeneration(data);
-    } else {
-        setShowPaymentDialog(true);
-    }
+    handleGeneration(data);
   }
   
   return (
@@ -325,31 +311,6 @@ export default function ToolPage() {
           </CardContent>
         </Card>
       )}
-
-      <Dialog open={showPaymentDialog} onOpenChange={setShowPaymentDialog}>
-        <DialogContent>
-            <DialogHeader>
-                <div className="flex items-center gap-4 mb-4">
-                    <div className="p-3 bg-primary/10 text-primary rounded-lg w-fit">
-                        <CreditCard className="h-6 w-6"/>
-                    </div>
-                    <DialogTitle className="text-xl">Payment Details Required</DialogTitle>
-                </div>
-                <DialogDescription>
-                    To access this feature and generate content, you need to add a payment method to your account. This enables your Pro subscription and unlocks all AI tools.
-                </DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-                <Button variant="ghost" onClick={() => setShowPaymentDialog(false)}>Cancel</Button>
-                <Link href="/dashboard/settings?tab=subscription">
-                    <Button>
-                        Add Payment Details
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                </Link>
-            </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </main>
   );
 }

@@ -228,7 +228,7 @@ export default function SettingsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-                <IntegrationCard
+                 <IntegrationCard
                     title="Social Media"
                     description="Connect Instagram, Facebook, LinkedIn, and X."
                     icon={<div className="flex items-center gap-2">
@@ -237,58 +237,8 @@ export default function SettingsPage() {
                            <Linkedin className="h-6 w-6" />
                            <Twitter className="h-6 w-6" />
                         </div>}
-                    connected={connections.social}
-                    onConnect={() => handleConnectionToggle('social')}
-                    onDisconnect={() => handleConnectionToggle('social')}
-                />
-                <IntegrationCard
-                    title="Email"
-                    description="Connect your Gmail or Outlook account."
-                    icon={<Mail className="h-6 w-6" />}
-                    connected={connections.email}
-                    onConnect={() => handleConnectionToggle('email')}
-                    onDisconnect={() => handleConnectionToggle('email')}
-                />
-                 <IntegrationCard
-                    title="WhatsApp"
-                    description="Connect your WhatsApp Business account."
-                    icon={<MessageCircle className="h-6 w-6" />}
-                    connected={connections.whatsapp}
-                    onConnect={() => {}}
-                    onDisconnect={() => handleConnectionToggle('whatsapp')}
-                >
-                    <Dialog>
-                       <DialogTrigger asChild>
-                           <Button variant={connections.whatsapp ? 'destructive' : 'outline'}>{connections.whatsapp ? 'Disconnect' : 'Connect'}</Button>
-                       </DialogTrigger>
-                       <DialogContent>
-                            <DialogHeader>
-                                <DialogTitle>Connect WhatsApp Business</DialogTitle>
-                                <DialogDescription>
-                                    Scan this QR code from your WhatsApp Business app to link your account.
-                                </DialogDescription>
-                            </DialogHeader>
-                            <div className="p-4 bg-white rounded-md flex justify-center">
-                                <Image src="https://picsum.photos/200" alt="QR Code" width={200} height={200} data-ai-hint="QR code" />
-                            </div>
-                       </DialogContent>
-                    </Dialog>
-                </IntegrationCard>
-                 <IntegrationCard
-                    title="CRM"
-                    description="Connect to your sales CRM to sync leads and contacts."
-                    icon={<Users className="h-6 w-6" />}
-                    connected={connections.crm}
-                    onConnect={() => handleConnectionToggle('crm')}
-                    onDisconnect={() => handleConnectionToggle('crm')}
-                />
-                 <IntegrationCard
-                    title="Google Drive"
-                    description="Sync documents and files from your Google Drive."
-                    icon={<Database className="h-6 w-6" />}
-                    connected={connections.drive}
-                    onConnect={() => handleConnectionToggle('drive')}
-                    onDisconnect={() => handleConnectionToggle('drive')}
+                    ctaHref="#"
+                    ctaText="Connect"
                 />
             </CardContent>
           </Card>

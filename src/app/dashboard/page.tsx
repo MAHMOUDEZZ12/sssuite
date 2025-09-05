@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/ui/page-header';
 import { tools } from '@/lib/tools-client';
 import { IntegrationCard } from '@/components/ui/integration-card';
+import { ServiceCard } from '@/components/ui/service-card';
 
 
 const QuickStartCard = ({ title, description, icon, href, guideHref }: { title: string; description: string; icon: React.ReactNode; href: string; guideHref: string }) => (
@@ -59,11 +60,10 @@ export default function DashboardPage() {
             </h3>
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {tools.slice(0,6).map(tool => (
-                     <QuickStartCard 
+                     <ServiceCard 
                         key={tool.id}
                         title={tool.title}
                         description={tool.description}
-                        icon={tool.icon}
                         href={`/dashboard/tool/${tool.id}`}
                         guideHref={`/blog/${tool.id}`}
                     />

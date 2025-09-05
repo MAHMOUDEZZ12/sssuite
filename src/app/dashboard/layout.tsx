@@ -2,7 +2,6 @@
 'use client';
 
 import * as React from 'react';
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import {
   SidebarProvider,
@@ -14,7 +13,6 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarInset,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -31,19 +29,16 @@ import {
   Megaphone,
   Brush,
   Users2,
-  Share2,
-  LineChart,
   BrainCircuit,
   Settings,
   Server,
   LifeBuoy,
   ChevronRight,
-  Contact,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { tools } from '@/lib/tools-client.tsx';
 import { AssistantChat } from '@/components/assistant-chat';
+import { usePathname } from 'next/navigation';
 
 const marketingTools = tools.filter(t => t.mindMapCategory === 'Marketing');
 const creativeTools = tools.filter(t => t.mindMapCategory === 'Creative Suite');
@@ -193,7 +188,6 @@ export default function DashboardLayout({
           <div className="flex items-center gap-3 p-2">
             <Avatar className="size-8">
               <AvatarImage
-                src="https://picsum.photos/100"
                 alt="User"
                 data-ai-hint="profile picture"
               />
