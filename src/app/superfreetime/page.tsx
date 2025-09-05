@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Key, Bomb, X, Search, Lightbulb, Briefcase } from 'lucide-react';
+import { Key, Bomb, X, Search, Lightbulb, Briefcase, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
@@ -148,9 +148,9 @@ export default function SuperFreeTimePage() {
                                 <>
                                  <h2 className="text-3xl font-bold text-destructive">That was fun, let's get back to business.</h2>
                                   <div className="flex items-center justify-center gap-4">
-                                     <Button onClick={resetGame} size="lg" variant="outline">Try Again</Button>
-                                     <Link href="/dashboard">
-                                        <Button size="lg"><Briefcase /> Back to Business</Button>
+                                     <Button onClick={resetGame} size="lg" variant="outline">One More Game</Button>
+                                     <Link href="/dashboard/leads">
+                                        <Button size="lg"><UserPlus /> One More Lead</Button>
                                      </Link>
                                   </div>
                                 </>
