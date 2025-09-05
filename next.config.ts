@@ -46,6 +46,21 @@ const nextConfig: NextConfig = {
         destination: '/',
         permanent: true,
       },
+      {
+        source: '/wp-admin',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/wp-login.php',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/xmlrpc.php',
+        destination: '/',
+        permanent: true,
+      },
     ]
   },
 };
