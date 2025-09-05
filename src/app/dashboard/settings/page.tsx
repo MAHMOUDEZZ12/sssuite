@@ -74,11 +74,10 @@ export default function SettingsPage() {
       />
 
       <Tabs defaultValue="account" className="w-full">
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="account"><User className="mr-2 h-4 w-4" /> Account</TabsTrigger>
           <TabsTrigger value="appearance"><Palette className="mr-2 h-4 w-4" /> Appearance</TabsTrigger>
           <TabsTrigger value="assistant"><Bot className="mr-2 h-4 w-4" /> Assistant</TabsTrigger>
-          <TabsTrigger value="brand"><Paintbrush className="mr-2 h-4 w-4" /> Brand</TabsTrigger>
           <TabsTrigger value="connections"><Network className="mr-2 h-4 w-4" /> Connections</TabsTrigger>
           <TabsTrigger value="subscription"><CreditCard className="mr-2 h-4 w-4" /> Subscription</TabsTrigger>
         </TabsList>
@@ -176,24 +175,6 @@ export default function SettingsPage() {
              <CardFooter>
                  <Button onClick={() => handleSaveChanges('Assistant')}>Save Changes</Button>
             </CardFooter>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="brand">
-          <Card>
-            <CardHeader>
-              <CardTitle>Brand Assets</CardTitle>
-              <CardDescription>
-                This is where you manage your company's branding. These assets are used by the AI to personalize generated content.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex items-center justify-center py-12">
-               <Link href="/dashboard/brand">
-                    <Button size="lg" variant="outline">
-                        <Paintbrush className="mr-2 h-5 w-5" /> Go to Full Brand Management
-                    </Button>
-                </Link>
-            </CardContent>
           </Card>
         </TabsContent>
 
