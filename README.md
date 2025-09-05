@@ -7,13 +7,14 @@ From instant ad creation to hyper-local market reports and 24/7 AI-powered lead 
 
 ## Key Features
 
-- **Trainable AI Assistant**: The core of the suite. Feed it your brochures, market reports, and client lists to create a personalized assistant with deep, private knowledge of your business.
+- **Trainable AI Assistant**: The core of the suite. Feed it your brochures, market reports, and client lists to create a personalized assistant with deep, private knowledge of your business. It can even perform multi-step tasks on your command.
 - **Instant Content Generation**: Create high-performance ads, social media posts, landing pages, and video scripts from simple inputs like a property brochure or a topic.
 - **Automated Rebranding**: Instantly apply your personal or company branding (logo, colors, contact info) to any marketing material in a single click.
 - **Precision Targeting**: Move beyond basic demographics. Our AI analyzes market data to identify high-intent buyer personas for your ad campaigns.
 - **AI PDF Editor**: Make changes to any PDF brochure—swap images, edit text, update layouts—using simple, natural language commands.
 - **Investor Matching**: Upload a property and a client list, and let the AI find the perfect investor matches based on their past behavior and stated goals.
-- **Multi-Tool Workflows**: Command the assistant to perform complex, multi-step tasks like "Create a new project for Azure Lofts, generate a promotional video for it, and save the final video to my drive."
+- **AI Projects Finder**: Discover potential off-market projects and development opportunities in your target area before anyone else.
+- **SuperFreeTime Game**: A hidden delight for the curious. Find the key, win a prize from the AI Assistant, and remember the importance of play.
 
 ## Technology Stack
 
