@@ -93,7 +93,7 @@ const ToolLeaf = ({ tool, onClick, className }: { tool: Feature; onClick: (tool:
                             </div>
                              <div className="flex items-start gap-2 text-foreground/70">
                                 <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" />
-                                <span><span className="font-bold text-foreground/90">Integrated:</span> Access all other tools from the chat.</span>
+                                <span><span className="font-bold text-foreground/90">Integrated:</span> crosstool  tasks from the chat</span>
                             </div>
                         </div>
                     )}
