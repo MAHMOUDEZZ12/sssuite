@@ -20,6 +20,10 @@ export function LandingFooter() {
         { name: 'Precision Targeting', href: '/blog/targeting' },
         { name: 'Automated Rebranding', href: '/blog/rebranding' },
     ],
+    legal: [
+        { name: 'Privacy Policy', href: '#' },
+        { name: 'Terms of Service', href: '#' },
+    ]
   };
 
   return (
@@ -50,14 +54,14 @@ export function LandingFooter() {
         </div>
 
         <div className="mt-24">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div className="md:col-span-1">
                     <Logo />
                     <p className="mt-4 text-foreground/60 max-w-xs">
                         The ultimate sales suite, empowering agents to create stunning marketing campaigns and close more deals.
                     </p>
                 </div>
-                <div className='md:col-span-2 grid grid-cols-2 md:grid-cols-2 gap-8'>
+                <div className='md:col-span-3 grid grid-cols-3 gap-8'>
                     <div>
                         <h3 className="font-semibold text-foreground">Resources</h3>
                         <ul className="mt-4 space-y-2">
@@ -74,6 +78,18 @@ export function LandingFooter() {
                         <h3 className="font-semibold text-foreground">Featured Posts</h3>
                         <ul className="mt-4 space-y-2">
                             {footerLinks.featuredPosts.map((link) => (
+                                <li key={link.name}>
+                                    <Link href={link.href} className="text-foreground/60 hover:text-primary transition-colors">
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 className="font-semibold text-foreground">Legal</h3>
+                        <ul className="mt-4 space-y-2">
+                            {footerLinks.legal.map((link) => (
                                 <li key={link.name}>
                                     <Link href={link.href} className="text-foreground/60 hover:text-primary transition-colors">
                                         {link.name}
