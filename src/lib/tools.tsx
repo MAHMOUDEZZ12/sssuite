@@ -178,24 +178,7 @@ export const tools: Tool[] = [
     cta: 'Targeting Profile',
     categories: ['Lead Gen', 'Ads'],
     backsideValue: "Find your buyers before they find you.",
-    flowRunner: async (data: any) => {
-        const payload = {
-            location: data.location,
-            propertyType: data.propertyType,
-            priceRange: {
-                min: Number(data.minPrice),
-                max: Number(data.maxPrice),
-            },
-            amenities: data.amenities.split(',').map((a: string) => a.trim()),
-            ageRange: {
-                min: Number(data.minAge),
-                max: Number(data.maxAge),
-            },
-            incomeLevel: data.incomeLevel,
-            interests: data.interests.split(',').map((i: string) => i.trim()),
-        };
-        return await suggestTargetingOptions(payload);
-    },
+    flowRunner: suggestTargetingOptions,
     renderResult: (result, toast) => (
       <div>
         <h3 className="font-semibold text-lg mb-2">Suggested Targeting Options</h3>
@@ -919,3 +902,5 @@ export const tools: Tool[] = [
     ],
   },
 ];
+
+    

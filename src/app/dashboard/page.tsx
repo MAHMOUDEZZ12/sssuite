@@ -79,7 +79,7 @@ export default function DashboardPage() {
 
         <div>
             <h3 className="text-2xl font-bold font-heading tracking-tight mb-4">
-                Connect Your Accounts
+                Unlock powerful automations
             </h3>
             <Card>
                 <CardHeader>
@@ -87,10 +87,10 @@ export default function DashboardPage() {
                         <div className='p-3 bg-primary/10 text-primary rounded-lg'>
                            <Share2 className='h-6 w-6' />
                         </div>
-                       <span className='font-heading'>Unlock powerful automations</span>
+                       <span className='font-heading'>Connect Your Accounts</span>
                     </CardTitle>
                     <CardDescription>
-                        Connect your social media and email accounts to enable the AI to work across your platforms, saving you time and unlocking features like automated post scheduling and CRM integration.
+                        Connect your social media and email accounts to enable the AI to work across your platforms. This unlocks features like automated post scheduling and CRM integration. Add your payment details to access all pro features.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -107,3 +107,5 @@ export default function DashboardPage() {
     </main>
   );
 }
+
+    
