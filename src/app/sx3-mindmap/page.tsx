@@ -108,7 +108,7 @@ const ToolLeaf = ({ tool, onClick, className }: { tool: Feature; onClick: (tool:
                             </div>
                              <div className="flex items-start gap-2 text-foreground/70">
                                 <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" />
-                                <span><span className="font-bold text-foreground/90">Integrated:</span> crosstool tasks from the chat.</span>
+                                <span><span className="font-bold text-foreground/90">Integrated:</span> Crosstool tasks from the chat.</span>
                             </div>
                         </div>
                     )}
@@ -258,7 +258,7 @@ export default function SX3MindmapPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20 flex flex-col items-center justify-start">
-        <div className="text-center mb-12 mt-8">
+        <div className="text-center mb-16 mt-8">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
             SX3 Services Mind Map
           </h1>
@@ -272,27 +272,6 @@ export default function SX3MindmapPage() {
                  <MindMapNode title="Super Seller Suite" isRoot />
             </div>
 
-            <div className="w-full max-w-2xl p-1 mb-12 rounded-2xl bg-gradient-to-r from-primary via-accent to-secondary animate-gradient-spin">
-                <Card className="bg-background/90 rounded-xl">
-                  <Link href="/blog">
-                    <div className="flex flex-col md:flex-row items-center gap-6 p-6 group">
-                        <div className="p-4 bg-primary/10 text-primary rounded-lg">
-                            <BookOpen className="h-8 w-8" />
-                        </div>
-                        <div className="text-center md:text-left">
-                            <h3 className="text-xl font-bold font-heading text-foreground">The Super Seller Handbook</h3>
-                            <p className="text-foreground/70">From a high-level view to a deep dive. Explore detailed guides and expert hacks for every tool.</p>
-                        </div>
-                        <div className="ml-auto">
-                           <Button variant="ghost">
-                                Read Now <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                            </Button>
-                        </div>
-                    </div>
-                  </Link>
-                </Card>
-            </div>
-            
             <div className="absolute top-[8rem] hidden h-16 w-full max-w-4xl lg:block">
               <div className="h-0.5 w-full bg-border" />
               <div className="absolute -top-px left-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(50%) rotate(25deg)', transformOrigin: 'left top' }} />
@@ -300,7 +279,6 @@ export default function SX3MindmapPage() {
               <div className="absolute -top-px left-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(50%) rotate(-25deg)', transformOrigin: 'left top' }} />
               <div className="absolute -top-px right-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(-50%) rotate(25deg)', transformOrigin: 'right top' }} />
             </div>
-
 
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-y-16 lg:mt-16">
                 {toolCategories.map((category) => (
@@ -319,6 +297,28 @@ export default function SX3MindmapPage() {
                 ))}
             </div>
         </div>
+
+        <section className="mt-24 w-full max-w-4xl">
+            <Card className="bg-card/50 backdrop-blur-lg border shadow-xl shadow-primary/10">
+                <Link href="/blog">
+                    <div className="flex flex-col md:flex-row items-center gap-6 p-6 group">
+                        <div className="p-4 bg-primary/10 text-primary rounded-lg">
+                            <BookOpen className="h-8 w-8" />
+                        </div>
+                        <div className="text-center md:text-left">
+                            <h3 className="text-xl font-bold font-heading text-foreground">The Super Seller Handbook</h3>
+                            <p className="text-foreground/70">From a high-level view to a deep dive. Explore detailed guides and expert hacks for every tool.</p>
+                        </div>
+                        <div className="ml-auto">
+                           <Button variant="ghost">
+                                Read Now <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                            </Button>
+                        </div>
+                    </div>
+                </Link>
+            </Card>
+        </section>
+
       </main>
       <FeatureModal feature={selectedFeature} onClose={() => setSelectedFeature(null)} />
       <LandingFooter />
