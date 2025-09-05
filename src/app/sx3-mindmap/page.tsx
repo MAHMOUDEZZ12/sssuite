@@ -21,21 +21,20 @@ const MindMapNode = ({
   isRoot?: boolean;
 }) => {
   return (
-    <div className={cn("relative flex flex-col items-center", className)}>
+    <div className={cn("relative flex flex-col items-center w-full", className)}>
       <div
         className={cn(
-          "rounded-full border-2 p-4 text-center shadow-lg flex items-center justify-center z-10",
+          "rounded-xl border-2 p-4 text-center shadow-lg flex items-center justify-center z-10 w-full",
           isRoot
-            ? "border-primary bg-primary/10 text-primary-foreground min-w-48 min-h-48 text-2xl font-bold"
-            : "border-border bg-card/80 backdrop-blur-sm min-w-40 min-h-40 font-semibold text-lg"
+            ? "border-primary bg-primary/10 text-primary-foreground min-h-24 text-2xl font-bold"
+            : "border-border bg-card/80 backdrop-blur-sm min-h-20 font-semibold text-lg"
         )}
       >
         <span className={cn(isRoot && 'text-primary')}>{title}</span>
       </div>
       {children && (
-        <div className="relative pt-16">
-           <div className="absolute top-0 left-1/2 h-16 w-px border-l-2 border-border/70"></div>
-           <div className="flex flex-col gap-12">
+        <div className="relative pt-4 w-full">
+           <div className="flex flex-col gap-4">
             {children}
            </div>
         </div>
@@ -47,11 +46,10 @@ const MindMapNode = ({
 const ToolLeaf = ({ tool }: { tool: (typeof tools)[0] }) => (
     <Link href={`/dashboard/tool/${tool.id}`} className="group">
         <div className="relative flex items-center">
-             <div className="absolute left-0 top-1/2 w-8 border-t-2 border-border/70"></div>
-            <div className="ml-8 flex items-center gap-3 rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
+            <div className="flex w-full items-center gap-3 rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
                 <div className="p-2 rounded-md text-white" style={{backgroundColor: tool.color}}>{React.cloneElement(tool.icon, { className: 'h-5 w-5' })}</div>
                 <span className="font-medium text-sm text-foreground/90">{tool.title}</span>
-                <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 ml-auto" />
             </div>
         </div>
     </Link>
@@ -60,18 +58,21 @@ const ToolLeaf = ({ tool }: { tool: (typeof tools)[0] }) => (
 
 export default function SX3MindmapPage() {
     const marketingTools = tools.filter(t => t.categories.includes('Ads') || t.categories.includes('Lead Gen'));
-    const designTools = tools.filter(t => t.categories.includes('Creative') && (t.categories.includes('Editing') || t.categories.includes('Social & Comms')));
-    const contentTools = tools.filter(t => t.categories.includes('Creative') && (t.categories.includes('Web') || t.categories.includes('Editing')));
-    const socialMediaTools = tools.filter(t => t.categories.includes('Social & Comms'));
+    const creativeTools = tools.filter(t => t.categories.includes('Creative'));
     const salesTools = tools.filter(t => t.categories.includes('Sales Tools'));
+    const socialTools = tools.filter(t => t.categories.includes('Social & Comms'));
     
     const toolCategories = [
-        { name: "Marketing", tools: marketingTools },
-        { name: "Design Tools", tools: designTools },
-        { name: "Content Tools", tools: contentTools },
-        { name: "Social Media", tools: socialMediaTools },
-        { name: "Sales & CRM", tools: salesTools },
+        { name: "Marketing & Lead Gen", tools: marketingTools },
+        { name: "Creative Suite", tools: creativeTools },
+        { name: "Sales Enablement", tools: salesTools },
+        { name: "Social & Communications", tools: socialTools },
     ];
+    
+    const allToolsCategory = { name: "All Tools", tools: tools };
+
+    const displayCategories = [allToolsCategory, ...toolCategories];
+
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -86,28 +87,20 @@ export default function SX3MindmapPage() {
           </p>
         </div>
 
-        <div className="flex flex-col justify-center items-center mt-8">
-            <MindMapNode title="Super Seller Suite" isRoot>
-                <div className="relative">
-                    <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2"></div>
-                    <div className="flex flex-col gap-16">
-                        {toolCategories.map((category) => (
-                           <div key={category.name} className="relative flex items-start">
-                                <div className="absolute left-1/2 top-[80px] -translate-x-1/2 w-20 border-t-2 border-border/70 -rotate-90 origin-top-left"></div>
-                                <MindMapNode title={category.name}>
-                                    <div className='absolute left-full top-1/2 -translate-y-1/2 pl-16'>
-                                        <div className="flex flex-col gap-4">
-                                        {category.tools.map(tool => (
-                                            <ToolLeaf key={tool.id} tool={tool} />
-                                        ))}
-                                        </div>
-                                    </div>
-                                </MindMapNode>
-                           </div>
+        <div className="flex w-full flex-col justify-center items-center mt-8">
+            <div className="w-full max-w-md mb-12">
+                 <MindMapNode title="Super Seller Suite" isRoot />
+            </div>
+
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {displayCategories.slice(1, 4).map((category) => (
+                    <MindMapNode key={category.name} title={category.name}>
+                        {category.tools.map(tool => (
+                            <ToolLeaf key={tool.id} tool={tool} />
                         ))}
-                    </div>
-                </div>
-            </MindMapNode>
+                    </MindMapNode>
+                ))}
+            </div>
         </div>
 
       </main>
