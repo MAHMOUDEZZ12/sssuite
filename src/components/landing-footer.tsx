@@ -2,7 +2,7 @@
 "use client";
 
 import Link from 'next/link';
-import { ArrowRight, Twitter, Facebook, Linkedin } from 'lucide-react';
+import { ArrowRight, Twitter, Facebook, Linkedin, Puzzle } from 'lucide-react';
 import { ShinyButton } from './ui/shiny-button';
 import { Logo } from './logo';
 import { Separator } from './ui/separator';
@@ -84,7 +84,7 @@ export function LandingFooter() {
                         </ul>
                     </div>
                      <div>
-                        <h3 className="font-semibold text-foreground">Legal</h3>
+                        <h3 className="font-semibold text-foreground">Legal & Fun</h3>
                         <ul className="mt-4 space-y-2">
                             {footerLinks.legal.map((link) => (
                                 <li key={link.name}>
@@ -93,6 +93,11 @@ export function LandingFooter() {
                                     </Link>
                                 </li>
                             ))}
+                             <li>
+                                <Link href="/superfreetime" className="flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors">
+                                    <Puzzle className="h-4 w-4" /> SuperFreeTime
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
