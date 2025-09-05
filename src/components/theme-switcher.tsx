@@ -14,14 +14,11 @@ import { Sun, Moon, Laptop } from 'lucide-react';
 const themes = [
   { value: 'light', label: 'Light', icon: Sun },
   { value: 'dark', label: 'Dark', icon: Moon },
-  { value: 'theme-x3', label: 'System X3', icon: Laptop },
-  { value: 'theme-darks1', label: 'Dark S1', icon: Laptop },
-  { value: 'theme-lights2', label: 'Light S2', icon: Laptop },
-  { value: 'theme-pinkpurple', label: 'Pink/Purple', icon: Laptop },
+  { value: 'system', label: 'System', icon: Laptop },
 ];
 
 export function ThemeSwitcher() {
-  const [theme, setTheme] = useState('theme-x3');
+  const [theme, setTheme] = useState('dark');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -32,10 +29,17 @@ export function ThemeSwitcher() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.className = '';
-    // The theme from the RootLayout is 'theme-crimson-gold', let's stick with that for the demo
-    root.classList.add('theme-crimson-gold');
-    // localStorage.setItem('theme', theme);
+    
+    // Clear existing theme classes
+    themes.forEach(t => root.classList.remove(t.value));
+    
+    let activeTheme = theme;
+    if (theme === 'system') {
+      activeTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    
+    root.classList.add(activeTheme);
+    localStorage.setItem('theme', theme);
   }, [theme]);
   
   const ActiveIcon = themes.find(t => t.value === theme)?.icon || Sun;
