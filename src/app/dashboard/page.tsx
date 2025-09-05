@@ -10,31 +10,6 @@ import { IntegrationCard } from '@/components/ui/integration-card';
 import { ServiceCard } from '@/components/ui/service-card';
 
 
-const QuickStartCard = ({ title, description, icon, href, guideHref }: { title: string; description: string; icon: React.ReactNode; href: string; guideHref: string }) => (
-    <Card className="group hover:border-primary/30 transition-colors hover:bg-card/80 flex flex-col">
-        <CardHeader>
-            <div className="flex items-center gap-4">
-                <div className="p-3 bg-primary/10 text-primary rounded-lg w-fit">
-                    {icon}
-                </div>
-                <CardTitle className='text-xl font-heading'>{title}</CardTitle>
-            </div>
-        </CardHeader>
-        <CardContent className="flex-grow">
-            <p className='text-muted-foreground'>{description}</p>
-        </CardContent>
-        <CardFooter className="flex items-center gap-3">
-             <Link href={href}>
-                <Button>Use Tool</Button>
-            </Link>
-             <Link href={guideHref}>
-                <Button variant="link">Read Guide</Button>
-            </Link>
-        </CardFooter>
-    </Card>
-)
-
-
 export default function DashboardPage() {
   return (
     <main className="flex-1 flex-col p-4 md:p-10 space-y-8">
@@ -45,13 +20,7 @@ export default function DashboardPage() {
       />
 
        <div>
-            <IntegrationCard
-                title="Connect Your Accounts"
-                description="Connect your social media and email accounts to enable the AI to work across your platforms. This unlocks features like automated post scheduling and CRM integration. Add your payment details to access all pro features."
-                icon={<LinkIcon className='h-6 w-6' />}
-                ctaHref='/dashboard/settings?tab=connections'
-                ctaText='Go to Connection Settings'
-            />
+            <IntegrationCard />
        </div>
 
         <div>

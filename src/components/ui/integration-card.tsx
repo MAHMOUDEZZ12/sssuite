@@ -1,14 +1,7 @@
 
 'use client';
-
-import React, { useState } from 'react';
-import { Button } from './button';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from './card';
-import Link from 'next/link';
-import { Switch } from './switch';
-import { cn } from '@/lib/utils';
+import { useState } from 'react';
 import { Mail, Instagram, Facebook, MessageSquare, Youtube, Link2 } from 'lucide-react';
-
 
 const PROVIDERS = [
   { id: 'google', name: 'Google (Gmail)', icon: Mail },
@@ -18,30 +11,7 @@ const PROVIDERS = [
   { id: 'youtube', name: 'YouTube', icon: Youtube },
 ];
 
-
-type IntegrationCardProps = {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  ctaHref: string;
-  ctaText: string;
-  connected?: boolean;
-  onConnect?: () => void;
-  onDisconnect?: () => void;
-  children?: React.ReactNode;
-};
-
-export function IntegrationCard({ 
-    icon, 
-    title, 
-    description, 
-    ctaHref,
-    ctaText,
-    connected, 
-    onConnect, 
-    onDisconnect,
-    children
-}: IntegrationCardProps) {
+export function IntegrationCard() {
   const [connecting, setConnecting] = useState<string | null>(null);
 
   const connect = async (id: string) => {
@@ -50,9 +20,8 @@ export function IntegrationCard({
     window.location.href = `/dashboard/settings?tab=connections&provider=${id}`;
   };
 
-
   return (
-     <section className="rounded-2xl border border-neutral-800 bg-neutral-950 p-5">
+    <section className="rounded-2xl border border-neutral-800 bg-neutral-950 p-5">
       <div className="flex items-center gap-2 pb-4">
         <Link2 className="h-5 w-5 text-lime-400" />
         <h3 className="text-lg font-semibold">Connect your accounts</h3>
