@@ -227,20 +227,22 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex justify-center gap-2 md:gap-4 mb-12 flex-wrap">
-          {filterCategories.map(category => (
-            <Button
-              key={category}
-              variant={activeFilter === category ? 'default' : 'outline'}
-              onClick={() => setActiveFilter(category)}
-              className={cn(
-                'rounded-full px-4 py-2 text-sm md:text-base transition-all duration-200',
-                activeFilter === category && 'shadow-lg shadow-primary/20'
-              )}
-            >
-              {category}
-            </Button>
-          ))}
+        <div className="flex justify-center mb-12 overflow-x-auto pb-4">
+            <div className="flex gap-2 md:gap-4 flex-nowrap">
+              {filterCategories.map(category => (
+                <Button
+                  key={category}
+                  variant={activeFilter === category ? 'default' : 'outline'}
+                  onClick={() => setActiveFilter(category)}
+                  className={cn(
+                    'rounded-full px-4 py-2 text-sm md:text-base transition-all duration-200 shrink-0',
+                    activeFilter === category && 'shadow-lg shadow-primary/20'
+                  )}
+                >
+                  {category}
+                </Button>
+              ))}
+            </div>
         </div>
 
         <div 
@@ -324,3 +326,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
