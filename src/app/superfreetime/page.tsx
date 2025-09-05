@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Key, Bomb, X, Search, Lightbulb, Briefcase, UserPlus } from 'lucide-react';
+import { Key, Bomb, X, Search, Lightbulb, Briefcase, UserPlus, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
@@ -14,6 +14,7 @@ import Link from 'next/link';
 const GRID_SIZE = 5;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
 const MAX_ATTEMPTS = 3;
+const TIME_LIMIT_SECONDS = 180; // 3 minutes
 
 const generateGridState = () => {
     const keyPosition = Math.floor(Math.random() * TOTAL_CELLS);
@@ -24,9 +25,6 @@ const generateGridState = () => {
         icon: 'initial' as 'initial' | 'key' | 'bomb'
     }));
 
-    const keyRow = Math.floor(keyPosition / GRID_SIZE);
-    const keyCol = keyPosition % GRID_SIZE;
-    
     let hint = '';
     const hintType = Math.floor(Math.random() * 4);
     if (hintType === 0) {
@@ -47,6 +45,22 @@ export default function SuperFreeTimePage() {
     const [gameOver, setGameOver] = useState(false);
     const [foundKey, setFoundKey] = useState(false);
     const [attempts, setAttempts] = useState(0);
+    const [timeLeft, setTimeLeft] = useState(TIME_LIMIT_SECONDS);
+
+    useEffect(() => {
+        if (gameOver || timeLeft <= 0) {
+            if (timeLeft <= 0) {
+                setGameOver(true);
+            }
+            return;
+        }
+
+        const timer = setInterval(() => {
+            setTimeLeft(prevTime => prevTime - 1);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [gameOver, timeLeft]);
 
     const handleCellClick = (id: number) => {
         if (gameOver) return;
@@ -77,9 +91,12 @@ export default function SuperFreeTimePage() {
         setGameOver(false);
         setFoundKey(false);
         setAttempts(0);
+        setTimeLeft(TIME_LIMIT_SECONDS);
     };
 
     const attemptsLeft = MAX_ATTEMPTS - attempts;
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
 
     return (
         <div className="flex min-h-screen flex-col bg-background">
@@ -130,8 +147,9 @@ export default function SuperFreeTimePage() {
                                 </button>
                             ))}
                         </div>
-                         <div className="mt-4 text-center">
-                            <p className="text-sm text-muted-foreground">Attempts left: {attemptsLeft > 0 ? attemptsLeft : 0}</p>
+                         <div className="mt-4 text-center flex justify-around text-sm text-muted-foreground">
+                            <p>Attempts left: {attemptsLeft > 0 ? attemptsLeft : 0}</p>
+                            <p className='flex items-center gap-1'><Clock className="h-4 w-4" /> {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</p>
                         </div>
                     </CardContent>
                 </Card>
@@ -146,7 +164,7 @@ export default function SuperFreeTimePage() {
                                 </>
                             ) : (
                                 <>
-                                 <h2 className="text-3xl font-bold text-destructive">That was fun, let's get back to business.</h2>
+                                 <h2 className="text-3xl font-bold text-destructive">{timeLeft <= 0 ? "Time's up!" : "That was fun, let's get back to business."}</h2>
                                   <div className="flex items-center justify-center gap-4">
                                      <Button onClick={resetGame} size="lg" variant="outline">One More Game</Button>
                                      <Link href="/dashboard/leads">
