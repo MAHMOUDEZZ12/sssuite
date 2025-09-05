@@ -7,12 +7,13 @@ import { LandingFooter } from '@/components/landing-footer';
 import { tools, Feature } from '@/lib/tools-client';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { ArrowRight, Briefcase, Clock2, BadgeCheck, MessageCircle, Network, Palette, PenTool, Plus, Search, Sparkles, Target, Upload, UserCog, Wallet, Share2, LayoutTemplate, FileText } from 'lucide-react';
+import { ArrowRight, Briefcase, Clock2, BadgeCheck, MessageCircle, Network, Palette, PenTool, Plus, Search, Sparkles, Target, Upload, UserCog, Wallet, Share2, LayoutTemplate, FileText, BookOpen } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Card, CardDescription, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 const MindMapNode = ({
   title,
@@ -202,7 +203,7 @@ export default function SX3MindmapPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20 flex flex-col items-center justify-start">
-        <div className="text-center mb-16 mt-8">
+        <div className="text-center mb-12 mt-8">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
             SX3 Services Mind Map
           </h1>
@@ -211,7 +212,26 @@ export default function SX3MindmapPage() {
           </p>
         </div>
 
-        <div className="flex w-full flex-col justify-center items-center mt-8">
+        <Card className="w-full max-w-4xl bg-card/50 backdrop-blur-lg border-primary/10 mb-16">
+          <Link href="/blog">
+            <div className="flex flex-col md:flex-row items-center gap-6 p-6 group">
+                <div className="p-4 bg-primary/10 text-primary rounded-lg">
+                    <BookOpen className="h-8 w-8" />
+                </div>
+                <div className="text-center md:text-left">
+                    <h3 className="text-xl font-bold font-heading text-foreground">The Super Seller Handbook</h3>
+                    <p className="text-foreground/70">From a high-level view to a deep dive. Explore detailed guides and expert hacks for every tool.</p>
+                </div>
+                <div className="ml-auto">
+                   <Button variant="ghost">
+                        Read Now <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                </div>
+            </div>
+          </Link>
+        </Card>
+
+        <div className="flex w-full flex-col justify-center items-center">
             <div className="w-full max-w-md mb-12">
                  <MindMapNode title="Super Seller Suite" isRoot />
             </div>
