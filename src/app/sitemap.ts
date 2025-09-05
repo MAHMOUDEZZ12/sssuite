@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/privacy',
     '/terms',
     '/status',
-    '/technology',
+    '/about',
     '/documentation',
     '/cookies',
     '/superfreetime'

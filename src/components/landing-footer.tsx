@@ -10,9 +10,10 @@ import { Separator } from './ui/separator';
 export function LandingFooter() {
   const footerLinks = {
     sx3: [
-        { name: 'About', href: '/technology' },
+        { name: 'About', href: '/about' },
         { name: 'Pricing', href: '/pricing' },
         { name: 'System Status', href: '/status' },
+        { name: 'SuperFreeTime', href: '/superfreetime' },
     ],
     resources: [
         { name: 'Handbook', href: '/blog' },
@@ -69,11 +70,6 @@ export function LandingFooter() {
                                     </Link>
                                 </li>
                             ))}
-                             <li>
-                                <Link href="/superfreetime" className="flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors">
-                                    <Puzzle className="h-4 w-4" /> SuperFreeTime
-                                </Link>
-                            </li>
                         </ul>
                     </div>
                     <div>
