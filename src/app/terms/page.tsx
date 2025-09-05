@@ -25,7 +25,10 @@ export default function TermsPage() {
           <h2>4. Who May Use the Services?</h2>
           <p>You may use the Services only if you are 18 years or older and capable of forming a binding contract with Super Seller Suite, and not otherwise barred from using the Services under applicable law.</p>
 
-          <h2>5. Contact Information</h2>
+          <h2>5. Refund Policy</h2>
+          <p>Our refund policy is non-negotiable. In the event of an application or service failure, refunds will not be issued. We commit to making all reasonable efforts to restore service in a timely manner. Your subscription fee compensates for the ongoing availability and development of the suite, not for uninterrupted uptime.</p>
+
+          <h2>6. Contact Information</h2>
           <p>If you have any questions about these Terms, please contact us at <a href="mailto:support@superseller.ai">support@superseller.ai</a>.</p>
         </article>
       </main>
