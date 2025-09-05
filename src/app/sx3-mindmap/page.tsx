@@ -68,7 +68,7 @@ const MindMapNode = ({
 };
 
 const ToolLeaf = ({ tool, onClick, className }: { tool: Feature; onClick: (tool: Feature) => void; className?: string }) => (
-    <div className={cn("group w-full max-w-xs flex justify-center", className)}>
+    <div className={cn("group w-full max-w-xs flex justify-center z-10", className)}>
         <button onClick={() => onClick(tool)} className="w-full text-left h-full">
             <div className={cn("relative flex items-center justify-center h-full", tool.id === 'ai-assistant' ? 'min-h-[16rem]' : 'h-12')}>
                 <div className="flex w-full h-full flex-col justify-center rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
