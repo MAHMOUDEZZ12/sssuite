@@ -21,10 +21,10 @@ const MindMapNode = ({
   isRoot?: boolean;
 }) => {
   return (
-    <div className={cn("relative flex items-center", className)}>
+    <div className={cn("relative flex flex-col items-center", className)}>
       <div
         className={cn(
-          "rounded-full border-2 p-4 text-center shadow-lg flex items-center justify-center",
+          "rounded-full border-2 p-4 text-center shadow-lg flex items-center justify-center z-10",
           isRoot
             ? "border-primary bg-primary/10 text-primary-foreground min-w-48 min-h-48 text-2xl font-bold"
             : "border-border bg-card/80 backdrop-blur-sm min-w-40 min-h-40 font-semibold text-lg"
@@ -33,8 +33,8 @@ const MindMapNode = ({
         <span className={cn(isRoot && 'text-primary')}>{title}</span>
       </div>
       {children && (
-        <div className="relative pl-16">
-           <div className="absolute left-0 top-1/2 w-16 border-t-2 border-border/70"></div>
+        <div className="relative pt-16">
+           <div className="absolute top-0 left-1/2 h-16 w-px border-l-2 border-border/70"></div>
            <div className="flex flex-col gap-12">
             {children}
            </div>
@@ -76,8 +76,8 @@ export default function SX3MindmapPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20 flex items-center justify-center">
-        <div className="text-center mb-16 absolute top-24 left-1/2 -translate-x-1/2">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20 flex flex-col items-center justify-start">
+        <div className="text-center mb-16 mt-8">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
             SX3 Services Mind Map
           </h1>
@@ -86,19 +86,24 @@ export default function SX3MindmapPage() {
           </p>
         </div>
 
-        <div className="flex justify-center items-center mt-32">
+        <div className="flex flex-col justify-center items-center mt-8">
             <MindMapNode title="Super Seller Suite" isRoot>
                 <div className="relative">
                     <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2"></div>
                     <div className="flex flex-col gap-16">
                         {toolCategories.map((category) => (
-                            <MindMapNode key={category.name} title={category.name}>
-                                <div className="flex flex-col gap-4">
-                                  {category.tools.map(tool => (
-                                      <ToolLeaf key={tool.id} tool={tool} />
-                                  ))}
-                                </div>
-                            </MindMapNode>
+                           <div key={category.name} className="relative flex items-start">
+                                <div className="absolute left-1/2 top-[80px] -translate-x-1/2 w-20 border-t-2 border-border/70 -rotate-90 origin-top-left"></div>
+                                <MindMapNode title={category.name}>
+                                    <div className='absolute left-full top-1/2 -translate-y-1/2 pl-16'>
+                                        <div className="flex flex-col gap-4">
+                                        {category.tools.map(tool => (
+                                            <ToolLeaf key={tool.id} tool={tool} />
+                                        ))}
+                                        </div>
+                                    </div>
+                                </MindMapNode>
+                           </div>
                         ))}
                     </div>
                 </div>
