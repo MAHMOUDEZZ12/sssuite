@@ -1,10 +1,16 @@
 
+'use client';
+
 import React from 'react';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Component, Wind, BrainCircuit, Rocket, Zap, Puzzle } from 'lucide-react';
+import { Component, Wind, BrainCircuit, Rocket, Zap, Puzzle, Copy } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
+import { secretCodes } from '@/lib/codes';
 
 const principles = [
   {
@@ -25,6 +31,18 @@ const principles = [
 ];
 
 export default function TechnologyPage() {
+    const { toast } = useToast();
+    const [showCode, setShowCode] = React.useState(false);
+    const runCode = secretCodes[0].code; 
+
+    const copyCode = () => {
+        navigator.clipboard.writeText(runCode);
+        toast({
+            title: "Code Copied!",
+            description: "Your secret code has been copied to the clipboard.",
+        });
+    }
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
@@ -74,6 +92,36 @@ export default function TechnologyPage() {
                 <p className="font-semibold text-primary">— Gemini</p>
             </div>
         </section>
+
+        <Separator className="my-24" />
+
+        <section className="text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4">Serious Fun</h2>
+             <div className="prose prose-lg dark:prose-invert mx-auto text-foreground/80">
+                <p>
+                    If you are bored, don't work. Play, or chat with your assistant. Or just close the system and run. Yes, run. Because no matter how far you will go, what matters the most is how long you will rest. So Run.
+                </p>
+                <Button onClick={() => setShowCode(true)} variant="outline" size="lg">Run</Button>
+            </div>
+        </section>
+        
+        <Dialog open={showCode} onOpenChange={setShowCode}>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>A Parting Gift</DialogTitle>
+                    <DialogDescription>
+                        Here's a little something for the road. Hand this code to your AI Assistant when you return.
+                    </DialogDescription>
+                </DialogHeader>
+                 <div className="my-2 p-4 bg-muted rounded-lg border border-dashed w-full flex items-center justify-between">
+                    <span className="font-mono text-lg text-primary">{runCode}</span>
+                    <Button variant="ghost" size="icon" onClick={copyCode}><Copy className="h-4 w-4" /></Button>
+                 </div>
+                 <DialogFooter>
+                    <Button onClick={() => setShowCode(false)}>Close</Button>
+                 </DialogFooter>
+            </DialogContent>
+        </Dialog>
 
       </main>
       <LandingFooter />

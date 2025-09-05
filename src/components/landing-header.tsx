@@ -24,6 +24,9 @@ export function LandingHeader() {
           <Link href="/sx3-mindmap">
             <Button variant="ghost">Mindmap</Button>
           </Link>
+          <Link href="/superfreetime">
+            <Button variant="ghost">Play</Button>
+          </Link>
           <Link href="/login">
             <Button variant="ghost">Log In</Button>
           </Link>
