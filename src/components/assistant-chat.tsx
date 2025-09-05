@@ -18,6 +18,8 @@ export function AssistantChat() {
   
   const mockMessages = [
     { from: 'ai', text: "Hello! How can I help you accelerate your sales today?" },
+    { from: 'user', text: "Create a new project for 'Azure Lofts', generate a promotional video for it, and save the final video to my drive." },
+    { from: 'ai', text: "Of course. I've initiated the following workflow:\n1. **Project Created**: 'Azure Lofts' is now set up.\n2. **Video Generation**: Creating a 30-second promo video.\n3. **File Transfer**: The final video will be saved to your connected Google Drive.\n\nI will notify you when the video is ready." },
   ];
 
   if (!isOpen) {
