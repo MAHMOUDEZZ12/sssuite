@@ -93,8 +93,8 @@ export default function BrandPage() {
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
-        title="My Brand"
-        description="Manage your company's branding to personalize all AI-generated content."
+        title="Brand & Assets"
+        description="Manage your company's branding and creative assets to personalize all AI-generated content."
         icon={<Palette className="h-8 w-8" />}
       />
 

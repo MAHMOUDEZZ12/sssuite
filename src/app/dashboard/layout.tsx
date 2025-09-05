@@ -138,14 +138,6 @@ export default function DashboardLayout({
                       </SidebarMenuButton>
                   </Link>
                 </SidebarMenuItem>
-                 <SidebarMenuItem>
-                  <Link href="/dashboard/data">
-                      <SidebarMenuButton isActive={pathname.startsWith('/dashboard/data')}>
-                          <Database />
-                          <span className="group-data-[collapsible=icon]:hidden">Storage</span>
-                      </SidebarMenuButton>
-                  </Link>
-                </SidebarMenuItem>
               </SidebarMenu>
               <Separator />
             <SidebarMenuGroup title="Marketing Tools" icon={<Megaphone/>} tools={marketingTools} />
