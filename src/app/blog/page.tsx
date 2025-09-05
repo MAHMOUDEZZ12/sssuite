@@ -11,6 +11,7 @@ import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
 import { cn } from '@/lib/utils';
 import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 const blogCategories: FilterCategory[] = ['All', 'Marketing', 'Lead Gen', 'Creative', 'Sales Tools', 'Social & Comms', 'Web', 'Editing', 'Ads'];
 
@@ -76,24 +77,20 @@ export default function BlogIndexPage() {
                             {filteredHacks.map(hack => (
                                 <Link key={hack.slug} href={`/blog/${hack.slug}`} className="group flex">
                                     <Card className="flex flex-col w-full bg-card/50 backdrop-blur-lg border-border hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 shadow-lg shadow-primary/10">
-                                         <CardHeader>
-                                            <div className="flex items-center gap-3">
-                                                {hack.icon && (
-                                                     <div className="p-2 rounded-lg w-fit text-white" style={{ backgroundColor: hack.color }}>
-                                                        {React.cloneElement(hack.icon, { className: 'h-6 w-6' })}
-                                                    </div>
-                                                )}
-                                                <span className="font-semibold text-primary">{hack.toolTitle}</span>
-                                            </div>
-                                        </CardHeader>
-                                        <CardContent className="flex-grow">
+                                         <CardContent className="flex-grow p-6">
                                             <h3 className="text-xl font-bold font-heading text-foreground mb-2">{hack.title}</h3>
                                             <p className="text-foreground/70 text-sm">
                                                 {hack.intro.substring(0, 120)}...
                                             </p>
                                         </CardContent>
-                                        <CardFooter>
-                                            <div className="text-primary font-semibold flex items-center gap-2">
+                                        <CardFooter className="flex justify-between items-center">
+                                            {hack.icon && (
+                                                 <div className="flex items-center gap-2 p-1 pr-2 rounded-md w-fit text-white" style={{ backgroundColor: hack.color }}>
+                                                    {React.cloneElement(hack.icon, { className: 'h-4 w-4' })}
+                                                    <span className="text-xs font-semibold">{hack.toolTitle}</span>
+                                                </div>
+                                            )}
+                                            <div className="text-primary font-semibold flex items-center gap-2 text-sm">
                                                 Read Hack
                                                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                                             </div>
