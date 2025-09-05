@@ -7,7 +7,7 @@ import { LandingFooter } from '@/components/landing-footer';
 import { tools, Feature } from '@/lib/tools-client';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { ArrowRight, Briefcase, Clock2, BadgeCheck, MessageCircle, Network, Palette, PenTool, Plus, Search, Sparkles, Target, Upload, UserCog, Wallet, Share2, LayoutTemplate, FileText, BookOpen } from 'lucide-react';
+import { ArrowRight, Briefcase, Clock2, BadgeCheck, MessageCircle, Network, Palette, PenTool, Plus, Search, Sparkles, Target, Upload, UserCog, Wallet, Share2, LayoutTemplate, FileText, BookOpen, BrainCircuit } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -22,23 +22,29 @@ const MindMapNode = ({
   children,
   className,
   isRoot = false,
+  isTall = false,
+  uniquePoint
 }: {
   title: string;
   children?: React.ReactNode;
   className?: string;
   isRoot?: boolean;
+  isTall?: boolean;
+  uniquePoint?: string;
 }) => {
   return (
     <div className={cn("relative flex flex-col items-center w-full", className)}>
       <div
         className={cn(
-          "rounded-xl border-2 p-4 text-center shadow-lg flex items-center justify-center z-10 w-full",
+          "rounded-xl border-2 p-4 text-center shadow-lg flex flex-col items-center justify-center z-10 w-full",
           isRoot
             ? "border-primary bg-primary/10 min-h-24 text-2xl font-bold"
-            : "border-border bg-card/80 backdrop-blur-sm min-h-20 font-semibold text-lg"
+            : "border-border bg-card/80 backdrop-blur-sm min-h-20",
+           isTall ? "h-[24rem]" : ""
         )}
       >
-        <span className={cn(isRoot ? 'text-primary' : 'text-foreground')}>{title}</span>
+        <h3 className={cn(isRoot ? 'text-primary' : 'text-foreground', 'font-semibold text-lg')}>{title}</h3>
+        {uniquePoint && <p className="mt-2 text-sm text-muted-foreground px-4">{uniquePoint}</p>}
       </div>
       {children && (
         <div className="relative pt-4 w-full">
@@ -64,7 +70,7 @@ const ToolLeaf = ({ tool, onClick }: { tool: Feature; onClick: (tool: Feature) =
                           <TooltipTrigger>
                             <span
                               className={cn(
-                                'ml-1 px-1.5 py-0.5 text-xs font-semibold text-white rounded-full',
+                                'ml-auto px-1.5 py-0.5 text-xs font-semibold text-white rounded-full',
                                 tool.badge === 'NEW' ? 'bg-blue-500' : 'bg-yellow-500'
                               )}
                             >
@@ -217,7 +223,12 @@ export default function SX3MindmapPage() {
         { name: "Marketing", tools: tools.filter(t => t.mindMapCategory === 'Marketing') },
         { name: "Creative Suite", tools: tools.filter(t => t.mindMapCategory === 'Creative Suite') },
         { name: "Sales Enablement", tools: tools.filter(t => t.mindMapCategory === 'Sales Enablement') },
-        { name: "Core Intelligence", tools: tools.filter(t => t.mindMapCategory === 'Core Intelligence') },
+        { 
+            name: "Core Intelligence", 
+            tools: tools.filter(t => t.mindMapCategory === 'Core Intelligence'),
+            isTall: true,
+            uniquePoint: "The AI Assistant is the heart of the suite. Train it with your data, and it powers every other tool with unparalleled context and intelligence."
+        },
     ];
 
   return (
@@ -259,7 +270,13 @@ export default function SX3MindmapPage() {
 
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {toolCategories.map((category) => (
-                    <MindMapNode key={category.name} title={category.name}>
+                    <MindMapNode 
+                      key={category.name} 
+                      title={category.name} 
+                      isTall={category.isTall} 
+                      uniquePoint={category.uniquePoint} 
+                      className={cn(category.isTall && "lg:col-span-2 lg:row-start-1 lg:row-span-2 lg:col-start-2")}
+                    >
                         {category.tools.map(tool => (
                             <ToolLeaf key={tool.id} tool={tool} onClick={setSelectedFeature} />
                         ))}
