@@ -34,7 +34,7 @@ const MindMapNode = ({
         className={cn(
           "relative rounded-xl border-2 p-4 text-center shadow-lg flex flex-col items-center justify-center z-10 w-full",
           isRoot
-            ? "border-primary bg-primary/10 min-h-24 text-2xl font-bold"
+            ? "border-primary bg-primary/10 min-h-24"
             : "border-border bg-card/80 backdrop-blur-sm min-h-20"
         )}
       >
@@ -53,7 +53,7 @@ const MindMapNode = ({
             </Tooltip>
           </TooltipProvider>
         )}
-        <h3 className={cn(isRoot ? 'text-primary' : 'text-foreground', 'font-semibold text-lg')}>{title}</h3>
+        <h3 className={cn(isRoot ? 'text-primary text-2xl font-bold' : 'text-foreground font-semibold text-lg')}>{title}</h3>
       </div>
       {children && (
         <div className="relative pt-8 w-full">
@@ -70,7 +70,7 @@ const MindMapNode = ({
 const ToolLeaf = ({ tool, onClick, className }: { tool: Feature; onClick: (tool: Feature) => void; className?: string }) => (
     <div className={cn("group w-full max-w-xs flex justify-center", className)}>
         <button onClick={() => onClick(tool)} className="w-full text-left h-full">
-            <div className={cn("relative flex items-center justify-center h-full", tool.id === 'ai-assistant' ? 'min-h-64' : 'h-12')}>
+            <div className={cn("relative flex items-center justify-center h-full", tool.id === 'ai-assistant' ? 'min-h-[16rem]' : 'h-12')}>
                 <div className="flex w-full h-full flex-col justify-center rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
                     <div className="flex items-center gap-3">
                         <div className="p-2 rounded-md text-white" style={{backgroundColor: tool.color}}>{React.cloneElement(tool.icon, { className: 'h-5 w-5' })}</div>
@@ -299,7 +299,7 @@ export default function SX3MindmapPage() {
         </div>
 
         <section className="mt-24 w-full max-w-4xl">
-            <div className="relative rounded-lg group bg-gradient-to-r from-pink-600 via-purple-600 to-primary p-1 animate-gradient-spin">
+            <div className="relative rounded-lg group bg-gradient-to-r from-pink-600 via-purple-600 to-primary p-1">
                 <Card className="bg-card/95 backdrop-blur-lg">
                     <Link href="/blog">
                         <div className="flex flex-col md:flex-row items-center gap-6 p-6">
