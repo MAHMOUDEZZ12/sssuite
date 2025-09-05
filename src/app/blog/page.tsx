@@ -3,14 +3,14 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { BookOpen, Check, ExternalLink } from 'lucide-react';
+import { BookOpen, Check, ExternalLink, ArrowRight } from 'lucide-react';
 import { tools, FilterCategory } from '@/lib/tools-client';
 import { blogContent, BlogContent } from '@/lib/blog-content';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
 import { cn } from '@/lib/utils';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/card';
 
 const blogCategories: FilterCategory[] = ['All', 'Marketing', 'Lead Gen', 'Creative', 'Sales Tools', 'Social & Comms', 'Web', 'Editing', 'Ads'];
 
@@ -23,6 +23,7 @@ const allHacks = Object.keys(blogContent).map(slug => {
         categories: tool?.categories || [],
         icon: tool?.icon,
         color: tool?.color,
+        toolTitle: tool?.title || 'General',
     };
 });
 
@@ -73,22 +74,30 @@ export default function BlogIndexPage() {
                          </h2>
                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {filteredHacks.map(hack => (
-                                <Link key={hack.slug} href={`/blog/${hack.slug}`} className="group">
-                                    <Card className="h-full flex flex-col bg-card/50 backdrop-blur-lg border-border hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 shadow-lg shadow-primary/10">
+                                <Link key={hack.slug} href={`/blog/${hack.slug}`} className="group flex">
+                                    <Card className="flex flex-col w-full bg-card/50 backdrop-blur-lg border-border hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 shadow-lg shadow-primary/10">
                                          <CardHeader>
-                                            <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
                                                 {hack.icon && (
-                                                     <div className="p-3 rounded-lg w-fit text-white" style={{ backgroundColor: hack.color }}>
-                                                        {React.cloneElement(hack.icon, { className: 'h-8 w-8' })}
+                                                     <div className="p-2 rounded-lg w-fit text-white" style={{ backgroundColor: hack.color }}>
+                                                        {React.cloneElement(hack.icon, { className: 'h-6 w-6' })}
                                                     </div>
                                                 )}
-                                                <ExternalLink className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                                <span className="font-semibold text-primary">{hack.toolTitle}</span>
                                             </div>
                                         </CardHeader>
-                                        <CardContent>
+                                        <CardContent className="flex-grow">
                                             <h3 className="text-xl font-bold font-heading text-foreground mb-2">{hack.title}</h3>
-                                            <p className="text-foreground/70">{hack.intro}</p>
+                                            <p className="text-foreground/70 text-sm">
+                                                {hack.intro.substring(0, 120)}...
+                                            </p>
                                         </CardContent>
+                                        <CardFooter>
+                                            <div className="text-primary font-semibold flex items-center gap-2">
+                                                Read Hack
+                                                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                            </div>
+                                        </CardFooter>
                                     </Card>
                                 </Link>
                             ))}
@@ -100,4 +109,3 @@ export default function BlogIndexPage() {
         </div>
     );
 }
-
