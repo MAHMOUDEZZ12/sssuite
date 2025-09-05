@@ -57,8 +57,8 @@ const MindMapNode = ({
       </div>
       {children && (
         <div className="relative pt-8 w-full">
-           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-8 bg-border z-0" />
-           <div className="flex flex-col items-center gap-4">
+           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-full bg-border" />
+           <div className="relative z-10 flex flex-col items-center gap-4">
             {children}
            </div>
         </div>
@@ -68,7 +68,7 @@ const MindMapNode = ({
 };
 
 const ToolLeaf = ({ tool, onClick, className }: { tool: Feature; onClick: (tool: Feature) => void; className?: string }) => (
-    <div className={cn("group w-full max-w-xs flex justify-center z-10", className)}>
+    <div className={cn("group w-full max-w-xs flex justify-center", className)}>
         <button onClick={() => onClick(tool)} className="w-full text-left h-full">
             <div className={cn("relative flex items-center justify-center h-full", tool.id === 'ai-assistant' ? 'min-h-[16rem]' : 'h-12')}>
                 <div className="flex w-full h-full flex-col justify-center rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
