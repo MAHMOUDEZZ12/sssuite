@@ -24,6 +24,30 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/admin',
+        destination: '/',
+        permanent: true,
+      },
+       {
+        source: '/wb',
+        destination: '/',
+        permanent: true,
+      },
+       {
+        source: '/wb-admin',
+        destination: '/',
+        permanent: true,
+      },
+       {
+        source: '/system',
+        destination: '/',
+        permanent: true,
+      },
+    ]
+  },
 };
 
 export default nextConfig;
