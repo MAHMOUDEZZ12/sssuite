@@ -268,7 +268,7 @@ export default function SX3MindmapPage() {
         </div>
         
         <div className="relative flex w-full flex-col justify-center items-center">
-            <div className="w-full max-w-xs mb-8 z-10">
+            <div className="w-full max-w-xs mb-8 relative z-10">
                  <MindMapNode title="Super Seller Suite" isRoot />
             </div>
 
@@ -327,4 +327,5 @@ export default function SX3MindmapPage() {
     </div>
   );
 }
+
 
