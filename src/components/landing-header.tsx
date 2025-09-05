@@ -31,7 +31,6 @@ export function LandingHeader() {
             <Logo />
         </div>
         <div className="hidden md:flex items-center gap-2">
-            <ThemeSwitcher />
             {navLinks.map((link) => (
                  <Link key={link.name} href={link.href}>
                     <Button variant="ghost">{link.name}</Button>
@@ -43,6 +42,7 @@ export function LandingHeader() {
             <Link href="/signup">
                 <Button>Sign Up</Button>
             </Link>
+            <ThemeSwitcher />
         </div>
         <div className="md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
