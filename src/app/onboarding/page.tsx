@@ -16,6 +16,7 @@ import { Check, ChevronRight, X, ArrowLeft, Loader2, Sparkles, Upload } from 'lu
 import { cn } from '@/lib/utils';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import Image from 'next/image';
+import { ingestChat, ChatAction } from '@/lib/chat';
 
 const MOCK_DEVELOPERS = ['Emaar', 'Damac', 'Sobha', 'Nakheel', 'Meraas', 'Aldar'];
 const MOCK_PROJECTS_PASS1 = [
@@ -38,6 +39,26 @@ const MOCK_PROJECTS_PASS2 = [
     { name: 'Golf Greens', developer: 'Damac', area: 'Damac Hills' },
 ];
 
+// This would be your authenticated user's ID
+const MOCK_UID = 'user123';
+
+async function assistantDo(uid: string, text: string, action: ChatAction) {
+  try {
+    await ingestChat({
+      uid, 
+      eventId: crypto.randomUUID(),
+      role: "assistant",
+      text, 
+      action,
+      meta: { source: "onboarding_flow" },
+    });
+  } catch (error) {
+    console.error("Failed to ingest chat event:", error);
+    // You might want to show a toast to the user here in a real app
+  }
+}
+
+
 function OnboardingComponent() {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -51,7 +72,7 @@ function OnboardingComponent() {
         firstPass: {} as Record<string, 'relevant' | 'not'>,
         scanSelected: [] as string[],
         shortlist: [] as string[],
-        brandKit: { logoUrl: null as string | null, colors: { primary: '', accent: '' }, contact: { name: '', phone: '', email: '', whatsappUrl: '' } },
+        brandKit: { logoUrl: null as string | null, colors: { primary: '#36454F', accent: '#98FF98' }, contact: { name: '', phone: '', email: '', whatsappUrl: '' } },
         connections: {} as Record<string, 'connected'|'skipped'>,
         payment: { status: 'skipped' } as { status: 'added'|'skipped' },
         progress: { step: 1, ts: Date.now() },
@@ -61,7 +82,7 @@ function OnboardingComponent() {
 
     const updateDraft = (data: Partial<typeof draft>) => {
         setDraft(prev => ({ ...prev, ...data, progress: { step, ts: Date.now() } }));
-        console.log("Draft updated", { ...draft, ...data });
+        // In a real app, you would also save this to Firestore here
     };
     
     const handleFileChange = (files: FileList | null) => {
@@ -94,6 +115,7 @@ function OnboardingComponent() {
     const prevStep = () => router.push(`/onboarding?step=${step - 1}`);
     const finishOnboarding = () => {
         toast({ title: "Setup Complete!", description: "Welcome to your new dashboard." });
+        assistantDo(MOCK_UID, "Onboarding complete. Ready for my first command.", { type: "logMetric", name: "onboarding_completed" });
         router.push('/dashboard');
     }
 
@@ -108,25 +130,25 @@ function OnboardingComponent() {
                         <CardContent className="space-y-8">
                             <div>
                                 <h3 className="font-semibold mb-2">1. Confirm your city</h3>
-                                <div className="flex items-center gap-4 rounded-xl border p-4 bg-neutral-900">
-                                    <p>We found you in: <span className="font-bold text-lime-400">{draft.city}, {draft.country}</span></p>
-                                    <Button variant="ghost" size="sm" className="ml-auto border border-neutral-700">Change city</Button>
-                                    <Button size="sm" className="bg-lime-400 text-black hover:bg-lime-300">Yes, that's me</Button>
+                                <div className="flex items-center gap-4 rounded-xl border p-4 bg-muted/20">
+                                    <p>We found you in: <span className="font-bold text-primary">{draft.city}, {draft.country}</span></p>
+                                    <Button variant="ghost" size="sm" className="ml-auto">Change city</Button>
+                                    <Button size="sm">Yes, that's me</Button>
                                 </div>
                             </div>
                             <div>
                                 <h3 className="font-semibold mb-2">2. Which developers do you work with?</h3>
-                                <p className="text-sm text-neutral-400 mb-3">Choose 1–3 to start. This helps us find relevant projects.</p>
+                                <p className="text-sm text-muted-foreground mb-3">Choose 1–3 to start. This helps us find relevant projects.</p>
                                 <div className="flex flex-wrap gap-2">
                                     {MOCK_DEVELOPERS.map(dev => (
                                         <button key={dev}
                                             onClick={() => toggleDeveloper(dev)}
                                             aria-pressed={draft.devFocus.includes(dev)}
-                                            className={cn("rounded-full border px-3 py-1 text-sm transition-colors", draft.devFocus.includes(dev) ? 'border-lime-400 bg-lime-900/50 text-lime-300' : 'border-neutral-700 hover:bg-neutral-900')}>
+                                            className={cn("rounded-full border px-3 py-1 text-sm transition-colors", draft.devFocus.includes(dev) ? 'border-primary bg-primary/20 text-primary' : 'border-border hover:bg-muted/50')}>
                                             {dev}
                                         </button>
                                     ))}
-                                    <button className="rounded-full border border-dashed border-neutral-700 px-3 py-1 text-sm text-neutral-400 hover:border-lime-400 hover:text-lime-400">
+                                    <button className="rounded-full border border-dashed px-3 py-1 text-sm text-muted-foreground hover:border-primary hover:text-primary">
                                         + Add new
                                     </button>
                                 </div>
@@ -137,8 +159,8 @@ function OnboardingComponent() {
                                     {MOCK_PROJECTS_PASS1.map(proj => (
                                         <ProjectCard key={proj.name} project={proj} actions={
                                             <div className="flex gap-2">
-                                                <Button size="sm" className="bg-lime-400 text-black hover:bg-lime-300" onClick={() => handleFirstPass(proj.name, 'relevant')}>Relevant</Button>
-                                                <Button size="sm" variant="ghost" className="border border-neutral-700" onClick={() => handleFirstPass(proj.name, 'not')}>Not relevant</Button>
+                                                <Button size="sm" onClick={() => handleFirstPass(proj.name, 'relevant')}>Relevant</Button>
+                                                <Button size="sm" variant="ghost" onClick={() => handleFirstPass(proj.name, 'not')}>Not relevant</Button>
                                             </div>
                                         } />
                                     ))}
@@ -146,7 +168,7 @@ function OnboardingComponent() {
                             </div>
                         </CardContent>
                         <CardFooter>
-                            <Button onClick={nextStep} className="ml-auto bg-lime-400 text-black hover:bg-lime-300" disabled={!isStep1Complete}>Continue <ChevronRight /></Button>
+                            <Button onClick={nextStep} className="ml-auto" disabled={!isStep1Complete}>Continue <ChevronRight /></Button>
                         </CardFooter>
                     </Card>
                 );
@@ -158,22 +180,22 @@ function OnboardingComponent() {
                         </CardHeader>
                         <CardContent className="space-y-4">
                            <ul className="space-y-3">
-                               <li className="flex items-start gap-3"><Check className="h-5 w-5 text-lime-400 mt-1 shrink-0" /><div><span className="font-semibold">We tailor everything to your market.</span><br /><span className="text-neutral-400">Your city and developer choices help us show you what's relevant.</span></div></li>
-                               <li className="flex items-start gap-3"><Check className="h-5 w-5 text-lime-400 mt-1 shrink-0" /><div><span className="font-semibold">Your assets stay private.</span><br /><span className="text-neutral-400">Your data, brand, and contacts are yours alone unless you explicitly publish them.</span></div></li>
-                               <li className="flex items-start gap-3"><Check className="h-5 w-5 text-lime-400 mt-1 shrink-0" /><div><span className="font-semibold">No charges today.</span><br /><span className="text-neutral-400">Add a card to enable exports and publishing later. You can cancel anytime.</span></div></li>
+                               <li className="flex items-start gap-3"><Check className="h-5 w-5 text-green-500 mt-1 shrink-0" /><div><span className="font-semibold">We tailor everything to your market.</span><br /><span className="text-muted-foreground">Your city and developer choices help us show you what's relevant.</span></div></li>
+                               <li className="flex items-start gap-3"><Check className="h-5 w-5 text-green-500 mt-1 shrink-0" /><div><span className="font-semibold">Your assets stay private.</span><br /><span className="text-muted-foreground">Your data, brand, and contacts are yours alone unless you explicitly publish them.</span></div></li>
+                               <li className="flex items-start gap-3"><Check className="h-5 w-5 text-green-500 mt-1 shrink-0" /><div><span className="font-semibold">No charges today.</span><br /><span className="text-muted-foreground">Add a card to enable exports and publishing later. You can cancel anytime.</span></div></li>
                            </ul>
                             <Collapsible>
-                                <CollapsibleTrigger className="text-sm text-neutral-400 underline">How we use your data</CollapsibleTrigger>
+                                <CollapsibleTrigger className="text-sm text-muted-foreground underline">How we use your data</CollapsibleTrigger>
                                 <CollapsibleContent>
-                                    <p className="text-sm text-neutral-400 mt-2">We use your data strictly to power your tools. We do not sell your data or use it to train models for other users. Your privacy is paramount.</p>
+                                    <p className="text-sm text-muted-foreground mt-2">We use your data strictly to power your tools. We do not sell your data or use it to train models for other users. Your privacy is paramount.</p>
                                 </CollapsibleContent>
                             </Collapsible>
                         </CardContent>
                         <CardFooter className="flex justify-between">
                             <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
                             <div className="flex gap-2">
-                                 <Button variant="ghost" className="border border-neutral-700" onClick={nextStep}>Skip for now</Button>
-                                 <Button onClick={nextStep} className="bg-lime-400 text-black hover:bg-lime-300">Add Payment Method</Button>
+                                 <Button variant="outline" onClick={nextStep}>Skip for now</Button>
+                                 <Button onClick={nextStep}>Add Payment Method</Button>
                             </div>
                         </CardFooter>
                     </Card>
@@ -209,17 +231,26 @@ function OnboardingComponent() {
                         <CardFooter className="flex justify-between">
                              <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
                             <div className="flex gap-2">
-                                 <Button variant="ghost" className="border border-neutral-700" onClick={() => { updateDraft({ payment: { status: 'skipped'} }); nextStep(); }}>Skip for now</Button>
+                                 <Button variant="outline" onClick={() => { 
+                                     assistantDo(MOCK_UID, "User skipped payment.", { type: "logMetric", name: "onboarding_payment_skipped" });
+                                     updateDraft({ payment: { status: 'skipped'} }); 
+                                     nextStep(); 
+                                 }}>Skip for now</Button>
                                  <Button onClick={() => {
                                      toast({ title: "Card saved.", description: "You won't be charged now." });
+                                     assistantDo(MOCK_UID, "User added a payment method.", { type: "savePaymentMethodStart" });
                                      updateDraft({ payment: { status: 'added' } });
                                      nextStep();
-                                 }} className="bg-lime-400 text-black hover:bg-lime-300">Save Card</Button>
+                                 }}>Save Card</Button>
                             </div>
                         </CardFooter>
                     </Card>
                 );
             case 4:
+                const handleFinalizeShortlist = () => {
+                    assistantDo(MOCK_UID, "Okay, I've created your initial project library.", { type: "logMetric", name: "onboarding_shortlist_finalized", props: { projects: draft.scanSelected } });
+                    nextStep();
+                };
                 return (
                      <Card>
                         <CardHeader>
@@ -246,13 +277,22 @@ function OnboardingComponent() {
                         <CardFooter className="flex justify-between">
                             <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
                              <div className="flex gap-2">
-                                 <Button variant="ghost" className="border border-neutral-700" onClick={nextStep}>Skip</Button>
-                                 <Button onClick={nextStep} className="bg-lime-400 text-black hover:bg-lime-300">Use Selected</Button>
+                                 <Button variant="outline" onClick={nextStep}>Skip</Button>
+                                 <Button onClick={handleFinalizeShortlist}>Use Selected ({draft.scanSelected.length})</Button>
                             </div>
                         </CardFooter>
                     </Card>
                 );
             case 5:
+                const handleSaveBrand = () => {
+                    assistantDo(MOCK_UID, "I've saved your brand identity. It will now be used across the suite.", { 
+                        type: "addBrand", 
+                        name: "Default Brand Kit", // You'd get this from a form field
+                        primary: draft.brandKit.colors.primary,
+                        accent: draft.brandKit.colors.accent,
+                    });
+                    nextStep();
+                }
                 return (
                      <Card>
                         <CardHeader>
@@ -262,13 +302,13 @@ function OnboardingComponent() {
                             <div className="space-y-2">
                                 <Label>Company Logo</Label>
                                 <div className="flex items-center gap-4">
-                                    <div className="relative flex flex-col items-center justify-center w-32 h-32 border-2 border-dashed rounded-lg cursor-pointer bg-neutral-900 hover:border-lime-400 transition-colors">
+                                    <div className="relative flex flex-col items-center justify-center w-32 h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted/20 hover:border-primary transition-colors">
                                        <Input id="logo" type="file" accept="image/*" className="sr-only" onChange={(e) => handleFileChange(e.target.files)} />
                                        <label htmlFor="logo" className="w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                          {logoPreview ? (
                                             <Image src={logoPreview} alt="Logo preview" layout="fill" className="object-contain rounded-md p-2" />
                                          ) : (
-                                           <div className="text-center text-neutral-400">
+                                           <div className="text-center text-muted-foreground">
                                              <Upload className="mx-auto h-8 w-8 mb-1" />
                                              <p className="text-xs">Drag & drop or click</p>
                                            </div>
@@ -286,11 +326,11 @@ function OnboardingComponent() {
                              <div className="grid md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label>Primary Color</Label>
-                                    <Input type="text" placeholder="#000000" />
+                                    <Input type="text" placeholder="#000000" value={draft.brandKit.colors.primary} onChange={(e) => updateDraft({ brandKit: {...draft.brandKit, colors: {...draft.brandKit.colors, primary: e.target.value}}})} />
                                 </div>
                                  <div className="space-y-2">
                                     <Label>Accent Color</Label>
-                                    <Input type="text" placeholder="#FFFFFF" />
+                                    <Input type="text" placeholder="#FFFFFF" value={draft.brandKit.colors.accent} onChange={(e) => updateDraft({ brandKit: {...draft.brandKit, colors: {...draft.brandKit.colors, accent: e.target.value}}})} />
                                 </div>
                              </div>
                              <div className="space-y-2">
@@ -306,8 +346,8 @@ function OnboardingComponent() {
                         <CardFooter className="flex justify-between">
                              <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
                             <div className="flex gap-2">
-                                 <Button variant="ghost" className="border border-neutral-700" onClick={nextStep}>Skip for now</Button>
-                                 <Button onClick={nextStep} className="bg-lime-400 text-black hover:bg-lime-300">Save Brand</Button>
+                                 <Button variant="outline" onClick={nextStep}>Skip for now</Button>
+                                 <Button onClick={handleSaveBrand}>Save Brand</Button>
                             </div>
                         </CardFooter>
                     </Card>
@@ -329,7 +369,7 @@ function OnboardingComponent() {
                         </CardContent>
                         <CardFooter className="flex justify-between">
                             <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
-                            <Button onClick={nextStep} className="bg-lime-400 text-black hover:bg-lime-300">Continue</Button>
+                            <Button onClick={nextStep}>Continue</Button>
                         </CardFooter>
                     </Card>
                 );
@@ -337,37 +377,37 @@ function OnboardingComponent() {
                  return (
                     <Card className="text-center">
                         <CardHeader>
-                             <div className="mx-auto w-fit p-4 bg-lime-400/10 text-lime-400 rounded-full mb-4">
+                             <div className="mx-auto w-fit p-4 bg-primary/10 text-primary rounded-full mb-4">
                                 <Sparkles className="h-10 w-10" />
                              </div>
                             <StepHeader title="You're all set. Choose your start." />
                         </CardHeader>
                         <CardContent className="space-y-6">
-                            <p className="text-neutral-400">Your brand and project library are ready. Your payment method is on file for when you need to export or publish.</p>
+                            <p className="text-muted-foreground">Your brand and project library are ready. Your payment method is on file for when you need to export or publish.</p>
                             <div className="grid md:grid-cols-3 gap-4">
-                                <Card className="text-left bg-neutral-900/50">
+                                <Card className="text-left bg-muted/50">
                                     <CardHeader>
                                         <CardTitle className="text-base">Free Plan</CardTitle>
                                         <CardDescription>5 generations, watermark on exports</CardDescription>
                                     </CardHeader>
                                 </Card>
-                                 <Card className="text-left border-lime-400 bg-lime-900/30">
+                                 <Card className="text-left border-primary bg-primary/20">
                                     <CardHeader>
-                                        <CardTitle className="text-base text-lime-300">Pro Plan</CardTitle>
-                                        <CardDescription className="text-lime-400/80">Unlimited, no watermark, brand on</CardDescription>
+                                        <CardTitle className="text-base text-primary">Pro Plan</CardTitle>
+                                        <CardDescription className="text-primary/80">Unlimited, no watermark, brand on</CardDescription>
                                     </CardHeader>
                                 </Card>
-                                 <Card className="text-left bg-neutral-900/50">
+                                 <Card className="text-left bg-muted/50">
                                     <CardHeader>
                                         <CardTitle className="text-base">Team Plan</CardTitle>
                                         <CardDescription>Multi-brand, multi-user access</CardDescription>
                                     </CardHeader>
                                 </Card>
                             </div>
-                             <p className="text-xs text-neutral-500">You won't be charged until you upgrade or perform a paid action.</p>
+                             <p className="text-xs text-muted-foreground">You won't be charged until you upgrade or perform a paid action.</p>
                         </CardContent>
                         <CardFooter>
-                           <Button onClick={finishOnboarding} className="w-full md:w-auto mx-auto bg-lime-400 text-black hover:bg-lime-300">Go to Dashboard</Button>
+                           <Button onClick={finishOnboarding} className="w-full md:w-auto mx-auto">Go to Dashboard</Button>
                         </CardFooter>
                     </Card>
                  );
