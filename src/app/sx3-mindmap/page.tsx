@@ -70,8 +70,8 @@ const MindMapNode = ({
 const ToolLeaf = ({ tool, onClick, className }: { tool: Feature; onClick: (tool: Feature) => void; className?: string }) => (
     <div className={cn("group w-full max-w-xs flex justify-center", className)}>
         <button onClick={() => onClick(tool)} className="w-full text-left h-full">
-            <div className={cn("relative flex items-center justify-center h-full", tool.id === 'ai-assistant' ? 'h-64' : 'h-12')}>
-                <div className="flex w-full h-full flex-col justify-start rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
+            <div className={cn("relative flex items-center justify-center h-full", tool.id === 'ai-assistant' ? 'min-h-64' : 'h-12')}>
+                <div className="flex w-full h-full flex-col justify-center rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
                     <div className="flex items-center gap-3">
                         <div className="p-2 rounded-md text-white" style={{backgroundColor: tool.color}}>{React.cloneElement(tool.icon, { className: 'h-5 w-5' })}</div>
                         <span className="font-medium text-sm text-foreground/90">{tool.title}</span>
@@ -299,7 +299,7 @@ export default function SX3MindmapPage() {
         </div>
 
         <section className="mt-24 w-full max-w-4xl">
-            <div className="relative rounded-lg group bg-gradient-to-r from-pink-600 to-purple-600 p-1">
+            <div className="relative rounded-lg group bg-gradient-to-r from-pink-600 via-purple-600 to-primary p-1 animate-gradient-spin">
                 <Card className="bg-card/95 backdrop-blur-lg">
                     <Link href="/blog">
                         <div className="flex flex-col md:flex-row items-center gap-6 p-6">
