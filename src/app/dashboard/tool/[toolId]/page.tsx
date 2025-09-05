@@ -40,7 +40,10 @@ const getToolSchema = (tool: Tool | undefined) => {
 
                 fieldSchema = isOptional ? baseSchema.optional() : baseSchema.refine(files => files && files.length > 0, `${field.name} is required.`);
             }
-        } else {
+        } else if (field.type === 'number') {
+            fieldSchema = z.string().min(1, `${field.name} is required`).refine(val => !isNaN(Number(val)), { message: "Must be a number" });
+        }
+        else {
             fieldSchema = z.string().min(1, `${field.name} is required`);
         }
 
@@ -106,20 +109,32 @@ export default function ToolPage() {
     setShowConfetti(false);
 
     try {
-        const payload: Record<string, any> = {};
-        
-        for (const field of tool.creationFields) {
-            if(field.type === 'button' || !data[field.id]) continue;
+        let payload: Record<string, any> = {};
 
-            const value = data[field.id];
-            if (field.type === 'file' && value instanceof FileList && value.length > 0) {
-                 if (field.multiple) {
-                    payload[field.id] = await filesToDataUris(value);
-                } else {
-                    payload[field.id] = await fileToDataUri(value[0]);
+        if (tool.id === 'targeting') {
+             payload = {
+                location: data.location,
+                propertyType: data.propertyType,
+                priceRange: { min: Number(data.minPrice), max: Number(data.maxPrice) },
+                amenities: data.amenities.split(',').map((s:string) => s.trim()),
+                ageRange: { min: Number(data.minAge), max: Number(data.maxAge) },
+                incomeLevel: data.incomeLevel,
+                interests: data.interests.split(',').map((s:string) => s.trim()),
+            };
+        } else {
+            for (const field of tool.creationFields) {
+                if(field.type === 'button' || !data[field.id]) continue;
+
+                const value = data[field.id];
+                if (field.type === 'file' && value instanceof FileList && value.length > 0) {
+                     if (field.multiple) {
+                        payload[field.id] = await filesToDataUris(value);
+                    } else {
+                        payload[field.id] = await fileToDataUri(value[0]);
+                    }
+                } else if (field.type !== 'file' && value) {
+                    payload[field.id] = value;
                 }
-            } else if (field.type !== 'file' && value) {
-                payload[field.id] = value;
             }
         }
         
@@ -175,6 +190,8 @@ export default function ToolPage() {
                          switch (field.type) {
                             case 'text':
                               return <Input id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
+                            case 'number':
+                                return <Input id={field.id} type="number" placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
                             case 'textarea':
                               return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} rows={field.id === 'editInstructions' ? 5 : 3} />;
                             case 'file':
