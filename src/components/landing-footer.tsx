@@ -21,8 +21,8 @@ export function LandingFooter() {
         { name: 'Automated Rebranding', href: '/blog/rebranding' },
     ],
     legal: [
-        { name: 'Privacy Policy', href: '#' },
-        { name: 'Terms of Service', href: '#' },
+        { name: 'Privacy Policy', href: '/privacy' },
+        { name: 'Terms of Service', href: '/terms' },
     ]
   };
 
