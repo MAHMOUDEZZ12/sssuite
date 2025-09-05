@@ -35,6 +35,7 @@ import {
   Server,
   LifeBuoy,
   ChevronRight,
+  UserPlus,
 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { tools } from '@/lib/tools-client.tsx';
@@ -119,6 +120,14 @@ export default function DashboardLayout({
                       <SidebarMenuButton isActive={pathname.startsWith('/dashboard/marketing')}>
                           <Megaphone />
                           <span className="group-data-[collapsible=icon]:hidden">Marketing Suite</span>
+                      </SidebarMenuButton>
+                  </Link>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <Link href="/dashboard/leads">
+                      <SidebarMenuButton isActive={pathname.startsWith('/dashboard/leads')}>
+                          <UserPlus />
+                          <span className="group-data-[collapsible=icon]:hidden">Leads (CRM)</span>
                       </SidebarMenuButton>
                   </Link>
                 </SidebarMenuItem>

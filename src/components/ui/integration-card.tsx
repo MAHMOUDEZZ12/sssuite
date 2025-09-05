@@ -1,53 +1,38 @@
 
 'use client';
-import { useState } from 'react';
-import { Mail, Instagram, Facebook, MessageSquare, Youtube, Link2 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 
-const PROVIDERS = [
-  { id: 'google', name: 'Google (Gmail)', icon: Mail },
-  { id: 'instagram', name: 'Instagram', icon: Instagram },
-  { id: 'facebook', name: 'Facebook Page', icon: Facebook },
-  { id: 'whatsapp', name: 'WhatsApp Business', icon: MessageSquare },
-  { id: 'youtube', name: 'YouTube', icon: Youtube },
-];
+import { cn } from '@/lib/utils';
+import { Button } from './button';
 
-export function IntegrationCard() {
-  const [connecting, setConnecting] = useState<string | null>(null);
-  const router = useRouter();
+interface IntegrationCardProps {
+    title: string;
+    description: string;
+    icon: React.ReactNode;
+    ctaHref: string;
+    ctaText: string;
+}
 
-  const connect = async (id: string) => {
-    setConnecting(id);
-    // In a real app, this would route to your connection page or oauth start
-    router.push(`/onboarding?step=6&provider=${id}`);
-  };
-
+export function IntegrationCard({ title, description, icon, ctaHref, ctaText}: IntegrationCardProps) {
   return (
-    <section className="rounded-2xl border border-neutral-800 bg-neutral-950 p-5">
-      <div className="flex items-center gap-2 pb-4">
-        <Link2 className="h-5 w-5 text-lime-400" />
-        <h3 className="text-lg font-semibold">Connect your accounts</h3>
-      </div>
-      <p className="mb-4 text-sm text-neutral-400">
-        Post, message, and email directly from the Suite. Connect once. Use everywhere.
-      </p>
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {PROVIDERS.map(({ id, name, icon: Icon }) => (
-          <button
-            key={id}
-            onClick={() => connect(id)}
-            className="flex items-center justify-between rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 hover:border-lime-400"
-          >
-            <span className="flex items-center gap-3">
-              <Icon className="h-5 w-5 text-neutral-300" />
-              <span>{name}</span>
-            </span>
-            <span className="text-xs text-neutral-400">
-              {connecting === id ? 'Opening…' : 'Connect'}
-            </span>
-          </button>
-        ))}
-      </div>
-    </section>
+    <Card className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4">
+        <div className="flex items-center gap-4">
+            <div className="p-3 bg-primary/10 text-primary rounded-lg w-fit">
+                {icon}
+            </div>
+            <div>
+                <h3 className="font-semibold">{title}</h3>
+                <p className="text-sm text-muted-foreground">{description}</p>
+            </div>
+        </div>
+        <Button asChild variant="outline">
+            <a href={ctaHref} target="_blank" rel="noopener noreferrer">
+                {ctaText}
+            </a>
+        </Button>
+    </Card>
   );
 }
+// This is a placeholder, you'll need to define the Card component or import it from your UI library
+const Card = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+    <div className={cn("rounded-lg border bg-card text-card-foreground", className)} {...props} />
+);
