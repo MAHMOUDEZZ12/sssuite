@@ -37,6 +37,7 @@ const getToolSchema = (tool: Tool | undefined) => {
             } else {
                 const isOptional = (tool.id === 'rebranding' && field.id === 'companyLogoDataUri') || 
                                  (tool.id === 'landing-pages' && field.id === 'projectBrochureDataUri') ||
+                                 (tool.id === 'landing-pages' && field.id === 'inspirationImageDataUri') ||
                                  (tool.id === 'pdf-editor' && field.id === 'newImages');
 
                 fieldSchema = isOptional ? baseSchema.optional() : baseSchema.refine(files => files && files.length > 0, `${field.name} is required.`);

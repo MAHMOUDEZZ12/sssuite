@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -47,6 +48,16 @@ const GenerateLandingPageInputSchema = z.object({
     .optional()
     .describe(
       "A project brochure, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+    ),
+  /**
+   * An optional inspiration image, encoded as a Base64 data URI.
+   * @example "data:image/png;base64,..."
+   */
+  inspirationImageDataUri: z
+    .string()
+    .optional()
+    .describe(
+      "An optional inspiration image, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
   /**
    * Optional official project links.
@@ -100,14 +111,18 @@ const landingPagePrompt = ai.definePrompt({
   {{#if projectBrochureDataUri}}
   Project Brochure: {{media url=projectBrochureDataUri}}
   {{/if}}
+  {{#if inspirationImageDataUri}}
+  Inspiration Image: {{media url=inspirationImageDataUri}}
+  {{/if}}
   Official Project Links: {{{officialProjectLinks}}}
 
   Instructions:
   1.  Incorporate the project details and user branding preferences into the landing page design.
-  2.  If a project brochure is provided, extract key information and use it to enhance the landing page content.
-  3.  Include relevant links to the official project website.
-  4.  Ensure the landing page is visually appealing and optimized for conversions.
-  5.  Return only the HTML code for the landing page. Do not include any additional text or explanations.
+  2.  If an inspiration image is provided, use it as a strong reference for the layout, color scheme, and overall aesthetic.
+  3.  If a project brochure is provided, extract key information and use it to enhance the landing page content.
+  4.  Include relevant links to the official project website.
+  5.  Ensure the landing page is visually appealing and optimized for conversions.
+  6.  Return only the HTML code for the landing page. Do not include any additional text or explanations.
   `,
 });
 

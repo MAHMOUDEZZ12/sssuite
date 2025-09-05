@@ -368,11 +368,11 @@ export const tools: Tool[] = [
       ],
     },
     creationFields: [
-      { id: 'projectBrochureDataUri', name: 'Or Upload Brochure', type: 'file', description: 'Alternatively, upload a PDF brochure.' },
+      { id: 'projectBrochureDataUri', name: 'Upload Brochure', type: 'file', description: 'Upload a PDF brochure as the source.' },
+      { id: 'inspirationImageDataUri', name: 'Inspiration Image (Optional)', type: 'file', description: 'Upload a screenshot of a website you like to guide the style.' },
       { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "The Azure Lofts"', description: 'The name of the project.'},
       { id: 'projectDetails', name: 'Project Details', type: 'textarea', placeholder: 'e.g., "Luxury condos with ocean views..."', description: 'Detailed info about the project.'},
       { id: 'userBrandingPreferences', name: 'Branding Style', type: 'select', options: ["Modern & Minimalist", "Luxury & Elegant", "Cozy & Welcoming", "Bold & Colorful"], placeholder: 'Select a branding style', description: 'Describe the desired look and feel.' },
-      { id: 'officialProjectLinks', name: 'Project Links', type: 'text', placeholder: 'e.g., "www.theazurelofts.com"', description: 'Any relevant links.' },
     ],
   },
   {
