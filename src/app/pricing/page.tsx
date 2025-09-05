@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { ShinyButton } from '@/components/ui/shiny-button';
 import Link from 'next/link';
 import { tools } from '@/lib/tools';
+import { Switch } from '@/components/ui/switch';
 
 const pricingTiers = [
     {
@@ -62,6 +63,7 @@ const pricingTiers = [
 
 
 export default function PricingPage() {
+  const [isAnnual, setIsAnnual] = React.useState(false);
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
@@ -75,6 +77,18 @@ export default function PricingPage() {
           </p>
         </div>
         
+        <div className="flex justify-center items-center gap-4 mb-12">
+            <span className={cn("font-medium", !isAnnual && "text-primary")}>Monthly</span>
+            <Switch
+                checked={isAnnual}
+                onCheckedChange={setIsAnnual}
+                aria-label="Toggle annual pricing"
+            />
+            <span className={cn("font-medium", isAnnual && "text-primary")}>
+                Annual (Save 30%)
+            </span>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             {pricingTiers.map((tier) => (
                  <Card 
@@ -95,9 +109,14 @@ export default function PricingPage() {
                         <CardDescription className="text-center">{tier.description}</CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-col flex-grow">
-                       <div className="text-center mb-8">
-                          <span className="text-5xl font-bold">{tier.price}</span>
+                       <div className="text-center mb-8 h-20">
+                          <span className="text-5xl font-bold">
+                             {tier.name === 'Super' ? (isAnnual ? '$69' : '$99') : tier.price}
+                          </span>
                           {tier.pricePeriod && <span className="text-muted-foreground">{tier.pricePeriod}</span>}
+                           {tier.name === 'Super' && isAnnual && (
+                            <p className="text-sm text-muted-foreground">billed annually</p>
+                          )}
                        </div>
                        <ul className="space-y-4 text-foreground/80">
                          {tier.features.map((feature, i) => (
