@@ -42,7 +42,7 @@ export function LandingFooter() {
                 Join thousands of top-performing agents who are closing more
                 deals with the power of AI. Your next chapter starts here.
               </p>
-               <Link href="/dashboard">
+               <Link href="/signup">
                   <ShinyButton>
                     Start Your Free Trial
                   </ShinyButton>

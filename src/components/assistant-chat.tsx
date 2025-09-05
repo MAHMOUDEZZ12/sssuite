@@ -46,7 +46,10 @@ export function AssistantChat() {
                 <Bot className="h-5 w-5 text-primary"/>
                 {assistantName}
               </h3>
-              <button onClick={() => setIsOpen(false)} className="text-sm text-muted-foreground hover:text-foreground">Close</button>
+              <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="h-6 w-6">
+                <X className="h-4 w-4" />
+                <span className="sr-only">Close</span>
+              </Button>
             </div>
             
             <CardContent className="p-0">
