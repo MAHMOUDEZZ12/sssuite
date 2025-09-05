@@ -10,13 +10,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Palette, Upload, Save, CheckCircle, BrainCircuit, FileText, ImageIcon, FileSpreadsheet, Download, Trash2 } from 'lucide-react';
+import { Palette, Upload, Save, CheckCircle, BrainCircuit, FileText, ImageIcon, FileSpreadsheet, Download, Trash2, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { PageHeader } from '@/components/ui/page-header';
 import { Separator } from '@/components/ui/separator';
 import { Checkbox } from '@/components/ui/checkbox';
+import { aiBrandCreator } from '@/ai/flows/ai-brand-creator';
+import { fileToDataUri } from '@/lib/tools-client';
 
 const brandSchema = z.object({
   companyName: z.string().min(2, 'Company name is required.'),
@@ -27,19 +29,10 @@ const brandSchema = z.object({
 });
 
 type BrandFormValues = z.infer<typeof brandSchema>;
+type MockFile = { id: number; name: string; type: string; icon: React.ReactNode; size: string; file?: File };
 
-const colorPalettes = [
-    { name: 'Teal & Orange', primary: '#008080', secondary: '#CC6633' },
-    { name: 'Navy & Gold', primary: '#000080', secondary: '#FFD700' },
-    { name: 'Forest & Silver', primary: '#228B22', secondary: '#C0C0C0' },
-    { name: 'Charcoal & Mint', primary: '#36454F', secondary: '#98FF98' },
-    { name: 'Indigo & Coral', primary: '#4B0082', secondary: '#FF7F50' },
-    { name: 'Slate & Rose', primary: '#708090', secondary: '#FFC0CB' },
-    { name: 'Crimson & Beige', primary: '#DC143C', secondary: '#F5F5DC' },
-    { name: 'Sky & Sun', primary: '#87CEEB', secondary: '#FFD700' },
-];
 
-const mockFiles = [
+const initialMockFiles: MockFile[] = [
   { id: 1, name: 'Luxury_Condo_Brochure.pdf', type: 'PDF', icon: <FileText className="h-10 w-10 text-destructive" />, size: '2.5 MB' },
   { id: 2, name: 'Company_Logo_White.png', type: 'PNG', icon: <ImageIcon className="h-10 w-10 text-primary" />, size: '150 KB' },
   { id: 3, name: 'Ad_Creative_V1.jpg', type: 'JPG', icon: <ImageIcon className="h-10 w-10 text-primary" />, size: '800 KB' },
@@ -53,10 +46,23 @@ export default function BrandPage() {
   const { toast } = useToast();
   const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
   const [isDragging, setIsDragging] = React.useState(false);
-  const [selectedPalette, setSelectedPalette] = React.useState(colorPalettes[0]);
-
+  const [selectedPalette, setSelectedPalette] = React.useState({ name: 'Charcoal & Mint', primary: '#36454F', secondary: '#98FF98' });
+  
+  const [isTraining, setIsTraining] = useState(false);
+  const [files, setFiles] = useState<MockFile[]>(initialMockFiles);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<number[]>([]);
+
+  const colorPalettes = [
+    { name: 'Teal & Orange', primary: '#008080', secondary: '#CC6633' },
+    { name: 'Navy & Gold', primary: '#000080', secondary: '#FFD700' },
+    { name: 'Forest & Silver', primary: '#228B22', secondary: '#C0C0C0' },
+    { name: 'Charcoal & Mint', primary: '#36454F', secondary: '#98FF98' },
+    { name: 'Indigo & Coral', primary: '#4B0082', secondary: '#FF7F50' },
+    { name: 'Slate & Rose', primary: '#708090', secondary: '#FFC0CB' },
+    { name: 'Crimson & Beige', primary: '#DC143C', secondary: '#F5F5DC' },
+    { name: 'Sky & Sun', primary: '#87CEEB', secondary: '#FFD700' },
+  ];
 
   const {
     control,
@@ -67,8 +73,8 @@ export default function BrandPage() {
     resolver: zodResolver(brandSchema),
     defaultValues: {
       companyName: 'Super Seller Suite',
-      primaryColor: colorPalettes[0].primary,
-      secondaryColor: colorPalettes[0].secondary,
+      primaryColor: selectedPalette.primary,
+      secondaryColor: selectedPalette.secondary,
       contactInfo: 'John Doe\n(555) 123-4567\njohn.doe@superseller.ai',
     },
   });
@@ -92,7 +98,7 @@ export default function BrandPage() {
     });
   };
   
-  const handleFileChange = (files: FileList | null) => {
+  const handleLogoFileChange = (files: FileList | null) => {
     const file = files?.[0];
     if (file) {
       setValue("logo", file);
@@ -104,12 +110,20 @@ export default function BrandPage() {
     }
   }
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
-        console.log('Uploading files:', files);
-        // Add actual upload logic here
-    }
+  const handleAssetFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const uploadedFiles = event.target.files;
+    if (!uploadedFiles) return;
+
+    const newFiles: MockFile[] = Array.from(uploadedFiles).map((file, index) => ({
+      id: files.length + index + 1,
+      name: file.name,
+      type: file.type.split('/')[1]?.toUpperCase() || 'File',
+      icon: <FileText className="h-10 w-10 text-muted-foreground" />,
+      size: `${(file.size / 1024).toFixed(2)} KB`,
+      file: file,
+    }));
+
+    setFiles(prev => [...prev, ...newFiles]);
   };
     
   const handleSelectFile = (fileId: number) => {
@@ -119,15 +133,69 @@ export default function BrandPage() {
               : [...prev, fileId]
       );
   };
+  
+  const handleDeleteFiles = () => {
+     setFiles(prev => prev.filter(f => !selectedFiles.includes(f.id)));
+     setSelectedFiles([]);
+  }
 
-  const handleTrainAssistant = () => {
-      // In a real app, this would trigger an AI flow
+  const handleTrainAssistant = async () => {
+      const filesToTrain = files.filter(f => selectedFiles.includes(f.id) && f.file);
+      if (filesToTrain.length === 0) {
+        toast({
+            title: "No Files Selected",
+            description: "Please upload and select a file to train the assistant.",
+            variant: "destructive"
+        });
+        return;
+      }
+      
+      setIsTraining(true);
       toast({
           title: "Training Started",
-          description: `The assistant is now learning from the ${selectedFiles.length} selected files.`,
-      })
-      console.log("Training assistant on files:", selectedFiles);
-      setSelectedFiles([]);
+          description: `The assistant is learning from ${filesToTrain.length} file(s). This may take a moment.`,
+      });
+
+      try {
+        const fileDataUris = await Promise.all(
+          filesToTrain.map(f => fileToDataUri(f.file!))
+        );
+
+        const result = await aiBrandCreator({
+          command: "Analyze the provided documents and extract the company name, primary and secondary brand colors, and contact information. Use this to set up my brand kit.",
+          documents: fileDataUris,
+        });
+
+        if (result.brandInfo) {
+          const { companyName, primaryColor, secondaryColor, contactInfo } = result.brandInfo;
+          if (companyName) setValue('companyName', companyName);
+          if (primaryColor) setValue('primaryColor', primaryColor);
+          if (secondaryColor) setValue('secondaryColor', secondaryColor);
+          if (contactInfo) setValue('contactInfo', contactInfo);
+
+           toast({
+              title: "AI Training Complete!",
+              description: result.summary,
+           });
+        } else {
+             toast({
+              title: "AI Analysis Complete",
+              description: "The AI reviewed the documents but couldn't find all brand details. Please review and save.",
+              variant: "destructive"
+           });
+        }
+       
+      } catch (error) {
+         console.error("AI training failed:", error);
+         toast({
+            title: "An Error Occurred",
+            description: "The AI was unable to process the documents. Please try again.",
+            variant: "destructive"
+         });
+      } finally {
+        setIsTraining(false);
+        setSelectedFiles([]);
+      }
   }
 
   return (
@@ -176,7 +244,7 @@ export default function BrandPage() {
                         onDrop={(e) => {
                           e.preventDefault();
                           setIsDragging(false);
-                          handleFileChange(e.dataTransfer.files);
+                          handleLogoFileChange(e.dataTransfer.files);
                         }}
                       >
                        <Input 
@@ -184,7 +252,7 @@ export default function BrandPage() {
                         type="file" 
                         accept="image/*" 
                         className="sr-only" 
-                        onChange={(e) => handleFileChange(e.target.files)}
+                        onChange={(e) => handleLogoFileChange(e.target.files)}
                         ref={field.ref}
                       />
                        <label htmlFor="logo" className="w-full h-full flex flex-col items-center justify-center cursor-pointer">
@@ -231,8 +299,30 @@ export default function BrandPage() {
                         </div>
                     ))}
                 </div>
-                <Controller name="primaryColor" control={control} render={({ field }) => <Input {...field} type="hidden" />} />
-                <Controller name="secondaryColor" control={control} render={({ field }) => <Input {...field} type="hidden" />} />
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Controller
+                      name="primaryColor"
+                      control={control}
+                      render={({ field }) => (
+                         <div className="flex items-center gap-2">
+                           <Label>Primary:</Label>
+                           <Input {...field} type="text" className="w-32" />
+                           <div className="w-8 h-8 rounded-md border" style={{ backgroundColor: field.value }}></div>
+                         </div>
+                      )}
+                    />
+                  <Controller
+                      name="secondaryColor"
+                      control={control}
+                      render={({ field }) => (
+                         <div className="flex items-center gap-2">
+                           <Label>Secondary:</Label>
+                           <Input {...field} type="text" className="w-32" />
+                           <div className="w-8 h-8 rounded-md border" style={{ backgroundColor: field.value }}></div>
+                         </div>
+                      )}
+                    />
+                 </div>
             </div>
 
             <div className="space-y-2">
@@ -242,7 +332,7 @@ export default function BrandPage() {
                     name="contactInfo"
                     control={control}
                     render={({ field }) => (
-                      <Textarea id="contactInfo" {...field} placeholder="Your Name&#10;Your Phone&#10;Your Email" rows={4} />
+                      <Textarea id="contactInfo" {...field} placeholder="Your Name\nYour Phone\nYour Email" rows={4} />
                     )}
                   />
                {errors.contactInfo && <p className="text-sm text-destructive">{errors.contactInfo.message}</p>}
@@ -262,17 +352,21 @@ export default function BrandPage() {
       
       <Card>
         <CardHeader>
-            <div className='flex items-center justify-between'>
+            <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4'>
                 <div>
                     <CardTitle>Your Asset Storage</CardTitle>
                     <CardDescription>
                         Manage all your uploaded assets and AI-generated files. Select files to train your assistant.
                     </CardDescription>
                 </div>
-                <div className='flex items-center gap-2'>
-                    <Button onClick={handleTrainAssistant} disabled={selectedFiles.length === 0}>
-                        <BrainCircuit className="mr-2 h-4 w-4" />
-                        Train on {selectedFiles.length > 0 ? `${selectedFiles.length} file(s)` : 'Selection'}
+                <div className='flex items-center gap-2 flex-wrap'>
+                    <Button onClick={handleTrainAssistant} disabled={selectedFiles.length === 0 || isTraining}>
+                        {isTraining ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <BrainCircuit className="mr-2 h-4 w-4" />}
+                        {isTraining ? 'Training...' : `Train on ${selectedFiles.length > 0 ? `${selectedFiles.length} file(s)` : 'Selection'}`}
+                    </Button>
+                     <Button onClick={handleDeleteFiles} disabled={selectedFiles.length === 0} variant="destructive">
+                        <Trash2 className="mr-2 h-4 w-4" />
+                        Delete {selectedFiles.length > 0 ? `${selectedFiles.length} file(s)` : 'Selection'}
                     </Button>
                     <Button onClick={() => fileInputRef.current?.click()} variant="outline">
                         <Upload className="mr-2 h-4 w-4" />
@@ -288,12 +382,12 @@ export default function BrandPage() {
                 type="file"
                 ref={fileInputRef}
                 className="hidden"
-                onChange={handleFileUpload}
+                onChange={handleAssetFileUpload}
                 multiple
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                {mockFiles.map((file) => (
+                {files.map((file) => (
                 <Card 
                     key={file.id} 
                     className={cn(
@@ -316,12 +410,12 @@ export default function BrandPage() {
                     <p className="font-semibold text-sm truncate w-full" title={file.name}>{file.name}</p>
                     <p className="text-xs text-muted-foreground">{file.size}</p>
                     </CardContent>
-                    <CardFooter className="p-2 bg-muted/50 border-t flex justify-center gap-2">
+                    <CardFooter className="p-2 bg-muted/50 border-t flex justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                         <Button variant="ghost" size="icon" className="h-8 w-8" onClick={(e) => e.stopPropagation()}>
                             <Download className="h-4 w-4" />
                             <span className="sr-only">Download</span>
                         </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive" onClick={(e) => e.stopPropagation()}>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive" onClick={(e) => { e.stopPropagation(); setFiles(fs => fs.filter(f => f.id !== file.id)); setSelectedFiles(sfs => sfs.filter(id => id !== file.id)) }}>
                             <Trash2 className="h-4 w-4" />
                             <span className="sr-only">Delete</span>
                         </Button>
@@ -334,3 +428,5 @@ export default function BrandPage() {
     </main>
   );
 }
+
+    
