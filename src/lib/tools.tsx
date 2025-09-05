@@ -649,7 +649,7 @@ export const tools: Tool[] = [
     icon: <LineChart />,
     color: '#f59e0b', // amber-500
     cta: 'Market Report',
-    categories: ['Sales Tools', 'Creative'],
+    categories: ['Marketing'],
     backsideValue: "Become the neighborhood expert overnight.",
     details: {
       steps: [
@@ -745,7 +745,7 @@ export const tools: Tool[] = [
     icon: <FileText />,
     color: '#64748b', // slate-500
     cta: 'Listing',
-    categories: ['Creative', 'Web'],
+    categories: ['Sales Tools'],
     backsideValue: "Write perfect property descriptions in seconds.",
     details: {
       steps: [
@@ -817,7 +817,7 @@ export const tools: Tool[] = [
     icon: <Mail />,
     color: '#0ea5e9', // sky-500
     cta: 'Email Campaign',
-    categories: ['Social & Comms', 'Creative'],
+    categories: ['Marketing'],
     backsideValue: "Launch an entire email campaign in minutes.",
     details: {
       steps: [
