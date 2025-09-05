@@ -67,8 +67,8 @@ const FeatureCard = ({
                 <Tooltip>
                   <TooltipTrigger>
                      <span className={cn(
-                        `px-3 py-1 text-sm font-semibold text-white rounded-full transition-all duration-200`,
-                        feature.badge === 'NEW' ? 'bg-blue-500 hover:bg-transparent hover:text-blue-500 border-2 border-transparent hover:border-blue-500' : 'bg-yellow-500 hover:bg-transparent hover:text-yellow-500 border-2 border-transparent hover:border-yellow-500'
+                        `px-3 py-1 text-sm font-semibold text-white rounded-full transition-all duration-200 shadow-lg`,
+                        feature.badge === 'NEW' ? 'bg-blue-500 shadow-blue-500/50 hover:bg-transparent hover:text-blue-500 border-2 border-transparent hover:border-blue-500' : 'bg-yellow-500 shadow-yellow-500/50 hover:bg-transparent hover:text-yellow-500 border-2 border-transparent hover:border-yellow-500'
                      )}>
                         {feature.badge}
                     </span>
