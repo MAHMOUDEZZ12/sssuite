@@ -33,8 +33,9 @@ export function ThemeSwitcher() {
   useEffect(() => {
     const root = document.documentElement;
     root.className = '';
-    root.classList.add(theme);
-    localStorage.setItem('theme', theme);
+    // The theme from the RootLayout is 'theme-crimson-gold', let's stick with that for the demo
+    root.classList.add('theme-crimson-gold');
+    // localStorage.setItem('theme', theme);
   }, [theme]);
   
   const ActiveIcon = themes.find(t => t.value === theme)?.icon || Sun;
