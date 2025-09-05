@@ -31,6 +31,25 @@ const samplePrompts = [
 
 
 export default function AssistantPage() {
+    const [goal, setGoal] = useState("create");
+    const [context, setContext] = useState("a new luxury condo listing");
+    const [format, setFormat] = useState("a bulleted list");
+    const [generatedPrompt, setGeneratedPrompt] = useState("Based on the new luxury condo listing, create a bulleted list of 5 social media post ideas.");
+
+    const handleGeneratePrompt = () => {
+        const goalTextMap: { [key: string]: string } = {
+            create: "create",
+            analyze: "analyze",
+            strategize: "develop a strategy for"
+        };
+
+        const fullGoalText = goalTextMap[goal] || "do something with";
+        const fullContext = context || "the provided information";
+        const fullFormat = format || "a paragraph";
+
+        const prompt = `Act as an expert real estate marketing assistant. Your task is to ${fullGoalText} ${fullContext}. The output should be formatted as ${fullFormat}.`;
+        setGeneratedPrompt(prompt);
+    }
 
   return (
     <main className="p-4 md:p-10 space-y-8">
@@ -146,7 +165,7 @@ export default function AssistantPage() {
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
                            <Label>What is your goal?</Label>
-                           <Select>
+                           <Select value={goal} onValueChange={setGoal}>
                                <SelectTrigger>
                                  <SelectValue placeholder="e.g., Create content, analyze data..." />
                                </SelectTrigger>
@@ -159,21 +178,28 @@ export default function AssistantPage() {
                         </div>
                          <div className="space-y-2">
                            <Label>What is the context?</Label>
-                            <Input placeholder="e.g., A new luxury condo listing" />
+                            <Input placeholder="e.g., A new luxury condo listing" value={context} onChange={e => setContext(e.target.value)} />
                         </div>
                          <div className="space-y-2">
                            <Label>What format should the output be?</Label>
-                            <Input placeholder="e.g., A bulleted list, a paragraph, a table" />
+                            <Input placeholder="e.g., A bulleted list, a paragraph, a table" value={format} onChange={e => setFormat(e.target.value)} />
                         </div>
                          <div className="space-y-2">
                            <Label>Generated Prompt</Label>
                            <Textarea 
                                 readOnly
-                                value="Based on the new luxury condo listing, create a bulleted list of 5 social media post ideas."
+                                value={generatedPrompt}
                                 className="italic text-muted-foreground"
+                                rows={4}
                            />
                         </div>
                     </CardContent>
+                    <CardFooter>
+                        <Button onClick={handleGeneratePrompt}>
+                            <Sparkles className="mr-2 h-4 w-4" />
+                            Generate Prompt
+                        </Button>
+                    </CardFooter>
                 </Card>
             </div>
         </TabsContent>
