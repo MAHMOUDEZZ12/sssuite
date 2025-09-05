@@ -40,6 +40,7 @@ import { Separator } from '@/components/ui/separator';
 import { tools } from '@/lib/tools-client.tsx';
 import { AssistantChat } from '@/components/assistant-chat';
 import { usePathname } from 'next/navigation';
+import { DashboardHeader } from '@/components/dashboard-header';
 
 const marketingTools = tools.filter(t => t.mindMapCategory === 'Marketing');
 const creativeTools = tools.filter(t => t.mindMapCategory === 'Creative Suite');
@@ -101,7 +102,6 @@ export default function DashboardLayout({
       <Sidebar>
         <SidebarHeader className="flex items-center justify-between">
           <Logo />
-          <SidebarTrigger />
         </SidebarHeader>
         <SidebarContent>
           <div className="flex flex-col gap-2 p-2">
@@ -203,10 +203,13 @@ export default function DashboardLayout({
           </div>
         </SidebarFooter>
       </Sidebar>
-      <SidebarInset>
-        {children}
-        <AssistantChat />
-      </SidebarInset>
+      <div className="flex-1 flex flex-col">
+        <DashboardHeader />
+        <SidebarInset>
+            {children}
+            <AssistantChat />
+        </SidebarInset>
+      </div>
     </SidebarProvider>
   );
 }
