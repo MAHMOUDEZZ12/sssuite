@@ -82,14 +82,14 @@ export default function DashboardPage() {
                         isComplete={completedSteps.includes('brand')}
                         title="Set Up Your Brand"
                         description="Add your logo and colors to personalize all AI-generated content."
-                        href="/dashboard/brand"
+                        href="/onboarding?step=5"
                         onClick={() => handleStepComplete('brand')}
                     />
                      <OnboardingStep
                         isComplete={completedSteps.includes('project')}
                         title="Create Your First Project"
                         description="Projects help you organize your listings, campaigns, and assets."
-                        href="/dashboard/projects"
+                        href="/onboarding?step=1"
                         onClick={() => handleStepComplete('project')}
                     />
                      <OnboardingStep
@@ -106,7 +106,7 @@ export default function DashboardPage() {
                         isComplete={completedSteps.includes('subscription')}
                         title="Review Your Subscription"
                         description="Check your plan details and billing information."
-                        href="/dashboard/settings?tab=subscription"
+                        href="/onboarding?step=3"
                         onClick={() => handleStepComplete('subscription')}
                     />
                      <OnboardingStep

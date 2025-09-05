@@ -2,6 +2,7 @@
 'use client';
 import { useState } from 'react';
 import { Mail, Instagram, Facebook, MessageSquare, Youtube, Link2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const PROVIDERS = [
   { id: 'google', name: 'Google (Gmail)', icon: Mail },
@@ -13,11 +14,12 @@ const PROVIDERS = [
 
 export function IntegrationCard() {
   const [connecting, setConnecting] = useState<string | null>(null);
+  const router = useRouter();
 
   const connect = async (id: string) => {
     setConnecting(id);
     // In a real app, this would route to your connection page or oauth start
-    window.location.href = `/dashboard/settings?tab=connections&provider=${id}`;
+    router.push(`/onboarding?step=6&provider=${id}`);
   };
 
   return (
