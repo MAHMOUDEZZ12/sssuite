@@ -56,9 +56,9 @@ const MindMapNode = ({
         <h3 className={cn(isRoot ? 'text-primary text-2xl font-bold' : 'text-foreground font-semibold text-lg')}>{title}</h3>
       </div>
       {children && (
-        <div className="relative pt-8 w-full">
+        <div className="relative pt-8 w-full flex flex-col items-center">
            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-full bg-border" />
-           <div className="relative z-10 flex flex-col items-center gap-4">
+           <div className="relative z-10 flex flex-col items-center gap-4 w-full">
             {children}
            </div>
         </div>
@@ -272,25 +272,18 @@ export default function SX3MindmapPage() {
                  <MindMapNode title="Super Seller Suite" isRoot />
             </div>
 
-             <div className="absolute top-[6.5rem] hidden h-16 w-full max-w-5xl lg:block">
+             <div className="absolute top-[6.5rem] hidden h-32 w-full max-w-5xl lg:block">
                 {/* Central vertical line */}
                 <div className="absolute left-1/2 top-0 h-16 w-0.5 -translate-x-1/2 bg-border" />
 
-                {/* Line to Marketing */}
-                <div className="absolute left-[12.5%] top-16 h-16 w-0.5 -translate-x-1/2 bg-border" />
-                <div className="absolute left-[12.5%] top-16 h-0.5 w-[37.5%] bg-border" />
-
-                 {/* Line to Creative Suite */}
-                <div className="absolute left-[37.5%] top-16 h-16 w-0.5 -translate-x-1/2 bg-border" />
-                <div className="absolute left-[37.5%] top-16 h-0.5 w-[12.5%] bg-border" />
+                {/* Horizontal line */}
+                <div className="absolute left-[12.5%] right-[12.5%] top-16 h-0.5 bg-border" />
                 
-                {/* Line to Sales Enablement */}
+                {/* Down lines to categories */}
+                <div className="absolute left-[12.5%] top-16 h-16 w-0.5 -translate-x-1/2 bg-border" />
+                <div className="absolute left-[37.5%] top-16 h-16 w-0.5 -translate-x-1/2 bg-border" />
                 <div className="absolute right-[37.5%] top-16 h-16 w-0.5 translate-x-1/2 bg-border" />
-                <div className="absolute right-[37.5%] top-16 h-0.5 w-[12.5%] bg-border" />
-
-                {/* Line to Core Intelligence */}
                 <div className="absolute right-[12.5%] top-16 h-16 w-0.5 translate-x-1/2 bg-border" />
-                <div className="absolute right-[12.5%] top-16 h-0.5 w-[37.5%] bg-border" />
             </div>
 
 
