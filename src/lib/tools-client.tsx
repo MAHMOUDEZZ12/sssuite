@@ -47,6 +47,8 @@ import {
   Facebook,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 
 export const fileToDataUri = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -498,33 +500,48 @@ export const tools: Feature[] = [
   },
   {
     id: 'social-posts',
-    title: 'AI Social Writer',
-    description: "A week of posts from one link.",
+    title: 'AI Social Post Strategist',
+    description: "Turn one idea into a one-week content plan.",
     icon: <Share2 />,
     color: '#e11d48', // rose-600
     cta: 'Social Post',
     categories: ['Marketing', 'Social & Comms', 'Ads'],
     mindMapCategory: 'Marketing',
-    badge: 'BETA',
+    badge: 'NEW',
     renderResult: (result, toast) => (
       <div className="space-y-6">
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Post Content</h3>
-           <div className="p-4 bg-muted rounded-md relative group">
-              <p className="whitespace-pre-wrap">{result.postContent}</p>
-              <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.postContent, toast)}><Copy className="h-4 w-4" /></Button>
-           </div>
-        </div>
-         <div>
-          <h3 className="font-semibold text-lg mb-2">Hashtags</h3>
-           <div className="p-4 bg-muted rounded-md relative group">
-              <p>{result.hashtags.join(' ')}</p>
-              <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.hashtags.join(' '), toast)}><Copy className="h-4 w-4" /></Button>
-           </div>
-        </div>
-         <div>
-          <h3 className="font-semibold text-lg mb-2">Image Suggestion</h3>
-          <p className="p-4 bg-muted rounded-md">{result.imageSuggestion}</p>
+          <div>
+            <h3 className="font-semibold text-lg mb-2">Weekly Content Plan</h3>
+            <div className="space-y-4">
+            {result.posts.map((post: any, index: number) => (
+                <div key={index} className="p-4 bg-muted rounded-md relative group border">
+                  <p className="font-bold text-base mb-2">{post.day}</p>
+                  <p className="font-semibold mb-2">Post Text:</p>
+                  <p className="whitespace-pre-wrap text-sm mb-3">{post.postContent}</p>
+                  <p className="font-semibold mb-2">Image Suggestion:</p>
+                  <p className="text-sm italic text-muted-foreground">{post.imageSuggestion}</p>
+                  <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(post.postContent, toast)}><Copy className="h-4 w-4" /></Button>
+                </div>
+            ))}
+            </div>
+          </div>
+          <Separator />
+          <div>
+            <h3 className="font-semibold text-lg mb-2">Hashtag Strategy</h3>
+            <div className="space-y-3">
+              <div>
+                  <h4 className="font-semibold">Primary Hashtags</h4>
+                  <p className="text-sm text-muted-foreground">{result.hashtagStrategy.primary.join(' ')}</p>
+              </div>
+              <div>
+                  <h4 className="font-semibold">Secondary Hashtags</h4>
+                  <p className="text-sm text-muted-foreground">{result.hashtagStrategy.secondary.join(' ')}</p>
+              </div>
+               <div>
+                  <h4 className="font-semibold">Location Hashtags</h4>
+                  <p className="text-sm text-muted-foreground">{result.hashtagStrategy.location.join(' ')}</p>
+              </div>
+            </div>
         </div>
       </div>
     ),
@@ -1095,7 +1112,3 @@ export const tools: Feature[] = [
     creationFields: [],
   },
 ];
-
-    
-
-    
