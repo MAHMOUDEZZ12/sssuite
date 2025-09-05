@@ -309,7 +309,7 @@ export default function Home() {
                         activeFilter === category && 'shadow-lg shadow-primary/20'
                       )}
                     >
-                      {category} ({getCategoryCount(category)})
+                      {category} <span className="hidden md:inline-block ml-1">({getCategoryCount(category)})</span>
                     </Button>
                   ))}
                 </div>
