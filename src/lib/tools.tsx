@@ -94,6 +94,7 @@ export type Tool = {
   color: string;
   cta: string;
   categories: string[];
+  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence';
   backsideValue: string;
   details: {
     steps: { text: string; icon: React.ReactElement }[];
@@ -126,7 +127,8 @@ export const tools: Tool[] = [
     icon: <Target />,
     color: '#ec4899', // pink-500
     cta: 'Ad',
-    categories: ['Marketing'],
+    categories: ['Marketing', 'Ads'],
+    mindMapCategory: 'Marketing',
     backsideValue: "Turn a brochure into a campaign.",
     flowRunner: generateAdFromBrochure,
     renderResult: (result, toast) => (
@@ -183,7 +185,8 @@ export const tools: Tool[] = [
     icon: <Binoculars />,
     color: '#3b82f6', // blue-600
     cta: 'Targeting Profile',
-    categories: ['Marketing'],
+    categories: ['Marketing', 'Lead Gen'],
+    mindMapCategory: 'Marketing',
     backsideValue: "Find your buyers before they find you.",
     flowRunner: suggestTargetingOptions,
     renderResult: (result, toast) => (
@@ -232,7 +235,8 @@ export const tools: Tool[] = [
     icon: <Palette />,
     color: '#f97316', // orange-600
     cta: 'Rebranded Brochure',
-    categories: ['Creative Suite'],
+    categories: ['Creative', 'Editing'],
+    mindMapCategory: 'Creative Suite',
     backsideValue: "Make any brochure your own in one click.",
     flowRunner: rebrandBrochure,
     renderResult: (result, toast) => (
@@ -285,7 +289,8 @@ export const tools: Tool[] = [
     icon: <PenTool />,
     color: '#eab308', // yellow-500
     cta: 'Edited PDF',
-    categories: ['Creative Suite'],
+    categories: ['Creative', 'Editing'],
+    mindMapCategory: 'Creative Suite',
     backsideValue: "Edit the uneditable, instantly.",
     flowRunner: editPdf,
     renderResult: (result, toast) => (
@@ -332,7 +337,8 @@ export const tools: Tool[] = [
     icon: <LayoutTemplate />,
     color: '#22c55e', // green-500
     cta: 'Landing Page',
-    categories: ['Marketing'],
+    categories: ['Marketing', 'Web'],
+    mindMapCategory: 'Marketing',
     backsideValue: "Create a stunning property website in 60 seconds.",
     flowRunner: generateLandingPage,
     renderResult: (result, toast) => (
@@ -378,7 +384,8 @@ export const tools: Tool[] = [
     icon: <Share2 />,
     color: '#e11d48', // rose-600
     cta: 'Social Post',
-    categories: ['Marketing'],
+    categories: ['Marketing', 'Social & Comms'],
+    mindMapCategory: 'Marketing',
     backsideValue: "Never run out of content ideas again.",
     flowRunner: generateSocialPost,
     renderResult: (result, toast) => (
@@ -437,7 +444,8 @@ export const tools: Tool[] = [
     icon: <Film />,
     color: '#a855f7', // fuchsia-500
     cta: 'Story',
-    categories: ['Creative Suite'],
+    categories: ['Creative', 'Social & Comms'],
+    mindMapCategory: 'Creative Suite',
     backsideValue: "Create thumb-stopping animated stories.",
     details: {
       steps: [
@@ -473,7 +481,8 @@ export const tools: Tool[] = [
     icon: <Clapperboard />,
     color: '#8b5cf6', // violet-500
     cta: 'Reel',
-    categories: ['Creative Suite'],
+    categories: ['Creative', 'Social & Comms'],
+    mindMapCategory: 'Creative Suite',
     backsideValue: "Turn photos into professional video reels.",
     details: {
       steps: [
@@ -509,7 +518,8 @@ export const tools: Tool[] = [
     icon: <Video />,
     color: '#dc2626', // red-600
     cta: 'TikTok',
-    categories: ['Creative Suite'],
+    categories: ['Creative', 'Social & Comms'],
+    mindMapCategory: 'Creative Suite',
     backsideValue: "Create TikToks that capture attention.",
     details: {
       steps: [
@@ -545,7 +555,8 @@ export const tools: Tool[] = [
     icon: <UserCog />,
     color: '#0891b2', // cyan-600
     cta: 'Page Admin',
-    categories: ['Sales Enablement'],
+    categories: ['Sales Tools', 'Social & Comms'],
+    mindMapCategory: 'Sales Enablement',
     backsideValue: "Put your social media on autopilot.",
     details: {
       steps: [
@@ -579,7 +590,8 @@ export const tools: Tool[] = [
     icon: <Database />,
     color: '#0d9488', // teal-600
     cta: 'Client Record',
-    categories: ['Sales Enablement'],
+    categories: ['Sales Tools'],
+    mindMapCategory: 'Sales Enablement',
     backsideValue: "Remember everything about every client.",
     details: {
       steps: [
@@ -614,7 +626,8 @@ export const tools: Tool[] = [
     icon: <UserPlus />,
     color: '#0284c7', // sky-600
     cta: 'Lead List',
-    categories: ['Sales Enablement'],
+    categories: ['Lead Gen', 'Social & Comms'],
+    mindMapCategory: 'Sales Enablement',
     backsideValue: "Find leads who don't know they're looking yet.",
     details: {
       steps: [
@@ -650,7 +663,8 @@ export const tools: Tool[] = [
     icon: <LineChart />,
     color: '#f59e0b', // amber-500
     cta: 'Market Report',
-    categories: ['Marketing'],
+    categories: ['Marketing', 'Editing'],
+    mindMapCategory: 'Marketing',
     backsideValue: "Become the neighborhood expert overnight.",
     details: {
       steps: [
@@ -686,7 +700,8 @@ export const tools: Tool[] = [
     icon: <Users2 />,
     color: '#6366f1', // indigo-500
     cta: 'Investor Match',
-    categories: ['Sales Enablement'],
+    categories: ['Sales Tools', 'Lead Gen'],
+    mindMapCategory: 'Sales Enablement',
     backsideValue: "Know which investor to call instantly.",
     flowRunner: matchInvestors,
     renderResult: (result, toast) => (
@@ -746,7 +761,8 @@ export const tools: Tool[] = [
     icon: <FileText />,
     color: '#64748b', // slate-500
     cta: 'Listing',
-    categories: ['Sales Enablement'],
+    categories: ['Sales Tools', 'Editing'],
+    mindMapCategory: 'Sales Enablement',
     backsideValue: "Write perfect property descriptions in seconds.",
     details: {
       steps: [
@@ -782,7 +798,8 @@ export const tools: Tool[] = [
     icon: <Briefcase />,
     color: '#78716c', // stone-500
     cta: 'Offer Package',
-    categories: ['Sales Enablement'],
+    categories: ['Sales Tools', 'Editing'],
+    mindMapCategory: 'Sales Enablement',
     backsideValue: "Present multiple offers beautifully.",
     details: {
       steps: [
@@ -818,7 +835,8 @@ export const tools: Tool[] = [
     icon: <Mail />,
     color: '#0ea5e9', // sky-500
     cta: 'Email Campaign',
-    categories: ['Marketing'],
+    categories: ['Marketing', 'Social & Comms'],
+    mindMapCategory: 'Marketing',
     backsideValue: "Launch an entire email campaign in minutes.",
     details: {
       steps: [
@@ -854,7 +872,8 @@ export const tools: Tool[] = [
     icon: <Bot />,
     color: '#f43f5e', // rose-500
     cta: 'Chat Bot',
-    categories: ['Sales Enablement'],
+    categories: ['Sales Tools', 'Social & Comms'],
+    mindMapCategory: 'Sales Enablement',
     backsideValue: "Never miss an Instagram lead again.",
     details: {
       steps: [
@@ -888,7 +907,8 @@ export const tools: Tool[] = [
     icon: <Phone />,
     color: '#22c55e', // green-500
     cta: 'WhatsApp Campaign',
-    categories: ['Sales Enablement'],
+    categories: ['Sales Tools', 'Social & Comms'],
+    mindMapCategory: 'Sales Enablement',
     backsideValue: "Reach your entire client list on WhatsApp instantly.",
     details: {
       steps: [
@@ -924,7 +944,8 @@ export const tools: Tool[] = [
     icon: <BrainCircuit />,
     color: '#84cc16', // lime-500
     cta: 'Assistant',
-    categories: ['Core Intelligence'],
+    categories: ['Sales Tools'],
+    mindMapCategory: 'Core Intelligence',
     backsideValue: "Your personal, trainable AI partner.",
     details: {
       steps: [
@@ -952,3 +973,5 @@ export const tools: Tool[] = [
     ],
   },
 ];
+
+    
