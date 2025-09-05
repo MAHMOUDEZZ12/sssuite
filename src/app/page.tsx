@@ -336,8 +336,52 @@ export default function Home() {
         
         <section className="mt-32 max-w-6xl mx-auto">
             <Card className="bg-card/50 backdrop-blur-lg border-border shadow-xl shadow-primary/10 overflow-hidden">
-                <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
-                    <div className="p-8 md:p-12">
+                <div className="flex flex-col lg:grid lg:grid-cols-2 items-center">
+                    <div className="p-8 md:p-12 lg:order-2">
+                        <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center min-h-[400px]">
+                            <div className="w-full max-w-lg mx-auto space-y-6">
+                            <div className="flex items-start gap-3 justify-end">
+                                <div className="bg-primary text-primary-foreground p-4 rounded-2xl rounded-br-none max-w-sm">
+                                    <p>Create a new project for 'Azure Lofts', generate a promotional video for it, and save the final video to my drive.</p>
+                                </div>
+                                <Avatar className="w-10 h-10">
+                                    <AvatarFallback>U</AvatarFallback>
+                                </Avatar>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Avatar className="w-10 h-10">
+                                    <AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-6 w-6"/></AvatarFallback>
+                                </Avatar>
+                                <div className="bg-background border p-4 rounded-2xl rounded-bl-none max-w-sm">
+                                    <p>Of course. I've initiated the following workflow:</p>
+                                    <ul className="mt-2 space-y-1 list-inside">
+                                        <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 1. Project Created: 'Azure Lofts'</li>
+                                        <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 2. Video Generation: In progress...</li>
+                                        <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 3. File Transfer: Pending</li>
+                                    </ul>
+                                    <p className="text-xs text-muted-foreground mt-2">I will notify you when the video is ready.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Avatar className="w-10 h-10">
+                                    <AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-6 w-6"/></AvatarFallback>
+                                </Avatar>
+                                <div className="bg-background border p-4 rounded-2xl rounded-bl-none max-w-sm">
+                                    <p>Quick update: The promotional video for 'Azure Lofts' has been generated. You can <Link href="#" className="underline">preview it here</Link>. I am now uploading it to your connected Google Drive.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3 justify-end">
+                                <div className="bg-primary text-primary-foreground p-4 rounded-2xl rounded-br-none max-w-sm">
+                                    <p>Looks great, thanks!</p>
+                                </div>
+                                <Avatar className="w-10 h-10">
+                                    <AvatarFallback>U</AvatarFallback>
+                                </Avatar>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="p-8 md:p-12 lg:order-1">
                          <div className="p-3 bg-primary/10 text-primary rounded-full w-fit mb-4">
                             <Bot className="h-8 w-8" />
                         </div>
@@ -357,7 +401,7 @@ export default function Home() {
                                 <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Sparkles className="h-6 w-6" /></div>
                                 <div>
                                     <h4 className="font-semibold text-lg">Text to Action commands</h4>
-                                    <p className="text-md text-foreground/60">Issue direct commands. Instead of just asking for ideas, tell your assistant: "Rebrand this brochure with my logo" or "Find me three investors for this property from my list."</p>
+                                    <p className="text-md text-foreground/60">Issue direct orders. Instead of just asking for ideas, tell your assistant: "Rebrand this brochure with my logo" or "Find me three investors for this property from my list."</p>
                                 </div>
                             </div>
                               <div className="flex items-start gap-4">
@@ -368,54 +412,12 @@ export default function Home() {
                                 </div>
                             </div>
                         </div>
-                         <div className="text-center mt-12">
+                         <div className="text-center mt-12 lg:w-full lg:px-12">
                             <Link href="/dashboard/assistant">
-                                <Button size="lg" variant="outline" className="px-12 py-6 text-lg">
+                                <Button size="lg" variant="outline" className="w-full py-6 text-lg">
                                     Your assistant is ready. Are you?
                                 </Button>
                             </Link>
-                        </div>
-                    </div>
-                     <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center min-h-[400px]">
-                        <div className="w-full max-w-lg mx-auto space-y-6">
-                           <div className="flex items-start gap-3 justify-end">
-                              <div className="bg-primary text-primary-foreground p-4 rounded-2xl rounded-br-none max-w-sm">
-                                  <p>Create a new project for 'Azure Lofts', generate a promotional video for it, and save the final video to my drive.</p>
-                              </div>
-                              <Avatar className="w-10 h-10">
-                                  <AvatarFallback>U</AvatarFallback>
-                              </Avatar>
-                          </div>
-                           <div className="flex items-start gap-3">
-                               <Avatar className="w-10 h-10">
-                                  <AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-6 w-6"/></AvatarFallback>
-                              </Avatar>
-                              <div className="bg-background border p-4 rounded-2xl rounded-bl-none max-w-sm">
-                                  <p>Of course. I've initiated the following workflow:</p>
-                                  <ul className="mt-2 space-y-1 list-inside">
-                                      <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 1. Project Created: 'Azure Lofts'</li>
-                                      <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 2. Video Generation: In progress...</li>
-                                      <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 3. File Transfer: Pending</li>
-                                  </ul>
-                                   <p className="text-xs text-muted-foreground mt-2">I will notify you when the video is ready.</p>
-                              </div>
-                          </div>
-                           <div className="flex items-start gap-3">
-                               <Avatar className="w-10 h-10">
-                                  <AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-6 w-6"/></AvatarFallback>
-                              </Avatar>
-                              <div className="bg-background border p-4 rounded-2xl rounded-bl-none max-w-sm">
-                                  <p>Quick update: The promotional video for 'Azure Lofts' has been generated. You can <Link href="#" className="underline">preview it here</Link>. I am now uploading it to your connected Google Drive.</p>
-                              </div>
-                          </div>
-                           <div className="flex items-start gap-3 justify-end">
-                              <div className="bg-primary text-primary-foreground p-4 rounded-2xl rounded-br-none max-w-sm">
-                                  <p>Looks great, thanks!</p>
-                              </div>
-                              <Avatar className="w-10 h-10">
-                                  <AvatarFallback>U</AvatarFallback>
-                              </Avatar>
-                          </div>
                         </div>
                     </div>
                 </div>
