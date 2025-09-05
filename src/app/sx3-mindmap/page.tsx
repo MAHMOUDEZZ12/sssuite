@@ -14,6 +14,8 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Card, CardDescription, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Tooltip, TooltipProvider, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+
 
 const MindMapNode = ({
   title,
@@ -56,6 +58,25 @@ const ToolLeaf = ({ tool, onClick }: { tool: Feature; onClick: (tool: Feature) =
                 <div className="flex w-full items-center gap-3 rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
                     <div className="p-2 rounded-md text-white" style={{backgroundColor: tool.color}}>{React.cloneElement(tool.icon, { className: 'h-5 w-5' })}</div>
                     <span className="font-medium text-sm text-foreground/90">{tool.title}</span>
+                    {tool.badge && (
+                       <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <span
+                              className={cn(
+                                'ml-1 px-1.5 py-0.5 text-xs font-semibold text-white rounded-full',
+                                tool.badge === 'NEW' ? 'bg-blue-500' : 'bg-yellow-500'
+                              )}
+                            >
+                              {tool.badge}
+                            </span>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                             <p>{tool.badge === 'NEW' ? 'This is a brand new feature!' : 'This feature is in active development.'}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
                     <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 ml-auto" />
                 </div>
             </div>
