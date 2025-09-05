@@ -40,7 +40,7 @@ export default function BlogPage() {
             <main className="flex-1 w-full max-w-4xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20">
                 <article>
                     <header className="mb-12 text-center">
-                        <div className={cn("inline-block p-4 mb-6 text-white rounded-2xl bg-gradient-to-br", feature.color)}>
+                        <div className={cn("inline-block p-4 mb-6 text-white rounded-2xl bg-gradient-to-br")} style={{ backgroundColor: feature.color }}>
                             {React.cloneElement(feature.icon, { className: 'h-12 w-12' })}
                         </div>
                         <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
@@ -64,7 +64,7 @@ export default function BlogPage() {
 
                     <section className="mt-16 text-center">
                         <h2 className="text-3xl font-bold tracking-tight mb-4">Ready to try it yourself?</h2>
-                        <p className="text-lg text-foreground/60 mb-8">Stop waiting and start creating. Generate your first {feature.cta} in seconds.</p>
+                        <p className="text-lg text-foreground/60 mb-8">Stop waiting and start creating. Generate your first {content.cta} in seconds.</p>
                         <Link href={`/dashboard/tool/${feature.id}`}>
                             <ShinyButton>
                                 Go to the {feature.title} Tool
@@ -78,3 +78,5 @@ export default function BlogPage() {
         </div>
     );
 }
+
+    

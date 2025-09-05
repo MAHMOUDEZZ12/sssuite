@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { BookOpen, Check, ExternalLink, ArrowRight } from 'lucide-react';
 import { tools, FilterCategory } from '@/lib/tools-client';
-import { blogContent, BlogContent } from '@/lib/blog-content';
+import { blogContent } from '@/lib/blog-content';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
@@ -85,7 +85,7 @@ export default function BlogIndexPage() {
                                         </CardContent>
                                         <CardFooter className="flex justify-between items-center">
                                             {hack.icon && (
-                                                 <div className="flex items-center gap-2 p-1 pr-2 rounded-md w-fit text-white" style={{ backgroundColor: hack.color }}>
+                                                 <div className={cn("flex items-center gap-2 p-1 pr-2 rounded-md w-fit text-white")} style={{ backgroundColor: hack.color }}>
                                                     {React.cloneElement(hack.icon, { className: 'h-4 w-4' })}
                                                     <span className="text-xs font-semibold">{hack.toolTitle}</span>
                                                 </div>
@@ -106,3 +106,5 @@ export default function BlogIndexPage() {
         </div>
     );
 }
+
+    
