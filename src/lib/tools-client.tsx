@@ -146,9 +146,13 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
+      { id: 'group-filters', name: 'Search Filters', type: 'group-header', description: 'Set your criteria to find relevant projects.'},
       { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Austin, TX" or "Zip code 90210"', description: 'The city, neighborhood, or zip code to search in.' },
-      { id: 'projectType', name: 'Project Type', type: 'select', options: ["Fixer-Upper", "Land for Development", "Zoning Change Opportunity", "Tear-Down", "Potential Assemblage"], placeholder: 'Select a project type', description: 'What kind of opportunity are you looking for?' },
-      { id: 'keywords', name: 'Keywords (Optional)', type: 'text', placeholder: 'e.g., "underutilized lot", "permit application"', description: 'Add specific keywords to narrow the search.' },
+      { id: 'status', name: 'Project Status', type: 'select', options: ["Ready to move", "Under Construction", "New Launch"], placeholder: 'Select a project status', description: 'Filter by the current stage of the project.' },
+      { id: 'developer', name: 'Developer(s) (Optional)', type: 'text', placeholder: 'e.g., "Toll Brothers", "Hines"', description: 'Focus on projects by specific developers.'},
+      { id: 'minPrice', name: 'Min Price', type: 'number', placeholder: 'e.g., 500000', description: 'The minimum price for the project.' },
+      { id: 'maxPrice', name: 'Max Price', type: 'number', placeholder: 'e.g., 2000000', description: 'The maximum price for the project.' },
+      { id: 'setup', name: 'Configure Listing Websites', type: 'button', cta: 'Go to Settings to add Listing Sites', description: 'Add the primary listing websites for your market in the settings for better results.' },
     ],
   },
   {
