@@ -20,12 +20,13 @@ import { Confetti } from '@/components/confetti';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { Separator } from '@/components/ui/separator';
 
 const getToolSchema = (tool: Tool | undefined) => {
     if (!tool) return z.object({});
     
     const shape = tool.creationFields.reduce((acc, field) => {
-        if (field.type === 'button') return acc;
+        if (field.type === 'button' || field.type === 'group-header') return acc;
         
         let fieldSchema;
 
@@ -179,67 +180,78 @@ export default function ToolPage() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {tool.creationFields.map((field) => (
-                <div key={field.id} className="space-y-2">
-                   {field.type !== 'button' && <Label htmlFor={field.id} className="font-semibold">{field.name}</Label>}
-                   <Controller
-                      name={field.id}
-                      control={control}
-                      render={({ field: { onChange, onBlur, value, name, ref } }) => {
-                         const fileList: FileList | null = value;
-                         switch (field.type) {
-                            case 'text':
-                              return <Input id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
-                            case 'number':
-                                return <Input id={field.id} type="number" placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
-                            case 'textarea':
-                              return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} rows={field.id === 'editInstructions' ? 5 : 3} />;
-                            case 'file':
+              {tool.creationFields.map((field) => {
+                if (field.type === 'group-header') {
+                    return (
+                        <div key={field.id} className="md:col-span-2 mt-4 first:mt-0">
+                            <h3 className="text-lg font-semibold text-foreground">{field.name}</h3>
+                            <p className="text-sm text-muted-foreground mb-2">{field.description}</p>
+                            <Separator />
+                        </div>
+                    )
+                }
+
+                return (
+                    <div key={field.id} className="space-y-2">
+                    {field.type !== 'button' && <Label htmlFor={field.id} className="font-semibold">{field.name}</Label>}
+                    <Controller
+                        name={field.id}
+                        control={control}
+                        render={({ field: { onChange, onBlur, value, name, ref } }) => {
+                            const fileList: FileList | null = value;
+                            switch (field.type) {
+                                case 'text':
+                                return <Input id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
+                                case 'number':
+                                    return <Input id={field.id} type="number" placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
+                                case 'textarea':
+                                return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} rows={field.id === 'editInstructions' ? 5 : 3} />;
+                                case 'file':
+                                    return (
+                                    <div>
+                                        <Input id={field.id} type="file" multiple={field.multiple} onBlur={onBlur} name={name} ref={ref} onChange={e => onChange(e.target.files)} className="sr-only" />
+                                        <label 
+                                            htmlFor={field.id} 
+                                            className={cn(
+                                                "flex items-center justify-center gap-2 w-full h-10 px-3 py-2 text-sm border-input border rounded-md cursor-pointer bg-background hover:bg-muted/50",
+                                                fileList && fileList.length > 0 && "text-primary"
+                                            )}
+                                        >
+                                            <Upload className="h-4 w-4"/>
+                                            <span>{fileList && fileList.length > 0 ? `${fileList.length} file(s) selected` : `Choose file(s)...`}</span>
+                                        </label>
+                                    </div>
+                                    );
+                                case 'select':
                                 return (
-                                   <div>
-                                    <Input id={field.id} type="file" multiple={field.multiple} onBlur={onBlur} name={name} ref={ref} onChange={e => onChange(e.target.files)} className="sr-only" />
-                                     <label 
-                                        htmlFor={field.id} 
-                                        className={cn(
-                                            "flex items-center justify-center gap-2 w-full h-10 px-3 py-2 text-sm border-input border rounded-md cursor-pointer bg-background hover:bg-muted/50",
-                                            fileList && fileList.length > 0 && "text-primary"
-                                        )}
-                                    >
-                                        <Upload className="h-4 w-4"/>
-                                        <span>{fileList && fileList.length > 0 ? `${fileList.length} file(s) selected` : `Choose file(s)...`}</span>
-                                    </label>
-                                   </div>
+                                    <Select onValueChange={onChange} defaultValue={value}>
+                                    <SelectTrigger id={field.id}>
+                                        <SelectValue placeholder={field.placeholder || `Select ${field.name}`} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {field.options?.map((option) => (
+                                        <SelectItem key={option} value={option}>{option}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                    </Select>
                                 );
-                            case 'select':
-                              return (
-                                <Select onValueChange={onChange} defaultValue={value}>
-                                  <SelectTrigger id={field.id}>
-                                    <SelectValue placeholder={field.placeholder || `Select ${field.name}`} />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {field.options?.map((option) => (
-                                      <SelectItem key={option} value={option}>{option}</SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
-                              );
-                             case 'button':
-                                return (
-                                     <Link href="/dashboard/settings?tab=connections" className='w-full'>
-                                       <Button type="button" variant="outline" className='w-full justify-start'>
-                                          {field.cta}
-                                      </Button>
-                                    </Link>
-                                )
-                            default:
-                              return null;
-                          }
-                      }}
-                    />
-                  <p className="text-xs text-muted-foreground">{field.description}</p>
-                  {errors[field.id] && <p className="text-sm text-destructive">{errors[field.id]?.message as string}</p>}
-                </div>
-              ))}
+                                case 'button':
+                                    return (
+                                        <Link href="/dashboard/settings?tab=connections" className='w-full'>
+                                        <Button type="button" variant="outline" className='w-full justify-start'>
+                                            {field.cta}
+                                        </Button>
+                                        </Link>
+                                    )
+                                default:
+                                return null;
+                            }
+                        }}
+                        />
+                    <p className="text-xs text-muted-foreground">{field.description}</p>
+                    {errors[field.id] && <p className="text-sm text-destructive">{errors[field.id]?.message as string}</p>}
+                    </div>
+                )})}
             </div>
           </CardContent>
           <CardFooter>

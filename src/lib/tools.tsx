@@ -76,7 +76,7 @@ const copyToClipboard = (text: string, toast: any) => {
 export type Field = {
   id: string;
   name: string;
-  type: 'text' | 'file' | 'textarea' | 'select' | 'button' | 'number';
+  type: 'text' | 'file' | 'textarea' | 'select' | 'button' | 'number' | 'group-header';
   placeholder?: string;
   description: string;
   options?: string[];
@@ -227,15 +227,20 @@ export const tools: Tool[] = [
       ],
     },
     creationFields: [
-      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Williamsburg, Brooklyn, NY"', description: 'The target city or neighborhood.' },
+      { id: 'group-property', name: 'Property Details', type: 'group-header', description: 'Tell the AI about the property you\'re marketing.' },
+      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Williamsburg, Brooklyn, NY"', description: 'The target city or neighborhood. Be specific for best results.' },
       { id: 'propertyType', name: 'Property Type', type: 'select', options: ["Single-Family Home", "Condo", "Townhouse", "Multi-Family", "Land"], placeholder: 'Select property type', description: 'The type of property being sold.' },
       { id: 'minPrice', name: 'Min Price', type: 'number', placeholder: 'e.g., 500000', description: 'Minimum property price.' },
       { id: 'maxPrice', name: 'Max Price', type: 'number', placeholder: 'e.g., 1200000', description: 'Maximum property price.' },
       { id: 'amenities', name: 'Key Amenities', type: 'text', placeholder: 'e.g., Pool, Gym, Waterfront', description: 'List main features, comma-separated.' },
+      
+      { id: 'group-audience', name: 'Audience Persona', type: 'group-header', description: 'Describe your ideal buyer.' },
       { id: 'minAge', name: 'Min Age', type: 'number', placeholder: 'e.g., 30', description: 'Minimum target age.' },
       { id: 'maxAge', name: 'Max Age', type: 'number', placeholder: 'e.g., 55', description: 'Maximum target age.' },
       { id: 'incomeLevel', name: 'Income Level', type: 'select', options: ["Starter", "Mid-Range", "High Earner", "Affluent", "Ultra-High-Net-Worth"], placeholder: 'Select income level', description: 'Financial status of the audience.' },
-      { id: 'interests', name: 'Audience Interests', type: 'text', placeholder: 'e.g., Golf, Luxury Cars, Tech', description: 'List interests, comma-separated.' },
+
+      { id: 'group-advanced', name: 'Advanced Targeting', type: 'group-header', description: 'Add specific interests to refine the AI\'s suggestions.' },
+      { id: 'interests', name: 'Audience Interests', type: 'text', placeholder: 'e.g., Golf, Luxury Cars, Tech Startups', description: 'List interests, comma-separated.' },
     ],
   },
   {
