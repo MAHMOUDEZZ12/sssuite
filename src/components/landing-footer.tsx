@@ -10,6 +10,7 @@ import { Separator } from './ui/separator';
 export function LandingFooter() {
   const footerLinks = {
     resources: [
+        { name: 'Pricing', href: '/pricing' },
         { name: 'Blog', href: '/blog' },
         { name: 'Documentation', href: '/documentation' },
         { name: 'Technology', href: '/technology' },

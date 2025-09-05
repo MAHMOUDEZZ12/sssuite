@@ -14,7 +14,10 @@ export function LandingHeader() {
         <div className="mr-auto">
             <Logo />
         </div>
-        <div className="ml-auto flex items-center gap-4">
+        <div className="ml-auto flex items-center gap-2">
+          <Link href="/pricing">
+            <Button variant="ghost">Pricing</Button>
+          </Link>
           <Link href="/login">
             <Button variant="ghost">Log In</Button>
           </Link>
