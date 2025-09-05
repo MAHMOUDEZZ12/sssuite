@@ -1,8 +1,8 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Key, Bomb, X, Search } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Key, Bomb, X, Search, Lightbulb } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
@@ -12,8 +12,9 @@ import { Card, CardContent } from '@/components/ui/card';
 
 const GRID_SIZE = 5;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
+const MAX_ATTEMPTS = 3;
 
-const generateGrid = () => {
+const generateGridState = () => {
     const keyPosition = Math.floor(Math.random() * TOTAL_CELLS);
     const grid = Array(TOTAL_CELLS).fill(null).map((_, index) => ({
         id: index,
@@ -21,11 +22,27 @@ const generateGrid = () => {
         isClicked: false,
         icon: 'initial' as 'initial' | 'key' | 'bomb'
     }));
-    return grid;
+
+    const keyRow = Math.floor(keyPosition / GRID_SIZE);
+    const keyCol = keyPosition % GRID_SIZE;
+    
+    let hint = '';
+    const hintType = Math.floor(Math.random() * 4);
+    if (hintType === 0) {
+        hint = `The key is in an ${keyRow % 2 === 0 ? 'even' : 'odd'}-numbered row.`;
+    } else if (hintType === 1) {
+        hint = `The key is in an ${keyCol % 2 === 0 ? 'even' : 'odd'}-numbered column.`;
+    } else if (hintType === 2) {
+        hint = `The key is in the ${keyRow < 3 ? 'top' : 'bottom'} half.`;
+    } else {
+        hint = `The key is on the ${keyCol < 3 ? 'left' : 'right'} side.`;
+    }
+
+    return { grid, hint };
 }
 
 export default function SuperFreeTimePage() {
-    const [grid, setGrid] = useState(generateGrid());
+    const [gameState, setGameState] = useState(generateGridState());
     const [gameOver, setGameOver] = useState(false);
     const [foundKey, setFoundKey] = useState(false);
     const [attempts, setAttempts] = useState(0);
@@ -33,8 +50,10 @@ export default function SuperFreeTimePage() {
     const handleCellClick = (id: number) => {
         if (gameOver) return;
 
-        setAttempts(prev => prev + 1);
-        const newGrid = [...grid];
+        const newAttempts = attempts + 1;
+        setAttempts(newAttempts);
+
+        const newGrid = [...gameState.grid];
         const cell = newGrid[id];
         cell.isClicked = true;
 
@@ -44,17 +63,22 @@ export default function SuperFreeTimePage() {
             setGameOver(true);
         } else {
             cell.icon = 'bomb';
+            if (newAttempts >= MAX_ATTEMPTS) {
+                setGameOver(true);
+            }
         }
         
-        setGrid(newGrid);
+        setGameState(prev => ({ ...prev, grid: newGrid }));
     };
 
     const resetGame = () => {
-        setGrid(generateGrid());
+        setGameState(generateGridState());
         setGameOver(false);
         setFoundKey(false);
         setAttempts(0);
     };
+
+    const attemptsLeft = MAX_ATTEMPTS - attempts;
 
     return (
         <div className="flex min-h-screen flex-col bg-background">
@@ -69,14 +93,18 @@ export default function SuperFreeTimePage() {
                         Find The Key by Gemini
                     </h1>
                     <p className="text-lg md:text-xl text-foreground/60 max-w-3xl mx-auto">
-                        A little game to brighten your day. Click the squares to find the hidden key!
+                        You have {MAX_ATTEMPTS} chances to find the key using the hint below. Good luck!
                     </p>
                 </div>
 
                 <Card className="bg-card/50 backdrop-blur-lg border-primary/10 shadow-xl shadow-primary/10 w-full max-w-md">
                     <CardContent className="p-6">
+                        <div className="mb-4 text-center p-3 bg-muted/50 rounded-lg border flex items-center justify-center gap-3">
+                           <Lightbulb className="h-5 w-5 text-primary" />
+                           <p className="font-semibold text-foreground/80">{gameState.hint}</p>
+                        </div>
                         <div className="grid grid-cols-5 gap-3 aspect-square">
-                            {grid.map(cell => (
+                            {gameState.grid.map(cell => (
                                 <button
                                     key={cell.id}
                                     onClick={() => handleCellClick(cell.id)}
@@ -101,16 +129,19 @@ export default function SuperFreeTimePage() {
                                 </button>
                             ))}
                         </div>
+                         <div className="mt-4 text-center">
+                            <p className="text-sm text-muted-foreground">Attempts left: {attemptsLeft > 0 ? attemptsLeft : 0}</p>
+                        </div>
                     </CardContent>
                 </Card>
 
-                <div className="mt-8 text-center">
+                <div className="mt-8 text-center h-24">
                     {gameOver && (
                         <div className="animate-in fade-in space-y-4">
                             {foundKey ? (
                                 <h2 className="text-3xl font-bold text-green-400">You found it in {attempts} {attempts === 1 ? 'attempt' : 'attempts'}!</h2>
                             ) : (
-                                <h2 className="text-3xl font-bold text-destructive">So close!</h2>
+                                <h2 className="text-3xl font-bold text-destructive">So close! Better luck next time.</h2>
                             )}
                             <Button onClick={resetGame} size="lg">Play Again</Button>
                         </div>
