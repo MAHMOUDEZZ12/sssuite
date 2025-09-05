@@ -5,52 +5,25 @@ It connects AI assistants, onboarding, and sales tools into one event-driven sys
 
 ---
 
-## 🚀 Architecture
+## 🧠 System Brain Map
 
-The system is designed as a **nervous system**:
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="/exec-brain-map.svg">
+  <img alt="Executive Brain Map" src="/exec-brain-map.light.svg" width="100%">
+</picture>
 
-```mermaid
-flowchart TD
-  UI["UI (Next.js • Vercel)<br/>Home • Onboarding • Dashboard • Assistant"]:::blk
+### What you’re seeing
+- **UI (Next.js/Vercel):** Home, Onboarding (DeepSearch), Dashboard, Assistant Panel  
+- **AI Core:** Multi-step Copilot (Intent → Plan → Actions → Review)  
+- **Event Bus:** Everything emits events → analytics + automation  
+- **Services:** Projects Library, Brand Kit, Creative Tools, Ads Manager, Comms/Outreach  
+- **Data:** Firestore (users, projects_catalog, projects_library, events, drafts)  
+- **Jobs:** Cloud Functions (generate library, sync brand, schedule chains, integrations)
 
-  subgraph CORE["AI Core (Intent → Plan → Actions → Review)"]
-    AIC["AI Copilot"]
-  end
-
-  subgraph BUS["Event Bus & Orchestration"]
-  end
-
-  subgraph SVC["Services"]
-    PRJ["Projects Library<br/>(per market)"]
-    BR["Brand Kit<br/>(logo • colors • contacts)"]
-    CR["Creative Tools<br/>PDF • Social • Reels • Landing"]
-    ADS["Ads Manager<br/>Creator • Precision • Copilots"]
-    CM["Comms & Outreach<br/>Email • WhatsApp • IG Bot"]
-  end
-
-  subgraph DATA["Data Layer (Firestore • Storage)"]
-    DB["users • projects_catalog • projects_library • events • drafts"]
-  end
-
-  subgraph JOBS["Background Jobs (Cloud Functions)"]
-    J1["generate library"]
-    J2["sync brand"]
-    J3["schedule chains"]
-    J4["integrations"]
-  end
-
-  UI --> BUS --> CORE --> SVC
-  SVC --> DATA
-  SVC --> JOBS
-
-  classDef blk fill:#0A0A0A,stroke:#7A7A7A,color:#EAEAEA,rx:12,ry:12;
-  classDef ring fill:#0F0F0F,stroke:#95FE54,color:#95FE54,rx:10,ry:10;
-  class CORE ring;
-  class BUS blk;
-  class SVC blk;
-  class DATA blk;
-  class JOBS blk;
-```
+### Why it matters
+- **No demo** — all data is generated live per user/market  
+- **Event-driven** — every click becomes learning + automation  
+- **Composable** — easy to white-label, add tools, or swap providers
 
 ---
 
