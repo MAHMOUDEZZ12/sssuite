@@ -793,8 +793,40 @@ export const tools: Feature[] = [
     icon: <LineChart />,
     color: '#f59e0b', // amber-500
     cta: 'Market Report',
-    categories: ['Marketing', 'Editing'],
+    categories: ['Marketing', 'Editing', 'Sales Tools'],
     mindMapCategory: 'Marketing',
+    renderResult: (result, toast) => (
+      <div className="space-y-6 text-foreground">
+        <h3 className="text-2xl font-bold font-heading">{result.reportTitle}</h3>
+        <Separator />
+        <div>
+          <h4 className="font-semibold text-lg mb-1">Executive Summary</h4>
+          <p className="text-foreground/80">{result.executiveSummary}</p>
+        </div>
+        <Separator />
+        <div>
+          <h4 className="font-semibold text-lg mb-2">Key Market Trends</h4>
+          <ul className="space-y-3">
+            {result.marketTrends.map((item: any, index: number) => (
+              <li key={index} className="p-3 bg-muted/50 rounded-md">
+                <p className="font-semibold">{item.trend}</p>
+                <p className="text-sm text-muted-foreground">{item.analysis}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <Separator />
+        <div>
+          <h4 className="font-semibold text-lg mb-1">Pricing Analysis</h4>
+          <p className="text-foreground/80">{result.pricingAnalysis}</p>
+        </div>
+        <Separator />
+        <div>
+          <h4 className="font-semibold text-lg mb-1">Future Outlook</h4>
+          <p className="text-foreground/80">{result.futureOutlook}</p>
+        </div>
+      </div>
+    ),
     details: {
       steps: [
         { text: 'Enter a neighborhood or address', icon: <MapPin className="h-6 w-6" /> },
@@ -818,8 +850,8 @@ export const tools: Feature[] = [
     },
     creationFields: [
       { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Beverly Hills, CA"', description: 'The neighborhood or city for the report.' },
-      { id: 'reportFocus', name: 'Report Focus', type: 'text', placeholder: 'e.g., "2-bedroom condos" or "New construction"', description: 'Specify a property type or focus for the report.' },
-      { id: 'specificProperty', name: 'Specific Property Address (Optional)', type: 'text', placeholder: 'e.g., 123 Main St, Beverly Hills, CA', description: 'Generate a detailed report for a single listing.' },
+      { id: 'propertyType', name: 'Property Type', type: 'text', placeholder: 'e.g., "2-bedroom condos"', description: 'Specify a property type or focus for the report.' },
+      { id: 'reportType', name: 'Report Type', type: 'select', options: ['Investor', 'Home Buyer', 'Seller'], placeholder: 'Select report audience', description: 'Tailor the report for a specific audience.' },
     ],
   },
   {

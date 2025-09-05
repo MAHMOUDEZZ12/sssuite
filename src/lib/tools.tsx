@@ -12,6 +12,7 @@ import { suggestTargetingOptions } from '@/ai/flows/suggest-targeting-options';
 import { editPdf } from '@/ai/flows/edit-pdf';
 import { matchInvestors } from '@/ai/flows/match-investors';
 import { aiBrandCreator } from '@/ai/flows/ai-brand-creator';
+import { generateMarketReport } from '@/ai/flows/generate-market-report';
 
 
 // Import the client-safe tools definition
@@ -41,6 +42,7 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'social-posts': generateSocialPost,
     'investor-matching': matchInvestors,
     'ai-brand-creator': aiBrandCreator,
+    'market-reports': generateMarketReport,
     // Add other flow runners here as they are created
 };
 

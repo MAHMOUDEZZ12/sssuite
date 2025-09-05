@@ -82,5 +82,14 @@ export const blogContent: BlogContent = {
             { heading: "The One-Click Strategy", body: "Our AI Social Post Strategist is the solution. Instead of just giving you one post, it generates an entire week of content from a single topic or link. It creates a varied plan, with different angles for each day—a 'Myth vs. Fact' on Tuesday, a 'Testimonial' on Friday, a 'Market Stat' on Wednesday—all related to your initial idea." },
             { heading: "The Hashtag Tiers: A Pro Move", body: "The tool also provides a sophisticated, three-tiered hashtag strategy. It gives you broad 'Primary' hashtags for reach, specific 'Secondary' hashtags for targeting, and 'Location' hashtags to dominate your local market. This ensures every post has the maximum chance of being discovered by the right people. It's a full week of expert social media marketing, generated in seconds." }
         ]
+    },
+    'market-reports': {
+        title: 'Your Personal Analyst: On-Demand, Hyper-Local Market Reports',
+        intro: "Stop using generic, city-wide data. With the AI Market Reports tool, you become the most informed agent in the room. Generate beautiful, branded, and data-rich reports for any neighborhood, property type, or even a single address in seconds.",
+        sections: [
+            { heading: "The Problem: Data is Everywhere, Insight is Rare", body: "Agents are drowning in data but starving for wisdom. MLS printouts are stale and hard for clients to understand. Manually creating a custom market analysis is a time-consuming process of data exporting, chart-making, and design work." },
+            { heading: "The Hack: On-Demand Intelligence", body: "This tool acts as your personal market analyst. Simply provide a location and a property type, and the AI synthesizes public records, sales data, and economic indicators into a professional, narrative-driven report. It doesn't just show numbers; it explains what they mean." },
+            { heading: "How to Use It:", body: "Use these reports to educate buyers, justify pricing to sellers, or establish your authority on social media. Post a key insight from the report and offer the full, branded PDF as a lead magnet. It's a powerful way to provide immense value and build your pipeline." }
+        ]
     }
 };
