@@ -77,19 +77,19 @@ const SidebarMenuGroup = ({
     return (
       <Collapsible defaultOpen={isActive}>
         <CollapsibleTrigger asChild>
-          <div className="flex items-center justify-between px-2 py-1 cursor-pointer hover:bg-muted rounded-md">
+          <div className="flex items-center justify-between px-2 py-1 cursor-pointer hover:bg-muted rounded-md group-data-[collapsible=icon]:hidden">
             <span className="text-sm font-semibold">{title}</span>
             <ChevronRight className="h-4 w-4 transition-transform duration-200 [&[data-state=open]]:rotate-90" />
           </div>
         </CollapsibleTrigger>
         <CollapsibleContent>
-          <SidebarMenu className="pl-4 py-2">
+          <SidebarMenu className="pl-4 py-2 group-data-[collapsible=icon]:pl-0 group-data-[collapsible=icon]:py-0">
             {tools.map((tool) => (
               <SidebarMenuItem key={tool.id}>
                 <Link href={`/dashboard/tool/${tool.id}`}>
                   <SidebarMenuButton isActive={pathname.endsWith(tool.id)} tooltip={{ children: tool.title }}>
                       {tool.icon}
-                      <span>{tool.title}</span>
+                      <span className="group-data-[collapsible=icon]:hidden">{tool.title}</span>
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
@@ -132,7 +132,7 @@ export default function DashboardLayout({
                         <Link href="/dashboard/assistant">
                             <SidebarMenuButton>
                                 <BrainCircuit />
-                                <span>Train Assistant</span>
+                                <span className="group-data-[collapsible=icon]:hidden">Train Assistant</span>
                             </SidebarMenuButton>
                         </Link>
                     </SidebarMenuItem>
@@ -141,7 +141,7 @@ export default function DashboardLayout({
                         <Link href="/dashboard/projects">
                             <SidebarMenuButton>
                                 <Briefcase />
-                                <span>My Projects</span>
+                                <span className="group-data-[collapsible=icon]:hidden">My Projects</span>
                             </SidebarMenuButton>
                         </Link>
                     </SidebarMenuItem>
@@ -149,7 +149,7 @@ export default function DashboardLayout({
                         <Link href="/dashboard/leads">
                             <SidebarMenuButton>
                                 <Contact />
-                                <span>Leads (CRM)</span>
+                                <span className="group-data-[collapsible=icon]:hidden">Leads (CRM)</span>
                             </SidebarMenuButton>
                         </Link>
                     </SidebarMenuItem>
@@ -157,7 +157,7 @@ export default function DashboardLayout({
                         <Link href="/dashboard/data">
                             <SidebarMenuButton>
                                 <Database />
-                                <span>Data Storage</span>
+                                <span className="group-data-[collapsible=icon]:hidden">Data Storage</span>
                             </SidebarMenuButton>
                         </Link>
                     </SidebarMenuItem>
@@ -165,7 +165,7 @@ export default function DashboardLayout({
                         <Link href="/dashboard/brand">
                             <SidebarMenuButton>
                                 <Palette />
-                                <span>My Brand</span>
+                                <span className="group-data-[collapsible=icon]:hidden">My Brand</span>
                             </SidebarMenuButton>
                         </Link>
                     </SidebarMenuItem>
@@ -173,7 +173,7 @@ export default function DashboardLayout({
                          <Link href="/dashboard/settings">
                             <SidebarMenuButton>
                                 <Settings />
-                                <span>Settings</span>
+                                <span className="group-data-[collapsible=icon]:hidden">Settings</span>
                             </SidebarMenuButton>
                         </Link>
                     </SidebarMenuItem>
@@ -182,7 +182,7 @@ export default function DashboardLayout({
                         <Link href="/status">
                             <SidebarMenuButton>
                                 <Server />
-                                <span>System Status</span>
+                                <span className="group-data-[collapsible=icon]:hidden">System Status</span>
                             </SidebarMenuButton>
                         </Link>
                     </SidebarMenuItem>
@@ -190,7 +190,7 @@ export default function DashboardLayout({
                         <a href="mailto:support@supersalessuite.com">
                             <SidebarMenuButton>
                                 <LifeBuoy />
-                                <span>Report an Issue</span>
+                                <span className="group-data-[collapsible=icon]:hidden">Report an Issue</span>
                             </SidebarMenuButton>
                         </a>
                     </SidebarMenuItem>
