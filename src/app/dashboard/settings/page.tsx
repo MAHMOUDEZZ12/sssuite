@@ -35,9 +35,7 @@ const mockBillingHistory = [
 const themes = [
     { id: "light", name: "Light", icon: <Sun /> },
     { id: "dark", name: "Dark", icon: <Moon /> },
-    { id: "theme-x3", name: "System X3", icon: <Bot /> },
-    { id: "theme-darks1", name: "Dark S1", icon: <Bot /> },
-    { id: "theme-lights2", name: "Light S2", icon: <Bot /> },
+    { id: "system", name: "System", icon: <Laptop /> },
     { id: "theme-pinkpurple", name: "Pink/Purple", icon: <Bot /> },
 ];
 

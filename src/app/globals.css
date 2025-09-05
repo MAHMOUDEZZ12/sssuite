@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 @layer base {
-  :root, .light, .theme-lights2 {
+  :root, .light {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -47,50 +47,6 @@
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
     --ring: 217.2 91.2% 59.8%;
-  }
-
-  .theme-x3, .theme-crimson-gold {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 195 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 260 40% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 150 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 145 73.6% 47.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 195 83.2% 53.3%;
-  }
-  
-  .theme-darks1 {
-    --background: 0 0% 8%;
-    --foreground: 210 40% 98%;
-    --card: 0 0% 12%;
-    --card-foreground: 210 40% 98%;
-    --popover: 0 0% 8%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 210 40% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 210 40% 22.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 210 40% 22.5%;
-    --input: 210 40% 17.5%;
-    --ring: 210 83.2% 53.3%;
   }
 
   .theme-pinkpurple {

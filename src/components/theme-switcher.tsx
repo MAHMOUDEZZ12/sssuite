@@ -9,16 +9,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Sun, Moon, Laptop } from 'lucide-react';
+import { Sun, Moon, Laptop, Bot } from 'lucide-react';
 
 const themes = [
   { value: 'light', label: 'Light', icon: Sun },
   { value: 'dark', label: 'Dark', icon: Moon },
   { value: 'system', label: 'System', icon: Laptop },
+  { value: 'theme-pinkpurple', label: 'Pink/Purple', icon: Bot },
 ];
 
 export function ThemeSwitcher() {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('system');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -42,7 +43,7 @@ export function ThemeSwitcher() {
     localStorage.setItem('theme', theme);
   }, [theme]);
   
-  const ActiveIcon = themes.find(t => t.value === theme)?.icon || Sun;
+  const ActiveIcon = themes.find(t => t.value === theme)?.icon || Laptop;
 
   return (
     <DropdownMenu>
