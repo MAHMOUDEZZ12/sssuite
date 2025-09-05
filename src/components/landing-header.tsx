@@ -31,12 +31,12 @@ export function LandingHeader() {
             <Logo />
         </div>
         <div className="hidden md:flex items-center gap-2">
+            <ThemeSwitcher />
             {navLinks.map((link) => (
                  <Link key={link.name} href={link.href}>
                     <Button variant="ghost">{link.name}</Button>
                 </Link>
             ))}
-            <ThemeSwitcher />
             <Link href="/login">
                 <Button variant="ghost">Log In</Button>
             </Link>
