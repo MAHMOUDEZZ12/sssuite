@@ -108,7 +108,7 @@ const ToolLeaf = ({ tool, onClick, className }: { tool: Feature; onClick: (tool:
                             </div>
                              <div className="flex items-start gap-2 text-foreground/70">
                                 <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" />
-                                <span><span className="font-bold text-foreground/90">Integrated:</span> Crosstool tasks from the chat.</span>
+                                <span><span className="font-bold text-foreground/90">Integrated:</span> Crosstool tasks from the chat</span>
                             </div>
                         </div>
                     )}
@@ -299,24 +299,27 @@ export default function SX3MindmapPage() {
         </div>
 
         <section className="mt-24 w-full max-w-4xl">
-            <Card className="bg-card/50 backdrop-blur-lg border shadow-xl shadow-primary/10">
-                <Link href="/blog">
-                    <div className="flex flex-col md:flex-row items-center gap-6 p-6 group">
-                        <div className="p-4 bg-primary/10 text-primary rounded-lg">
-                            <BookOpen className="h-8 w-8" />
+            <div className="relative rounded-lg group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-spin"></div>
+                <Card className="relative bg-card/80 backdrop-blur-lg shadow-xl shadow-primary/10">
+                    <Link href="/blog">
+                        <div className="flex flex-col md:flex-row items-center gap-6 p-6">
+                            <div className="p-4 bg-primary/10 text-primary rounded-lg">
+                                <BookOpen className="h-8 w-8" />
+                            </div>
+                            <div className="text-center md:text-left">
+                                <h3 className="text-xl font-bold font-heading text-foreground">The Super Seller Handbook</h3>
+                                <p className="text-foreground/70">From a high-level view to a deep dive. Explore detailed guides and expert hacks for every tool.</p>
+                            </div>
+                            <div className="ml-auto">
+                               <Button variant="ghost">
+                                    Read Now <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                </Button>
+                            </div>
                         </div>
-                        <div className="text-center md:text-left">
-                            <h3 className="text-xl font-bold font-heading text-foreground">The Super Seller Handbook</h3>
-                            <p className="text-foreground/70">From a high-level view to a deep dive. Explore detailed guides and expert hacks for every tool.</p>
-                        </div>
-                        <div className="ml-auto">
-                           <Button variant="ghost">
-                                Read Now <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                            </Button>
-                        </div>
-                    </div>
-                </Link>
-            </Card>
+                    </Link>
+                </Card>
+            </div>
         </section>
 
       </main>
