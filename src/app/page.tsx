@@ -8,70 +8,10 @@ import Link from 'next/link';
 import {
   ArrowRight,
   Bot,
-  FileUp,
-  LayoutTemplate,
-  Palette,
-  Target,
-  Share2,
-  Gem,
-  Sparkles,
-  Gauge,
-  Mails,
-  Binoculars,
-  Video,
-  BarChart,
-  Repeat,
-  CalendarCheck,
-  Award,
-  Megaphone,
-  Zap,
-  Users,
-  TrendingUp,
-  Filter,
-  Lightbulb,
-  ShieldCheck,
   BrainCircuit,
-  ClipboardCheck,
-  FileText,
-  Clock,
-  Briefcase,
-  PenTool,
-  MessageCircle,
-  Mail,
-  Calendar,
-  DollarSign,
-  MapPin,
-  ClipboardList,
-  FilePlus,
-  Network,
-  Handshake,
-  Headset,
-  BookOpen,
-  Camera,
-  LineChart,
-  FileSearch,
-  Building,
-  Key,
-  X,
-  Clapperboard,
-  Film,
-  UserCog,
-  MessageSquare,
   CheckCircle,
-  Upload,
-  MousePointerClick,
-  Send,
   Plus,
-  Link as LinkIcon,
-  Users2,
-  Clock2,
-  BadgeCheck,
-  Wallet,
-  Phone,
-  Database,
-  Search,
-  Contact,
-  UserPlus,
+  Upload,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -104,7 +44,7 @@ const FeatureCard = ({
 }) => {
   return (
     <Card 
-        className="group flex flex-col bg-card/50 backdrop-blur-lg border-primary/10 hover:border-primary/30 transition-all duration-300 cursor-pointer hover:-translate-y-2"
+        className="group flex flex-col bg-card/50 backdrop-blur-lg border-border hover:border-primary/30 transition-all duration-300 cursor-pointer hover:-translate-y-2"
         onClick={() => onClick(feature)}
     >
       <CardHeader>
@@ -116,7 +56,7 @@ const FeatureCard = ({
         </div>
       </CardHeader>
       <CardContent className="flex flex-col flex-grow">
-        <h2 className="text-2xl font-bold mb-2 text-foreground">{feature.title}</h2>
+        <h2 className="text-2xl font-bold font-heading mb-2 text-foreground">{feature.title}</h2>
         <p className="text-lg text-foreground/70 flex-grow">{feature.description}</p>
          <div className="mt-6">
             <div 
@@ -139,7 +79,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
     <Dialog open={!!feature} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="bg-card/90 backdrop-blur-lg border-primary/20 text-foreground max-w-5xl w-[95vw] p-0 rounded-2xl">
           <div className="relative">
-            <div className="p-8 rounded-t-2xl bg-gradient-to-br" style={{'--tw-gradient-from': feature.color, '--tw-gradient-to': 'transparent'} as React.CSSProperties}>
+            <div className="p-8 rounded-t-2xl" style={{'background': `linear-gradient(to bottom right, ${feature.color}, transparent)`}}>
                <div className="flex items-start justify-between">
                   <div className='flex items-center gap-4'>
                     <div className="p-4 bg-white/20 rounded-full w-fit">
@@ -147,7 +87,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                     </div>
                     <div>
                       <DialogTitle asChild>
-                        <h2 className="text-4xl font-bold text-white mb-1">{feature.title}</h2>
+                        <h2 className="text-4xl font-bold font-heading text-white mb-1">{feature.title}</h2>
                       </DialogTitle>
                       <p className="text-lg text-white/80">{feature.description}</p>
                     </div>
@@ -186,7 +126,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                 <TabsContent value="comparison" className="space-y-4 text-foreground/90">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                     <div className="space-y-4">
-                      <h3 className="text-2xl font-semibold text-center text-foreground/80">Manual Process</h3>
+                      <h3 className="text-2xl font-semibold font-heading text-center text-foreground/80">Manual Process</h3>
                        {feature.details.aiVsManual.map((item, index) => (
                         <div key={index} className="p-4 bg-card rounded-lg border">
                            <div className="flex items-center gap-3 mb-2">
@@ -198,7 +138,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                       ))}
                     </div>
                      <div className="space-y-4">
-                      <h3 className="text-2xl font-semibold text-center text-primary">AI-Powered Suite</h3>
+                      <h3 className="text-2xl font-semibold font-heading text-center text-primary">AI-Powered Suite</h3>
                        {feature.details.aiVsManual.map((item, index) => (
                         <div key={index} className="p-4 bg-card rounded-lg border border-primary/20 shadow-lg shadow-primary/5">
                            <div className="flex items-center gap-3 mb-2">
@@ -280,7 +220,7 @@ export default function Home() {
       <LandingHeader />
       <main className="flex-1 w-full max-w-full px-4 md:px-6 lg:px-8 py-12 md:py-20">
         <div className="text-center mb-12 max-w-5xl mx-auto">
-          <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
+          <h1 className="text-4xl md:text-7xl font-bold font-heading tracking-tighter mb-4 text-foreground">
             A salesperson with tools is a super-seller.
           </h1>
           <p className="text-lg md:text-xl text-foreground/60">
@@ -317,15 +257,15 @@ export default function Home() {
         </div>
         
         <section className="mt-24 max-w-6xl mx-auto">
-            <Card className="bg-card/50 backdrop-blur-lg border-primary/10 shadow-xl shadow-primary/10 overflow-hidden">
+            <Card className="bg-card/50 backdrop-blur-lg border-border shadow-xl shadow-primary/10 overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
                     <div className="p-8 md:p-12">
                          <div className="p-3 bg-primary/10 text-primary rounded-full w-fit mb-4">
                             <Bot className="h-8 w-8" />
                         </div>
-                        <h2 className="text-4xl font-bold tracking-tight mb-4">Meet Your AI Partner</h2>
+                        <h2 className="text-4xl font-bold font-heading tracking-tight mb-4">Meet Your AI Partner</h2>
                         <p className="text-lg text-foreground/70 mb-6">
-                            Beyond individual tools, the Super Sales Suite is powered by a central AI assistant you can train. Give it a personality, feed it your knowledge, and watch it become the most valuable member of your team.
+                            Beyond individual tools, the Treble S AI is powered by a central AI assistant you can train. Give it a personality, feed it your knowledge, and watch it become the most valuable member of your team.
                         </p>
                         <div className="space-y-4 mb-8">
                             <div className="flex items-start gap-4">
@@ -350,8 +290,8 @@ export default function Home() {
                             </Button>
                         </Link>
                     </div>
-                    <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center">
-                         <h3 className="text-xl font-semibold mb-4 text-foreground/90">Assistant Capabilities</h3>
+                     <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center">
+                         <h3 className="text-xl font-semibold font-heading mb-4 text-foreground/90">Assistant Capabilities</h3>
                          <ul className="space-y-3">
                              <li className="flex items-center gap-3">
                                  <CheckCircle className="h-5 w-5 text-primary" />
@@ -385,7 +325,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    

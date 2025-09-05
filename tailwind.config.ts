@@ -16,7 +16,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans, Inter)", ...fontFamily.sans],
+        sans: ["var(--font-sans)", ...fontFamily.sans],
+        heading: ["var(--font-heading)", ...fontFamily.sans],
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -75,16 +76,10 @@ export default {
             height: '0',
           },
         },
-        "background-pan": {
-          "0%": { backgroundPosition: "0% center" },
-          "50%": { backgroundPosition: "100% center" },
-          "100%": { backgroundPosition: "0% center" },
-        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        "background-pan": "background-pan 3s linear infinite",
       },
       screens: {
         '2xl': '1600px',

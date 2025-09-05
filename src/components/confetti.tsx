@@ -3,7 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import ReactConfetti from 'react-confetti';
 
-export function Confetti() {
+type ConfettiProps = {
+  onComplete?: () => void;
+};
+
+export function Confetti({ onComplete }: ConfettiProps) {
   const [windowSize, setWindowSize] = useState<{
     width: number;
     height: number;
@@ -41,6 +45,7 @@ export function Confetti() {
       gravity={0.1}
       onConfettiComplete={(confetti) => {
         if (confetti) {
+          onComplete?.();
           confetti.reset();
         }
       }}

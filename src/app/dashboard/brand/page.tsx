@@ -10,10 +10,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Palette, Upload, Save, Image as ImageIcon } from 'lucide-react';
+import { Palette, Upload, Save } from 'lucide-react';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { PageHeader } from '@/components/ui/page-header';
 
 const brandSchema = z.object({
   companyName: z.string().min(2, 'Company name is required.'),
@@ -40,10 +41,10 @@ export default function BrandPage() {
   } = useForm<BrandFormValues>({
     resolver: zodResolver(brandSchema),
     defaultValues: {
-      companyName: 'Super Sales Suite',
-      primaryColor: '#3b82f6',
-      secondaryColor: '#f97316',
-      contactInfo: 'John Doe\n(555) 123-4567\njohn.doe@supersales.com',
+      companyName: 'Treble S AI',
+      primaryColor: '#008080',
+      secondaryColor: '#CC6633',
+      contactInfo: 'John Doe\n(555) 123-4567\njohn.doe@trebles.ai',
     },
   });
 
@@ -73,17 +74,11 @@ export default function BrandPage() {
 
   return (
     <main className="p-4 md:p-10 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="p-3 bg-primary/10 text-primary rounded-lg w-fit">
-          <Palette className="h-8 w-8" />
-        </div>
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">My Brand</h2>
-          <p className="text-muted-foreground">
-            Manage your company's branding to personalize all AI-generated content.
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        title="My Brand"
+        description="Manage your company's branding to personalize all AI-generated content."
+        icon={<Palette className="h-8 w-8" />}
+      />
 
       <Card className="max-w-4xl">
         <CardHeader>
@@ -96,7 +91,7 @@ export default function BrandPage() {
           <CardContent className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                <div className="space-y-2">
-                <Label htmlFor="companyName" className="font-semibold text-lg">Company Name</Label>
+                <Label htmlFor="companyName">Company Name</Label>
                  <Controller
                     name="companyName"
                     control={control}
@@ -107,7 +102,7 @@ export default function BrandPage() {
                  {errors.companyName && <p className="text-sm text-destructive">{errors.companyName.message}</p>}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="logo" className="font-semibold text-lg">Company Logo</Label>
+                <Label htmlFor="logo">Company Logo</Label>
                 <Controller
                   name="logo"
                   control={control}
@@ -153,16 +148,16 @@ export default function BrandPage() {
             </div>
 
              <div className="space-y-4">
-                <Label className="font-semibold text-lg">Brand Colors</Label>
+                <Label>Brand Colors</Label>
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                    <div className="space-y-2">
-                     <Label htmlFor="primaryColor">Primary Color</Label>
+                     <Label htmlFor="primaryColor">Primary Color (Teal)</Label>
                       <div className="flex items-center gap-2">
                          <Controller
                             name="primaryColor"
                             control={control}
                             render={({ field }) => (
-                               <Input id="primaryColor" {...field} placeholder="#3b82f6" className="max-w-xs" />
+                               <Input id="primaryColor" {...field} placeholder="#008080" className="max-w-xs" />
                             )}
                           />
                         <div className="w-10 h-10 rounded-md border" style={{ backgroundColor: primaryColor }} />
@@ -170,13 +165,13 @@ export default function BrandPage() {
                      {errors.primaryColor && <p className="text-sm text-destructive">{errors.primaryColor.message}</p>}
                    </div>
                     <div className="space-y-2">
-                     <Label htmlFor="secondaryColor">Secondary Color</Label>
+                     <Label htmlFor="secondaryColor">Accent Color (Orange)</Label>
                      <div className="flex items-center gap-2">
                        <Controller
                           name="secondaryColor"
                           control={control}
                           render={({ field }) => (
-                             <Input id="secondaryColor" {...field} placeholder="#f97316" className="max-w-xs" />
+                             <Input id="secondaryColor" {...field} placeholder="#CC6633" className="max-w-xs" />
                           )}
                         />
                         <div className="w-10 h-10 rounded-md border" style={{ backgroundColor: secondaryColor }} />
@@ -187,7 +182,7 @@ export default function BrandPage() {
             </div>
             
             <div className="space-y-2">
-               <Label htmlFor="contactInfo" className="font-semibold text-lg">Contact Info</Label>
+               <Label htmlFor="contactInfo">Contact Info</Label>
                <p className="text-sm text-muted-foreground">This will be added to rebranded brochures and other marketing materials.</p>
                 <Controller
                     name="contactInfo"

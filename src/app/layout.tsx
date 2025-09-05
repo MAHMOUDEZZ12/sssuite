@@ -1,12 +1,22 @@
 import type { Metadata } from 'next';
 import { Toaster } from "@/components/ui/toaster";
 import './globals.css';
-import { Inter } from 'next/font/google';
+import { Poppins, PT_Sans } from 'next/font/google';
+import { cn } from '@/lib/utils';
 
-const inter = Inter({ subsets: ['latin'] });
+const fontSans = PT_Sans({ 
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-sans',
+});
+const fontHeading = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-heading',
+});
 
 export const metadata: Metadata = {
-  title: 'Super Sales Suite: Your Sales AI Suite',
+  title: 'Treble S AI: Your Sales AI Suite',
   description: 'The ultimate sales suite, empowering agents to create stunning marketing campaigns, target the right audience, and close more deals—no tech expertise required.',
 };
 
@@ -17,7 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={cn(
+        "min-h-screen bg-background font-sans antialiased",
+        fontSans.variable,
+        fontHeading.variable
+      )}>
         {children}
         <Toaster />
       </body>
