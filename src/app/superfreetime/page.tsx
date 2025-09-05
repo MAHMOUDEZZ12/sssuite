@@ -30,13 +30,13 @@ const generateGridState = () => {
     let hint = '';
     const hintType = Math.floor(Math.random() * 4);
     if (hintType === 0) {
-        hint = `The key is in an ${keyRow % 2 === 0 ? 'even' : 'odd'}-numbered row.`;
+        hint = `You're on the right street. It's in one of the first three buildings on the left.`;
     } else if (hintType === 1) {
-        hint = `The key is in an ${keyCol % 2 === 0 ? 'even' : 'odd'}-numbered column.`;
+        hint = `You passed it. Turn back and check the houses on the odd-numbered side of the road.`;
     } else if (hintType === 2) {
-        hint = `The key is in the ${keyRow < 3 ? 'top' : 'bottom'} half.`;
+        hint = `You are facing the office. Don't park. Next left after the 3rd board.`;
     } else {
-        hint = `The key is on the ${keyCol < 3 ? 'left' : 'right'} side.`;
+        hint = `It's not in the main square. Check the alleyways on the south side.`;
     }
 
     return { grid, hint };
@@ -150,7 +150,7 @@ export default function SuperFreeTimePage() {
                                   <div className="flex items-center justify-center gap-4">
                                      <Button onClick={resetGame} size="lg" variant="outline">One More Game</Button>
                                      <Link href="/dashboard/leads">
-                                        <Button size="lg"><UserPlus /> One More Lead</Button>
+                                        <Button size="lg"><UserPlus className="mr-2 h-4 w-4"/> One More Lead</Button>
                                      </Link>
                                   </div>
                                 </>
