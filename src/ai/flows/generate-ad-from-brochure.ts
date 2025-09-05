@@ -2,15 +2,15 @@
 'use server';
 
 /**
- * @fileOverview AI-powered ad generation from project brochures.
+ * @fileOverview AI-powered ad generation from project brochures or a simple project name.
  *
- * This flow generates compelling ad copy and a visually appealing ad design based on a project brochure and branding guidelines.
+ * This flow generates compelling ad copy and a visually appealing ad design based on a project brochure (if provided) or just a project name, along with branding guidelines.
  *
  * @module AI/Flows/GenerateAdFromBrochure
  *
- * @export {function} generateAdFromBrochure - The main function to generate an ad from a brochure.
- * @export {type} GenerateAdFromBrochureInput - The Zod schema for the input of the generateAdFromBrochure flow.
- * @export {type} GenerateAdFromBrochureOutput - The Zod schema for the output of the generateAdFromBrochure flow.
+ * @export {function} generateAdFromBrochure - The main function to generate an ad.
+ * @export {type} GenerateAdFromBrochureInput - The Zod schema for the input of the flow.
+ * @export {type} GenerateAdFromBrochureOutput - The Zod schema for the output of the flow.
  */
 
 import {ai} from '@/ai/genkit';
@@ -21,14 +21,19 @@ import {z} from 'genkit';
  */
 const GenerateAdFromBrochureInputSchema = z.object({
   /**
-   * The project brochure file, encoded as a Base64 data URI.
+   * The project brochure file, encoded as a Base64 data URI. This is now optional.
    * @example "data:application/pdf;base64,..."
    */
   brochureDataUri: z
     .string()
+    .optional()
     .describe(
       "A project brochure, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
+  /**
+   * The name of the project. Used if no brochure is provided.
+   */
+  projectName: z.string().optional().describe('The name of the project.'),
   /**
    * Additional information or key details about the project.
    */
@@ -72,7 +77,7 @@ export type GenerateAdFromBrochureOutput = z.infer<
 >;
 
 /**
- * An AI flow that generates ad copy and designs from a project brochure.
+ * An AI flow that generates ad copy and designs from a project brochure or name.
  * This function serves as a wrapper for the underlying Genkit flow.
  *
  * @param {GenerateAdFromBrochureInput} input - The input data for generating the ad.
@@ -88,21 +93,28 @@ const generateAdFromBrochurePrompt = ai.definePrompt({
   name: 'generateAdFromBrochurePrompt',
   input: {schema: GenerateAdFromBrochureInputSchema},
   output: {schema: GenerateAdFromBrochureOutputSchema},
-  prompt: `You are an AI-powered advertising expert. Your task is to generate compelling ad copy and a visually appealing ad design based on the provided project brochure, information, and branding guidelines. The user's brand name, colors, and contact info should be inferred from the brochure itself.
+  prompt: `You are an AI-powered advertising expert for real estate. Your task is to generate compelling ad copy and a visually appealing ad design (as a one-page brochure PDF). The user's brand name, colors, and contact info should be inferred from the brochure itself if provided.
 
 Here are the project details:
 
 Focus Area: {{{focusArea}}}
+{{#if projectName}}
+Project Name: {{{projectName}}}
+{{/if}}
 {{#if additionalInformation}}
 Additional Information: {{{additionalInformation}}}
 {{/if}}
+{{#if brochureDataUri}}
 Brochure: {{media url=brochureDataUri}}
+{{else}}
+Instruction: If no brochure is provided, create a high-quality, professional one-page brochure for the project name given. Use placeholder text and images that match the focus area.
+{{/if}}
 
 Here are the branding guidelines:
 
 Tone of Voice: {{{toneOfVoice}}}
 
-Generate ad copy that is engaging, persuasive, and tailored to the specified focus area and target audience. Create an ad design that is visually consistent with the brand's identity and optimized for social media platforms. Also, generate a landing page design to show off the listing.
+Generate ad copy that is engaging, persuasive, and tailored to the specified focus area. Create an ad design as a one-page PDF brochure that is visually consistent with a modern, professional brand identity. Also, generate a landing page design to show off the listing.
 
 Ensure that the ad copy and design align with the project details and branding guidelines.`,
 });

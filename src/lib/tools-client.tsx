@@ -175,12 +175,20 @@ export const tools: Feature[] = [
             </div>
           </div>
           <div>
-            <h3 className="font-semibold text-lg mb-2">Ad Design</h3>
-            <Image src={result.adDesign} alt="Generated ad design" width={500} height={500} className="rounded-lg border" />
+            <h3 className="font-semibold text-lg mb-2">Ad Design (Brochure)</h3>
+            <div className="border rounded-lg overflow-hidden">
+                <iframe src={`${result.adDesign}#view=fitH`} className="w-full h-[600px]" />
+            </div>
+             <a href={result.adDesign} download="brochure.pdf" className="mt-2 inline-block">
+                <Button variant="outline"><Download className="mr-2"/> Download PDF</Button>
+            </a>
           </div>
           <div>
             <h3 className="font-semibold text-lg mb-2">Landing Page Preview</h3>
             <Image src={result.landingPage} alt="Generated landing page" width={500} height={500} className="rounded-lg border" />
+             <a href={result.landingPage} download="landing-page.png" className="mt-2 inline-block">
+                <Button variant="outline"><Download className="mr-2"/> Download Image</Button>
+            </a>
           </div>
         </div>
     ),
@@ -206,7 +214,8 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-      { id: 'brochureDataUri', name: 'Developer Brochure', type: 'file', description: 'Upload the original PDF.' },
+      { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "Azure Lofts"', description: 'Provide a name if you are not uploading a brochure.' },
+      { id: 'brochureDataUri', name: 'Developer Brochure (Optional)', type: 'file', description: 'Upload the original PDF. This is the best source of info.' },
       { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
       { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
       { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of condo fees waived."', description: 'Add any other key details or offers. (Optional)' },

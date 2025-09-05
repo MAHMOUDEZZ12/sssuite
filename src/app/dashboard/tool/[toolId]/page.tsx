@@ -30,8 +30,11 @@ const getToolSchema = (tool: Tool | undefined) => {
         
         let fieldSchema;
 
+        // Special optional fields
+        const optionalFileFields = ['companyLogoDataUri', 'projectBrochureDataUri', 'inspirationImageDataUri', 'newImages', 'brochureDataUri'];
+
         if (field.type === 'file') {
-            const isOptional = field.multiple || ['companyLogoDataUri', 'projectBrochureDataUri', 'inspirationImageDataUri', 'newImages'].includes(field.id);
+            const isOptional = field.multiple || optionalFileFields.includes(field.id);
 
             fieldSchema = z.custom<FileList>().nullable().refine(files => {
                 if (isOptional) return true;
@@ -40,7 +43,7 @@ const getToolSchema = (tool: Tool | undefined) => {
 
         } else if (field.type === 'number') {
             fieldSchema = z.string().min(1, `${field.name} is required`).refine(val => !isNaN(Number(val)), { message: "Must be a number" });
-        } else if (field.id === 'additionalInformation') {
+        } else if (['additionalInformation', 'projectName'].includes(field.id) ) {
              fieldSchema = z.string().optional();
         }
         else {
