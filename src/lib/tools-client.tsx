@@ -643,7 +643,7 @@ export const tools: Feature[] = [
         { text: 'Generate a fast-paced, engaging video', icon: <Sparkles className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Time to Edit', manual: '1-2 hours syncing clips to audio', ai: 'Fast by default', icon: <Clock2 /> },
+        { metric: 'Editing Time', manual: '1-2 hours syncing clips to audio', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Trend Analysis', manual: 'Hours scrolling to find trends', ai: 'Identifies trending audio for you', icon: <Sparkles /> },
         { metric: 'Visual Effects', manual: 'Complex editing software needed', ai: 'Applies popular effects automatically', icon: <BadgeCheck /> },
       ],

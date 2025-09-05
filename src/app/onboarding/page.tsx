@@ -114,11 +114,41 @@ function OnboardingComponent() {
 
     const nextStep = () => router.push(`/onboarding?step=${step + 1}`);
     const prevStep = () => router.push(`/onboarding?step=${step - 1}`);
+    
     const finishOnboarding = () => {
-        toast({ title: "Setup Complete!", description: "Welcome to your new dashboard." });
         assistantDo("Onboarding complete. Ready for my first command.", { type: "logMetric", name: "onboarding_completed" });
+        toast({ title: "Setup Complete!", description: "Welcome to your new dashboard." });
         router.push('/dashboard');
     }
+    
+    const handleSaveCard = () => {
+        assistantDo("User added a payment method.", { type: "savePaymentMethodStart" });
+        toast({ title: "Card saved.", description: "You won't be charged now." });
+        updateDraft({ payment: { status: 'added' } });
+        nextStep();
+    }
+    
+    const handleSkipPayment = () => {
+        assistantDo("User skipped payment.", { type: "logMetric", name: "onboarding_payment_skipped" });
+        updateDraft({ payment: { status: 'skipped'} }); 
+        nextStep();
+    }
+    
+    const handleSaveBrand = () => {
+        assistantDo("I've saved your brand identity. It will now be used across the suite.", { 
+            type: "addBrand", 
+            name: "Default Brand Kit", // You'd get this from a form field
+            primary: draft.brandKit.colors.primary,
+            accent: draft.brandKit.colors.accent,
+        });
+        nextStep();
+    }
+    
+    const handleFinalizeShortlist = () => {
+        assistantDo("Okay, I've created your initial project library.", { type: "logMetric", name: "onboarding_shortlist_finalized", props: { projects: draft.scanSelected } });
+        nextStep();
+    };
+
 
     const renderStep = () => {
         switch (step) {
@@ -232,26 +262,13 @@ function OnboardingComponent() {
                         <CardFooter className="flex justify-between">
                              <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
                             <div className="flex gap-2">
-                                 <Button variant="outline" onClick={() => { 
-                                     assistantDo("User skipped payment.", { type: "logMetric", name: "onboarding_payment_skipped" });
-                                     updateDraft({ payment: { status: 'skipped'} }); 
-                                     nextStep(); 
-                                 }}>Skip for now</Button>
-                                 <Button onClick={() => {
-                                     toast({ title: "Card saved.", description: "You won't be charged now." });
-                                     assistantDo("User added a payment method.", { type: "savePaymentMethodStart" });
-                                     updateDraft({ payment: { status: 'added' } });
-                                     nextStep();
-                                 }}>Save Card</Button>
+                                 <Button variant="outline" onClick={handleSkipPayment}>Skip for now</Button>
+                                 <Button onClick={handleSaveCard}>Save Card</Button>
                             </div>
                         </CardFooter>
                     </Card>
                 );
             case 4:
-                const handleFinalizeShortlist = () => {
-                    assistantDo("Okay, I've created your initial project library.", { type: "logMetric", name: "onboarding_shortlist_finalized", props: { projects: draft.scanSelected } });
-                    nextStep();
-                };
                 return (
                      <Card>
                         <CardHeader>
@@ -285,15 +302,6 @@ function OnboardingComponent() {
                     </Card>
                 );
             case 5:
-                const handleSaveBrand = () => {
-                    assistantDo("I've saved your brand identity. It will now be used across the suite.", { 
-                        type: "addBrand", 
-                        name: "Default Brand Kit", // You'd get this from a form field
-                        primary: draft.brandKit.colors.primary,
-                        accent: draft.brandKit.colors.accent,
-                    });
-                    nextStep();
-                }
                 return (
                      <Card>
                         <CardHeader>
@@ -439,5 +447,3 @@ export default function OnboardingPage() {
         </div>
     )
 }
-
-    
