@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Super Seller Suite',
     description: 'Create ads, pages, PDFs, emails, and reports from any brochure. Train your AI assistant.',
-    // You would replace this with a URL to your actual OpenGraph image
-    // images: ['/og-image.png'],
+    // Replace with a URL to your actual OpenGraph image
+    images: ['/og-image.png'],
   },
 };
 
