@@ -268,21 +268,33 @@ export default function SX3MindmapPage() {
         </div>
         
         <div className="relative flex w-full flex-col justify-center items-center">
-            <div className="w-full max-w-xs mb-8 relative z-10">
+            <div className="w-full max-w-xs mb-8 z-10">
                  <MindMapNode title="Super Seller Suite" isRoot />
             </div>
 
-            <div className="absolute top-[6.5rem] hidden h-16 w-full max-w-4xl lg:block">
-                <div className="absolute left-0 top-0 h-0.5 w-[calc(50%-10rem)] bg-border" />
-                <div className="absolute right-0 top-0 h-0.5 w-[calc(50%-10rem)] bg-border" />
+             <div className="absolute top-[6.5rem] hidden h-16 w-full max-w-5xl lg:block">
+                {/* Central vertical line */}
                 <div className="absolute left-1/2 top-0 h-16 w-0.5 -translate-x-1/2 bg-border" />
-                <div className="absolute -top-px left-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(50%) rotate(25deg)', transformOrigin: 'left top' }} />
-                <div className="absolute -top-px right-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(-50%) rotate(-25deg)', transformOrigin: 'right top' }} />
-                <div className="absolute -top-px left-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(50%) rotate(-25deg)', transformOrigin: 'left top' }} />
-                <div className="absolute -top-px right-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(-50%) rotate(25deg)', transformOrigin: 'right top' }} />
+
+                {/* Line to Marketing */}
+                <div className="absolute left-[12.5%] top-16 h-16 w-0.5 -translate-x-1/2 bg-border" />
+                <div className="absolute left-[12.5%] top-16 h-0.5 w-[37.5%] bg-border" />
+
+                 {/* Line to Creative Suite */}
+                <div className="absolute left-[37.5%] top-16 h-16 w-0.5 -translate-x-1/2 bg-border" />
+                <div className="absolute left-[37.5%] top-16 h-0.5 w-[12.5%] bg-border" />
+                
+                {/* Line to Sales Enablement */}
+                <div className="absolute right-[37.5%] top-16 h-16 w-0.5 translate-x-1/2 bg-border" />
+                <div className="absolute right-[37.5%] top-16 h-0.5 w-[12.5%] bg-border" />
+
+                {/* Line to Core Intelligence */}
+                <div className="absolute right-[12.5%] top-16 h-16 w-0.5 translate-x-1/2 bg-border" />
+                <div className="absolute right-[12.5%] top-16 h-0.5 w-[37.5%] bg-border" />
             </div>
 
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-y-16 lg:mt-16">
+
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-y-32 lg:mt-16">
                 {toolCategories.map((category) => (
                     <MindMapNode 
                       key={category.name} 
