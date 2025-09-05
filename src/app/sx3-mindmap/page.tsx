@@ -32,12 +32,27 @@ const MindMapNode = ({
     <div className={cn("relative flex flex-col items-center w-full", className)}>
       <div
         className={cn(
-          "rounded-xl border-2 p-4 text-center shadow-lg flex flex-col items-center justify-center z-10 w-full",
+          "relative rounded-xl border-2 p-4 text-center shadow-lg flex flex-col items-center justify-center z-10 w-full",
           isRoot
             ? "border-primary bg-primary/10 min-h-24 text-2xl font-bold"
             : "border-border bg-card/80 backdrop-blur-sm min-h-20"
         )}
       >
+        {!isRoot && (
+           <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="absolute top-3 right-3 flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>System Success</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
         <h3 className={cn(isRoot ? 'text-primary' : 'text-foreground', 'font-semibold text-lg')}>{title}</h3>
       </div>
       {children && (
