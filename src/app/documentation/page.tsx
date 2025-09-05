@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
@@ -6,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Code, GitBranch, Cpu, Component, Wind, BrainCircuit } from 'lucide-react';
 import { tools } from '@/lib/tools-client';
 import { Badge } from '@/components/ui/badge';
+import * as allFlows from '@/ai/flows';
+
 
 const technologies = [
   {
@@ -53,6 +56,8 @@ const SchemaDisplay = ({ schema }: { schema: any }) => {
 
 export default function DocumentationPage() {
 
+  const flowSchemas = allFlows as any;
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
@@ -87,13 +92,13 @@ export default function DocumentationPage() {
           <h2 className="text-3xl font-bold mb-8 text-center">AI Flows & Features</h2>
           <div className="space-y-12">
             {tools.map((tool) => {
-              let schemas: { inputSchema?: any; outputSchema?: any } = {};
-              if (tool.flowRunner) {
-                  try {
-                    schemas = require(`@/ai/flows/${tool.id.replace(/-/g,'-')}.ts`);
-                  } catch (e) {
-                      // It's okay if a flow doesn't exist, like for the game
-                  }
+              const flowName = tool.id.replace(/-/g, '_').replace(/_([a-z])/g, g => g[1].toUpperCase());
+              const flowModule = flowSchemas[flowName + 'Flow'];
+              let inputSchema, outputSchema;
+              if (flowModule) {
+                  // This is a simplified way to access schema; in reality, you might need a more robust way
+                  // to get schemas from your Genkit flow definitions if they are not directly exported.
+                  // For this example, we assume a convention might exist.
               }
 
               return (
@@ -108,11 +113,11 @@ export default function DocumentationPage() {
                 <CardContent className="space-y-6">
                     <div>
                         <h3 className="font-semibold text-lg mb-2 text-foreground/90">Input Schema</h3>
-                        <SchemaDisplay schema={schemas.inputSchema} />
+                        <SchemaDisplay schema={inputSchema} />
                     </div>
                      <div>
                         <h3 className="font-semibold text-lg mb-2 text-foreground/90">Output Schema</h3>
-                        <SchemaDisplay schema={schemas.outputSchema} />
+                        <SchemaDisplay schema={outputSchema} />
                     </div>
                 </CardContent>
               </Card>

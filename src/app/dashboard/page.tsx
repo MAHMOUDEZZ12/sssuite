@@ -118,7 +118,7 @@ export default function DashboardPage() {
                                 <Bot className="h-6 w-6 text-primary" />
                                 <div>
                                     <p className="font-mono text-sm">
-                                        "Create a one-page PDF brochure for my 'Azure Lofts' project."
+                                        "Create a one-page PDF brochure for my new project."
                                     </p>
                                     <p className="text-xs text-muted-foreground">Click the chat bubble to ask your assistant!</p>
                                 </div>
