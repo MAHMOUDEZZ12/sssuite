@@ -1,7 +1,5 @@
 
-import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { db } from './firebase'; // Ensure db is imported
 
 export async function track(event: string, props: Record<string, any> = {}) {
   try {

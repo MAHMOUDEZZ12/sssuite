@@ -9,31 +9,48 @@ It connects AI assistants, onboarding, and sales tools into one event-driven sys
 
 The system is designed as a **nervous system**:
 
-- **Frontend (Next.js / Tailwind)**  
--  GEMINI API
-  - User onboarding  
-  - Dashboard (tools & services)  
-  - AI copilots  
+```mermaid
+flowchart TD
+  UI["UI (Next.js • Vercel)<br/>Home • Onboarding • Dashboard • Assistant"]:::blk
 
-- **Event Layer (`lib/events.ts`)**  
-  - Every user action is logged as an event  
-  - Powers analytics, refunds, and AI learning  
+  subgraph CORE["AI Core (Intent → Plan → Actions → Review)"]
+    AIC["AI Copilot"]
+  end
 
-- **Domain Engines**  
-  - `lib/market.ts` → pricing, lead marketplace logic  
-  - `lib/projects.ts` → project catalog access from Firestore  
-  - `lib/onboardingDraft.ts` → per-user onboarding state persistence  
+  subgraph BUS["Event Bus & Orchestration"]
+  end
 
-- **Database (Firestore)**  
-  - `projects/{id}`: project metadata  
-  - `users/{uid}`: profile + onboarding draft  
-  - `events/{uid}`: analytics trail  
-  - `brandKits/{uid}`: logos, colors, contact info  
+  subgraph SVC["Services"]
+    PRJ["Projects Library<br/>(per market)"]
+    BR["Brand Kit<br/>(logo • colors • contacts)"]
+    CR["Creative Tools<br/>PDF • Social • Reels • Landing"]
+    ADS["Ads Manager<br/>Creator • Precision • Copilots"]
+    CM["Comms & Outreach<br/>Email • WhatsApp • IG Bot"]
+  end
 
-- **Cloud Functions**  
-  - Refund engine (auto-refunds bad leads)  
-  - Shortlist builder (AI-assisted project picks)  
-  - Brand sync (auto apply brand kit to tools)  
+  subgraph DATA["Data Layer (Firestore • Storage)"]
+    DB["users • projects_catalog • projects_library • events • drafts"]
+  end
+
+  subgraph JOBS["Background Jobs (Cloud Functions)"]
+    J1["generate library"]
+    J2["sync brand"]
+    J3["schedule chains"]
+    J4["integrations"]
+  end
+
+  UI --> BUS --> CORE --> SVC
+  SVC --> DATA
+  SVC --> JOBS
+
+  classDef blk fill:#0A0A0A,stroke:#7A7A7A,color:#EAEAEA,rx:12,ry:12;
+  classDef ring fill:#0F0F0F,stroke:#95FE54,color:#95FE54,rx:10,ry:10;
+  class CORE ring;
+  class BUS blk;
+  class SVC blk;
+  class DATA blk;
+  class JOBS blk;
+```
 
 ---
 
