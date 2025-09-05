@@ -22,7 +22,7 @@ export function LandingFooter() {
         { name: 'SX3 Mindmap', href: '/sx3-mindmap' },
     ],
     legal: [
-        { name: 'Privacy Policy', href: '/privacy' },
+        { name: 'Data Privacy', href: '/privacy' },
         { name: 'Terms of Service', href: '/terms' },
         { name: 'Cookie Policy', href: '/cookies' },
     ]
