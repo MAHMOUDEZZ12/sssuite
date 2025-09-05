@@ -13,32 +13,32 @@ import Link from 'next/link';
 
 const pricingTiers = [
     {
-        name: 'Starter',
-        price: 'Free',
-        description: 'For individual agents getting started with AI.',
+        name: 'Pay as you go',
+        price: '$12',
+        description: 'Perfect for occasional use with full access to core tools.',
         features: [
-            'Access to 5 core AI tools',
-            '2 projects per month',
-            '50 AI generations per month',
+            '50 AI generations',
+            'Access to all core AI tools',
+            'Per-project pricing',
             'Community support',
         ],
-        cta: 'Get Started for Free',
+        cta: 'Get Started',
         variant: 'outline'
     },
     {
-        name: 'Pro',
+        name: 'Super',
         price: '$99',
         pricePeriod: '/ month',
         description: 'The ultimate toolkit for serious agents and small teams.',
         features: [
+            'Trainable AI Assistant',
             'Access to all AI tools',
             'Unlimited projects',
             '10,000 AI generations per month',
-            'Trainable AI Assistant',
             'Connect social & email accounts',
             'Priority email support',
         ],
-        cta: 'Start Your Pro Trial',
+        cta: 'Start Your Super Trial',
         variant: 'default',
         isFeatured: true
     },
@@ -47,7 +47,7 @@ const pricingTiers = [
         price: 'Custom',
         description: 'For large brokerages and teams needing advanced features.',
         features: [
-            'Everything in Pro, plus:',
+            'Everything in Super, plus:',
             'Team management & billing',
             'Advanced security & compliance',
             'Custom integrations (API access)',
