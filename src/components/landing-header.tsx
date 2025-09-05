@@ -12,6 +12,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { ThemeSwitcher } from './theme-switcher';
 
 const navLinks = [
     { name: 'Pricing', href: '/pricing' },
@@ -35,6 +36,7 @@ export function LandingHeader() {
                     <Button variant="ghost">{link.name}</Button>
                 </Link>
             ))}
+            <ThemeSwitcher />
             <Link href="/login">
                 <Button variant="ghost">Log In</Button>
             </Link>
@@ -54,10 +56,13 @@ export function LandingHeader() {
                  <div className="p-4 flex flex-col h-full">
                      <div className="flex justify-between items-center mb-8">
                         <Logo />
-                        <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
-                            <X className="h-6 w-6" />
-                             <span className="sr-only">Close menu</span>
-                        </Button>
+                        <div className="flex items-center">
+                            <ThemeSwitcher />
+                            <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
+                                <X className="h-6 w-6" />
+                                 <span className="sr-only">Close menu</span>
+                            </Button>
+                        </div>
                     </div>
                     <nav className="flex flex-col items-center gap-6 text-center">
                          {navLinks.map((link) => (
