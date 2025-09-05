@@ -138,7 +138,7 @@ export default function BrandPage() {
         icon={<Palette className="h-8 w-8" />}
       />
 
-      <Card className="max-w-4xl">
+      <Card>
         <CardHeader>
           <CardTitle>Your Brand Kit</CardTitle>
           <CardDescription>
@@ -260,7 +260,7 @@ export default function BrandPage() {
 
       <Separator className="my-8" />
       
-      <Card className="max-w-4xl">
+      <Card>
         <CardHeader>
             <div className='flex items-center justify-between'>
                 <div>
