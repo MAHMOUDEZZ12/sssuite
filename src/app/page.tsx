@@ -345,7 +345,7 @@ export default function Home() {
                      <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center min-h-[400px]">
                         <video 
                             className="w-full h-full rounded-lg shadow-2xl object-cover" 
-                            src="https://storage.googleapis.com/builder-next-prod.appspot.com/assets%2F9b1b955f-83a3-4455-a0d0-e14578b16e87%2Fvideo.mp4"
+                            src="https://storage.googleapis.com/builder-next-prod.appspot.com/assets%2F9b1b955f-83a3-4455-a0d0-e14578b16e87%2Fhero-video-1.mp4"
                             autoPlay 
                             loop 
                             muted 
