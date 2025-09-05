@@ -72,8 +72,8 @@ const FeatureCard = ({
                 <Tooltip>
                   <TooltipTrigger>
                      <span className={cn(
-                        `px-2 py-0.5 text-xs font-semibold text-white rounded-full transition-all duration-200`,
-                        feature.badge === 'NEW' ? 'bg-blue-500 hover:bg-transparent hover:text-blue-500 border-2 border-transparent hover:border-blue-500' : 'bg-yellow-500 hover:bg-transparent hover:text-yellow-500 border-2 border-transparent hover:border-yellow-500'
+                        `px-2 py-0.5 text-xs font-semibold text-white rounded-full transition-all duration-200 shadow-lg`,
+                         feature.badge === 'NEW' ? 'bg-blue-500 hover:bg-transparent hover:text-blue-500 border-2 border-transparent hover:border-blue-500 shadow-blue-500/50' : 'bg-yellow-500 hover:bg-transparent hover:text-yellow-500 border-2 border-transparent hover:border-yellow-500 shadow-yellow-500/50'
                      )}>
                         {feature.badge}
                     </span>
@@ -117,11 +117,6 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                       <p className="text-lg text-white/80">{feature.description}</p>
                     </div>
                   </div>
-                   <div className='flex items-center gap-2'>
-                     <Link href="/dashboard">
-                        <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/20">Login</Button>
-                      </Link>
-                   </div>
                </div>
             </div>
             

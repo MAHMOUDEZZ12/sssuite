@@ -82,11 +82,6 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                       <p className="text-lg text-white/80">{feature.description}</p>
                     </div>
                   </div>
-                   <div className='flex items-center gap-2'>
-                     <Link href="/dashboard">
-                        <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/20">Login</Button>
-                      </Link>
-                   </div>
                </div>
             </div>
             
