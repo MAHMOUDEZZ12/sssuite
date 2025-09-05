@@ -68,7 +68,7 @@ const MindMapNode = ({
 };
 
 const ToolLeaf = ({ tool, onClick, className }: { tool: Feature; onClick: (tool: Feature) => void; className?: string }) => (
-    <div className={cn("group w-full max-w-xs flex justify-center z-10", className)}>
+    <div className={cn("group w-full max-w-xs flex justify-center", className)}>
         <button onClick={() => onClick(tool)} className="w-full text-left h-full">
             <div className={cn("relative flex items-center justify-center h-full", tool.id === 'ai-assistant' ? 'min-h-[16rem]' : 'h-12')}>
                 <div className="flex w-full h-full flex-col justify-center rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
@@ -273,11 +273,13 @@ export default function SX3MindmapPage() {
             </div>
 
             <div className="absolute top-[6.5rem] hidden h-16 w-full max-w-4xl lg:block">
-              <div className="h-0.5 w-full bg-border" />
-              <div className="absolute -top-px left-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(50%) rotate(25deg)', transformOrigin: 'left top' }} />
-              <div className="absolute -top-px right-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(-50%) rotate(-25deg)', transformOrigin: 'right top' }} />
-              <div className="absolute -top-px left-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(50%) rotate(-25deg)', transformOrigin: 'left top' }} />
-              <div className="absolute -top-px right-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(-50%) rotate(25deg)', transformOrigin: 'right top' }} />
+                <div className="absolute left-0 top-0 h-0.5 w-[calc(50%-10rem)] bg-border" />
+                <div className="absolute right-0 top-0 h-0.5 w-[calc(50%-10rem)] bg-border" />
+                <div className="absolute left-1/2 top-0 h-16 w-0.5 -translate-x-1/2 bg-border" />
+                <div className="absolute -top-px left-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(50%) rotate(25deg)', transformOrigin: 'left top' }} />
+                <div className="absolute -top-px right-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(-50%) rotate(-25deg)', transformOrigin: 'right top' }} />
+                <div className="absolute -top-px left-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(50%) rotate(-25deg)', transformOrigin: 'left top' }} />
+                <div className="absolute -top-px right-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(-50%) rotate(25deg)', transformOrigin: 'right top' }} />
             </div>
 
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-y-16 lg:mt-16">
