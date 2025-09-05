@@ -7,7 +7,7 @@ import { LandingFooter } from '@/components/landing-footer';
 import { tools, Feature } from '@/lib/tools-client';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { ArrowRight, BookOpen, Plus, Sparkles } from 'lucide-react';
+import { ArrowRight, BookOpen, BrainCircuit, Check, MessageCircle, Plus, Sparkles, Upload } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -56,29 +56,47 @@ const ToolLeaf = ({ tool, onClick, className }: { tool: Feature; onClick: (tool:
     <div className={cn("group w-full max-w-xs flex justify-center", className)}>
         <button onClick={() => onClick(tool)} className="w-full text-left h-full">
             <div className={cn("relative flex items-center justify-center h-full", tool.id === 'ai-assistant' ? 'h-48' : 'h-12')}>
-                <div className="flex w-full h-full items-center gap-3 rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
-                    <div className="p-2 rounded-md text-white" style={{backgroundColor: tool.color}}>{React.cloneElement(tool.icon, { className: 'h-5 w-5' })}</div>
-                    <span className="font-medium text-sm text-foreground/90">{tool.title}</span>
-                    {tool.badge && (
-                       <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <span
-                              className={cn(
-                                'ml-auto px-1.5 py-0.5 text-xs font-semibold text-white rounded-full',
-                                tool.badge === 'NEW' ? 'bg-blue-500' : 'bg-yellow-500'
-                              )}
-                            >
-                              {tool.badge}
-                            </span>
-                          </TooltipTrigger>
-                          <TooltipContent side="top">
-                             <p>{tool.badge === 'NEW' ? 'This is a brand new feature!' : 'This feature is in active development.'}</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
+                <div className="flex w-full h-full flex-col justify-start rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-md text-white" style={{backgroundColor: tool.color}}>{React.cloneElement(tool.icon, { className: 'h-5 w-5' })}</div>
+                        <span className="font-medium text-sm text-foreground/90">{tool.title}</span>
+                        {tool.badge && (
+                           <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <span
+                                  className={cn(
+                                    'ml-auto px-1.5 py-0.5 text-xs font-semibold text-white rounded-full',
+                                    tool.badge === 'NEW' ? 'bg-blue-500' : 'bg-yellow-500'
+                                  )}
+                                >
+                                  {tool.badge}
+                                </span>
+                              </TooltipTrigger>
+                              <TooltipContent side="top">
+                                 <p>{tool.badge === 'NEW' ? 'This is a brand new feature!' : 'This feature is in active development.'}</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        )}
+                        <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 ml-auto" />
+                    </div>
+                     {tool.id === 'ai-assistant' && (
+                        <div className="space-y-3 p-2 text-left text-sm mt-4">
+                            <div className="flex items-start gap-2 text-foreground/70">
+                                <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" />
+                                <span><span className="font-bold text-foreground/90">Trainable:</span> Upload your brochures & reports.</span>
+                            </div>
+                             <div className="flex items-start gap-2 text-foreground/70">
+                                <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" />
+                                <span><span className="font-bold text-foreground/90">Commandable:</span> Issue direct orders, not just prompts.</span>
+                            </div>
+                             <div className="flex items-start gap-2 text-foreground/70">
+                                <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" />
+                                <span><span className="font-bold text-foreground/90">Integrated:</span> Access all other tools from the chat.</span>
+                            </div>
+                        </div>
                     )}
-                    <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 ml-auto" />
                 </div>
             </div>
         </button>
