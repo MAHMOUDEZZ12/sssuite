@@ -54,8 +54,8 @@ const FeatureCard = ({
         className="group flex flex-col bg-card/50 backdrop-blur-lg border-border hover:border-primary/30 transition-all duration-300 cursor-pointer hover:-translate-y-1 shadow-xl shadow-primary/10"
         onClick={() => onClick(feature)}
     >
-      <CardHeader>
-        <div className='flex items-center justify-between'>
+      <CardContent className="flex flex-col flex-grow p-6">
+        <div className='flex items-center justify-between mb-4'>
             <div 
               className="p-3 rounded-lg w-fit text-white"
               style={{ backgroundColor: feature.color }}
@@ -63,8 +63,6 @@ const FeatureCard = ({
                 {React.cloneElement(feature.icon, { className: 'h-8 w-8' })}
             </div>
         </div>
-      </CardHeader>
-      <CardContent className="flex flex-col flex-grow">
         <div className="flex items-center gap-2 mb-2">
             <h2 className="text-2xl font-bold font-heading text-foreground">{feature.title}</h2>
             {(feature.badge) && (
@@ -285,7 +283,7 @@ export default function Home() {
                   ))}
                 </div>
             </div>
-             <div className="text-center text-sm text-muted-foreground mt-2 flex items-center justify-center gap-2">
+            <div className="text-center text-sm text-muted-foreground mt-2 flex items-center justify-center gap-2">
                 <Sparkles className="h-4 w-4 text-primary" />
                 <span className="font-semibold text-primary">What's New?</span> {currentAnnouncement}
             </div>
@@ -303,56 +301,56 @@ export default function Home() {
           ))}
         </div>
         
-        <section className="mt-24 max-w-6xl mx-auto">
+        <section className="mt-32 max-w-6xl mx-auto">
             <Card className="bg-card/50 backdrop-blur-lg border-border shadow-xl shadow-primary/10 overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
                     <div className="p-8 md:p-12">
                          <div className="p-3 bg-primary/10 text-primary rounded-full w-fit mb-4">
                             <Bot className="h-8 w-8" />
                         </div>
-                        <h2 className="text-4xl font-bold font-heading tracking-tight mb-4">Meet your AI partner</h2>
+                        <h2 className="text-4xl font-bold font-heading tracking-tight mb-4">Your AI Co-Pilot, Supercharged</h2>
                         <p className="text-lg text-foreground/70 mb-6">
-                           Give it a name, a role, and your playbook. It learns your market, drafts your replies, and keeps you moving.
+                           Your assistant is more than a chatbot. It's a command center for your entire suite. Train it, command it, and let it run entire campaigns for you.
                         </p>
-                        <div className="space-y-4 mb-8">
+                        <div className="space-y-6 mb-8">
                             <div className="flex items-start gap-4">
-                                <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Sparkles className="h-5 w-5" /></div>
+                                <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><BrainCircuit className="h-6 w-6" /></div>
                                 <div>
-                                    <h4 className="font-semibold">Presets</h4>
-                                    <p className="text-sm text-foreground/60">Closer (fast replies, follow-ups), Marketer (ads, posts, reels), or Analyst (comps, reports).</p>
+                                    <h4 className="font-semibold text-lg">Train</h4>
+                                    <p className="text-md text-foreground/60">Upload your brochures, market reports, and contact lists. Your assistant learns from your data to give hyper-relevant, private responses that public AIs can't match.</p>
                                 </div>
                             </div>
                              <div className="flex items-start gap-4">
-                                <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Upload className="h-5 w-5" /></div>
+                                <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Sparkles className="h-6 w-6" /></div>
                                 <div>
-                                    <h4 className="font-semibold">Capabilities</h4>
-                                    <p className="text-sm text-foreground/60">Summarize brochures, compare projects, or turn a PDF into a Reel script.</p>
+                                    <h4 className="font-semibold text-lg">Command</h4>
+                                    <p className="text-md text-foreground/60">Issue direct commands. Instead of just asking for ideas, tell your assistant: "Rebrand this brochure with my logo" or "Find me three investors for this property from my list."</p>
+                                </div>
+                            </div>
+                              <div className="flex items-start gap-4">
+                                <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Megaphone className="h-6 w-6" /></div>
+                                <div>
+                                    <h4 className="font-semibold text-lg">Campaign</h4>
+                                    <p className="text-md text-foreground/60">Orchestrate multi-step workflows. Tell the assistant: "Create a new project for Azure Lofts, generate a promotional video for it, and save the final video to my drive."</p>
                                 </div>
                             </div>
                         </div>
                         <Link href="/dashboard/assistant">
                             <Button size="lg" variant="outline">
-                                Set Up My Assistant
+                                Meet Your Assistant
                                 <ArrowRight className="ml-2" />
                             </Button>
                         </Link>
                     </div>
-                     <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center">
-                         <h3 className="text-xl font-semibold font-heading mb-4 text-foreground/90">Sample Prompts</h3>
-                         <ul className="space-y-3">
-                             <li className="flex items-center gap-3">
-                                 <CheckCircle className="h-5 w-5 text-primary" />
-                                 <span className="text-foreground/80">"Summarize this brochure and draft a WhatsApp reply."</span>
-                            </li>
-                             <li className="flex items-center gap-3">
-                                 <CheckCircle className="h-5 w-5 text-primary" />
-                                 <span className="text-foreground/80">"Compare Emaar vs Damac for a 2M AED investor."</span>
-                            </li>
-                             <li className="flex items-center gap-3">
-                                 <CheckCircle className="h-5 w-5 text-primary" />
-                                 <span className="text-foreground/80">"Turn this PDF into a 30-sec Instagram Reel script."</span>
-                            </li>
-                         </ul>
+                     <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center min-h-[400px]">
+                        <video 
+                            className="w-full h-full rounded-lg shadow-2xl object-cover" 
+                            src="https://storage.googleapis.com/builder-next-prod.appspot.com/assets%2F9b1b955f-83a3-4455-a0d0-e14578b16e87%2Fvideo.mp4"
+                            autoPlay 
+                            loop 
+                            muted 
+                            playsInline
+                        />
                     </div>
                 </div>
             </Card>
@@ -364,3 +362,4 @@ export default function Home() {
     </div>
   );
 }
+
