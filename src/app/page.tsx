@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import React from 'react';
@@ -265,7 +264,7 @@ export default function Home() {
                         </div>
                         <h2 className="text-4xl font-bold font-heading tracking-tight mb-4">Meet Your AI Partner</h2>
                         <p className="text-lg text-foreground/70 mb-6">
-                            Beyond individual tools, the Super Sales Suite is powered by a central AI assistant you can train. Give it a personality, feed it your knowledge, and watch it become the most valuable member of your team.
+                            Beyond individual tools, the Super Seller Suite is powered by a central AI assistant you can train. Give it a personality, feed it your knowledge, and watch it become the most valuable member of your team.
                         </p>
                         <div className="space-y-4 mb-8">
                             <div className="flex items-start gap-4">
