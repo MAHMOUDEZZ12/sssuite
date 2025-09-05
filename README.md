@@ -1,80 +1,103 @@
-# Super Sales Suite (SX3)
+# Super Sales Suite (S3)
 
-Super Sales Suite is a **real estate AI SaaS** built for speed, trust, and automation.  
-It connects AI assistants, onboarding, and sales tools into one event-driven system.
+## Overview
+Super Sales Suite (S3) is a **real estate–focused AI productivity hub**.  
+It connects **projects, brands, storage, and sales tools** into one unified system that empowers agents to create, manage, and sell faster.  
 
----
-
-## 🧠 System Brain Map
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="/exec-brain-map.svg">
-  <img alt="Executive Brain Map" src="/exec-brain-map.light.svg" width="100%">
-</picture>
-
-### What you’re seeing
-- **UI (Next.js/Vercel):** Home, Onboarding (DeepSearch), Dashboard, Assistant Panel  
-- **AI Core:** Multi-step Copilot (Intent → Plan → Actions → Review)  
-- **Event Bus:** Everything emits events → analytics + automation  
-- **Services:** Projects Library, Brand Kit, Creative Tools, Ads Manager, Comms/Outreach  
-- **Data:** Firestore (users, projects_catalog, projects_library, events, drafts)  
-- **Jobs:** Cloud Functions (generate library, sync brand, schedule chains, integrations)
-
-### Why it matters
-- **No demo** — all data is generated live per user/market  
-- **Event-driven** — every click becomes learning + automation  
-- **Composable** — easy to white-label, add tools, or swap providers
+The system is built on a **modular architecture**: each feature is an AI-driven service card that plugs into a shared core (auth, storage, brand kit, project library).
 
 ---
 
-## 🧩 Features
-
-- **DeepSearch Onboarding** → location detect → dev focus → project scan → shortlist → brand setup → dashboard ready.  
-- **AI Copilot** → multi-step assistants that chain tasks.  
-- **No Demo Mode** → all content is generated live from real projects, city-based.  
-- **Event-Driven Learning** → every click trains the system, no manual QA.  
-
----
-
-## 🛠️ Developer Notes
-
-- Files to watch:
-  - `src/lib/events.ts` → fire analytics events
-  - `src/lib/projects.ts` → fetch catalog
-  - `src/lib/onboardingDraft.ts` → persist onboarding
-  - `src/lib/market.ts` → market/pricing helpers
-  - `src/lib/cards.config.ts` → UI card registry
-
-- API Endpoints:
-  - `/api/projects/suggest`
-  - `/api/projects/scan`
-  - `/api/shortlist`
-  - `/api/brand`
-  - `/api/payment`
+## Core Concepts
+- **Projects** → AI-curated library, stored per user.  
+- **Brand Kit** → logos, colors, contact info applied across tools.  
+- **Storage** → central bucket for uploads, connected to projects and outputs.  
+- **Service Cards** → independent AI-powered tools (ads, reels, emails, PDFs, etc.).  
+- **AI Co-Pilot** → assistant that guides flows, connects data, and suggests next steps.  
 
 ---
 
-## 📊 Analytics
+## Features
+- Instant Ad Creation  
+- Automated Rebranding  
+- PDF Smart Editor  
+- Landing Page Generator  
+- Social Post Writer  
+- Listing Details Generator  
+- Email Marketing Creator  
+- AI Story Designer  
+- AI Reel Designer  
+- TikTok Video Editor  
+- Precision Targeting  
+- WhatsApp Campaign Manager  
+- CRM Memory Assistant  
+- Investor Matching  
+- Market Trend Reports  
 
-The system tracks these key events:
-
-- `onboarding_location_confirmed`  
-- `onboarding_developers_selected`  
-- `onboarding_firstpass_labeled`  
-- `onboarding_scan20_completed`  
-- `onboarding_shortlist_finalized`  
-- `onboarding_brand_created`  
-- `onboarding_completed`
-
-Each event includes `{ uid, city, ts, payload }`.
+(Each service runs as a card in `/dashboard` and connects back to **Projects + Brand + Storage**).  
 
 ---
+
+## Data Model (Firestore)
+```ts
+users/{uid}
+  profile: { name, city, email }
+  brandKit: { logoUrl, colors:{primary,accent}, contact:{phone,email} }
+  projects: [projectId]
+  storageRefs: [fileId]
+  servicesUsed: { [serviceId]: timestamp }
+  aiMemory: { notes:[], tasks:[] }
+
+projects/{projectId}
+  name, developer, city, priceFrom, unitTypes[], handover
+
+storage/{fileId}
+  fileUrl, ownerUid, type, tags[], linkedProjectId?
+```
+
+## Flows
+### Onboarding
+
+1. Auto-detect location (via cookies/IP).
+2. Select developers → fetch initial projects.
+3. Generate shortlist → load into Projects.
+4. Add Brand Kit (logo, colors, contact).
+5. Ready → land in /dashboard.
+
+### Service Use
+
+1. User selects a service card.
+2. Card pulls from Projects + Brand + Storage.
+3. AI generates output → saved back to Storage.
+
+### AI Co-Pilot
+
+- Observes user actions.
+- Suggests next tools (“You edited a brochure → want to generate an ad?”).
+- Guides onboarding for new users.
+
 ---
 
- Status
+## APIs / Integrations
 
-- Core architecture complete  
-- Onboarding flow complete
-- AI copilots expanding  
-- White-label prep  
-- Ready for partner pilots
+- **Google Cloud / Firebase** → Auth, Firestore, Storage, Hosting.
+- **Meta / TikTok / Snap / Google Ads APIs** → for campaign deployment.
+- **Gemini API (Google AI)** → for AI generation.
+- **Twilio / WhatsApp Business API** → comms integration.
+
+---
+
+## Deployment
+
+- **Framework**: Next.js + Tailwind
+- **Hosting**: Vercel
+- **Database**: Firestore
+- **Storage**: Firebase Storage
+- **Auth**: Firebase Auth
+
+---
+
+## Vision
+
+S3 turns every salesperson into a Super-Seller by giving them tools, not just tasks.
+With projects, brand, and storage unified, S3 becomes the AI co-pilot for real estate sales.
