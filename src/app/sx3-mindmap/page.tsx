@@ -26,15 +26,15 @@ const MindMapNode = ({
         className={cn(
           "rounded-xl border-2 p-4 text-center shadow-lg flex items-center justify-center z-10 w-full",
           isRoot
-            ? "border-primary bg-primary/10 text-primary-foreground min-h-24 text-2xl font-bold"
+            ? "border-primary bg-primary/10 min-h-24 text-2xl font-bold"
             : "border-border bg-card/80 backdrop-blur-sm min-h-20 font-semibold text-lg"
         )}
       >
-        <span className={cn(isRoot && 'text-primary')}>{title}</span>
+        <span className={cn(isRoot ? 'text-primary' : 'text-foreground')}>{title}</span>
       </div>
       {children && (
         <div className="relative pt-4 w-full">
-           <div className="flex flex-col gap-4">
+           <div className="flex flex-col items-center gap-4">
             {children}
            </div>
         </div>
@@ -44,8 +44,8 @@ const MindMapNode = ({
 };
 
 const ToolLeaf = ({ tool }: { tool: (typeof tools)[0] }) => (
-    <Link href={`/dashboard/tool/${tool.id}`} className="group">
-        <div className="relative flex items-center">
+    <Link href={`/dashboard/tool/${tool.id}`} className="group w-full max-w-xs">
+        <div className="relative flex items-center justify-center">
             <div className="flex w-full items-center gap-3 rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
                 <div className="p-2 rounded-md text-white" style={{backgroundColor: tool.color}}>{React.cloneElement(tool.icon, { className: 'h-5 w-5' })}</div>
                 <span className="font-medium text-sm text-foreground/90">{tool.title}</span>
@@ -57,13 +57,13 @@ const ToolLeaf = ({ tool }: { tool: (typeof tools)[0] }) => (
 
 
 export default function SX3MindmapPage() {
-    const marketingTools = tools.filter(t => t.categories.includes('Ads') || t.categories.includes('Lead Gen'));
+    const marketingTools = tools.filter(t => t.categories.includes('Marketing'));
     const creativeTools = tools.filter(t => t.categories.includes('Creative'));
     const salesTools = tools.filter(t => t.categories.includes('Sales Tools'));
     const socialTools = tools.filter(t => t.categories.includes('Social & Comms'));
     
     const toolCategories = [
-        { name: "Marketing & Lead Gen", tools: marketingTools },
+        { name: "Marketing", tools: marketingTools },
         { name: "Creative Suite", tools: creativeTools },
         { name: "Sales Enablement", tools: salesTools },
         { name: "Social & Communications", tools: socialTools },
