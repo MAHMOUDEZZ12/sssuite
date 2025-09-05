@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { ShinyButton } from '@/components/ui/shiny-button';
 import Link from 'next/link';
+import { tools } from '@/lib/tools';
 
 const pricingTiers = [
     {
@@ -18,7 +19,7 @@ const pricingTiers = [
         description: 'Perfect for occasional use with full access to core tools.',
         features: [
             '50 AI generations',
-            'Access to all core AI tools',
+            `Access to all ${tools.length} core AI tools`,
             'Per-project pricing',
             'Community support',
         ],
@@ -32,7 +33,7 @@ const pricingTiers = [
         description: 'The ultimate toolkit for serious agents and small teams.',
         features: [
             'Trainable AI Assistant',
-            'Access to all AI tools',
+            `Access to all ${tools.length} AI tools`,
             'Unlimited projects',
             '10,000 AI generations per month',
             'Connect social & email accounts',
