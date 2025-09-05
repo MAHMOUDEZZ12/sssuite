@@ -32,6 +32,9 @@ const CodeBlock = ({ children }: { children: React.ReactNode }) => (
 );
 
 const SchemaDisplay = ({ schema }: { schema: any }) => {
+    if (!schema) {
+        return <CodeBlock>{`// No schema defined for this tool.`}</CodeBlock>;
+    }
     const fields = Object.entries(schema.shape).map(([key, value]: [string, any]) => {
         let type = 'string';
         if (value.constructor.name.includes('ZodNumber')) type = 'number';
@@ -81,32 +84,36 @@ export default function DocumentationPage() {
         </section>
 
         <section>
-          <h2 className="text-3xl font-bold mb-8 text-center">AI Flows</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center">AI Flows & Features</h2>
           <div className="space-y-12">
-            {tools.filter(t => t.flowRunner).map((tool) => {
-              const { inputSchema, outputSchema } = require(`@/ai/flows/${tool.id.replace(/-/g,'-')}.ts`);
+            {tools.map((tool) => {
+              let schemas: { inputSchema?: any; outputSchema?: any } = {};
+              if (tool.flowRunner) {
+                  try {
+                    schemas = require(`@/ai/flows/${tool.id.replace(/-/g,'-')}.ts`);
+                  } catch (e) {
+                      // It's okay if a flow doesn't exist, like for the game
+                  }
+              }
+
               return (
               <Card key={tool.id} className="bg-card/50 backdrop-blur-lg border-primary/10 overflow-hidden">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-3 text-2xl text-primary">
                     <GitBranch />
-                    {tool.id.replace(/-/g,'-')}Flow
+                    {tool.id}
                   </CardTitle>
                   <p className="text-foreground/70 pt-2">{tool.description}</p>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  {inputSchema && (
                     <div>
                         <h3 className="font-semibold text-lg mb-2 text-foreground/90">Input Schema</h3>
-                        <SchemaDisplay schema={inputSchema} />
+                        <SchemaDisplay schema={schemas.inputSchema} />
                     </div>
-                  )}
-                  {outputSchema && (
                      <div>
                         <h3 className="font-semibold text-lg mb-2 text-foreground/90">Output Schema</h3>
-                        <SchemaDisplay schema={outputSchema} />
+                        <SchemaDisplay schema={schemas.outputSchema} />
                     </div>
-                  )}
                 </CardContent>
               </Card>
             )})}

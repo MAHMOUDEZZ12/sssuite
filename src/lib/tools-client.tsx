@@ -43,6 +43,7 @@ import {
   LineChart,
   BrainCircuit,
   Wrench,
+  Key,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -89,7 +90,7 @@ export type Feature = {
   color: string;
   cta: string;
   categories: FilterCategory[];
-  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence';
+  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal';
   badge?: 'NEW' | 'BETA';
   details: {
     steps: { text: string; icon: React.ReactElement }[];
@@ -1039,6 +1040,23 @@ export const tools: Feature[] = [
     creationFields: [
        { id: 'assistant-redirect', name: 'Train Your Assistant', type: 'button', cta: 'Go to Assistant Training', description: 'Personalize your AI by giving it instructions and knowledge.' },
     ],
+  },
+  {
+    id: 'superfreetime',
+    title: 'SuperFreeTime Game',
+    description: 'A hidden mini-game to find a secret key and win a prize.',
+    icon: <Key />,
+    color: '#a1a1aa', // zinc-400
+    cta: 'Game',
+    categories: ['All'],
+    mindMapCategory: 'Internal',
+    details: {
+      steps: [{ text: 'It is a secret.', icon: <Sparkles /> }],
+      aiVsManual: [{ metric: 'Fun', manual: 'Work, work, work.', ai: 'A delightful surprise.', icon: <Sparkles /> }],
+      synergy: [{ tool: 'AI Assistant', benefit: 'Winning the game gives you a secret code to unlock a reward from the Assistant.' }],
+      faqs: [{ question: "What is this?", answer: "It's a secret game for you to enjoy. Have fun!" }],
+    },
+    creationFields: [],
   },
 ];
 
