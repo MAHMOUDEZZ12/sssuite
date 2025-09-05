@@ -63,7 +63,7 @@ const pricingTiers = [
 
 
 export default function PricingPage() {
-  const [isAnnual, setIsAnnual] = React.useState(false);
+  const [isAnnual, setIsAnnual] = React.useState(true);
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
