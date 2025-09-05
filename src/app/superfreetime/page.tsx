@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Key, Bomb, X, Search, Lightbulb, Briefcase, UserPlus, Clock } from 'lucide-react';
+import { Key, Bomb, X, Search, Lightbulb, Briefcase, UserPlus, Clock, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
@@ -11,12 +11,15 @@ import { Confetti } from '@/components/confetti';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
 
 
 const GRID_SIZE = 5;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
 const MAX_ATTEMPTS = 3;
 const TIME_LIMIT_SECONDS = 180; // 3 minutes
+const SECRET_CODE = "SUPERLEAD2025";
+
 
 const generateGridState = () => {
     const keyPosition = Math.floor(Math.random() * TOTAL_CELLS);
@@ -43,11 +46,13 @@ const generateGridState = () => {
 }
 
 export default function SuperFreeTimePage() {
+    const { toast } = useToast();
     const [gameState, setGameState] = useState(generateGridState());
     const [gameOver, setGameOver] = useState(false);
     const [foundKey, setFoundKey] = useState(false);
     const [attempts, setAttempts] = useState(0);
     const [timeLeft, setTimeLeft] = useState(TIME_LIMIT_SECONDS);
+    const [showReward, setShowReward] = useState(false);
 
     useEffect(() => {
         if (gameOver || timeLeft <= 0) {
@@ -94,7 +99,16 @@ export default function SuperFreeTimePage() {
         setFoundKey(false);
         setAttempts(0);
         setTimeLeft(TIME_LIMIT_SECONDS);
+        setShowReward(false);
     };
+
+    const copyCode = () => {
+        navigator.clipboard.writeText(SECRET_CODE);
+        toast({
+            title: "Code Copied!",
+            description: "Your secret code has been copied to the clipboard.",
+        });
+    }
 
     const attemptsLeft = MAX_ATTEMPTS - attempts;
     const minutes = Math.floor(timeLeft / 60);
@@ -160,19 +174,49 @@ export default function SuperFreeTimePage() {
                     <DialogContent>
                         <DialogHeader className="text-center items-center">
                              {foundKey ? (
-                                <DialogTitle className="text-3xl font-bold text-green-400">You found it!</DialogTitle>
+                                showReward ? (
+                                    <>
+                                        <DialogTitle className="text-3xl font-bold text-primary">Here's Your Reward!</DialogTitle>
+                                        <DialogDescription>
+                                            Login or register, then hand this code to your AI Assistant to unlock a free, well-promoted lead generation campaign. Good luck!
+                                        </DialogDescription>
+                                         <div className="my-4 p-4 bg-muted rounded-lg border border-dashed w-full flex items-center justify-between">
+                                            <span className="font-mono text-lg text-primary">{SECRET_CODE}</span>
+                                            <Button variant="ghost" size="icon" onClick={copyCode}><Copy className="h-4 w-4" /></Button>
+                                         </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <DialogTitle className="text-3xl font-bold text-green-400">You found it!</DialogTitle>
+                                        <DialogDescription>
+                                            You found the key in {attempts} {attempts === 1 ? 'attempt' : 'attempts'}.
+                                        </DialogDescription>
+                                    </>
+                                )
                              ) : (
                                 <DialogTitle className="text-3xl font-bold text-destructive">{timeLeft <= 0 ? "Time's up!" : "Game Over"}</DialogTitle>
                              )}
-                            <DialogDescription>
-                                {foundKey ? `You found the key in ${attempts} ${attempts === 1 ? 'attempt' : 'attempts'}.` : "That was fun, let's get back to business."}
-                            </DialogDescription>
+                            {!foundKey && (
+                               <DialogDescription>That was fun, let's get back to business.</DialogDescription>
+                            )}
                         </DialogHeader>
                         <DialogFooter className="justify-center sm:justify-center gap-2">
-                           <Button onClick={resetGame} size="lg" variant="outline">One More Game</Button>
-                             <Link href="/dashboard/leads">
-                                <Button size="lg"><UserPlus className="mr-2 h-4 w-4"/> One More Lead</Button>
+                           {showReward ? (
+                             <Link href="/login">
+                                <Button size="lg">Login or Register</Button>
                              </Link>
+                           ) : (
+                            <>
+                                <Button onClick={resetGame} size="lg" variant="outline">One More Game</Button>
+                                {foundKey ? (
+                                    <Button size="lg" onClick={() => setShowReward(true)}><UserPlus className="mr-2 h-4 w-4"/> One More Lead</Button>
+                                ) : (
+                                    <Link href="/login">
+                                        <Button size="lg"><UserPlus className="mr-2 h-4 w-4"/> One More Lead</Button>
+                                    </Link>
+                                )}
+                            </>
+                           )}
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
