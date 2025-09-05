@@ -110,7 +110,15 @@ export default function DashboardLayout({
                   <Link href="/dashboard">
                       <SidebarMenuButton isActive={pathname === '/dashboard'}>
                           <Home />
-                          <span className="group-data-[collapsible=icon]:hidden">Home</span>
+                          <span className="group-data-[collapsible=icon]:hidden">Seller Suite</span>
+                      </SidebarMenuButton>
+                  </Link>
+                </SidebarMenuItem>
+                 <SidebarMenuItem>
+                  <Link href="/dashboard/marketing">
+                      <SidebarMenuButton isActive={pathname.startsWith('/dashboard/marketing')}>
+                          <Megaphone />
+                          <span className="group-data-[collapsible=icon]:hidden">Marketing Suite</span>
                       </SidebarMenuButton>
                   </Link>
                 </SidebarMenuItem>
@@ -140,7 +148,7 @@ export default function DashboardLayout({
                 </SidebarMenuItem>
               </SidebarMenu>
               <Separator />
-            <SidebarMenuGroup title="Marketing" icon={<Megaphone/>} tools={marketingTools} />
+            <SidebarMenuGroup title="Marketing Tools" icon={<Megaphone/>} tools={marketingTools} />
             <SidebarMenuGroup title="Creative Suite" icon={<Brush />} tools={creativeTools} />
             <SidebarMenuGroup title="Sales Enablement" icon={<Users2 />} tools={salesTools} />
              <SidebarMenuGroup title="Core Intelligence" icon={<BrainCircuit />} tools={coreIntelTools} />
