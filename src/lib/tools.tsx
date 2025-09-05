@@ -163,11 +163,10 @@ export const tools: Tool[] = [
     },
     creationFields: [
       { id: 'brochureDataUri', name: 'Property Brochure', type: 'file', description: 'Upload the PDF brochure for the property.' },
-      { id: 'brandName', name: 'Brand Name', type: 'text', placeholder: 'e.g., "The Luxe Group"', description: 'Your brand name for the ad. Defaults to your saved brand.' },
       { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
       { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
-      { id: 'colors', name: 'Color Palette', type: 'text', placeholder: 'e.g., "Navy Blue and Gold"', description: 'Primary colors for ad design. Defaults to your brand.' },
-      { id: 'projectRowInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of condo fees waived."', description: 'Add any other key details or offers.' },
+      { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of condo fees waived."', description: 'Add any other key details or offers.' },
+      { id: 'brand-redirect', name: 'Brand Assets', type: 'button', cta: 'Go to My Brand', description: 'The AI uses your saved brand assets (logo, colors). Click here to set them up.' },
     ],
   },
   {
@@ -372,7 +371,7 @@ export const tools: Tool[] = [
       { id: 'inspirationImageDataUri', name: 'Inspiration Image (Optional)', type: 'file', description: 'Upload a screenshot of a website you like to guide the style.' },
       { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "The Azure Lofts"', description: 'The name of the project.'},
       { id: 'projectDetails', name: 'Project Details', type: 'textarea', placeholder: 'e.g., "Luxury condos with ocean views..."', description: 'Detailed info about the project.'},
-      { id: 'userBrandingPreferences', name: 'Branding Style', type: 'select', options: ["Modern & Minimalist", "Luxury & Elegant", "Cozy & Welcoming", "Bold & Colorful"], placeholder: 'Select a branding style', description: 'Describe the desired look and feel.' },
+      { id: 'brandingStyle', name: 'Branding Style', type: 'select', options: ["Modern & Minimalist", "Luxury & Elegant", "Cozy & Welcoming", "Bold & Colorful"], placeholder: 'Select a branding style', description: 'Describe the desired look and feel.' },
     ],
   },
   {
@@ -925,5 +924,3 @@ export const tools: Tool[] = [
     ],
   },
 ];
-
-    

@@ -32,12 +32,12 @@ const GenerateLandingPageInputSchema = z.object({
     .string()
     .describe('Detailed information about the project.'),
   /**
-   * User preferences for branding, including company name, logo, tone of voice, and colors.
+   * The chosen visual style or template for the landing page.
    */
-  userBrandingPreferences: z
+  brandingStyle: z
     .string()
     .describe(
-      'User preferences for branding, including company name, logo data URI, tone of voice, and colors.'
+      'The chosen visual style or template for the landing page (e.g., "Modern & Minimalist", "Luxury & Elegant").'
     ),
   /**
    * An optional project brochure, encoded as a Base64 data URI.
@@ -59,10 +59,6 @@ const GenerateLandingPageInputSchema = z.object({
     .describe(
       "An optional inspiration image, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
-  /**
-   * Optional official project links.
-   */
-  officialProjectLinks: z.string().optional().describe('Official project links'),
 });
 export type GenerateLandingPageInput = z.infer<
   typeof GenerateLandingPageInputSchema
@@ -102,27 +98,25 @@ const landingPagePrompt = ai.definePrompt({
   output: {schema: GenerateLandingPageOutputSchema},
   prompt: `You are an AI assistant specialized in creating landing pages for real estate projects.
 
-  Based on the provided project details, user branding preferences, and optional brochure,
+  Based on the provided project details, chosen branding style, and optional brochure/inspiration image,
   generate an HTML landing page.
 
   Project Name: {{{projectName}}}
   Project Details: {{{projectDetails}}}
-  User Branding Preferences: {{{userBrandingPreferences}}}
+  Branding Style: {{{brandingStyle}}}
   {{#if projectBrochureDataUri}}
   Project Brochure: {{media url=projectBrochureDataUri}}
   {{/if}}
   {{#if inspirationImageDataUri}}
   Inspiration Image: {{media url=inspirationImageDataUri}}
   {{/if}}
-  Official Project Links: {{{officialProjectLinks}}}
 
   Instructions:
-  1.  Incorporate the project details and user branding preferences into the landing page design.
+  1.  Incorporate the project details and branding style into the landing page design.
   2.  If an inspiration image is provided, use it as a strong reference for the layout, color scheme, and overall aesthetic.
   3.  If a project brochure is provided, extract key information and use it to enhance the landing page content.
-  4.  Include relevant links to the official project website.
-  5.  Ensure the landing page is visually appealing and optimized for conversions.
-  6.  Return only the HTML code for the landing page. Do not include any additional text or explanations.
+  4.  Ensure the landing page is visually appealing and optimized for conversions.
+  5.  Return only the HTML code for the landing page. Do not include any additional text or explanations.
   `,
 });
 

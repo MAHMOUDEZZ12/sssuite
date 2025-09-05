@@ -238,7 +238,7 @@ export default function ToolPage() {
                                 );
                                 case 'button':
                                     return (
-                                        <Link href="/dashboard/settings?tab=connections" className='w-full'>
+                                        <Link href="/dashboard/brand" className='w-full'>
                                         <Button type="button" variant="outline" className='w-full justify-start'>
                                             {field.cta}
                                         </Button>
