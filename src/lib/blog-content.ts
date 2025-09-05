@@ -11,6 +11,15 @@ export type BlogContent = {
 };
 
 export const blogContent: BlogContent = {
+    'one-shot-setup': {
+        title: 'The One-Shot Setup: Configure Your Entire Suite in 5 Minutes',
+        intro: "Don't waste time with manual entry. This power-user hack shows you how to use your AI Assistant to configure your brand, projects, and contacts from a few simple file uploads. Get up and running in minutes, not hours.",
+        sections: [
+            { heading: "The Problem: The 'New App' Grind", body: "Setting up any new software is a chore. You have to find your brand colors, copy and paste contact details, and manually create every single project or client you're working on. It's tedious work that stops you from getting to the exciting part: using the tools." },
+            { heading: "The Hack: Let the Assistant Do the Work", body: "Our AI Assistant can do more than just write copy; it can configure your workspace. By uploading a document like a company profile, a brand guide, or even just a list of current projects, you can command the assistant to set everything up for you. It reads the documents and intelligently extracts the required information." },
+            { heading: "The Prompt: Your Magic Wand", body: "After uploading your documents to the Assistant's Knowledge Base, use this prompt: 'Based on the documents I've uploaded, please extract and set up my brand identity (company name, contact info, brand colors) and create a list of all my current projects.' The AI will then confirm the extracted details and apply them across the entire suite." }
+        ]
+    },
     'ad-creation': {
         title: 'Stop Guessing, Start Generating: How AI Creates High-Performance Ads in 60 Seconds',
         intro: "In the competitive world of real estate, a great ad can be the difference between a listing that sits and a property that sells. But creating compelling ads takes time, design skills, and a dash of copywriting magic. What if you could skip the guesswork and generate a full campaign from a single brochure? Now you can.",
