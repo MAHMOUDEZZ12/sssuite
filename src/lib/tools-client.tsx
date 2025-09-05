@@ -44,6 +44,7 @@ import {
   BrainCircuit,
   Wrench,
   Key,
+  Facebook,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -91,7 +92,7 @@ export type Feature = {
   cta: string;
   categories: FilterCategory[];
   mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal';
-  badge?: 'NEW' | 'BETA';
+  badge?: 'NEW' | 'BETA' | 'SOON';
   details: {
     steps: { text: string; icon: React.ReactElement }[];
     aiVsManual: {
@@ -215,7 +216,7 @@ export const tools: Feature[] = [
           <div>
             <h3 className="font-semibold text-lg mb-2">Ad Design (Brochure)</h3>
             <div className="border rounded-lg overflow-hidden">
-                <iframe src={`${result.adDesign}#view=fitH`} className="w-full h-[600px]" />
+                <iframe src={`${result.adDesign}#view=fitH`} className="w-full h-[600px]"/>
             </div>
              <a href={result.adDesign} download="brochure.pdf" className="mt-2 inline-block">
                 <Button variant="outline"><Download className="mr-2"/> Download PDF</Button>
@@ -257,6 +258,41 @@ export const tools: Feature[] = [
       { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
       { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
       { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of condo fees waived."', description: 'Add any other key details or offers. (Optional)' },
+    ],
+  },
+    {
+    id: 'meta-ads-copilot',
+    title: 'Meta Ads AI Co-Pilot',
+    description: 'Your dedicated agent for Facebook & Instagram ads.',
+    icon: <Facebook />,
+    color: '#3b82f6', // blue-500
+    cta: 'Ad Campaign',
+    categories: ['Marketing', 'Ads', 'Lead Gen'],
+    mindMapCategory: 'Marketing',
+    badge: 'SOON',
+    details: {
+      steps: [
+          { text: 'Connect your Meta Business account', icon: <LinkIcon className="h-6 w-6" /> },
+          { text: 'Define your campaign goal and budget', icon: <Target className="h-6 w-6" /> },
+          { text: 'The agent creates, manages, and optimizes the campaign', icon: <Sparkles className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Time Investment', manual: '10+ hours per week managing ads', ai: 'Set your goal and let the agent work', icon: <Clock2 /> },
+        { metric: 'Cost & Resources', manual: 'Requires a dedicated ad manager', ai: 'Included in your subscription', icon: <Wallet /> },
+        { metric: 'Optimization', manual: 'Reacts slowly to performance data', ai: 'Optimizes bids and creative in real-time', icon: <LineChart /> },
+      ],
+      synergy: [
+        { tool: "AI Ad Creator", benefit: "The Co-Pilot can automatically use your best-performing AI-generated ads." },
+        { tool: "CRM Memory", benefit: "Feed campaign performance and lead data directly back into your CRM." }
+      ],
+       faqs: [
+        { question: "Is this safe for my ad account?", answer: "Yes, this tool will use the official Meta Business API and operate within all platform guidelines." },
+        { question: "How much control do I have?", answer: "You will have full control. You can set budget caps, approve creative, and pause the campaign at any time. The agent acts as your co-pilot, not an autopilot." },
+        { question: "When will this be available?", answer: "This feature is currently under active development and is on our short-term roadmap. Stay tuned for updates!" }
+      ],
+    },
+    creationFields: [
+       { id: 'coming-soon', name: 'Coming Soon!', type: 'group-header', description: 'This tool is under development. It will allow you to manage your Meta Ad campaigns directly with an AI expert.' },
     ],
   },
   {
@@ -1059,5 +1095,7 @@ export const tools: Feature[] = [
     creationFields: [],
   },
 ];
+
+    
 
     
