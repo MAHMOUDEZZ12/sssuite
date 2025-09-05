@@ -108,7 +108,7 @@ const ToolLeaf = ({ tool, onClick, className }: { tool: Feature; onClick: (tool:
                             </div>
                              <div className="flex items-start gap-2 text-foreground/70">
                                 <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" />
-                                <span><span className="font-bold text-foreground/90">Integrated:</span> Crosstool tasks from the chat</span>
+                                <span><span className="font-bold text-foreground/90">Integrated:</span> Crosstool tasks from the chat.</span>
                             </div>
                         </div>
                     )}
@@ -268,11 +268,11 @@ export default function SX3MindmapPage() {
         </div>
         
         <div className="relative flex w-full flex-col justify-center items-center">
-            <div className="w-full max-w-md mb-8">
+            <div className="w-full max-w-xs mb-8">
                  <MindMapNode title="Super Seller Suite" isRoot />
             </div>
 
-            <div className="absolute top-[8rem] hidden h-16 w-full max-w-4xl lg:block">
+            <div className="absolute top-[6.5rem] hidden h-16 w-full max-w-4xl lg:block">
               <div className="h-0.5 w-full bg-border" />
               <div className="absolute -top-px left-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(50%) rotate(25deg)', transformOrigin: 'left top' }} />
               <div className="absolute -top-px right-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(-50%) rotate(-25deg)', transformOrigin: 'right top' }} />
@@ -299,9 +299,9 @@ export default function SX3MindmapPage() {
         </div>
 
         <section className="mt-24 w-full max-w-4xl">
-            <div className="relative rounded-lg group bg-gradient-to-r from-pink-600 via-purple-600 to-primary p-1">
+             <div className="relative rounded-lg group p-0.5 bg-gradient-to-r from-pink-600 via-purple-600 to-primary">
                 <Card className="bg-card/95 backdrop-blur-lg">
-                    <Link href="/blog">
+                    <Link href="/blog" className="block w-full h-full">
                         <div className="flex flex-col md:flex-row items-center gap-6 p-6">
                             <div className="p-4 bg-primary/10 text-primary rounded-lg">
                                 <BookOpen className="h-8 w-8" />
