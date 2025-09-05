@@ -44,25 +44,23 @@ function OnboardingComponent() {
     const { toast } = useToast();
     const step = parseInt(searchParams.get('step') || '1', 10);
 
-    // This state would be persisted to Firestore in a real app
     const [draft, setDraft] = useState({
         city: 'Dubai',
         country: 'UAE',
         devFocus: ['Emaar'],
-        firstPass: {},
-        scanSelected: [],
-        shortlist: [],
-        brandKit: { logoUrl: null, colors: { primary: '', accent: '' }, contact: { name: '', phone: '', email: '', whatsappUrl: '' } },
-        connections: {},
-        payment: {},
+        firstPass: {} as Record<string, 'relevant' | 'not'>,
+        scanSelected: [] as string[],
+        shortlist: [] as string[],
+        brandKit: { logoUrl: null as string | null, colors: { primary: '', accent: '' }, contact: { name: '', phone: '', email: '', whatsappUrl: '' } },
+        connections: {} as Record<string, 'connected'|'skipped'>,
+        payment: { status: 'skipped' } as { status: 'added'|'skipped' },
         progress: { step: 1, ts: Date.now() },
     });
     
     const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
 
     const updateDraft = (data: Partial<typeof draft>) => {
-        setDraft(prev => ({ ...prev, ...data }));
-        // Here you would also save to Firestore
+        setDraft(prev => ({ ...prev, ...data, progress: { step, ts: Date.now() } }));
         console.log("Draft updated", { ...draft, ...data });
     };
     
@@ -71,12 +69,26 @@ function OnboardingComponent() {
         if (file) {
           const reader = new FileReader();
           reader.onloadend = () => {
-            setLogoPreview(reader.result as string);
-            updateDraft({ brandKit: { ...draft.brandKit, logoUrl: reader.result as string }});
+            const result = reader.result as string;
+            setLogoPreview(result);
+            updateDraft({ brandKit: { ...draft.brandKit, logoUrl: result }});
           };
           reader.readAsDataURL(file);
         }
-      }
+    };
+
+    const toggleDeveloper = (dev: string) => {
+        const newDevs = draft.devFocus.includes(dev)
+            ? draft.devFocus.filter(d => d !== dev)
+            : [...draft.devFocus, dev];
+        updateDraft({ devFocus: newDevs });
+    };
+    
+    const handleFirstPass = (projectName: string, status: 'relevant' | 'not') => {
+        updateDraft({ firstPass: { ...draft.firstPass, [projectName]: status } });
+    };
+
+    const isStep1Complete = draft.devFocus.length > 0 && Object.keys(draft.firstPass).length === MOCK_PROJECTS_PASS1.length;
 
     const nextStep = () => router.push(`/onboarding?step=${step + 1}`);
     const prevStep = () => router.push(`/onboarding?step=${step - 1}`);
@@ -96,10 +108,10 @@ function OnboardingComponent() {
                         <CardContent className="space-y-8">
                             <div>
                                 <h3 className="font-semibold mb-2">1. Confirm your city</h3>
-                                <div className="flex items-center gap-4 rounded-xl border p-4">
+                                <div className="flex items-center gap-4 rounded-xl border p-4 bg-neutral-900">
                                     <p>We found you in: <span className="font-bold text-lime-400">{draft.city}, {draft.country}</span></p>
-                                    <Button variant="ghost" size="sm" className="ml-auto">Change city</Button>
-                                    <Button size="sm">Yes, that's me</Button>
+                                    <Button variant="ghost" size="sm" className="ml-auto border border-neutral-700">Change city</Button>
+                                    <Button size="sm" className="bg-lime-400 text-black hover:bg-lime-300">Yes, that's me</Button>
                                 </div>
                             </div>
                             <div>
@@ -108,12 +120,7 @@ function OnboardingComponent() {
                                 <div className="flex flex-wrap gap-2">
                                     {MOCK_DEVELOPERS.map(dev => (
                                         <button key={dev}
-                                            onClick={() => {
-                                                const newDevs = draft.devFocus.includes(dev)
-                                                    ? draft.devFocus.filter(d => d !== dev)
-                                                    : [...draft.devFocus, dev];
-                                                updateDraft({ devFocus: newDevs });
-                                            }}
+                                            onClick={() => toggleDeveloper(dev)}
                                             aria-pressed={draft.devFocus.includes(dev)}
                                             className={cn("rounded-full border px-3 py-1 text-sm transition-colors", draft.devFocus.includes(dev) ? 'border-lime-400 bg-lime-900/50 text-lime-300' : 'border-neutral-700 hover:bg-neutral-900')}>
                                             {dev}
@@ -130,8 +137,8 @@ function OnboardingComponent() {
                                     {MOCK_PROJECTS_PASS1.map(proj => (
                                         <ProjectCard key={proj.name} project={proj} actions={
                                             <div className="flex gap-2">
-                                                <Button size="sm">Relevant</Button>
-                                                <Button size="sm" variant="ghost">Not relevant</Button>
+                                                <Button size="sm" className="bg-lime-400 text-black hover:bg-lime-300" onClick={() => handleFirstPass(proj.name, 'relevant')}>Relevant</Button>
+                                                <Button size="sm" variant="ghost" className="border border-neutral-700" onClick={() => handleFirstPass(proj.name, 'not')}>Not relevant</Button>
                                             </div>
                                         } />
                                     ))}
@@ -139,7 +146,7 @@ function OnboardingComponent() {
                             </div>
                         </CardContent>
                         <CardFooter>
-                            <Button onClick={nextStep} className="ml-auto">Continue <ChevronRight /></Button>
+                            <Button onClick={nextStep} className="ml-auto bg-lime-400 text-black hover:bg-lime-300" disabled={!isStep1Complete}>Continue <ChevronRight /></Button>
                         </CardFooter>
                     </Card>
                 );
@@ -165,8 +172,8 @@ function OnboardingComponent() {
                         <CardFooter className="flex justify-between">
                             <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
                             <div className="flex gap-2">
-                                 <Button variant="ghost" onClick={nextStep}>Skip for now</Button>
-                                 <Button onClick={nextStep}>Add Payment Method</Button>
+                                 <Button variant="ghost" className="border border-neutral-700" onClick={nextStep}>Skip for now</Button>
+                                 <Button onClick={nextStep} className="bg-lime-400 text-black hover:bg-lime-300">Add Payment Method</Button>
                             </div>
                         </CardFooter>
                     </Card>
@@ -202,11 +209,12 @@ function OnboardingComponent() {
                         <CardFooter className="flex justify-between">
                              <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
                             <div className="flex gap-2">
-                                 <Button variant="ghost" onClick={nextStep}>Skip for now</Button>
+                                 <Button variant="ghost" className="border border-neutral-700" onClick={() => { updateDraft({ payment: { status: 'skipped'} }); nextStep(); }}>Skip for now</Button>
                                  <Button onClick={() => {
                                      toast({ title: "Card saved.", description: "You won't be charged now." });
+                                     updateDraft({ payment: { status: 'added' } });
                                      nextStep();
-                                 }}>Save Card</Button>
+                                 }} className="bg-lime-400 text-black hover:bg-lime-300">Save Card</Button>
                             </div>
                         </CardFooter>
                     </Card>
@@ -220,15 +228,26 @@ function OnboardingComponent() {
                         <CardContent>
                              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                 {MOCK_PROJECTS_PASS2.map(proj => (
-                                    <ProjectCard key={proj.name} project={proj} selectable selected={false} />
+                                    <ProjectCard 
+                                        key={proj.name} 
+                                        project={proj} 
+                                        selectable 
+                                        selected={draft.scanSelected.includes(proj.name)}
+                                        onToggle={() => {
+                                            const newSelection = draft.scanSelected.includes(proj.name)
+                                                ? draft.scanSelected.filter(p => p !== proj.name)
+                                                : [...draft.scanSelected, proj.name];
+                                            updateDraft({ scanSelected: newSelection });
+                                        }}
+                                    />
                                 ))}
                             </div>
                         </CardContent>
                         <CardFooter className="flex justify-between">
                             <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
                              <div className="flex gap-2">
-                                 <Button variant="ghost" onClick={nextStep}>Skip</Button>
-                                 <Button onClick={nextStep}>Use Selected</Button>
+                                 <Button variant="ghost" className="border border-neutral-700" onClick={nextStep}>Skip</Button>
+                                 <Button onClick={nextStep} className="bg-lime-400 text-black hover:bg-lime-300">Use Selected</Button>
                             </div>
                         </CardFooter>
                     </Card>
@@ -243,12 +262,11 @@ function OnboardingComponent() {
                             <div className="space-y-2">
                                 <Label>Company Logo</Label>
                                 <div className="flex items-center gap-4">
-                                    <div 
-                                        className="relative flex flex-col items-center justify-center w-32 h-32 border-2 border-dashed rounded-lg cursor-pointer bg-neutral-900 hover:border-lime-400 transition-colors">
+                                    <div className="relative flex flex-col items-center justify-center w-32 h-32 border-2 border-dashed rounded-lg cursor-pointer bg-neutral-900 hover:border-lime-400 transition-colors">
                                        <Input id="logo" type="file" accept="image/*" className="sr-only" onChange={(e) => handleFileChange(e.target.files)} />
                                        <label htmlFor="logo" className="w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                          {logoPreview ? (
-                                            <Image src={logoPreview} alt="Logo preview" layout="fill" className="object-contain rounded-md" />
+                                            <Image src={logoPreview} alt="Logo preview" layout="fill" className="object-contain rounded-md p-2" />
                                          ) : (
                                            <div className="text-center text-neutral-400">
                                              <Upload className="mx-auto h-8 w-8 mb-1" />
@@ -288,8 +306,8 @@ function OnboardingComponent() {
                         <CardFooter className="flex justify-between">
                              <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
                             <div className="flex gap-2">
-                                 <Button variant="ghost" onClick={nextStep}>Skip for now</Button>
-                                 <Button onClick={nextStep}>Save Brand</Button>
+                                 <Button variant="ghost" className="border border-neutral-700" onClick={nextStep}>Skip for now</Button>
+                                 <Button onClick={nextStep} className="bg-lime-400 text-black hover:bg-lime-300">Save Brand</Button>
                             </div>
                         </CardFooter>
                     </Card>
@@ -311,7 +329,7 @@ function OnboardingComponent() {
                         </CardContent>
                         <CardFooter className="flex justify-between">
                             <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
-                            <Button onClick={nextStep}>Continue</Button>
+                            <Button onClick={nextStep} className="bg-lime-400 text-black hover:bg-lime-300">Continue</Button>
                         </CardFooter>
                     </Card>
                 );
@@ -349,7 +367,7 @@ function OnboardingComponent() {
                              <p className="text-xs text-neutral-500">You won't be charged until you upgrade or perform a paid action.</p>
                         </CardContent>
                         <CardFooter>
-                           <Button onClick={finishOnboarding} className="w-full md:w-auto mx-auto">Go to Dashboard</Button>
+                           <Button onClick={finishOnboarding} className="w-full md:w-auto mx-auto bg-lime-400 text-black hover:bg-lime-300">Go to Dashboard</Button>
                         </CardFooter>
                     </Card>
                  );

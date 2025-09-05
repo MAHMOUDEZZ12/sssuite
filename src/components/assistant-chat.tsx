@@ -27,7 +27,7 @@ export function AssistantChat() {
         <button
             aria-label="Open AI Assistant"
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 rounded-full bg-pink-500 p-4 text-white shadow-lg hover:bg-pink-400 animate-in fade-in zoom-in"
+            className="fixed bottom-6 right-6 z-50 rounded-full bg-primary p-4 text-primary-foreground shadow-lg hover:bg-primary/90 animate-in fade-in zoom-in"
         >
             <Sparkles className="h-6 w-6" />
       </button>
@@ -38,17 +38,17 @@ export function AssistantChat() {
   return (
     <>
       <div className="fixed inset-0 z-[60] flex items-end justify-end bg-black/50 animate-in fade-in">
-          <div className="m-4 w-full max-w-lg rounded-2xl border border-neutral-800 bg-neutral-950 p-4 animate-in slide-in-from-bottom-8">
-            <div className="flex items-center justify-between">
+          <div className="m-4 w-full max-w-lg rounded-2xl border bg-card text-card-foreground p-4 animate-in slide-in-from-bottom-8">
+            <div className="flex items-center justify-between pb-3">
               <h3 className="text-base font-semibold flex items-center gap-2">
-                <Bot className="h-5 w-5 text-pink-400"/>
+                <Bot className="h-5 w-5 text-primary"/>
                 {assistantName}
               </h3>
-              <button onClick={() => setIsOpen(false)} className="text-sm text-neutral-400 hover:text-neutral-200">Close</button>
+              <button onClick={() => setIsOpen(false)} className="text-sm text-muted-foreground hover:text-foreground">Close</button>
             </div>
             
-            <CardContent className="p-0 mt-3">
-                <ScrollArea className="h-[400px] p-4">
+            <CardContent className="p-0">
+                <ScrollArea className="h-[400px] p-4 border-t">
                 <div className="space-y-4">
                     {mockMessages.map((msg, index) => (
                     <div
