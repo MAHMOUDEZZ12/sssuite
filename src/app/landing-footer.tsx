@@ -76,7 +76,7 @@ export function LandingFooter() {
                         <h3 className="font-semibold text-foreground">Featured Posts</h3>
                         <ul className="mt-4 space-y-2">
                             {footerLinks.featuredPosts.map((link) => (
-                                <li key={link.name}>-
+                                <li key={link.name}>
                                     <Link href={link.href} className="text-foreground/60 hover:text-primary transition-colors">
                                         {link.name}
                                     </Link>
@@ -103,7 +103,7 @@ export function LandingFooter() {
 
             <div className="flex flex-col md:flex-row justify-between items-center">
                  <p className="text-sm text-foreground/50">
-                    &copy; {new Date().getFullYear()} Super Seller Suite. All rights reserved.
+                    Super Seller Suite © 2025 <a href="https://mtcmartech.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">mtc'</a>. All rights reserved.
                 </p>
                 <div className="flex items-center gap-4 mt-4 md:mt-0">
                     <Link href="#" aria-label="Twitter">
