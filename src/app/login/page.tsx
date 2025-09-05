@@ -26,7 +26,6 @@ export default function LoginPage() {
                 id="email"
                 type="email"
                 placeholder="m@example.com"
-                defaultValue="test@sss.com"
                 required
               />
             </div>
@@ -40,13 +39,11 @@ export default function LoginPage() {
                   Forgot your password?
                 </Link>
               </div>
-              <Input id="password" type="password" defaultValue="123456" required />
+              <Input id="password" type="password" required />
             </div>
-            <Link href="/dashboard" className="w-full">
-              <Button type="submit" className="w-full">
-                Login
-              </Button>
-            </Link>
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
             <Button variant="outline" className="w-full">
               Login with Google
             </Button>
