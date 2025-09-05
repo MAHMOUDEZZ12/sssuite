@@ -28,111 +28,43 @@ const aiFlows = [
     name: 'generateAdFromBrochure',
     description: 'This flow generates compelling ad copy and a visually appealing ad design based on a project brochure and branding guidelines.',
     inputSchema: `
-const GenerateAdFromBrochureInputSchema = z.object({
-  brochureDataUri: z.string().describe("..."),
-  additionalInformation: z.string().optional().describe("..."),
-  focusArea: z.string().describe("..."),
-  toneOfVoice: z.string().describe("The desired tone of voice..."),
-});
+// INPUT
+{
+  brochureDataUri: string, // Base64 PDF
+  additionalInformation: string,
+  focusArea: 'Luxury' | 'Family' | 'Investment',
+  toneOfVoice: 'Professional' | 'Exciting' | ...
+}
     `,
     outputSchema: `
-const GenerateAdFromBrochureOutputSchema = z.object({
-  adCopy: z.string().describe("The generated ad copy."),
-  adDesign: z.string().describe("The data URI of the generated ad design."),
-  landingPage: z.string().describe("The data URI of the generated landing page."),
-});
-    `,
-  },
-  {
-    name: 'generateLandingPage',
-    description: 'AI flow to generate a landing page for a specific project based on project details and user branding.',
-    inputSchema: `
-const GenerateLandingPageInputSchema = z.object({
-  projectName: z.string().describe("The name of the project."),
-  projectDetails: z.string().describe("Detailed information..."),
-  brandingStyle: z.string().describe("The chosen visual style..."),
-  projectBrochureDataUri: z.string().optional().describe("..."),
-  inspirationImageDataUri: z.string().optional().describe("..."),
-});
-    `,
-    outputSchema: `
-const GenerateLandingPageOutputSchema = z.object({
-  landingPageHtml: z.string().describe("The generated HTML..."),
-});
-    `,
-  },
-  {
-    name: 'generateSocialPost',
-    description: 'AI flow to generate social media posts from a given topic or URL, including hashtags and image suggestions.',
-    inputSchema: `
-const GenerateSocialPostInputSchema = z.object({
-  source: z.string().describe("A URL or topic..."),
-  platform: z.string().describe("The social media platform..."),
-  tone: z.string().describe("The desired tone of voice..."),
-});
-    `,
-    outputSchema: `
-const GenerateSocialPostOutputSchema = z.object({
-  postContent: z.string().describe("The generated post content."),
-  hashtags: z.array(z.string()).describe("Relevant hashtags."),
-  imageSuggestion: z.string().describe("Suggestion for an image."),
-});
-    `,
-  },
-  {
-    name: 'rebrandBrochure',
-    description: 'This flow takes an existing brochure and applies a new brand identity to it, including contact details, a company logo (generating one if not provided), and brand-specific tone and colors.',
-    inputSchema: `
-const RebrandBrochureInputSchema = z.object({
-  brochureDataUri: z.string().describe("..."),
-  contactDetails: z.string().describe("The contact details..."),
-  companyName: z.string().describe("The name of the company."),
-  companyLogoDataUri: z.string().optional().describe("..."),
-  toneOfVoice: z.string().describe("The desired tone of voice..."),
-  colors: z.string().describe("The desired colors..."),
-});
-    `,
-    outputSchema: `
-const RebrandBrochureOutputSchema = z.object({
-  rebrandedBrochureDataUri: z.string().describe("..."),
-  logoDataUri: z.string().optional().describe("..."),
-});
+// OUTPUT
+{
+  adCopy: string,
+  adDesign: string, // Base64 data URI of PDF
+  landingPage: string, // Base64 data URI of image
+}
     `,
   },
   {
     name: 'suggestTargetingOptions',
     description: 'This flow provides a detailed list of targeting options, including demographics, interests, behaviors, and keywords, to help optimize ad campaigns for real estate projects.',
     inputSchema: `
-const SuggestTargetingOptionsInputSchema = z.object({
-  location: z.string().describe("The target city..."),
-  propertyType: z.string().describe("The type of property..."),
-  priceRange: z.object({ min: z.number(), max: z.number() }).describe("..."),
-  amenities: z.array(z.string()).describe("A list of key property amenities."),
-  ageRange: z.object({ min: z.number(), max: z.number() }).describe("..."),
-  incomeLevel: z.string().describe("The income level..."),
-  interests: z.array(z.string()).describe("A list of interests..."),
-});
+// INPUT
+{
+  location: string,
+  propertyType: string,
+  priceRange: { min: number, max: number },
+  amenities: string[],
+  ageRange: { min: number, max: number },
+  incomeLevel: 'Affluent' | 'High Earner' | ...,
+  interests: string[]
+}
     `,
     outputSchema: `
-const SuggestTargetingOptionsOutputSchema = z.object({
-  suggestedTargetingOptions: z.string().describe("..."),
-});
-    `,
-  },
-    {
-    name: 'editPdf',
-    description: 'This flow takes a source PDF, a set of instructions, and optional new images, and returns a new, edited PDF.',
-    inputSchema: `
-const EditPdfInputSchema = z.object({
-  sourcePdf: z.string().describe("The source PDF document..."),
-  editInstructions: z.string().describe("The instructions for editing..."),
-  newImages: z.array(z.string()).optional().describe("Optional new images..."),
-});
-    `,
-    outputSchema: `
-const EditPdfOutputSchema = z.object({
-  editedPdfDataUri: z.string().describe("The edited PDF document..."),
-});
+// OUTPUT
+{
+  suggestedTargetingOptions: string // Formatted text
+}
     `,
   },
 ];
