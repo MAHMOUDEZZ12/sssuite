@@ -28,7 +28,7 @@ const pricingTiers = [
         variant: 'outline'
     },
     {
-        name: 'Super',
+        name: 'Super Seller',
         price: '$99',
         pricePeriod: '/ month',
         description: 'The ultimate toolkit for serious agents and small teams.',
@@ -40,7 +40,7 @@ const pricingTiers = [
             'Connect social & email accounts',
             'Priority email support',
         ],
-        cta: 'Start Your Super Trial',
+        cta: 'Start Your Super Seller Trial',
         variant: 'default',
         isFeatured: true
     },
@@ -120,11 +120,11 @@ export default function PricingPage() {
                             </div>
                           ) : (
                              <span className="text-5xl font-bold">
-                                {tier.name === 'Super' ? (isAnnual ? '$69' : '$99') : tier.price}
+                                {tier.name === 'Super Seller' ? (isAnnual ? '$69' : '$99') : tier.price}
                              </span>
                           )}
                           {tier.pricePeriod && <span className="text-muted-foreground">{tier.pricePeriod}</span>}
-                           {tier.name === 'Super' && isAnnual && (
+                           {tier.name === 'Super Seller' && isAnnual && (
                             <p className="text-sm text-muted-foreground">billed annually</p>
                           )}
                        </div>
