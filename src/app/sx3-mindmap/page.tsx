@@ -299,7 +299,7 @@ export default function SX3MindmapPage() {
         </div>
 
         <section className="mt-24 w-full max-w-4xl">
-            <div className="relative rounded-lg group bg-gradient-to-r from-pink-600 to-purple-600 p-1 animate-gradient-spin">
+            <div className="relative rounded-lg group bg-gradient-to-r from-pink-600 to-purple-600 p-1">
                 <Card className="bg-card/95 backdrop-blur-lg">
                     <Link href="/blog">
                         <div className="flex flex-col md:flex-row items-center gap-6 p-6">
