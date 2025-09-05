@@ -2,13 +2,14 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Key, Bomb, X, Search, Lightbulb } from 'lucide-react';
+import { Key, Bomb, X, Search, Lightbulb, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
 import { cn } from '@/lib/utils';
 import { Confetti } from '@/components/confetti';
 import { Card, CardContent } from '@/components/ui/card';
+import Link from 'next/link';
 
 const GRID_SIZE = 5;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
@@ -139,11 +140,21 @@ export default function SuperFreeTimePage() {
                     {gameOver && (
                         <div className="animate-in fade-in space-y-4">
                             {foundKey ? (
-                                <h2 className="text-3xl font-bold text-green-400">You found it in {attempts} {attempts === 1 ? 'attempt' : 'attempts'}!</h2>
+                                <>
+                                    <h2 className="text-3xl font-bold text-green-400">You found it in {attempts} {attempts === 1 ? 'attempt' : 'attempts'}!</h2>
+                                    <Button onClick={resetGame} size="lg">Play Again</Button>
+                                </>
                             ) : (
-                                <h2 className="text-3xl font-bold text-destructive">So close! Better luck next time.</h2>
+                                <>
+                                 <h2 className="text-3xl font-bold text-destructive">That was fun, let's get back to business.</h2>
+                                  <div className="flex items-center justify-center gap-4">
+                                     <Button onClick={resetGame} size="lg" variant="outline">Try Again</Button>
+                                     <Link href="/dashboard">
+                                        <Button size="lg"><Briefcase /> Back to Business</Button>
+                                     </Link>
+                                  </div>
+                                </>
                             )}
-                            <Button onClick={resetGame} size="lg">Play Again</Button>
                         </div>
                     )}
                 </div>
