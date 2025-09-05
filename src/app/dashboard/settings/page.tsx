@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { PageHeader } from '@/components/ui/page-header';
-import { Settings, Palette, User, CreditCard, Paintbrush, Text, Sun, Moon, Laptop, Bot, BrainCircuit, Network, Database, Users, Instagram, Facebook, Linkedin, Mail, MessageCircle, Twitter } from 'lucide-react';
+import { Settings, Palette, User, CreditCard, Paintbrush, Text, Sun, Moon, Laptop, Bot, BrainCircuit, Network, Database, Users, Instagram, Facebook, Linkedin, Mail, MessageCircle, Twitter, Share2 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -42,11 +42,9 @@ const themes = [
 export default function SettingsPage() {
   const { toast } = useToast();
   const [connections, setConnections] = React.useState({
-    social: false,
+    social: true,
     email: false,
-    whatsapp: true,
-    crm: false,
-    drive: false,
+    whatsapp: false,
   });
 
   const handleConnectionToggle = (key: keyof typeof connections) => {
@@ -209,16 +207,28 @@ export default function SettingsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
                  <IntegrationCard
-                    title="Social Media"
-                    description="Connect Instagram, Facebook, LinkedIn, and X."
-                    icon={<div className="flex items-center gap-2">
-                           <Instagram className="h-6 w-6" />
-                           <Facebook className="h-6 w-6" />
-                           <Linkedin className="h-6 w-6" />
-                           <Twitter className="h-6 w-6" />
-                        </div>}
-                    ctaHref="#"
-                    ctaText="Connect"
+                    title="Social Media Accounts"
+                    description="Connect Instagram, Facebook, LinkedIn, and X for automated posting and AI Page Admin."
+                    icon={<Share2 />}
+                    connected={connections.social}
+                    onConnect={() => handleConnectionToggle('social')}
+                    onDisconnect={() => handleConnectionToggle('social')}
+                />
+                <IntegrationCard
+                    title="Email Account"
+                    description="Connect Gmail or Outlook to send AI-generated email campaigns directly."
+                    icon={<Mail />}
+                    connected={connections.email}
+                    onConnect={() => handleConnectionToggle('email')}
+                    onDisconnect={() => handleConnectionToggle('email')}
+                />
+                 <IntegrationCard
+                    title="WhatsApp Business"
+                    description="Enable WhatsApp campaigns and automated follow-ups."
+                    icon={<MessageCircle />}
+                    connected={connections.whatsapp}
+                    onConnect={() => handleConnectionToggle('whatsapp')}
+                    onDisconnect={() => handleConnectionToggle('whatsapp')}
                 />
             </CardContent>
           </Card>

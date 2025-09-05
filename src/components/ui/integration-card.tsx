@@ -3,16 +3,18 @@
 
 import { cn } from '@/lib/utils';
 import { Button } from './button';
+import { Badge } from './badge';
 
 interface IntegrationCardProps {
     title: string;
     description: string;
     icon: React.ReactNode;
-    ctaHref: string;
-    ctaText: string;
+    connected: boolean;
+    onConnect: () => void;
+    onDisconnect: () => void;
 }
 
-export function IntegrationCard({ title, description, icon, ctaHref, ctaText}: IntegrationCardProps) {
+export function IntegrationCard({ title, description, icon, connected, onConnect, onDisconnect }: IntegrationCardProps) {
   return (
     <Card className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4">
         <div className="flex items-center gap-4">
@@ -20,14 +22,15 @@ export function IntegrationCard({ title, description, icon, ctaHref, ctaText}: I
                 {icon}
             </div>
             <div>
-                <h3 className="font-semibold">{title}</h3>
+                <div className="flex items-center gap-2">
+                    <h3 className="font-semibold">{title}</h3>
+                    {connected && <Badge variant="default">Connected</Badge>}
+                </div>
                 <p className="text-sm text-muted-foreground">{description}</p>
             </div>
         </div>
-        <Button asChild variant="outline">
-            <a href={ctaHref} target="_blank" rel="noopener noreferrer">
-                {ctaText}
-            </a>
+        <Button onClick={connected ? onDisconnect : onConnect} variant="outline">
+            {connected ? 'Disconnect' : 'Connect'}
         </Button>
     </Card>
   );
