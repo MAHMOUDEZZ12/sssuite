@@ -88,7 +88,7 @@ const FeatureCard = ({
         <p className="text-lg text-foreground/70 flex-grow">{feature.description}</p>
          <div className="mt-6">
             <Button variant="link" className="p-0 text-base text-primary">
-                Try Demo
+                Create a {feature.cta}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
          </div>
@@ -216,7 +216,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
             <div className="p-6 text-center">
                 <Link href={`/dashboard/tool/${feature.id}`}>
                     <Button variant="outline" size="lg" className='text-base'>
-                      Create your first {feature.cta} today
+                      Create Your First {feature.cta}
                     </Button>
                 </Link>
             </div>
