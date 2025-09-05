@@ -17,7 +17,7 @@ const technologies = [
   },
   {
     name: 'Tailwind CSS & ShadCN UI',
-    description: 'Styling is handled by Tailwind CSS for utility-first design, with a component library built on top of ShadCN UI for a consistent and professional look and feel.',
+    description: 'Styling is handled by Tailwind CSS for utility-first design, with a component library built on top of ShadCN UI for a consistent and professional look and feel. The app is fully themable via CSS variables, offering several curated themes including Light, Dark, and Pink/Purple.',
     icon: <Wind className="h-8 w-8" />,
   },
   {
