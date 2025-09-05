@@ -30,8 +30,16 @@ const mockBillingHistory = [
   { id: 'inv-001', date: 'Feb 20, 2024', amount: '$99.00', status: 'Paid' },
   { id: 'inv-002', date: 'Jan 20, 2024', amount: '$99.00', status: 'Paid' },
   { id: 'inv-003', date: 'Dec 20, 2023', amount: '$99.00', status: 'Paid' },
-]
+];
 
+const themes = [
+    { id: "light", name: "Light", icon: <Sun /> },
+    { id: "dark", name: "Dark", icon: <Moon /> },
+    { id: "theme-x3", name: "System X3", icon: <Bot /> },
+    { id: "theme-darks1", name: "Dark S1", icon: <Bot /> },
+    { id: "theme-lights2", name: "Light S2", icon: <Bot /> },
+    { id: "theme-pinkpurple", name: "Pink/Purple", icon: <Bot /> },
+];
 
 export default function SettingsPage() {
   const { toast } = useToast();
@@ -114,28 +122,16 @@ export default function SettingsPage() {
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label>Theme</Label>
-                <RadioGroup defaultValue="dark" className="grid grid-cols-3 gap-4">
-                  <div>
-                    <RadioGroupItem value="light" id="light" className="peer sr-only" />
-                    <Label htmlFor="light" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
-                       <Sun className="mb-3 h-6 w-6" />
-                       Light
-                    </Label>
-                  </div>
-                   <div>
-                    <RadioGroupItem value="dark" id="dark" className="peer sr-only" />
-                    <Label htmlFor="dark" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
-                       <Moon className="mb-3 h-6 w-6" />
-                       Dark
-                    </Label>
-                  </div>
-                   <div>
-                    <RadioGroupItem value="system" id="system" className="peer sr-only" />
-                    <Label htmlFor="system" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
-                       <Laptop className="mb-3 h-6 w-6" />
-                       System
-                    </Label>
-                  </div>
+                 <RadioGroup defaultValue="dark" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {themes.map(theme => (
+                         <div key={theme.id}>
+                            <RadioGroupItem value={theme.id} id={theme.id} className="peer sr-only" />
+                            <Label htmlFor={theme.id} className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                               {React.cloneElement(theme.icon, {className: "mb-3 h-6 w-6"})}
+                               {theme.name}
+                            </Label>
+                        </div>
+                    ))}
                 </RadioGroup>
               </div>
                <div className="space-y-2">
