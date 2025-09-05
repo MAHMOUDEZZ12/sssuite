@@ -35,15 +35,57 @@ To run the application locally:
     npm install
     ```
 
-2.  **Run the Development Server**:
+2.  **Set Up Environment Variables**:
+    For the AI services to function, you need to provide a Google AI API key.
+    - Create a file named `.env.local` in the root of the project.
+    - Add the following line to it:
+      ```
+      GEMINI_API_KEY=your_google_ai_api_key
+      ```
+    - You can obtain a `GEMINI_API_KEY` from [Google AI Studio](https://aistudio.google.com/app/apikey).
+
+
+3.  **Run the Development Server**:
     The application runs on `http://localhost:9002`.
     ```bash
     npm run dev
     ```
 
-3.  **Explore the App**:
+4.  **Explore the App**:
     - The main landing page provides an overview of all the tools.
     - Navigate to `/dashboard` to see the main application interface.
     - Each tool can be found at `/dashboard/tool/[toolId]`.
+
+## Deployment
+
+This application is configured for deployment with **Firebase App Hosting**.
+
+### Prerequisites
+
+- You must have a Firebase project. If you don't have one, create one at the [Firebase Console](https://console.firebase.google.com/).
+- You must have the Firebase CLI installed: `npm install -g firebase-tools`.
+
+### Deployment Steps
+
+1.  **Login to Firebase**:
+    ```bash
+    firebase login
+    ```
+
+2.  **Initialize App Hosting**:
+    Run the following command from the root of your project directory and follow the prompts. Select the Firebase project you wish to deploy to.
+    ```bash
+    firebase init apphosting
+    ```
+
+3.  **Deploy the Application**:
+    This command will build your Next.js application and deploy it to Firebase App Hosting.
+    ```bash
+    firebase deploy
+    ```
+
+The CLI will provide you with the URL of your deployed application upon completion.
+
+---
 
 This project was bootstrapped with Firebase Studio.
