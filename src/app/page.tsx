@@ -299,7 +299,7 @@ export default function Home() {
         </div>
 
         <div className="sticky top-16 z-10 bg-background/80 backdrop-blur-lg py-4 mb-8">
-            <div className="flex justify-center md:overflow-x-hidden overflow-x-auto pb-4">
+            <div className="flex justify-center overflow-x-auto md:overflow-x-hidden pb-4 no-scrollbar">
                 <div className="flex gap-2 md:gap-4 flex-nowrap">
                   {filterCategories.map(category => (
                     <Button
@@ -349,21 +349,21 @@ export default function Home() {
                             <div className="flex items-start gap-4">
                                 <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><BrainCircuit className="h-6 w-6" /></div>
                                 <div>
-                                    <h4 className="font-semibold text-lg">Train</h4>
+                                    <h4 className="font-semibold text-lg">Local data training</h4>
                                     <p className="text-md text-foreground/60">Upload your brochures, market reports, and contact lists. Your assistant learns from your data to give hyper-relevant, private responses that public AIs can't match.</p>
                                 </div>
                             </div>
                              <div className="flex items-start gap-4">
                                 <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Sparkles className="h-6 w-6" /></div>
                                 <div>
-                                    <h4 className="font-semibold text-lg">Command</h4>
+                                    <h4 className="font-semibold text-lg">Text to Action commands</h4>
                                     <p className="text-md text-foreground/60">Issue direct commands. Instead of just asking for ideas, tell your assistant: "Rebrand this brochure with my logo" or "Find me three investors for this property from my list."</p>
                                 </div>
                             </div>
                               <div className="flex items-start gap-4">
                                 <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Megaphone className="h-6 w-6" /></div>
                                 <div>
-                                    <h4 className="font-semibold text-lg">Campaign</h4>
+                                    <h4 className="font-semibold text-lg">Cross Services performing</h4>
                                     <p className="text-md text-foreground/60">Orchestrate multi-step workflows. Tell the assistant: "Create a new project for Azure Lofts, generate a promotional video for it, and save the final video to my drive."</p>
                                 </div>
                             </div>
@@ -452,3 +452,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
