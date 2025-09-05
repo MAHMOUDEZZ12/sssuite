@@ -10,6 +10,8 @@ import { cn } from '@/lib/utils';
 import { Confetti } from '@/components/confetti';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+
 
 const GRID_SIZE = 5;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
@@ -49,7 +51,7 @@ export default function SuperFreeTimePage() {
 
     useEffect(() => {
         if (gameOver || timeLeft <= 0) {
-            if (timeLeft <= 0) {
+            if (timeLeft <= 0 && !gameOver) {
                 setGameOver(true);
             }
             return;
@@ -154,28 +156,27 @@ export default function SuperFreeTimePage() {
                     </CardContent>
                 </Card>
 
-                <div className="mt-8 text-center h-24">
-                    {gameOver && (
-                        <div className="animate-in fade-in space-y-4">
-                            {foundKey ? (
-                                <>
-                                    <h2 className="text-3xl font-bold text-green-400">You found it in {attempts} {attempts === 1 ? 'attempt' : 'attempts'}!</h2>
-                                    <Button onClick={resetGame} size="lg">Play Again</Button>
-                                </>
-                            ) : (
-                                <>
-                                 <h2 className="text-3xl font-bold text-destructive">{timeLeft <= 0 ? "Time's up!" : "That was fun, let's get back to business."}</h2>
-                                  <div className="flex items-center justify-center gap-4">
-                                     <Button onClick={resetGame} size="lg" variant="outline">One More Game</Button>
-                                     <Link href="/dashboard/leads">
-                                        <Button size="lg"><UserPlus className="mr-2 h-4 w-4"/> One More Lead</Button>
-                                     </Link>
-                                  </div>
-                                </>
-                            )}
-                        </div>
-                    )}
-                </div>
+                 <Dialog open={gameOver} onOpenChange={(open) => { if(!open) resetGame(); }}>
+                    <DialogContent>
+                        <DialogHeader className="text-center items-center">
+                             {foundKey ? (
+                                <DialogTitle className="text-3xl font-bold text-green-400">You found it!</DialogTitle>
+                             ) : (
+                                <DialogTitle className="text-3xl font-bold text-destructive">{timeLeft <= 0 ? "Time's up!" : "Game Over"}</DialogTitle>
+                             )}
+                            <DialogDescription>
+                                {foundKey ? `You found the key in ${attempts} ${attempts === 1 ? 'attempt' : 'attempts'}.` : "That was fun, let's get back to business."}
+                            </DialogDescription>
+                        </DialogHeader>
+                        <DialogFooter className="justify-center sm:justify-center gap-2">
+                           <Button onClick={resetGame} size="lg" variant="outline">One More Game</Button>
+                             <Link href="/dashboard/leads">
+                                <Button size="lg"><UserPlus className="mr-2 h-4 w-4"/> One More Lead</Button>
+                             </Link>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+
             </main>
             <LandingFooter />
         </div>
