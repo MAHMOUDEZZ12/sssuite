@@ -6,7 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Tool, fileToDataUri, filesToDataUris } from '@/lib/tools-client.tsx';
+import { Tool } from '@/lib/tools-client.tsx';
 import { tools as clientTools } from '@/lib/tools-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,6 +21,20 @@ import { Confetti } from '@/components/confetti';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
+
+const fileToDataUri = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+};
+
+const filesToDataUris = (files: FileList | null): Promise<string[]> => {
+    if (!files) return Promise.resolve([]);
+    return Promise.all(Array.from(files).map(fileToDataUri));
+};
 
 const getToolSchema = (tool: Tool | undefined) => {
     if (!tool) return z.object({});
