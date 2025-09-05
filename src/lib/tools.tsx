@@ -50,6 +50,7 @@ import { rebrandBrochure } from '@/ai/flows/rebrand-brochure';
 import { generateSocialPost } from '@/ai/flows/generate-social-post';
 import { suggestTargetingOptions } from '@/ai/flows/suggest-targeting-options';
 import { editPdf } from '@/ai/flows/edit-pdf';
+import { matchInvestors } from '@/ai/flows/match-investors';
 
 export const fileToDataUri = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -695,6 +696,26 @@ export const tools: Tool[] = [
     cta: 'Investor Match',
     categories: ['Lead Gen', 'Sales Tools'],
     backsideValue: "Know which investor to call instantly.",
+    flowRunner: matchInvestors,
+    renderResult: (result, toast) => (
+       <div className="space-y-4">
+            <h3 className="font-semibold text-lg mb-2">Top Investor Matches</h3>
+            <ul className="space-y-3">
+            {result.matches.map((match: any, index: number) => (
+                <li key={index} className="p-4 bg-muted rounded-md border">
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <p className="font-semibold text-primary">{match.name}</p>
+                            <p className="text-sm text-muted-foreground">Match Score: {match.matchScore}/100</p>
+                        </div>
+                        <Button variant="outline" size="sm" onClick={() => copyToClipboard(match.email, toast)}>Copy Email</Button>
+                    </div>
+                    <p className="text-sm mt-2">{match.reasoning}</p>
+                </li>
+            ))}
+            </ul>
+      </div>
+    ),
     details: {
       steps: [
         { text: 'Provide details on a new investment property', icon: <Building className="h-6 w-6" /> },
@@ -717,8 +738,13 @@ export const tools: Tool[] = [
       ],
     },
     creationFields: [
-      { id: 'propertyDetails', name: 'Investment Property Details', type: 'textarea', placeholder: 'e.g., Duplex in Austin, TX. Cap rate: 6%. Needs light renovation. Zoned for short-term rentals.', description: 'Describe the investment opportunity.' },
-      { id: 'clientDatabase', name: 'Your Client List (Optional)', type: 'file', description: 'Upload a CSV of your investor contacts for the AI to analyze.' },
+      { id: 'clientDatabase', name: 'Your Client List', type: 'file', description: 'Upload a CSV of your investor contacts for the AI to analyze.' },
+      { id: 'propertyType', name: 'Property Type', type: 'select', options: ["Duplex", "Triplex", "Fourplex", "Multi-Family (5+ units)", "Commercial Retail", "Office Space"], placeholder: 'Select property type', description: 'Type of investment property.' },
+      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., Austin, TX', description: 'City and state of the property.'},
+      { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 750000', description: 'Asking price of the property.'},
+      { id: 'capRate', name: 'Cap Rate (%)', type: 'number', placeholder: 'e.g., 6.5', description: 'The capitalization rate of the property.'},
+      { id: 'investmentThesis', name: 'Investment Thesis', type: 'select', options: ["Value-Add / Renovation", "Turnkey Rental", "Long-Term Appreciation", "Development Opportunity", "1031 Exchange"], placeholder: 'Select investment strategy', description: 'Primary strategy for this investment.'},
+      { id: 'keyFeatures', name: 'Key Features', type: 'textarea', placeholder: 'e.g., Long-term tenants in place, zoned for mixed-use, located in an opportunity zone.', description: 'Additional selling points for an investor.' },
     ],
   },
   {
@@ -748,7 +774,7 @@ export const tools: Tool[] = [
        faqs: [
         { question: "Can I choose the tone of the listing?", answer: "Yes, you can specify a tone such as 'Luxurious,' 'Family-Friendly,' or 'Great for First-Time Buyers,' and the AI will adjust its language and emphasis accordingly." },
         { question: "Is the output ready to copy and paste into the MLS?", answer: "Absolutely. The generated text is formatted to be easily copied and pasted into MLS systems and other listing sites like Zillow or Redfin." },
-        { question: "How does it know what keywords to use for SEO?", answer: "The AI analyzes the property's location and features to include relevant local keywords (like neighborhood names, school districts, or nearby landmarks) that potential buyers are likely to search for." }
+        { question: "How does it know what keywords to use for SEO?", answer: "The AI analyzes the property's location and features to include relevant local keywords (like neighborhood names, school districts, or nearby landmarks) that a potential buyer is likely to search for." }
       ],
     },
     creationFields: [
