@@ -18,6 +18,9 @@ export function LandingHeader() {
           <Link href="/pricing">
             <Button variant="ghost">Pricing</Button>
           </Link>
+          <Link href="/sx3-mindmap">
+            <Button variant="ghost">Mindmap</Button>
+          </Link>
           <Link href="/login">
             <Button variant="ghost">Log In</Button>
           </Link>
