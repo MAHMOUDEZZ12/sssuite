@@ -253,19 +253,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto mb-12">
-            <div className="bg-primary/10 border border-primary/20 rounded-2xl p-4 flex items-center gap-4">
-                <div className="p-3 bg-primary/20 text-primary rounded-full">
-                    <Megaphone className="h-6 w-6" />
-                </div>
-                <div>
-                    <h3 className="font-bold text-primary">What's New?</h3>
-                    <p className="text-foreground/80">A new resizing tool has been added to the AI Reel Designer!</p>
-                </div>
-            </div>
-        </div>
-
-        <div className="sticky top-16 z-10 bg-background/80 backdrop-blur-lg -mx-8 px-8 py-4 mb-12">
+        <div className="sticky top-16 z-10 bg-background/80 backdrop-blur-lg -mx-8 px-8 py-4 mb-8">
             <div className="flex justify-center overflow-x-auto pb-4">
                 <div className="flex gap-2 md:gap-4 flex-nowrap">
                   {filterCategories.map(category => (
@@ -282,6 +270,10 @@ export default function Home() {
                     </Button>
                   ))}
                 </div>
+            </div>
+             <div className="text-center text-sm text-muted-foreground mt-2 flex items-center justify-center gap-2">
+                <Sparkles className="h-4 w-4 text-primary" />
+                <span className="font-semibold text-primary">What's New?</span> A new resizing tool has been added to the AI Reel Designer!
             </div>
         </div>
 
@@ -358,5 +350,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
