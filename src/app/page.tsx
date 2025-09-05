@@ -14,6 +14,7 @@ import {
   Upload,
   Megaphone,
   User,
+  ShieldQuestion,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -41,6 +42,34 @@ const announcements = [
     "A new resizing tool has been added to the AI Reel Designer!",
     "You can now connect your YouTube account to analyze video performance.",
     "The Investor Matching tool now supports commercial properties.",
+];
+
+const faqItems = [
+    {
+        value: "faq-1",
+        question: "Is my data secure?",
+        answer: "Absolutely. Security is our top priority. Your data, including uploaded documents and client lists, is kept private and encrypted. We do not use your data to train AI models for other users. Your business intelligence remains your own."
+    },
+    {
+        value: "faq-2",
+        question: "What's included in the free trial?",
+        answer: "The free trial gives you access to a selection of our core tools with a limited number of AI generations. It's the perfect way to experience the power of the suite and see how it can fit into your workflow before committing to a plan."
+    },
+    {
+        value: "faq-3",
+        question: "Can I use my own branding?",
+        answer: "Yes! The entire suite is built around your brand. In the 'Brand & Assets' section, you can upload your logo and define your color palette. The AI will then use these assets to ensure everything it creates is perfectly on-brand."
+    },
+    {
+        value: "faq-4",
+        question: "How does the AI Assistant learn?",
+        answer: "The AI Assistant learns from the private documents you provide it in the 'Knowledge Base'. By uploading your brochures, market reports, and past project details, you create a personalized co-pilot with deep, contextual knowledge of *your* business."
+    },
+    {
+        value: "faq-5",
+        question: "What if I need help or have an issue?",
+        answer: "We offer comprehensive support. You can explore our detailed 'Handbook' for guides on every tool, check our real-time 'System Status' page, or report an issue directly to our support team via the link in the dashboard."
+    }
 ];
 
 
@@ -388,6 +417,31 @@ export default function Home() {
                     </div>
                 </div>
             </Card>
+        </section>
+
+        <section className="mt-32 max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+                 <div className="inline-block p-4 mb-6 text-white rounded-2xl bg-gradient-to-br from-primary to-accent">
+                    <ShieldQuestion className="h-10 w-10" />
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold font-heading tracking-tight mb-4">Frequently Asked Questions</h2>
+                <p className="text-lg text-foreground/60">
+                    Clear, simple answers to your most common questions.
+                </p>
+            </div>
+
+             <Accordion type="single" collapsible className="w-full space-y-4">
+                {faqItems.map((item) => (
+                    <AccordionItem value={item.value} key={item.value} className="bg-card/50 backdrop-blur-lg border rounded-2xl shadow-lg shadow-primary/10">
+                        <AccordionTrigger className="text-left text-lg p-6 hover:no-underline">
+                            {item.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="px-6 pb-6 text-base text-foreground/80">
+                            {item.answer}
+                        </AccordionContent>
+                    </AccordionItem>
+                ))}
+            </Accordion>
         </section>
 
       </main>
