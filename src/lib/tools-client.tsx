@@ -41,6 +41,7 @@ import {
   Binoculars,
   LineChart,
   BrainCircuit,
+  Wrench,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -113,6 +114,39 @@ const mockProjects = [
 ];
 
 export const tools: Feature[] = [
+  {
+    id: 'one-shot-setup',
+    title: 'One-Shot Setup',
+    description: "Use your AI Assistant to set up your entire workspace from a single command.",
+    icon: <Wrench />,
+    color: '#fde047', // yellow-300
+    cta: 'Workspace Setup',
+    categories: ['Sales Tools', 'Editing'],
+    mindMapCategory: 'Core Intelligence',
+    badge: 'NEW',
+    details: {
+      steps: [
+        { text: 'Upload documents to your Assistant', icon: <Upload /> },
+        { text: 'Issue the setup command', icon: <MessageCircle /> },
+        { text: 'Confirm the changes', icon: <BadgeCheck /> },
+      ],
+      aiVsManual: [
+        { metric: 'Setup Time', manual: '30-60 minutes of manual data entry', ai: 'Under 2 minutes', icon: <Clock2 /> },
+        { metric: 'Accuracy', manual: 'Prone to typos and copy/paste errors', ai: 'Perfectly accurate extraction', icon: <BadgeCheck /> },
+        { metric: 'Effort', manual: 'High - requires finding all info manually', ai: 'Low - just upload files and give one command', icon: <Sparkles /> },
+      ],
+      synergy: [
+        { tool: "AI Assistant", benefit: "This tool is a command for the assistant, turning it from a chatbot into a command manager." },
+        { tool: "Brand Management", benefit: "The brand settings configured by this tool will be used by all other creative tools." }
+      ],
+      faqs: [
+        { question: "What kind of documents should I upload?", answer: "A company profile, a brand guidelines PDF, a project list from a CSV or Word document, or even a detailed email signature can work." },
+        { question: "What if the AI gets something wrong?", answer: "The assistant will present you with the information it extracted for confirmation before applying it. You can always correct any details manually in the Brand or Projects pages." },
+        { question: "Is this a one-time thing?", answer: "You can use it anytime you need to bulk-update your information, for example if you join a new brokerage or take on a large new development with many sub-projects." }
+      ],
+    },
+    creationFields: [],
+  },
   {
     id: 'ad-creation',
     title: 'AI Ad Creator',
@@ -953,5 +987,3 @@ export const tools: Feature[] = [
     ],
   },
 ];
-
-    
