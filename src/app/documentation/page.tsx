@@ -7,7 +7,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Code, GitBranch, Cpu, Component, Wind, BrainCircuit } from 'lucide-react';
 import { tools } from '@/lib/tools-client';
 import { Badge } from '@/components/ui/badge';
-import * as allFlows from '@/ai/flows';
 
 
 const technologies = [
@@ -55,9 +54,6 @@ const SchemaDisplay = ({ schema }: { schema: any }) => {
 
 
 export default function DocumentationPage() {
-
-  const flowSchemas = allFlows as any;
-
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
@@ -92,14 +88,10 @@ export default function DocumentationPage() {
           <h2 className="text-3xl font-bold mb-8 text-center">AI Flows & Features</h2>
           <div className="space-y-12">
             {tools.map((tool) => {
-              const flowName = tool.id.replace(/-/g, '_').replace(/_([a-z])/g, g => g[1].toUpperCase());
-              const flowModule = flowSchemas[flowName + 'Flow'];
-              let inputSchema, outputSchema;
-              if (flowModule) {
-                  // This is a simplified way to access schema; in reality, you might need a more robust way
-                  // to get schemas from your Genkit flow definitions if they are not directly exported.
-                  // For this example, we assume a convention might exist.
-              }
+              // Schemas would need to be imported or passed in a different way
+              // For now, this will render without schemas
+              const inputSchema = undefined;
+              const outputSchema = undefined;
 
               return (
               <Card key={tool.id} className="bg-card/50 backdrop-blur-lg border-primary/10 overflow-hidden">
