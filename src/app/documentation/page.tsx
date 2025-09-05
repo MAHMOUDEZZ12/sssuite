@@ -30,12 +30,9 @@ const aiFlows = [
     inputSchema: `
 const GenerateAdFromBrochureInputSchema = z.object({
   brochureDataUri: z.string().describe("..."),
-  projectLinks: z.string().describe("Official project links."),
-  projectRowInformation: z.string().describe("..."),
+  additionalInformation: z.string().optional().describe("..."),
   focusArea: z.string().describe("..."),
-  brandName: z.string().describe("The brand name to use..."),
   toneOfVoice: z.string().describe("The desired tone of voice..."),
-  colors: z.string().describe("The color palette to use..."),
 });
     `,
     outputSchema: `
@@ -53,9 +50,9 @@ const GenerateAdFromBrochureOutputSchema = z.object({
 const GenerateLandingPageInputSchema = z.object({
   projectName: z.string().describe("The name of the project."),
   projectDetails: z.string().describe("Detailed information..."),
-  userBrandingPreferences: z.string().describe("..."),
+  brandingStyle: z.string().describe("The chosen visual style..."),
   projectBrochureDataUri: z.string().optional().describe("..."),
-  officialProjectLinks: z.string().optional().describe("..."),
+  inspirationImageDataUri: z.string().optional().describe("..."),
 });
     `,
     outputSchema: `
@@ -107,8 +104,13 @@ const RebrandBrochureOutputSchema = z.object({
     description: 'This flow provides a detailed list of targeting options, including demographics, interests, behaviors, and keywords, to help optimize ad campaigns for real estate projects.',
     inputSchema: `
 const SuggestTargetingOptionsInputSchema = z.object({
-  projectDetails: z.string().describe("Detailed description..."),
-  targetAudience: z.string().describe("Ideal target audience..."),
+  location: z.string().describe("The target city..."),
+  propertyType: z.string().describe("The type of property..."),
+  priceRange: z.object({ min: z.number(), max: z.number() }).describe("..."),
+  amenities: z.array(z.string()).describe("A list of key property amenities."),
+  ageRange: z.object({ min: z.number(), max: z.number() }).describe("..."),
+  incomeLevel: z.string().describe("The income level..."),
+  interests: z.array(z.string()).describe("A list of interests..."),
 });
     `,
     outputSchema: `
