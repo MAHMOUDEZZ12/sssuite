@@ -17,33 +17,19 @@ import { cn } from '@/lib/utils';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import Image from 'next/image';
 import { track } from '@/lib/events';
+import type { Project } from '@/types';
 
 const MOCK_DEVELOPERS = ['Emaar', 'Damac', 'Sobha', 'Nakheel', 'Meraas', 'Aldar'];
-const MOCK_PROJECTS_PASS1 = [
-    { badge: 'Suggested', name: 'Emaar Beachfront', developer: 'Emaar', area: 'Dubai Harbour', priceFrom: 'AED 2.5M', unitTypes: ['Apartment'], handover: 'Ready' },
-    { badge: 'Suggested', name: 'Damac Lagoons', developer: 'Damac', area: 'Dubailand', priceFrom: 'AED 1.8M', unitTypes: ['Townhouse', 'Villa'], handover: '2026' }
-];
-
-const MOCK_PROJECTS_PASS2 = [
-    { name: 'Address The Bay', developer: 'Emaar', area: 'Dubai Harbour' },
-    { name: 'Safa Two', developer: 'Damac', area: 'Safa Park' },
-    { name: 'Creek Waters 2', developer: 'Emaar', area: 'Dubai Creek Harbour' },
-    { name: 'Sobha Hartland II', developer: 'Sobha', area: 'MBR City' },
-    { name: 'Design Quarter', developer: 'Meraas', area: 'd3' },
-    { name: 'The Oasis', developer: 'Emaar', area: 'Dubailand' },
-    { name: 'Volta', developer: 'Damac', area: 'Downtown Dubai' },
-    { name: 'Palm Jebel Ali', developer: 'Nakheel', area: 'Jebel Ali' },
-    { name: 'GHAF Woods', developer: 'Majid Al Futtaim', area: 'Global Village' },
-    { name: 'Alana', developer: 'Emaar', area: 'The Valley' },
-    { name: 'Rivana', developer: 'Emaar', area: 'The Valley' },
-    { name: 'Golf Greens', developer: 'Damac', area: 'Damac Hills' },
-];
 
 function OnboardingComponent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { toast } = useToast();
     const step = parseInt(searchParams.get('step') || '1', 10);
+    
+    const [isLoading, setIsLoading] = useState(false);
+    const [suggestedProjects, setSuggestedProjects] = useState<Project[]>([]);
+    const [scannedProjects, setScannedProjects] = useState<Project[]>([]);
 
     const [draft, setDraft] = useState({
         city: 'Dubai',
@@ -60,9 +46,33 @@ function OnboardingComponent() {
     
     const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
 
+    // Fetch initial suggestions
+    useEffect(() => {
+        if (step === 1 && suggestedProjects.length === 0) {
+            setIsLoading(true);
+            fetch('/api/projects/suggest')
+                .then(res => res.json())
+                .then(data => setSuggestedProjects(data.data || []))
+                .catch(err => console.error("Failed to fetch suggestions", err))
+                .finally(() => setIsLoading(false));
+        }
+    }, [step]);
+
+    // Fetch broader scan when user is on step 4 or has selected developers
+    useEffect(() => {
+        if (step === 4 && scannedProjects.length === 0) {
+            setIsLoading(true);
+            const devQuery = draft.devFocus.length > 0 ? `?devs=${draft.devFocus.join(',')}` : '';
+            fetch(`/api/projects/scan${devQuery}`)
+                .then(res => res.json())
+                .then(data => setScannedProjects(data.data || []))
+                .catch(err => console.error("Failed to fetch scan", err))
+                .finally(() => setIsLoading(false));
+        }
+    }, [step, draft.devFocus]);
+
     const updateDraft = (data: Partial<typeof draft>) => {
         setDraft(prev => ({ ...prev, ...data, progress: { step, ts: Date.now() } }));
-        // In a real app, you would also save this to Firestore here
     };
     
     const handleFileChange = (files: FileList | null) => {
@@ -91,7 +101,7 @@ function OnboardingComponent() {
         track('onboarding_project_rated', { project: projectName, rating: status });
     };
 
-    const isStep1Complete = draft.devFocus.length > 0 && Object.keys(draft.firstPass).length === MOCK_PROJECTS_PASS1.length;
+    const isStep1Complete = draft.devFocus.length > 0 && Object.keys(draft.firstPass).length === suggestedProjects.length && suggestedProjects.length > 0;
 
     const nextStep = () => {
         track('onboarding_step_completed', { step });
@@ -168,16 +178,23 @@ function OnboardingComponent() {
                             </div>
                             <div>
                                 <h3 className="font-semibold mb-2">3. Are these projects relevant?</h3>
-                                <div className="grid sm:grid-cols-2 gap-4">
-                                    {MOCK_PROJECTS_PASS1.map(proj => (
-                                        <ProjectCard key={proj.name} project={proj} actions={
-                                            <div className="flex gap-2">
-                                                <Button size="sm" onClick={() => handleFirstPass(proj.name, 'relevant')}>Relevant</Button>
-                                                <Button size="sm" variant="ghost" onClick={() => handleFirstPass(proj.name, 'not')}>Not relevant</Button>
-                                            </div>
-                                        } />
-                                    ))}
-                                </div>
+                                {isLoading && suggestedProjects.length === 0 ? (
+                                     <div className="flex items-center justify-center h-48 text-muted-foreground">
+                                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                                        <span>Finding relevant projects for you...</span>
+                                     </div>
+                                ) : (
+                                    <div className="grid sm:grid-cols-2 gap-4">
+                                        {suggestedProjects.map((proj: Project) => (
+                                            <ProjectCard key={proj.name} project={{...proj, badge: 'Suggested'}} actions={
+                                                <div className="flex gap-2">
+                                                    <Button size="sm" onClick={() => handleFirstPass(proj.name, 'relevant')}>Relevant</Button>
+                                                    <Button size="sm" variant="ghost" onClick={() => handleFirstPass(proj.name, 'not')}>Not relevant</Button>
+                                                </div>
+                                            } />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </CardContent>
                         <CardFooter>
@@ -257,22 +274,29 @@ function OnboardingComponent() {
                             <StepHeader title="Here's a broader scan based on your choices." subtitle="Select 5-8 projects to build your initial library. This helps the AI understand your focus." />
                         </CardHeader>
                         <CardContent>
-                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                {MOCK_PROJECTS_PASS2.map(proj => (
-                                    <ProjectCard 
-                                        key={proj.name} 
-                                        project={proj} 
-                                        selectable 
-                                        selected={draft.scanSelected.includes(proj.name)}
-                                        onToggle={() => {
-                                            const newSelection = draft.scanSelected.includes(proj.name)
-                                                ? draft.scanSelected.filter(p => p !== proj.name)
-                                                : [...draft.scanSelected, proj.name];
-                                            updateDraft({ scanSelected: newSelection });
-                                        }}
-                                    />
-                                ))}
-                            </div>
+                             {isLoading && scannedProjects.length === 0 ? (
+                                 <div className="flex items-center justify-center h-64 text-muted-foreground">
+                                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                                    <span>Scanning for over 100+ projects based on your preferences...</span>
+                                 </div>
+                             ) : (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                    {scannedProjects.map((proj: Project) => (
+                                        <ProjectCard 
+                                            key={proj.name} 
+                                            project={proj} 
+                                            selectable 
+                                            selected={draft.scanSelected.includes(proj.name)}
+                                            onToggle={() => {
+                                                const newSelection = draft.scanSelected.includes(proj.name)
+                                                    ? draft.scanSelected.filter(p => p !== proj.name)
+                                                    : [...draft.scanSelected, proj.name];
+                                                updateDraft({ scanSelected: newSelection });
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                             )}
                         </CardContent>
                         <CardFooter className="flex justify-between">
                             <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
