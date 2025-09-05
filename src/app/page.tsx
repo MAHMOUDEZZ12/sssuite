@@ -31,7 +31,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Feature, tools as features, FilterCategory } from '@/lib/tools-client.tsx';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ShinyButton } from '@/components/ui/shiny-button';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipProvider, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 
@@ -345,28 +345,44 @@ export default function Home() {
                         </Link>
                     </div>
                      <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center min-h-[400px]">
-                        <div className="w-full max-w-md mx-auto space-y-6">
-                          <div className="flex items-start gap-3 justify-end">
-                              <div className="bg-primary text-primary-foreground p-3 rounded-2xl rounded-br-none">
-                                  <p className="text-sm">Create a new project for 'Azure Lofts', generate a promotional video for it, and save the final video to my drive.</p>
+                        <div className="w-full max-w-lg mx-auto space-y-6">
+                           <div className="flex items-start gap-3 justify-end">
+                              <div className="bg-primary text-primary-foreground p-4 rounded-2xl rounded-br-none max-w-sm">
+                                  <p>Create a new project for 'Azure Lofts', generate a promotional video for it, and save the final video to my drive.</p>
                               </div>
-                              <Avatar>
+                              <Avatar className="w-10 h-10">
                                   <AvatarFallback>U</AvatarFallback>
                               </Avatar>
                           </div>
                            <div className="flex items-start gap-3">
-                               <Avatar>
-                                  <AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-5 w-5"/></AvatarFallback>
+                               <Avatar className="w-10 h-10">
+                                  <AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-6 w-6"/></AvatarFallback>
                               </Avatar>
-                              <div className="bg-background border p-3 rounded-2xl rounded-bl-none">
-                                  <p className="text-sm">Of course. I've initiated the following workflow:</p>
-                                  <ul className="text-sm mt-2 space-y-1 list-inside">
+                              <div className="bg-background border p-4 rounded-2xl rounded-bl-none max-w-sm">
+                                  <p>Of course. I've initiated the following workflow:</p>
+                                  <ul className="mt-2 space-y-1 list-inside">
                                       <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 1. Project Created: 'Azure Lofts'</li>
                                       <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 2. Video Generation: In progress...</li>
                                       <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 3. File Transfer: Pending</li>
                                   </ul>
                                    <p className="text-xs text-muted-foreground mt-2">I will notify you when the video is ready.</p>
                               </div>
+                          </div>
+                           <div className="flex items-start gap-3">
+                               <Avatar className="w-10 h-10">
+                                  <AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-6 w-6"/></AvatarFallback>
+                              </Avatar>
+                              <div className="bg-background border p-4 rounded-2xl rounded-bl-none max-w-sm">
+                                  <p>Quick update: The promotional video for 'Azure Lofts' has been generated. You can <Link href="#" className="underline">preview it here</Link>. I am now uploading it to your connected Google Drive.</p>
+                              </div>
+                          </div>
+                           <div className="flex items-start gap-3 justify-end">
+                              <div className="bg-primary text-primary-foreground p-4 rounded-2xl rounded-br-none max-w-sm">
+                                  <p>Looks great, thanks!</p>
+                              </div>
+                              <Avatar className="w-10 h-10">
+                                  <AvatarFallback>U</AvatarFallback>
+                              </Avatar>
                           </div>
                         </div>
                     </div>
