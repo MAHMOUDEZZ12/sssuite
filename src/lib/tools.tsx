@@ -201,7 +201,7 @@ export const tools: Tool[] = [
         { metric: 'Budget Efficiency', manual: 'High waste on wrong audiences', ai: 'Optimized ad spend, higher ROI', icon: <Wallet /> },
       ],
       synergy: [
-        { tool: "Instant Ad Creation", benefit: "Design the perfect ad for the high-intent audience you've just identified." },
+        { tool: "Instant Ad Creation", benefit: "Design the perfect ad for the high-intent audience you\'ve just identified." },
         { tool: "AI Social Post Writer", benefit: "Create organic posts that speak directly to the interests of your target persona." }
       ],
        faqs: [
@@ -277,10 +277,7 @@ export const tools: Tool[] = [
     creationFields: [
       { id: 'brochureDataUri', name: 'Developer Brochure', type: 'file', description: 'Upload the original PDF.' },
       { id: 'companyLogoDataUri', name: 'Your Logo', type: 'file', description: 'Upload your personal or company logo (PNG, JPG). Optional.' },
-      { id: 'contactDetails', name: 'Your Contact Info', type: 'text', placeholder: 'John Doe - 555-123-4567', description: 'This will be added to the brochure.' },
-      { id: 'companyName', name: 'Your Company Name', type: 'text', placeholder: 'e.g., "The Doe Group"', description: 'Your company name for branding.' },
-      { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Luxury', 'Urgent'], placeholder: 'Select a tone', description: 'The tone for the rebranded content.' },
-      { id: 'colors', name: 'Brand Colors', type: 'select', options: ['Blue and Gold', 'Black and White', 'Green and Beige', 'Orange and Teal'], placeholder: 'Select a color palette', description: 'Primary colors for accents.' },
+      { id: 'brand-redirect', name: 'Brand Assets', type: 'button', cta: 'Go to My Brand', description: 'The AI uses your saved brand assets. Click here to set them up.' },
     ],
   },
    {
@@ -648,7 +645,7 @@ export const tools: Tool[] = [
     creationFields: [
       { id: 'area', name: 'Target Area', type: 'text', placeholder: 'e.g., "Downtown Toronto" or "Williamsburg, Brooklyn"', description: 'The geographic area to monitor.' },
       { id: 'propertyType', name: 'Property Type', type: 'text', placeholder: 'e.g., "Luxury condos", "Family homes"', description: 'The type of property your leads would be interested in.' },
-      { id: 'platforms', name: 'Social Platforms', type: 'text', placeholder: 'e.g., "Facebook groups", "Instagram hashtags"', description: 'Where should the AI look for leads?' },
+      { id: 'platforms', name: 'Social Platforms', type: 'select', options: ["Facebook Groups", "Instagram Hashtags", "Local Reddit Communities", "LinkedIn"], placeholder: 'e.g., "Facebook groups", "Instagram hashtags"', description: 'Where should the AI look for leads?' },
     ],
   },
   {
