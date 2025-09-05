@@ -56,8 +56,8 @@ export default function ProjectsPage() {
           <TableHeader>
             <TableRow>
               <TableHead>Project Name</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Location</TableHead>
+              <TableHead className="hidden md:table-cell">Type</TableHead>
+              <TableHead className="hidden md:table-cell">Location</TableHead>
               <TableHead>Status</TableHead>
               <TableHead><span className="sr-only">Actions</span></TableHead>
             </TableRow>
@@ -66,8 +66,8 @@ export default function ProjectsPage() {
             {mockProjects.map((project) => (
               <TableRow key={project.id}>
                 <TableCell className="font-medium">{project.name}</TableCell>
-                <TableCell>{project.type}</TableCell>
-                <TableCell>{project.location}</TableCell>
+                <TableCell className="hidden md:table-cell">{project.type}</TableCell>
+                <TableCell className="hidden md:table-cell">{project.location}</TableCell>
                 <TableCell>
                   <Badge variant={statusVariant[project.status] || 'secondary'}>{project.status}</Badge>
                 </TableCell>

@@ -61,9 +61,9 @@ export default function LeadsPage() {
           <TableHeader>
             <TableRow>
               <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
+              <TableHead className="hidden md:table-cell">Email</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>Last Contacted</TableHead>
+              <TableHead className="hidden md:table-cell">Last Contacted</TableHead>
               <TableHead><span className="sr-only">Actions</span></TableHead>
             </TableRow>
           </TableHeader>
@@ -71,11 +71,11 @@ export default function LeadsPage() {
             {mockLeads.map((lead) => (
               <TableRow key={lead.id}>
                 <TableCell className="font-medium">{lead.name}</TableCell>
-                <TableCell>{lead.email}</TableCell>
+                <TableCell className="hidden md:table-cell">{lead.email}</TableCell>
                 <TableCell>
                   <Badge variant={statusVariant[lead.status] || 'secondary'}>{lead.status}</Badge>
                 </TableCell>
-                <TableCell>{lead.lastContacted}</TableCell>
+                <TableCell className="hidden md:table-cell">{lead.lastContacted}</TableCell>
                 <TableCell>
                    <DropdownMenu>
                     <DropdownMenuTrigger asChild>
