@@ -4,7 +4,7 @@
 import React from 'react';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
-import { tools, Feature } from '@/lib/tools';
+import { tools, Feature } from '@/lib/tools-client';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { ArrowRight, Briefcase, Clock2, BadgeCheck, MessageCircle, Network, Palette, PenTool, Plus, Search, Sparkles, Target, Upload, UserCog, Wallet, Share2, LayoutTemplate, FileText } from 'lucide-react';
@@ -237,5 +237,3 @@ export default function SX3MindmapPage() {
     </div>
   );
 }
-
-    

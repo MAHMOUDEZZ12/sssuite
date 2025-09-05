@@ -42,9 +42,11 @@ export default function LoginPage() {
               </div>
               <Input id="password" type="password" defaultValue="123456" required />
             </div>
-            <Button type="submit" className="w-full">
-              Login
-            </Button>
+            <Link href="/dashboard" className="w-full">
+              <Button type="submit" className="w-full">
+                Login
+              </Button>
+            </Link>
             <Button variant="outline" className="w-full">
               Login with Google
             </Button>

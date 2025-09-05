@@ -54,7 +54,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { tools } from '@/lib/tools.tsx';
+import { tools } from '@/lib/tools-client.tsx';
 import { AssistantChat } from '@/components/assistant-chat';
 
 const marketingTools = tools.filter(t => t.mindMapCategory === 'Marketing');

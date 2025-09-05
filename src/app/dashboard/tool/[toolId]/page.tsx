@@ -1,12 +1,13 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Tool, tools, fileToDataUri, filesToDataUris } from '@/lib/tools.tsx';
+import { Tool, fileToDataUri, filesToDataUris } from '@/lib/tools-client.tsx';
+import { tools } from '@/lib/tools'; // Import from server-safe tools
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -64,16 +65,20 @@ const getToolSchema = (tool: Tool | undefined) => {
 export default function ToolPage() {
   const { toolId } = useParams<{ toolId: string }>();
   const router = useRouter();
-  const tool = tools.find((t) => t.id === toolId);
+  const [tool, setTool] = useState<Tool | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<any | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const { toast } = useToast();
   
-  // For this prototype, we'll simulate the payment status. In a real app, this would come from a user session or database.
   const [hasPaymentDetails, setHasPaymentDetails] = useState(true);
   const [showPaymentDialog, setShowPaymentDialog] = useState(false);
+
+  useEffect(() => {
+    const currentTool = tools.find((t) => t.id === toolId);
+    setTool(currentTool);
+  }, [toolId]);
 
   const schema = React.useMemo(() => getToolSchema(tool), [tool]);
 

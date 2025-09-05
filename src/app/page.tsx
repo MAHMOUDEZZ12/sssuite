@@ -25,7 +25,7 @@ import {
 } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Feature, tools as features } from '@/lib/tools.tsx';
+import { Feature, tools as features } from '@/lib/tools-client.tsx';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 
@@ -326,5 +326,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
