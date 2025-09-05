@@ -1,7 +1,7 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -10,11 +10,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Palette, Upload, Save, CheckCircle } from 'lucide-react';
+import { Palette, Upload, Save, CheckCircle, BrainCircuit, FileText, ImageIcon, FileSpreadsheet, Download, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { PageHeader } from '@/components/ui/page-header';
+import { Separator } from '@/components/ui/separator';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const brandSchema = z.object({
   companyName: z.string().min(2, 'Company name is required.'),
@@ -37,12 +39,24 @@ const colorPalettes = [
     { name: 'Sky & Sun', primary: '#87CEEB', secondary: '#FFD700' },
 ];
 
+const mockFiles = [
+  { id: 1, name: 'Luxury_Condo_Brochure.pdf', type: 'PDF', icon: <FileText className="h-10 w-10 text-destructive" />, size: '2.5 MB' },
+  { id: 2, name: 'Company_Logo_White.png', type: 'PNG', icon: <ImageIcon className="h-10 w-10 text-primary" />, size: '150 KB' },
+  { id: 3, name: 'Ad_Creative_V1.jpg', type: 'JPG', icon: <ImageIcon className="h-10 w-10 text-primary" />, size: '800 KB' },
+  { id: 4, name: 'Investor_List_Q2.csv', type: 'CSV', icon: <FileSpreadsheet className="h-10 w-10 text-green-500" />, size: '320 KB' },
+  { id: 5, name: 'Rebranded_Brochure.pdf', type: 'PDF', icon: <FileText className="h-10 w-10 text-destructive" />, size: '2.8 MB' },
+  { id: 6, name: 'Landing_Page_Hero.jpg', type: 'JPG', icon: <ImageIcon className="h-10 w-10 text-primary" />, size: '1.2 MB' },
+];
+
 
 export default function BrandPage() {
   const { toast } = useToast();
   const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
   const [isDragging, setIsDragging] = React.useState(false);
   const [selectedPalette, setSelectedPalette] = React.useState(colorPalettes[0]);
+
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const [selectedFiles, setSelectedFiles] = useState<number[]>([]);
 
   const {
     control,
@@ -90,17 +104,43 @@ export default function BrandPage() {
     }
   }
 
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+        console.log('Uploading files:', files);
+        // Add actual upload logic here
+    }
+  };
+    
+  const handleSelectFile = (fileId: number) => {
+      setSelectedFiles(prev => 
+          prev.includes(fileId) 
+              ? prev.filter(id => id !== fileId) 
+              : [...prev, fileId]
+      );
+  };
+
+  const handleTrainAssistant = () => {
+      // In a real app, this would trigger an AI flow
+      toast({
+          title: "Training Started",
+          description: `The assistant is now learning from the ${selectedFiles.length} selected files.`,
+      })
+      console.log("Training assistant on files:", selectedFiles);
+      setSelectedFiles([]);
+  }
+
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
         title="Brand & Assets"
-        description="Manage your company's branding and creative assets to personalize all AI-generated content."
+        description="Manage your brand and all your creative files in one unified workspace."
         icon={<Palette className="h-8 w-8" />}
       />
 
       <Card className="max-w-4xl">
         <CardHeader>
-          <CardTitle>Brand Assets</CardTitle>
+          <CardTitle>Your Brand Kit</CardTitle>
           <CardDescription>
             Provide your logo, colors, and contact information. The AI will use these assets to ensure everything it creates is perfectly on-brand.
           </CardDescription>
@@ -191,7 +231,6 @@ export default function BrandPage() {
                         </div>
                     ))}
                 </div>
-                {/* Hidden inputs to hold the form value */}
                 <Controller name="primaryColor" control={control} render={({ field }) => <Input {...field} type="hidden" />} />
                 <Controller name="secondaryColor" control={control} render={({ field }) => <Input {...field} type="hidden" />} />
             </div>
@@ -217,6 +256,80 @@ export default function BrandPage() {
 
           </CardContent>
         </form>
+      </Card>
+
+      <Separator className="my-8" />
+      
+      <Card className="max-w-4xl">
+        <CardHeader>
+            <div className='flex items-center justify-between'>
+                <div>
+                    <CardTitle>Your Asset Storage</CardTitle>
+                    <CardDescription>
+                        Manage all your uploaded assets and AI-generated files. Select files to train your assistant.
+                    </CardDescription>
+                </div>
+                <div className='flex items-center gap-2'>
+                    <Button onClick={handleTrainAssistant} disabled={selectedFiles.length === 0}>
+                        <BrainCircuit className="mr-2 h-4 w-4" />
+                        Train on {selectedFiles.length > 0 ? `${selectedFiles.length} file(s)` : 'Selection'}
+                    </Button>
+                    <Button onClick={() => fileInputRef.current?.click()} variant="outline">
+                        <Upload className="mr-2 h-4 w-4" />
+                        Upload New File
+                    </Button>
+                </div>
+            </div>
+        </CardHeader>
+        <CardContent>
+            <label htmlFor='file-upload' className="sr-only">Upload file</label>
+            <Input
+                id="file-upload"
+                type="file"
+                ref={fileInputRef}
+                className="hidden"
+                onChange={handleFileUpload}
+                multiple
+            />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                {mockFiles.map((file) => (
+                <Card 
+                    key={file.id} 
+                    className={cn(
+                        "group relative transition-all duration-200",
+                        selectedFiles.includes(file.id) && "border-primary ring-2 ring-primary/50"
+                    )}
+                    onClick={() => handleSelectFile(file.id)}
+                >
+                    <div className="absolute top-2 right-2 z-10">
+                        <Checkbox
+                            checked={selectedFiles.includes(file.id)}
+                            onCheckedChange={() => handleSelectFile(file.id)}
+                            aria-label={`Select file ${file.name}`}
+                        />
+                    </div>
+                    <CardContent className="flex flex-col items-center justify-center p-6 text-center cursor-pointer">
+                    <div className="mb-4">
+                        {file.icon}
+                    </div>
+                    <p className="font-semibold text-sm truncate w-full" title={file.name}>{file.name}</p>
+                    <p className="text-xs text-muted-foreground">{file.size}</p>
+                    </CardContent>
+                    <CardFooter className="p-2 bg-muted/50 border-t flex justify-center gap-2">
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={(e) => e.stopPropagation()}>
+                            <Download className="h-4 w-4" />
+                            <span className="sr-only">Download</span>
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive" onClick={(e) => e.stopPropagation()}>
+                            <Trash2 className="h-4 w-4" />
+                            <span className="sr-only">Delete</span>
+                        </Button>
+                    </CardFooter>
+                </Card>
+                ))}
+            </div>
+        </CardContent>
       </Card>
     </main>
   );
