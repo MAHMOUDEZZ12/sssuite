@@ -122,29 +122,29 @@ export const tools: Tool[] = [
     backsideValue: "Turn a brochure into a campaign.",
     flowRunner: generateAdFromBrochure,
     renderResult: (result, toast) => (
-       <div className="space-y-6">
+       <div class="space-y-6">
           <div>
-            <h3 className="font-semibold text-lg mb-2">Ad Copy</h3>
-            <div className="p-4 bg-muted rounded-md relative group">
-              <p className="whitespace-pre-wrap">{result.adCopy}</p>
-              <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.adCopy, toast)}><Copy className="h-4 w-4" /></Button>
+            <h3 class="font-semibold text-lg mb-2">Ad Copy</h3>
+            <div class="p-4 bg-muted rounded-md relative group">
+              <p class="whitespace-pre-wrap">{result.adCopy}</p>
+              <Button variant="ghost" size="icon" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.adCopy, toast)}><Copy class="h-4 w-4" /></Button>
             </div>
           </div>
           <div>
-            <h3 className="font-semibold text-lg mb-2">Ad Design</h3>
-            <Image src={result.adDesign} alt="Generated ad design" width={500} height={500} className="rounded-lg border" />
+            <h3 class="font-semibold text-lg mb-2">Ad Design</h3>
+            <Image src={result.adDesign} alt="Generated ad design" width={500} height={500} class="rounded-lg border" />
           </div>
           <div>
-            <h3 className="font-semibold text-lg mb-2">Landing Page Preview</h3>
-            <Image src={result.landingPage} alt="Generated landing page" width={500} height={500} className="rounded-lg border" />
+            <h3 class="font-semibold text-lg mb-2">Landing Page Preview</h3>
+            <Image src={result.landingPage} alt="Generated landing page" width={500} height={500} class="rounded-lg border" />
           </div>
         </div>
     ),
     details: {
       steps: [
-          { text: 'Upload your property brochure (PDF)', icon: <FileUp className="h-6 w-6" /> },
-          { text: 'Select a focus (e.g., "luxury", "family")', icon: <Target className="h-6 w-6" /> },
-          { text: 'Generate multiple ad variants instantly', icon: <Sparkles className="h-6 w-6" /> },
+          { text: 'Upload your property brochure (PDF)', icon: <FileUp class="h-6 w-6" /> },
+          { text: 'Select a focus (e.g., "luxury", "family")', icon: <Target class="h-6 w-6" /> },
+          { text: 'Generate multiple ad variants instantly', icon: <Sparkles class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Time Investment', manual: '5-10 hours per campaign', ai: 'Under 60 seconds', icon: <Clock2 /> },
@@ -165,7 +165,7 @@ export const tools: Tool[] = [
       { id: 'brochureDataUri', name: 'Property Brochure', type: 'file', description: 'Upload the PDF brochure for the property.' },
       { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
       { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
-      { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of condo fees waived."', description: 'Add any other key details or offers.' },
+      { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of condo fees waived."', description: 'Add any other key details or offers. (Optional)' },
       { id: 'brand-redirect', name: 'Brand Assets', type: 'button', cta: 'Go to My Brand', description: 'The AI uses your saved brand assets (logo, colors). Click here to set them up.' },
     ],
   },
@@ -181,18 +181,18 @@ export const tools: Tool[] = [
     flowRunner: suggestTargetingOptions,
     renderResult: (result, toast) => (
       <div>
-        <h3 className="font-semibold text-lg mb-2">Suggested Targeting Options</h3>
-          <div className="p-4 bg-muted rounded-md relative group">
-            <p className="whitespace-pre-wrap">{result.suggestedTargetingOptions}</p>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.suggestedTargetingOptions, toast)}><Copy className="h-4 w-4" /></Button>
+        <h3 class="font-semibold text-lg mb-2">Suggested Targeting Options</h3>
+          <div class="p-4 bg-muted rounded-md relative group">
+            <p class="whitespace-pre-wrap">{result.suggestedTargetingOptions}</p>
+            <Button variant="ghost" size="icon" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.suggestedTargetingOptions, toast)}><Copy class="h-4 w-4" /></Button>
         </div>
       </div>
     ),
     details: {
       steps: [
-        { text: 'Describe your ideal buyer persona', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Provide details about the property', icon: <Building className="h-6 w-6" /> },
-        { text: 'Get detailed audience settings for ads', icon: <ClipboardList className="h-6 w-6" /> },
+        { text: 'Describe your ideal buyer persona', icon: <PenTool class="h-6 w-6" /> },
+        { text: 'Provide details about the property', icon: <Building class="h-6 w-6" /> },
+        { text: 'Get detailed audience settings for ads', icon: <ClipboardList class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Audience Discovery', manual: 'Broad guessing (e.g., "Age 30-50")', ai: 'Niche, high-intent segments', icon: <Users2 /> },
@@ -237,26 +237,26 @@ export const tools: Tool[] = [
     backsideValue: "Make any brochure your own in one click.",
     flowRunner: rebrandBrochure,
     renderResult: (result, toast) => (
-      <div className="space-y-6">
+      <div class="space-y-6">
         <div>
-          <h3 className="font-semibold text-lg mb-2">Rebranded Brochure</h3>
+          <h3 class="font-semibold text-lg mb-2">Rebranded Brochure</h3>
           <a href={result.rebrandedBrochureDataUri} download="rebranded-brochure.pdf">
-              <Button><Download className="mr-2 h-4 w-4"/>Download PDF</Button>
+              <Button><Download class="mr-2 h-4 w-4"/>Download PDF</Button>
           </a>
         </div>
         {result.logoDataUri && (
            <div>
-              <h3 className="font-semibold text-lg mb-2">Generated Logo</h3>
-              <Image src={result.logoDataUri} alt="Generated logo" width={200} height={200} className="rounded-lg border bg-white p-2" />
+              <h3 class="font-semibold text-lg mb-2">Generated Logo</h3>
+              <Image src={result.logoDataUri} alt="Generated logo" width={200} height={200} class="rounded-lg border bg-white p-2" />
            </div>
         )}
       </div>
     ),
     details: {
       steps: [
-        { text: 'Upload any developer\'s brochure (PDF)', icon: <Upload className="h-6 w-6" /> },
-        { text: 'Provide your logo & contact info', icon: <FilePlus className="h-6 w-6" /> },
-        { text: 'Download the rebranded brochure instantly', icon: <FileText className="h-6 w-6" /> },
+        { text: 'Upload any developer\'s brochure (PDF)', icon: <Upload class="h-6 w-6" /> },
+        { text: 'Provide your logo & contact info', icon: <FilePlus class="h-6 w-6" /> },
+        { text: 'Download the rebranded brochure instantly', icon: <FileText class="h-6 w-6" /> },
       ],
       aiVsManual: [
          { metric: 'Time to Rebrand', manual: '2-4 hours in design software', ai: 'Under 1 minute', icon: <Clock2 /> },
@@ -290,20 +290,20 @@ export const tools: Tool[] = [
     backsideValue: "Edit the uneditable, instantly.",
     flowRunner: editPdf,
     renderResult: (result, toast) => (
-      <div className="space-y-6">
+      <div class="space-y-6">
         <div>
-            <h3 className="font-semibold text-lg mb-2">Edited PDF</h3>
+            <h3 class="font-semibold text-lg mb-2">Edited PDF</h3>
             <a href={result.editedPdfDataUri} download="edited.pdf">
-                <Button><Download className="mr-2 h-4 w-4"/>Download Edited PDF</Button>
+                <Button><Download class="mr-2 h-4 w-4"/>Download Edited PDF</Button>
             </a>
         </div>
     </div>
     ),
     details: {
       steps: [
-        { text: 'Upload your PDF document', icon: <Upload className="h-6 w-6" /> },
-        { text: 'Tell the AI what to change in plain English', icon: <MessageCircle className="h-6 w-6" /> },
-        { text: 'Download your edited PDF instantly', icon: <FileText className="h-6 w-6" /> },
+        { text: 'Upload your PDF document', icon: <Upload class="h-6 w-6" /> },
+        { text: 'Tell the AI what to change in plain English', icon: <MessageCircle class="h-6 w-6" /> },
+        { text: 'Download your edited PDF instantly', icon: <FileText class="h-6 w-6" /> },
       ],
       aiVsManual: [
          { metric: 'Time to Edit', manual: 'Hours finding source files or using clunky editors', ai: 'Under 2 minutes with simple commands', icon: <Clock2 /> },
@@ -338,18 +338,18 @@ export const tools: Tool[] = [
     flowRunner: generateLandingPage,
     renderResult: (result, toast) => (
       <div>
-          <h3 className="font-semibold text-lg mb-2">Landing Page HTML</h3>
-          <div className="p-4 bg-muted rounded-md relative group">
-            <pre className="whitespace-pre-wrap text-sm">{result.landingPageHtml}</pre>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.landingPageHtml, toast)}><Copy className="h-4 w-4" /></Button>
+          <h3 class="font-semibold text-lg mb-2">Landing Page HTML</h3>
+          <div class="p-4 bg-muted rounded-md relative group">
+            <pre class="whitespace-pre-wrap text-sm">{result.landingPageHtml}</pre>
+            <Button variant="ghost" size="icon" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.landingPageHtml, toast)}><Copy class="h-4 w-4" /></Button>
           </div>
       </div>
     ),
     details: {
       steps: [
-        { text: 'Provide a property brochure or link', icon: <LinkIcon className="h-6 w-6" /> },
-        { text: 'Specify your branding preferences', icon: <Palette className="h-6 w-6" /> },
-        { text: 'Generate a complete landing page', icon: <LayoutTemplate className="h-6 w-6" /> },
+        { text: 'Provide a property brochure or link', icon: <LinkIcon class="h-6 w-6" /> },
+        { text: 'Specify your branding preferences', icon: <Palette class="h-6 w-6" /> },
+        { text: 'Generate a complete landing page', icon: <LayoutTemplate class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Time to Build', manual: '1-2 days using a website builder', ai: 'Under 60 seconds', icon: <Clock2 /> },
@@ -385,32 +385,32 @@ export const tools: Tool[] = [
     backsideValue: "Never run out of content ideas again.",
     flowRunner: generateSocialPost,
     renderResult: (result, toast) => (
-      <div className="space-y-6">
+      <div class="space-y-6">
         <div>
-          <h3 className="font-semibold text-lg mb-2">Post Content</h3>
-           <div className="p-4 bg-muted rounded-md relative group">
-              <p className="whitespace-pre-wrap">{result.postContent}</p>
-              <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.postContent, toast)}><Copy className="h-4 w-4" /></Button>
+          <h3 class="font-semibold text-lg mb-2">Post Content</h3>
+           <div class="p-4 bg-muted rounded-md relative group">
+              <p class="whitespace-pre-wrap">{result.postContent}</p>
+              <Button variant="ghost" size="icon" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.postContent, toast)}><Copy class="h-4 w-4" /></Button>
            </div>
         </div>
          <div>
-          <h3 className="font-semibold text-lg mb-2">Hashtags</h3>
-           <div className="p-4 bg-muted rounded-md relative group">
+          <h3 class="font-semibold text-lg mb-2">Hashtags</h3>
+           <div class="p-4 bg-muted rounded-md relative group">
               <p>{result.hashtags.join(' ')}</p>
-              <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.hashtags.join(' '), toast)}><Copy className="h-4 w-4" /></Button>
+              <Button variant="ghost" size="icon" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.hashtags.join(' '), toast)}><Copy class="h-4 w-4" /></Button>
            </div>
         </div>
          <div>
-          <h3 className="font-semibold text-lg mb-2">Image Suggestion</h3>
-          <p className="p-4 bg-muted rounded-md">{result.imageSuggestion}</p>
+          <h3 class="font-semibold text-lg mb-2">Image Suggestion</h3>
+          <p class="p-4 bg-muted rounded-md">{result.imageSuggestion}</p>
         </div>
       </div>
     ),
     details: {
       steps: [
-        { text: 'Enter a topic, URL, or property address', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Choose your platforms (e.g., FB, IG)', icon: <Share2 className="h-6 w-6" /> },
-        { text: 'Get a week of content with images & hashtags', icon: <FileText className="h-6 w-6" /> },
+        { text: 'Enter a topic, URL, or property address', icon: <PenTool class="h-6 w-6" /> },
+        { text: 'Choose your platforms (e.g., FB, IG)', icon: <Share2 class="h-6 w-6" /> },
+        { text: 'Get a week of content with images & hashtags', icon: <FileText class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Content Creation Time', manual: '2-3 hours for a week\'s content', ai: 'Under 1 minute', icon: <Clock2 /> },
@@ -444,9 +444,9 @@ export const tools: Tool[] = [
     backsideValue: "Create thumb-stopping animated stories.",
     details: {
       steps: [
-        { text: 'Upload 3-5 property photos', icon: <Upload className="h-6 w-6" /> },
-        { text: 'Choose a vibe (e.g., "Modern", "Luxury")', icon: <Palette className="h-6 w-6" /> },
-        { text: 'Generate multiple story variants to post', icon: <Clapperboard className="h-6 w-6" /> },
+        { text: 'Upload 3-5 property photos', icon: <Upload class="h-6 w-6" /> },
+        { text: 'Choose a vibe (e.g., "Modern", "Luxury")', icon: <Palette class="h-6 w-6" /> },
+        { text: 'Generate multiple story variants to post', icon: <Clapperboard class="h-6 w-6" /> },
       ],
       aiVsManual: [
          { metric: 'Design Time', manual: '15-30 minutes per story in Canva', ai: 'Under 60 seconds for 3-5 variants', icon: <Clock2 /> },
@@ -480,9 +480,9 @@ export const tools: Tool[] = [
     backsideValue: "Turn photos into professional video reels.",
     details: {
       steps: [
-        { text: 'Upload photos or video clips', icon: <Video className="h-6 w-6" /> },
-        { text: 'Provide key selling points as text', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Get a polished reel synced to trending audio', icon: <Sparkles className="h-6 w-6" /> },
+        { text: 'Upload photos or video clips', icon: <Video class="h-6 w-6" /> },
+        { text: 'Provide key selling points as text', icon: <PenTool class="h-6 w-6" /> },
+        { text: 'Get a polished reel synced to trending audio', icon: <Sparkles class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Editing Time', manual: 'Hours of complex timeline editing', ai: 'Under 3 minutes', icon: <Clock2 /> },
@@ -516,9 +516,9 @@ export const tools: Tool[] = [
     backsideValue: "Create TikToks that capture attention.",
     details: {
       steps: [
-        { text: 'Upload short video clips or photos', icon: <Upload className="h-6 w-6" /> },
-        { text: 'Pick a trending TikTok sound', icon: <Sparkles className="h-6 w-6" /> },
-        { text: 'Generate a fast-paced, engaging video', icon: <Sparkles className="h-6 w-6" /> },
+        { text: 'Upload short video clips or photos', icon: <Upload class="h-6 w-6" /> },
+        { text: 'Pick a trending TikTok sound', icon: <Sparkles class="h-6 w-6" /> },
+        { text: 'Generate a fast-paced, engaging video', icon: <Sparkles class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Time to Edit', manual: '1-2 hours syncing clips to audio', ai: 'Under 5 minutes', icon: <Clock2 /> },
@@ -552,9 +552,9 @@ export const tools: Tool[] = [
     backsideValue: "Put your social media on autopilot.",
     details: {
       steps: [
-        { text: 'Connect your Facebook & Instagram pages', icon: <Network className="h-6 w-6" /> },
-        { text: 'Set your response preferences & FAQs', icon: <UserCog className="h-6 w-6" /> },
-        { text: 'Let the AI handle scheduling and replies 24/7', icon: <Clock className="h-6 w-6" /> },
+        { text: 'Connect your Facebook & Instagram pages', icon: <Network class="h-6 w-6" /> },
+        { text: 'Set your response preferences & FAQs', icon: <UserCog class="h-6 w-6" /> },
+        { text: 'Let the AI handle scheduling and replies 24/7', icon: <Clock class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Weekly Time Spent', manual: '5-10 hours managing pages', ai: 'Minutes to review suggestions', icon: <Clock2 /> },
@@ -573,7 +573,6 @@ export const tools: Tool[] = [
     },
     creationFields: [
       { id: 'connect', name: 'Connect Accounts', type: 'button', cta: 'Connect Facebook & Instagram', description: 'Authorize the AI to manage your pages.' },
-      { id: 'faq', name: 'Property FAQ', type: 'textarea', placeholder: 'Price: $550,000\nBedrooms: 3\nOpen House: Sat 1-3 PM', description: 'Provide info for the AI to answer common questions.' },
     ],
   },
   {
@@ -587,9 +586,9 @@ export const tools: Tool[] = [
     backsideValue: "Remember everything about every client.",
     details: {
       steps: [
-        { text: 'Connect your contacts or calendar', icon: <Network className="h-6 w-6" /> },
-        { text: 'Ask about any client (e.g., "What did I promise Jane?")', icon: <Search className="h-6 w-6" /> },
-        { text: 'Get instant summaries, reminders, and insights', icon: <FileText className="h-6 w-6" /> },
+        { text: 'Connect your contacts or calendar', icon: <Network class="h-6 w-6" /> },
+        { text: 'Ask about any client (e.g., "What did I promise Jane?")', icon: <Search class="h-6 w-6" /> },
+        { text: 'Get instant summaries, reminders, and insights', icon: <FileText class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Recall Speed', manual: 'Minutes searching notes/emails', ai: 'Instantaneous', icon: <Clock2 /> },
@@ -622,9 +621,9 @@ export const tools: Tool[] = [
     backsideValue: "Find leads who don't know they're looking yet.",
     details: {
       steps: [
-        { text: 'Define your target area and property type', icon: <MapPin className="h-6 w-6" /> },
-        { text: 'AI scans social media for buying signals', icon: <Search className="h-6 w-6" /> },
-        { text: 'Get a list of potential leads to engage', icon: <Contact className="h-6 w-6" /> },
+        { text: 'Define your target area and property type', icon: <MapPin class="h-6 w-6" /> },
+        { text: 'AI scans social media for buying signals', icon: <Search class="h-6 w-6" /> },
+        { text: 'Get a list of potential leads to engage', icon: <Contact class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Prospecting Time', manual: 'Hours of manual searching and scrolling', ai: 'Automated, continuous monitoring', icon: <Clock2 /> },
@@ -658,9 +657,9 @@ export const tools: Tool[] = [
     backsideValue: "Become the neighborhood expert overnight.",
     details: {
       steps: [
-        { text: 'Enter a neighborhood, zip code, or city', icon: <MapPin className="h-6 w-6" /> },
-        { text: 'Select report type (e.g., buyer, seller, investor)', icon: <Search className="h-6 w-6" /> },
-        { text: 'Generate a branded, data-rich PDF report', icon: <FileText className="h-6 w-6" /> },
+        { text: 'Enter a neighborhood, zip code, or city', icon: <MapPin class="h-6 w-6" /> },
+        { text: 'Select report type (e.g., buyer, seller, investor)', icon: <Search class="h-6 w-6" /> },
+        { text: 'Generate a branded, data-rich PDF report', icon: <FileText class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Time to Create', manual: 'Hours pulling MLS data and designing', ai: 'Under 2 minutes', icon: <Clock2 /> },
@@ -694,19 +693,19 @@ export const tools: Tool[] = [
     backsideValue: "Know which investor to call instantly.",
     flowRunner: matchInvestors,
     renderResult: (result, toast) => (
-       <div className="space-y-4">
-            <h3 className="font-semibold text-lg mb-2">Top Investor Matches</h3>
-            <ul className="space-y-3">
+       <div class="space-y-4">
+            <h3 class="font-semibold text-lg mb-2">Top Investor Matches</h3>
+            <ul class="space-y-3">
             {result.matches.map((match: any, index: number) => (
-                <li key={index} className="p-4 bg-muted rounded-md border">
-                    <div className="flex justify-between items-start">
+                <li key={index} class="p-4 bg-muted rounded-md border">
+                    <div class="flex justify-between items-start">
                         <div>
-                            <p className="font-semibold text-primary">{match.name}</p>
-                            <p className="text-sm text-muted-foreground">Match Score: {match.matchScore}/100</p>
+                            <p class="font-semibold text-primary">{match.name}</p>
+                            <p class="text-sm text-muted-foreground">Match Score: {match.matchScore}/100</p>
                         </div>
                         <Button variant="outline" size="sm" onClick={() => copyToClipboard(match.email, toast)}>Copy Email</Button>
                     </div>
-                    <p className="text-sm mt-2">{match.reasoning}</p>
+                    <p class="text-sm mt-2">{match.reasoning}</p>
                 </li>
             ))}
             </ul>
@@ -714,9 +713,9 @@ export const tools: Tool[] = [
     ),
     details: {
       steps: [
-        { text: 'Provide details on a new investment property', icon: <Building className="h-6 w-6" /> },
-        { text: 'The AI scans your client database for matches', icon: <Search className="h-6 w-6" /> },
-        { text: 'Get a ranked list of best-fit investors', icon: <ClipboardList className="h-6 w-6" /> },
+        { text: 'Provide details on a new investment property', icon: <Building class="h-6 w-6" /> },
+        { text: 'The AI scans your client database for matches', icon: <Search class="h-6 w-6" /> },
+        { text: 'Get a ranked list of best-fit investors', icon: <ClipboardList class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Time to Match', manual: 'Hours reviewing CRM and spreadsheets', ai: 'Under 30 seconds', icon: <Clock2 /> },
@@ -754,9 +753,9 @@ export const tools: Tool[] = [
     backsideValue: "Write perfect property descriptions in seconds.",
     details: {
       steps: [
-        { text: 'Enter key property details (address, beds, baths)', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Mention 1-2 unique features', icon: <Sparkles className="h-6 w-6" /> },
-        { text: 'Generate a full, persuasive listing description', icon: <FileText className="h-6 w-6" /> },
+        { text: 'Enter key property details (address, beds, baths)', icon: <PenTool class="h-6 w-6" /> },
+        { text: 'Mention 1-2 unique features', icon: <Sparkles class="h-6 w-6" /> },
+        { text: 'Generate a full, persuasive listing description', icon: <FileText class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Writing Time', manual: '30-60 minutes of creative writing', ai: 'Under 1 minute', icon: <Clock2 /> },
@@ -790,9 +789,9 @@ export const tools: Tool[] = [
     backsideValue: "Present multiple offers beautifully.",
     details: {
       steps: [
-        { text: 'Select multiple properties for the client', icon: <Building className="h-6 w-6" /> },
-        { text: 'Input the client\'s budget and terms', icon: <Wallet className="h-6 w-6" /> },
-        { text: 'Generate a professional offer comparison PDF', icon: <FileText className="h-6 w-6" /> },
+        { text: 'Select multiple properties for the client', icon: <Building class="h-6 w-6" /> },
+        { text: 'Input the client\'s budget and terms', icon: <Wallet class="h-6 w-6" /> },
+        { text: 'Generate a professional offer comparison PDF', icon: <FileText class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Document Creation Time', manual: '1-2 hours in Word or Excel', ai: 'Under 2 minutes', icon: <Clock2 /> },
@@ -826,9 +825,9 @@ export const tools: Tool[] = [
     backsideValue: "Launch an entire email campaign in minutes.",
     details: {
       steps: [
-        { text: 'Define your campaign goal (e.g., New Listing)', icon: <Target className="h-6 w-6" /> },
-        { text: 'Provide a link or topic for content', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Generate a sequence of emails instantly', icon: <Mail className="h-6 w-6" /> },
+        { text: 'Define your campaign goal (e.g., New Listing)', icon: <Target class="h-6 w-6" /> },
+        { text: 'Provide a link or topic for content', icon: <PenTool class="h-6 w-6" /> },
+        { text: 'Generate a sequence of emails instantly', icon: <Mail class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Writing Time', manual: '2-4 hours for a 3-part sequence', ai: 'Under 90 seconds', icon: <Clock2 /> },
@@ -862,9 +861,9 @@ export const tools: Tool[] = [
     backsideValue: "Never miss an Instagram lead again.",
     details: {
       steps: [
-        { text: 'Connect your Instagram account securely', icon: <LinkIcon className="h-6 w-6" /> },
-        { text: 'Provide FAQs about your listings/services', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'The bot starts managing your DMs instantly', icon: <Sparkles className="h-6 w-6" /> },
+        { text: 'Connect your Instagram account securely', icon: <LinkIcon class="h-6 w-6" /> },
+        { text: 'Provide FAQs about your listings/services', icon: <PenTool class="h-6 w-6" /> },
+        { text: 'The bot starts managing your DMs instantly', icon: <Sparkles class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Response Time', manual: 'Can take hours, leads go cold', ai: 'Instant, 24/7 engagement', icon: <Clock2 /> },
@@ -883,8 +882,6 @@ export const tools: Tool[] = [
     },
     creationFields: [
       { id: 'connect', name: 'Connect Instagram', type: 'button', cta: 'Connect Instagram Account', description: 'Authorize the AI to manage your DMs.' },
-      { id: 'faq', name: 'Frequently Asked Questions', type: 'textarea', placeholder: 'Q: Price?\nA: Starts at $450k.\nQ: Open house?\nA: Sun 1-4 PM.', description: 'Provide answers for the bot to use.' },
-      { id: 'escalation', name: 'Escalation Keyword', type: 'text', placeholder: 'e.g., "human" or "agent"', description: 'If a user types this, the bot will notify you.' },
     ],
   },
   {
@@ -898,9 +895,9 @@ export const tools: Tool[] = [
     backsideValue: "Reach your entire client list on WhatsApp instantly.",
     details: {
       steps: [
-        { text: 'Upload your client contact list', icon: <Upload className="h-6 w-6" /> },
-        { text: 'Draft your message or follow-up sequence', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Send or schedule your campaign instantly', icon: <Sparkles className="h-6 w-6" /> },
+        { text: 'Upload your client contact list', icon: <Upload class="h-6 w-6" /> },
+        { text: 'Draft your message or follow-up sequence', icon: <PenTool class="h-6 w-6" /> },
+        { text: 'Send or schedule your campaign instantly', icon: <Sparkles class="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Time to Contact 100 Clients', manual: 'Hours of manual copy-pasting', ai: 'Under 1 minute', icon: <Clock2 /> },

@@ -44,6 +44,8 @@ const getToolSchema = (tool: Tool | undefined) => {
             }
         } else if (field.type === 'number') {
             fieldSchema = z.string().min(1, `${field.name} is required`).refine(val => !isNaN(Number(val)), { message: "Must be a number" });
+        } else if (field.id === 'additionalInformation') {
+             fieldSchema = z.string().optional();
         }
         else {
             fieldSchema = z.string().min(1, `${field.name} is required`);
@@ -93,8 +95,8 @@ export default function ToolPage() {
 
   if (!tool) {
     return (
-        <div className="flex h-[80vh] items-center justify-center">
-            <Card className="m-4">
+        <div class="flex h-[80vh] items-center justify-center">
+            <Card class="m-4">
                 <CardHeader>
                     <CardTitle>Tool not found</CardTitle>
                     <CardDescription>Please select a tool from the sidebar to get started.</CardDescription>
@@ -164,37 +166,37 @@ export default function ToolPage() {
   }
   
   return (
-    <main className="p-4 md:p-10 space-y-8">
+    <main class="p-4 md:p-10 space-y-8">
       {showConfetti && <Confetti onComplete={() => setShowConfetti(false)} />}
-      <Card className="max-w-4xl mx-auto">
+      <Card class="max-w-4xl mx-auto">
         <CardHeader>
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-primary/10 text-primary rounded-lg w-fit">
-              {React.cloneElement(tool.icon, { className: 'h-8 w-8' })}
+          <div class="flex items-center gap-4">
+            <div class="p-3 bg-primary/10 text-primary rounded-lg w-fit">
+              {React.cloneElement(tool.icon, { class: 'h-8 w-8' })}
             </div>
             <div>
-              <CardTitle className="text-3xl font-heading">{tool.title}</CardTitle>
-              <CardDescription className="text-md">{tool.description}</CardDescription>
+              <CardTitle class="text-3xl font-heading">{tool.title}</CardTitle>
+              <CardDescription class="text-md">{tool.description}</CardDescription>
             </div>
           </div>
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CardContent class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               {tool.creationFields.map((field) => {
                 if (field.type === 'group-header') {
                     return (
-                        <div key={field.id} className="md:col-span-2 mt-4 first:mt-0">
-                            <h3 className="text-lg font-semibold text-foreground">{field.name}</h3>
-                            <p className="text-sm text-muted-foreground mb-2">{field.description}</p>
+                        <div key={field.id} class="md:col-span-2 mt-4 first:mt-0">
+                            <h3 class="text-lg font-semibold text-foreground">{field.name}</h3>
+                            <p class="text-sm text-muted-foreground mb-2">{field.description}</p>
                             <Separator />
                         </div>
                     )
                 }
 
                 return (
-                    <div key={field.id} className="space-y-2">
-                    {field.type !== 'button' && <Label htmlFor={field.id} className="font-semibold">{field.name}</Label>}
+                    <div key={field.id} class="space-y-2">
+                    {field.type !== 'button' && <Label htmlFor={field.id} class="font-semibold">{field.name}</Label>}
                     <Controller
                         name={field.id}
                         control={control}
@@ -210,15 +212,15 @@ export default function ToolPage() {
                                 case 'file':
                                     return (
                                     <div>
-                                        <Input id={field.id} type="file" multiple={field.multiple} onBlur={onBlur} name={name} ref={ref} onChange={e => onChange(e.target.files)} className="sr-only" />
+                                        <Input id={field.id} type="file" multiple={field.multiple} onBlur={onBlur} name={name} ref={ref} onChange={e => onChange(e.target.files)} class="sr-only" />
                                         <label 
                                             htmlFor={field.id} 
-                                            className={cn(
+                                            class={cn(
                                                 "flex items-center justify-center gap-2 w-full h-10 px-3 py-2 text-sm border-input border rounded-md cursor-pointer bg-background hover:bg-muted/50",
                                                 fileList && fileList.length > 0 && "text-primary"
                                             )}
                                         >
-                                            <Upload className="h-4 w-4"/>
+                                            <Upload class="h-4 w-4"/>
                                             <span>{fileList && fileList.length > 0 ? `${fileList.length} file(s) selected` : `Choose file(s)...`}</span>
                                         </label>
                                     </div>
@@ -238,8 +240,8 @@ export default function ToolPage() {
                                 );
                                 case 'button':
                                     return (
-                                        <Link href="/dashboard/brand" className='w-full'>
-                                        <Button type="button" variant="outline" className='w-full justify-start'>
+                                        <Link href="/dashboard/brand" class='w-full'>
+                                        <Button type="button" variant="outline" class='w-full justify-start'>
                                             {field.cta}
                                         </Button>
                                         </Link>
@@ -249,8 +251,8 @@ export default function ToolPage() {
                             }
                         }}
                         />
-                    <p className="text-xs text-muted-foreground">{field.description}</p>
-                    {errors[field.id] && <p className="text-sm text-destructive">{errors[field.id]?.message as string}</p>}
+                    <p class="text-xs text-muted-foreground">{field.description}</p>
+                    {errors[field.id] && <p class="text-sm text-destructive">{errors[field.id]?.message as string}</p>}
                     </div>
                 )})}
             </div>
@@ -259,12 +261,12 @@ export default function ToolPage() {
             <Button type="submit" size="lg" disabled={isLoading}>
               {isLoading ? (
                 <>
-                  <Loader className="mr-2 h-5 w-5 animate-spin" />
+                  <Loader class="mr-2 h-5 w-5 animate-spin" />
                   Generating...
                 </>
               ) : (
                 <>
-                  <Sparkles className="mr-2 h-5 w-5" />
+                  <Sparkles class="mr-2 h-5 w-5" />
                   Generate
                 </>
               )}
@@ -274,17 +276,17 @@ export default function ToolPage() {
       </Card>
       
       {error && (
-         <Alert variant="destructive" className="max-w-4xl mx-auto">
-            <AlertCircle className="h-4 w-4" />
+         <Alert variant="destructive" class="max-w-4xl mx-auto">
+            <AlertCircle class="h-4 w-4" />
             <AlertTitle>Error</AlertTitle>
             <AlertDescription>{error}</AlertDescription>
          </Alert>
       )}
 
       {result && tool.renderResult && (
-        <Card className="max-w-4xl mx-auto">
+        <Card class="max-w-4xl mx-auto">
           <CardHeader>
-            <CardTitle className="font-heading">Your Result</CardTitle>
+            <CardTitle class="font-heading">Your Result</CardTitle>
             <CardDescription>Here is the content generated by the AI.</CardDescription>
           </CardHeader>
           <CardContent>
@@ -296,11 +298,11 @@ export default function ToolPage() {
       <Dialog open={showPaymentDialog} onOpenChange={setShowPaymentDialog}>
         <DialogContent>
             <DialogHeader>
-                <div className="flex items-center gap-4 mb-4">
-                    <div className="p-3 bg-primary/10 text-primary rounded-lg w-fit">
-                        <CreditCard className="h-6 w-6"/>
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="p-3 bg-primary/10 text-primary rounded-lg w-fit">
+                        <CreditCard class="h-6 w-6"/>
                     </div>
-                    <DialogTitle className="text-xl">Payment Details Required</DialogTitle>
+                    <DialogTitle class="text-xl">Payment Details Required</DialogTitle>
                 </div>
                 <DialogDescription>
                     To access this feature and generate content, you need to add a payment method to your account. This enables your Pro subscription and unlocks all AI tools.
@@ -311,7 +313,7 @@ export default function ToolPage() {
                 <Link href="/dashboard/settings?tab=subscription">
                     <Button>
                         Add Payment Details
-                        <ArrowRight className="ml-2 h-4 w-4" />
+                        <ArrowRight class="ml-2 h-4 w-4" />
                     </Button>
                 </Link>
             </DialogFooter>
