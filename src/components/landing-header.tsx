@@ -18,6 +18,9 @@ export function LandingHeader() {
           <Link href="/login">
             <Button variant="ghost">Log In</Button>
           </Link>
+          <Link href="/signup">
+            <Button>Sign Up</Button>
+          </Link>
         </div>
       </div>
     </header>
