@@ -150,12 +150,12 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                         <h2 className="text-4xl font-bold text-white mb-1">{feature.title}</h2>
                       </DialogTitle>
                       <p className="text-lg text-white/80">{feature.description}</p>
+                      <Link href={`/blog/${feature.id}`}>
+                         <Button variant="link" className="text-white/80 hover:text-white -ml-4">Read The Blog Post <ArrowRight className='ml-1' /></Button>
+                      </Link>
                     </div>
                   </div>
                    <div className='flex items-center gap-2'>
-                     <Link href={`/blog/${feature.id}`}>
-                         <Button variant="link" className="text-white/80 hover:text-white">Read More</Button>
-                      </Link>
                      <Link href="/dashboard">
                         <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/20">Login</Button>
                       </Link>
@@ -388,3 +388,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
