@@ -296,7 +296,7 @@ export const tools: Tool[] = [
       { id: 'contactDetails', name: 'Your Contact Info', type: 'text', placeholder: 'John Doe - 555-123-4567', description: 'This will be added to the brochure.' },
       { id: 'companyName', name: 'Your Company Name', type: 'text', placeholder: 'e.g., "The Doe Group"', description: 'Your company name for branding.' },
       { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Luxury', 'Urgent'], placeholder: 'Select a tone', description: 'The tone for the rebranded content.' },
-      { id: 'colors', name: 'Brand Colors', type: 'text', placeholder: 'e.g., Royal Blue and Gold', description: 'Primary colors for accents.' },
+      { id: 'colors', name: 'Brand Colors', type: 'select', options: ['Blue and Gold', 'Black and White', 'Green and Beige', 'Orange and Teal'], placeholder: 'Select a color palette', description: 'Primary colors for accents.' },
     ],
   },
    {
@@ -390,7 +390,7 @@ export const tools: Tool[] = [
       { id: 'projectBrochureDataUri', name: 'Or Upload Brochure', type: 'file', description: 'Alternatively, upload a PDF brochure.' },
       { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "The Azure Lofts"', description: 'The name of the project.'},
       { id: 'projectDetails', name: 'Project Details', type: 'textarea', placeholder: 'e.g., "Luxury condos with ocean views..."', description: 'Detailed info about the project.'},
-      { id: 'userBrandingPreferences', name: 'Branding Style', type: 'textarea', placeholder: 'Modern, Minimalist, Luxury', description: 'Describe the desired look and feel.' },
+      { id: 'userBrandingPreferences', name: 'Branding Style', type: 'select', options: ["Modern & Minimalist", "Luxury & Elegant", "Cozy & Welcoming", "Bold & Colorful"], placeholder: 'Select a branding style', description: 'Describe the desired look and feel.' },
       { id: 'officialProjectLinks', name: 'Project Links', type: 'text', placeholder: 'e.g., "www.theazurelofts.com"', description: 'Any relevant links.' },
     ],
   },
@@ -485,7 +485,7 @@ export const tools: Tool[] = [
     },
     creationFields: [
       { id: 'photos', name: 'Property Photos', type: 'file', multiple: true, description: 'Upload 3-5 high-quality images.' },
-      { id: 'vibe', name: 'Story Vibe', type: 'text', placeholder: 'e.g., Upbeat & Modern, Elegant & Luxurious, Cozy & Warm', description: 'This influences music, text, and effects.' },
+      { id: 'vibe', name: 'Story Vibe', type: 'select', options: ['Upbeat & Modern', 'Elegant & Luxurious', 'Cozy & Warm', 'Dramatic & Cinematic'], placeholder: 'Select a vibe', description: 'This influences music, text, and effects.' },
       { id: 'callToAction', name: 'Call to Action', type: 'text', placeholder: 'e.g., "Swipe up for tour!", "DM for info"', description: 'The final text prompt for viewers.' },
     ],
   },
@@ -522,7 +522,7 @@ export const tools: Tool[] = [
     creationFields: [
       { id: 'media', name: 'Photos or Video Clips', type: 'file', multiple: true, description: 'Upload your visual assets.' },
       { id: 'sellingPoints', name: 'Key Selling Points', type: 'textarea', placeholder: '- Breathtaking ocean views\n- Newly renovated kitchen\n- 5 minutes from the beach', description: 'Use bullet points for text overlays in the video.' },
-      { id: 'vibe', name: 'Reel Vibe', type: 'text', placeholder: 'e.g., High-energy, Cinematic, Relaxing', description: 'This influences the music and editing style.' },
+      { id: 'vibe', name: 'Reel Vibe', type: 'select', options: ['High-Energy & Fast', 'Cinematic & Slow', 'Relaxing & Calm', 'Modern & Edgy'], placeholder: 'Select a vibe', description: 'This influences the music and editing style.' },
     ],
   },
     {
@@ -557,7 +557,7 @@ export const tools: Tool[] = [
     },
     creationFields: [
       { id: 'media', name: 'Video Clips or Photos', type: 'file', multiple: true, description: 'Upload your visual assets.' },
-      { id: 'sound', name: 'Sound or Vibe', type: 'text', placeholder: 'e.g., "Upbeat dance track" or paste a TikTok sound link', description: 'The AI will find or match the audio.' },
+      { id: 'sound', name: 'Sound or Vibe', type: 'select', options: ['Upbeat Dance Transition', 'Cinematic Reveal Audio', 'Funny Voiceover Meme', 'Trending Pop Song'], placeholder: 'Select a sound style', description: 'The AI will find or match the audio.' },
       { id: 'textOverlays', name: 'Text Overlays', type: 'textarea', placeholder: '- POV: You found your dream home\n- Wait for the kitchen reveal!', description: 'Add engaging text to your video.' },
     ],
   },
@@ -915,7 +915,9 @@ export const tools: Tool[] = [
     creationFields: [
       { id: 'contacts', name: 'Contact List', type: 'file', description: 'Upload a CSV with names and numbers.' },
       { id: 'message', name: 'Message Template', type: 'textarea', placeholder: 'Hi [Name], just wanted to share this new listing...', description: 'Craft your message. Use [Name] for personalization.' },
-      { id: 'sendTime', name: 'Schedule', type: 'text', placeholder: 'e.g., "Now" or "Tomorrow at 10 AM"', description: 'When should the campaign be sent?' },
+      { id: 'sendTime', name: 'Schedule', type: 'select', options: ['Send Immediately', 'Schedule for 1 hour from now', 'Schedule for tomorrow at 9 AM'], placeholder: 'Select send time', description: 'When should the campaign be sent?' },
     ],
   },
 ];
+
+    
