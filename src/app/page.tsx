@@ -13,6 +13,7 @@ import {
   Sparkles,
   Upload,
   Megaphone,
+  User,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -31,6 +32,7 @@ import { Feature, tools as features, FilterCategory } from '@/lib/tools-client.t
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ShinyButton } from '@/components/ui/shiny-button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 
 const filterCategories: FilterCategory[] = ['All', 'Marketing', 'Lead Gen', 'Creative', 'Sales Tools', 'Social & Comms', 'Web', 'Editing', 'Ads'];
@@ -343,14 +345,30 @@ export default function Home() {
                         </Link>
                     </div>
                      <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center min-h-[400px]">
-                        <video 
-                            className="w-full h-full rounded-lg shadow-2xl object-cover" 
-                            src="https://storage.googleapis.com/builder-next-prod.appspot.com/assets%2F9b1b955f-83a3-4455-a0d0-e14578b16e87%2Fhero-video-1.mp4"
-                            autoPlay 
-                            loop 
-                            muted 
-                            playsInline
-                        />
+                        <div className="w-full max-w-md mx-auto space-y-6">
+                          <div className="flex items-start gap-3 justify-end">
+                              <div className="bg-primary text-primary-foreground p-3 rounded-2xl rounded-br-none">
+                                  <p className="text-sm">Create a new project for 'Azure Lofts', generate a promotional video for it, and save the final video to my drive.</p>
+                              </div>
+                              <Avatar>
+                                  <AvatarFallback>U</AvatarFallback>
+                              </Avatar>
+                          </div>
+                           <div className="flex items-start gap-3">
+                               <Avatar>
+                                  <AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-5 w-5"/></AvatarFallback>
+                              </Avatar>
+                              <div className="bg-background border p-3 rounded-2xl rounded-bl-none">
+                                  <p className="text-sm">Of course. I've initiated the following workflow:</p>
+                                  <ul className="text-sm mt-2 space-y-1 list-inside">
+                                      <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 1. Project Created: 'Azure Lofts'</li>
+                                      <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 2. Video Generation: In progress...</li>
+                                      <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 3. File Transfer: Pending</li>
+                                  </ul>
+                                   <p className="text-xs text-muted-foreground mt-2">I will notify you when the video is ready.</p>
+                              </div>
+                          </div>
+                        </div>
                     </div>
                 </div>
             </Card>
