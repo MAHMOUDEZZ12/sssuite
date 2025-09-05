@@ -25,7 +25,7 @@ export default function SignupPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="name@example.com"
                 required
               />
             </div>
