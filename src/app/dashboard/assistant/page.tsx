@@ -32,8 +32,8 @@ const samplePrompts = [
 
 export default function AssistantPage() {
     const [goal, setGoal] = useState("create");
-    const [context, setContext] = useState("a new luxury condo listing");
-    const [format, setFormat] = useState("a bulleted list");
+    const [context, setContext] = useState("a bulleted list of social media post ideas");
+    const [format, setFormat] = useState("for a new luxury condo listing");
     const [generatedPrompt, setGeneratedPrompt] = useState("Based on the new luxury condo listing, create a bulleted list of 5 social media post ideas.");
 
     const handleGeneratePrompt = () => {
@@ -47,7 +47,7 @@ export default function AssistantPage() {
         const fullContext = context || "the provided information";
         const fullFormat = format || "a paragraph";
 
-        const prompt = `Act as an expert real estate marketing assistant. Your task is to ${fullGoalText} ${fullContext}. The output should be formatted as ${fullFormat}.`;
+        const prompt = `Act as an expert real estate marketing assistant. Your task is to ${fullGoalText} ${fullFormat} based on ${fullContext}.`;
         setGeneratedPrompt(prompt);
     }
 
@@ -77,10 +77,9 @@ export default function AssistantPage() {
                   <Label htmlFor="assistant-name">Assistant Name</Label>
                   <Input 
                     id="assistant-name" 
-                    value="My Assistant"
-                    disabled
+                    defaultValue="My Assistant"
                   />
-                  <p className="text-sm text-muted-foreground">The assistant's name is not editable.</p>
+                  <p className="text-sm text-muted-foreground">Give your assistant a name to make it feel more personal.</p>
                </div>
                <div className="space-y-2">
                   <Label htmlFor="assistant-instructions">Core Instructions</Label>
@@ -178,11 +177,11 @@ export default function AssistantPage() {
                         </div>
                          <div className="space-y-2">
                            <Label>What is the context?</Label>
-                            <Input placeholder="e.g., A new luxury condo listing" value={context} onChange={e => setContext(e.target.value)} />
+                            <Input placeholder="e.g., A new luxury condo listing" value={format} onChange={e => setFormat(e.target.value)} />
                         </div>
                          <div className="space-y-2">
                            <Label>What format should the output be?</Label>
-                            <Input placeholder="e.g., A bulleted list, a paragraph, a table" value={format} onChange={e => setFormat(e.target.value)} />
+                            <Input placeholder="e.g., A bulleted list, a paragraph, a table" value={context} onChange={e => setContext(e.target.value)} />
                         </div>
                          <div className="space-y-2">
                            <Label>Generated Prompt</Label>
