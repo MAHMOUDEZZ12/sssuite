@@ -35,6 +35,13 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 
 const filterCategories: FilterCategory[] = ['All', 'Marketing', 'Lead Gen', 'Creative', 'Sales Tools', 'Social & Comms', 'Web', 'Editing', 'Ads'];
 
+const announcements = [
+    "A new resizing tool has been added to the AI Reel Designer!",
+    "You can now connect your YouTube account to analyze video performance.",
+    "The Investor Matching tool now supports commercial properties.",
+];
+
+
 const FeatureCard = ({
   feature,
   onClick,
@@ -59,7 +66,11 @@ const FeatureCard = ({
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                     <span className={`px-3 py-1 text-sm font-semibold text-white rounded-full ${feature.badge === 'NEW' ? 'bg-blue-500' : 'bg-yellow-500'}`}>
+                     <span className={cn(
+                        `px-3 py-1 text-sm font-semibold text-white rounded-full transition-all duration-200`,
+                        `hover:bg-opacity-80 hover:shadow-md`,
+                         feature.badge === 'NEW' ? 'bg-blue-500' : 'bg-yellow-500'
+                     )}>
                         {feature.badge}
                     </span>
                   </TooltipTrigger>
@@ -219,6 +230,13 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
 export default function Home() {
   const [selectedFeature, setSelectedFeature] = React.useState<Feature | null>(null);
   const [activeFilter, setActiveFilter] = React.useState<FilterCategory>('All');
+  const [currentAnnouncement, setCurrentAnnouncement] = React.useState(announcements[0]);
+
+  React.useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * announcements.length);
+    setCurrentAnnouncement(announcements[randomIndex]);
+  }, []);
+
 
   const handleCardClick = (feature: Feature) => {
     setSelectedFeature(feature);
@@ -273,7 +291,7 @@ export default function Home() {
             </div>
              <div className="text-center text-sm text-muted-foreground mt-2 flex items-center justify-center gap-2">
                 <Sparkles className="h-4 w-4 text-primary" />
-                <span className="font-semibold text-primary">What's New?</span> A new resizing tool has been added to the AI Reel Designer!
+                <span className="font-semibold text-primary">What's New?</span> {currentAnnouncement}
             </div>
         </div>
 
