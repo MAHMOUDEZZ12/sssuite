@@ -46,10 +46,13 @@ const pricingTiers = [
     },
     {
         name: 'Enterprise',
-        price: 'Custom',
+        price: 'Starting from $189',
+        pricePeriod: '/ month',
         description: 'For large brokerages and teams needing advanced features.',
         features: [
             'Everything in Super, plus:',
+            '4 users access',
+            'Trainable AI Agent',
             'Team management & billing',
             'Advanced security & compliance',
             'Custom integrations (API access)',
