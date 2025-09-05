@@ -62,12 +62,17 @@ const FeatureCard = ({
             >
                 {React.cloneElement(feature.icon, { className: 'h-8 w-8' })}
             </div>
+        </div>
+      </CardHeader>
+      <CardContent className="flex flex-col flex-grow">
+        <div className="flex items-center gap-2 mb-2">
+            <h2 className="text-2xl font-bold font-heading text-foreground">{feature.title}</h2>
             {(feature.badge) && (
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
                      <span className={cn(
-                        `px-3 py-1 text-sm font-semibold text-white rounded-full transition-all duration-200`,
+                        `px-2 py-0.5 text-xs font-semibold text-white rounded-full transition-all duration-200`,
                         feature.badge === 'NEW' ? 'bg-blue-500 hover:bg-transparent hover:text-blue-500 border-2 border-transparent hover:border-blue-500' : 'bg-yellow-500 hover:bg-transparent hover:text-yellow-500 border-2 border-transparent hover:border-yellow-500'
                      )}>
                         {feature.badge}
@@ -80,9 +85,6 @@ const FeatureCard = ({
               </TooltipProvider>
             )}
         </div>
-      </CardHeader>
-      <CardContent className="flex flex-col flex-grow">
-        <h2 className="text-2xl font-bold font-heading mb-2 text-foreground">{feature.title}</h2>
         <p className="text-lg text-foreground/70 flex-grow">{feature.description}</p>
          <div className="mt-6">
             <Button variant="link" className="p-0 text-base text-primary">
