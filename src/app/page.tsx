@@ -292,7 +292,7 @@ export default function Home() {
           <div className='mt-8'>
             <Link href="/signup">
                 <ShinyButton>
-                    Start Free • No card required*
+                    Start Free • Free domain for students*
                 </ShinyButton>
             </Link>
           </div>
@@ -455,5 +455,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     

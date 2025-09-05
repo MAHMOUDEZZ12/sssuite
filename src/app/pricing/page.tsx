@@ -18,59 +18,79 @@ export default function PricingPage() {
   
   const pricingTiers = [
     {
-        name: 'Free',
+        name: 'Student',
         price: '$0',
-        description: 'Perfect for getting started and trying out core tools.',
+        pricePeriod: '/ forever',
+        description: 'Real tools, real outputs, never pay to start.',
         features: [
-            '5 AI generations',
-            `Access to 3 core AI tools`,
-            '1 project',
-            'Community support',
+            '1 Brand Kit',
+            `Local Projects Library`,
+            'AI Social Posts',
+            'AI Reels Lite',
+            'PDF Rebrand Lite',
+            'AI Copilot Daily (1/day)',
+            'Free *.s3.pages subdomain',
+            '1 custom domain credit',
         ],
-        cta: 'Start for Free',
+        cta: 'Start Learning',
         variant: 'outline'
     },
     {
-        name: 'Super Seller',
-        price: '$99',
+        name: 'Seller',
+        price: isAnnual ? '$19' : '$29',
         pricePeriod: '/ month',
-        description: 'The ultimate toolkit for serious agents and small teams.',
+        description: 'Everything you need to sell as a solo agent.',
         features: [
-            'Trainable AI Assistant',
-            `Access to all 18+ AI tools`,
-            'Unlimited projects',
-            '10,000 AI generations per month',
-            'Connect social & email accounts',
-            'Priority email support',
+            'Everything in Student, plus:',
+            `All Creative Suite tools`,
+            '5 GB Storage',
+            'WhatsApp & Email sender',
+            'AI Copilot Lite (10/day)',
         ],
-        cta: 'Start Your Super Seller Trial',
+        cta: 'Start Selling',
         variant: 'default',
-        isFeatured: true
+        isFeatured: true,
     },
     {
-        name: 'Enterprise',
-        price: '$189',
+        name: 'Marketer',
+        price: isAnnual ? '$89' : '$129',
         pricePeriod: '/ month',
-        description: 'For large brokerages and teams needing advanced features.',
+        description: 'For power users who want to operate like an agency.',
         features: [
-            'Everything in Super Seller, plus:',
-            '4 users access',
-            'Trainable AI Agent',
-            'Team management & billing',
-            'Advanced security & compliance',
-            'Custom integrations (API access)',
-            'Dedicated account manager',
-            'Onboarding & training',
+            'Everything in Seller, plus:',
+            'Ad write access (Meta, etc.)',
+            'Audience Tools',
+            'Creative Suite Pro',
+            'Automations & Scheduling',
+            '50 GB Storage',
+            'AI Copilot Pro (Unlimited)',
+        ],
+        cta: 'Start Marketing',
+        variant: 'outline'
+    },
+    {
+        name: 'CEO',
+        price: isAnnual ? '$349' : '$499',
+        pricePeriod: '/ month',
+        description: 'For brokerages that need team governance.',
+        features: [
+            'Everything in Marketer, plus:',
+            '5 Team Seats',
+            'Multi-brand Kits',
+            'Shared Project Libraries',
+            'Portfolio Reporting & Analytics',
+            'SSO, Audit Logs, & Export Controls',
+            'Priority Support',
         ],
         cta: 'Contact Sales',
         variant: 'outline'
     }
-]
+];
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
-      <main className="flex-1 w-full max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
             Find the Plan That's Right for You
@@ -88,11 +108,11 @@ export default function PricingPage() {
                 aria-label="Toggle annual pricing"
             />
             <span className={cn("font-medium", isAnnual && "text-primary")}>
-                Annual (Save 30%)
+                Annual (Save up to 30%)
             </span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
             {pricingTiers.map((tier) => (
                  <Card 
                     key={tier.name}
@@ -109,29 +129,22 @@ export default function PricingPage() {
                             </div>
                         )}
                         <CardTitle className="text-3xl font-heading text-center">{tier.name}</CardTitle>
-                        <CardDescription className="text-center">{tier.description}</CardDescription>
+                        <CardDescription className="text-center min-h-[40px]">{tier.description}</CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-col flex-grow">
                        <div className="text-center mb-8 h-20">
-                          {tier.name === 'Enterprise' ? (
-                            <div>
-                                <p className="text-lg text-muted-foreground">Starting from</p>
-                                <span className="text-5xl font-bold">{tier.price.replace('Starting from ', '')}</span>
-                            </div>
-                          ) : (
-                             <span className="text-5xl font-bold">
-                                {tier.name === 'Super Seller' ? (isAnnual ? '$69' : '$99') : tier.price}
-                             </span>
-                          )}
+                         <span className="text-5xl font-bold">
+                            {tier.price}
+                         </span>
                           {tier.pricePeriod && <span className="text-muted-foreground">{tier.pricePeriod}</span>}
-                           {tier.name === 'Super Seller' && isAnnual && (
+                           {tier.name !== 'Student' && tier.name !== 'CEO' && isAnnual && (
                             <p className="text-sm text-muted-foreground">billed annually</p>
                           )}
                        </div>
-                       <ul className="space-y-4 text-foreground/80">
+                       <ul className="space-y-3 text-foreground/80 text-sm">
                          {tier.features.map((feature, i) => (
                             <li key={i} className="flex items-center gap-3">
-                                <Check className="h-5 w-5 text-primary" />
+                                <Check className="h-5 w-5 text-primary shrink-0" />
                                 <span>{feature}</span>
                             </li>
                          ))}
@@ -149,8 +162,11 @@ export default function PricingPage() {
                  </Card>
             ))}
         </div>
+        <p className="text-center text-xs text-muted-foreground mt-8">*Domain credit for student plan is subject to verification and fair-use limits.</p>
       </main>
       <LandingFooter />
     </div>
   );
 }
+
+    

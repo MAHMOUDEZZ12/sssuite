@@ -1,9 +1,5 @@
 
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-// import { db } from "@/lib/firebase";
-
-// This is a placeholder since we don't have firebase initialized.
-const db = {};
+import { track } from '@/lib/events';
 
 export type ChatAction =
   | { type: "createProject"; name: string; city: string; developer?: string }
@@ -19,24 +15,17 @@ export type ChatEvent = {
   text: string;
   action?: ChatAction | null;
   meta?: Record<string, any>;
-  createdAt?: any;           // serverTimestamp
 };
 
-export async function ingestChat(e: Omit<ChatEvent, "createdAt">) {
-  // Mock function since we don't have a real DB connection
-  console.log("Ingesting chat event:", {
-    ...e,
-    createdAt: new Date().toISOString(),
-    status: "queued",
+export async function ingestChat(e: ChatEvent) {
+  // This now uses the centralized event tracking system
+  // which posts to our secure API endpoint.
+  await track('chat_action', {
+    uid: e.uid,
+    eventId: e.eventId,
+    role: e.role,
+    text: e.text,
+    action: e.action,
+    meta: e.meta,
   });
-  return Promise.resolve();
-
-  /*
-  // Real implementation:
-  await addDoc(collection(db, "chat_events"), {
-    ...e,
-    createdAt: serverTimestamp(),
-    status: "queued",        // will be flipped by the processor
-  });
-  */
 }

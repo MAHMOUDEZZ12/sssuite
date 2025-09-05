@@ -16,7 +16,7 @@ import { Check, ChevronRight, X, ArrowLeft, Loader2, Sparkles, Upload } from 'lu
 import { cn } from '@/lib/utils';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import Image from 'next/image';
-import { ingestChat, ChatAction } from '@/lib/chat';
+import { ingestChat, ChatAction, ChatEvent } from '@/lib/chat';
 
 const MOCK_DEVELOPERS = ['Emaar', 'Damac', 'Sobha', 'Nakheel', 'Meraas', 'Aldar'];
 const MOCK_PROJECTS_PASS1 = [
@@ -42,16 +42,17 @@ const MOCK_PROJECTS_PASS2 = [
 // This would be your authenticated user's ID
 const MOCK_UID = 'user123';
 
-async function assistantDo(uid: string, text: string, action: ChatAction) {
+async function assistantDo(text: string, action: ChatAction) {
   try {
-    await ingestChat({
-      uid, 
+    const event: ChatEvent = {
+      uid: MOCK_UID, 
       eventId: crypto.randomUUID(),
       role: "assistant",
       text, 
       action,
       meta: { source: "onboarding_flow" },
-    });
+    };
+    await ingestChat(event);
   } catch (error) {
     console.error("Failed to ingest chat event:", error);
     // You might want to show a toast to the user here in a real app
@@ -115,7 +116,7 @@ function OnboardingComponent() {
     const prevStep = () => router.push(`/onboarding?step=${step - 1}`);
     const finishOnboarding = () => {
         toast({ title: "Setup Complete!", description: "Welcome to your new dashboard." });
-        assistantDo(MOCK_UID, "Onboarding complete. Ready for my first command.", { type: "logMetric", name: "onboarding_completed" });
+        assistantDo("Onboarding complete. Ready for my first command.", { type: "logMetric", name: "onboarding_completed" });
         router.push('/dashboard');
     }
 
@@ -232,13 +233,13 @@ function OnboardingComponent() {
                              <Button variant="ghost" onClick={prevStep}><ArrowLeft /> Back</Button>
                             <div className="flex gap-2">
                                  <Button variant="outline" onClick={() => { 
-                                     assistantDo(MOCK_UID, "User skipped payment.", { type: "logMetric", name: "onboarding_payment_skipped" });
+                                     assistantDo("User skipped payment.", { type: "logMetric", name: "onboarding_payment_skipped" });
                                      updateDraft({ payment: { status: 'skipped'} }); 
                                      nextStep(); 
                                  }}>Skip for now</Button>
                                  <Button onClick={() => {
                                      toast({ title: "Card saved.", description: "You won't be charged now." });
-                                     assistantDo(MOCK_UID, "User added a payment method.", { type: "savePaymentMethodStart" });
+                                     assistantDo("User added a payment method.", { type: "savePaymentMethodStart" });
                                      updateDraft({ payment: { status: 'added' } });
                                      nextStep();
                                  }}>Save Card</Button>
@@ -248,7 +249,7 @@ function OnboardingComponent() {
                 );
             case 4:
                 const handleFinalizeShortlist = () => {
-                    assistantDo(MOCK_UID, "Okay, I've created your initial project library.", { type: "logMetric", name: "onboarding_shortlist_finalized", props: { projects: draft.scanSelected } });
+                    assistantDo("Okay, I've created your initial project library.", { type: "logMetric", name: "onboarding_shortlist_finalized", props: { projects: draft.scanSelected } });
                     nextStep();
                 };
                 return (
@@ -285,7 +286,7 @@ function OnboardingComponent() {
                 );
             case 5:
                 const handleSaveBrand = () => {
-                    assistantDo(MOCK_UID, "I've saved your brand identity. It will now be used across the suite.", { 
+                    assistantDo("I've saved your brand identity. It will now be used across the suite.", { 
                         type: "addBrand", 
                         name: "Default Brand Kit", // You'd get this from a form field
                         primary: draft.brandKit.colors.primary,
@@ -380,34 +381,37 @@ function OnboardingComponent() {
                              <div className="mx-auto w-fit p-4 bg-primary/10 text-primary rounded-full mb-4">
                                 <Sparkles className="h-10 w-10" />
                              </div>
-                            <StepHeader title="You're all set. Choose your start." />
+                            <StepHeader title="You're all set. Choose your starting plan." />
                         </CardHeader>
                         <CardContent className="space-y-6">
-                            <p className="text-muted-foreground">Your brand and project library are ready. Your payment method is on file for when you need to export or publish.</p>
+                            <p className="text-muted-foreground">Your brand and project library are ready. You can start for free or pick a plan.</p>
                             <div className="grid md:grid-cols-3 gap-4">
-                                <Card className="text-left bg-muted/50">
+                                <Card className="text-left bg-muted/50 text-center">
                                     <CardHeader>
-                                        <CardTitle className="text-base">Free Plan</CardTitle>
-                                        <CardDescription>5 generations, watermark on exports</CardDescription>
+                                        <CardTitle className="text-lg">Student</CardTitle>
+                                        <CardDescription>Learn & build, free domain included.</CardDescription>
+                                        <Button className="mt-2" variant="outline">Start Student</Button>
                                     </CardHeader>
                                 </Card>
-                                 <Card className="text-left border-primary bg-primary/20">
+                                 <Card className="text-left border-primary bg-primary/20 text-center">
                                     <CardHeader>
-                                        <CardTitle className="text-base text-primary">Pro Plan</CardTitle>
-                                        <CardDescription className="text-primary/80">Unlimited, no watermark, brand on</CardDescription>
+                                        <CardTitle className="text-lg text-primary">Seller</CardTitle>
+                                        <CardDescription className="text-primary/80">Publish ready, upgrade later.</CardDescription>
+                                        <Button className="mt-2">Start Seller</Button>
                                     </CardHeader>
                                 </Card>
-                                 <Card className="text-left bg-muted/50">
+                                 <Card className="text-left bg-muted/50 text-center">
                                     <CardHeader>
-                                        <CardTitle className="text-base">Team Plan</CardTitle>
-                                        <CardDescription>Multi-brand, multi-user access</CardDescription>
+                                        <CardTitle className="text-lg">Marketer</CardTitle>
+                                        <CardDescription>Run ads, automations & targeting.</CardDescription>
+                                         <Button className="mt-2" variant="outline">Start Marketer</Button>
                                     </CardHeader>
                                 </Card>
                             </div>
-                             <p className="text-xs text-muted-foreground">You won't be charged until you upgrade or perform a paid action.</p>
+                             <p className="text-xs text-muted-foreground">You can always change your plan later. No charges until you confirm.</p>
                         </CardContent>
                         <CardFooter>
-                           <Button onClick={finishOnboarding} className="w-full md:w-auto mx-auto">Go to Dashboard</Button>
+                           <Button onClick={finishOnboarding} className="w-full md:w-auto mx-auto" variant="secondary">Finish Setup & Go to Dashboard</Button>
                         </CardFooter>
                     </Card>
                  );
@@ -435,3 +439,5 @@ export default function OnboardingPage() {
         </div>
     )
 }
+
+    
