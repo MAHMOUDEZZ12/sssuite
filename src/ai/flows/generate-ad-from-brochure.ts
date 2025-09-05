@@ -88,7 +88,7 @@ const generateAdFromBrochurePrompt = ai.definePrompt({
   name: 'generateAdFromBrochurePrompt',
   input: {schema: GenerateAdFromBrochureInputSchema},
   output: {schema: GenerateAdFromBrochureOutputSchema},
-  prompt: `You are an AI-powered advertising expert. Your task is to generate compelling ad copy and a visually appealing ad design based on the provided project brochure, information, and branding guidelines. The user's brand name, colors, and contact info should be inferred from the context of a brand kit they have set up.
+  prompt: `You are an AI-powered advertising expert. Your task is to generate compelling ad copy and a visually appealing ad design based on the provided project brochure, information, and branding guidelines. The user's brand name, colors, and contact info should be inferred from the brochure itself.
 
 Here are the project details:
 

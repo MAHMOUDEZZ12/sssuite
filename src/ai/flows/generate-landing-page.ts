@@ -116,7 +116,8 @@ const landingPagePrompt = ai.definePrompt({
   2.  If an inspiration image is provided, use it as a strong reference for the layout, color scheme, and overall aesthetic.
   3.  If a project brochure is provided, extract key information and use it to enhance the landing page content.
   4.  Ensure the landing page is visually appealing and optimized for conversions.
-  5.  Return only the HTML code for the landing page. Do not include any additional text or explanations.
+  5.  Crucially, the landing page MUST include a prominent lead capture form with fields for Name, Email, and Phone Number.
+  6.  Return only the HTML code for the landing page. Do not include any additional text or explanations.
   `,
 });
 

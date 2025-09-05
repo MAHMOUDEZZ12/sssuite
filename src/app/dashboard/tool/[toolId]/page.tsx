@@ -32,16 +32,18 @@ const getToolSchema = (tool: Tool | undefined) => {
 
         if (field.type === 'file') {
             const baseSchema = z.custom<FileList>().nullable();
-            if (field.multiple) {
-                 fieldSchema = baseSchema;
-            } else {
-                const isOptional = (tool.id === 'rebranding' && field.id === 'companyLogoDataUri') || 
-                                 (tool.id === 'landing-pages' && field.id === 'projectBrochureDataUri') ||
-                                 (tool.id === 'landing-pages' && field.id === 'inspirationImageDataUri') ||
-                                 (tool.id === 'pdf-editor' && field.id === 'newImages');
+            
+            const isOptional = (field.id === 'companyLogoDataUri') || 
+                             (field.id === 'projectBrochureDataUri') ||
+                             (field.id === 'inspirationImageDataUri') ||
+                             (field.id === 'newImages');
 
-                fieldSchema = isOptional ? baseSchema.optional() : baseSchema.refine(files => files && files.length > 0, `${field.name} is required.`);
+            if (field.multiple || isOptional) {
+                fieldSchema = baseSchema.optional();
+            } else {
+                fieldSchema = baseSchema.refine(files => files && files.length > 0, `${field.name} is required.`);
             }
+
         } else if (field.type === 'number') {
             fieldSchema = z.string().min(1, `${field.name} is required`).refine(val => !isNaN(Number(val)), { message: "Must be a number" });
         } else if (field.id === 'additionalInformation') {
@@ -49,10 +51,6 @@ const getToolSchema = (tool: Tool | undefined) => {
         }
         else {
             fieldSchema = z.string().min(1, `${field.name} is required`);
-        }
-
-        if (tool.id === 'pdf-editor' && field.id === 'newImages') {
-             fieldSchema = z.custom<FileList>().nullable().optional();
         }
 
         (acc as any)[field.id] = fieldSchema;
@@ -139,7 +137,7 @@ export default function ToolPage() {
         }
         else {
             for (const field of tool.creationFields) {
-                if(field.type === 'button' || !data[field.id]) continue;
+                if(field.type === 'button' || field.type === 'group-header' || !data[field.id]) continue;
 
                 const value = data[field.id];
                 if (field.type === 'file' && value instanceof FileList && value.length > 0) {
@@ -200,7 +198,7 @@ export default function ToolPage() {
                     return (
                         <div key={field.id} className="md:col-span-2 mt-4 first:mt-0">
                             <h3 className="text-lg font-semibold text-foreground">{field.name}</h3>
-                            <p className="text-sm text-muted-foreground mb-2">{field.description}</p>
+                             {field.description && <p className="text-sm text-muted-foreground mb-2">{field.description}</p>}
                             <Separator />
                         </div>
                     )

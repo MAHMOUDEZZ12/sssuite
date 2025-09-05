@@ -234,8 +234,8 @@ export default function Home() {
               variant={activeFilter === category ? 'default' : 'outline'}
               onClick={() => setActiveFilter(category)}
               className={cn(
-                'rounded-full px-6 py-2 text-base transition-all duration-200',
-                activeFilter === category ? 'shadow-lg shadow-primary/20' : 'text-foreground/70'
+                'rounded-full px-4 py-2 text-sm md:text-base transition-all duration-200',
+                activeFilter === category && 'shadow-lg shadow-primary/20'
               )}
             >
               {category}

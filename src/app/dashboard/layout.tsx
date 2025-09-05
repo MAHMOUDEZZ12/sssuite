@@ -57,11 +57,10 @@ import { Separator } from '@/components/ui/separator';
 import { tools } from '@/lib/tools.tsx';
 import { AssistantChat } from '@/components/assistant-chat';
 
-const marketingTools = tools.filter(t => t.categories.includes('Ads') || t.categories.includes('Lead Gen'));
-const designTools = tools.filter(t => t.categories.includes('Creative') && (t.categories.includes('Editing') || t.categories.includes('Social & Comms')));
-const contentTools = tools.filter(t => t.categories.includes('Creative') && (t.categories.includes('Web') || t.categories.includes('Editing')));
-const socialMediaTools = tools.filter(t => t.categories.includes('Social & Comms'));
-const salesTools = tools.filter(t => t.categories.includes('Sales Tools'));
+const marketingTools = tools.filter(t => t.mindMapCategory === 'Marketing');
+const creativeTools = tools.filter(t => t.mindMapCategory === 'Creative Suite');
+const salesTools = tools.filter(t => t.mindMapCategory === 'Sales Enablement');
+const socialTools = tools.filter(t => t.categories.includes('Social & Comms'));
 
 
 const SidebarMenuGroup = ({
@@ -118,10 +117,9 @@ export default function DashboardLayout({
         <SidebarContent>
           <div className="flex flex-col gap-2 p-2">
             <SidebarMenuGroup title="Marketing" tools={marketingTools} />
-            <SidebarMenuGroup title="Design Tools" tools={designTools} />
-            <SidebarMenuGroup title="Content Tools" tools={contentTools} />
-            <SidebarMenuGroup title="Social Media" tools={socialMediaTools} />
+            <SidebarMenuGroup title="Creative Suite" tools={creativeTools} />
             <SidebarMenuGroup title="Sales & CRM" tools={salesTools} />
+            <SidebarMenuGroup title="Social Media" tools={socialTools} />
           </div>
         </SidebarContent>
         <SidebarFooter>
@@ -130,7 +128,7 @@ export default function DashboardLayout({
                  <SidebarMenu>
                     <SidebarMenuItem>
                         <Link href="/dashboard/assistant">
-                            <SidebarMenuButton>
+                            <SidebarMenuButton isActive={pathname.startsWith('/dashboard/assistant')}>
                                 <BrainCircuit />
                                 <span className="group-data-[collapsible=icon]:hidden">Train Assistant</span>
                             </SidebarMenuButton>
@@ -139,7 +137,7 @@ export default function DashboardLayout({
                     <Separator />
                     <SidebarMenuItem>
                         <Link href="/dashboard/projects">
-                            <SidebarMenuButton>
+                            <SidebarMenuButton isActive={pathname.startsWith('/dashboard/projects')}>
                                 <Briefcase />
                                 <span className="group-data-[collapsible=icon]:hidden">My Projects</span>
                             </SidebarMenuButton>
@@ -147,7 +145,7 @@ export default function DashboardLayout({
                     </SidebarMenuItem>
                      <SidebarMenuItem>
                         <Link href="/dashboard/leads">
-                            <SidebarMenuButton>
+                            <SidebarMenuButton isActive={pathname.startsWith('/dashboard/leads')}>
                                 <Contact />
                                 <span className="group-data-[collapsible=icon]:hidden">Leads (CRM)</span>
                             </SidebarMenuButton>
@@ -155,7 +153,7 @@ export default function DashboardLayout({
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                         <Link href="/dashboard/data">
-                            <SidebarMenuButton>
+                            <SidebarMenuButton isActive={pathname.startsWith('/dashboard/data')}>
                                 <Database />
                                 <span className="group-data-[collapsible=icon]:hidden">Data Storage</span>
                             </SidebarMenuButton>
@@ -163,7 +161,7 @@ export default function DashboardLayout({
                     </SidebarMenuItem>
                      <SidebarMenuItem>
                         <Link href="/dashboard/brand">
-                            <SidebarMenuButton>
+                            <SidebarMenuButton isActive={pathname.startsWith('/dashboard/brand')}>
                                 <Palette />
                                 <span className="group-data-[collapsible=icon]:hidden">My Brand</span>
                             </SidebarMenuButton>
@@ -171,7 +169,7 @@ export default function DashboardLayout({
                     </SidebarMenuItem>
                      <SidebarMenuItem>
                          <Link href="/dashboard/settings">
-                            <SidebarMenuButton>
+                            <SidebarMenuButton isActive={pathname.startsWith('/dashboard/settings')}>
                                 <Settings />
                                 <span className="group-data-[collapsible=icon]:hidden">Settings</span>
                             </SidebarMenuButton>
