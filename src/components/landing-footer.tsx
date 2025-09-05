@@ -9,12 +9,15 @@ import { Separator } from './ui/separator';
 
 export function LandingFooter() {
   const footerLinks = {
-    resources: [
+    sx3: [
+        { name: 'About', href: '/technology' },
         { name: 'Pricing', href: '/pricing' },
-        { name: 'Blog', href: '/blog' },
-        { name: 'Documentation', href: '/documentation' },
         { name: 'Technology', href: '/technology' },
         { name: 'System Status', href: '/status' },
+    ],
+    resources: [
+        { name: 'Blog', href: '/blog' },
+        { name: 'Documentation', href: '/documentation' },
         { name: 'SX3 Mindmap', href: '/sx3-mindmap' },
     ],
     legal: [
@@ -55,6 +58,18 @@ export function LandingFooter() {
                     </p>
                 </div>
                 <div className='md:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-8'>
+                     <div>
+                        <h3 className="font-semibold text-foreground">SX3 AI</h3>
+                        <ul className="mt-4 space-y-2">
+                            {footerLinks.sx3.map((link) => (
+                                <li key={link.name}>
+                                    <Link href={link.href} className="text-foreground/60 hover:text-primary transition-colors">
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                     <div>
                         <h3 className="font-semibold text-foreground">Resources</h3>
                         <ul className="mt-4 space-y-2">
