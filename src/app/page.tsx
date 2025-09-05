@@ -268,13 +268,15 @@ export default function Home() {
   };
 
   const getCategoryCount = (category: FilterCategory) => {
-    if (category === 'All') return features.length;
-    return features.filter(f => f.categories.includes(category)).length;
+    const visibleFeatures = features.filter(f => f.id !== 'superfreetime');
+    if (category === 'All') return visibleFeatures.length;
+    return visibleFeatures.filter(f => f.categories.includes(category)).length;
   }
 
-  const filteredFeatures = activeFilter === 'All'
+  const filteredFeatures = (activeFilter === 'All'
     ? features
-    : features.filter(feature => feature.categories.includes(activeFilter));
+    : features.filter(feature => feature.categories.includes(activeFilter))
+  ).filter(feature => feature.id !== 'superfreetime');
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
