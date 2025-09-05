@@ -198,7 +198,7 @@ export default function SX3MindmapPage() {
 
     const marketingTools = tools.filter(t => t.categories.includes('Marketing'));
     const creativeTools = tools.filter(t => t.categories.includes('Creative Suite'));
-    const salesTools = tools.filter(t => t.categories.includes('Sales Tools'));
+    const salesTools = tools.filter(t => t.categories.includes('Sales Enablement'));
     const coreTools = tools.filter(t => t.categories.includes('Core Intelligence'));
     
     const toolCategories = [
