@@ -486,7 +486,7 @@ export const tools: Tool[] = [
     creationFields: [
       { id: 'photos', name: 'Property Photos', type: 'file', multiple: true, description: 'Upload 3-5 high-quality images.' },
       { id: 'vibe', name: 'Story Vibe', type: 'select', options: ['Upbeat & Modern', 'Elegant & Luxurious', 'Cozy & Warm', 'Dramatic & Cinematic'], placeholder: 'Select a vibe', description: 'This influences music, text, and effects.' },
-      { id: 'callToAction', name: 'Call to Action', type: 'text', placeholder: 'e.g., "Swipe up for tour!", "DM for info"', description: 'The final text prompt for viewers.' },
+      { id: 'callToAction', name: 'Call to Action', type: 'select', options: ["Swipe Up for Tour", "DM for Info", "See Link in Bio", "New Listing Alert!", "Save This Post"], placeholder: 'Select a call to action', description: 'The final text prompt for viewers.' },
     ],
   },
   {
@@ -919,5 +919,3 @@ export const tools: Tool[] = [
     ],
   },
 ];
-
-    
