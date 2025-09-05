@@ -297,8 +297,8 @@ export default function Home() {
         </div>
 
         <div className="sticky top-16 z-10 bg-background/80 backdrop-blur-lg py-4 mb-8">
-            <div className="flex justify-center overflow-x-auto pb-4">
-                <div className="flex gap-2 md:gap-4 flex-nowrap px-4">
+            <div className="flex justify-center md:overflow-x-hidden overflow-x-auto pb-4">
+                <div className="flex gap-2 md:gap-4 flex-nowrap">
                   {filterCategories.map(category => (
                     <Button
                       key={category}
