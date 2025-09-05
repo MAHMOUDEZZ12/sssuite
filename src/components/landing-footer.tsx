@@ -16,6 +16,7 @@ export function LandingFooter() {
         { name: 'System Status', href: '/status' },
     ],
     resources: [
+        { name: 'Handbook', href: '/blog' },
         { name: 'Blog', href: '/blog' },
         { name: 'Documentation', href: '/documentation' },
         { name: 'SX3 Mindmap', href: '/sx3-mindmap' },
@@ -59,7 +60,7 @@ export function LandingFooter() {
                 </div>
                 <div className='md:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-8'>
                      <div>
-                        <h3 className="font-semibold text-foreground">SX3 AI</h3>
+                        <h3 className="font-semibold text-foreground">Sx3 AI</h3>
                         <ul className="mt-4 space-y-2">
                             {footerLinks.sx3.map((link) => (
                                 <li key={link.name}>
