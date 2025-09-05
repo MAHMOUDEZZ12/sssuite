@@ -192,12 +192,12 @@ export default function DashboardLayout({
                 alt="User"
                 data-ai-hint="profile picture"
               />
-              <AvatarFallback>JD</AvatarFallback>
+              <AvatarFallback>U</AvatarFallback>
             </Avatar>
             <div className="flex flex-col group-data-[collapsible=icon]:hidden">
-              <p className="text-sm font-medium text-foreground">John Doe</p>
+              <p className="text-sm font-medium text-foreground">Current User</p>
               <p className="text-xs text-muted-foreground">
-                john.doe@example.com
+                user@example.com
               </p>
             </div>
           </div>
