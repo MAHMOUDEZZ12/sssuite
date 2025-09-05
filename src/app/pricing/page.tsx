@@ -15,20 +15,19 @@ import { Switch } from '@/components/ui/switch';
 
 export default function PricingPage() {
   const [isAnnual, setIsAnnual] = React.useState(true);
-  const totalTools = 16; // As we can't import tools directly
-
+  
   const pricingTiers = [
     {
-        name: 'Pay as you go',
-        price: '$12',
-        description: 'Perfect for occasional use with full access to core tools.',
+        name: 'Free',
+        price: '$0',
+        description: 'Perfect for getting started and trying out core tools.',
         features: [
-            '50 AI generations',
-            `Access to all ${totalTools} core AI tools`,
-            'Per-project pricing',
+            '5 AI generations',
+            `Access to 3 core AI tools`,
+            '1 project',
             'Community support',
         ],
-        cta: 'Get Started',
+        cta: 'Start for Free',
         variant: 'outline'
     },
     {
@@ -38,7 +37,7 @@ export default function PricingPage() {
         description: 'The ultimate toolkit for serious agents and small teams.',
         features: [
             'Trainable AI Assistant',
-            `Access to all ${totalTools} AI tools`,
+            `Access to all 18+ AI tools`,
             'Unlimited projects',
             '10,000 AI generations per month',
             'Connect social & email accounts',
@@ -50,11 +49,11 @@ export default function PricingPage() {
     },
     {
         name: 'Enterprise',
-        price: 'Starting from $189',
+        price: '$189',
         pricePeriod: '/ month',
         description: 'For large brokerages and teams needing advanced features.',
         features: [
-            'Everything in Super, plus:',
+            'Everything in Super Seller, plus:',
             '4 users access',
             'Trainable AI Agent',
             'Team management & billing',
@@ -114,7 +113,7 @@ export default function PricingPage() {
                     </CardHeader>
                     <CardContent className="flex flex-col flex-grow">
                        <div className="text-center mb-8 h-20">
-                          {tier.price.startsWith('Starting from') ? (
+                          {tier.name === 'Enterprise' ? (
                             <div>
                                 <p className="text-lg text-muted-foreground">Starting from</p>
                                 <span className="text-5xl font-bold">{tier.price.replace('Starting from ', '')}</span>
@@ -155,3 +154,5 @@ export default function PricingPage() {
     </div>
   );
 }
+
+    

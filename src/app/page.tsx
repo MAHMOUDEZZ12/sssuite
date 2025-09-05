@@ -10,6 +10,7 @@ import {
   BrainCircuit,
   CheckCircle,
   Plus,
+  Sparkles,
   Upload,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -25,11 +26,9 @@ import {
 } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Feature, tools as features } from '@/lib/tools-client.tsx';
+import { Feature, tools as features, FilterCategory } from '@/lib/tools-client.tsx';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-
-
-type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing';
+import { ShinyButton } from '@/components/ui/shiny-button';
 
 
 const filterCategories: FilterCategory[] = ['All', 'Marketing', 'Lead Gen', 'Creative', 'Sales Tools', 'Social & Comms', 'Web', 'Editing', 'Ads'];
@@ -43,28 +42,32 @@ const FeatureCard = ({
 }) => {
   return (
     <Card 
-        className="group flex flex-col bg-card/50 backdrop-blur-lg border-border hover:border-primary/30 transition-all duration-300 cursor-pointer hover:-translate-y-2"
+        className="group flex flex-col bg-card/50 backdrop-blur-lg border-border hover:border-primary/30 transition-all duration-300 cursor-pointer hover:-translate-y-1"
         onClick={() => onClick(feature)}
     >
       <CardHeader>
-        <div 
-          className="p-3 rounded-lg w-fit text-white"
-          style={{ backgroundColor: feature.color }}
-        >
-            {React.cloneElement(feature.icon, { className: 'h-8 w-8' })}
+        <div className='flex items-center justify-between'>
+            <div 
+              className="p-3 rounded-lg w-fit text-white"
+              style={{ backgroundColor: feature.color }}
+            >
+                {React.cloneElement(feature.icon, { className: 'h-8 w-8' })}
+            </div>
+            {(feature.badge) && (
+                <span className={`px-2 py-1 text-xs font-semibold text-white rounded-full ${feature.badge === 'NEW' ? 'bg-blue-500' : 'bg-yellow-500'}`}>
+                    {feature.badge}
+                </span>
+            )}
         </div>
       </CardHeader>
       <CardContent className="flex flex-col flex-grow">
         <h2 className="text-2xl font-bold font-heading mb-2 text-foreground">{feature.title}</h2>
         <p className="text-lg text-foreground/70 flex-grow">{feature.description}</p>
          <div className="mt-6">
-            <div 
-              className="inline-flex items-center justify-center gap-2 text-white font-semibold py-2 px-4 rounded-md"
-              style={{ backgroundColor: feature.color }}
-            >
-                <span>Details</span>
-                <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
-            </div>
+            <Button variant="link" className="p-0 text-base text-primary">
+                Try Demo
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Button>
          </div>
       </CardContent>
     </Card>
@@ -210,6 +213,11 @@ export default function Home() {
     setSelectedFeature(feature);
   };
 
+  const getCategoryCount = (category: FilterCategory) => {
+    if (category === 'All') return features.length;
+    return features.filter(f => f.categories.includes(category)).length;
+  }
+
   const filteredFeatures = activeFilter === 'All'
     ? features
     : features.filter(feature => feature.categories.includes(activeFilter));
@@ -220,33 +228,42 @@ export default function Home() {
       <main className="flex-1 w-full max-w-full px-4 md:px-6 lg:px-8 py-12 md:py-20">
         <div className="text-center mb-12 max-w-5xl mx-auto">
           <h1 className="text-4xl md:text-7xl font-bold font-heading tracking-tighter mb-4 text-foreground">
-            A salesperson with tools is a super-seller.
+            A salesperson with tools is a Super Seller.
           </h1>
           <p className="text-lg md:text-xl text-foreground/60">
-            A salesperson without tools is just looking for help. Explore the tools below.
+            Explore the tools. Train your assistant. Close faster.
           </p>
+          <div className='mt-8'>
+            <Link href="/signup">
+                <ShinyButton>
+                    Start Free • No card
+                </ShinyButton>
+            </Link>
+          </div>
         </div>
 
-        <div className="flex justify-center mb-12 overflow-x-auto pb-4">
-            <div className="flex gap-2 md:gap-4 flex-nowrap">
-              {filterCategories.map(category => (
-                <Button
-                  key={category}
-                  variant={activeFilter === category ? 'default' : 'outline'}
-                  onClick={() => setActiveFilter(category)}
-                  className={cn(
-                    'rounded-full px-4 py-2 text-sm md:text-base transition-all duration-200 shrink-0',
-                    activeFilter === category && 'shadow-lg shadow-primary/20'
-                  )}
-                >
-                  {category}
-                </Button>
-              ))}
+        <div className="sticky top-16 z-10 bg-background/80 backdrop-blur-lg -mx-8 px-8 py-4 mb-12">
+            <div className="flex justify-center overflow-x-auto pb-4">
+                <div className="flex gap-2 md:gap-4 flex-nowrap">
+                  {filterCategories.map(category => (
+                    <Button
+                      key={category}
+                      variant={activeFilter === category ? 'default' : 'outline'}
+                      onClick={() => setActiveFilter(category)}
+                      className={cn(
+                        'rounded-full px-4 py-2 text-sm md:text-base transition-all duration-200 shrink-0',
+                        activeFilter === category && 'shadow-lg shadow-primary/20'
+                      )}
+                    >
+                      {category} ({getCategoryCount(category)})
+                    </Button>
+                  ))}
+                </div>
             </div>
         </div>
 
         <div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 lg:gap-12 max-w-[120rem] mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 lg:gap-12 max-w-[120rem] mx-auto"
         >
           {filteredFeatures.map((feature) => (
             <FeatureCard 
@@ -264,55 +281,47 @@ export default function Home() {
                          <div className="p-3 bg-primary/10 text-primary rounded-full w-fit mb-4">
                             <Bot className="h-8 w-8" />
                         </div>
-                        <h2 className="text-4xl font-bold font-heading tracking-tight mb-4">Meet Your AI Partner</h2>
+                        <h2 className="text-4xl font-bold font-heading tracking-tight mb-4">Meet your AI partner</h2>
                         <p className="text-lg text-foreground/70 mb-6">
-                            Beyond individual tools, the Super Seller Suite is powered by a central AI assistant you can train. Give it a personality, feed it your knowledge, and watch it become the most valuable member of your team.
+                           Give it a name, a role, and your playbook. It learns your market, drafts your replies, and keeps you moving.
                         </p>
                         <div className="space-y-4 mb-8">
                             <div className="flex items-start gap-4">
-                                <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><BrainCircuit className="h-5 w-5" /></div>
+                                <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Sparkles className="h-5 w-5" /></div>
                                 <div>
-                                    <h4 className="font-semibold">Personalized Instructions</h4>
-                                    <p className="text-sm text-foreground/60">Tell your assistant its name, purpose, and how to interact.</p>
+                                    <h4 className="font-semibold">Presets</h4>
+                                    <p className="text-sm text-foreground/60">Closer (fast replies, follow-ups), Marketer (ads, posts, reels), or Analyst (comps, reports).</p>
                                 </div>
                             </div>
                              <div className="flex items-start gap-4">
                                 <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Upload className="h-5 w-5" /></div>
                                 <div>
-                                    <h4 className="font-semibold">Knowledge Base</h4>
-                                    <p className="text-sm text-foreground/60">Upload market reports, brochures, and past sales data to give it context.</p>
+                                    <h4 className="font-semibold">Capabilities</h4>
+                                    <p className="text-sm text-foreground/60">Summarize brochures, compare projects, or turn a PDF into a Reel script.</p>
                                 </div>
                             </div>
                         </div>
                         <Link href="/dashboard/assistant">
                             <Button size="lg" variant="outline">
-                                Train Your Assistant
+                                Set Up My Assistant
                                 <ArrowRight className="ml-2" />
                             </Button>
                         </Link>
                     </div>
                      <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center">
-                         <h3 className="text-xl font-semibold font-heading mb-4 text-foreground/90">Assistant Capabilities</h3>
+                         <h3 className="text-xl font-semibold font-heading mb-4 text-foreground/90">Sample Prompts</h3>
                          <ul className="space-y-3">
                              <li className="flex items-center gap-3">
                                  <CheckCircle className="h-5 w-5 text-primary" />
-                                 <span className="text-foreground/80">Summarize documents and reports</span>
+                                 <span className="text-foreground/80">"Summarize this brochure and draft a WhatsApp reply."</span>
                             </li>
                              <li className="flex items-center gap-3">
                                  <CheckCircle className="h-5 w-5 text-primary" />
-                                 <span className="text-foreground/80">Draft emails and social posts</span>
+                                 <span className="text-foreground/80">"Compare Emaar vs Damac for a 2M AED investor."</span>
                             </li>
                              <li className="flex items-center gap-3">
                                  <CheckCircle className="h-5 w-5 text-primary" />
-                                 <span className="text-foreground/80">Compare properties for clients</span>
-                            </li>
-                             <li className="flex items-center gap-3">
-                                 <CheckCircle className="h-5 w-5 text-primary" />
-                                 <span className="text-foreground/80">Role-play negotiations</span>
-                            </li>
-                             <li className="flex items-center gap-3">
-                                 <CheckCircle className="h-5 w-5 text-primary" />
-                                 <span className="text-foreground/80">Answer questions based on your data</span>
+                                 <span className="text-foreground/80">"Turn this PDF into a 30-sec Instagram Reel script."</span>
                             </li>
                          </ul>
                     </div>
@@ -326,3 +335,5 @@ export default function Home() {
     </div>
   );
 }
+
+    

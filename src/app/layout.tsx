@@ -18,8 +18,8 @@ const fontHeading = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Super Seller Suite: Your Sales AI Suite',
-  description: 'The ultimate sales suite, empowering agents to create stunning marketing campaigns, target the right audience, and close more deals—no tech expertise required.',
+  title: 'Super Seller Suite: Your AI Co-Pilot for Real Estate',
+  description: 'The AI-powered suite for real estate agents. Generate ads, target buyers, rebrand brochures, and close deals faster. Your new co-pilot for sales and marketing.',
 };
 
 export default function RootLayout({
@@ -41,3 +41,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    

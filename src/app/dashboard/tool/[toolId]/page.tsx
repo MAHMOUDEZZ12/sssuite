@@ -7,7 +7,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Tool, fileToDataUri, filesToDataUris } from '@/lib/tools-client.tsx';
-import { tools } from '@/lib/tools'; // Import from server-safe tools
+import { tools as clientTools } from '@/lib/tools-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -76,7 +76,7 @@ export default function ToolPage() {
   const [showPaymentDialog, setShowPaymentDialog] = useState(false);
 
   useEffect(() => {
-    const currentTool = tools.find((t) => t.id === toolId);
+    const currentTool = clientTools.find((t) => t.id === toolId);
     setTool(currentTool);
   }, [toolId]);
 
@@ -117,9 +117,16 @@ export default function ToolPage() {
     setShowConfetti(false);
 
     try {
+        const { tools } = await import('@/lib/tools');
+        const currentTool = tools.find(t => t.id === toolId);
+        
+        if (!currentTool) {
+            throw new Error(`Tool with id "${toolId}" not found.`);
+        }
+
         let payload: Record<string, any> = {};
 
-        if (tool.id === 'targeting') {
+        if (currentTool.id === 'targeting') {
              payload = {
                 location: data.location,
                 propertyType: data.propertyType,
@@ -129,7 +136,7 @@ export default function ToolPage() {
                 incomeLevel: data.incomeLevel,
                 interests: data.interests.split(',').map((s:string) => s.trim()),
             };
-        } else if (tool.id === 'investor-matching') {
+        } else if (currentTool.id === 'investor-matching') {
             payload = {
                 clientDatabase: await fileToDataUri(data.clientDatabase[0]),
                 propertyType: data.propertyType,
@@ -141,7 +148,7 @@ export default function ToolPage() {
             }
         }
         else {
-            for (const field of tool.creationFields) {
+            for (const field of currentTool.creationFields) {
                 if(field.type === 'button' || field.type === 'group-header' || !data[field.id]) continue;
 
                 const value = data[field.id];
@@ -157,11 +164,11 @@ export default function ToolPage() {
             }
         }
         
-        if (!tool.flowRunner) {
-            throw new Error(`No flow runner found for tool: ${tool.id}. This tool has not been implemented yet.`);
+        if (!currentTool.flowRunner) {
+            throw new Error(`No flow runner found for tool: ${currentTool.id}. This tool has not been implemented yet.`);
         }
         
-        const flowResult = await tool.flowRunner(payload);
+        const flowResult = await currentTool.flowRunner(payload);
         setResult(flowResult);
         setShowConfetti(true);
     } catch (e: any) {

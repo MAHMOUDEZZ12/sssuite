@@ -77,16 +77,18 @@ export type Field = {
   cta?: string;
 };
 
-export type Tool = {
+export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing';
+
+export type Feature = {
   id: string;
   title: string;
   description: string;
   icon: React.ReactElement;
   color: string;
   cta: string;
-  categories: string[];
+  categories: FilterCategory[];
   mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence';
-  backsideValue: string;
+  badge?: 'NEW' | 'BETA';
   details: {
     steps: { text: string; icon: React.ReactElement }[];
     aiVsManual: {
@@ -110,17 +112,17 @@ const mockProjects = [
     'Add New Project...',
 ];
 
-export const tools: Tool[] = [
+export const tools: Feature[] = [
   {
     id: 'ad-creation',
-    title: 'Instant Ad Creation',
-    description: 'Generate high-performance ad copy, visuals, and flyers from any brochure in seconds.',
+    title: 'AI Ad Creator',
+    description: 'Turn any brochure into scroll-stopping ads.',
     icon: <Target />,
     color: '#ec4899', // pink-500
     cta: 'Ad',
     categories: ['Marketing', 'Ads'],
     mindMapCategory: 'Marketing',
-    backsideValue: "Turn a brochure into a campaign.",
+    badge: 'NEW',
     renderResult: (result, toast) => (
        <div className="space-y-6">
           <div>
@@ -147,7 +149,7 @@ export const tools: Tool[] = [
           { text: 'Generate multiple ad variants instantly', icon: <Sparkles className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Time Investment', manual: '5-10 hours per campaign', ai: 'Under 60 seconds', icon: <Clock2 /> },
+        { metric: 'Time Investment', manual: '5-10 hours per campaign', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Cost & Resources', manual: 'Requires copywriter & designer', ai: 'Included in your subscription', icon: <Wallet /> },
         { metric: 'Quality & Testing', manual: 'Relies on guesswork, 1-2 variations', ai: 'Data-driven, 5+ variations to test', icon: <BadgeCheck /> },
       ],
@@ -170,14 +172,13 @@ export const tools: Tool[] = [
   },
   {
     id: 'targeting',
-    title: 'Precision Targeting',
-    description: 'Our AI analyzes your project and identifies high-intent buyers before they even search.',
+    title: 'AI Precision Targeting',
+    description: 'Find high-intent buyers before they search.',
     icon: <Binoculars />,
     color: '#3b82f6', // blue-600
     cta: 'Targeting Profile',
-    categories: ['Marketing', 'Lead Gen'],
+    categories: ['Marketing', 'Lead Gen', 'Ads'],
     mindMapCategory: 'Marketing',
-    backsideValue: "Find your buyers before they find you.",
     renderResult: (result, toast) => (
       <div>
         <h3 className="font-semibold text-lg mb-2">Suggested Targeting Options</h3>
@@ -195,12 +196,12 @@ export const tools: Tool[] = [
       ],
       aiVsManual: [
         { metric: 'Audience Discovery', manual: 'Broad guessing (e.g., "Age 30-50")', ai: 'Niche, high-intent segments', icon: <Users2 /> },
-        { metric: 'Time to Research', manual: 'Hours of market research', ai: 'Under 30 seconds', icon: <Clock2 /> },
+        { metric: 'Time to Research', manual: 'Hours of market research', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Budget Efficiency', manual: 'High waste on wrong audiences', ai: 'Optimized ad spend, higher ROI', icon: <Wallet /> },
       ],
       synergy: [
-        { tool: "Instant Ad Creation", benefit: "Design the perfect ad for the high-intent audience you\'ve just identified." },
-        { tool: "AI Social Post Writer", benefit: "Create organic posts that speak directly to the interests of your target persona." }
+        { tool: "AI Ad Creator", benefit: "Design the perfect ad for the high-intent audience you\'ve just identified." },
+        { tool: "AI Social Writer", benefit: "Create organic posts that speak directly to the interests of your target persona." }
       ],
        faqs: [
         { question: "What platforms can I use these audiences on?", answer: "Our targeting suggestions are optimized for major platforms like Facebook, Instagram, and Google Ads. We provide you with the exact interests, demographics, and keywords to input." },
@@ -224,14 +225,13 @@ export const tools: Tool[] = [
   },
   {
     id: 'rebranding',
-    title: 'Automated Rebranding',
-    description: 'Instantly rebrand any brochure with your logo, colors, and contact info.',
+    title: 'AI Rebranding',
+    description: 'Swap logos, colors, contacts in one click.',
     icon: <Palette />,
     color: '#f97316', // orange-600
     cta: 'Rebranded Brochure',
     categories: ['Creative', 'Editing'],
     mindMapCategory: 'Creative Suite',
-    backsideValue: "Make any brochure your own in one click.",
     renderResult: (result, toast) => (
       <div className="space-y-6">
         <div>
@@ -255,13 +255,13 @@ export const tools: Tool[] = [
         { text: 'Download the rebranded brochure instantly', icon: <FileText className="h-6 w-6" /> },
       ],
       aiVsManual: [
-         { metric: 'Time to Rebrand', manual: '2-4 hours in design software', ai: 'Under 1 minute', icon: <Clock2 /> },
+         { metric: 'Time to Rebrand', manual: '2-4 hours in design software', ai: 'Fast by default', icon: <Clock2 /> },
          { metric: 'Required Skill', manual: 'Proficiency in Adobe InDesign/Canva', ai: 'Ability to upload a file', icon: <Sparkles /> },
          { metric: 'Consistency', manual: 'Prone to human error and typos', ai: 'Perfectly consistent every time', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "Instant Ad Creation", benefit: "Use your newly rebranded brochure to power an ad campaign." },
-        { tool: "Landing Page Generator", benefit: "Generate a branded landing page that perfectly matches your rebranded brochure." }
+        { tool: "AI Ad Creator", benefit: "Use your newly rebranded brochure to power an ad campaign." },
+        { tool: "Landing Page Builder", benefit: "Generate a branded landing page that perfectly matches your rebranded brochure." }
       ],
        faqs: [
         { question: "Will this work with any PDF?", answer: "It works best with text-based PDFs, which are standard for most property brochures. It may be less effective on image-only PDFs or scans." },
@@ -281,13 +281,12 @@ export const tools: Tool[] = [
    {
     id: 'pdf-editor',
     title: 'AI PDF Editor',
-    description: 'Edit text, swap images, and update layouts in any PDF brochure with simple commands.',
+    description: 'Edit text, images, and layout with prompts.',
     icon: <PenTool />,
     color: '#eab308', // yellow-500
     cta: 'Edited PDF',
     categories: ['Creative', 'Editing'],
     mindMapCategory: 'Creative Suite',
-    backsideValue: "Edit the uneditable, instantly.",
     renderResult: (result, toast) => (
       <div className="space-y-6">
         <div>
@@ -305,13 +304,13 @@ export const tools: Tool[] = [
         { text: 'Download your edited PDF instantly', icon: <FileText className="h-6 w-6" /> },
       ],
       aiVsManual: [
-         { metric: 'Time to Edit', manual: 'Hours finding source files or using clunky editors', ai: 'Under 2 minutes with simple commands', icon: <Clock2 /> },
+         { metric: 'Time to Edit', manual: 'Hours finding source files or using clunky editors', ai: 'Fast by default', icon: <Clock2 /> },
          { metric: 'Software Cost', manual: 'Requires expensive Acrobat Pro subscription', ai: 'Included in your suite', icon: <Wallet /> },
          { metric: 'Ease of Use', manual: 'Complex tools and formatting issues', ai: 'As easy as sending a text message', icon: <Sparkles /> },
       ],
       synergy: [
-        { tool: "Automated Rebranding", benefit: "After rebranding a brochure, use the editor to make final tweaks to pricing or contact info." },
-        { tool: "Listing Details Generator", benefit: "Generate a new listing description and then use the editor to paste it into your existing brochure." }
+        { tool: "AI Rebranding", benefit: "After rebranding a brochure, use the editor to make final tweaks to pricing or contact info." },
+        { tool: "Listing Generator", benefit: "Generate a new listing description and then use the editor to paste it into your existing brochure." }
       ],
        faqs: [
         { question: "Can it change complex layouts?", answer: "For best results, focus on targeted edits like text, images, and colors. While the AI can make layout adjustments, complex redesigns are better suited for the Landing Page Generator." },
@@ -327,8 +326,8 @@ export const tools: Tool[] = [
   },
   {
     id: 'landing-pages',
-    title: 'Landing Page Generator',
-    description: 'Generate persuasive, high-converting landing pages that captivate buyers.',
+    title: 'Landing Page Builder',
+    description: 'Launch a high-converting page in minutes.',
     icon: <LayoutTemplate />,
     color: '#22c55e', // green-500
     cta: 'Landing Page',
@@ -350,13 +349,13 @@ export const tools: Tool[] = [
         { text: 'Generate a complete landing page with a lead form', icon: <LayoutTemplate className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Time to Build', manual: '1-2 days using a website builder', ai: 'Under 60 seconds', icon: <Clock2 /> },
+        { metric: 'Time to Build', manual: '1-2 days using a website builder', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Technical Skill', manual: 'Requires web design & dev knowledge', ai: 'None. Just provide the source.', icon: <Sparkles /> },
         { metric: 'Features', manual: 'Lead forms, galleries added manually', ai: 'All features included automatically', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "AI Social Post Writer", benefit: "Generate promotional posts to drive traffic to your new landing page." },
-        { tool: "Instant Ad Creation", benefit: "Run a targeted ad campaign that clicks through to your beautiful new page." }
+        { tool: "AI Social Writer", benefit: "Generate promotional posts to drive traffic to your new landing page." },
+        { tool: "AI Ad Creator", benefit: "Run a targeted ad campaign that clicks through to your beautiful new page." }
       ],
        faqs: [
         { question: "Can I use my own domain name?", answer: "Yes, you can connect your own custom domain name to the landing pages you create, ensuring a fully branded experience for your visitors." },
@@ -374,13 +373,14 @@ export const tools: Tool[] = [
   },
   {
     id: 'social-posts',
-    title: 'AI Social Post Writer',
-    description: "Generate a week's worth of social content from a single link or topic.",
+    title: 'AI Social Writer',
+    description: "A week of posts from one link.",
     icon: <Share2 />,
     color: '#e11d48', // rose-600
     cta: 'Social Post',
-    categories: ['Marketing', 'Social & Comms'],
+    categories: ['Marketing', 'Social & Comms', 'Ads'],
     mindMapCategory: 'Marketing',
+    badge: 'BETA',
     renderResult: (result, toast) => (
       <div className="space-y-6">
         <div>
@@ -410,13 +410,13 @@ export const tools: Tool[] = [
         { text: 'Get a week of content with images & hashtags', icon: <FileText className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Content Creation Time', manual: '2-3 hours for a week\'s content', ai: 'Under 1 minute', icon: <Clock2 /> },
+        { metric: 'Content Creation Time', manual: '2-3 hours for a week\'s content', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Creativity', manual: 'Struggles with writer\'s block', ai: 'Generates endless creative angles', icon: <Sparkles /> },
         { metric: 'Completeness', manual: 'Forgets hashtags or image ideas', ai: 'Includes text, hashtags, and visuals', icon: <BadgeCheck /> },
       ],
       synergy: [
         { tool: "AI Page Admin", benefit: "Automatically schedule your newly generated posts for maximum engagement." },
-        { tool: "Landing Page Generator", benefit: "Create a page for a new listing and then use this tool to generate promotional posts for it." }
+        { tool: "Landing Page Builder", benefit: "Create a page for a new listing and then use this tool to generate promotional posts for it." }
       ],
        faqs: [
         { question: "What kind of topics work best?", answer: "You can use local market news, articles about home improvement, community events, or even just a property address. The more specific the source, the more tailored the content." },
@@ -433,13 +433,12 @@ export const tools: Tool[] = [
   {
     id: 'story-designer',
     title: 'AI Story Designer',
-    description: 'Craft compelling, animated stories for Instagram and Facebook in seconds.',
+    description: 'Animated stories, auto-branded.',
     icon: <Film />,
     color: '#a855f7', // fuchsia-500
     cta: 'Story',
     categories: ['Creative', 'Social & Comms'],
     mindMapCategory: 'Creative Suite',
-    backsideValue: "Create thumb-stopping animated stories.",
     details: {
       steps: [
         { text: 'Select your project to use its photos', icon: <Briefcase className="h-6 w-6" /> },
@@ -447,12 +446,12 @@ export const tools: Tool[] = [
         { text: 'Generate multiple story variants to post', icon: <Clapperboard className="h-6 w-6" /> },
       ],
       aiVsManual: [
-         { metric: 'Design Time', manual: '15-30 minutes per story in Canva', ai: 'Under 60 seconds for 3-5 variants', icon: <Clock2 /> },
+         { metric: 'Design Time', manual: '15-30 minutes per story in Canva', ai: 'Fast by default', icon: <Clock2 /> },
          { metric: 'Design Skill', manual: 'Requires a good eye for design', ai: 'Professional designs, automatically', icon: <Sparkles /> },
          { metric: 'Visual Appeal', manual: 'Static templates', ai: 'Dynamic animations & trending effects', icon: <Sparkles /> },
       ],
       synergy: [
-        { tool: "AI Social Post Writer", benefit: "Get caption ideas for your story to make it even more engaging." },
+        { tool: "AI Social Writer", benefit: "Get caption ideas for your story to make it even more engaging." },
         { tool: "AI Page Admin", benefit: "Schedule your new story to post at the perfect time for maximum views." }
       ],
        faqs: [
@@ -470,13 +469,12 @@ export const tools: Tool[] = [
   {
     id: 'reel-designer',
     title: 'AI Reel Designer',
-    description: 'Create professional video reels from photos and text effortlessly, with auto-captions.',
+    description: 'Reels from photos + auto-captions.',
     icon: <Clapperboard />,
     color: '#8b5cf6', // violet-500
     cta: 'Reel',
-    categories: ['Creative', 'Social & Comms'],
+    categories: ['Creative', 'Social & Comms', 'Editing'],
     mindMapCategory: 'Creative Suite',
-    backsideValue: "Turn photos into professional video reels.",
     details: {
       steps: [
         { text: 'Select a project to use its media', icon: <Briefcase className="h-6 w-6" /> },
@@ -484,12 +482,12 @@ export const tools: Tool[] = [
         { text: 'Get a polished reel synced to trending audio', icon: <Sparkles className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Editing Time', manual: 'Hours of complex timeline editing', ai: 'Under 3 minutes', icon: <Clock2 /> },
+        { metric: 'Editing Time', manual: 'Hours of complex timeline editing', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Audio', manual: 'Difficult to find trending audio', ai: 'Synced automatically to licensed audio', icon: <Sparkles /> },
         { metric: 'Pacing & Effects', manual: 'Hard to get right', ai: 'Intelligently paced with effects', icon: <Sparkles /> },
       ],
       synergy: [
-        { tool: "Instant Ad Creation", benefit: "Promote your final reel with a targeted ad campaign to reach thousands." },
+        { tool: "AI Ad Creator", benefit: "Promote your final reel with a targeted ad campaign to reach thousands." },
         { tool: "AI Page Admin", benefit: "Share your reel with the Page Admin for automatic posting at peak times." }
       ],
        faqs: [
@@ -506,14 +504,13 @@ export const tools: Tool[] = [
   },
     {
     id: 'tiktok-editor',
-    title: 'TikTok Video Editor',
-    description: 'Produce viral-ready TikToks with trending sounds and effects in minutes.',
+    title: 'TikTok Editor',
+    description: 'On-trend clips ready to post.',
     icon: <Video />,
     color: '#dc2626', // red-600
     cta: 'TikTok',
-    categories: ['Creative', 'Social & Comms'],
+    categories: ['Creative', 'Social & Comms', 'Editing'],
     mindMapCategory: 'Creative Suite',
-    backsideValue: "Create TikToks that capture attention.",
     details: {
       steps: [
         { text: 'Select a project to use its media', icon: <Briefcase className="h-6 w-6" /> },
@@ -521,12 +518,12 @@ export const tools: Tool[] = [
         { text: 'Generate a fast-paced, engaging video', icon: <Sparkles className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Time to Edit', manual: '1-2 hours syncing clips to audio', ai: 'Under 5 minutes', icon: <Clock2 /> },
+        { metric: 'Time to Edit', manual: '1-2 hours syncing clips to audio', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Trend Analysis', manual: 'Hours scrolling to find trends', ai: 'Identifies trending audio for you', icon: <Sparkles /> },
         { metric: 'Visual Effects', manual: 'Complex editing software needed', ai: 'Applies popular effects automatically', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "Social Lead Generation", benefit: "Use your viral TikTok to drive traffic and capture leads directly from the platform." },
+        { tool: "AI Social Leads", benefit: "Use your viral TikTok to drive traffic and capture leads directly from the platform." },
         { tool: "AI Page Admin", benefit: "Schedule your new TikTok to post at the optimal time for maximum visibility and engagement." }
       ],
        faqs: [
@@ -544,13 +541,13 @@ export const tools: Tool[] = [
   {
     id: 'page-admin',
     title: 'AI Page Admin',
-    description: 'Your personal AI assistant to manage social media pages 24/7.',
+    description: 'Schedules posts and handles replies.',
     icon: <UserCog />,
     color: '#0891b2', // cyan-600
     cta: 'Page Admin',
     categories: ['Sales Tools', 'Social & Comms'],
     mindMapCategory: 'Sales Enablement',
-    backsideValue: "Put your social media on autopilot.",
+    badge: 'NEW',
     details: {
       steps: [
         { text: 'Connect your Facebook & Instagram pages', icon: <Network className="h-6 w-6" /> },
@@ -563,8 +560,8 @@ export const tools: Tool[] = [
         { metric: 'Lead Capture', manual: 'Inconsistent, easy to miss', ai: 'Flags high-intent leads automatically', icon: <Sparkles /> },
       ],
       synergy: [
-        { tool: "AI Social Post Writer", benefit: "Create a fully automated content pipeline from idea to publication." },
-        { tool: "CRM Memory Assistant", benefit: "When the AI flags a high-intent lead, automatically add them to your CRM with all known details." }
+        { tool: "AI Social Writer", benefit: "Create a fully automated content pipeline from idea to publication." },
+        { tool: "CRM Memory", benefit: "When the AI flags a high-intent lead, automatically add them to your CRM with all known details." }
       ],
        faqs: [
         { question: "Can the AI answer complex questions?", answer: "The AI is trained to handle common, factual questions (price, square footage, open house times). For complex or nuanced inquiries, it will intelligently flag the conversation and notify you for personal review." },
@@ -578,14 +575,13 @@ export const tools: Tool[] = [
   },
   {
     id: 'crm-assistant',
-    title: 'CRM Memory Assistant',
-    description: 'Your AI brain that remembers every client detail, conversation, and deadline.',
+    title: 'CRM Memory',
+    description: 'Remembers every client detail.',
     icon: <Database />,
     color: '#0d9488', // teal-600
     cta: 'Client Record',
-    categories: ['Sales Tools'],
+    categories: ['Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Sales Enablement',
-    backsideValue: "Remember everything about every client.",
     details: {
       steps: [
         { text: 'Connect your contacts or calendar', icon: <Network className="h-6 w-6" /> },
@@ -614,14 +610,13 @@ export const tools: Tool[] = [
   },
   {
     id: 'lead-generation',
-    title: 'Social Lead Generation',
-    description: 'Find and engage potential clients on social media before they even start searching.',
+    title: 'AI Social Leads',
+    description: 'Find buyers before they search.',
     icon: <UserPlus />,
     color: '#0284c7', // sky-600
     cta: 'Lead List',
     categories: ['Lead Gen', 'Social & Comms'],
     mindMapCategory: 'Sales Enablement',
-    backsideValue: "Find leads who don't know they're looking yet.",
     details: {
       steps: [
         { text: 'Define your target area and property type', icon: <MapPin className="h-6 w-6" /> },
@@ -634,8 +629,8 @@ export const tools: Tool[] = [
         { metric: 'Engagement Strategy', manual: 'Generic DMs or comments', ai: 'Suggests personalized conversation starters', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "CRM Memory Assistant", benefit: "Once a lead is identified, create a new profile for them in the CRM instantly." },
-        { tool: "AI Social Post Writer", benefit: "Create content that directly targets the interests and pain points of the leads you've discovered." }
+        { tool: "CRM Memory", benefit: "Once a lead is identified, create a new profile for them in the CRM instantly." },
+        { tool: "AI Social Writer", benefit: "Create content that directly targets the interests and pain points of the leads you've discovered." }
       ],
        faqs: [
         { question: "How does the AI find these leads?", answer: "The AI looks for public posts and comments that indicate an intent to move, such as people asking for realtor recommendations, discussing mortgage rates, or talking about wanting more space." },
@@ -651,14 +646,13 @@ export const tools: Tool[] = [
   },
   {
     id: 'market-reports',
-    title: 'Precision Market Reports',
-    description: 'Go beyond MLS data. Generate hyper-local reports with AI-powered predictive insights.',
+    title: 'AI Market Reports',
+    description: 'Hyper-local trends and insights.',
     icon: <LineChart />,
     color: '#f59e0b', // amber-500
     cta: 'Market Report',
     categories: ['Marketing', 'Editing'],
     mindMapCategory: 'Marketing',
-    backsideValue: "Become the neighborhood expert overnight.",
     details: {
       steps: [
         { text: 'Enter a neighborhood or address', icon: <MapPin className="h-6 w-6" /> },
@@ -666,13 +660,13 @@ export const tools: Tool[] = [
         { text: 'Generate a branded, data-rich PDF report', icon: <FileText className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Time to Create', manual: 'Hours pulling MLS data and designing', ai: 'Under 2 minutes', icon: <Clock2 /> },
+        { metric: 'Time to Create', manual: 'Hours pulling MLS data and designing', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Data Scope', manual: 'Limited to basic MLS stats', ai: 'Includes supply/demand, price trends, sentiment', icon: <Sparkles /> },
         { metric: 'Branding', manual: 'Requires manual design work', ai: 'Automatically branded with your logo & colors', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "Landing Page Generator", benefit: "Create a landing page with a lead form to download your hyper-local market report." },
-        { tool: "AI Social Post Writer", benefit: "Generate a week's worth of posts summarizing the key findings from your new report." }
+        { tool: "Landing Page Builder", benefit: "Create a landing page with a lead form to download your hyper-local market report." },
+        { tool: "AI Social Writer", benefit: "Generate a week's worth of posts summarizing the key findings from your new report." }
       ],
        faqs: [
         { question: "Where does the market data come from?", answer: "Our AI synthesizes data from multiple trusted sources, including public records, MLS data feeds, and local economic indicators to provide a comprehensive and up-to-date market snapshot." },
@@ -689,13 +683,12 @@ export const tools: Tool[] = [
   {
     id: 'investor-matching',
     title: 'Investor Matching',
-    description: 'AI-powered tool that matches your investor clients with their perfect properties.',
+    description: 'Pair budgets with the right projects.',
     icon: <Users2 />,
     color: '#6366f1', // indigo-500
     cta: 'Investor Match',
     categories: ['Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Sales Enablement',
-    backsideValue: "Know which investor to call instantly.",
     renderResult: (result, toast) => (
        <div className="space-y-4">
             <h3 className="font-semibold text-lg mb-2">Top Investor Matches</h3>
@@ -722,13 +715,13 @@ export const tools: Tool[] = [
         { text: 'Get a ranked list of best-fit investors', icon: <ClipboardList className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Time to Match', manual: 'Hours reviewing CRM and spreadsheets', ai: 'Under 30 seconds', icon: <Clock2 /> },
+        { metric: 'Time to Match', manual: 'Hours reviewing CRM and spreadsheets', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Match Accuracy', manual: 'Relies on memory, may miss clients', ai: 'Data-driven, based on past deals & stated goals', icon: <Sparkles /> },
         { metric: 'Personalization', manual: 'Generic email blast to all investors', ai: 'Generates personalized outreach for each match', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "CRM Memory Assistant", benefit: "The investor matcher uses the deep client knowledge from the CRM assistant to find non-obvious matches based on past conversations." },
-        { tool: "Automated Rebranding", benefit: "Instantly create a personalized, rebranded brochure of the property for each of the top investor matches." }
+        { tool: "CRM Memory", benefit: "The investor matcher uses the deep client knowledge from the CRM assistant to find non-obvious matches based on past conversations." },
+        { tool: "AI Rebranding", benefit: "Instantly create a personalized, rebranded brochure of the property for each of the top investor matches." }
       ],
        faqs: [
         { question: "How does the AI know what my investors want?", answer: "The AI learns from your CRM data—past purchases, stated investment goals, budget ranges, and even notes from conversations. The more data you provide, the smarter the matching becomes." },
@@ -748,14 +741,13 @@ export const tools: Tool[] = [
   },
   {
     id: 'listing-generator',
-    title: 'Listing Details Generator',
-    description: 'Create compelling, SEO-friendly property listings from a few key details.',
+    title: 'Listing Generator',
+    description: 'SEO-ready descriptions from a few details.',
     icon: <FileText />,
     color: '#64748b', // slate-500
     cta: 'Listing',
-    categories: ['Sales Tools', 'Editing'],
+    categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
-    backsideValue: "Write perfect property descriptions in seconds.",
     details: {
       steps: [
         { text: 'Enter key property details (address, beds, baths)', icon: <PenTool className="h-6 w-6" /> },
@@ -763,13 +755,13 @@ export const tools: Tool[] = [
         { text: 'Generate a full, persuasive listing description', icon: <FileText className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Writing Time', manual: '30-60 minutes of creative writing', ai: 'Under 1 minute', icon: <Clock2 /> },
+        { metric: 'Writing Time', manual: '30-60 minutes of creative writing', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'SEO & Keywords', manual: 'Guesswork on what terms to use', ai: 'Automatically includes relevant local keywords', icon: <Sparkles /> },
         { metric: 'Completeness', manual: 'Often forgets key selling points', ai: 'Structured to include all critical information', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "Instant Ad Creation", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
-        { tool: "Landing Page Generator", benefit: "Instantly create a beautiful single-property website using your new listing details." }
+        { tool: "AI Ad Creator", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
+        { tool: "Landing Page Builder", benefit: "Instantly create a beautiful single-property website using your new listing details." }
       ],
        faqs: [
         { question: "Can I choose the tone of the listing?", answer: "Yes, you can specify a tone such as 'Luxurious,' 'Family-Friendly,' or 'Great for First-Time Buyers,' and the AI will adjust its language and emphasis accordingly." },
@@ -785,14 +777,13 @@ export const tools: Tool[] = [
   },
   {
     id: 'offer-generator',
-    title: 'Multi-Project Offer Generator',
-    description: 'Create and compare customized offer packages for clients interested in multiple properties.',
+    title: 'Multi-Offer Builder',
+    description: 'Compare options side-by-side.',
     icon: <Briefcase />,
     color: '#78716c', // stone-500
     cta: 'Offer Package',
     categories: ['Sales Tools', 'Editing'],
     mindMapCategory: 'Sales Enablement',
-    backsideValue: "Present multiple offers beautifully.",
     details: {
       steps: [
         { text: 'Select multiple properties for the client', icon: <Building className="h-6 w-6" /> },
@@ -800,13 +791,13 @@ export const tools: Tool[] = [
         { text: 'Generate a professional offer comparison PDF', icon: <FileText className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Document Creation Time', manual: '1-2 hours in Word or Excel', ai: 'Under 2 minutes', icon: <Clock2 /> },
+        { metric: 'Document Creation Time', manual: '1-2 hours in Word or Excel', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Accuracy', manual: 'Prone to copy-paste errors and typos', ai: 'Calculations and details are always accurate', icon: <BadgeCheck /> },
         { metric: 'Professionalism', manual: 'Inconsistent formatting', ai: 'Generates a clean, branded, client-ready document', icon: <Sparkles /> },
       ],
       synergy: [
         { tool: "Investor Matching", benefit: "After finding the top properties for an investor, use this tool to present them in a professional package." },
-        { tool: "CRM Memory Assistant", benefit: "Pull the client's specific requirements directly from the CRM to pre-fill the offer terms." }
+        { tool: "CRM Memory", benefit: "Pull the client's specific requirements directly from the CRM to pre-fill the offer terms." }
       ],
        faqs: [
         { question: "Can I add my own branding to the offer document?", answer: "Yes, you can upload your logo and brand colors, and the AI will automatically apply them to the generated PDF for a professional, personalized touch." },
@@ -822,14 +813,13 @@ export const tools: Tool[] = [
   },
   {
     id: 'email-creator',
-    title: 'Email Marketing Creator',
-    description: 'Design and write compelling email campaigns that nurture leads and drive sales.',
+    title: 'AI Email Campaigns',
+    description: 'Design, write, and schedule.',
     icon: <Mail />,
     color: '#0ea5e9', // sky-500
     cta: 'Email Campaign',
-    categories: ['Marketing', 'Social & Comms'],
+    categories: ['Marketing', 'Social & Comms', 'Sales Tools'],
     mindMapCategory: 'Marketing',
-    backsideValue: "Launch an entire email campaign in minutes.",
     details: {
       steps: [
         { text: 'Define your campaign goal (e.g., New Listing)', icon: <Target className="h-6 w-6" /> },
@@ -837,13 +827,13 @@ export const tools: Tool[] = [
         { text: 'Generate a sequence of emails instantly', icon: <Mail className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Writing Time', manual: '2-4 hours for a 3-part sequence', ai: 'Under 90 seconds', icon: <Clock2 /> },
+        { metric: 'Writing Time', manual: '2-4 hours for a 3-part sequence', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Design & Layout', manual: 'Requires knowledge of email builders', ai: 'Generates clean, mobile-friendly HTML', icon: <Sparkles /> },
         { metric: 'Subject Lines', manual: 'Guesswork, low open rates', ai: 'A/B tested variations for high engagement', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "Precision Market Reports", benefit: "Generate a local report, then use this tool to create an email campaign to share it with your list." },
-        { tool: "CRM Memory Assistant", benefit: "Personalize your email campaigns at scale using deep client insights from the assistant." }
+        { tool: "AI Market Reports", benefit: "Generate a local report, then use this tool to create an email campaign to share it with your list." },
+        { tool: "CRM Memory", benefit: "Personalize your email campaigns at scale using deep client insights from the assistant." }
       ],
        faqs: [
         { question: "Can I connect this to my email provider?", answer: "The AI generates the raw content (subject lines) and HTML for the email bodies. You can then easily copy and paste this into any major email marketing platform like Mailchimp, Constant Contact, or others." },
@@ -860,13 +850,12 @@ export const tools: Tool[] = [
   {
     id: 'instagram-bot',
     title: 'Instagram Chat Bot',
-    description: 'An AI assistant to manage your DMs, answer questions, and capture leads 24/7.',
+    description: 'DMs handled 24/7.',
     icon: <Bot />,
     color: '#f43f5e', // rose-500
     cta: 'Chat Bot',
-    categories: ['Sales Tools', 'Social & Comms'],
+    categories: ['Sales Tools', 'Social & Comms', 'Lead Gen'],
     mindMapCategory: 'Sales Enablement',
-    backsideValue: "Never miss an Instagram lead again.",
     details: {
       steps: [
         { text: 'Connect your Instagram account securely', icon: <LinkIcon className="h-6 w-6" /> },
@@ -880,7 +869,7 @@ export const tools: Tool[] = [
       ],
       synergy: [
         { tool: "AI Story Designer", benefit: "Run a story with a 'DM for info' poll, and let the chatbot handle all the incoming inquiries automatically." },
-        { tool: "CRM Memory Assistant", benefit: "When the chatbot identifies a hot lead, it can automatically create a new contact in your CRM with the conversation summary." }
+        { tool: "CRM Memory", benefit: "When the chatbot identifies a hot lead, it can automatically create a new contact in your CRM with the conversation summary." }
       ],
        faqs: [
         { question: "Is this against Instagram's terms of service?", answer: "No, this tool uses the official Instagram Messaging API. It operates within their guidelines and is completely safe for your account." },
@@ -894,14 +883,13 @@ export const tools: Tool[] = [
   },
   {
     id: 'whatsapp-campaigns',
-    title: 'WhatsApp Campaign Manager',
-    description: 'Engage clients directly with personalized WhatsApp messages, broadcasts, and automated follow-ups.',
+    title: 'WhatsApp Manager',
+    description: 'Personalized broadcasts + drips.',
     icon: <Phone />,
-    color: '#22c55e', // green-500
+    color: '#16a34a', // green-600
     cta: 'WhatsApp Campaign',
-    categories: ['Sales Tools', 'Social & Comms'],
+    categories: ['Sales Tools', 'Social & Comms', 'Lead Gen'],
     mindMapCategory: 'Sales Enablement',
-    backsideValue: "Reach your entire client list on WhatsApp instantly.",
     details: {
       steps: [
         { text: 'Upload your client contact list', icon: <Upload className="h-6 w-6" /> },
@@ -909,13 +897,13 @@ export const tools: Tool[] = [
         { text: 'Send or schedule your campaign instantly', icon: <Sparkles className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Time to Contact 100 Clients', manual: 'Hours of manual copy-pasting', ai: 'Under 1 minute', icon: <Clock2 /> },
+        { metric: 'Time to Contact 100 Clients', manual: 'Hours of manual copy-pasting', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Personalization', manual: 'Generic, prone to errors', ai: 'Personalized with [Name], [Property], etc.', icon: <Sparkles /> },
         { metric: 'Follow-up Consistency', manual: 'Easy to forget or miss someone', ai: 'Automated sequences ensure no lead is lost', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "Social Lead Generation", benefit: "Directly import new leads and add them to an automated welcome message sequence on WhatsApp." },
-        { tool: "CRM Memory Assistant", benefit: "Use insights from the CRM to send highly targeted messages, like wishing a client a happy birthday or reminding them of an anniversary." }
+        { tool: "AI Social Leads", benefit: "Directly import new leads and add them to an automated welcome message sequence on WhatsApp." },
+        { tool: "CRM Memory", benefit: "Use insights from the CRM to send highly targeted messages, like wishing a client a happy birthday or reminding them of an anniversary." }
       ],
        faqs: [
         { question: "Is this compliant with WhatsApp's policies?", answer: "Yes, this tool is designed to work within WhatsApp's Business Platform policies. It's intended for sending transactional messages and engaging with clients who have opted in to communication, not for spam." },
@@ -931,14 +919,14 @@ export const tools: Tool[] = [
   },
   {
     id: 'ai-assistant',
-    title: 'AI Assistant',
-    description: 'The central, trainable intelligence that powers your entire suite.',
+    title: 'Your AI Assistant',
+    description: 'Your personal, trainable AI partner.',
     icon: <BrainCircuit />,
     color: '#84cc16', // lime-500
     cta: 'Assistant',
     categories: ['Sales Tools'],
     mindMapCategory: 'Core Intelligence',
-    backsideValue: "Your personal, trainable AI partner.",
+    badge: 'BETA',
     details: {
       steps: [
         { text: 'Give your assistant core instructions', icon: <PenTool className="h-6 w-6" /> },
@@ -951,7 +939,7 @@ export const tools: Tool[] = [
         { metric: 'Availability', manual: 'You need sleep and breaks', ai: 'Always on, always ready to assist 24/7', icon: <Clock2 /> },
       ],
       synergy: [
-        { tool: "CRM Memory Assistant", benefit: "The Assistant is the user-facing interface for the powerful memory stored in the CRM." },
+        { tool: "CRM Memory", benefit: "The Assistant is the user-facing interface for the powerful memory stored in the CRM." },
         { tool: "All Tools", benefit: "The Assistant has access to all uploaded documents, making every tool more context-aware and powerful." }
       ],
        faqs: [
@@ -965,3 +953,5 @@ export const tools: Tool[] = [
     ],
   },
 ];
+
+    
