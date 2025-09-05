@@ -5,7 +5,7 @@ import React from 'react';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Component, Wind, BrainCircuit, Rocket, Zap, Puzzle, Copy } from 'lucide-react';
+import { Component, Wind, BrainCircuit, Rocket, Zap, Puzzle, Copy, CheckCircle } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
@@ -29,6 +29,12 @@ const principles = [
     icon: <Rocket className="h-8 w-8" />,
   },
 ];
+
+const roadmapItems = [
+    { name: 'S3 API Network', description: 'Directly connect to and process documents from your own S3-compatible storage solutions.' },
+    { name: 'Meta Ads AI Co-Expert', description: 'An AI agent dedicated to managing, optimizing, and reporting on your Facebook & Instagram ad campaigns.' },
+    { name: 'Gemini For Google Ads', description: 'Leverage the power of Gemini to create and manage high-performance search and display ad campaigns.' },
+]
 
 export default function AboutPage() {
     const { toast } = useToast();
@@ -76,6 +82,29 @@ export default function AboutPage() {
           </div>
         </section>
 
+        <Separator className="my-24" />
+
+        <section>
+          <h2 className="text-3xl font-bold mb-8 text-center">Roadmap: The Future of SX3</h2>
+           <div className="max-w-2xl mx-auto">
+                <Card className="bg-card/50 backdrop-blur-lg border-primary/10">
+                    <CardContent className="p-8 space-y-6">
+                         {roadmapItems.map((item) => (
+                            <div key={item.name} className="flex items-start gap-4">
+                                <div className="p-2 bg-primary/10 text-primary rounded-full mt-1">
+                                    <CheckCircle className="h-5 w-5" />
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold text-lg text-foreground">{item.name}</h4>
+                                    <p className="text-foreground/70">{item.description}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </CardContent>
+                </Card>
+           </div>
+        </section>
+        
         <Separator className="my-24" />
 
         <section className="text-center max-w-3xl mx-auto">

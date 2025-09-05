@@ -4,7 +4,7 @@ import React from 'react';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Code, GitBranch, Cpu, Component, Wind, BrainCircuit } from 'lucide-react';
+import { Code, GitBranch, Cpu, Component, Wind, BrainCircuit, Network } from 'lucide-react';
 import { tools } from '@/lib/tools-client';
 import { Badge } from '@/components/ui/badge';
 
@@ -115,6 +115,39 @@ export default function DocumentationPage() {
               </Card>
             )})}
           </div>
+        </section>
+
+        <section className="mt-20">
+            <h2 className="text-3xl font-bold mb-8 text-center">Connections & Integrations</h2>
+            <Card className="bg-card/50 backdrop-blur-lg border-primary/10 overflow-hidden">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-2xl text-primary">
+                        <Network />
+                        External Service Connections
+                    </CardTitle>
+                    <p className="text-foreground/70 pt-2">
+                        Super Seller Suite connects to various external services to automate your workflow. Here's how they work.
+                    </p>
+                </CardHeader>
+                <CardContent className="space-y-6 prose prose-lg dark:prose-invert max-w-none">
+                    <h3>Authentication-Based Connections (OAuth)</h3>
+                    <p>
+                        For services like <strong>Meta (Facebook & Instagram)</strong> and <strong>Google (Gmail & YouTube)</strong>, we use OAuth 2.0. This is the industry standard for secure authorization. When you connect these accounts, you will be redirected to their official login page. You grant our application specific, limited permissions (e.g., "post on my behalf" or "read my DMs"). We never see or store your password. This method is highly secure and gives you full control to revoke access at any time from your Google or Facebook account settings.
+                    </p>
+                    
+                    <h3>API Key-Based Connections</h3>
+                    <p>
+                        For some specialized services, you may need to provide an API key. An API key is a unique string of characters that you get from the service provider, which you then save in your Super Seller Suite settings.
+                    </p>
+                     <ul>
+                        <li><strong>Google AI (Gemini):</strong> To power all AI features, the application requires a <code>GEMINI_API_KEY</code>. You obtain this from Google AI Studio and set it up once in your local environment file or server configuration.</li>
+                        <li><strong>Future Integrations (e.g., Google Ads):</strong> Advanced tools like the upcoming "Gemini for Google Ads" co-expert will likely require you to generate an API key from your Google Ads account and provide it to the suite.</li>
+                    </ul>
+                    <p>
+                        We securely encrypt and store all API keys you provide. This method is used when a direct user-based authentication flow like OAuth is not suitable for the type of integration.
+                    </p>
+                </CardContent>
+            </Card>
         </section>
       </main>
       <LandingFooter />
