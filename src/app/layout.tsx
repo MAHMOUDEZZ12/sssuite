@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import './globals.css';
 import { Poppins, PT_Sans } from 'next/font/google';
 import { cn } from '@/lib/utils';
+import { CookieConsent } from '@/components/cookie-consent';
 
 const fontSans = PT_Sans({ 
   subsets: ['latin'],
@@ -34,6 +35,7 @@ export default function RootLayout({
       )}>
         {children}
         <Toaster />
+        <CookieConsent />
       </body>
     </html>
   );
