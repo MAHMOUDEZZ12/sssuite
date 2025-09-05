@@ -16,7 +16,7 @@ const fontHeading = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Treble S AI: Your Sales AI Suite',
+  title: 'Super Sales Suite: Your Sales AI Suite',
   description: 'The ultimate sales suite, empowering agents to create stunning marketing campaigns, target the right audience, and close more deals—no tech expertise required.',
 };
 
@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",
         fontSans.variable,

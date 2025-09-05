@@ -28,7 +28,7 @@ export default function DashboardPage() {
   return (
     <main className="flex-1 flex-col p-4 md:p-10 space-y-8">
        <PageHeader
-        title="Welcome to Treble S AI!"
+        title="Welcome to the Super Sales Suite!"
         description="Get started by exploring some of our most powerful AI tools below."
         icon={<PlusCircle className="h-8 w-8" />}
       />
