@@ -205,10 +205,8 @@ export default function DashboardLayout({
       </Sidebar>
       <div className="flex-1 flex flex-col">
         <DashboardHeader />
-        <SidebarInset>
-            {children}
-            <AssistantChat />
-        </SidebarInset>
+        {children}
+        <AssistantChat />
       </div>
     </SidebarProvider>
   );
