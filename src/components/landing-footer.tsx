@@ -43,12 +43,8 @@ export function LandingFooter() {
                <Link href="/dashboard">
                   <ShinyButton>
                     Start Your Free Trial
-                    <ArrowRight />
                   </ShinyButton>
                 </Link>
-              <p className="text-sm text-foreground/50 mt-6">
-                14-day free trial &bull; No credit card required
-              </p>
             </div>
           </div>
         </div>
