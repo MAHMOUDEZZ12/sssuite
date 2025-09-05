@@ -113,9 +113,16 @@ export default function PricingPage() {
                     </CardHeader>
                     <CardContent className="flex flex-col flex-grow">
                        <div className="text-center mb-8 h-20">
-                          <span className="text-5xl font-bold">
-                             {tier.name === 'Super' ? (isAnnual ? '$69' : '$99') : tier.price}
-                          </span>
+                          {tier.price.startsWith('Starting from') ? (
+                            <div>
+                                <p className="text-lg text-muted-foreground">Starting from</p>
+                                <span className="text-5xl font-bold">{tier.price.replace('Starting from ', '')}</span>
+                            </div>
+                          ) : (
+                             <span className="text-5xl font-bold">
+                                {tier.name === 'Super' ? (isAnnual ? '$69' : '$99') : tier.price}
+                             </span>
+                          )}
                           {tier.pricePeriod && <span className="text-muted-foreground">{tier.pricePeriod}</span>}
                            {tier.name === 'Super' && isAnnual && (
                             <p className="text-sm text-muted-foreground">billed annually</p>
