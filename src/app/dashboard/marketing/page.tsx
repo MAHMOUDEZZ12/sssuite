@@ -10,8 +10,9 @@ import { DashboardServiceCard } from '@/components/ui/dashboard-service-card';
 const marketingTools = tools.filter(t => 
     t.mindMapCategory === 'Marketing' || 
     t.categories.includes('Ads') || 
-    t.categories.includes('Social & Comms')
-);
+    t.categories.includes('Social & Comms') ||
+    t.categories.includes('Lead Gen')
+).filter(t => t.id !== 'superfreetime');
 
 export default function MarketingDashboardPage() {
   return (

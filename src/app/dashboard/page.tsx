@@ -8,8 +8,7 @@ import { Check, PlusCircle, Link as LinkIcon, ArrowRight, Target, Palette, Share
 import Link from 'next/link';
 import { PageHeader } from '@/components/ui/page-header';
 import { tools } from '@/lib/tools-client';
-import { IntegrationCard } from '@/components/ui/integration-card';
-import { ServiceCard } from '@/components/ui/service-card';
+import { DashboardServiceCard } from '@/components/ui/dashboard-service-card';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
 
@@ -64,7 +63,7 @@ export default function DashboardPage() {
       return (
           <main className="flex-1 flex-col p-4 md:p-10 space-y-8">
                <PageHeader
-                title="Welcome to the Super Seller Suite!"
+                title="Welcome to the Super Marketing Suite!"
                 description="Let's get your workspace set up in just a few minutes."
                 icon={<PlusCircle className="h-8 w-8" />}
               />
@@ -82,28 +81,28 @@ export default function DashboardPage() {
                         isComplete={completedSteps.includes('brand')}
                         title="Set Up Your Brand"
                         description="Add your logo and colors to personalize all AI-generated content."
-                        href="/onboarding?step=5"
+                        href="/dashboard/brand"
                         onClick={() => handleStepComplete('brand')}
                     />
                      <OnboardingStep
                         isComplete={completedSteps.includes('project')}
                         title="Create Your First Project"
                         description="Projects help you organize your listings, campaigns, and assets."
-                        href="/onboarding?step=1"
+                        href="/dashboard/projects"
                         onClick={() => handleStepComplete('project')}
                     />
                      <OnboardingStep
                         isComplete={completedSteps.includes('social')}
                         title="Connect Your Accounts"
                         description="Integrate your social media and email to automate posting and replies."
-                        href="/onboarding?step=6"
+                        href="/dashboard/settings"
                         onClick={() => handleStepComplete('social')}
                     />
                      <OnboardingStep
                         isComplete={completedSteps.includes('subscription')}
                         title="Review Your Subscription"
                         description="Check your plan details and billing information."
-                        href="/onboarding?step=3"
+                        href="/dashboard/settings"
                         onClick={() => handleStepComplete('subscription')}
                     />
                      <OnboardingStep
@@ -145,22 +144,20 @@ export default function DashboardPage() {
         icon={<PlusCircle className="h-8 w-8" />}
       />
 
-       <div>
-            <IntegrationCard />
-       </div>
-
         <div>
             <h3 className="text-2xl font-bold font-heading tracking-tight mb-4">
                 Ready to create?
             </h3>
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {tools.filter(t => t.id !== 'superfreetime').slice(0,6).map(tool => (
-                     <ServiceCard 
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {tools.filter(t => ['ad-creation', 'rebranding', 'social-posts', 'landing-pages', 'market-reports', 'pdf-editor'].includes(t.id)).map(tool => (
+                     <DashboardServiceCard 
                         key={tool.id}
                         title={tool.title}
                         description={tool.description}
                         href={`/dashboard/tool/${tool.id}`}
                         guideHref={`/blog/${tool.id}`}
+                        icon={tool.icon}
+                        color={tool.color}
                     />
                 ))}
              </div>
