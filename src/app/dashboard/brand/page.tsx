@@ -67,9 +67,14 @@ export default function BrandPage() {
 
   const onSubmit = (data: BrandFormValues) => {
     console.log(data);
-    toast({
-      title: 'Brand Saved!',
-      description: 'Your brand assets have been updated successfully.',
+    return new Promise(resolve => {
+        setTimeout(() => {
+            toast({
+              title: 'Brand Saved!',
+              description: 'Your brand assets have been updated successfully.',
+            });
+            resolve(true);
+        }, 1000)
     });
   };
   
