@@ -110,8 +110,7 @@ export default function ToolPage() {
     setShowConfetti(false);
 
     try {
-        const { tools } = await import('@/lib/tools');
-        const currentTool = tools.find(t => t.id === toolId);
+        const currentTool = clientTools.find(t => t.id === toolId);
         
         if (!currentTool) {
             throw new Error(`Tool with id "${toolId}" not found.`);
@@ -119,6 +118,7 @@ export default function ToolPage() {
 
         let payload: Record<string, any> = {};
 
+        // This payload preparation logic is now client-side only
         if (currentTool.id === 'targeting') {
              payload = {
                 location: data.location,
@@ -157,11 +157,19 @@ export default function ToolPage() {
             }
         }
         
-        if (!currentTool.flowRunner) {
-            throw new Error(`No flow runner found for tool: ${currentTool.id}. This tool has not been implemented yet.`);
+        // **NEW**: Call the API endpoint instead of the flow runner directly
+        const response = await fetch('/api/tools/run', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ toolId, payload }),
+        });
+
+        if (!response.ok) {
+            const errorResult = await response.json();
+            throw new Error(errorResult.error || 'An API error occurred.');
         }
         
-        const flowResult = await currentTool.flowRunner(payload);
+        const flowResult = await response.json();
         setResult(flowResult);
         setShowConfetti(true);
     } catch (e: any) {
@@ -317,3 +325,5 @@ export default function ToolPage() {
     </main>
   );
 }
+
+    
