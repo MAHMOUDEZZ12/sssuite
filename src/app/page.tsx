@@ -368,12 +368,13 @@ export default function Home() {
                                 </div>
                             </div>
                         </div>
-                        <Link href="/dashboard/assistant">
-                            <Button size="lg" variant="outline">
-                                Meet Your Assistant
-                                <ArrowRight className="ml-2" />
-                            </Button>
-                        </Link>
+                         <div className="text-center mt-12">
+                            <Link href="/dashboard/assistant">
+                                <Button size="lg" variant="outline" className="px-12 py-6 text-lg">
+                                    Your assistant is ready. Are you?
+                                </Button>
+                            </Link>
+                        </div>
                     </div>
                      <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center min-h-[400px]">
                         <div className="w-full max-w-lg mx-auto space-y-6">
