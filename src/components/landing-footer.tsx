@@ -12,13 +12,13 @@ export function LandingFooter() {
     sx3: [
         { name: 'About', href: '/technology' },
         { name: 'Pricing', href: '/pricing' },
-        { name: 'Technology', href: '/technology' },
         { name: 'System Status', href: '/status' },
     ],
     resources: [
         { name: 'Handbook', href: '/blog' },
         { name: 'Documentation', href: '/documentation' },
         { name: 'SX3 Mindmap', href: '/sx3-mindmap' },
+        { name: 'Technology', href: '/technology' },
     ],
     legal: [
         { name: 'Data Privacy', href: '/privacy' },
@@ -69,6 +69,11 @@ export function LandingFooter() {
                                     </Link>
                                 </li>
                             ))}
+                             <li>
+                                <Link href="/superfreetime" className="flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors">
+                                    <Puzzle className="h-4 w-4" /> SuperFreeTime
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                     <div>
@@ -84,7 +89,7 @@ export function LandingFooter() {
                         </ul>
                     </div>
                      <div>
-                        <h3 className="font-semibold text-foreground">Legal & Fun</h3>
+                        <h3 className="font-semibold text-foreground">Legal</h3>
                         <ul className="mt-4 space-y-2">
                             {footerLinks.legal.map((link) => (
                                 <li key={link.name}>
@@ -93,11 +98,6 @@ export function LandingFooter() {
                                     </Link>
                                 </li>
                             ))}
-                             <li>
-                                <Link href="/superfreetime" className="flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors">
-                                    <Puzzle className="h-4 w-4" /> SuperFreeTime
-                                </Link>
-                            </li>
                         </ul>
                     </div>
                 </div>
