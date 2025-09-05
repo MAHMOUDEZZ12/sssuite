@@ -299,7 +299,7 @@ export default function Home() {
         </div>
 
         <div className="sticky top-16 z-10 bg-background/80 backdrop-blur-lg py-4 mb-8">
-            <div className="flex justify-center overflow-x-auto md:overflow-x-hidden pb-4 no-scrollbar">
+            <div className="flex justify-center overflow-x-auto pb-4 no-scrollbar">
                 <div className="flex gap-2 md:gap-4 flex-nowrap">
                   {filterCategories.map(category => (
                     <Button
