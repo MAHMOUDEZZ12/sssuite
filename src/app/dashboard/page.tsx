@@ -154,7 +154,7 @@ export default function DashboardPage() {
                 Ready to create?
             </h3>
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {tools.slice(0,6).map(tool => (
+                {tools.filter(t => t.id !== 'superfreetime').slice(0,6).map(tool => (
                      <ServiceCard 
                         key={tool.id}
                         title={tool.title}
