@@ -12,6 +12,7 @@ import {
   Plus,
   Sparkles,
   Upload,
+  Megaphone,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -29,6 +30,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Feature, tools as features, FilterCategory } from '@/lib/tools-client.tsx';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ShinyButton } from '@/components/ui/shiny-button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 
 const filterCategories: FilterCategory[] = ['All', 'Marketing', 'Lead Gen', 'Creative', 'Sales Tools', 'Social & Comms', 'Web', 'Editing', 'Ads'];
@@ -54,9 +56,18 @@ const FeatureCard = ({
                 {React.cloneElement(feature.icon, { className: 'h-8 w-8' })}
             </div>
             {(feature.badge) && (
-                <span className={`px-2 py-1 text-xs font-semibold text-white rounded-full ${feature.badge === 'NEW' ? 'bg-blue-500' : 'bg-yellow-500'}`}>
-                    {feature.badge}
-                </span>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                     <span className={`px-3 py-1 text-sm font-semibold text-white rounded-full ${feature.badge === 'NEW' ? 'bg-blue-500' : 'bg-yellow-500'}`}>
+                        {feature.badge}
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{feature.badge === 'NEW' ? 'This is a brand new feature!' : 'This feature is in active development.'}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             )}
         </div>
       </CardHeader>
@@ -236,10 +247,22 @@ export default function Home() {
           <div className='mt-8'>
             <Link href="/signup">
                 <ShinyButton>
-                    Start Free • No card required
+                    Start Free • No card required*
                 </ShinyButton>
             </Link>
           </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto mb-12">
+            <div className="bg-primary/10 border border-primary/20 rounded-2xl p-4 flex items-center gap-4">
+                <div className="p-3 bg-primary/20 text-primary rounded-full">
+                    <Megaphone className="h-6 w-6" />
+                </div>
+                <div>
+                    <h3 className="font-bold text-primary">What's New?</h3>
+                    <p className="text-foreground/80">A new resizing tool has been added to the AI Reel Designer!</p>
+                </div>
+            </div>
         </div>
 
         <div className="sticky top-16 z-10 bg-background/80 backdrop-blur-lg -mx-8 px-8 py-4 mb-12">
