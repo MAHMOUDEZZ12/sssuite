@@ -291,6 +291,7 @@ export default function SX3MindmapPage() {
                                 key={tool.id} 
                                 tool={tool} 
                                 onClick={setSelectedFeature}
+                                className="z-10"
                             />
                         ))}
                     </MindMapNode>
@@ -327,5 +328,3 @@ export default function SX3MindmapPage() {
     </div>
   );
 }
-
-
