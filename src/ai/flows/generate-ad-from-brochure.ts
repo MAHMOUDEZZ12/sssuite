@@ -29,13 +29,9 @@ const GenerateAdFromBrochureInputSchema = z.object({
       "A project brochure, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
   /**
-   * Official links related to the project (e.g., website, social media).
-   */
-  projectLinks: z.string().describe('Official project links.'),
-  /**
    * Additional information or key details about the project.
    */
-  projectRowInformation: z.string().describe('Project row information.'),
+  projectRowInformation: z.string().describe('Additional key details about the project.'),
   /**
    * The specific aspect of the project the ad should highlight (e.g., luxury, family-friendly).
    */
@@ -105,7 +101,6 @@ const generateAdFromBrochurePrompt = ai.definePrompt({
 Here are the project details:
 
 Focus Area: {{{focusArea}}}
-Project Links: {{{projectLinks}}}
 Project Row Information: {{{projectRowInformation}}}
 Brochure: {{media url=brochureDataUri}}
 
