@@ -7,7 +7,7 @@ import { LandingFooter } from '@/components/landing-footer';
 import { tools, Feature } from '@/lib/tools-client';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { ArrowRight, Briefcase, Clock2, BadgeCheck, MessageCircle, Network, Palette, PenTool, Plus, Search, Sparkles, Target, Upload, UserCog, Wallet, Share2, LayoutTemplate, FileText, BookOpen, BrainCircuit } from 'lucide-react';
+import { ArrowRight, BookOpen, Plus, Sparkles } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -47,7 +47,8 @@ const MindMapNode = ({
         {uniquePoint && <p className="mt-2 text-sm text-muted-foreground px-4">{uniquePoint}</p>}
       </div>
       {children && (
-        <div className="relative pt-4 w-full">
+        <div className="relative pt-8 w-full">
+           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-8 bg-border z-0" />
            <div className="flex flex-col items-center gap-4">
             {children}
            </div>
@@ -263,12 +264,21 @@ export default function SX3MindmapPage() {
           </Link>
         </Card>
 
-        <div className="flex w-full flex-col justify-center items-center">
+        <div className="relative flex w-full flex-col justify-center items-center">
             <div className="w-full max-w-md mb-12">
                  <MindMapNode title="Super Seller Suite" isRoot />
             </div>
+            
+            <div className="absolute top-[8rem] hidden h-16 w-full max-w-4xl lg:block">
+              <div className="h-0.5 w-full bg-border" />
+              <div className="absolute -top-px left-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(50%) rotate(25deg)', transformOrigin: 'left top' }} />
+              <div className="absolute -top-px right-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(-50%) rotate(-25deg)', transformOrigin: 'right top' }} />
+              <div className="absolute -top-px left-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(50%) rotate(-25deg)', transformOrigin: 'left top' }} />
+              <div className="absolute -top-px right-0 h-0.5 w-1/2 bg-border" style={{ transform: 'translateX(-50%) rotate(25deg)', transformOrigin: 'right top' }} />
+            </div>
 
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-y-16 lg:mt-16">
                 {toolCategories.map((category) => (
                     <MindMapNode 
                       key={category.name} 
@@ -290,3 +300,5 @@ export default function SX3MindmapPage() {
     </div>
   );
 }
+
+    
