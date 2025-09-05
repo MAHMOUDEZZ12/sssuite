@@ -8,7 +8,7 @@ export const Logo = ({ className }: { className?: string }) => (
         <Pyramid className="h-6 w-6" />
     </div>
     <span className="text-lg font-semibold font-heading text-primary">
-      Super Sales Suite
+      Super Seller Suite
     </span>
   </Link>
 );

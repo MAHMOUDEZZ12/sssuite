@@ -16,7 +16,7 @@ const fontHeading = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Super Sales Suite: Your Sales AI Suite',
+  title: 'Super Seller Suite: Your Sales AI Suite',
   description: 'The ultimate sales suite, empowering agents to create stunning marketing campaigns, target the right audience, and close more deals—no tech expertise required.',
 };
 

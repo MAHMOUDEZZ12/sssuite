@@ -153,7 +153,7 @@ export default function DocumentationPage() {
             Suite Documentation
           </h1>
           <p className="text-lg md:text-xl text-foreground/60 max-w-3xl mx-auto">
-            A technical overview of the technologies and AI flows that power the Super Sales Suite.
+            A technical overview of the technologies and AI flows that power the Super Seller Suite.
           </p>
         </div>
 

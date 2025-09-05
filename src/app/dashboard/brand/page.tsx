@@ -41,10 +41,10 @@ export default function BrandPage() {
   } = useForm<BrandFormValues>({
     resolver: zodResolver(brandSchema),
     defaultValues: {
-      companyName: 'Treble S AI',
+      companyName: 'Super Seller Suite',
       primaryColor: '#008080',
       secondaryColor: '#CC6633',
-      contactInfo: 'John Doe\n(555) 123-4567\njohn.doe@trebles.ai',
+      contactInfo: 'John Doe\n(555) 123-4567\njohn.doe@superseller.ai',
     },
   });
 
