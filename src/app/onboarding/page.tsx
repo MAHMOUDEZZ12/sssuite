@@ -16,7 +16,7 @@ import { Check, ChevronRight, X, ArrowLeft, Loader2, Sparkles, Upload } from 'lu
 import { cn } from '@/lib/utils';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import Image from 'next/image';
-import { ingestChat, ChatAction, ChatEvent } from '@/lib/chat';
+import { track } from '@/lib/events';
 
 const MOCK_DEVELOPERS = ['Emaar', 'Damac', 'Sobha', 'Nakheel', 'Meraas', 'Aldar'];
 const MOCK_PROJECTS_PASS1 = [
@@ -38,27 +38,6 @@ const MOCK_PROJECTS_PASS2 = [
     { name: 'Rivana', developer: 'Emaar', area: 'The Valley' },
     { name: 'Golf Greens', developer: 'Damac', area: 'Damac Hills' },
 ];
-
-// This would be your authenticated user's ID
-const MOCK_UID = 'user123';
-
-async function assistantDo(text: string, action: ChatAction) {
-  try {
-    const event: ChatEvent = {
-      uid: MOCK_UID, 
-      eventId: crypto.randomUUID(),
-      role: "assistant",
-      text, 
-      action,
-      meta: { source: "onboarding_flow" },
-    };
-    await ingestChat(event);
-  } catch (error) {
-    console.error("Failed to ingest chat event:", error);
-    // You might want to show a toast to the user here in a real app
-  }
-}
-
 
 function OnboardingComponent() {
     const router = useRouter();
@@ -104,48 +83,51 @@ function OnboardingComponent() {
             ? draft.devFocus.filter(d => d !== dev)
             : [...draft.devFocus, dev];
         updateDraft({ devFocus: newDevs });
+        track('onboarding_developer_toggled', { developer: dev, selected: !draft.devFocus.includes(dev) });
     };
     
     const handleFirstPass = (projectName: string, status: 'relevant' | 'not') => {
         updateDraft({ firstPass: { ...draft.firstPass, [projectName]: status } });
+        track('onboarding_project_rated', { project: projectName, rating: status });
     };
 
     const isStep1Complete = draft.devFocus.length > 0 && Object.keys(draft.firstPass).length === MOCK_PROJECTS_PASS1.length;
 
-    const nextStep = () => router.push(`/onboarding?step=${step + 1}`);
-    const prevStep = () => router.push(`/onboarding?step=${step - 1}`);
+    const nextStep = () => {
+        track('onboarding_step_completed', { step });
+        router.push(`/onboarding?step=${step + 1}`);
+    };
+    const prevStep = () => {
+        track('onboarding_step_navigated_back', { fromStep: step, toStep: step - 1 });
+        router.push(`/onboarding?step=${step - 1}`);
+    };
     
     const finishOnboarding = () => {
-        assistantDo("Onboarding complete. Ready for my first command.", { type: "logMetric", name: "onboarding_completed" });
+        track('onboarding_completed');
         toast({ title: "Setup Complete!", description: "Welcome to your new dashboard." });
         router.push('/dashboard');
     }
     
     const handleSaveCard = () => {
-        assistantDo("User added a payment method.", { type: "savePaymentMethodStart" });
+        track('onboarding_payment_added');
         toast({ title: "Card saved.", description: "You won't be charged now." });
         updateDraft({ payment: { status: 'added' } });
         nextStep();
     }
     
     const handleSkipPayment = () => {
-        assistantDo("User skipped payment.", { type: "logMetric", name: "onboarding_payment_skipped" });
+        track('onboarding_payment_skipped');
         updateDraft({ payment: { status: 'skipped'} }); 
         nextStep();
     }
     
     const handleSaveBrand = () => {
-        assistantDo("I've saved your brand identity. It will now be used across the suite.", { 
-            type: "addBrand", 
-            name: "Default Brand Kit", // You'd get this from a form field
-            primary: draft.brandKit.colors.primary,
-            accent: draft.brandKit.colors.accent,
-        });
+        track('onboarding_brand_saved', { hasLogo: !!draft.brandKit.logoUrl, primaryColor: draft.brandKit.colors.primary });
         nextStep();
     }
     
     const handleFinalizeShortlist = () => {
-        assistantDo("Okay, I've created your initial project library.", { type: "logMetric", name: "onboarding_shortlist_finalized", props: { projects: draft.scanSelected } });
+        track('onboarding_shortlist_finalized', { projects: draft.scanSelected, count: draft.scanSelected.length });
         nextStep();
     };
 
@@ -163,8 +145,8 @@ function OnboardingComponent() {
                                 <h3 className="font-semibold mb-2">1. Confirm your city</h3>
                                 <div className="flex items-center gap-4 rounded-xl border p-4 bg-muted/20">
                                     <p>We found you in: <span className="font-bold text-primary">{draft.city}, {draft.country}</span></p>
-                                    <Button variant="ghost" size="sm" className="ml-auto">Change city</Button>
-                                    <Button size="sm">Yes, that's me</Button>
+                                    <Button variant="ghost" size="sm" className="ml-auto" onClick={() => track('onboarding_city_changed_clicked')}>Change city</Button>
+                                    <Button size="sm" onClick={() => track('onboarding_city_confirmed', { city: draft.city, country: draft.country })}>Yes, that's me</Button>
                                 </div>
                             </div>
                             <div>
@@ -179,7 +161,7 @@ function OnboardingComponent() {
                                             {dev}
                                         </button>
                                     ))}
-                                    <button className="rounded-full border border-dashed px-3 py-1 text-sm text-muted-foreground hover:border-primary hover:text-primary">
+                                    <button className="rounded-full border border-dashed px-3 py-1 text-sm text-muted-foreground hover:border-primary hover:text-primary" onClick={() => track('onboarding_add_new_developer_clicked')}>
                                         + Add new
                                     </button>
                                 </div>
@@ -369,11 +351,11 @@ function OnboardingComponent() {
                         </CardHeader>
                         <CardContent>
                             <div className="grid gap-3 sm:grid-cols-2">
-                                <ProviderTile name="Instagram" onClick={() => {}} />
-                                <ProviderTile name="Facebook Page" onClick={() => {}} />
-                                <ProviderTile name="YouTube" onClick={() => {}} />
-                                <ProviderTile name="Gmail" onClick={() => {}} />
-                                <ProviderTile name="WhatsApp Business" onClick={() => {}} />
+                                <ProviderTile name="Instagram" onClick={() => track('onboarding_connect_clicked', { provider: 'instagram' })} />
+                                <ProviderTile name="Facebook Page" onClick={() => track('onboarding_connect_clicked', { provider: 'facebook' })} />
+                                <ProviderTile name="YouTube" onClick={() => track('onboarding_connect_clicked', { provider: 'youtube' })} />
+                                <ProviderTile name="Gmail" onClick={() => track('onboarding_connect_clicked', { provider: 'gmail' })} />
+                                <ProviderTile name="WhatsApp Business" onClick={() => track('onboarding_connect_clicked', { provider: 'whatsapp' })} />
                             </div>
                         </CardContent>
                         <CardFooter className="flex justify-between">
@@ -398,21 +380,21 @@ function OnboardingComponent() {
                                     <CardHeader>
                                         <CardTitle className="text-lg">Student</CardTitle>
                                         <CardDescription>Learn & build, free domain included.</CardDescription>
-                                        <Button className="mt-2" variant="outline">Start Student</Button>
+                                        <Button className="mt-2" variant="outline" onClick={() => track('onboarding_plan_selected', { plan: 'student' })}>Start Student</Button>
                                     </CardHeader>
                                 </Card>
                                  <Card className="text-left border-primary bg-primary/20 text-center">
                                     <CardHeader>
                                         <CardTitle className="text-lg text-primary">Seller</CardTitle>
                                         <CardDescription className="text-primary/80">Publish ready, upgrade later.</CardDescription>
-                                        <Button className="mt-2">Start Seller</Button>
+                                        <Button className="mt-2" onClick={() => track('onboarding_plan_selected', { plan: 'seller' })}>Start Seller</Button>
                                     </CardHeader>
                                 </Card>
                                  <Card className="text-left bg-muted/50 text-center">
                                     <CardHeader>
                                         <CardTitle className="text-lg">Marketer</CardTitle>
                                         <CardDescription>Run ads, automations & targeting.</CardDescription>
-                                         <Button className="mt-2" variant="outline">Start Marketer</Button>
+                                         <Button className="mt-2" variant="outline" onClick={() => track('onboarding_plan_selected', { plan: 'marketer' })}>Start Marketer</Button>
                                     </CardHeader>
                                 </Card>
                             </div>

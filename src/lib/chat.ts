@@ -20,7 +20,7 @@ export type ChatEvent = {
 export async function ingestChat(e: ChatEvent) {
   // This now uses the centralized event tracking system
   // which posts to our secure API endpoint.
-  await track('chat_action', {
+  await track('chat_message', {
     uid: e.uid,
     eventId: e.eventId,
     role: e.role,
