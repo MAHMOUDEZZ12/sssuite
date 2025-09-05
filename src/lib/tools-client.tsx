@@ -117,13 +117,13 @@ const mockProjects = [
 
 export const tools: Feature[] = [
   {
-    id: 'one-shot-setup',
-    title: 'One-Shot Setup',
-    description: "Configure your entire suite in minutes.",
+    id: 'ai-brand-creator',
+    title: 'AI Brand Creator',
+    description: "Create your brand onboarding from documents.",
     icon: <Wrench />,
     color: '#10b981', // emerald-500
-    cta: 'Setup',
-    categories: ['Sales Tools'],
+    cta: 'Brand Kit',
+    categories: ['Sales Tools', 'Creative'],
     mindMapCategory: 'Core Intelligence',
     badge: 'NEW',
     details: {

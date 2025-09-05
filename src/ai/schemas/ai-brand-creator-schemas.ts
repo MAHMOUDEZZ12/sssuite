@@ -2,9 +2,9 @@
 import {z} from 'genkit';
 
 /**
- * Defines the schema for the input of the one-shot setup flow.
+ * Defines the schema for the input of the ai brand creator flow.
  */
-export const OneShotSetupInputSchema = z.object({
+export const AIBrandCreatorInputSchema = z.object({
   /**
    * The user's command or instruction.
    * @example "Set up my brand and projects from the uploaded files."
@@ -19,12 +19,12 @@ export const OneShotSetupInputSchema = z.object({
       "An array of documents (e.g., PDFs, text files) as data URIs. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
 });
-export type OneShotSetupInput = z.infer<typeof OneShotSetupInputSchema>;
+export type AIBrandCreatorInput = z.infer<typeof AIBrandCreatorInputSchema>;
 
 /**
- * Defines the schema for the output of the one-shot setup flow.
+ * Defines the schema for the output of the ai brand creator flow.
  */
-export const OneShotSetupOutputSchema = z.object({
+export const AIBrandCreatorOutputSchema = z.object({
   /**
    * The extracted brand information.
    */
@@ -69,4 +69,4 @@ export const OneShotSetupOutputSchema = z.object({
       'A human-readable summary of the setup actions performed by the AI.'
     ),
 });
-export type OneShotSetupOutput = z.infer<typeof OneShotSetupOutputSchema>;
+export type AIBrandCreatorOutput = z.infer<typeof AIBrandCreatorOutputSchema>;

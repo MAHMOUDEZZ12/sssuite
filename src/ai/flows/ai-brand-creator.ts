@@ -8,37 +8,37 @@
  * and extracts structured data to set up their brand identity and create project lists,
  * acting as a command from the AI Assistant.
  *
- * @module AI/Flows/OneShotSetup
+ * @module AI/Flows/AIBrandCreator
  *
- * @export {function} oneShotSetup - The main function to configure the workspace.
- * @export {type} OneShotSetupInput - The Zod schema for the input of the oneShotSetup flow.
- * @export {type} OneShotSetupOutput - The Zod schema for the output of the oneShotSetup flow.
+ * @export {function} aiBrandCreator - The main function to configure the workspace.
+ * @export {type} AIBrandCreatorInput - The Zod schema for the input of the aiBrandCreator flow.
+ * @export {type} AIBrandCreatorOutput - The Zod schema for the output of the aiBrandCreator flow.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import { OneShotSetupInputSchema, OneShotSetupOutputSchema } from '@/ai/schemas/one-shot-setup-schemas';
+import { AIBrandCreatorInputSchema, AIBrandCreatorOutputSchema } from '@/ai/schemas/ai-brand-creator-schemas';
 
-export type { OneShotSetupInput, OneShotSetupOutput } from '@/ai/schemas/one-shot-setup-schemas';
+export type { AIBrandCreatorInput, AIBrandCreatorOutput } from '@/ai/schemas/ai-brand-creator-schemas';
 
 
 /**
  * An AI flow that configures the user's workspace based on provided documents and a command.
  * This function serves as a wrapper for the underlying Genkit flow.
  *
- * @param {OneShotSetupInput} input - The input data for the setup process.
- * @returns {Promise<OneShotSetupOutput>} A promise that resolves with the extracted setup data.
+ * @param {AIBrandCreatorInput} input - The input data for the setup process.
+ * @returns {Promise<AIBrandCreatorOutput>} A promise that resolves with the extracted setup data.
  */
-export async function oneShotSetup(
-  input: z.infer<typeof OneShotSetupInputSchema>
-): Promise<z.infer<typeof OneShotSetupOutputSchema>> {
-  return oneShotSetupFlow(input);
+export async function aiBrandCreator(
+  input: z.infer<typeof AIBrandCreatorInputSchema>
+): Promise<z.infer<typeof AIBrandCreatorOutputSchema>> {
+  return aiBrandCreatorFlow(input);
 }
 
-const oneShotSetupPrompt = ai.definePrompt({
-  name: 'oneShotSetupPrompt',
-  input: {schema: OneShotSetupInputSchema},
-  output: {schema: OneShotSetupOutputSchema},
+const aiBrandCreatorPrompt = ai.definePrompt({
+  name: 'aiBrandCreatorPrompt',
+  input: {schema: AIBrandCreatorInputSchema},
+  output: {schema: AIBrandCreatorOutputSchema},
   prompt: `You are an expert system administrator for the Super Seller Suite. Your task is to configure the user's workspace based on their command and the documents they provide.
 
   User Command: "{{{command}}}"
@@ -56,14 +56,14 @@ const oneShotSetupPrompt = ai.definePrompt({
   `,
 });
 
-const oneShotSetupFlow = ai.defineFlow(
+const aiBrandCreatorFlow = ai.defineFlow(
   {
-    name: 'oneShotSetupFlow',
-    inputSchema: OneShotSetupInputSchema,
-    outputSchema: OneShotSetupOutputSchema,
+    name: 'aiBrandCreatorFlow',
+    inputSchema: AIBrandCreatorInputSchema,
+    outputSchema: AIBrandCreatorOutputSchema,
   },
   async input => {
-    const {output} = await oneShotSetupPrompt(input);
+    const {output} = await aiBrandCreatorPrompt(input);
     if (!output) {
       throw new Error('The AI failed to process the setup documents.');
     }
@@ -73,4 +73,3 @@ const oneShotSetupFlow = ai.defineFlow(
     return output;
   }
 );
-

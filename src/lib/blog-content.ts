@@ -11,8 +11,8 @@ export type BlogContent = {
 };
 
 export const blogContent: BlogContent = {
-    'one-shot-setup': {
-        title: 'The One-Shot Setup: Configure Your Entire Suite in 5 Minutes',
+    'ai-brand-creator': {
+        title: 'The AI Brand Creator: Configure Your Entire Suite in 5 Minutes',
         intro: "Don't waste time with manual entry. This power-user hack shows you how to use your AI Assistant to configure your brand, projects, and contacts from a few simple file uploads. Get up and running in minutes, not hours.",
         sections: [
             { heading: "The Problem: The 'New App' Grind", body: "Setting up any new software is a chore. You have to find your brand colors, copy and paste contact details, and manually create every single project or client you're working on. It's tedious work that stops you from getting to the exciting part: using the tools." },

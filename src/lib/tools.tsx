@@ -11,7 +11,7 @@ import { generateSocialPost } from '@/ai/flows/generate-social-post';
 import { suggestTargetingOptions } from '@/ai/flows/suggest-targeting-options';
 import { editPdf } from '@/ai/flows/edit-pdf';
 import { matchInvestors } from '@/ai/flows/match-investors';
-import { oneShotSetup } from '@/ai/flows/one-shot-setup';
+import { aiBrandCreator } from '@/ai/flows/ai-brand-creator';
 
 
 // Import the client-safe tools definition
@@ -40,7 +40,7 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'landing-pages': generateLandingPage,
     'social-posts': generateSocialPost,
     'investor-matching': matchInvestors,
-    'one-shot-setup': oneShotSetup,
+    'ai-brand-creator': aiBrandCreator,
     // Add other flow runners here as they are created
 };
 
