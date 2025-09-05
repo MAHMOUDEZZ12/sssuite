@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import React from 'react';
@@ -25,6 +24,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import Image from 'next/image';
+import { IntegrationCard } from '@/components/ui/integration-card';
 
 const mockBillingHistory = [
   { id: 'inv-001', date: 'Feb 20, 2024', amount: '$99.00', status: 'Paid' },
@@ -35,6 +35,24 @@ const mockBillingHistory = [
 
 export default function SettingsPage() {
   const { toast } = useToast();
+  const [connections, setConnections] = React.useState({
+    social: false,
+    email: false,
+    whatsapp: true,
+    crm: false,
+    drive: false,
+  });
+
+  const handleConnectionToggle = (key: keyof typeof connections) => {
+    setConnections(prev => {
+        const newState = !prev[key];
+        toast({
+            title: `Connection ${newState ? 'Enabled' : 'Disabled'}`,
+            description: `The integration has been ${newState ? 'connected' : 'disconnected'}.`
+        });
+        return { ...prev, [key]: newState };
+    });
+  }
 
   const handleSaveChanges = (area: string) => {
     toast({
@@ -210,42 +228,38 @@ export default function SettingsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-                <div className="flex items-center justify-between rounded-lg border p-4">
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2">
-                           <Instagram className="h-6 w-6 text-muted-foreground" />
-                           <Facebook className="h-6 w-6 text-muted-foreground" />
-                           <Linkedin className="h-6 w-6 text-muted-foreground" />
-                           <Twitter className="h-6 w-6 text-muted-foreground" />
-                        </div>
-                        <div>
-                            <h4 className="font-medium">Social Media</h4>
-                            <p className="text-sm text-muted-foreground">Connect Instagram, Facebook, LinkedIn, and X.</p>
-                        </div>
-                    </div>
-                    <Button variant="outline">Connect</Button>
-                </div>
-                <div className="flex items-center justify-between rounded-lg border p-4">
-                    <div className="flex items-center gap-4">
-                        <Mail className="h-6 w-6 text-muted-foreground" />
-                        <div>
-                            <h4 className="font-medium">Email</h4>
-                            <p className="text-sm text-muted-foreground">Connect your Gmail or Outlook account.</p>
-                        </div>
-                    </div>
-                    <Button variant="outline">Connect</Button>
-                </div>
-                 <div className="flex items-center justify-between rounded-lg border p-4">
-                    <div className="flex items-center gap-4">
-                        <MessageCircle className="h-6 w-6 text-muted-foreground" />
-                        <div>
-                            <h4 className="font-medium">WhatsApp</h4>
-                            <p className="text-sm text-muted-foreground">Connect your WhatsApp Business account.</p>
-                        </div>
-                    </div>
+                <IntegrationCard
+                    title="Social Media"
+                    description="Connect Instagram, Facebook, LinkedIn, and X."
+                    icon={<div className="flex items-center gap-2">
+                           <Instagram className="h-6 w-6" />
+                           <Facebook className="h-6 w-6" />
+                           <Linkedin className="h-6 w-6" />
+                           <Twitter className="h-6 w-6" />
+                        </div>}
+                    connected={connections.social}
+                    onConnect={() => handleConnectionToggle('social')}
+                    onDisconnect={() => handleConnectionToggle('social')}
+                />
+                <IntegrationCard
+                    title="Email"
+                    description="Connect your Gmail or Outlook account."
+                    icon={<Mail className="h-6 w-6" />}
+                    connected={connections.email}
+                    onConnect={() => handleConnectionToggle('email')}
+                    onDisconnect={() => handleConnectionToggle('email')}
+                />
+                 <IntegrationCard
+                    title="WhatsApp"
+                    description="Connect your WhatsApp Business account."
+                    icon={<MessageCircle className="h-6 w-6" />}
+                    connected={connections.whatsapp}
+                    onConnect={() => {}}
+                    onDisconnect={() => handleConnectionToggle('whatsapp')}
+                >
                     <Dialog>
                        <DialogTrigger asChild>
-                           <Button variant="outline">Connect</Button>
+                           <Button variant={connections.whatsapp ? 'destructive' : 'outline'}>{connections.whatsapp ? 'Disconnect' : 'Connect'}</Button>
                        </DialogTrigger>
                        <DialogContent>
                             <DialogHeader>
@@ -259,27 +273,23 @@ export default function SettingsPage() {
                             </div>
                        </DialogContent>
                     </Dialog>
-                </div>
-                <div className="flex items-center justify-between rounded-lg border p-4">
-                    <div className="flex items-center gap-4">
-                        <Users className="h-6 w-6 text-muted-foreground" />
-                        <div>
-                            <h4 className="font-medium">CRM</h4>
-                            <p className="text-sm text-muted-foreground">Connect to your sales CRM to sync leads and contacts.</p>
-                        </div>
-                    </div>
-                    <Button variant="outline">Connect</Button>
-                </div>
-                 <div className="flex items-center justify-between rounded-lg border p-4">
-                    <div className="flex items-center gap-4">
-                        <Database className="h-6 w-6 text-muted-foreground" />
-                        <div>
-                            <h4 className="font-medium">Google Drive</h4>
-                            <p className="text-sm text-muted-foreground">Sync documents and files from your Google Drive.</p>
-                        </div>
-                    </div>
-                    <Button variant="outline">Connect</Button>
-                </div>
+                </IntegrationCard>
+                 <IntegrationCard
+                    title="CRM"
+                    description="Connect to your sales CRM to sync leads and contacts."
+                    icon={<Users className="h-6 w-6" />}
+                    connected={connections.crm}
+                    onConnect={() => handleConnectionToggle('crm')}
+                    onDisconnect={() => handleConnectionToggle('crm')}
+                />
+                 <IntegrationCard
+                    title="Google Drive"
+                    description="Sync documents and files from your Google Drive."
+                    icon={<Database className="h-6 w-6" />}
+                    connected={connections.drive}
+                    onConnect={() => handleConnectionToggle('drive')}
+                    onDisconnect={() => handleConnectionToggle('drive')}
+                />
             </CardContent>
           </Card>
         </TabsContent>
