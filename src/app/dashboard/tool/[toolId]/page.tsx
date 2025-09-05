@@ -21,6 +21,7 @@ import { Confetti } from '@/components/confetti';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
+import { track } from '@/lib/events';
 
 const fileToDataUri = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -171,6 +172,8 @@ export default function ToolPage() {
             }
         }
         
+        track('tool_run_started', { toolId, payload });
+
         // **NEW**: Call the API endpoint instead of the flow runner directly
         const response = await fetch('/api/tools/run', {
             method: 'POST',
