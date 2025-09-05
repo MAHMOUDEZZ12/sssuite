@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -7,22 +6,55 @@ import { Button } from './ui/button';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './ui/card';
 import { Input } from './ui/input';
 import { ScrollArea } from './ui/scroll-area';
-import { Bot, Send, X, GripVertical, Sparkles } from 'lucide-react';
+import { Bot, Send, X, Sparkles, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from './ui/avatar';
-import { Separator } from './ui/separator';
 import { secretCodes } from '@/lib/codes';
 
+type Message = {
+    from: 'ai' | 'user';
+    text: string;
+};
 
 export function AssistantChat() {
   const [isOpen, setIsOpen] = useState(false);
-  const assistantName = 'Your AI Assistant';
-  
-  const mockMessages = [
+  const [messages, setMessages] = useState<Message[]>([
     { from: 'ai', text: "Hello! How can I help you accelerate your sales today? If you have a secret code, feel free to share it." },
-    { from: 'user', text: "I have a code: SUPERLEAD2025" },
-    { from: 'ai', text: `Excellent! The code SUPERLEAD2025 is valid. \n\n**Reward Unlocked**: One fully promoted lead-generation campaign. \n\nI will now create a new landing page, run a targeted ad campaign for it, and set up an automated email follow-up for any new leads. What is the name of the property you'd like to promote?` },
-  ];
+  ]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTo({ top: scrollAreaRef.current.scrollHeight, behavior: 'smooth' });
+    }
+  }, [messages]);
+
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+
+    const userMessage: Message = { from: 'user', text: input };
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    setTimeout(() => {
+        const foundCode = secretCodes.find(c => input.includes(c.code));
+        let aiResponse: Message;
+
+        if (foundCode) {
+            aiResponse = { from: 'ai', text: `Excellent! The code ${foundCode.code} is valid. \n\n**Reward Unlocked**: ${foundCode.reward} \n\nI can now perform this action for you. What property or project should I start with?` };
+        } else {
+            aiResponse = { from: 'ai', text: "I've received your message. While I'm still in training for full conversational abilities, I've logged your request. You can use the tools in the sidebar to get started right away!" };
+        }
+        
+        setMessages(prev => [...prev, aiResponse]);
+        setIsLoading(false);
+    }, 1200);
+  };
 
   if (!isOpen) {
       return (
@@ -44,7 +76,7 @@ export function AssistantChat() {
             <div className="flex items-center justify-between pb-3">
               <h3 className="text-base font-semibold flex items-center gap-2">
                 <Bot className="h-5 w-5 text-primary"/>
-                {assistantName}
+                Your AI Assistant
               </h3>
               <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="h-6 w-6">
                 <X className="h-4 w-4" />
@@ -53,9 +85,9 @@ export function AssistantChat() {
             </div>
             
             <CardContent className="p-0">
-                <ScrollArea className="h-[400px] p-4 border-t">
+                <ScrollArea className="h-[400px] p-4 border-t" ref={scrollAreaRef as any}>
                 <div className="space-y-4">
-                    {mockMessages.map((msg, index) => (
+                    {messages.map((msg, index) => (
                     <div
                         key={index}
                         className={cn(
@@ -72,7 +104,7 @@ export function AssistantChat() {
                         )}
                         <div
                         className={cn(
-                            "max-w-xs rounded-2xl p-3 text-sm",
+                            "max-w-xs rounded-2xl p-3 text-sm whitespace-pre-wrap",
                             msg.from === 'user'
                             ? 'bg-primary text-primary-foreground rounded-br-none'
                             : 'bg-muted rounded-bl-none'
@@ -87,17 +119,34 @@ export function AssistantChat() {
                         )}
                     </div>
                     ))}
+                    {isLoading && (
+                         <div className="flex items-end gap-2 justify-start">
+                            <Avatar className="h-8 w-8">
+                                <AvatarFallback className="bg-primary/20 text-primary">
+                                <Bot className="h-4 w-4" />
+                                </AvatarFallback>
+                            </Avatar>
+                             <div className="max-w-xs rounded-2xl p-3 text-sm bg-muted rounded-bl-none">
+                                <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                             </div>
+                         </div>
+                    )}
                 </div>
                 </ScrollArea>
             </CardContent>
             
              <CardFooter className="p-0 pt-3 border-t">
-                <div className="flex w-full items-center gap-2">
-                    <Input placeholder={`Ask: “Turn this brochure into a WhatsApp reply”...`} />
-                    <Button size="icon">
+                <form onSubmit={handleSendMessage} className="flex w-full items-center gap-2">
+                    <Input 
+                        placeholder="Ask anything or enter a secret code..." 
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        disabled={isLoading}
+                    />
+                    <Button type="submit" size="icon" disabled={isLoading}>
                         <Send className="h-4 w-4" />
                     </Button>
-                </div>
+                </form>
             </CardFooter>
           </div>
         </div>

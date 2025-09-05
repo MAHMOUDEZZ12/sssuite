@@ -163,24 +163,10 @@ export default function SettingsPage() {
                   <div>
                     <Label htmlFor="show-floating-chat">Show Floating Chat Button</Label>
                     <p className="text-sm text-muted-foreground">
-                      Display the movable assistant chat button on all dashboard pages.
+                      Display the assistant chat button on all dashboard pages.
                     </p>
                   </div>
                   <Switch id="show-floating-chat" defaultChecked />
-                </div>
-                 <div className="flex items-center justify-between rounded-lg border p-4">
-                  <div>
-                    <Label>Chat Button Position</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Drag the button on screen to move it. Click here to reset it.
-                    </p>
-                  </div>
-                   <Button variant="ghost" onClick={() => {
-                        // This would ideally be tied to a global state (e.g. Zustand or Context)
-                        // For now, we can use a custom event.
-                        window.dispatchEvent(new CustomEvent('resetChatPosition'));
-                        toast({ title: 'Chat Position Reset', description: 'The chat button has been returned to its default position.' });
-                   }}>Reset Position</Button>
                 </div>
                  <Link href="/dashboard/assistant">
                     <Button variant="outline">
