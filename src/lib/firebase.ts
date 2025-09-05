@@ -1,21 +1,24 @@
-// This is a placeholder for your Firebase configuration.
-// In a real application, you would initialize Firebase here.
-// For example:
-//
-// import { initializeApp } from "firebase/app";
-// import { getFirestore } from "firebase/firestore";
-//
-// const firebaseConfig = {
-//   apiKey: "your-api-key",
-//   authDomain: "your-auth-domain",
-//   projectId: "your-project-id",
-//   storageBucket: "your-storage-bucket",
-//   messagingSenderId: "your-messaging-sender-id",
-//   appId: "your-app-id"
-// };
-//
-// const app = initializeApp(firebaseConfig);
-// export const db = getFirestore(app);
 
-// For now, we export a mock db object to prevent import errors.
-export const db = {};
+import { initializeApp, getApps } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase
+let app;
+if (!getApps().length) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApps()[0];
+}
+
+export const db = getFirestore(app);
+export const auth = getAuth(app);
