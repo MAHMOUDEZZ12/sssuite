@@ -4,10 +4,15 @@
 import React from 'react';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
-import { tools } from '@/lib/tools';
+import { tools, Feature } from '@/lib/tools';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Briefcase, Clock2, BadgeCheck, MessageCircle, Network, Palette, PenTool, Plus, Search, Sparkles, Target, Upload, UserCog, Wallet, Share2, LayoutTemplate, FileText } from 'lucide-react';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const MindMapNode = ({
   title,
@@ -43,20 +48,154 @@ const MindMapNode = ({
   );
 };
 
-const ToolLeaf = ({ tool }: { tool: (typeof tools)[0] }) => (
-    <Link href={`/dashboard/tool/${tool.id}`} className="group w-full max-w-xs">
-        <div className="relative flex items-center justify-center">
-            <div className="flex w-full items-center gap-3 rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
-                <div className="p-2 rounded-md text-white" style={{backgroundColor: tool.color}}>{React.cloneElement(tool.icon, { className: 'h-5 w-5' })}</div>
-                <span className="font-medium text-sm text-foreground/90">{tool.title}</span>
-                <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 ml-auto" />
+const ToolLeaf = ({ tool, onClick }: { tool: Feature; onClick: (tool: Feature) => void; }) => (
+    <div className="group w-full max-w-xs flex justify-center">
+        <button onClick={() => onClick(tool)} className="w-full text-left">
+            <div className="relative flex items-center justify-center">
+                <div className="flex w-full items-center gap-3 rounded-lg border bg-card/90 p-3 pr-4 shadow-md transition-all duration-200 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-1">
+                    <div className="p-2 rounded-md text-white" style={{backgroundColor: tool.color}}>{React.cloneElement(tool.icon, { className: 'h-5 w-5' })}</div>
+                    <span className="font-medium text-sm text-foreground/90">{tool.title}</span>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 ml-auto" />
+                </div>
             </div>
-        </div>
-    </Link>
+        </button>
+    </div>
 );
+
+const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: () => void }) => {
+  if (!feature) return null;
+
+  return (
+    <Dialog open={!!feature} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="bg-card/90 backdrop-blur-lg border-primary/20 text-foreground max-w-5xl w-[95vw] p-0 rounded-2xl">
+          <div className="relative">
+            <div className="p-8 rounded-t-2xl" style={{'background': `linear-gradient(to bottom right, ${feature.color}, transparent)`}}>
+               <div className="flex items-start justify-between">
+                  <div className='flex items-center gap-4'>
+                    <div className="p-4 bg-white/20 rounded-full w-fit">
+                      {React.cloneElement(feature.icon, { className: 'h-10 w-10 text-white' })}
+                    </div>
+                    <div>
+                      <DialogTitle asChild>
+                        <h2 className="text-4xl font-bold font-heading text-white mb-1">{feature.title}</h2>
+                      </DialogTitle>
+                      <p className="text-lg text-white/80">{feature.description}</p>
+                    </div>
+                  </div>
+                   <div className='flex items-center gap-2'>
+                     <Link href="/dashboard">
+                        <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/20">Login</Button>
+                      </Link>
+                   </div>
+               </div>
+            </div>
+            
+            <div className='p-8'>
+              <Tabs defaultValue="overview" className="w-full">
+                <TabsList className="grid w-full grid-cols-4 mb-6">
+                  <TabsTrigger value="overview">How to Use</TabsTrigger>
+                  <TabsTrigger value="comparison">AI vs. Manual</TabsTrigger>
+                  <TabsTrigger value="synergy">Synergy</TabsTrigger>
+                  <TabsTrigger value="faq">FAQs</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="overview" className="space-y-6 text-foreground/90">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {feature.details.steps.map((step, i) => (
+                        <div key={i} className="flex flex-col items-center text-center p-4 bg-card rounded-lg border">
+                          <div className='p-3 bg-primary/10 rounded-full mb-3 text-primary'>
+                            {step.icon}
+                          </div>
+                          <p className="font-semibold text-foreground">Step {i+1}</p>
+                          <p className='text-sm text-foreground/70'>{step.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                </TabsContent>
+                
+                <TabsContent value="comparison" className="space-y-4 text-foreground/90">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div className="space-y-4">
+                      <h3 className="text-2xl font-semibold font-heading text-center text-foreground/80">Manual Process</h3>
+                       {feature.details.aiVsManual.map((item, index) => (
+                        <div key={index} className="p-4 bg-card rounded-lg border">
+                           <div className="flex items-center gap-3 mb-2">
+                            {React.cloneElement(item.icon, { className: "h-5 w-5 text-muted-foreground" })}
+                            <h4 className="font-semibold text-foreground">{item.metric}</h4>
+                          </div>
+                          <p className="text-foreground/80 pl-8">{item.manual}</p>
+                        </div>
+                      ))}
+                    </div>
+                     <div className="space-y-4">
+                      <h3 className="text-2xl font-semibold font-heading text-center text-primary">AI-Powered Suite</h3>
+                       {feature.details.aiVsManual.map((item, index) => (
+                        <div key={index} className="p-4 bg-card rounded-lg border border-primary/20 shadow-lg shadow-primary/5">
+                           <div className="flex items-center gap-3 mb-2">
+                             {React.cloneElement(item.icon, { className: "h-5 w-5 text-primary" })}
+                            <h4 className="font-semibold text-primary">{item.metric}</h4>
+                          </div>
+                          <p className="text-foreground/80 pl-8">{item.ai}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="synergy" className="space-y-4 text-foreground/90">
+                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {feature.details.synergy.map((s, index) => (
+                      <div key={index} className="bg-card p-6 rounded-lg border flex flex-col justify-center">
+                         <div className="flex items-center gap-2 mb-3">
+                            <div className="p-2 bg-primary/10 text-primary rounded-md">
+                                <h4 className="font-semibold text-sm">{feature.title}</h4>
+                            </div>
+                            <Plus className="h-5 w-5 text-muted-foreground shrink-0" />
+                            <div className="p-2 bg-secondary text-secondary-foreground rounded-md">
+                               <h4 className="font-semibold text-sm">{s.tool}</h4>
+                            </div>
+                        </div>
+                        <div className="text-sm text-foreground/80 pl-1">
+                          <p>{s.benefit}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="faq">
+                  <Accordion type="single" collapsible className="w-full">
+                    {feature.details.faqs.map((faq, index) => (
+                      <AccordionItem value={`item-${index}`} key={index}>
+                        <AccordionTrigger className='text-left'>{faq.question}</AccordionTrigger>
+                        <AccordionContent className="text-base text-foreground/80">{faq.answer}</AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </TabsContent>
+              </Tabs>
+            </div>
+
+            <Separator />
+
+            <div className="p-6 text-center">
+                <Link href={`/dashboard/tool/${feature.id}`}>
+                    <Button variant="outline" size="lg" className='text-base'>
+                      Create your first {feature.cta} today
+                    </Button>
+                </Link>
+            </div>
+            
+          </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 
 export default function SX3MindmapPage() {
+    const [selectedFeature, setSelectedFeature] = React.useState<Feature | null>(null);
+
     const marketingTools = tools.filter(t => t.categories.includes('Marketing'));
     const creativeTools = tools.filter(t => t.categories.includes('Creative'));
     const salesTools = tools.filter(t => t.categories.includes('Sales Tools'));
@@ -66,13 +205,7 @@ export default function SX3MindmapPage() {
         { name: "Marketing", tools: marketingTools },
         { name: "Creative Suite", tools: creativeTools },
         { name: "Sales Enablement", tools: salesTools },
-        { name: "Social & Communications", tools: socialTools },
     ];
-    
-    const allToolsCategory = { name: "All Tools", tools: tools };
-
-    const displayCategories = [allToolsCategory, ...toolCategories];
-
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -93,18 +226,20 @@ export default function SX3MindmapPage() {
             </div>
 
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {displayCategories.slice(1, 4).map((category) => (
+                {toolCategories.map((category) => (
                     <MindMapNode key={category.name} title={category.name}>
                         {category.tools.map(tool => (
-                            <ToolLeaf key={tool.id} tool={tool} />
+                            <ToolLeaf key={tool.id} tool={tool} onClick={setSelectedFeature} />
                         ))}
                     </MindMapNode>
                 ))}
             </div>
         </div>
-
       </main>
+      <FeatureModal feature={selectedFeature} onClose={() => setSelectedFeature(null)} />
       <LandingFooter />
     </div>
   );
 }
+
+    
