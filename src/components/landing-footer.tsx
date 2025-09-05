@@ -103,7 +103,7 @@ export function LandingFooter() {
 
             <div className="flex flex-col md:flex-row justify-between items-center">
                  <p className="text-sm text-foreground/50">
-                    &copy; {new Date().getFullYear()} Super Seller Suite. All rights reserved.
+                    &copy; {new Date().getFullYear()} <a href="https://mtcmartech.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">mtc</a>. All rights reserved.
                 </p>
                 <div className="flex items-center gap-4 mt-4 md:mt-0">
                     <Link href="#" aria-label="Twitter">
