@@ -54,7 +54,7 @@ export function LandingFooter() {
                         The ultimate sales suite, empowering agents to create stunning marketing campaigns and close more deals.
                     </p>
                 </div>
-                <div className='md:col-span-3 grid grid-cols-2 gap-8'>
+                <div className='md:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-8'>
                     <div>
                         <h3 className="font-semibold text-foreground">Resources</h3>
                         <ul className="mt-4 space-y-2">
