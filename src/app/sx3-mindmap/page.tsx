@@ -108,7 +108,7 @@ const ToolLeaf = ({ tool, onClick, className }: { tool: Feature; onClick: (tool:
                             </div>
                              <div className="flex items-start gap-2 text-foreground/70">
                                 <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" />
-                                <span><span className="font-bold text-foreground/90">Integrated:</span> crosstool  tasks from the chat</span>
+                                <span><span className="font-bold text-foreground/90">Integrated:</span> crosstool tasks from the chat.</span>
                             </div>
                         </div>
                     )}
@@ -266,29 +266,31 @@ export default function SX3MindmapPage() {
             A visual overview of the powerful, interconnected tools in the Super Seller Suite.
           </p>
         </div>
-
-        <Card className="w-full max-w-4xl bg-card/50 backdrop-blur-lg border-primary/10 mb-16">
-          <Link href="/blog">
-            <div className="flex flex-col md:flex-row items-center gap-6 p-6 group">
-                <div className="p-4 bg-primary/10 text-primary rounded-lg">
-                    <BookOpen className="h-8 w-8" />
-                </div>
-                <div className="text-center md:text-left">
-                    <h3 className="text-xl font-bold font-heading text-foreground">The Super Seller Handbook</h3>
-                    <p className="text-foreground/70">From a high-level view to a deep dive. Explore detailed guides and expert hacks for every tool.</p>
-                </div>
-                <div className="ml-auto">
-                   <Button variant="ghost">
-                        Read Now <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Button>
-                </div>
-            </div>
-          </Link>
-        </Card>
-
+        
         <div className="relative flex w-full flex-col justify-center items-center">
-            <div className="w-full max-w-md mb-12">
+            <div className="w-full max-w-md mb-8">
                  <MindMapNode title="Super Seller Suite" isRoot />
+            </div>
+
+            <div className="w-full max-w-2xl p-1 mb-12 rounded-2xl bg-gradient-to-r from-primary via-accent to-secondary animate-gradient-spin">
+                <Card className="bg-background/90 rounded-xl">
+                  <Link href="/blog">
+                    <div className="flex flex-col md:flex-row items-center gap-6 p-6 group">
+                        <div className="p-4 bg-primary/10 text-primary rounded-lg">
+                            <BookOpen className="h-8 w-8" />
+                        </div>
+                        <div className="text-center md:text-left">
+                            <h3 className="text-xl font-bold font-heading text-foreground">The Super Seller Handbook</h3>
+                            <p className="text-foreground/70">From a high-level view to a deep dive. Explore detailed guides and expert hacks for every tool.</p>
+                        </div>
+                        <div className="ml-auto">
+                           <Button variant="ghost">
+                                Read Now <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                            </Button>
+                        </div>
+                    </div>
+                  </Link>
+                </Card>
             </div>
             
             <div className="absolute top-[8rem] hidden h-16 w-full max-w-4xl lg:block">
