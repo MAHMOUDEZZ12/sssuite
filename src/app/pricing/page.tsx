@@ -13,14 +13,18 @@ import Link from 'next/link';
 import { tools } from '@/lib/tools';
 import { Switch } from '@/components/ui/switch';
 
-const pricingTiers = [
+
+export default function PricingPage() {
+  const [isAnnual, setIsAnnual] = React.useState(true);
+
+  const pricingTiers = [
     {
         name: 'Pay as you go',
         price: '$12',
         description: 'Perfect for occasional use with full access to core tools.',
         features: [
             '50 AI generations',
-            `Access to all ${tools.length} core AI tools`,
+            `Access to all 16 core AI tools`,
             'Per-project pricing',
             'Community support',
         ],
@@ -34,7 +38,7 @@ const pricingTiers = [
         description: 'The ultimate toolkit for serious agents and small teams.',
         features: [
             'Trainable AI Assistant',
-            `Access to all ${tools.length} AI tools`,
+            `Access to all 16 AI tools`,
             'Unlimited projects',
             '10,000 AI generations per month',
             'Connect social & email accounts',
@@ -64,9 +68,6 @@ const pricingTiers = [
     }
 ]
 
-
-export default function PricingPage() {
-  const [isAnnual, setIsAnnual] = React.useState(true);
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
@@ -154,3 +155,4 @@ export default function PricingPage() {
     </div>
   );
 }
+
