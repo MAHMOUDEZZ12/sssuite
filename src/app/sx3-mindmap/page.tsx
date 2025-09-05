@@ -116,7 +116,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                 <TabsContent value="comparison" className="space-y-4 text-foreground/90">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                     <div className="space-y-4">
-                      <h3 className="text-2xl font-semibold font-heading text-center text-foreground/80">Manual Process</h3>
+                      <h3 className="text-2xl font-semibold font-heading text-center text-foreground/80">Manual</h3>
                        {feature.details.aiVsManual.map((item, index) => (
                         <div key={index} className="p-4 bg-card rounded-lg border">
                            <div className="flex items-center gap-3 mb-2">
@@ -128,7 +128,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
                       ))}
                     </div>
                      <div className="space-y-4">
-                      <h3 className="text-2xl font-semibold font-heading text-center text-primary">AI-Powered Suite</h3>
+                      <h3 className="text-2xl font-semibold font-heading text-center text-primary">Super Seller Suite</h3>
                        {feature.details.aiVsManual.map((item, index) => (
                         <div key={index} className="p-4 bg-card rounded-lg border border-primary/20 shadow-lg shadow-primary/5">
                            <div className="flex items-center gap-3 mb-2">
@@ -199,7 +199,6 @@ export default function SX3MindmapPage() {
     const marketingTools = tools.filter(t => t.categories.includes('Marketing'));
     const creativeTools = tools.filter(t => t.categories.includes('Creative'));
     const salesTools = tools.filter(t => t.categories.includes('Sales Tools'));
-    const socialTools = tools.filter(t => t.categories.includes('Social & Comms'));
     
     const toolCategories = [
         { name: "Marketing", tools: marketingTools },
@@ -241,5 +240,3 @@ export default function SX3MindmapPage() {
     </div>
   );
 }
-
-    
