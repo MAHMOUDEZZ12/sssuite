@@ -115,37 +115,41 @@ const mockProjects = [
 
 export const tools: Feature[] = [
   {
-    id: 'one-shot-setup',
-    title: 'One-Shot Setup',
-    description: "Use your AI Assistant to set up your entire workspace from a single command.",
-    icon: <Wrench />,
+    id: 'projects-finder',
+    title: 'AI Projects Finder',
+    description: "Discover off-market projects and development opportunities.",
+    icon: <Search />,
     color: '#fde047', // yellow-300
-    cta: 'Workspace Setup',
-    categories: ['Sales Tools', 'Editing'],
+    cta: 'Project Report',
+    categories: ['Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Core Intelligence',
     badge: 'NEW',
     details: {
       steps: [
-        { text: 'Upload documents to your Assistant', icon: <Upload /> },
-        { text: 'Issue the setup command', icon: <MessageCircle /> },
-        { text: 'Confirm the changes', icon: <BadgeCheck /> },
+        { text: 'Define your target area and criteria', icon: <MapPin /> },
+        { text: 'AI scans public records and news for signals', icon: <BrainCircuit /> },
+        { text: 'Get a report of potential off-market deals', icon: <FileText /> },
       ],
       aiVsManual: [
-        { metric: 'Setup Time', manual: '30-60 minutes of manual data entry', ai: 'Under 2 minutes', icon: <Clock2 /> },
-        { metric: 'Accuracy', manual: 'Prone to typos and copy/paste errors', ai: 'Perfectly accurate extraction', icon: <BadgeCheck /> },
-        { metric: 'Effort', manual: 'High - requires finding all info manually', ai: 'Low - just upload files and give one command', icon: <Sparkles /> },
+        { metric: 'Opportunity Sourcing', manual: 'Relies on word-of-mouth and existing network', ai: 'Scans thousands of data points continuously', icon: <Network /> },
+        { metric: 'Time Investment', manual: 'Hours of manual research per week', ai: 'Automated, on-demand reports', icon: <Clock2 /> },
+        { metric: 'Deal Flow', manual: 'Limited and sporadic', ai: 'Consistent, proactive deal sourcing', icon: <Sparkles /> },
       ],
       synergy: [
-        { tool: "AI Assistant", benefit: "This tool is a command for the assistant, turning it from a chatbot into a command manager." },
-        { tool: "Brand Management", benefit: "The brand settings configured by this tool will be used by all other creative tools." }
+        { tool: "Investor Matching", benefit: "Once a potential project is found, instantly match it with the right clients from your database." },
+        { tool: "AI Market Reports", benefit: "Generate a detailed market analysis for a newly discovered project to validate its potential." }
       ],
       faqs: [
-        { question: "What kind of documents should I upload?", answer: "A company profile, a brand guidelines PDF, a project list from a CSV or Word document, or even a detailed email signature can work." },
-        { question: "What if the AI gets something wrong?", answer: "The assistant will present you with the information it extracted for confirmation before applying it. You can always correct any details manually in the Brand or Projects pages." },
-        { question: "Is this a one-time thing?", answer: "You can use it anytime you need to bulk-update your information, for example if you join a new brokerage or take on a large new development with many sub-projects." }
+        { question: "What kind of projects can it find?", answer: "The AI can identify a range of opportunities, from single-lot development potential and fixer-uppers to larger plots suitable for multi-unit construction." },
+        { question: "Where does the AI get its information?", answer: "The AI scans a wide array of public data sources, including permit applications, zoning changes, property records, and local news articles to find signals of potential development or sales." },
+        { question: "Is this information verified?", answer: "The AI provides you with a list of potential leads and the source of the information. It is designed to be a powerful starting point for your own due diligence and outreach." }
       ],
     },
-    creationFields: [],
+    creationFields: [
+      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Austin, TX" or "Zip code 90210"', description: 'The city, neighborhood, or zip code to search in.' },
+      { id: 'projectType', name: 'Project Type', type: 'select', options: ["Fixer-Upper", "Land for Development", "Zoning Change Opportunity", "Tear-Down", "Potential Assemblage"], placeholder: 'Select a project type', description: 'What kind of opportunity are you looking for?' },
+      { id: 'keywords', name: 'Keywords (Optional)', type: 'text', placeholder: 'e.g., "underutilized lot", "permit application"', description: 'Add specific keywords to narrow the search.' },
+    ],
   },
   {
     id: 'ad-creation',
