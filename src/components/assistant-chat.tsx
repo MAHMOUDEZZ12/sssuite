@@ -11,6 +11,7 @@ import { Bot, Send, X, GripVertical, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { Separator } from './ui/separator';
+import { secretCodes } from '@/lib/codes';
 
 
 export function AssistantChat() {
@@ -18,9 +19,9 @@ export function AssistantChat() {
   const assistantName = 'Your AI Assistant';
   
   const mockMessages = [
-    { from: 'ai', text: "Hello! How can I help you accelerate your sales today?" },
-    { from: 'user', text: "Create a new project for 'Azure Lofts', generate a promotional video for it, and save the final video to my drive." },
-    { from: 'ai', text: "Of course. I've initiated the following workflow:\n1. **Project Created**: 'Azure Lofts' is now set up.\n2. **Video Generation**: Creating a 30-second promo video.\n3. **File Transfer**: The final video will be saved to your connected Google Drive.\n\nI will notify you when the video is ready." },
+    { from: 'ai', text: "Hello! How can I help you accelerate your sales today? If you have a secret code, feel free to share it." },
+    { from: 'user', text: "I have a code: SUPERLEAD2025" },
+    { from: 'ai', text: `Excellent! The code SUPERLEAD2025 is valid. \n\n**Reward Unlocked**: One fully promoted lead-generation campaign. \n\nI will now create a new landing page, run a targeted ad campaign for it, and set up an automated email follow-up for any new leads. What is the name of the property you'd like to promote?` },
   ];
 
   if (!isOpen) {
@@ -78,7 +79,7 @@ export function AssistantChat() {
                         </div>
                         {msg.from === 'user' && (
                         <Avatar className="h-8 w-8">
-                            <AvatarFallback>JD</AvatarFallback>
+                            <AvatarFallback>U</AvatarFallback>
                         </Avatar>
                         )}
                     </div>
@@ -100,5 +101,3 @@ export function AssistantChat() {
     </>
   );
 }
-
-    

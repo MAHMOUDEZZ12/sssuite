@@ -12,14 +12,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
+import { secretCodes } from '@/lib/codes';
 
 
 const GRID_SIZE = 5;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
 const MAX_ATTEMPTS = 3;
 const TIME_LIMIT_SECONDS = 180; // 3 minutes
-const SECRET_CODE = "SUPERLEAD2025";
-
 
 const generateGridState = () => {
     const keyPosition = Math.floor(Math.random() * TOTAL_CELLS);
@@ -41,8 +40,10 @@ const generateGridState = () => {
     } else {
         hint = `It's not in the main square. Check the alleyways on the south side.`;
     }
+    
+    const secretCode = secretCodes[Math.floor(Math.random() * secretCodes.length)].code;
 
-    return { grid, hint };
+    return { grid, hint, secretCode };
 }
 
 export default function SuperFreeTimePage() {
@@ -103,7 +104,7 @@ export default function SuperFreeTimePage() {
     };
 
     const copyCode = () => {
-        navigator.clipboard.writeText(SECRET_CODE);
+        navigator.clipboard.writeText(gameState.secretCode);
         toast({
             title: "Code Copied!",
             description: "Your secret code has been copied to the clipboard.",
@@ -176,12 +177,12 @@ export default function SuperFreeTimePage() {
                              {foundKey ? (
                                 showReward ? (
                                     <>
-                                        <DialogTitle className="text-3xl font-bold text-primary">Here's Your Reward!</DialogTitle>
+                                        <DialogTitle className="text-3xl font-bold text-primary">Your Secret Code!</DialogTitle>
                                         <DialogDescription>
-                                            Login or register, then hand this code to your AI Assistant to unlock a free, well-promoted lead generation campaign. Good luck!
+                                            Login or register, then hand this code to your AI Assistant to unlock your secret reward. Good luck!
                                         </DialogDescription>
                                          <div className="my-4 p-4 bg-muted rounded-lg border border-dashed w-full flex items-center justify-between">
-                                            <span className="font-mono text-lg text-primary">{SECRET_CODE}</span>
+                                            <span className="font-mono text-lg text-primary">{gameState.secretCode}</span>
                                             <Button variant="ghost" size="icon" onClick={copyCode}><Copy className="h-4 w-4" /></Button>
                                          </div>
                                     </>
@@ -209,10 +210,10 @@ export default function SuperFreeTimePage() {
                             <>
                                 <Button onClick={resetGame} size="lg" variant="outline">One More Game</Button>
                                 {foundKey ? (
-                                    <Button size="lg" onClick={() => setShowReward(true)}><UserPlus className="mr-2 h-4 w-4"/> One More Lead</Button>
+                                    <Button size="lg" onClick={() => setShowReward(true)}><UserPlus className="mr-2 h-4 w-4"/> Claim Your Prize</Button>
                                 ) : (
                                     <Link href="/login">
-                                        <Button size="lg"><UserPlus className="mr-2 h-4 w-4"/> One More Lead</Button>
+                                        <Button size="lg"><UserPlus className="mr-2 h-4 w-4"/> Let's Get To Business</Button>
                                     </Link>
                                 )}
                             </>
