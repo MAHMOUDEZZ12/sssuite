@@ -96,12 +96,9 @@ export default function DashboardPage() {
                         isComplete={completedSteps.includes('social')}
                         title="Connect Your Accounts"
                         description="Integrate your social media and email to automate posting and replies."
+                        href="/onboarding?step=6"
                         onClick={() => handleStepComplete('social')}
-                    >
-                         <div className="mt-2" onClick={() => handleStepComplete('social')}>
-                            <IntegrationCard />
-                        </div>
-                    </OnboardingStep>
+                    />
                      <OnboardingStep
                         isComplete={completedSteps.includes('subscription')}
                         title="Review Your Subscription"
