@@ -116,6 +116,42 @@ const mockProjects = [
 
 export const tools: Feature[] = [
   {
+    id: 'one-shot-setup',
+    title: 'One-Shot Setup',
+    description: "Configure your entire suite in minutes.",
+    icon: <Wrench />,
+    color: '#10b981', // emerald-500
+    cta: 'Setup',
+    categories: ['Sales Tools'],
+    mindMapCategory: 'Core Intelligence',
+    badge: 'NEW',
+    details: {
+      steps: [
+        { text: 'Upload documents (brand guide, project lists)', icon: <Upload /> },
+        { text: "Tell the assistant to set up your workspace", icon: <Bot /> },
+        { text: 'The AI configures your brand, projects & more', icon: <Sparkles /> },
+      ],
+      aiVsManual: [
+        { metric: 'Setup Time', manual: '1-2 hours of manual data entry', ai: 'Under 5 minutes', icon: <Clock2 /> },
+        { metric: 'Accuracy', manual: 'Prone to typos and copy-paste errors', ai: 'Extracts data directly from source documents', icon: <BadgeCheck /> },
+        { metric: 'Completeness', manual: 'Easy to forget details or projects', ai: 'Comprehensive setup from all provided files', icon: <Sparkles /> },
+      ],
+      synergy: [
+        { tool: "AI Assistant", benefit: "This tool is a command for the AI assistant, showcasing its ability to perform administrative tasks." },
+        { tool: "Brand Management", benefit: "The extracted brand information automatically populates your Brand Kit." }
+      ],
+      faqs: [
+        { question: "What kind of documents work best?", answer: "Structured documents like brand guides (PDF), project lists (CSV or PDF), or even a simple Word document with your company details work great. The more structured the data, the better the extraction." },
+        { question: "Will this overwrite my existing settings?", answer: "The AI will present you with the information it has extracted and ask for confirmation before applying any changes to your workspace." },
+        { question: "Is this a one-time thing?", answer: "You can use this tool anytime you have new projects or updated brand information to quickly update your suite's configuration." }
+      ],
+    },
+    creationFields: [
+      { id: 'command', name: 'Command', type: 'text', placeholder: "e.g., Set up my brand and projects from these files.", description: "Tell the AI what you want to do." },
+      { id: 'documents', name: 'Source Documents', type: 'file', multiple: true, description: 'Upload one or more files (PDF, CSV, TXT) for the AI to analyze.' },
+    ],
+  },
+  {
     id: 'projects-finder',
     title: 'AI Projects Finder',
     description: "Discover off-market projects and development opportunities.",
