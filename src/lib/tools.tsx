@@ -110,6 +110,13 @@ export type Tool = {
   renderResult?: (result: any, toast: any) => React.ReactNode;
 };
 
+const mockProjects = [
+    'Azure Lofts Campaign',
+    'Maple Creek Development',
+    'Oceanview Villas',
+    'Add New Project...',
+];
+
 export const tools: Tool[] = [
   {
     id: 'ad-creation',
@@ -142,7 +149,7 @@ export const tools: Tool[] = [
     ),
     details: {
       steps: [
-          { text: 'Upload your property brochure (PDF)', icon: <FileUp className="h-6 w-6" /> },
+          { text: 'Select your project', icon: <Briefcase className="h-6 w-6" /> },
           { text: 'Select a focus (e.g., "luxury", "family")', icon: <Target className="h-6 w-6" /> },
           { text: 'Generate multiple ad variants instantly', icon: <Sparkles className="h-6 w-6" /> },
       ],
@@ -162,11 +169,10 @@ export const tools: Tool[] = [
       ],
     },
     creationFields: [
-      { id: 'brochureDataUri', name: 'Property Brochure', type: 'file', description: 'Upload the PDF brochure for the property.' },
+      { id: 'project', name: 'Select Project', type: 'select', options: mockProjects, placeholder: 'Choose the project to market', description: 'The AI will use the project brochure and details.' },
       { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
       { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
       { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of condo fees waived."', description: 'Add any other key details or offers. (Optional)' },
-      { id: 'brand-redirect', name: 'Brand Assets', type: 'button', cta: 'Go to My Brand', description: 'The AI uses your saved brand assets (logo, colors). Click here to set them up.' },
     ],
   },
   {
@@ -190,8 +196,8 @@ export const tools: Tool[] = [
     ),
     details: {
       steps: [
+        { text: 'Select your project', icon: <Briefcase className="h-6 w-6" /> },
         { text: 'Describe your ideal buyer persona', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Provide details about the property', icon: <Building className="h-6 w-6" /> },
         { text: 'Get detailed audience settings for ads', icon: <ClipboardList className="h-6 w-6" /> },
       ],
       aiVsManual: [
@@ -210,19 +216,11 @@ export const tools: Tool[] = [
       ],
     },
     creationFields: [
-      { id: 'group-property', name: 'Property Details', type: 'group-header', description: 'Tell the AI about the property you\'re marketing.' },
-      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Williamsburg, Brooklyn, NY"', description: 'The target city or neighborhood. Be specific for best results.' },
-      { id: 'propertyType', name: 'Property Type', type: 'select', options: ["Single-Family Home", "Condo", "Townhouse", "Multi-Family", "Land"], placeholder: 'Select property type', description: 'The type of property being sold.' },
-      { id: 'minPrice', name: 'Min Price', type: 'number', placeholder: 'e.g., 500000', description: 'Minimum property price.' },
-      { id: 'maxPrice', name: 'Max Price', type: 'number', placeholder: 'e.g., 1200000', description: 'Maximum property price.' },
-      { id: 'amenities', name: 'Key Amenities', type: 'text', placeholder: 'e.g., Pool, Gym, Waterfront', description: 'List main features, comma-separated.' },
-      
+      { id: 'project', name: 'Select Project', type: 'select', options: mockProjects, placeholder: 'Choose the project for targeting', description: 'The AI will analyze the project details to find the best audience.' },
       { id: 'group-audience', name: 'Audience Persona', type: 'group-header', description: 'Describe your ideal buyer.' },
       { id: 'minAge', name: 'Min Age', type: 'number', placeholder: 'e.g., 30', description: 'Minimum target age.' },
       { id: 'maxAge', name: 'Max Age', type: 'number', placeholder: 'e.g., 55', description: 'Maximum target age.' },
       { id: 'incomeLevel', name: 'Income Level', type: 'select', options: ["Starter", "Mid-Range", "High Earner", "Affluent", "Ultra-High-Net-Worth"], placeholder: 'Select income level', description: 'Financial status of the audience.' },
-
-      { id: 'group-advanced', name: 'Advanced Targeting', type: 'group-header', description: 'Add specific interests to refine the AI\'s suggestions.' },
       { id: 'interests', name: 'Audience Interests', type: 'text', placeholder: 'e.g., Golf, Luxury Cars, Tech Startups', description: 'List interests, comma-separated.' },
     ],
   },
@@ -255,7 +253,7 @@ export const tools: Tool[] = [
     details: {
       steps: [
         { text: 'Upload any developer\'s brochure (PDF)', icon: <Upload className="h-6 w-6" /> },
-        { text: 'Provide your logo & contact info', icon: <FilePlus className="h-6 w-6" /> },
+        { text: 'The AI applies your saved brand settings', icon: <UserCog className="h-6 w-6" /> },
         { text: 'Download the rebranded brochure instantly', icon: <FileText className="h-6 w-6" /> },
       ],
       aiVsManual: [
@@ -347,8 +345,8 @@ export const tools: Tool[] = [
     ),
     details: {
       steps: [
-        { text: 'Provide a property brochure or link', icon: <LinkIcon className="h-6 w-6" /> },
-        { text: 'Specify your branding preferences', icon: <Palette className="h-6 w-6" /> },
+        { text: 'Select your project', icon: <Briefcase className="h-6 w-6" /> },
+        { text: 'Choose a style or provide inspiration', icon: <Palette className="h-6 w-6" /> },
         { text: 'Generate a complete landing page', icon: <LayoutTemplate className="h-6 w-6" /> },
       ],
       aiVsManual: [
@@ -367,10 +365,8 @@ export const tools: Tool[] = [
       ],
     },
     creationFields: [
-      { id: 'projectBrochureDataUri', name: 'Upload Brochure', type: 'file', description: 'Upload a PDF brochure as the source.' },
+      { id: 'project', name: 'Select Project', type: 'select', options: mockProjects, placeholder: 'Choose a project', description: 'The AI will create a page based on this project\'s details.' },
       { id: 'inspirationImageDataUri', name: 'Inspiration Image (Optional)', type: 'file', description: 'Upload a screenshot of a website you like to guide the style.' },
-      { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "The Azure Lofts"', description: 'The name of the project.'},
-      { id: 'projectDetails', name: 'Project Details', type: 'textarea', placeholder: 'e.g., "Luxury condos with ocean views..."', description: 'Detailed info about the project.'},
       { id: 'brandingStyle', name: 'Branding Style', type: 'select', options: ["Modern & Minimalist", "Luxury & Elegant", "Cozy & Welcoming", "Bold & Colorful"], placeholder: 'Select a branding style', description: 'Describe the desired look and feel.' },
     ],
   },
@@ -444,7 +440,7 @@ export const tools: Tool[] = [
     backsideValue: "Create thumb-stopping animated stories.",
     details: {
       steps: [
-        { text: 'Upload 3-5 property photos', icon: <Upload className="h-6 w-6" /> },
+        { text: 'Select your project to use its photos', icon: <Briefcase className="h-6 w-6" /> },
         { text: 'Choose a vibe (e.g., "Modern", "Luxury")', icon: <Palette className="h-6 w-6" /> },
         { text: 'Generate multiple story variants to post', icon: <Clapperboard className="h-6 w-6" /> },
       ],
@@ -464,7 +460,7 @@ export const tools: Tool[] = [
       ],
     },
     creationFields: [
-      { id: 'photos', name: 'Property Photos', type: 'file', multiple: true, description: 'Upload 3-5 high-quality images.' },
+      { id: 'project', name: 'Select Project', type: 'select', options: mockProjects, placeholder: 'Choose a project', description: 'The AI will use the photos from this project.' },
       { id: 'vibe', name: 'Story Vibe', type: 'select', options: ['Upbeat & Modern', 'Elegant & Luxurious', 'Cozy & Warm', 'Dramatic & Cinematic'], placeholder: 'Select a vibe', description: 'This influences music, text, and effects.' },
       { id: 'callToAction', name: 'Call to Action', type: 'select', options: ["Swipe Up for Tour", "DM for Info", "See Link in Bio", "New Listing Alert!", "Save This Post"], placeholder: 'Select a call to action', description: 'The final text prompt for viewers.' },
     ],
@@ -480,7 +476,7 @@ export const tools: Tool[] = [
     backsideValue: "Turn photos into professional video reels.",
     details: {
       steps: [
-        { text: 'Upload photos or video clips', icon: <Video className="h-6 w-6" /> },
+        { text: 'Select a project to use its media', icon: <Briefcase className="h-6 w-6" /> },
         { text: 'Provide key selling points as text', icon: <PenTool className="h-6 w-6" /> },
         { text: 'Get a polished reel synced to trending audio', icon: <Sparkles className="h-6 w-6" /> },
       ],
@@ -500,7 +496,7 @@ export const tools: Tool[] = [
       ],
     },
     creationFields: [
-      { id: 'media', name: 'Photos or Video Clips', type: 'file', multiple: true, description: 'Upload your visual assets.' },
+      { id: 'project', name: 'Select Project', type: 'select', options: mockProjects, placeholder: 'Choose a project', description: 'The AI will use the photos and video clips from this project.' },
       { id: 'sellingPoints', name: 'Key Selling Points', type: 'textarea', placeholder: '- Breathtaking ocean views\n- Newly renovated kitchen\n- 5 minutes from the beach', description: 'Use bullet points for text overlays in the video.' },
       { id: 'vibe', name: 'Reel Vibe', type: 'select', options: ['High-Energy & Fast', 'Cinematic & Slow', 'Relaxing & Calm', 'Modern & Edgy'], placeholder: 'Select a vibe', description: 'This influences the music and editing style.' },
     ],
@@ -516,8 +512,8 @@ export const tools: Tool[] = [
     backsideValue: "Create TikToks that capture attention.",
     details: {
       steps: [
-        { text: 'Upload short video clips or photos', icon: <Upload className="h-6 w-6" /> },
-        { text: 'Pick a trending TikTok sound', icon: <Sparkles className="h-6 w-6" /> },
+        { text: 'Select a project to use its media', icon: <Briefcase className="h-6 w-6" /> },
+        { text: 'Pick a trending TikTok sound or vibe', icon: <Sparkles className="h-6 w-6" /> },
         { text: 'Generate a fast-paced, engaging video', icon: <Sparkles className="h-6 w-6" /> },
       ],
       aiVsManual: [
@@ -536,7 +532,7 @@ export const tools: Tool[] = [
       ],
     },
     creationFields: [
-      { id: 'media', name: 'Video Clips or Photos', type: 'file', multiple: true, description: 'Upload your visual assets.' },
+      { id: 'project', name: 'Select Project', type: 'select', options: mockProjects, placeholder: 'Choose a project', description: 'The AI will use the visual assets from this project.' },
       { id: 'sound', name: 'Sound or Vibe', type: 'select', options: ['Upbeat Dance Transition', 'Cinematic Reveal Audio', 'Funny Voiceover Meme', 'Trending Pop Song'], placeholder: 'Select a sound style', description: 'The AI will find or match the audio.' },
       { id: 'textOverlays', name: 'Text Overlays', type: 'textarea', placeholder: '- POV: You found your dream home\n- Wait for the kitchen reveal!', description: 'Add engaging text to your video.' },
     ],
@@ -657,7 +653,7 @@ export const tools: Tool[] = [
     backsideValue: "Become the neighborhood expert overnight.",
     details: {
       steps: [
-        { text: 'Enter a neighborhood, zip code, or city', icon: <MapPin className="h-6 w-6" /> },
+        { text: 'Select the project you want a report on', icon: <Briefcase className="h-6 w-6" /> },
         { text: 'Select report type (e.g., buyer, seller, investor)', icon: <Search className="h-6 w-6" /> },
         { text: 'Generate a branded, data-rich PDF report', icon: <FileText className="h-6 w-6" /> },
       ],
@@ -677,7 +673,7 @@ export const tools: Tool[] = [
       ],
     },
     creationFields: [
-      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Beverly Hills, CA" or "90210"', description: 'The area you want to analyze.' },
+      { id: 'project', name: 'Select Project', type: 'select', options: mockProjects, placeholder: 'Choose a project for the report', description: 'The AI will analyze the market for this project\'s location.' },
       { id: 'reportFocus', name: 'Report Focus', type: 'text', placeholder: 'e.g., "2-bedroom condos" or "New construction"', description: 'Specify a property type or focus for the report.' },
       { id: 'specificProperty', name: 'Specific Property Address (Optional)', type: 'text', placeholder: 'e.g., 123 Main St, Beverly Hills, CA', description: 'Generate a detailed report for a single listing.' },
     ],

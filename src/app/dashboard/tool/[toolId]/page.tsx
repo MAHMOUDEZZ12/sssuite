@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -65,6 +65,7 @@ const getToolSchema = (tool: Tool | undefined) => {
 
 export default function ToolPage() {
   const { toolId } = useParams<{ toolId: string }>();
+  const router = useRouter();
   const tool = tools.find((t) => t.id === toolId);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -238,7 +239,16 @@ export default function ToolPage() {
                                     );
                                 case 'select':
                                 return (
-                                    <Select onValueChange={onChange} defaultValue={value}>
+                                    <Select 
+                                        onValueChange={(val) => {
+                                            if (val === 'Add New Project...') {
+                                                router.push('/dashboard/projects');
+                                            } else {
+                                                onChange(val);
+                                            }
+                                        }} 
+                                        defaultValue={value}
+                                    >
                                     <SelectTrigger id={field.id}>
                                         <SelectValue placeholder={field.placeholder || `Select ${field.name}`} />
                                     </SelectTrigger>
