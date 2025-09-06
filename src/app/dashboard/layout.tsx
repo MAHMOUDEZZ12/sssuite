@@ -157,11 +157,11 @@ export default function DashboardLayout({
             </div>
         </SidebarFooter>
       </Sidebar>
-      <div className="flex-1 flex flex-col">
+      <SidebarInset>
         <DashboardHeader />
         <main className="flex-1 overflow-auto">{children}</main>
         <AssistantChat />
-      </div>
+      </SidebarInset>
     </SidebarProvider>
   );
 }
