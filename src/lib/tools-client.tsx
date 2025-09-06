@@ -166,7 +166,7 @@ export const tools: Feature[] = [
     description: 'Your dedicated agent for Facebook & Instagram advertising.',
     icon: <Bot />,
     color: '#1d4ed8', // blue-700
-    cta: 'Create Ad Campaign',
+    cta: 'Create Campaign',
     categories: ['Marketing', 'Ads', 'Lead Gen'],
     mindMapCategory: 'Meta Ads AI Suite',
     badge: 'NEW',
@@ -243,7 +243,7 @@ export const tools: Feature[] = [
     description: 'Create perfect ads for Instagram Stories & Feed.',
     icon: <Instagram />,
     color: '#ec4899', // pink-500
-    cta: 'Generate Instagram Ad',
+    cta: 'Generate Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
     renderResult: (result, toast) => (
@@ -751,7 +751,7 @@ export const tools: Feature[] = [
     description: 'Optimize your listings for Property Finder.',
     icon: <Building />,
     color: '#d946ef', // fuchsia-600
-    cta: 'Create Optimized Listing',
+    cta: 'Create Listing',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
     renderResult: (result, toast) => (
@@ -813,7 +813,7 @@ export const tools: Feature[] = [
     description: 'Craft perfect listings for the Bayut portal.',
     icon: <Building />,
     color: '#22c55e', // green-500
-    cta: 'Create Optimized Listing',
+    cta: 'Create Listing',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
     renderResult: (result, toast) => (
