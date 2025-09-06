@@ -126,7 +126,7 @@ export const tools: Feature[] = [
   // --- META ADS AI SUITE ---
   {
     id: 'meta-ads-copilot',
-    title: 'Meta Auto Pilot (Manager)',
+    title: 'Meta Ads Co-Pilot (Manager)',
     description: 'Your dedicated agent for Facebook & Instagram ads.',
     icon: <Bot />,
     color: '#1d4ed8', // blue-700
@@ -335,8 +335,48 @@ export const tools: Feature[] = [
     cta: 'Social Post',
     categories: ['Marketing', 'Social & Comms', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
-    creationFields: [],
-    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+    renderResult: (result, toast) => (
+      <div className="space-y-8">
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Weekly Post Plan</h3>
+          <div className="space-y-4">
+            {result.posts.map((post: any, index: number) => (
+              <div key={index} className="p-4 bg-muted/50 rounded-lg border">
+                <p className="font-bold text-foreground mb-1">{post.day}</p>
+                <p className="text-foreground/80 whitespace-pre-wrap">{post.postContent}</p>
+                <p className="text-sm italic text-muted-foreground mt-2">
+                  <span className="font-semibold not-italic">Image Suggestion:</span> {post.imageSuggestion}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <Separator />
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Hashtag Strategy</h3>
+          <div className="space-y-2">
+            <div>
+              <p className="font-semibold">Primary Hashtags (Broad Reach)</p>
+              <p className="text-sm text-muted-foreground">{result.hashtagStrategy.primary.join(' ')}</p>
+            </div>
+             <div>
+              <p className="font-semibold">Secondary Hashtags (Niche Targeting)</p>
+              <p className="text-sm text-muted-foreground">{result.hashtagStrategy.secondary.join(' ')}</p>
+            </div>
+             <div>
+              <p className="font-semibold">Location Hashtags (Local Dominance)</p>
+              <p className="text-sm text-muted-foreground">{result.hashtagStrategy.location.join(' ')}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] },
+    creationFields: [
+      { id: 'source', name: 'Topic or URL', type: 'text', placeholder: 'e.g., "The benefits of buying a new build property"', description: 'The core idea for your week of content.' },
+      { id: 'platform', name: 'Platform', type: 'text', value: 'Instagram', description: 'The social media platform.', hidden: true },
+      { id: 'tone', name: 'Tone', type: 'select', options: ['Professional', 'Friendly', 'Exciting', 'Educational', 'Humorous'], placeholder: 'Select a tone', description: 'The desired tone for the posts.' },
+    ],
   },
   {
     id: 'story-planner-ai',
