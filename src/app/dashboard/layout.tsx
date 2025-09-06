@@ -13,6 +13,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarInput,
+  SidebarInset,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
