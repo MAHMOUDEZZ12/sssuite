@@ -10,6 +10,14 @@ import { matchInvestors } from '@/ai/flows/match-investors';
 import { aiBrandCreator } from '@/ai/flows/ai-brand-creator';
 import { generateMarketReport } from '@/ai/flows/generate-market-report';
 import { generateListing } from '@/ai/flows/generate-listing';
+import { generateStory } from '@/ai/flows/generate-story';
+import { generateReel } from '@/ai/flows/generate-reel';
+import { generateTikTokVideo } from '@/ai/flows/generate-tiktok-video';
+import { getCrmMemory } from '@/ai/flows/get-crm-memory';
+import { manageSocialPage } from '@/ai/flows/manage-social-page';
+import { generateMultiOffer } from '@/ai/flows/generate-multi-offer';
+import { createEmailCampaign } from '@/ai/flows/create-email-campaign';
+import { manageWhatsAppCampaign } from '@/ai/flows/manage-whatsapp-campaign';
 
 
 // Import the client-safe tools definition
@@ -28,6 +36,14 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'market-reports': generateMarketReport,
     'property-finder-listing-ai': generateListing,
     'bayut-listing-ai': generateListing,
+    'story-designer': generateStory,
+    'reel-designer': generateReel,
+    'tiktok-editor': generateTikTokVideo,
+    'crm-assistant': getCrmMemory,
+    'page-admin': manageSocialPage,
+    'offer-generator': generateMultiOffer,
+    'email-creator': createEmailCampaign,
+    'whatsapp-campaigns': manageWhatsAppCampaign,
     // Note: Tools without a flowRunner will not be executable from the generic tool page.
     // They might be handled by custom pages or are for display only.
 };
