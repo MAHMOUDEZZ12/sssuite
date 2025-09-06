@@ -14,6 +14,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarInset,
+  SidebarInput,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -36,6 +37,7 @@ import {
   LifeBuoy,
   ChevronRight,
   UserPlus,
+  Search,
 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { tools } from '@/lib/tools-client.tsx';
@@ -97,6 +99,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const [searchTerm, setSearchTerm] = React.useState('');
+
+  const filteredMarketingTools = marketingTools.filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredCreativeTools = creativeTools.filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredSalesTools = salesTools.filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredCoreIntelTools = coreIntelTools.filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <SidebarProvider>
@@ -106,6 +114,15 @@ export default function DashboardLayout({
         </SidebarHeader>
         <SidebarContent>
           <div className="flex flex-col gap-2 p-2">
+            <div className="relative group-data-[collapsible=icon]:hidden">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <SidebarInput 
+                placeholder="Search tools..." 
+                className="pl-8" 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
               <SidebarMenu>
                 <SidebarMenuItem>
                   <Link href="/dashboard">
@@ -149,10 +166,10 @@ export default function DashboardLayout({
                 </SidebarMenuItem>
               </SidebarMenu>
               <Separator />
-            <SidebarMenuGroup title="Marketing Tools" icon={<Megaphone/>} tools={marketingTools} />
-            <SidebarMenuGroup title="Creative Suite" icon={<Brush />} tools={creativeTools} />
-            <SidebarMenuGroup title="Sales Enablement" icon={<Users2 />} tools={salesTools} />
-             <SidebarMenuGroup title="Core Intelligence" icon={<BrainCircuit />} tools={coreIntelTools} />
+            {filteredMarketingTools.length > 0 && <SidebarMenuGroup title="Marketing Tools" icon={<Megaphone/>} tools={filteredMarketingTools} />}
+            {filteredCreativeTools.length > 0 && <SidebarMenuGroup title="Creative Suite" icon={<Brush />} tools={filteredCreativeTools} />}
+            {filteredSalesTools.length > 0 && <SidebarMenuGroup title="Sales Enablement" icon={<Users2 />} tools={filteredSalesTools} />}
+            {filteredCoreIntelTools.length > 0 && <SidebarMenuGroup title="Core Intelligence" icon={<BrainCircuit />} tools={filteredCoreIntelTools} />}
           </div>
         </SidebarContent>
         <SidebarFooter>
@@ -215,10 +232,7 @@ export default function DashboardLayout({
       <div className="flex-1 flex flex-col">
         <DashboardHeader />
         {children}
-        <AssistantChat />
       </div>
     </SidebarProvider>
   );
 }
-
-    

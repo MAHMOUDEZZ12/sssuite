@@ -12,6 +12,7 @@ import { tools } from '@/lib/tools-client';
 import { DashboardServiceCard } from '@/components/ui/dashboard-service-card';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
+import { Home } from 'lucide-react';
 
 export default function DashboardPage() {
 
@@ -20,7 +21,7 @@ export default function DashboardPage() {
        <PageHeader
         title="Welcome to Gemin"
         description="This is your intelligent ground. Select a service to begin."
-        icon={<PlusCircle className="h-8 w-8" />}
+        icon={<Home className="h-8 w-8" />}
       />
 
         <div>
