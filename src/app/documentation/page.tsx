@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Code, GitBranch, Cpu, Component, Wind, BrainCircuit, Network } from 'lucide-react';
 import { tools } from '@/lib/tools-client';
 import { Badge } from '@/components/ui/badge';
+import { CodeBlock } from '@/components/code-block';
+import { PageHeader } from '@/components/ui/page-header';
 
 
 const technologies = [
@@ -26,12 +28,6 @@ const technologies = [
     icon: <BrainCircuit className="h-8 w-8" />,
   },
 ];
-
-const CodeBlock = ({ children }: { children: React.ReactNode }) => (
-    <pre className="bg-gray-800/50 text-white p-4 rounded-lg text-sm overflow-x-auto">
-      <code>{children}</code>
-    </pre>
-);
 
 const SchemaDisplay = ({ schema }: { schema: any }) => {
     if (!schema) {
@@ -58,16 +54,13 @@ export default function DocumentationPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
       <main className="flex-1 w-full max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
-            Suite Documentation
-          </h1>
-          <p className="text-lg md:text-xl text-foreground/60 max-w-3xl mx-auto">
-            A technical overview of the technologies and AI flows that power the Super Seller Suite.
-          </p>
-        </div>
+         <PageHeader 
+            icon={<GitBranch className="h-8 w-8" />}
+            title="Suite Documentation"
+            description="A technical overview of the technologies and AI flows that power the Super Seller Suite."
+        />
 
-        <section className="mb-20">
+        <section className="my-16">
           <h2 className="text-3xl font-bold mb-8 text-center">Technology Stack</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {technologies.map((tech) => (

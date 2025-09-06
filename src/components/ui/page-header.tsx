@@ -13,12 +13,12 @@ export function PageHeader({ title, description, icon, children }: PageHeaderPro
   return (
     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <div className="flex items-center gap-4">
-        <div className="p-3 bg-primary/10 text-primary rounded-lg w-fit">
+        <div className="p-3 bg-primary/10 text-primary rounded-lg w-fit shrink-0">
           {icon}
         </div>
         <div>
           <h2 className="text-3xl font-bold tracking-tight">{title}</h2>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground max-w-2xl">
             {description}
           </p>
         </div>
@@ -27,4 +27,3 @@ export function PageHeader({ title, description, icon, children }: PageHeaderPro
     </div>
   );
 }
-
