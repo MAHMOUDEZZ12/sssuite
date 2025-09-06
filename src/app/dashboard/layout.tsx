@@ -195,12 +195,6 @@ export default function DashboardLayout({
               />
               <AvatarFallback>U</AvatarFallback>
             </Avatar>
-            <div className="flex flex-col group-data-[collapsible=icon]:hidden">
-              <p className="text-sm font-medium text-foreground">Current User</p>
-              <p className="text-xs text-muted-foreground">
-                user@example.com
-              </p>
-            </div>
           </div>
         </SidebarFooter>
       </Sidebar>

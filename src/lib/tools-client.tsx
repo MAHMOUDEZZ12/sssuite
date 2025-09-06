@@ -1021,40 +1021,6 @@ export const tools: Feature[] = [
     ],
   },
   {
-    id: 'instagram-bot',
-    title: 'Instagram Chat Bot',
-    description: 'DMs handled 24/7.',
-    icon: <Bot />,
-    color: '#f43f5e', // rose-500
-    cta: 'Chat Bot',
-    categories: ['Sales Tools', 'Social & Comms', 'Lead Gen'],
-    mindMapCategory: 'Sales Enablement',
-    details: {
-      steps: [
-        { text: 'Connect your Instagram account securely', icon: <LinkIcon className="h-6 w-6" /> },
-        { text: 'Provide FAQs about your listings/services', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'The bot starts managing your DMs instantly', icon: <Sparkles className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Response Time', manual: 'Can take hours, leads go cold', ai: 'Instant, 24/7 engagement', icon: <Clock2 /> },
-        { metric: 'Lead Qualification', manual: 'Forgets to ask key questions', ai: 'Asks qualifying questions every time', icon: <Sparkles /> },
-        { metric: 'After-Hours Coverage', manual: 'No coverage, missed opportunities', ai: 'Always on, capturing leads while you sleep', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "AI Story Designer", benefit: "Run a story with a 'DM for info' poll, and let the chatbot handle all the incoming inquiries automatically." },
-        { tool: "CRM Memory", benefit: "When the chatbot identifies a hot lead, it can automatically create a new contact in your CRM with the conversation summary." }
-      ],
-       faqs: [
-        { question: "Is this against Instagram's terms of service?", answer: "No, this tool uses the official Instagram Messaging API. It operates within their guidelines and is completely safe for your account." },
-        { question: "Can the bot understand typos and slang?", answer: "Yes, the AI is designed to understand the nuances of human conversation, including common typos and informal language, ensuring a smooth experience for your clients." },
-        { question: "When does it hand over a conversation to me?", answer: "You can set custom rules. The bot can hand over the conversation if it doesn't know the answer, if the user asks to speak to a human, or if it detects high-intent language like 'I want to make an offer.'" }
-      ],
-    },
-    creationFields: [
-      { id: 'connect', name: 'Connect Instagram', type: 'button', cta: 'Connect Instagram Account', description: 'Authorize the AI to manage your DMs.' },
-    ],
-  },
-  {
     id: 'whatsapp-campaigns',
     title: 'WhatsApp Manager',
     description: 'Personalized broadcasts + drips.',
