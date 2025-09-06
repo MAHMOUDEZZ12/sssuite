@@ -78,8 +78,12 @@ export default function ToolPage() {
 
   React.useEffect(() => {
     const currentTool = clientTools.find((t) => t.id === toolId);
-    setTool(currentTool);
-  }, [toolId]);
+    if (currentTool?.isPage) {
+        router.push(`/dashboard/tool/${currentTool.id}`);
+    } else {
+        setTool(currentTool);
+    }
+  }, [toolId, router]);
 
   const schema = React.useMemo(() => getToolSchema(tool), [tool]);
 

@@ -31,15 +31,18 @@ import {
   Search,
 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import { tools } from '@/lib/tools-client.tsx';
+import { tools as allTools } from '@/lib/tools-client.tsx';
 import { AssistantChat } from '@/components/assistant-chat';
 import { usePathname } from 'next/navigation';
 import { DashboardHeader } from '@/components/dashboard-header';
 
-const marketingTools = tools.filter(t => t.mindMapCategory === 'Marketing');
-const creativeTools = tools.filter(t => t.mindMapCategory === 'Creative Suite');
-const salesTools = tools.filter(t => t.mindMapCategory === 'Sales Enablement');
-const coreIntelTools = tools.filter(t => t.mindMapCategory === 'Core Intelligence');
+const marketingTools = allTools.filter(t => t.mindMapCategory === 'Marketing');
+const creativeTools = allTools.filter(t => t.mindMapCategory === 'Creative Suite');
+const salesTools = allTools.filter(t => t.mindMapCategory === 'Sales Enablement');
+const coreIntelTools = allTools.filter(t => t.mindMapCategory === 'Core Intelligence');
+
+// Exclude tools that have their own page from the generic tool link
+const tools = allTools.filter(t => !t.isPage);
 
 
 const SidebarMenuGroup = ({
@@ -49,7 +52,7 @@ const SidebarMenuGroup = ({
 }: {
   title: string;
   icon: React.ReactNode;
-  tools: { id: string; title: string; icon: React.ReactNode }[];
+  tools: { id: string; title: string; icon: React.ReactNode, isPage?: boolean }[];
 }) => {
     const pathname = usePathname();
     const isActive = tools.some(tool => pathname.endsWith(tool.id));

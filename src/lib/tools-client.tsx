@@ -94,6 +94,7 @@ export type Feature = {
   categories: FilterCategory[];
   mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal';
   badge?: 'NEW' | 'BETA' | 'SOON';
+  isPage?: boolean;
   details: {
     steps: { text: string; icon: React.ReactElement }[];
     aiVsManual: {
@@ -260,7 +261,7 @@ export const tools: Feature[] = [
       { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of condo fees waived."', description: 'Add any other key details or offers. (Optional)' },
     ],
   },
-    {
+  {
     id: 'meta-ads-copilot',
     title: 'Meta Ads AI Co-Pilot',
     description: 'Your dedicated agent for Facebook & Instagram ads.',
@@ -269,7 +270,8 @@ export const tools: Feature[] = [
     cta: 'Ad Campaign',
     categories: ['Marketing', 'Ads', 'Lead Gen'],
     mindMapCategory: 'Marketing',
-    badge: 'SOON',
+    badge: 'NEW',
+    isPage: true,
     details: {
       steps: [
           { text: 'Connect your Meta Business account', icon: <LinkIcon className="h-6 w-6" /> },
@@ -291,9 +293,7 @@ export const tools: Feature[] = [
         { question: "When will this be available?", answer: "This feature is currently under active development and is on our short-term roadmap. Stay tuned for updates!" }
       ],
     },
-    creationFields: [
-       { id: 'coming-soon', name: 'Coming Soon!', type: 'group-header', description: 'This tool is under development. It will allow you to manage your Meta Ad campaigns directly with an AI expert.' },
-    ],
+    creationFields: [],
   },
   {
     id: 'targeting',
