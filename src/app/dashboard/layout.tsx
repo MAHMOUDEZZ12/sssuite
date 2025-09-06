@@ -29,6 +29,7 @@ import {
   BrainCircuit,
   ChevronRight,
   Search,
+  Facebook,
 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { tools as allTools } from '@/lib/tools-client.tsx';
@@ -40,6 +41,7 @@ const marketingTools = allTools.filter(t => t.mindMapCategory === 'Marketing');
 const creativeTools = allTools.filter(t => t.mindMapCategory === 'Creative Suite');
 const salesTools = allTools.filter(t => t.mindMapCategory === 'Sales Enablement');
 const coreIntelTools = allTools.filter(t => t.mindMapCategory === 'Core Intelligence');
+const metaAdsTools = allTools.filter(t => t.mindMapCategory === 'Meta Ads AI Suite');
 
 // Exclude tools that have their own page from the generic tool link
 const tools = allTools.filter(t => !t.isPage);
@@ -72,7 +74,7 @@ const SidebarMenuGroup = ({
           <SidebarMenu className="pl-4 py-2 group-data-[collapsible=icon]:pl-0 group-data-[collapsible=icon]:py-0">
             {tools.map((tool) => (
               <SidebarMenuItem key={tool.id}>
-                <Link href={`/dashboard/tool/${tool.id}`}>
+                <Link href={tool.isPage ? `/dashboard/tool/${tool.id}` : `/dashboard/tool/${tool.id}`}>
                   <SidebarMenuButton isActive={pathname.endsWith(tool.id)} tooltip={{ children: tool.title }}>
                       {tool.icon}
                       <span className="group-data-[collapsible=icon]:hidden">{tool.title}</span>
@@ -99,6 +101,7 @@ export default function DashboardLayout({
   const filteredCreativeTools = creativeTools.filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()));
   const filteredSalesTools = salesTools.filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()));
   const filteredCoreIntelTools = coreIntelTools.filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredMetaAdsTools = metaAdsTools.filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <SidebarProvider>
@@ -136,7 +139,8 @@ export default function DashboardLayout({
                 </SidebarMenuItem>
               </SidebarMenu>
               <Separator />
-            {filteredMarketingTools.length > 0 && <SidebarMenuGroup title="Marketing Tools" icon={<Megaphone/>} tools={filteredMarketingTools} />}
+            {filteredMetaAdsTools.length > 0 && <SidebarMenuGroup title="Meta Ads AI Suite" icon={<Facebook/>} tools={filteredMetaAdsTools} />}
+            {filteredMarketingTools.length > 0 && <SidebarMenuGroup title="General Marketing" icon={<Megaphone/>} tools={filteredMarketingTools} />}
             {filteredCreativeTools.length > 0 && <SidebarMenuGroup title="Creative Suite" icon={<Brush />} tools={filteredCreativeTools} />}
             {filteredSalesTools.length > 0 && <SidebarMenuGroup title="Sales Enablement" icon={<Users2 />} tools={filteredSalesTools} />}
             {filteredCoreIntelTools.length > 0 && <SidebarMenuGroup title="Core Intelligence" icon={<BrainCircuit />} tools={filteredCoreIntelTools} />}

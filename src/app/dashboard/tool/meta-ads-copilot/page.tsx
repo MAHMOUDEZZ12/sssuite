@@ -80,14 +80,15 @@ const mockAnalyticsData = [
 type Campaign = typeof initialMockCampaigns[0];
 
 const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaignOutput, toast: any, onPublish: (campaign: Campaign) => void }) => {
-    const totalBudget = result.adSets.reduce((sum, adSet) => sum + adSet.dailyBudget, 0) * (result.adSets.length > 0 ? (formSchema.parse(useForm<FormData>().getValues()).durationDays || 1) : 1);
-
+    const { getValues } = useForm<FormData>();
+    const formData = getValues();
+    
     const handlePublish = () => {
         const newCampaign: Campaign = {
             id: Date.now(),
             name: result.campaignName,
             objective: result.campaignObjective,
-            budget: Number(formSchema.parse(useForm<FormData>().getValues()).budget),
+            budget: Number(formData.budget),
             status: "Active",
         };
         onPublish(newCampaign);
@@ -182,9 +183,10 @@ export default function MetaAdsCopilotPage() {
   const [campaigns, setCampaigns] = useState<Campaign[]>(initialMockCampaigns);
   const [activeTab, setActiveTab] = useState("generator");
 
-  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
+  const { control, handleSubmit, formState: { errors } } = form;
 
   const handleGeneration = async (data: FormData) => {
     setIsLoading(true);
@@ -223,7 +225,7 @@ export default function MetaAdsCopilotPage() {
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
-        title="Meta Ads Manager"
+        title="Meta Ads Co-Pilot (Manager)"
         description="Your dedicated suite for Facebook & Instagram advertising. Define, generate, monitor, and optimize your campaigns."
         icon={<Facebook className="h-8 w-8" />}
       />

@@ -44,6 +44,9 @@ import {
   Wrench,
   Key,
   Facebook,
+  Instagram,
+  BarChart,
+  Hash,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -94,7 +97,7 @@ export type Feature = {
   color: string;
   cta: string;
   categories: FilterCategory[];
-  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal';
+  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal' | 'Meta Ads AI Suite';
   badge?: 'NEW' | 'BETA' | 'SOON';
   isPage?: boolean;
   details: {
@@ -120,93 +123,50 @@ const mockProjects = [
 ];
 
 export const tools: Feature[] = [
+  // --- META ADS AI SUITE ---
   {
-    id: 'ai-brand-creator',
-    title: 'AI Brand Creator',
-    description: "Create your brand onboarding from documents.",
-    icon: <Wrench />,
-    color: '#10b981', // emerald-500
-    cta: 'Brand Kit',
-    categories: ['Sales Tools', 'Creative'],
-    mindMapCategory: 'Core Intelligence',
+    id: 'meta-ads-copilot',
+    title: 'Meta Auto Pilot (Manager)',
+    description: 'Your dedicated agent for Facebook & Instagram ads.',
+    icon: <Bot />,
+    color: '#1d4ed8', // blue-700
+    cta: 'Ad Campaign',
+    categories: ['Marketing', 'Ads', 'Lead Gen'],
+    mindMapCategory: 'Meta Ads AI Suite',
     badge: 'NEW',
+    isPage: true,
     details: {
       steps: [
-        { text: 'Upload documents (brand guide, project lists)', icon: <Upload /> },
-        { text: "Tell the assistant to set up your workspace", icon: <Bot /> },
-        { text: 'The AI configures your brand, projects & more', icon: <Sparkles /> },
+          { text: 'Connect your Meta Business account', icon: <LinkIcon className="h-6 w-6" /> },
+          { text: 'Define your campaign goal and budget', icon: <Target className="h-6 w-6" /> },
+          { text: 'The agent creates, manages, and optimizes the campaign', icon: <Sparkles className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Setup Time', manual: '1-2 hours of manual data entry', ai: 'Under 5 minutes', icon: <Clock2 /> },
-        { metric: 'Accuracy', manual: 'Prone to typos and copy-paste errors', ai: 'Extracts data directly from source documents', icon: <BadgeCheck /> },
-        { metric: 'Completeness', manual: 'Easy to forget details or projects', ai: 'Comprehensive setup from all provided files', icon: <Sparkles /> },
+        { metric: 'Time Investment', manual: '10+ hours per week managing ads', ai: 'Set your goal and let the agent work', icon: <Clock2 /> },
+        { metric: 'Cost & Resources', manual: 'Requires a dedicated ad manager', ai: 'Included in your subscription', icon: <Wallet /> },
+        { metric: 'Optimization', manual: 'Reacts slowly to performance data', ai: 'Optimizes bids and creative in real-time', icon: <LineChart /> },
       ],
       synergy: [
-        { tool: "AI Assistant", benefit: "This tool is a command for the AI assistant, showcasing its ability to perform administrative tasks." },
-        { tool: "Brand Management", benefit: "The extracted brand information automatically populates your Brand Kit." }
+        { tool: "Campaign Builder AI", benefit: "The Co-Pilot can automatically use your best-performing AI-generated ads." },
+        { tool: "CRM Memory", benefit: "Feed campaign performance and lead data directly back into your CRM." }
       ],
-      faqs: [
-        { question: "What kind of documents work best?", answer: "Structured documents like brand guides (PDF), project lists (CSV or PDF), or even a simple Word document with your company details work great. The more structured the data, the better the extraction." },
-        { question: "Will this overwrite my existing settings?", answer: "The AI will present you with the information it has extracted and ask for confirmation before applying any changes to your workspace." },
-        { question: "Is this a one-time thing?", answer: "You can use this tool anytime you have new projects or updated brand information to quickly update your suite's configuration." }
-      ],
-    },
-    creationFields: [
-      { id: 'command', name: 'Command', type: 'text', placeholder: "e.g., Set up my brand and projects from these files.", description: "Tell the AI what you want to do." },
-      { id: 'documents', name: 'Source Documents', type: 'file', multiple: true, description: 'Upload one or more files (PDF, CSV, TXT) for the AI to analyze.' },
-    ],
-  },
-  {
-    id: 'projects-finder',
-    title: 'AI Projects Finder',
-    description: "Discover off-market projects and development opportunities.",
-    icon: <Search />,
-    color: '#fde047', // yellow-300
-    cta: 'Project Report',
-    categories: ['Sales Tools', 'Lead Gen'],
-    mindMapCategory: 'Core Intelligence',
-    badge: 'NEW',
-    details: {
-      steps: [
-        { text: 'Define your target area and criteria', icon: <MapPin /> },
-        { text: 'AI scans public records and news for signals', icon: <BrainCircuit /> },
-        { text: 'Get a report of potential off-market deals', icon: <FileText /> },
-      ],
-      aiVsManual: [
-        { metric: 'Opportunity Sourcing', manual: 'Relies on word-of-mouth and existing network', ai: 'Scans thousands of data points continuously', icon: <Network /> },
-        { metric: 'Time Investment', manual: 'Hours of manual research per week', ai: 'Automated, on-demand reports', icon: <Clock2 /> },
-        { metric: 'Deal Flow', manual: 'Limited and sporadic', ai: 'Consistent, proactive deal sourcing', icon: <Sparkles /> },
-      ],
-      synergy: [
-        { tool: "Investor Matching", benefit: "Once a potential project is found, instantly match it with the right clients from your database." },
-        { tool: "AI Market Reports", benefit: "Generate a detailed market analysis for a newly discovered project to validate its potential." }
-      ],
-      faqs: [
-        { question: "What kind of projects can it find?", answer: "The AI can identify a range of opportunities, from single-lot development potential and fixer-uppers to larger plots suitable for multi-unit construction." },
-        { question: "Where does the AI get its information?", answer: "The AI scans a wide array of public data sources, including permit applications, zoning changes, property records, and local news articles to find signals of potential development or sales." },
-        { question: "Is this information verified?", answer: "The AI provides you with a list of potential leads and the source of the information. It is designed to be a powerful starting point for your own due diligence and outreach." }
+       faqs: [
+        { question: "Is this safe for my ad account?", answer: "Yes, this tool will use the official Meta Business API and operate within all platform guidelines." },
+        { question: "How much control do I have?", answer: "You will have full control. You can set budget caps, approve creative, and pause the campaign at any time. The agent acts as your co-pilot, not an autopilot." },
+        { question: "When will this be available?", answer: "This feature is currently under active development and is on our short-term roadmap. Stay tuned for updates!" }
       ],
     },
-    creationFields: [
-      { id: 'group-filters', name: 'Search Filters', type: 'group-header', description: 'Set your criteria to find relevant projects.'},
-      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Austin, TX" or "Zip code 90210"', description: 'The city, neighborhood, or zip code to search in.' },
-      { id: 'status', name: 'Project Status', type: 'select', options: ["Ready to move", "Under Construction", "New Launch"], placeholder: 'Select a project status', description: 'Filter by the current stage of the project.' },
-      { id: 'developer', name: 'Developer(s) (Optional)', type: 'text', placeholder: 'e.g., "Toll Brothers", "Hines"', description: 'Focus on projects by specific developers.'},
-      { id: 'minPrice', name: 'Min Price', type: 'number', placeholder: 'e.g., 500000', description: 'The minimum price for the project.' },
-      { id: 'maxPrice', name: 'Max Price', type: 'number', placeholder: 'e.g., 2000000', description: 'The maximum price for the project.' },
-      { id: 'setup', name: 'Configure Listing Websites', type: 'button', cta: 'Go to Settings to add Listing Sites', description: 'Add the primary listing websites for your market in the settings for better results.' },
-    ],
+    creationFields: [],
   },
   {
-    id: 'ad-creation',
-    title: 'AI Ad Creator',
-    description: 'Turn any brochure into scroll-stopping ads.',
+    id: 'campaign-builder',
+    title: 'Campaign Builder AI',
+    description: 'Turn any brochure into scroll-stopping campaigns.',
     icon: <Target />,
     color: '#ec4899', // pink-500
     cta: 'Ad',
     categories: ['Marketing', 'Ads'],
-    mindMapCategory: 'Marketing',
-    badge: 'NEW',
+    mindMapCategory: 'Meta Ads AI Suite',
     renderResult: (result, toast) => (
        <div className="space-y-6">
           <div>
@@ -248,8 +208,8 @@ export const tools: Feature[] = [
         { metric: 'Quality & Testing', manual: 'Relies on guesswork, 1-2 variations', ai: 'Data-driven, 5+ variations to test', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "Precision Targeting", benefit: "Ensure your perfect ads are seen by people ready to buy." },
-        { tool: "AI Page Admin", benefit: "Deploy your new ad across social channels to maximize reach." }
+        { tool: "Audience Creator AI", benefit: "Ensure your perfect ads are seen by people ready to buy." },
+        { tool: "Instagram Admin AI", benefit: "Deploy your new ad across social channels to maximize reach." }
       ],
        faqs: [
         { question: "What kind of brochures can I use?", answer: "You can upload almost any standard PDF brochure from a developer or your own marketing materials. The AI is designed to extract key information like floor plans, features, and location." },
@@ -266,48 +226,14 @@ export const tools: Feature[] = [
     ],
   },
   {
-    id: 'meta-ads-copilot',
-    title: 'Meta Ads AI Co-Pilot',
-    description: 'Your dedicated agent for Facebook & Instagram ads.',
-    icon: <Facebook />,
-    color: '#3b82f6', // blue-500
-    cta: 'Ad Campaign',
-    categories: ['Marketing', 'Ads', 'Lead Gen'],
-    mindMapCategory: 'Marketing',
-    badge: 'NEW',
-    isPage: true,
-    details: {
-      steps: [
-          { text: 'Connect your Meta Business account', icon: <LinkIcon className="h-6 w-6" /> },
-          { text: 'Define your campaign goal and budget', icon: <Target className="h-6 w-6" /> },
-          { text: 'The agent creates, manages, and optimizes the campaign', icon: <Sparkles className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Time Investment', manual: '10+ hours per week managing ads', ai: 'Set your goal and let the agent work', icon: <Clock2 /> },
-        { metric: 'Cost & Resources', manual: 'Requires a dedicated ad manager', ai: 'Included in your subscription', icon: <Wallet /> },
-        { metric: 'Optimization', manual: 'Reacts slowly to performance data', ai: 'Optimizes bids and creative in real-time', icon: <LineChart /> },
-      ],
-      synergy: [
-        { tool: "AI Ad Creator", benefit: "The Co-Pilot can automatically use your best-performing AI-generated ads." },
-        { tool: "CRM Memory", benefit: "Feed campaign performance and lead data directly back into your CRM." }
-      ],
-       faqs: [
-        { question: "Is this safe for my ad account?", answer: "Yes, this tool will use the official Meta Business API and operate within all platform guidelines." },
-        { question: "How much control do I have?", answer: "You will have full control. You can set budget caps, approve creative, and pause the campaign at any time. The agent acts as your co-pilot, not an autopilot." },
-        { question: "When will this be available?", answer: "This feature is currently under active development and is on our short-term roadmap. Stay tuned for updates!" }
-      ],
-    },
-    creationFields: [],
-  },
-  {
-    id: 'targeting',
-    title: 'AI Precision Targeting',
+    id: 'audience-creator',
+    title: 'Audience Creator AI',
     description: 'Find high-intent buyers before they search.',
     icon: <Binoculars />,
     color: '#3b82f6', // blue-600
     cta: 'Targeting Profile',
     categories: ['Marketing', 'Lead Gen', 'Ads'],
-    mindMapCategory: 'Marketing',
+    mindMapCategory: 'Meta Ads AI Suite',
     renderResult: (result, toast) => (
       <div>
         <h3 className="font-semibold text-lg mb-2">Suggested Targeting Options</h3>
@@ -329,8 +255,8 @@ export const tools: Feature[] = [
         { metric: 'Budget Efficiency', manual: 'High waste on wrong audiences', ai: 'Optimized ad spend, higher ROI', icon: <Wallet /> },
       ],
       synergy: [
-        { tool: "AI Ad Creator", benefit: "Design the perfect ad for the high-intent audience you\'ve just identified." },
-        { tool: "AI Social Writer", benefit: "Create organic posts that speak directly to the interests of your target persona." }
+        { tool: "Campaign Builder AI", benefit: "Design the perfect ad for the high-intent audience you\'ve just identified." },
+        { tool: "Instagram Content Creator", benefit: "Create organic posts that speak directly to the interests of your target persona." }
       ],
        faqs: [
         { question: "What platforms can I use these audiences on?", answer: "Our targeting suggestions are optimized for major platforms like Facebook, Instagram, and Google Ads. We provide you with the exact interests, demographics, and keywords to input." },
@@ -353,106 +279,103 @@ export const tools: Feature[] = [
     ],
   },
   {
-    id: 'rebranding',
-    title: 'AI Rebranding',
-    description: 'Swap logos, colors, contacts in one click.',
-    icon: <Palette />,
-    color: '#f97316', // orange-600
-    cta: 'Rebranded Brochure',
-    categories: ['Creative', 'Editing'],
-    mindMapCategory: 'Creative Suite',
-    renderResult: (result, toast) => (
-      <div className="space-y-6">
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Rebranded Brochure</h3>
-          <a href={result.rebrandedBrochureDataUri} download="rebranded-brochure.pdf">
-              <Button><Download className="mr-2 h-4 w-4"/>Download PDF</Button>
-          </a>
-        </div>
-        {result.logoDataUri && (
-           <div>
-              <h3 className="font-semibold text-lg mb-2">Generated Logo</h3>
-              <Image src={result.logoDataUri} alt="Generated logo" width={200} height={200} className="rounded-lg border bg-white p-2" />
-           </div>
-        )}
-      </div>
-    ),
-    details: {
-      steps: [
-        { text: 'Upload any developer\'s brochure (PDF)', icon: <Upload className="h-6 w-6" /> },
-        { text: 'The AI applies your saved brand settings', icon: <UserCog className="h-6 w-6" /> },
-        { text: 'Download the rebranded brochure instantly', icon: <FileText className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-         { metric: 'Time to Rebrand', manual: '2-4 hours in design software', ai: 'Fast by default', icon: <Clock2 /> },
-         { metric: 'Required Skill', manual: 'Proficiency in Adobe InDesign/Canva', ai: 'Ability to upload a file', icon: <Sparkles /> },
-         { metric: 'Consistency', manual: 'Prone to human error and typos', ai: 'Perfectly consistent every time', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "AI Ad Creator", benefit: "Use your newly rebranded brochure to power an ad campaign." },
-        { tool: "Landing Page Builder", benefit: "Generate a branded landing page that perfectly matches your rebranded brochure." }
-      ],
-       faqs: [
-        { question: "Will this work with any PDF?", answer: "It works best with text-based PDFs, which are standard for most property brochures. It may be less effective on image-only PDFs or scans." },
-        { question: "What if I don't have a logo?", answer: "No problem. The tool can generate a professional logo for you based on your company name and brand colors, or simply add your name and contact information in a clean format." },
-        { question: "Can it change the text to match my 'brand voice'?", answer: "Yes. You can specify a tone (e.g., 'professional,' 'friendly,' 'luxurious'), and the AI can subtly adjust headings and key phrases to align with your brand's voice." }
-      ],
-    },
-    creationFields: [
-      { id: 'brochureDataUri', name: 'Developer Brochure', type: 'file', description: 'Upload the original PDF.' },
-      { id: 'companyLogoDataUri', name: 'Your Logo', type: 'file', description: 'Upload your personal or company logo (PNG, JPG). Optional.' },
-      { id: 'companyName', name: 'Company Name', type: 'text', placeholder: 'Your company name', description: 'Used for branding and generating a logo if needed.' },
-      { id: 'contactDetails', name: 'Contact Details', type: 'textarea', placeholder: 'Your Name\nYour Phone\nYour Email', description: 'The contact info to place in the brochure.' },
-      { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Luxury', 'Modern'], placeholder: 'Select a tone', description: 'The tone to use for any generated text.' },
-      { id: 'colors', name: 'Colors', type: 'text', placeholder: 'e.g., "Blue and Gold"', description: 'The color scheme to use for rebranding.' },
-    ],
+    id: 'insta-ads-designer',
+    title: 'Insta Ads Designer AI',
+    description: 'Create perfect ads for Instagram Stories & Feed.',
+    icon: <Instagram />,
+    color: '#c026d3',
+    cta: 'Instagram Ad',
+    categories: ['Ads', 'Creative', 'Social & Comms'],
+    mindMapCategory: 'Meta Ads AI Suite',
+    creationFields: [],
+    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
   },
-   {
-    id: 'pdf-editor',
-    title: 'AI PDF Editor',
-    description: 'Edit text, images, and layout with prompts.',
-    icon: <PenTool />,
-    color: '#eab308', // yellow-500
-    cta: 'Edited PDF',
-    categories: ['Creative', 'Editing'],
-    mindMapCategory: 'Creative Suite',
-    renderResult: (result, toast) => (
-      <div className="space-y-6">
-        <div>
-            <h3 className="font-semibold text-lg mb-2">Edited PDF</h3>
-            <a href={result.editedPdfDataUri} download="edited.pdf">
-                <Button><Download className="mr-2 h-4 w-4"/>Download Edited PDF</Button>
-            </a>
-        </div>
-    </div>
-    ),
-    details: {
-      steps: [
-        { text: 'Upload your PDF document', icon: <Upload className="h-6 w-6" /> },
-        { text: 'Tell the AI what to change in plain English', icon: <MessageCircle className="h-6 w-6" /> },
-        { text: 'Download your edited PDF instantly', icon: <FileText className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-         { metric: 'Time to Edit', manual: 'Hours finding source files or using clunky editors', ai: 'Fast by default', icon: <Clock2 /> },
-         { metric: 'Software Cost', manual: 'Requires expensive Acrobat Pro subscription', ai: 'Included in your suite', icon: <Wallet /> },
-         { metric: 'Ease of Use', manual: 'Complex tools and formatting issues', ai: 'As easy as sending a text message', icon: <Sparkles /> },
-      ],
-      synergy: [
-        { tool: "AI Rebranding", benefit: "After rebranding a brochure, use the editor to make final tweaks to pricing or contact info." },
-        { tool: "Listing Generator", benefit: "Generate a new listing description and then use the editor to paste it into your existing brochure." }
-      ],
-       faqs: [
-        { question: "Can it change complex layouts?", answer: "For best results, focus on targeted edits like text, images, and colors. While the AI can make layout adjustments, complex redesigns are better suited for the Landing Page Generator." },
-        { question: "What if the PDF is just an image?", answer: "The AI's OCR (Optical Character Recognition) capabilities can often identify and replace text even in image-based PDFs, but results are best with text-based documents." },
-        { question: "Can it edit a 50-page document?", answer: "Yes, though processing time will increase with the document's length and complexity. For very large documents, it's best to specify the page numbers you want to edit in your instructions." }
-      ],
-    },
-    creationFields: [
-      { id: 'sourcePdf', name: 'Source PDF', type: 'file', description: 'Upload the PDF you want to edit.' },
-      { id: 'editInstructions', name: 'Editing Instructions', type: 'textarea', placeholder: '- Change the main contact name to "Jane Smith".\n- Replace the hero image with the one I uploaded.\n- Update the completion date to "Fall 2025".', description: 'Be specific. The more detailed your command, the better the result.' },
-      { id: 'newImages', name: 'New Images (Optional)', type: 'file', multiple: true, description: 'Only upload images if your instructions refer to them.' },
-    ],
+  {
+    id: 'reel-ads-ai',
+    title: 'Reel Ads AI',
+    description: 'Generate engaging video ads for Instagram Reels.',
+    icon: <Clapperboard />,
+    color: '#7c3aed',
+    cta: 'Reel Ad',
+    categories: ['Ads', 'Creative', 'Social & Comms'],
+    mindMapCategory: 'Meta Ads AI Suite',
+    creationFields: [],
+    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
   },
+  {
+    id: 'facebook-ads-ai',
+    title: 'Facebook Ads AI',
+    description: 'Design effective ads for the Facebook platform.',
+    icon: <Facebook />,
+    color: '#2563eb',
+    cta: 'Facebook Ad',
+    categories: ['Ads', 'Creative', 'Social & Comms'],
+    mindMapCategory: 'Meta Ads AI Suite',
+    creationFields: [],
+    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+  },
+  {
+    id: 'instagram-admin-ai',
+    title: 'Instagram Admin AI',
+    description: 'Schedules posts and handles replies on Instagram.',
+    icon: <UserCog />,
+    color: '#c026d3',
+    cta: 'Instagram Admin',
+    categories: ['Sales Tools', 'Social & Comms'],
+    mindMapCategory: 'Meta Ads AI Suite',
+    creationFields: [],
+    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+  },
+  {
+    id: 'instagram-content-creator',
+    title: 'Instagram Content Creator',
+    description: "Turn one idea into a one-week content plan for Instagram.",
+    icon: <Share2 />,
+    color: '#e11d48',
+    cta: 'Social Post',
+    categories: ['Marketing', 'Social & Comms', 'Ads'],
+    mindMapCategory: 'Meta Ads AI Suite',
+    creationFields: [],
+    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+  },
+  {
+    id: 'story-planner-ai',
+    title: 'Story Planner AI',
+    description: 'Plan and design animated Instagram stories.',
+    icon: <Film />,
+    color: '#a855f7',
+    cta: 'Story',
+    categories: ['Creative', 'Social & Comms'],
+    mindMapCategory: 'Meta Ads AI Suite',
+    creationFields: [],
+    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+  },
+  {
+    id: 'instagram-hashtags-ai',
+    title: 'Instagram Hashtags AI',
+    description: 'Generate a tiered hashtag strategy for any post.',
+    icon: <Hash />,
+    color: '#f97316',
+    cta: 'Hashtag Strategy',
+    categories: ['Marketing', 'Social & Comms', 'Lead Gen'],
+    mindMapCategory: 'Meta Ads AI Suite',
+    creationFields: [],
+    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+  },
+  {
+    id: 'meta-ads-reports',
+    title: 'Meta Ads Reports',
+    description: 'Generate performance reports for your campaigns.',
+    icon: <BarChart />,
+    color: '#f59e0b',
+    cta: 'Ad Report',
+    categories: ['Marketing', 'Ads'],
+    mindMapCategory: 'Meta Ads AI Suite',
+    creationFields: [],
+    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+  },
+   
+  // --- GENERAL MARKETING ---
   {
     id: 'landing-pages',
     title: 'Landing Page Builder',
@@ -498,294 +421,6 @@ export const tools: Feature[] = [
       { id: 'brandingStyle', name: 'Branding Style', type: 'select', options: ["Modern & Minimalist", "Luxury & Elegant", "Cozy & Welcoming", "Bold & Colorful"], placeholder: 'Select a branding style', description: 'Describe the desired look and feel.' },
       { id: 'projectBrochureDataUri', name: 'Project Brochure (Optional)', type: 'file', description: 'Upload a brochure to provide more context.' },
       { id: 'inspirationImageDataUri', name: 'Inspiration Image (Optional)', type: 'file', description: 'Upload a screenshot of a website you like to guide the style.' },
-    ],
-  },
-  {
-    id: 'social-posts',
-    title: 'AI Social Post Strategist',
-    description: "Turn one idea into a one-week content plan.",
-    icon: <Share2 />,
-    color: '#e11d48', // rose-600
-    cta: 'Social Post',
-    categories: ['Marketing', 'Social & Comms', 'Ads'],
-    mindMapCategory: 'Marketing',
-    badge: 'NEW',
-    renderResult: (result, toast) => (
-      <div className="space-y-6">
-          <div>
-            <h3 className="font-semibold text-lg mb-2">Weekly Content Plan</h3>
-            <div className="space-y-4">
-            {result.posts.map((post: any, index: number) => (
-                <div key={index} className="p-4 bg-muted rounded-md relative group border">
-                  <p className="font-bold text-base mb-2">{post.day}</p>
-                  <p className="font-semibold mb-2">Post Text:</p>
-                  <p className="whitespace-pre-wrap text-sm mb-3">{post.postContent}</p>
-                  <p className="font-semibold mb-2">Image Suggestion:</p>
-                  <p className="text-sm italic text-muted-foreground">{post.imageSuggestion}</p>
-                  <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(post.postContent, toast)}><Copy className="h-4 w-4" /></Button>
-                </div>
-            ))}
-            </div>
-          </div>
-          <Separator />
-          <div>
-            <h3 className="font-semibold text-lg mb-2">Hashtag Strategy</h3>
-            <div className="space-y-3">
-              <div>
-                  <h4 className="font-semibold">Primary Hashtags</h4>
-                  <p className="text-sm text-muted-foreground">{result.hashtagStrategy.primary.join(' ')}</p>
-              </div>
-              <div>
-                  <h4 className="font-semibold">Secondary Hashtags</h4>
-                  <p className="text-sm text-muted-foreground">{result.hashtagStrategy.secondary.join(' ')}</p>
-              </div>
-               <div>
-                  <h4 className="font-semibold">Location Hashtags</h4>
-                  <p className="text-sm text-muted-foreground">{result.hashtagStrategy.location.join(' ')}</p>
-              </div>
-            </div>
-        </div>
-      </div>
-    ),
-    details: {
-      steps: [
-        { text: 'Enter a topic, URL, or property address', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Choose your platforms (e.g., FB, IG)', icon: <Share2 className="h-6 w-6" /> },
-        { text: 'Get a week of content with images & hashtags', icon: <FileText className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Content Creation Time', manual: '2-3 hours for a week\'s content', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Creativity', manual: 'Struggles with writer\'s block', ai: 'Generates endless creative angles', icon: <Sparkles /> },
-        { metric: 'Completeness', manual: 'Forgets hashtags or image ideas', ai: 'Includes text, hashtags, and visuals', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "AI Page Admin", benefit: "Automatically schedule your newly generated posts for maximum engagement." },
-        { tool: "Landing Page Builder", benefit: "Create a page for a new listing and then use this tool to generate promotional posts for it." }
-      ],
-       faqs: [
-        { question: "What kind of topics work best?", answer: "You can use local market news, articles about home improvement, community events, or even just a property address. The more specific the source, the more tailored the content." },
-        { question: "Can it generate an email newsletter?", answer: "Yes! You can specify 'Email Newsletter' as a platform, and the AI will generate subject lines, engaging body copy, and clear calls-to-action suitable for an email campaign." },
-        { question: "Can I review the posts before they are published?", answer: "Of course. The AI generates the posts and saves them as drafts. You have full editorial control to review, edit, and approve every post before it goes live." }
-      ],
-    },
-    creationFields: [
-      { id: 'source', name: 'Content Source', type: 'text', placeholder: 'Paste a URL or type a topic, e.g., "Market update for downtown"', description: 'The AI will use this as inspiration.' },
-      { id: 'platform', name: 'Platform', type: 'select', options: ['Facebook', 'Instagram', 'LinkedIn', 'X (Twitter)', 'Email Newsletter'], placeholder: 'Select a platform', description: 'Tailor the posts for specific platforms.' },
-      { id: 'tone', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Urgent', 'Humorous', 'Informative'], placeholder: 'Select a tone', description: 'Set the mood for your posts.' },
-    ],
-  },
-  {
-    id: 'story-designer',
-    title: 'AI Story Designer',
-    description: 'Animated stories, auto-branded.',
-    icon: <Film />,
-    color: '#a855f7', // fuchsia-500
-    cta: 'Story',
-    categories: ['Creative', 'Social & Comms'],
-    mindMapCategory: 'Creative Suite',
-    details: {
-      steps: [
-        { text: 'Select your project to use its photos', icon: <Briefcase className="h-6 w-6" /> },
-        { text: 'Choose a vibe (e.g., "Modern", "Luxury")', icon: <Palette className="h-6 w-6" /> },
-        { text: 'Generate multiple story variants to post', icon: <Clapperboard className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-         { metric: 'Design Time', manual: '15-30 minutes per story in Canva', ai: 'Fast by default', icon: <Clock2 /> },
-         { metric: 'Design Skill', manual: 'Requires a good eye for design', ai: 'Professional designs, automatically', icon: <Sparkles /> },
-         { metric: 'Visual Appeal', manual: 'Static templates', ai: 'Dynamic animations & trending effects', icon: <Sparkles /> },
-      ],
-      synergy: [
-        { tool: "AI Social Writer", benefit: "Get caption ideas for your story to make it even more engaging." },
-        { tool: "AI Page Admin", benefit: "Schedule your new story to post at the perfect time for maximum views." }
-      ],
-       faqs: [
-        { question: "Can I add music?", answer: "Yes. The AI suggests royalty-free music that matches the 'vibe' you select. You can also upload your own audio tracks." },
-        { question: "Is my branding automatically added?", answer: "Yes, once you set up your brand kit with your logo and colors, the AI automatically incorporates them into every story design." },
-        { question: "Can I customize the text and images?", answer: "Absolutely. The AI provides a finished product as a starting point. You have full control to edit the text, swap out images, and change the animations." }
-      ],
-    },
-    creationFields: [
-      { id: 'project', name: 'Select Project', type: 'select', options: mockProjects, placeholder: 'Choose a project', description: 'The AI will use the photos from this project.' },
-      { id: 'vibe', name: 'Story Vibe', type: 'select', options: ['Upbeat & Modern', 'Elegant & Luxurious', 'Cozy & Warm', 'Dramatic & Cinematic'], placeholder: 'Select a vibe', description: 'This influences music, text, and effects.' },
-      { id: 'callToAction', name: 'Call to Action', type: 'select', options: ["Swipe Up for Tour", "DM for Info", "See Link in Bio", "New Listing Alert!", "Save This Post"], placeholder: 'Select a call to action', description: 'The final text prompt for viewers.' },
-    ],
-  },
-  {
-    id: 'reel-designer',
-    title: 'AI Reel Designer',
-    description: 'Reels from photos + auto-captions.',
-    icon: <Clapperboard />,
-    color: '#8b5cf6', // violet-500
-    cta: 'Reel',
-    categories: ['Creative', 'Social & Comms', 'Editing'],
-    mindMapCategory: 'Creative Suite',
-    details: {
-      steps: [
-        { text: 'Select a project to use its media', icon: <Briefcase className="h-6 w-6" /> },
-        { text: 'Provide key selling points as text', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Get a polished reel synced to trending audio', icon: <Sparkles className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Editing Time', manual: 'Hours of complex timeline editing', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Audio', manual: 'Difficult to find trending audio', ai: 'Synced automatically to licensed audio', icon: <Sparkles /> },
-        { metric: 'Pacing & Effects', manual: 'Hard to get right', ai: 'Intelligently paced with effects', icon: <Sparkles /> },
-      ],
-      synergy: [
-        { tool: "AI Ad Creator", benefit: "Promote your final reel with a targeted ad campaign to reach thousands." },
-        { tool: "AI Page Admin", benefit: "Share your reel with the Page Admin for automatic posting at peak times." }
-      ],
-       faqs: [
-        { question: "Does the AI choose the music?", answer: "Yes, the AI analyzes your footage and selects from a library of trending, commercially-licensed audio tracks that match the 'vibe' you select." },
-        { question: "What if I only have a few photos?", answer: "That's fine! The AI is skilled at creating dynamic videos even with a small number of assets by using effects like zooms and pans to make static images feel alive." },
-        { question: "Can it add captions automatically?", answer: "Yes. The AI can automatically generate and sync captions (subtitles) for any voiceover or spoken audio in your video, making it more accessible and engaging." }
-      ],
-    },
-    creationFields: [
-      { id: 'project', name: 'Select Project', type: 'select', options: mockProjects, placeholder: 'Choose a project', description: 'The AI will use the photos and video clips from this project.' },
-      { id: 'sellingPoints', name: 'Key Selling Points', type: 'textarea', placeholder: '- Breathtaking ocean views\n- Newly renovated kitchen\n- 5 minutes from the beach', description: 'Use bullet points for text overlays in the video.' },
-      { id: 'vibe', name: 'Reel Vibe', type: 'select', options: ['High-Energy & Fast', 'Cinematic & Slow', 'Relaxing & Calm', 'Modern & Edgy'], placeholder: 'Select a vibe', description: 'This influences the music and editing style.' },
-    ],
-  },
-    {
-    id: 'tiktok-editor',
-    title: 'TikTok Editor',
-    description: 'On-trend clips ready to post.',
-    icon: <Video />,
-    color: '#dc2626', // red-600
-    cta: 'TikTok',
-    categories: ['Creative', 'Social & Comms', 'Editing'],
-    mindMapCategory: 'Creative Suite',
-    details: {
-      steps: [
-        { text: 'Select a project to use its media', icon: <Briefcase className="h-6 w-6" /> },
-        { text: 'Pick a trending TikTok sound or vibe', icon: <Sparkles className="h-6 w-6" /> },
-        { text: 'Generate a fast-paced, engaging video', icon: <Sparkles className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Editing Time', manual: '1-2 hours syncing clips to audio', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Trend Analysis', manual: 'Hours scrolling to find trends', ai: 'Identifies trending audio for you', icon: <Sparkles /> },
-        { metric: 'Visual Effects', manual: 'Complex editing software needed', ai: 'Applies popular effects automatically', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "AI Social Leads", benefit: "Use your viral TikTok to drive traffic and capture leads directly from the platform." },
-        { tool: "AI Page Admin", benefit: "Schedule your new TikTok to post at the optimal time for maximum visibility and engagement." }
-      ],
-       faqs: [
-        { question: "Does the AI suggest what's currently trending on TikTok?", answer: "Yes, our AI constantly analyzes TikTok trends and can suggest popular sounds, effects, and video formats to increase your chances of going viral." },
-        { question: "Can I add my own branding?", answer: "Absolutely. You can add your logo as a watermark and ensure the video aligns with your brand's color scheme." },
-        { question: "Is the generated video ready to post?", answer: "Yes, the video is generated in the correct vertical aspect ratio (9:16) and is optimized for the TikTok platform. You can download and upload it directly." }
-      ],
-    },
-    creationFields: [
-      { id: 'project', name: 'Select Project', type: 'select', options: mockProjects, placeholder: 'Choose a project', description: 'The AI will use the visual assets from this project.' },
-      { id: 'sound', name: 'Sound or Vibe', type: 'select', options: ['Upbeat Dance Transition', 'Cinematic Reveal Audio', 'Funny Voiceover Meme', 'Trending Pop Song'], placeholder: 'Select a sound style', description: 'The AI will find or match the audio.' },
-      { id: 'textOverlays', name: 'Text Overlays', type: 'textarea', placeholder: '- POV: You found your dream home\n- Wait for the kitchen reveal!', description: 'Add engaging text to your video.' },
-    ],
-  },
-  {
-    id: 'page-admin',
-    title: 'AI Page Admin',
-    description: 'Schedules posts and handles replies.',
-    icon: <UserCog />,
-    color: '#0891b2', // cyan-600
-    cta: 'Page Admin',
-    categories: ['Sales Tools', 'Social & Comms'],
-    mindMapCategory: 'Sales Enablement',
-    badge: 'NEW',
-    details: {
-      steps: [
-        { text: 'Connect your Facebook & Instagram pages', icon: <Network className="h-6 w-6" /> },
-        { text: 'Set your response preferences & FAQs', icon: <UserCog className="h-6 w-6" /> },
-        { text: 'Let the AI handle scheduling and replies 24/7', icon: <Clock className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Weekly Time Spent', manual: '5-10 hours managing pages', ai: 'Minutes to review suggestions', icon: <Clock2 /> },
-        { metric: 'Response Time', manual: 'Hours, misses messages overnight', ai: 'Instant, 24/7 responsiveness', icon: <MessageCircle /> },
-        { metric: 'Lead Capture', manual: 'Inconsistent, easy to miss', ai: 'Flags high-intent leads automatically', icon: <Sparkles /> },
-      ],
-      synergy: [
-        { tool: "AI Social Writer", benefit: "Create a fully automated content pipeline from idea to publication." },
-        { tool: "CRM Memory", benefit: "When the AI flags a high-intent lead, automatically add them to your CRM with all known details." }
-      ],
-       faqs: [
-        { question: "Can the AI answer complex questions?", answer: "The AI is trained to handle common, factual questions (price, square footage, open house times). For complex or nuanced inquiries, it will intelligently flag the conversation and notify you for personal review." },
-        { question: "Can it handle post scheduling?", answer: "Yes, you can approve generated content and the AI will schedule it for optimal posting times based on your audience's activity." },
-        { question: "Will it post without my approval?", answer: "You have full control. You can set the AI to be fully autonomous, or have it queue up all posts in a 'drafts' folder for you to approve with one click." }
-      ],
-    },
-    creationFields: [
-       { id: 'connect', name: 'Connect Accounts', type: 'button', cta: 'Connect Facebook & Instagram', description: 'Authorize the AI to manage your pages.' },
-    ],
-  },
-  {
-    id: 'crm-assistant',
-    title: 'CRM Memory',
-    description: 'Remembers every client detail.',
-    icon: <Database />,
-    color: '#0d9488', // teal-600
-    cta: 'Client Record',
-    categories: ['Sales Tools', 'Lead Gen'],
-    mindMapCategory: 'Sales Enablement',
-    details: {
-      steps: [
-        { text: 'Connect your contacts or calendar', icon: <Network className="h-6 w-6" /> },
-        { text: 'Ask about any client (e.g., "What did I promise Jane?")', icon: <Search className="h-6 w-6" /> },
-        { text: 'Get instant summaries, reminders, and insights', icon: <FileText className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Recall Speed', manual: 'Minutes searching notes/emails', ai: 'Instantaneous', icon: <Clock2 /> },
-        { metric: 'Data Points', manual: 'Relies on what you remember to write down', ai: 'Catches every detail from calls, emails, texts', icon: <Sparkles /> },
-        { metric: 'Proactive Reminders', manual: 'You have to set them yourself', ai: 'Nudges you about birthdays, follow-ups', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "AI Sales Dialer", benefit: "Get a full client brief from the assistant moments before the AI places the call." },
-        { tool: "Investor Matching", benefit: "The assistant can proactively suggest which clients are a perfect match for a new investment property." }
-      ],
-       faqs: [
-        { question: "Where does the AI get its information?", answer: "The assistant securely integrates with your approved sources, like your Google/Outlook calendar, email, and call logs. All data is kept private and is not used for training other models." },
-        { question: "Can it summarize an entire call?", answer: "Yes. After you finish a phone call, the assistant can provide a concise summary, pull out action items, and update the client's record automatically." },
-        { question: "Is my client data secure?", answer: "Absolutely. Security is our top priority. All data is encrypted and stored in isolation. Your data is your own and is never shared or viewed." }
-      ],
-    },
-    creationFields: [
-      { id: 'clientName', name: 'Client Name', type: 'text', placeholder: 'e.g., "Jane Doe" or "the buyer for 123 Main St"', description: 'Ask about a specific client.' },
-      { id: 'query', name: 'Your Question', type: 'textarea', placeholder: 'e.g., "Summarize my last call with her" or "Does she have kids?"', description: 'What do you need to know?' },
-    ],
-  },
-  {
-    id: 'lead-generation',
-    title: 'AI Social Leads',
-    description: 'Find buyers before they search.',
-    icon: <UserPlus />,
-    color: '#0284c7', // sky-600
-    cta: 'Lead List',
-    categories: ['Lead Gen', 'Social & Comms'],
-    mindMapCategory: 'Sales Enablement',
-    details: {
-      steps: [
-        { text: 'Define your target area and property type', icon: <MapPin className="h-6 w-6" /> },
-        { text: 'AI scans social media for buying signals', icon: <Search className="h-6 w-6" /> },
-        { text: 'Get a list of potential leads to engage', icon: <Contact className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Prospecting Time', manual: 'Hours of manual searching and scrolling', ai: 'Automated, continuous monitoring', icon: <Clock2 /> },
-        { metric: 'Lead Quality', manual: 'Cold outreach based on profiles', ai: 'Warm leads based on active intent signals', icon: <Sparkles /> },
-        { metric: 'Engagement Strategy', manual: 'Generic DMs or comments', ai: 'Suggests personalized conversation starters', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "CRM Memory", benefit: "Once a lead is identified, create a new profile for them in the CRM instantly." },
-        { tool: "AI Social Writer", benefit: "Create content that directly targets the interests and pain points of the leads you've discovered." }
-      ],
-       faqs: [
-        { question: "How does the AI find these leads?", answer: "The AI looks for public posts and comments that indicate an intent to move, such as people asking for realtor recommendations, discussing mortgage rates, or talking about wanting more space." },
-        { question: "Is this compliant with platform terms of service?", answer: "Yes, the tool only analyzes publicly available data and does not engage in spamming or unauthorized messaging. It provides you with insights to conduct manual, personalized outreach." },
-        { question: "Does it give me contact information?", answer: "No, it does not provide private contact information. It identifies public social media profiles of individuals showing intent, and suggests strategies for you to engage with them authentically on the platform." }
-      ],
-    },
-    creationFields: [
-      { id: 'area', name: 'Target Area', type: 'text', placeholder: 'e.g., "Downtown Toronto" or "Williamsburg, Brooklyn"', description: 'The geographic area to monitor.' },
-      { id: 'propertyType', name: 'Property Type', type: 'text', placeholder: 'e.g., "Luxury condos", "Family homes"', description: 'The type of property your leads would be interested in.' },
-      { id: 'platforms', name: 'Social Platforms', type: 'select', options: ["Facebook Groups", "Instagram Hashtags", "Local Reddit Communities", "LinkedIn"], placeholder: 'e.g., "Facebook groups", "Instagram hashtags"', description: 'Where should the AI look for leads?' },
     ],
   },
   {
@@ -856,6 +491,147 @@ export const tools: Feature[] = [
       { id: 'reportType', name: 'Report Type', type: 'select', options: ['Investor', 'Home Buyer', 'Seller'], placeholder: 'Select report audience', description: 'Tailor the report for a specific audience.' },
     ],
   },
+  {
+    id: 'email-creator',
+    title: 'AI Email Campaigns',
+    description: 'Design, write, and schedule.',
+    icon: <Mail />,
+    color: '#0ea5e9', // sky-500
+    cta: 'Email Campaign',
+    categories: ['Marketing', 'Social & Comms', 'Sales Tools'],
+    mindMapCategory: 'Marketing',
+    details: {
+      steps: [
+        { text: 'Define your campaign goal (e.g., New Listing)', icon: <Target className="h-6 w-6" /> },
+        { text: 'Provide a link or topic for content', icon: <PenTool className="h-6 w-6" /> },
+        { text: 'Generate a sequence of emails instantly', icon: <Mail className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Writing Time', manual: '2-4 hours for a 3-part sequence', ai: 'Fast by default', icon: <Clock2 /> },
+        { metric: 'Design & Layout', manual: 'Requires knowledge of email builders', ai: 'Generates clean, mobile-friendly HTML', icon: <Sparkles /> },
+        { metric: 'Subject Lines', manual: 'Guesswork, low open rates', ai: 'A/B tested variations for high engagement', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "AI Market Reports", benefit: "Generate a local report, then use this tool to create an email campaign to share it with your list." },
+        { tool: "CRM Memory", benefit: "Personalize your email campaigns at scale using deep client insights from the assistant." }
+      ],
+       faqs: [
+        { question: "Can I connect this to my email provider?", answer: "The AI generates the raw content (subject lines) and HTML for the email bodies. You can then easily copy and paste this into any major email marketing platform like Mailchimp, Constant Contact, or others." },
+        { question: "Does it write a single email or a sequence?", answer: "It can do both! You can ask for a single promotional email or specify a multi-part sequence, such as a 3-day follow-up campaign for new leads." },
+        { question: "Are the emails personalized?", answer: "Yes, the AI can insert placeholders like `[First Name]` that your email marketing tool will automatically populate, making your campaigns feel personal to each recipient." }
+      ],
+    },
+    creationFields: [
+      { id: 'goal', name: 'Campaign Goal', type: 'select', options: ["New Listing Announcement", "Open House Invitation", "Monthly Newsletter", "Cold Lead Nurturing Sequence", "Post-Viewing Follow-up"], placeholder: 'Select a campaign type', description: 'What is the purpose of this email campaign?' },
+      { id: 'source', name: 'Content Source', type: 'text', placeholder: 'Paste a URL or type a topic', description: 'The AI will use this as the basis for the content.' },
+      { id: 'tone', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Urgent', 'Humorous', 'Informative'], placeholder: 'Select a tone', description: 'Set the mood for your emails.' },
+    ],
+  },
+  
+  // --- CREATIVE SUITE ---
+  {
+    id: 'rebranding',
+    title: 'AI Rebranding',
+    description: 'Swap logos, colors, contacts in one click.',
+    icon: <Palette />,
+    color: '#f97316', // orange-600
+    cta: 'Rebranded Brochure',
+    categories: ['Creative', 'Editing'],
+    mindMapCategory: 'Creative Suite',
+    renderResult: (result, toast) => (
+      <div className="space-y-6">
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Rebranded Brochure</h3>
+          <a href={result.rebrandedBrochureDataUri} download="rebranded-brochure.pdf">
+              <Button><Download className="mr-2 h-4 w-4"/>Download PDF</Button>
+          </a>
+        </div>
+        {result.logoDataUri && (
+           <div>
+              <h3 className="font-semibold text-lg mb-2">Generated Logo</h3>
+              <Image src={result.logoDataUri} alt="Generated logo" width={200} height={200} className="rounded-lg border bg-white p-2" />
+           </div>
+        )}
+      </div>
+    ),
+    details: {
+      steps: [
+        { text: 'Upload any developer\'s brochure (PDF)', icon: <Upload className="h-6 w-6" /> },
+        { text: 'The AI applies your saved brand settings', icon: <UserCog className="h-6 w-6" /> },
+        { text: 'Download the rebranded brochure instantly', icon: <FileText className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+         { metric: 'Time to Rebrand', manual: '2-4 hours in design software', ai: 'Fast by default', icon: <Clock2 /> },
+         { metric: 'Required Skill', manual: 'Proficiency in Adobe InDesign/Canva', ai: 'Ability to upload a file', icon: <Sparkles /> },
+         { metric: 'Consistency', manual: 'Prone to human error and typos', ai: 'Perfectly consistent every time', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "AI Ad Creator", benefit: "Use your newly rebranded brochure to power an ad campaign." },
+        { tool: "Landing Page Builder", benefit: "Generate a branded landing page that perfectly matches your rebranded brochure." }
+      ],
+       faqs: [
+        { question: "Will this work with any PDF?", answer: "It works best with text-based PDFs, which are standard for most property brochures. It may be less effective on image-only PDFs or scans." },
+        { question: "What if I don't have a logo?", answer: "No problem. The tool can generate a professional logo for you based on your company name and brand colors, or simply add your name and contact information in a clean format." },
+        { question: "Can it change the text to match my 'brand voice'?", answer: "Yes. You can specify a tone (e.g., 'professional,' 'friendly,' 'luxurious'), and the AI can subtly adjust headings and key phrases to align with your brand's voice." }
+      ],
+    },
+    creationFields: [
+      { id: 'brochureDataUri', name: 'Developer Brochure', type: 'file', description: 'Upload the original PDF.' },
+      { id: 'companyLogoDataUri', name: 'Your Logo', type: 'file', description: 'Upload your personal or company logo (PNG, JPG). Optional.' },
+      { id: 'companyName', name: 'Company Name', type: 'text', placeholder: 'Your company name', description: 'Used for branding and generating a logo if needed.' },
+      { id: 'contactDetails', name: 'Contact Details', type: 'textarea', placeholder: 'Your Name\nYour Phone\nYour Email', description: 'The contact info to place in the brochure.' },
+      { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Luxury', 'Modern'], placeholder: 'Select a tone', description: 'The tone to use for any generated text.' },
+      { id: 'colors', name: 'Colors', type: 'text', placeholder: 'e.g., "Blue and Gold"', description: 'The color scheme to use for rebranding.' },
+    ],
+  },
+  {
+    id: 'pdf-editor',
+    title: 'AI PDF Editor',
+    description: 'Edit text, images, and layout with prompts.',
+    icon: <PenTool />,
+    color: '#eab308', // yellow-500
+    cta: 'Edited PDF',
+    categories: ['Creative', 'Editing'],
+    mindMapCategory: 'Creative Suite',
+    renderResult: (result, toast) => (
+      <div className="space-y-6">
+        <div>
+            <h3 className="font-semibold text-lg mb-2">Edited PDF</h3>
+            <a href={result.editedPdfDataUri} download="edited.pdf">
+                <Button><Download className="mr-2 h-4 w-4"/>Download Edited PDF</Button>
+            </a>
+        </div>
+    </div>
+    ),
+    details: {
+      steps: [
+        { text: 'Upload your PDF document', icon: <Upload className="h-6 w-6" /> },
+        { text: 'Tell the AI what to change in plain English', icon: <MessageCircle className="h-6 w-6" /> },
+        { text: 'Download your edited PDF instantly', icon: <FileText className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+         { metric: 'Time to Edit', manual: 'Hours finding source files or using clunky editors', ai: 'Fast by default', icon: <Clock2 /> },
+         { metric: 'Software Cost', manual: 'Requires expensive Acrobat Pro subscription', ai: 'Included in your suite', icon: <Wallet /> },
+         { metric: 'Ease of Use', manual: 'Complex tools and formatting issues', ai: 'As easy as sending a text message', icon: <Sparkles /> },
+      ],
+      synergy: [
+        { tool: "AI Rebranding", benefit: "After rebranding a brochure, use the editor to make final tweaks to pricing or contact info." },
+        { tool: "Listing Generator", benefit: "Generate a new listing description and then use the editor to paste it into your existing brochure." }
+      ],
+       faqs: [
+        { question: "Can it change complex layouts?", answer: "For best results, focus on targeted edits like text, images, and colors. While the AI can make layout adjustments, complex redesigns are better suited for the Landing Page Generator." },
+        { question: "What if the PDF is just an image?", answer: "The AI's OCR (Optical Character Recognition) capabilities can often identify and replace text even in image-based PDFs, but results are best with text-based documents." },
+        { question: "Can it edit a 50-page document?", answer: "Yes, though processing time will increase with the document's length and complexity. For very large documents, it's best to specify the page numbers you want to edit in your instructions." }
+      ],
+    },
+    creationFields: [
+      { id: 'sourcePdf', name: 'Source PDF', type: 'file', description: 'Upload the PDF you want to edit.' },
+      { id: 'editInstructions', name: 'Editing Instructions', type: 'textarea', placeholder: '- Change the main contact name to "Jane Smith".\n- Replace the hero image with the one I uploaded.\n- Update the completion date to "Fall 2025".', description: 'Be specific. The more detailed your command, the better the result.' },
+      { id: 'newImages', name: 'New Images (Optional)', type: 'file', multiple: true, description: 'Only upload images if your instructions refer to them.' },
+    ],
+  },
+
+  // --- SALES ENABLEMENT ---
   {
     id: 'investor-matching',
     title: 'Investor Matching',
@@ -1076,42 +852,6 @@ export const tools: Feature[] = [
     ],
   },
   {
-    id: 'email-creator',
-    title: 'AI Email Campaigns',
-    description: 'Design, write, and schedule.',
-    icon: <Mail />,
-    color: '#0ea5e9', // sky-500
-    cta: 'Email Campaign',
-    categories: ['Marketing', 'Social & Comms', 'Sales Tools'],
-    mindMapCategory: 'Marketing',
-    details: {
-      steps: [
-        { text: 'Define your campaign goal (e.g., New Listing)', icon: <Target className="h-6 w-6" /> },
-        { text: 'Provide a link or topic for content', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Generate a sequence of emails instantly', icon: <Mail className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Writing Time', manual: '2-4 hours for a 3-part sequence', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Design & Layout', manual: 'Requires knowledge of email builders', ai: 'Generates clean, mobile-friendly HTML', icon: <Sparkles /> },
-        { metric: 'Subject Lines', manual: 'Guesswork, low open rates', ai: 'A/B tested variations for high engagement', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "AI Market Reports", benefit: "Generate a local report, then use this tool to create an email campaign to share it with your list." },
-        { tool: "CRM Memory", benefit: "Personalize your email campaigns at scale using deep client insights from the assistant." }
-      ],
-       faqs: [
-        { question: "Can I connect this to my email provider?", answer: "The AI generates the raw content (subject lines) and HTML for the email bodies. You can then easily copy and paste this into any major email marketing platform like Mailchimp, Constant Contact, or others." },
-        { question: "Does it write a single email or a sequence?", answer: "It can do both! You can ask for a single promotional email or specify a multi-part sequence, such as a 3-day follow-up campaign for new leads." },
-        { question: "Are the emails personalized?", answer: "Yes, the AI can insert placeholders like `[First Name]` that your email marketing tool will automatically populate, making your campaigns feel personal to each recipient." }
-      ],
-    },
-    creationFields: [
-      { id: 'goal', name: 'Campaign Goal', type: 'select', options: ["New Listing Announcement", "Open House Invitation", "Monthly Newsletter", "Cold Lead Nurturing Sequence", "Post-Viewing Follow-up"], placeholder: 'Select a campaign type', description: 'What is the purpose of this email campaign?' },
-      { id: 'source', name: 'Content Source', type: 'text', placeholder: 'Paste a URL or type a topic', description: 'The AI will use this as the basis for the content.' },
-      { id: 'tone', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Urgent', 'Humorous', 'Informative'], placeholder: 'Select a tone', description: 'Set the mood for your emails.' },
-    ],
-  },
-  {
     id: 'whatsapp-campaigns',
     title: 'WhatsApp Manager',
     description: 'Personalized broadcasts + drips.',
@@ -1145,6 +885,120 @@ export const tools: Feature[] = [
       { id: 'contacts', name: 'Contact List', type: 'file', description: 'Upload a CSV with names and numbers.' },
       { id: 'campaignType', name: 'Campaign Type', type: 'select', options: ["New Listing Announcement", "Open House Invitation", "Price Reduction Alert", "Post-Viewing Follow-up"], placeholder: 'Select a message template', description: 'Choose the goal of your campaign.' },
       { id: 'sendTime', name: 'Schedule', type: 'select', options: ['Send Immediately', 'Schedule for 1 hour from now', 'Schedule for tomorrow at 9 AM'], placeholder: 'Select send time', description: 'When should the campaign be sent?' },
+    ],
+  },
+  
+  // --- CORE INTELLIGENCE ---
+  {
+    id: 'ai-brand-creator',
+    title: 'AI Brand Creator',
+    description: "Create your brand onboarding from documents.",
+    icon: <Wrench />,
+    color: '#10b981', // emerald-500
+    cta: 'Brand Kit',
+    categories: ['Sales Tools', 'Creative'],
+    mindMapCategory: 'Core Intelligence',
+    badge: 'NEW',
+    details: {
+      steps: [
+        { text: 'Upload documents (brand guide, project lists)', icon: <Upload /> },
+        { text: "Tell the assistant to set up your workspace", icon: <Bot /> },
+        { text: 'The AI configures your brand, projects & more', icon: <Sparkles /> },
+      ],
+      aiVsManual: [
+        { metric: 'Setup Time', manual: '1-2 hours of manual data entry', ai: 'Under 5 minutes', icon: <Clock2 /> },
+        { metric: 'Accuracy', manual: 'Prone to typos and copy-paste errors', ai: 'Extracts data directly from source documents', icon: <BadgeCheck /> },
+        { metric: 'Completeness', manual: 'Easy to forget details or projects', ai: 'Comprehensive setup from all provided files', icon: <Sparkles /> },
+      ],
+      synergy: [
+        { tool: "AI Assistant", benefit: "This tool is a command for the AI assistant, showcasing its ability to perform administrative tasks." },
+        { tool: "Brand Management", benefit: "The extracted brand information automatically populates your Brand Kit." }
+      ],
+      faqs: [
+        { question: "What kind of documents work best?", answer: "Structured documents like brand guides (PDF), project lists (CSV or PDF), or even a simple Word document with your company details work great. The more structured the data, the better the extraction." },
+        { question: "Will this overwrite my existing settings?", answer: "The AI will present you with the information it has extracted and ask for confirmation before applying any changes to your workspace." },
+        { question: "Is this a one-time thing?", answer: "You can use this tool anytime you have new projects or updated brand information to quickly update your suite's configuration." }
+      ],
+    },
+    creationFields: [
+      { id: 'command', name: 'Command', type: 'text', placeholder: "e.g., Set up my brand and projects from these files.", description: "Tell the AI what you want to do." },
+      { id: 'documents', name: 'Source Documents', type: 'file', multiple: true, description: 'Upload one or more files (PDF, CSV, TXT) for the AI to analyze.' },
+    ],
+  },
+  {
+    id: 'projects-finder',
+    title: 'AI Projects Finder',
+    description: "Discover off-market projects and development opportunities.",
+    icon: <Search />,
+    color: '#fde047', // yellow-300
+    cta: 'Project Report',
+    categories: ['Sales Tools', 'Lead Gen'],
+    mindMapCategory: 'Core Intelligence',
+    badge: 'NEW',
+    details: {
+      steps: [
+        { text: 'Define your target area and criteria', icon: <MapPin /> },
+        { text: 'AI scans public records and news for signals', icon: <BrainCircuit /> },
+        { text: 'Get a report of potential off-market deals', icon: <FileText /> },
+      ],
+      aiVsManual: [
+        { metric: 'Opportunity Sourcing', manual: 'Relies on word-of-mouth and existing network', ai: 'Scans thousands of data points continuously', icon: <Network /> },
+        { metric: 'Time Investment', manual: 'Hours of manual research per week', ai: 'Automated, on-demand reports', icon: <Clock2 /> },
+        { metric: 'Deal Flow', manual: 'Limited and sporadic', ai: 'Consistent, proactive deal sourcing', icon: <Sparkles /> },
+      ],
+      synergy: [
+        { tool: "Investor Matching", benefit: "Once a potential project is found, instantly match it with the right clients from your database." },
+        { tool: "AI Market Reports", benefit: "Generate a detailed market analysis for a newly discovered project to validate its potential." }
+      ],
+      faqs: [
+        { question: "What kind of projects can it find?", answer: "The AI can identify a range of opportunities, from single-lot development potential and fixer-uppers to larger plots suitable for multi-unit construction." },
+        { question: "Where does the AI get its information?", answer: "The AI scans a wide array of public data sources, including permit applications, zoning changes, property records, and local news articles to find signals of potential development or sales." },
+        { question: "Is this information verified?", answer: "The AI provides you with a list of potential leads and the source of the information. It is designed to be a powerful starting point for your own due diligence and outreach." }
+      ],
+    },
+    creationFields: [
+      { id: 'group-filters', name: 'Search Filters', type: 'group-header', description: 'Set your criteria to find relevant projects.'},
+      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Austin, TX" or "Zip code 90210"', description: 'The city, neighborhood, or zip code to search in.' },
+      { id: 'status', name: 'Project Status', type: 'select', options: ["Ready to move", "Under Construction", "New Launch"], placeholder: 'Select a project status', description: 'Filter by the current stage of the project.' },
+      { id: 'developer', name: 'Developer(s) (Optional)', type: 'text', placeholder: 'e.g., "Toll Brothers", "Hines"', description: 'Focus on projects by specific developers.'},
+      { id: 'minPrice', name: 'Min Price', type: 'number', placeholder: 'e.g., 500000', description: 'The minimum price for the project.' },
+      { id: 'maxPrice', name: 'Max Price', type: 'number', placeholder: 'e.g., 2000000', description: 'The maximum price for the project.' },
+      { id: 'setup', name: 'Configure Listing Websites', type: 'button', cta: 'Go to Settings to add Listing Sites', description: 'Add the primary listing websites for your market in the settings for better results.' },
+    ],
+  },
+  {
+    id: 'crm-assistant',
+    title: 'CRM Memory',
+    description: 'Remembers every client detail.',
+    icon: <Database />,
+    color: '#0d9488', // teal-600
+    cta: 'Client Record',
+    categories: ['Sales Tools', 'Lead Gen'],
+    mindMapCategory: 'Core Intelligence',
+    details: {
+      steps: [
+        { text: 'Connect your contacts or calendar', icon: <Network className="h-6 w-6" /> },
+        { text: 'Ask about any client (e.g., "What did I promise Jane?")', icon: <Search className="h-6 w-6" /> },
+        { text: 'Get instant summaries, reminders, and insights', icon: <FileText className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Recall Speed', manual: 'Minutes searching notes/emails', ai: 'Instantaneous', icon: <Clock2 /> },
+        { metric: 'Data Points', manual: 'Relies on what you remember to write down', ai: 'Catches every detail from calls, emails, texts', icon: <Sparkles /> },
+        { metric: 'Proactive Reminders', manual: 'You have to set them yourself', ai: 'Nudges you about birthdays, follow-ups', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "AI Sales Dialer", benefit: "Get a full client brief from the assistant moments before the AI places the call." },
+        { tool: "Investor Matching", benefit: "The assistant can proactively suggest which clients are a perfect match for a new investment property." }
+      ],
+       faqs: [
+        { question: "Where does the AI get its information?", answer: "The assistant securely integrates with your approved sources, like your Google/Outlook calendar, email, and call logs. All data is kept private and is not used for training other models." },
+        { question: "Can it summarize an entire call?", answer: "Yes. After you finish a phone call, the assistant can provide a concise summary, pull out action items, and update the client's record automatically." },
+        { question: "Is my client data secure?", answer: "Absolutely. Security is our top priority. All data is encrypted and stored in isolation. Your data is your own and is never shared or viewed." }
+      ],
+    },
+    creationFields: [
+      { id: 'clientName', name: 'Client Name', type: 'text', placeholder: 'e.g., "Jane Doe" or "the buyer for 123 Main St"', description: 'Ask about a specific client.' },
+      { id: 'query', name: 'Your Question', type: 'textarea', placeholder: 'e.g., "Summarize my last call with her" or "Does she have kids?"', description: 'What do you need to know?' },
     ],
   },
   {
@@ -1182,6 +1036,8 @@ export const tools: Feature[] = [
        { id: 'assistant-redirect', name: 'Train Your Assistant', type: 'button', cta: 'Go to Assistant Training', description: 'Personalize your AI by giving it instructions and knowledge.' },
     ],
   },
+  
+  // --- INTERNAL & HIDDEN ---
   {
     id: 'superfreetime',
     title: 'SuperFreeTime Game',
