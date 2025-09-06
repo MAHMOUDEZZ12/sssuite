@@ -26,7 +26,7 @@ import { tools as clientTools } from './tools-client';
 
 // Map server-side functions to the client-safe tools definition
 const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
-    'campaign-builder': generateAdFromBrochure,
+    'insta-ads-designer': generateAdFromBrochure,
     'audience-creator': suggestTargetingOptions,
     'rebranding': rebrandBrochure,
     'pdf-editor': editPdf,
@@ -45,8 +45,7 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'offer-generator': generateMultiOffer,
     'email-creator': createEmailCampaign,
     'whatsapp-campaigns': manageWhatsAppCampaign,
-    'meta-ads-copilot': createMetaCampaign,
-    'insta-ads-designer': generateAdFromBrochure,
+    'campaign-builder': createMetaCampaign,
     'facebook-ads-ai': generateAdFromBrochure,
     // Note: Tools without a flowRunner will not be executable from the generic tool page.
     // They might be handled by custom pages or are for display only.

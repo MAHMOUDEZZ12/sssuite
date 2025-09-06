@@ -176,7 +176,7 @@ const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaig
 };
 
 
-export default function MetaAdsCopilotPage() {
+export default function CampaignBuilderPage() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<CreateMetaCampaignOutput | null>(null);
@@ -225,7 +225,7 @@ export default function MetaAdsCopilotPage() {
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
-        title="Meta Ads Co-Pilot (Manager)"
+        title="Campaign Builder AI"
         description="Your dedicated suite for Facebook & Instagram advertising. Define, generate, monitor, and optimize your campaigns."
         icon={<Facebook className="h-8 w-8" />}
       />

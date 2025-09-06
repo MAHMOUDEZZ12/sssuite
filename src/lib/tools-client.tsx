@@ -161,8 +161,8 @@ export const tools: Feature[] = [
     creationFields: [],
   },
   {
-    id: 'meta-ads-copilot',
-    title: 'Meta Ads Co-Pilot (Manager)',
+    id: 'campaign-builder',
+    title: 'Campaign Builder AI',
     description: 'Your dedicated agent for Facebook & Instagram advertising.',
     icon: <Bot />,
     color: '#1d4ed8', // blue-700
@@ -183,7 +183,7 @@ export const tools: Feature[] = [
         { metric: 'Optimization', manual: 'Reacts slowly to performance data', ai: 'Optimizes bids and creative in real-time', icon: <LineChart /> },
       ],
       synergy: [
-        { tool: "Campaign Builder AI", benefit: "The Co-Pilot can automatically use your best-performing AI-generated ads." },
+        { tool: "Insta Ads Designer AI", benefit: "The Campaign Builder can automatically use your best-performing AI-generated ads." },
         { tool: "CRM Memory", benefit: "Feed campaign performance and lead data directly back into your CRM." }
       ],
        faqs: [
@@ -193,73 +193,6 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [],
-  },
-  {
-    id: 'campaign-builder',
-    title: 'Campaign Builder AI',
-    description: 'Turn any brochure into scroll-stopping campaigns.',
-    icon: <Target />,
-    color: '#ec4899', // pink-500
-    cta: 'Ad',
-    categories: ['Marketing', 'Ads'],
-    mindMapCategory: 'Meta Ads AI Suite',
-    renderResult: (result, toast) => (
-       <div className="space-y-6">
-          <div>
-            <h3 className="font-semibold text-lg mb-2">Ad Copy</h3>
-            <div className="p-4 bg-muted rounded-md relative group">
-              <p className="whitespace-pre-wrap">{result.adCopy}</p>
-              <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.adCopy, toast)}><Copy className="h-4 w-4" /></Button>
-            </div>
-          </div>
-          <div>
-            <h3 className="font-semibold text-lg mb-2">Ad Design (Brochure)</h3>
-            <div className="border rounded-lg overflow-hidden">
-                <iframe src={`${result.adDesign}#view=fitH`} className="w-full h-[600px]"/>
-            </div>
-             <a href={result.adDesign} download="brochure.pdf" className="mt-2 inline-block">
-                <Button variant="outline"><Download className="mr-2"/> Download PDF</Button>
-            </a>
-          </div>
-          <div>
-            <h3 className="font-semibold text-lg mb-2">Landing Page Preview</h3>
-            <div className="border rounded-lg overflow-hidden w-fit">
-              <Image src={result.landingPage} alt="Generated landing page" width={800} height={600} className="object-contain" />
-            </div>
-             <a href={result.landingPage} download="landing-page.png" className="mt-2 inline-block">
-                <Button variant="outline"><Download className="mr-2"/> Download Image</Button>
-            </a>
-          </div>
-        </div>
-    ),
-    details: {
-      steps: [
-          { text: 'Upload a project brochure', icon: <Upload className="h-6 w-6" /> },
-          { text: 'Select a focus (e.g., "luxury", "family")', icon: <Target className="h-6 w-6" /> },
-          { text: 'Generate multiple ad variants instantly', icon: <Sparkles className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Time Investment', manual: '5-10 hours per campaign', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Cost & Resources', manual: 'Requires copywriter & designer', ai: 'Included in your subscription', icon: <Wallet /> },
-        { metric: 'Quality & Testing', manual: 'Relies on guesswork, 1-2 variations', ai: 'Data-driven, 5+ variations to test', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "Audience Creator AI", benefit: "Ensure your perfect ads are seen by people ready to buy." },
-        { tool: "Instagram Admin AI", benefit: "Deploy your new ad across social channels to maximize reach." }
-      ],
-       faqs: [
-        { question: "What kind of brochures can I use?", answer: "You can upload almost any standard PDF brochure from a developer or your own marketing materials. The AI is designed to extract key information like floor plans, features, and location." },
-        { question: "Can I edit the ads after they are generated?", answer: "Absolutely. The AI-generated content serves as a powerful starting point. You can then tweak the copy, headlines, and calls-to-action to perfectly match your voice and campaign goals." },
-        { question: "How are the ad visuals created?", answer: "The AI uses a combination of stock imagery, design templates, and an understanding of your brand's color palette to create visually appealing and effective ad graphics. You can also provide your own images for the AI to incorporate." }
-      ],
-    },
-    creationFields: [
-      { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "Azure Lofts"', description: 'Provide a name if you are not uploading a brochure.' },
-      { id: 'brochureDataUri', name: 'Developer Brochure (Optional)', type: 'file', description: 'Upload the original PDF. This is the best source of info.' },
-      { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
-      { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
-      { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of condo fees waived."', description: 'Add any other key details or offers. (Optional)' },
-    ],
   },
   {
     id: 'audience-creator',
@@ -319,12 +252,67 @@ export const tools: Feature[] = [
     title: 'Insta Ads Designer AI',
     description: 'Create perfect ads for Instagram Stories & Feed.',
     icon: <Instagram />,
-    color: '#c026d3',
+    color: '#ec4899', // pink-500
     cta: 'Instagram Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
-    creationFields: [],
-    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+    renderResult: (result, toast) => (
+       <div className="space-y-6">
+          <div>
+            <h3 className="font-semibold text-lg mb-2">Ad Copy</h3>
+            <div className="p-4 bg-muted rounded-md relative group">
+              <p className="whitespace-pre-wrap">{result.adCopy}</p>
+              <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.adCopy, toast)}><Copy className="h-4 w-4" /></Button>
+            </div>
+          </div>
+          <div>
+            <h3 className="font-semibold text-lg mb-2">Ad Design (Brochure)</h3>
+            <div className="border rounded-lg overflow-hidden">
+                <iframe src={`${result.adDesign}#view=fitH`} className="w-full h-[600px]"/>
+            </div>
+             <a href={result.adDesign} download="brochure.pdf" className="mt-2 inline-block">
+                <Button variant="outline"><Download className="mr-2"/> Download PDF</Button>
+            </a>
+          </div>
+          <div>
+            <h3 className="font-semibold text-lg mb-2">Landing Page Preview</h3>
+            <div className="border rounded-lg overflow-hidden w-fit">
+              <Image src={result.landingPage} alt="Generated landing page" width={800} height={600} className="object-contain" />
+            </div>
+             <a href={result.landingPage} download="landing-page.png" className="mt-2 inline-block">
+                <Button variant="outline"><Download className="mr-2"/> Download Image</Button>
+            </a>
+          </div>
+        </div>
+    ),
+    details: {
+      steps: [
+          { text: 'Upload a project brochure', icon: <Upload className="h-6 w-6" /> },
+          { text: 'Select a focus (e.g., "luxury", "family")', icon: <Target className="h-6 w-6" /> },
+          { text: 'Generate multiple ad variants instantly', icon: <Sparkles className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Time Investment', manual: '5-10 hours per campaign', ai: 'Fast by default', icon: <Clock2 /> },
+        { metric: 'Cost & Resources', manual: 'Requires copywriter & designer', ai: 'Included in your subscription', icon: <Wallet /> },
+        { metric: 'Quality & Testing', manual: 'Relies on guesswork, 1-2 variations', ai: 'Data-driven, 5+ variations to test', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Audience Creator AI", benefit: "Ensure your perfect ads are seen by people ready to buy." },
+        { tool: "Instagram Admin AI", benefit: "Deploy your new ad across social channels to maximize reach." }
+      ],
+       faqs: [
+        { question: "What kind of brochures can I use?", answer: "You can upload almost any standard PDF brochure from a developer or your own marketing materials. The AI is designed to extract key information like floor plans, features, and location." },
+        { question: "Can I edit the ads after they are generated?", answer: "Absolutely. The AI-generated content serves as a powerful starting point. You can then tweak the copy, headlines, and calls-to-action to perfectly match your voice and campaign goals." },
+        { question: "How are the ad visuals created?", answer: "The AI uses a combination of stock imagery, design templates, and an understanding of your brand's color palette to create visually appealing and effective ad graphics. You can also provide your own images for the AI to incorporate." }
+      ],
+    },
+    creationFields: [
+      { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "Azure Lofts"', description: 'Provide a name if you are not uploading a brochure.' },
+      { id: 'brochureDataUri', name: 'Developer Brochure (Optional)', type: 'file', description: 'Upload the original PDF. This is the best source of info.' },
+      { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
+      { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
+      { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of condo fees waived."', description: 'Add any other key details or offers. (Optional)' },
+    ],
   },
   {
     id: 'reel-ads-ai',
