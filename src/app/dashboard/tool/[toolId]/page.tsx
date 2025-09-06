@@ -337,12 +337,12 @@ export default function ToolPage() {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Generating...
+                  {tool.cta.replace(/\b\w/g, l => l.toUpperCase()).replace(/([a-z])([A-Z])/g, '$1 $2')}ing...
                 </>
               ) : (
                 <>
                   <Sparkles className="mr-2 h-5 w-5" />
-                  Generate
+                  {tool.cta}
                 </>
               )}
             </Button>

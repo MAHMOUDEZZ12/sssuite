@@ -133,7 +133,7 @@ export const tools: Feature[] = [
     description: 'The single-click manager for your entire Meta suite.',
     icon: <Star />,
     color: '#fbbf24', // amber-400
-    cta: 'Automated Campaign',
+    cta: 'Run Workflow',
     categories: ['Marketing', 'Ads', 'Lead Gen'],
     mindMapCategory: 'Meta Ads AI Suite',
     badge: 'Pilot*',
@@ -166,7 +166,7 @@ export const tools: Feature[] = [
     description: 'Your dedicated agent for Facebook & Instagram advertising.',
     icon: <Bot />,
     color: '#1d4ed8', // blue-700
-    cta: 'Ad Campaign',
+    cta: 'Create Ad Campaign',
     categories: ['Marketing', 'Ads', 'Lead Gen'],
     mindMapCategory: 'Meta Ads AI Suite',
     badge: 'NEW',
@@ -200,7 +200,7 @@ export const tools: Feature[] = [
     description: 'Find high-intent buyers before they search.',
     icon: <Binoculars />,
     color: '#3b82f6', // blue-600
-    cta: 'Targeting Profile',
+    cta: 'Generate Targeting Profile',
     categories: ['Marketing', 'Lead Gen', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
     renderResult: (result, toast) => (
@@ -253,7 +253,7 @@ export const tools: Feature[] = [
     description: 'Create perfect ads for Instagram Stories & Feed.',
     icon: <Instagram />,
     color: '#ec4899', // pink-500
-    cta: 'Instagram Ad',
+    cta: 'Generate Instagram Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
     renderResult: (result, toast) => (
@@ -320,7 +320,7 @@ export const tools: Feature[] = [
     description: 'Generate engaging video ads for Instagram Reels.',
     icon: <Clapperboard />,
     color: '#7c3aed',
-    cta: 'Reel Ad',
+    cta: 'Generate Reel Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
     creationFields: [],
@@ -332,7 +332,7 @@ export const tools: Feature[] = [
     description: 'Design effective ads for the Facebook platform.',
     icon: <Facebook />,
     color: '#2563eb',
-    cta: 'Facebook Ad',
+    cta: 'Generate Facebook Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
     creationFields: [],
@@ -344,7 +344,7 @@ export const tools: Feature[] = [
     description: 'Schedules posts and handles replies on Instagram.',
     icon: <UserCog />,
     color: '#c026d3',
-    cta: 'Instagram Admin',
+    cta: 'Run Admin Task',
     categories: ['Sales Tools', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
     creationFields: [],
@@ -356,7 +356,7 @@ export const tools: Feature[] = [
     description: "Turn one idea into a one-week content plan for Instagram.",
     icon: <Share2 />,
     color: '#e11d48',
-    cta: 'Social Post',
+    cta: 'Generate Content Plan',
     categories: ['Marketing', 'Social & Comms', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
     renderResult: (result, toast) => (
@@ -408,7 +408,7 @@ export const tools: Feature[] = [
     description: 'Plan and design animated Instagram stories.',
     icon: <Film />,
     color: '#a855f7',
-    cta: 'Story',
+    cta: 'Generate Story',
     categories: ['Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
     creationFields: [],
@@ -420,7 +420,7 @@ export const tools: Feature[] = [
     description: 'Generate a tiered hashtag strategy for any post.',
     icon: <Hash />,
     color: '#f97316',
-    cta: 'Hashtag Strategy',
+    cta: 'Generate Hashtag Strategy',
     categories: ['Marketing', 'Social & Comms', 'Lead Gen'],
     mindMapCategory: 'Meta Ads AI Suite',
     creationFields: [],
@@ -432,7 +432,7 @@ export const tools: Feature[] = [
     description: 'Generate performance reports for your campaigns.',
     icon: <BarChart />,
     color: '#f59e0b',
-    cta: 'Ad Report',
+    cta: 'Generate Ad Report',
     categories: ['Marketing', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
     creationFields: [],
@@ -446,7 +446,7 @@ export const tools: Feature[] = [
     description: 'Launch a high-converting page in minutes.',
     icon: <LayoutTemplate />,
     color: '#22c55e', // green-500
-    cta: 'Landing Page',
+    cta: 'Create Landing Page',
     categories: ['Marketing', 'Web'],
     mindMapCategory: 'Marketing',
     renderResult: (result, toast) => (
@@ -493,7 +493,7 @@ export const tools: Feature[] = [
     description: 'Hyper-local trends and insights.',
     icon: <LineChart />,
     color: '#f59e0b', // amber-500
-    cta: 'Market Report',
+    cta: 'Generate Market Report',
     categories: ['Marketing', 'Editing', 'Sales Tools'],
     mindMapCategory: 'Marketing',
     renderResult: (result, toast) => (
@@ -561,7 +561,7 @@ export const tools: Feature[] = [
     description: 'Design, write, and schedule.',
     icon: <Mail />,
     color: '#0ea5e9', // sky-500
-    cta: 'Email Campaign',
+    cta: 'Create Email Campaign',
     categories: ['Marketing', 'Social & Comms', 'Sales Tools'],
     mindMapCategory: 'Marketing',
     details: {
@@ -599,7 +599,7 @@ export const tools: Feature[] = [
     description: 'Swap logos, colors, contacts in one click.',
     icon: <Palette />,
     color: '#f97316', // orange-600
-    cta: 'Rebranded Brochure',
+    cta: 'Generate Rebranded Brochure',
     categories: ['Creative', 'Editing'],
     mindMapCategory: 'Creative Suite',
     renderResult: (result, toast) => (
@@ -654,7 +654,7 @@ export const tools: Feature[] = [
     description: 'Edit text, images, and layout with prompts.',
     icon: <PenTool />,
     color: '#eab308', // yellow-500
-    cta: 'Edited PDF',
+    cta: 'Generate Edited PDF',
     categories: ['Creative', 'Editing'],
     mindMapCategory: 'Creative Suite',
     renderResult: (result, toast) => (
@@ -702,7 +702,7 @@ export const tools: Feature[] = [
     description: 'Pair budgets with the right projects.',
     icon: <Users2 />,
     color: '#6366f1', // indigo-500
-    cta: 'Investor Match',
+    cta: 'Generate Investor Match',
     categories: ['Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Sales Enablement',
     renderResult: (result, toast) => (
@@ -761,7 +761,7 @@ export const tools: Feature[] = [
     description: 'Optimize your listings for Property Finder.',
     icon: <Building />,
     color: '#d946ef', // fuchsia-600
-    cta: 'Optimized Listing',
+    cta: 'Create Optimized Listing',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
     renderResult: (result, toast) => (
@@ -823,7 +823,7 @@ export const tools: Feature[] = [
     description: 'Craft perfect listings for the Bayut portal.',
     icon: <Building />,
     color: '#22c55e', // green-500
-    cta: 'Optimized Listing',
+    cta: 'Create Optimized Listing',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
     renderResult: (result, toast) => (
@@ -885,7 +885,7 @@ export const tools: Feature[] = [
     description: 'Compare options side-by-side.',
     icon: <Briefcase />,
     color: '#78716c', // stone-500
-    cta: 'Offer Package',
+    cta: 'Create Offer Package',
     categories: ['Sales Tools', 'Editing'],
     mindMapCategory: 'Sales Enablement',
     details: {
@@ -921,7 +921,7 @@ export const tools: Feature[] = [
     description: 'Personalized broadcasts + drips.',
     icon: <Phone />,
     color: '#16a34a', // green-600
-    cta: 'WhatsApp Campaign',
+    cta: 'Send WhatsApp Campaign',
     categories: ['Sales Tools', 'Social & Comms', 'Lead Gen'],
     mindMapCategory: 'Sales Enablement',
     details: {
@@ -959,7 +959,7 @@ export const tools: Feature[] = [
     description: "Create your brand onboarding from documents.",
     icon: <Wrench />,
     color: '#10b981', // emerald-500
-    cta: 'Brand Kit',
+    cta: 'Create Brand Kit',
     categories: ['Sales Tools', 'Creative'],
     mindMapCategory: 'Core Intelligence',
     badge: 'NEW',
@@ -995,7 +995,7 @@ export const tools: Feature[] = [
     description: "Discover off-market projects and development opportunities.",
     icon: <Search />,
     color: '#fde047', // yellow-300
-    cta: 'Project Report',
+    cta: 'Generate Project Report',
     categories: ['Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Core Intelligence',
     badge: 'NEW',
@@ -1036,7 +1036,7 @@ export const tools: Feature[] = [
     description: 'Remembers every client detail.',
     icon: <Database />,
     color: '#0d9488', // teal-600
-    cta: 'Client Record',
+    cta: 'Get Client Record',
     categories: ['Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Core Intelligence',
     details: {
@@ -1071,7 +1071,7 @@ export const tools: Feature[] = [
     description: 'Your personal, trainable AI partner.',
     icon: <BrainCircuit />,
     color: '#84cc16', // lime-500
-    cta: 'Assistant',
+    cta: 'Train Assistant',
     categories: ['Sales Tools'],
     mindMapCategory: 'Core Intelligence',
     badge: 'BETA',
@@ -1108,7 +1108,7 @@ export const tools: Feature[] = [
     description: 'A hidden mini-game to find a secret key and win a prize.',
     icon: <Key />,
     color: '#a1a1aa', // zinc-400
-    cta: 'Game',
+    cta: 'Play Game',
     categories: ['All'],
     mindMapCategory: 'Internal',
     details: {
