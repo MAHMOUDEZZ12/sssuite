@@ -913,14 +913,38 @@ export const tools: Feature[] = [
     ],
   },
   {
-    id: 'listing-generator',
-    title: 'Listing Generator',
-    description: 'SEO-ready descriptions from a few details.',
-    icon: <FileText />,
-    color: '#64748b', // slate-500
-    cta: 'Listing',
+    id: 'property-finder-listing-ai',
+    title: 'Property Finder Listing AI',
+    description: 'Optimize your listings for Property Finder.',
+    icon: <Building />,
+    color: '#d946ef', // fuchsia-600
+    cta: 'Optimized Listing',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
+    renderResult: (result, toast) => (
+      <div className="space-y-6">
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Generated Title</h3>
+          <div className="p-4 bg-muted rounded-md relative group">
+            <p className="whitespace-pre-wrap">{result.title}</p>
+            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.title, toast)}><Copy className="h-4 w-4" /></Button>
+          </div>
+        </div>
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Generated Description</h3>
+          <div className="p-4 bg-muted rounded-md relative group">
+            <p className="whitespace-pre-wrap">{result.description}</p>
+            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.description, toast)}><Copy className="h-4 w-4" /></Button>
+          </div>
+        </div>
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Suggested Keywords</h3>
+          <div className="p-4 bg-muted rounded-md">
+            <p className="text-sm text-muted-foreground">{result.keywords.join(', ')}</p>
+          </div>
+        </div>
+      </div>
+    ),
     details: {
       steps: [
         { text: 'Enter key property details (address, beds, baths)', icon: <PenTool className="h-6 w-6" /> },
@@ -943,9 +967,73 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
+      { id: 'platform', name: 'Platform', type: 'text', placeholder: '', description: '', value: 'Property Finder', hidden: true } as any,
       { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., 123 Main St, Anytown, USA', description: 'The address of the property.' },
       { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 4 beds, 3 baths, 2,500 sqft', description: 'Provide the basic stats.' },
       { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Renovated kitchen with quartz countertops, backyard oasis with a pool', description: 'What makes this property special?' },
+      { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
+    ],
+  },
+  {
+    id: 'bayut-listing-ai',
+    title: 'Bayut Listing AI',
+    description: 'Craft perfect listings for the Bayut portal.',
+    icon: <Building />,
+    color: '#22c55e', // green-500
+    cta: 'Optimized Listing',
+    categories: ['Sales Tools', 'Editing', 'Web'],
+    mindMapCategory: 'Sales Enablement',
+    renderResult: (result, toast) => (
+       <div className="space-y-6">
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Generated Title</h3>
+          <div className="p-4 bg-muted rounded-md relative group">
+            <p className="whitespace-pre-wrap">{result.title}</p>
+            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.title, toast)}><Copy className="h-4 w-4" /></Button>
+          </div>
+        </div>
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Generated Description</h3>
+          <div className="p-4 bg-muted rounded-md relative group">
+            <p className="whitespace-pre-wrap">{result.description}</p>
+            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.description, toast)}><Copy className="h-4 w-4" /></Button>
+          </div>
+        </div>
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Suggested Keywords</h3>
+          <div className="p-4 bg-muted rounded-md">
+            <p className="text-sm text-muted-foreground">{result.keywords.join(', ')}</p>
+          </div>
+        </div>
+      </div>
+    ),
+    details: {
+      steps: [
+        { text: 'Enter key property details (address, beds, baths)', icon: <PenTool className="h-6 w-6" /> },
+        { text: 'Mention 1-2 unique features', icon: <Sparkles className="h-6 w-6" /> },
+        { text: 'Generate a full, persuasive listing description', icon: <FileText className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Writing Time', manual: '30-60 minutes of creative writing', ai: 'Fast by default', icon: <Clock2 /> },
+        { metric: 'SEO & Keywords', manual: 'Guesswork on what terms to use', ai: 'Automatically includes relevant local keywords', icon: <Sparkles /> },
+        { metric: 'Completeness', manual: 'Often forgets key selling points', ai: 'Structured to include all critical information', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "AI Ad Creator", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
+        { tool: "Landing Page Builder", benefit: "Instantly create a beautiful single-property website using your new listing details." }
+      ],
+       faqs: [
+        { question: "Can I choose the tone of the listing?", answer: "Yes, you can specify a tone such as 'Luxurious,' 'Family-Friendly,' or 'Great for First-Time Buyers,' and the AI will adjust its language and emphasis accordingly." },
+        { question: "Is the output ready to copy and paste into Bayut?", answer: "Absolutely. The generated text is formatted to be easily copied and pasted directly into the Bayut listing portal." },
+        { question: "How does it know what keywords to use for SEO?", answer: "The AI analyzes the property's location and features to include relevant local keywords (like neighborhood names, school districts, or nearby landmarks) that a potential buyer is likely to search for on Bayut." }
+      ],
+    },
+    creationFields: [
+      { id: 'platform', name: 'Platform', type: 'text', placeholder: '', description: '', value: 'Bayut', hidden: true } as any,
+      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the property.' },
+      { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
+      { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },
+      { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
     ],
   },
   {

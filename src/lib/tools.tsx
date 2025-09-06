@@ -10,6 +10,7 @@ import { editPdf } from '@/ai/flows/edit-pdf';
 import { matchInvestors } from '@/ai/flows/match-investors';
 import { aiBrandCreator } from '@/ai/flows/ai-brand-creator';
 import { generateMarketReport } from '@/ai/flows/generate-market-report';
+import { generateListing } from '@/ai/flows/generate-listing';
 
 
 // Import the client-safe tools definition
@@ -26,6 +27,8 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'investor-matching': matchInvestors,
     'ai-brand-creator': aiBrandCreator,
     'market-reports': generateMarketReport,
+    'property-finder-listing-ai': generateListing,
+    'bayut-listing-ai': generateListing,
     // Add other flow runners here as they are created
 };
 

@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { PageHeader } from '@/components/ui/page-header';
-import { Settings, Palette, User, CreditCard, Paintbrush, Text, Sun, Moon, Laptop, Bot, BrainCircuit, Network, Database, Users, Instagram, Facebook, Linkedin, Mail, MessageCircle, Twitter, Share2 } from 'lucide-react';
+import { Settings, Palette, User, CreditCard, Paintbrush, Text, Sun, Moon, Laptop, Bot, BrainCircuit, Network, Database, Users, Instagram, Facebook, Linkedin, Mail, MessageCircle, Twitter, Share2, Building } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -45,6 +45,8 @@ export default function SettingsPage() {
     social: true,
     email: false,
     whatsapp: false,
+    propertyFinder: false,
+    bayut: true,
   });
 
   const handleConnectionToggle = (key: keyof typeof connections) => {
@@ -187,6 +189,22 @@ export default function SettingsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
+                <IntegrationCard
+                    title="Property Finder"
+                    description="Connect your Property Finder account to sync listings and manage inquiries."
+                    icon={<Building />}
+                    connected={connections.propertyFinder}
+                    onConnect={() => handleConnectionToggle('propertyFinder')}
+                    onDisconnect={() => handleConnectionToggle('propertyFinder')}
+                />
+                <IntegrationCard
+                    title="Bayut"
+                    description="Connect your Bayut account for automated listing updates and lead management."
+                    icon={<Building />}
+                    connected={connections.bayut}
+                    onConnect={() => handleConnectionToggle('bayut')}
+                    onDisconnect={() => handleConnectionToggle('bayut')}
+                />
                  <IntegrationCard
                     title="Social Media Accounts"
                     description="Connect Instagram, Facebook, LinkedIn, and X for automated posting and AI Page Admin."
@@ -270,5 +288,3 @@ export default function SettingsPage() {
     </main>
   );
 }
-
-    

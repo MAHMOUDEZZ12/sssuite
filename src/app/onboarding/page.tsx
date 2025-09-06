@@ -56,7 +56,7 @@ function OnboardingComponent() {
                 .catch(err => console.error("Failed to fetch suggestions", err))
                 .finally(() => setIsLoading(false));
         }
-    }, [step]);
+    }, [step, suggestedProjects.length]);
 
     // Fetch broader scan when user is on step 4 or has selected developers
     useEffect(() => {
@@ -69,7 +69,7 @@ function OnboardingComponent() {
                 .catch(err => console.error("Failed to fetch scan", err))
                 .finally(() => setIsLoading(false));
         }
-    }, [step, draft.devFocus]);
+    }, [step, draft.devFocus, scannedProjects.length]);
 
     const updateDraft = (data: Partial<typeof draft>) => {
         setDraft(prev => ({ ...prev, ...data, progress: { step, ts: Date.now() } }));
