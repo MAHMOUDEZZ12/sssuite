@@ -231,7 +231,8 @@ export default function DashboardLayout({
       </Sidebar>
       <div className="flex-1 flex flex-col">
         <DashboardHeader />
-        {children}
+        <main className="flex-1 overflow-auto">{children}</main>
+        <AssistantChat />
       </div>
     </SidebarProvider>
   );

@@ -38,23 +38,25 @@ export function DashboardHeader() {
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
+                        <Link href="/dashboard/brand"><DropdownMenuItem>
+                            <User className="mr-2 h-4 w-4" />
+                            Profile & Brand
+                        </DropdownMenuItem></Link>
                         <Link href="/dashboard/settings"><DropdownMenuItem>
                             <Settings className="mr-2 h-4 w-4" />
                             Settings
                         </DropdownMenuItem></Link>
-                         <Link href="/dashboard/brand"><DropdownMenuItem>
-                            <User className="mr-2 h-4 w-4" />
-                            Profile & Brand
-                        </DropdownMenuItem></Link>
-                         <DropdownMenuItem>
-                            <LifeBuoy className="mr-2 h-4 w-4" />
-                            Support
-                        </DropdownMenuItem>
+                         <a href="mailto:support@supersalessuite.com">
+                            <DropdownMenuItem>
+                                <LifeBuoy className="mr-2 h-4 w-4" />
+                                Support
+                            </DropdownMenuItem>
+                         </a>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
+                        <Link href="/login"><DropdownMenuItem>
                              <LogOut className="mr-2 h-4 w-4" />
                             Logout
-                        </DropdownMenuItem>
+                        </DropdownMenuItem></Link>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
