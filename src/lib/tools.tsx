@@ -38,7 +38,7 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'property-finder-listing-ai': generateListing,
     'bayut-listing-ai': generateListing,
     'story-designer': generateStory,
-    'reel-designer': generateReel,
+    'reel-ads-ai': generateReel,
     'tiktok-editor': generateTikTokVideo,
     'crm-assistant': getCrmMemory,
     'page-admin': manageSocialPage,
@@ -46,6 +46,8 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'email-creator': createEmailCampaign,
     'whatsapp-campaigns': manageWhatsAppCampaign,
     'meta-ads-copilot': createMetaCampaign,
+    'insta-ads-designer': generateAdFromBrochure,
+    'facebook-ads-ai': generateAdFromBrochure,
     // Note: Tools without a flowRunner will not be executable from the generic tool page.
     // They might be handled by custom pages or are for display only.
 };
