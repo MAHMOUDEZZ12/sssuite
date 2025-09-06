@@ -7,7 +7,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Tool } from '@/lib/tools-client.tsx';
-import { tools as clientTools } from '@/lib/tools-client';
+import { tools as clientTools, fileToDataUri, filesToDataUris } from '@/lib/tools-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,27 +15,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
-import { Loader, Sparkles, AlertCircle, Upload } from 'lucide-react';
+import { Loader2, Sparkles, AlertCircle, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Confetti } from '@/components/confetti';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { track } from '@/lib/events';
-
-const fileToDataUri = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-};
-
-const filesToDataUris = (files: FileList | null): Promise<string[]> => {
-    if (!files) return Promise.resolve([]);
-    return Promise.all(Array.from(files).map(fileToDataUri));
-};
 
 const getToolSchema = (tool: Tool | undefined) => {
     if (!tool) return z.object({});
@@ -45,20 +31,18 @@ const getToolSchema = (tool: Tool | undefined) => {
         
         let fieldSchema;
 
-        // Special optional fields
         const optionalFileFields = ['companyLogoDataUri', 'projectBrochureDataUri', 'inspirationImageDataUri', 'newImages', 'brochureDataUri'];
+        const optionalTextFields = ['additionalInformation', 'projectName', 'developer'];
 
         if (field.type === 'file') {
             const isOptional = field.multiple || optionalFileFields.includes(field.id);
-
-            fieldSchema = z.custom<FileList>().nullable().refine(files => {
-                if (isOptional) return true;
-                return files && files.length > 0;
-            }, `${field.name} is required.`);
+            // We make file inputs optional in Zod and handle requirement logic in the UI/onSubmit
+            // because `FileList` can be tricky to validate conditionally.
+            fieldSchema = z.custom<FileList>().nullable().optional();
 
         } else if (field.type === 'number') {
             fieldSchema = z.string().min(1, `${field.name} is required`).refine(val => !isNaN(Number(val)), { message: "Must be a number" });
-        } else if (['additionalInformation', 'projectName'].includes(field.id) ) {
+        } else if (optionalTextFields.includes(field.id) ) {
              fieldSchema = z.string().optional();
         }
         else {
@@ -69,7 +53,16 @@ const getToolSchema = (tool: Tool | undefined) => {
         return acc;
     }, {});
 
-    return z.object(shape);
+    // Add a cross-field validation for ad-creation tool
+    return z.object(shape).refine(data => {
+        if (tool.id === 'ad-creation') {
+            return !!data.projectName || (data.brochureDataUri && data.brochureDataUri.length > 0);
+        }
+        return true;
+    }, {
+        message: 'Either a Project Name or a Brochure must be provided.',
+        path: ['projectName'], 
+    });
 };
 
 
@@ -97,13 +90,12 @@ export default function ToolPage() {
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: tool?.creationFields.reduce((acc, field) => {
-      if (field.type !== 'button') {
-        (acc as any)[field.id] = field.type === 'file' ? null : '';
+      if (field.type !== 'button' && field.type !== 'group-header') {
+        (acc as any)[field.id] = field.type === 'file' ? null : (field as any).value || '';
       }
       return acc;
     }, {})
   });
-
 
   if (!tool) {
     return (
@@ -126,14 +118,29 @@ export default function ToolPage() {
 
     try {
         const currentTool = clientTools.find(t => t.id === toolId);
-        
-        if (!currentTool) {
-            throw new Error(`Tool with id "${toolId}" not found.`);
-        }
+        if (!currentTool) throw new Error(`Tool with id "${toolId}" not found.`);
 
         let payload: Record<string, any> = {};
 
-        // This payload preparation logic is now client-side only
+        for (const field of currentTool.creationFields) {
+            const fieldId = field.id;
+            if (field.type === 'button' || field.type === 'group-header' || !data[fieldId]) continue;
+
+            const value = data[fieldId];
+            if (field.type === 'file' && value instanceof FileList && value.length > 0) {
+                 if (field.multiple) {
+                    payload[fieldId] = await filesToDataUris(value);
+                } else {
+                    payload[fieldId] = await fileToDataUri(value[0]);
+                }
+            } else if (field.type === 'number') {
+                 payload[fieldId] = Number(value);
+            } else if (field.type !== 'file' && value) {
+                payload[fieldId] = value;
+            }
+        }
+        
+        // Special payload structuring for specific tools
         if (currentTool.id === 'targeting') {
              payload = {
                 location: data.location,
@@ -146,60 +153,43 @@ export default function ToolPage() {
             };
         } else if (currentTool.id === 'investor-matching') {
             payload = {
+                ...payload, // keep other fields
                 clientDatabase: await fileToDataUri(data.clientDatabase[0]),
-                propertyType: data.propertyType,
-                location: data.location,
                 price: Number(data.price),
                 capRate: Number(data.capRate),
-                investmentThesis: data.investmentThesis,
-                keyFeatures: data.keyFeatures,
-            }
-        }
-        else {
-            for (const field of currentTool.creationFields) {
-                if(field.type === 'button' || field.type === 'group-header' || !data[field.id]) continue;
-
-                const value = data[field.id];
-                if (field.type === 'file' && value instanceof FileList && value.length > 0) {
-                     if (field.multiple) {
-                        payload[field.id] = await filesToDataUris(value);
-                    } else {
-                        payload[field.id] = await fileToDataUri(value[0]);
-                    }
-                } else if (field.type !== 'file' && value) {
-                    payload[field.id] = value;
-                }
             }
         }
         
-        track('tool_run_started', { toolId, payload });
+        track('tool_run_started', { toolId });
 
-        // **NEW**: Call the API endpoint instead of the flow runner directly
         const response = await fetch('/api/tools/run', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ toolId, payload }),
         });
 
+        const responseData = await response.json();
+
         if (!response.ok) {
-            const errorResult = await response.json();
-            throw new Error(errorResult.error || 'An API error occurred.');
+            throw new Error(responseData.error || 'An API error occurred.');
         }
         
-        const flowResult = await response.json();
-        setResult(flowResult);
+        setResult(responseData);
         setShowConfetti(true);
+        track('tool_run_succeeded', { toolId });
     } catch (e: any) {
       console.error(e);
       setError(e.message || 'An unexpected error occurred.');
+      toast({
+          title: "Generation Failed",
+          description: e.message,
+          variant: 'destructive',
+      });
+      track('tool_run_failed', { toolId, error: e.message });
     } finally {
       setIsLoading(false);
     }
   };
-
-  const onSubmit = (data: Record<string, any>) => {
-    handleGeneration(data);
-  }
   
   return (
     <main className="p-4 md:p-10 space-y-8">
@@ -207,7 +197,7 @@ export default function ToolPage() {
       <Card className="max-w-4xl mx-auto">
         <CardHeader>
           <div className="flex items-center gap-4">
-            <div className="p-3 bg-primary/10 text-primary rounded-lg w-fit">
+            <div className="p-3 rounded-lg w-fit text-white" style={{ backgroundColor: tool.color }}>
               {React.cloneElement(tool.icon, { className: 'h-8 w-8' })}
             </div>
             <div>
@@ -216,10 +206,11 @@ export default function ToolPage() {
             </div>
           </div>
         </CardHeader>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(handleGeneration)}>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {tool.creationFields.map((field) => {
+                if ((field as any).hidden) return null;
                 if (field.type === 'group-header') {
                     return (
                         <div key={field.id} className="md:col-span-2 mt-4 first:mt-0">
@@ -231,7 +222,7 @@ export default function ToolPage() {
                 }
 
                 return (
-                    <div key={field.id} className="space-y-2">
+                    <div key={field.id} className={cn("space-y-2", (field.type === 'textarea' && tool.id !== 'targeting') && "md:col-span-2" )}>
                     {field.type !== 'button' && <Label htmlFor={field.id} className="font-semibold">{field.name}</Label>}
                     <Controller
                         name={field.id}
@@ -253,7 +244,7 @@ export default function ToolPage() {
                                             htmlFor={field.id} 
                                             className={cn(
                                                 "flex items-center justify-center gap-2 w-full h-10 px-3 py-2 text-sm border-input border rounded-md cursor-pointer bg-background hover:bg-muted/50",
-                                                fileList && fileList.length > 0 && "text-primary"
+                                                fileList && fileList.length > 0 && "text-primary border-primary/50"
                                             )}
                                         >
                                             <Upload className="h-4 w-4"/>
@@ -301,12 +292,13 @@ export default function ToolPage() {
                     </div>
                 )})}
             </div>
+            {errors.root && <p className="text-sm text-destructive mt-4">{errors.root.message as string}</p>}
           </CardContent>
           <CardFooter>
             <Button type="submit" size="lg" disabled={isLoading}>
               {isLoading ? (
                 <>
-                  <Loader className="mr-2 h-5 w-5 animate-spin" />
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                   Generating...
                 </>
               ) : (
@@ -320,7 +312,7 @@ export default function ToolPage() {
         </form>
       </Card>
       
-      {error && (
+      {error && !result && (
          <Alert variant="destructive" className="max-w-4xl mx-auto">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Error</AlertTitle>
@@ -342,5 +334,3 @@ export default function ToolPage() {
     </main>
   );
 }
-
-    

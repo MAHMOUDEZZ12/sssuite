@@ -106,7 +106,6 @@ export type Feature = {
     faqs: { question: string; answer: string }[];
   };
   creationFields: Field[];
-  flowRunner?: (data: any) => Promise<any>;
   renderResult?: (result: any, toast: any) => React.ReactNode;
 };
 
@@ -711,7 +710,7 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-      { id: 'connect', name: 'Connect Accounts', type: 'button', cta: 'Connect Facebook & Instagram', description: 'Authorize the AI to manage your pages.' },
+       { id: 'connect', name: 'Connect Accounts', type: 'button', cta: 'Connect Facebook & Instagram', description: 'Authorize the AI to manage your pages.' },
     ],
   },
   {

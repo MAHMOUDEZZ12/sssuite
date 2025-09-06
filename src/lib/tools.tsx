@@ -1,5 +1,4 @@
 
-
 // AI Flow Imports
 import { generateAdFromBrochure } from '@/ai/flows/generate-ad-from-brochure';
 import { generateLandingPage } from '@/ai/flows/generate-landing-page';
@@ -29,10 +28,12 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'market-reports': generateMarketReport,
     'property-finder-listing-ai': generateListing,
     'bayut-listing-ai': generateListing,
-    // Add other flow runners here as they are created
+    // Note: Tools without a flowRunner will not be executable from the generic tool page.
+    // They might be handled by custom pages or are for display only.
 };
 
 export const tools = clientTools.map(tool => {
+    // Only add a flowRunner if one exists in the map
     if (flowRunnerMap[tool.id]) {
         return {
             ...tool,
