@@ -1,8 +1,6 @@
 
 'use client';
 
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,32 +8,30 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { LifeBuoy, LogOut, Settings, User, Briefcase, Palette, UserPlus } from "lucide-react";
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import { ThemeSwitcher } from "./theme-switcher";
 
 export function DashboardHeader() {
     const pathname = usePathname();
 
     const navLinks = [
-        { href: '/dashboard/projects', label: 'Projects', icon: <Briefcase /> },
-        { href: '/dashboard/brand', label: 'Brand', icon: <Palette /> },
-        { href: '/dashboard/leads', label: 'Leads', icon: <UserPlus /> },
+        { href: '/dashboard/projects', label: 'Projects', icon: <Briefcase className="h-4 w-4" /> },
+        { href: '/dashboard/brand', label: 'Brand', icon: <Palette className="h-4 w-4" /> },
+        { href: '/dashboard/leads', label: 'Leads', icon: <UserPlus className="h-4 w-4" /> },
     ];
 
     return (
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur-sm sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-            <SidebarTrigger className="sm:hidden" />
-
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur-sm sm:px-6">
             <div className="ml-auto flex items-center gap-2">
-                <nav className="hidden md:flex items-center gap-2">
+                <nav className="hidden md:flex items-center gap-1">
                     {navLinks.map(link => (
                         <Link key={link.href} href={link.href}>
-                            <Button variant={pathname.startsWith(link.href) ? 'default' : 'ghost'} size="sm">
+                            <Button variant={pathname.startsWith(link.href) ? 'secondary' : 'ghost'} size="sm" className="gap-2">
                                 {link.icon}
                                 {link.label}
                             </Button>
@@ -60,10 +56,6 @@ export function DashboardHeader() {
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <Link href="/dashboard/brand"><DropdownMenuItem>
-                            <User className="mr-2 h-4 w-4" />
-                            Profile & Brand
-                        </DropdownMenuItem></Link>
                         <Link href="/dashboard/settings"><DropdownMenuItem>
                             <Settings className="mr-2 h-4 w-4" />
                             Settings

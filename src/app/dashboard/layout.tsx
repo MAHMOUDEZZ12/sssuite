@@ -9,11 +9,9 @@ import {
   SidebarHeader,
   SidebarContent,
   SidebarFooter,
-  SidebarTrigger,
-  SidebarMenu,
   SidebarMenuItem,
+  SidebarMenu,
   SidebarMenuButton,
-  SidebarInset,
   SidebarInput,
 } from '@/components/ui/sidebar';
 import {
@@ -22,7 +20,6 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { Logo } from '@/components/logo';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Home,
   Megaphone,
@@ -102,7 +99,7 @@ export default function DashboardLayout({
   return (
     <SidebarProvider>
       <Sidebar>
-        <SidebarHeader className="flex items-center justify-between">
+        <SidebarHeader>
           <Logo />
         </SidebarHeader>
         <SidebarContent>
@@ -159,7 +156,7 @@ export default function DashboardLayout({
       </Sidebar>
       <SidebarInset>
         <DashboardHeader />
-        <main className="flex-1 overflow-auto">{children}</main>
+        <main className="flex-1 overflow-y-auto">{children}</main>
         <AssistantChat />
       </SidebarInset>
     </SidebarProvider>
