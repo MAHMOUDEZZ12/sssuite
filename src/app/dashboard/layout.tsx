@@ -184,31 +184,6 @@ export default function DashboardLayout({
                             </SidebarMenuButton>
                         </Link>
                     </SidebarMenuItem>
-                     <SidebarMenuItem>
-                        <Link href="/dashboard/settings">
-                            <SidebarMenuButton isActive={pathname.startsWith('/dashboard/settings')}>
-                                <Settings />
-                                <span className="group-data-[collapsible=icon]:hidden">Settings</span>
-                            </SidebarMenuButton>
-                        </Link>
-                    </SidebarMenuItem>
-                    <Separator />
-                     <SidebarMenuItem>
-                        <Link href="/status">
-                            <SidebarMenuButton>
-                                <Server />
-                                <span className="group-data-[collapsible=icon]:hidden">System Status</span>
-                            </SidebarMenuButton>
-                        </Link>
-                    </SidebarMenuItem>
-                     <SidebarMenuItem>
-                        <a href="mailto:support@supersalessuite.com">
-                            <SidebarMenuButton>
-                                <LifeBuoy />
-                                <span className="group-data-[collapsible=icon]:hidden">Report an Issue</span>
-                            </SidebarMenuButton>
-                        </a>
-                    </SidebarMenuItem>
                  </SidebarMenu>
             </div>
             <Separator />
