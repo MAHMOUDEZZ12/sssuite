@@ -42,12 +42,12 @@ export default function ProjectsPage() {
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
         title="My Projects"
-        description="Organize, track, and manage all your marketing and sales projects."
+        description="Organize, track, and manage all your marketing and sales projects. Add new projects to your library here."
         icon={<PlusCircle className="h-8 w-8" />}
       >
          <Button>
             <PlusCircle className="mr-2 h-4 w-4" />
-            Create New Project
+            Add New Project
         </Button>
       </PageHeader>
 
@@ -94,5 +94,3 @@ export default function ProjectsPage() {
     </main>
   );
 }
-
-    

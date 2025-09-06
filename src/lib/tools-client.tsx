@@ -200,7 +200,7 @@ export const tools: Feature[] = [
     description: 'Find high-intent buyers before they search.',
     icon: <Binoculars />,
     color: '#3b82f6', // blue-600
-    cta: 'Generate Targeting Profile',
+    cta: 'Generate Strategies',
     categories: ['Marketing', 'Lead Gen', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
     renderResult: (result, toast) => (
@@ -214,17 +214,17 @@ export const tools: Feature[] = [
     ),
     details: {
       steps: [
-        { text: 'Provide property and audience details', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'The AI analyzes market and demographic data', icon: <BrainCircuit className="h-6 w-6" /> },
-        { text: 'Get detailed audience settings for ads', icon: <ClipboardList className="h-6 w-6" /> },
+        { text: 'Select a project from your library', icon: <Briefcase className="h-6 w-6" /> },
+        { text: 'The AI analyzes project data and market signals', icon: <BrainCircuit className="h-6 w-6" /> },
+        { text: 'Get multiple targeting strategies to choose from', icon: <ClipboardList className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Audience Discovery', manual: 'Broad guessing (e.g., "Age 30-50")', ai: 'Niche, high-intent segments', icon: <Users2 /> },
-        { metric: 'Time to Research', manual: 'Hours of market research', ai: 'Fast by default', icon: <Clock2 /> },
+        { metric: 'Audience Discovery', manual: 'Broad guessing (e.g., "Age 30-50")', ai: 'Niche, high-intent segments based on real data', icon: <Users2 /> },
+        { metric: 'Time to Research', manual: 'Hours of market research', ai: 'Instantaneous generation', icon: <Clock2 /> },
         { metric: 'Budget Efficiency', manual: 'High waste on wrong audiences', ai: 'Optimized ad spend, higher ROI', icon: <Wallet /> },
       ],
       synergy: [
-        { tool: "Campaign Builder AI", benefit: "Design the perfect ad for the high-intent audience you\'ve just identified." },
+        { tool: "Campaign Builder AI", benefit: "Design the perfect ad for the high-intent audience you've just identified." },
         { tool: "Instagram Content Creator", benefit: "Create organic posts that speak directly to the interests of your target persona." }
       ],
        faqs: [
@@ -234,17 +234,7 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-      { id: 'group-property', name: 'Property Details', type: 'group-header', description: 'Describe the property to be advertised.' },
-      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Downtown, Chicago"', description: 'Target city or neighborhood.' },
-      { id: 'propertyType', name: 'Property Type', type: 'text', placeholder: 'e.g., "High-rise Condo"', description: 'Type of property being sold.' },
-      { id: 'minPrice', name: 'Min Price', type: 'number', placeholder: 'e.g., 500000', description: 'Minimum property price.' },
-      { id: 'maxPrice', name: 'Max Price', type: 'number', placeholder: 'e.g., 850000', description: 'Maximum property price.' },
-      { id: 'amenities', name: 'Key Amenities', type: 'text', placeholder: 'e.g., Rooftop pool, Gym, Pet-friendly', description: 'List amenities, comma-separated.' },
-      { id: 'group-audience', name: 'Audience Persona', type: 'group-header', description: 'Describe your ideal buyer.' },
-      { id: 'minAge', name: 'Min Age', type: 'number', placeholder: 'e.g., 30', description: 'Minimum target age.' },
-      { id: 'maxAge', name: 'Max Age', type: 'number', placeholder: 'e.g., 55', description: 'Maximum target age.' },
-      { id: 'incomeLevel', name: 'Income Level', type: 'select', options: ["Starter", "Mid-Range", "High Earner", "Affluent", "Ultra-High-Net-Worth"], placeholder: 'Select income level', description: 'Financial status of the audience.' },
-      { id: 'interests', name: 'Audience Interests', type: 'text', placeholder: 'e.g., Golf, Luxury Cars, Tech Startups', description: 'List interests, comma-separated.' },
+       { id: 'projectId', name: 'Project', type: 'select', options: mockProjects, placeholder: 'Select a project', description: 'Choose the project you want to create an audience for.' },
     ],
   },
   {
@@ -332,7 +322,7 @@ export const tools: Feature[] = [
     description: 'Design effective ads for the Facebook platform.',
     icon: <Facebook />,
     color: '#2563eb',
-    cta: 'Generate Facebook Ad',
+    cta: 'Create Facebook Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
     creationFields: [],
@@ -561,7 +551,7 @@ export const tools: Feature[] = [
     description: 'Design, write, and schedule.',
     icon: <Mail />,
     color: '#0ea5e9', // sky-500
-    cta: 'Create Email Campaign',
+    cta: 'Send Email Campaign',
     categories: ['Marketing', 'Social & Comms', 'Sales Tools'],
     mindMapCategory: 'Marketing',
     details: {

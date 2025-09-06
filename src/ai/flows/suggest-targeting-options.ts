@@ -21,30 +21,8 @@ import {z} from 'genkit';
  * Defines the schema for the input of the targeting options suggestion flow.
  */
 const SuggestTargetingOptionsInputSchema = z.object({
-  /** The target city, neighborhood, or area. */
-  location: z.string().describe('The target city, neighborhood, or area.'),
-  /** The type of property being sold. */
-  propertyType: z
-    .string()
-    .describe('The type of property (e.g., Condo, Single-Family Home).'),
-  /** The price range of the property. */
-  priceRange: z.object({
-    min: z.number(),
-    max: z.number(),
-  }).describe('The price range of the property.'),
-  /** A list of key amenities of the property. */
-  amenities: z.array(z.string()).describe('A list of key property amenities.'),
-  /** The target age range for the audience. */
-  ageRange: z.object({
-    min: z.number(),
-    max: z.number(),
-  }).describe('The target age range for the audience.'),
-  /** The income level of the target audience. */
-  incomeLevel: z
-    .string()
-    .describe('The income level of the target audience (e.g., Affluent, High Earner).'),
-  /** A list of interests for the target audience. */
-  interests: z.array(z.string()).describe('A list of interests for the target audience.'),
+  /** The project ID to generate targeting for. */
+  projectId: z.string().describe('The ID of the project to generate targeting for.'),
 });
 
 export type SuggestTargetingOptionsInput = z.infer<
@@ -86,37 +64,30 @@ const prompt = ai.definePrompt({
   input: {schema: SuggestTargetingOptionsInputSchema},
   output: {schema: SuggestTargetingOptionsOutputSchema},
   prompt: `You are an expert in digital marketing and advertising, specializing in real estate.
-  Based on the provided structured project details and target audience persona, suggest the best targeting options for an ad campaign on platforms like Facebook and Google.
+  Based on the provided project details, suggest the best targeting options for an ad campaign on platforms like Facebook and Google.
 
-  **Property Details:**
-  - Location: {{{location}}}
-  - Property Type: {{{propertyType}}}
-  - Price Range: \${{{priceRange.min}}} - \${{{priceRange.max}}}
-  - Key Amenities: {{#each amenities}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
-
-  **Target Audience Persona:**
-  - Age Range: {{{ageRange.min}}}-{{{ageRange.max}}}
-  - Income Level: {{{incomeLevel}}}
-  - Interests: {{#each interests}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
-
-  Provide a detailed list of targeting options, including demographics, interests, behaviors, and relevant keywords.
-  Structure the output clearly. For example:
+  **TODO: The project data should be fetched from a database using the projectId.**
+  For now, use this placeholder data for Project ID: {{projectId}}
   
-  **1. Demographics:**
-  - Location: [Specific neighborhoods in {{{location}}}]
-  - Age: {{{ageRange.min}}}-{{{ageRange.max}}}
-  - Income: [Specific suggestions based on {{{incomeLevel}}} and price range]
+  **Property Details:**
+  - Location: "Downtown Dubai"
+  - Property Type: "Luxury High-rise Condo"
+  - Price Range: $1,000,000 - $2,500,000
+  - Key Amenities: "Rooftop infinity pool, 24/7 concierge, state-of-the-art gym, valet parking"
 
-  **2. Interests & Behaviors (Facebook/Instagram):**
-  - [Interest 1] (e.g., "Luxury Goods" if property is high-end)
-  - [Interest 2] (e.g., "Golf" if near a golf course)
-  - [Behavior 1] (e.g., "Likely to move")
-
-  **3. Keywords (Google Ads):**
-  - [Keyword 1] (e.g., '"{{{location}}} homes for sale"')
-  - [Keyword 2] (e.g., '"buy condo in {{{location}}}"')
-
-  Optimize these suggestions to reach the most relevant potential buyers for the project. Be specific and provide actionable recommendations. For location, suggest specific, relevant sub-neighborhoods if appropriate.`,
+  **Instructions:**
+  
+  1.  **Analyze the Project**: Based on the property details, infer the most likely buyer personas.
+  2.  **Generate 2-3 Distinct Strategies**: Create multiple, distinct targeting strategies. For example:
+      - **Strategy 1: The Local Professional**: Target high-income professionals already living or working in the area.
+      - **Strategy 2: The International Investor**: Target individuals in key international markets known for investing in this city.
+      - **Strategy 3: The Lifestyle Seeker**: Target users interested in luxury brands, fine dining, and specific lifestyle activities associated with the property.
+  3.  **Detail Each Strategy**: For each strategy, provide a detailed breakdown of:
+      - **Demographics:** Location, Age, Language, etc.
+      - **Interests & Behaviors (for Facebook/Instagram):** Specific, actionable interests to target.
+      - **Keywords (for Google Ads):** High-intent keywords for search campaigns.
+  4.  **Format as Markdown**: Present the output in a clear, well-formatted markdown structure. Use headings for each strategy.
+`,
 });
 
 const suggestTargetingOptionsFlow = ai.defineFlow(
@@ -126,6 +97,8 @@ const suggestTargetingOptionsFlow = ai.defineFlow(
     outputSchema: SuggestTargetingOptionsOutputSchema,
   },
   async input => {
+    // In a future step, we would use input.projectId to fetch real data from Firestore.
+    // For now, the prompt contains placeholder data.
     const {output} = await prompt(input);
     return output!;
   }
