@@ -12,11 +12,9 @@ import type { Project } from '@/types';
 import { ProjectCard } from '@/components/ui/project-card';
 import { useToast } from '@/hooks/use-toast';
 
-const MOCK_DEVELOPERS = ['Emaar', 'Damac', 'Sobha', 'Nakheel', 'Meraas', 'Aldar'];
-
 export default function ProjectsFinderPage() {
   const { toast } = useToast();
-  const [developer, setDeveloper] = useState('');
+  const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
@@ -27,14 +25,14 @@ export default function ProjectsFinderPage() {
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!developer) return;
+    if (!query) return;
 
     setIsLoading(true);
     setHasSearched(true);
     setSearchResults([]);
 
     try {
-      const response = await fetch(`/api/projects/scan?devs=${developer}`);
+      const response = await fetch(`/api/projects/scan?q=${encodeURIComponent(query)}`);
       const data = await response.json();
       if (data.ok) {
         setSearchResults(data.data);
@@ -79,7 +77,7 @@ export default function ProjectsFinderPage() {
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
         title="AI Projects Finder"
-        description="Search our intelligent database for verified projects. Add them to your library to use across the suite."
+        description="Search our intelligent Market Library for verified projects. Add them to your personal library to use across the suite."
         icon={<Building className="h-8 w-8" />}
       />
 
@@ -87,19 +85,19 @@ export default function ProjectsFinderPage() {
         <CardHeader>
           <CardTitle>Search the Market Library</CardTitle>
           <CardDescription>
-            Start by searching for a developer to see their available projects.
+            Search by project name, developer, area, status, or any other keyword.
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSearch}>
           <CardContent>
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-grow space-y-2">
-                <Label htmlFor="developer-search">Developer Name</Label>
+                <Label htmlFor="developer-search" className="sr-only">Search Projects</Label>
                 <Input
                   id="developer-search"
-                  placeholder="e.g., Emaar, Damac..."
-                  value={developer}
-                  onChange={(e) => setDeveloper(e.target.value)}
+                  placeholder="Search by name, developer, area, status..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
               </div>
               <Button type="submit" className="self-end" disabled={isLoading}>
@@ -118,9 +116,9 @@ export default function ProjectsFinderPage() {
       {hasSearched && !isLoading && (
         <Card>
             <CardHeader>
-                <CardTitle>Search Results for "{developer}"</CardTitle>
+                <CardTitle>Search Results for "{query}"</CardTitle>
                 <CardDescription>
-                    {searchResults.length > 0 ? `Found ${searchResults.length} projects. Add them to your library to get started.` : 'No projects found for this developer in our database.'}
+                    {searchResults.length > 0 ? `Found ${searchResults.length} projects. Add them to your library to get started.` : 'No projects found for this developer in our Market Library.'}
                 </CardDescription>
             </CardHeader>
             <CardContent>

@@ -2,12 +2,13 @@
 import { adminDb } from "@/lib/firebaseAdmin";
 import { ok, fail } from "@/lib/api-helpers";
 import { readMarketFromCookies } from "@/lib/api-helpers";
+import type { Project } from "@/types";
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const limit = Number(searchParams.get("limit") || 20);
-    const devs = (searchParams.get("devs") || "").split(",").filter(Boolean);
+    const query = (searchParams.get("q") || "").toLowerCase().trim();
 
     const { country, city } = readMarketFromCookies();
 
@@ -16,9 +17,17 @@ export async function GET(req: Request) {
 
     const snap = await q.get();
     let all = snap.docs.map(d => ({ id: d.id, ...d.data() as any }))
-      .filter(p => p.city === city);
+      .filter((p: Project) => p.city === city);
 
-    if (devs.length) all = all.filter((p: any) => devs.includes(p.developer));
+    if (query) {
+      all = all.filter((p: Project) => 
+        p.name.toLowerCase().includes(query) ||
+        p.developer.toLowerCase().includes(query) ||
+        (p.area && p.area.toLowerCase().includes(query)) ||
+        (p.status && p.status.toLowerCase().includes(query)) ||
+        (p.unitTypes && p.unitTypes.some(u => u.toLowerCase().includes(query)))
+      );
+    }
 
     return ok(all.slice(0, limit));
   } catch (e) {
