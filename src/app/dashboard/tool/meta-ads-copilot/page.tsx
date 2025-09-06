@@ -11,16 +11,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Facebook, Upload, ArrowRight, CheckCircle, Lightbulb, Copy, LayoutDashboard, BarChart2, GalleryVertical, PlusCircle } from 'lucide-react';
+import { Loader2, Sparkles, Facebook, Upload, ArrowRight, CheckCircle, Lightbulb, Copy, LayoutDashboard, BarChart2, GalleryVertical, PlusCircle, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { fileToDataUri } from '@/lib/tools-client';
-import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+
 
 // Define schemas here, on the client, for form validation.
 export const CreateMetaCampaignInputSchema = z.object({
@@ -63,7 +64,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-const mockCampaigns = [
+const initialMockCampaigns = [
     { id: 1, name: "Azure Lofts Lead Gen", objective: "LEAD_GENERATION", budget: 500, status: "Active" },
     { id: 2, name: "Maple Creek Awareness", objective: "AWARENESS", budget: 300, status: "Completed" },
     { id: 3, name: "Oceanview Villas Traffic", objective: "TRAFFIC", budget: 750, status: "Paused" },
@@ -76,21 +77,55 @@ const mockAnalyticsData = [
   { name: 'Week 4', reach: 2780, clicks: 390, cpl: 3.10 },
 ];
 
+type Campaign = typeof initialMockCampaigns[0];
 
-const ResultDisplay = ({ result, toast }: { result: CreateMetaCampaignOutput, toast: any }) => {
-    const copyToClipboard = (text: string) => {
-        navigator.clipboard.writeText(text);
-        toast({ title: 'Copied to clipboard!' });
+const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaignOutput, toast: any, onPublish: (campaign: Campaign) => void }) => {
+    const totalBudget = result.adSets.reduce((sum, adSet) => sum + adSet.dailyBudget, 0) * (result.adSets.length > 0 ? (formSchema.parse(useForm<FormData>().getValues()).durationDays || 1) : 1);
+
+    const handlePublish = () => {
+        const newCampaign: Campaign = {
+            id: Date.now(),
+            name: result.campaignName,
+            objective: result.campaignObjective,
+            budget: Number(formSchema.parse(useForm<FormData>().getValues()).budget),
+            status: "Active",
+        };
+        onPublish(newCampaign);
+        toast({ title: 'Campaign Published!', description: `${result.campaignName} is now live on Meta.` });
     };
 
     return (
         <div className="space-y-8">
             <Card>
                 <CardHeader>
-                    <CardTitle>Campaign Strategy: {result.campaignName}</CardTitle>
-                    <CardDescription>
-                        Meta Objective: <Badge>{result.campaignObjective}</Badge>
-                    </CardDescription>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <CardTitle>Campaign Strategy: {result.campaignName}</CardTitle>
+                            <CardDescription>
+                                Meta Objective: <Badge>{result.campaignObjective}</Badge>
+                            </CardDescription>
+                        </div>
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                                <Button>
+                                    <Send className="mr-2 h-4 w-4"/>
+                                    Publish to Meta
+                                </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>Are you sure you want to publish this campaign?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        This will simulate publishing the "{result.campaignName}" campaign to your connected Meta account. This is a demonstration and will not spend real money.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                    <AlertDialogAction onClick={handlePublish}>Yes, Publish Campaign</AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
+                    </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div>
@@ -144,6 +179,8 @@ export default function MetaAdsCopilotPage() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<CreateMetaCampaignOutput | null>(null);
+  const [campaigns, setCampaigns] = useState<Campaign[]>(initialMockCampaigns);
+  const [activeTab, setActiveTab] = useState("generator");
 
   const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -177,6 +214,11 @@ export default function MetaAdsCopilotPage() {
         setIsLoading(false);
     }
   };
+
+  const handlePublishCampaign = (newCampaign: Campaign) => {
+    setCampaigns(prev => [newCampaign, ...prev]);
+    setActiveTab("dashboard");
+  };
   
   return (
     <main className="p-4 md:p-10 space-y-8">
@@ -186,7 +228,7 @@ export default function MetaAdsCopilotPage() {
         icon={<Facebook className="h-8 w-8" />}
       />
 
-       <Tabs defaultValue="generator" className="w-full">
+       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="generator"><PlusCircle className="mr-2 h-4 w-4" />Campaign Generator</TabsTrigger>
                 <TabsTrigger value="dashboard"><LayoutDashboard className="mr-2 h-4 w-4" />Dashboard</TabsTrigger>
@@ -261,7 +303,7 @@ export default function MetaAdsCopilotPage() {
                             </Card>
                         )}
                          {result && (
-                            <ResultDisplay result={result} toast={toast} />
+                            <ResultDisplay result={result} toast={toast} onPublish={handlePublishCampaign} />
                          )}
                          {!isLoading && !result && (
                             <Card className="flex items-center justify-center h-96 border-dashed">
@@ -292,7 +334,7 @@ export default function MetaAdsCopilotPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {mockCampaigns.map((campaign) => (
+                                {campaigns.map((campaign) => (
                                     <TableRow key={campaign.id}>
                                         <TableCell className="font-medium">{campaign.name}</TableCell>
                                         <TableCell><Badge variant="outline">{campaign.objective}</Badge></TableCell>
