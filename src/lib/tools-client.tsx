@@ -225,7 +225,9 @@ export const tools: Feature[] = [
           </div>
           <div>
             <h3 className="font-semibold text-lg mb-2">Landing Page Preview</h3>
-            <Image src={result.landingPage} alt="Generated landing page" width={500} height={500} className="rounded-lg border" />
+            <div className="border rounded-lg overflow-hidden w-fit">
+              <Image src={result.landingPage} alt="Generated landing page" width={800} height={600} className="object-contain" />
+            </div>
              <a href={result.landingPage} download="landing-page.png" className="mt-2 inline-block">
                 <Button variant="outline"><Download className="mr-2"/> Download Image</Button>
             </a>
