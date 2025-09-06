@@ -26,12 +26,12 @@ import { tools as clientTools } from './tools-client';
 
 // Map server-side functions to the client-safe tools definition
 const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
-    'ad-creation': generateAdFromBrochure,
-    'targeting': suggestTargetingOptions,
+    'campaign-builder': generateAdFromBrochure,
+    'audience-creator': suggestTargetingOptions,
     'rebranding': rebrandBrochure,
     'pdf-editor': editPdf,
     'landing-pages': generateLandingPage,
-    'social-posts': generateSocialPost,
+    'instagram-content-creator': generateSocialPost,
     'investor-matching': matchInvestors,
     'ai-brand-creator': aiBrandCreator,
     'market-reports': generateMarketReport,

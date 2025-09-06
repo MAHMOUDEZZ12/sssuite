@@ -47,6 +47,7 @@ import {
   Instagram,
   BarChart,
   Hash,
+  Star,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -98,7 +99,7 @@ export type Feature = {
   cta: string;
   categories: FilterCategory[];
   mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal' | 'Meta Ads AI Suite';
-  badge?: 'NEW' | 'BETA' | 'SOON';
+  badge?: 'NEW' | 'BETA' | 'SOON' | 'Pilot*';
   isPage?: boolean;
   details: {
     steps: { text: string; icon: React.ReactElement }[];
@@ -124,10 +125,43 @@ const mockProjects = [
 
 export const tools: Feature[] = [
   // --- META ADS AI SUITE ---
+   {
+    id: 'meta-auto-pilot',
+    title: 'Meta Auto Pilot (Manager)',
+    description: 'The single-click manager for your entire Meta suite.',
+    icon: <Star />,
+    color: '#fbbf24', // amber-400
+    cta: 'Automated Campaign',
+    categories: ['Marketing', 'Ads', 'Lead Gen'],
+    mindMapCategory: 'Meta Ads AI Suite',
+    badge: 'Pilot*',
+    isPage: true,
+    details: {
+      steps: [
+          { text: 'Connect all your Meta ad tools', icon: <LinkIcon className="h-6 w-6" /> },
+          { text: 'Define a high-level goal and budget', icon: <Target className="h-6 w-6" /> },
+          { text: 'The Pilot runs and optimizes the entire workflow', icon: <Sparkles className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Time Investment', manual: '10+ hours per week managing ads', ai: 'Set a goal, let the Pilot work', icon: <Clock2 /> },
+        { metric: 'Strategy', manual: 'Reacts slowly to performance data', ai: 'Proactively shifts budget and creative', icon: <LineChart /> },
+        { metric: 'Complexity', manual: 'Juggling multiple tools and platforms', ai: 'One command controls everything', icon: <Bot /> },
+      ],
+      synergy: [
+        { tool: "All Meta Tools", benefit: "The Pilot is the orchestrator, using all other tools in the suite to execute a complete strategy." },
+        { tool: "CRM Memory", benefit: "Feed campaign performance and lead data directly back into your CRM automatically." }
+      ],
+       faqs: [
+        { question: "Is this safe for my ad account?", answer: "Yes, the Pilot operates within all platform guidelines and you set the budget caps. It automates the workflow, but you retain full control." },
+        { question: "Can I intervene during a campaign?", answer: "Absolutely. You can pause the pilot, manually adjust campaigns, or provide new instructions at any time. It's your co-pilot, not an autopilot." },
+      ],
+    },
+    creationFields: [],
+  },
   {
     id: 'meta-ads-copilot',
     title: 'Meta Ads Co-Pilot (Manager)',
-    description: 'Your dedicated agent for Facebook & Instagram ads.',
+    description: 'Your dedicated agent for Facebook & Instagram advertising.',
     icon: <Bot />,
     color: '#1d4ed8', // blue-700
     cta: 'Ad Campaign',
@@ -849,7 +883,7 @@ export const tools: Feature[] = [
     },
     creationFields: [
       { id: 'platform', name: 'Platform', type: 'text', placeholder: '', description: '', value: 'Bayut', hidden: true },
-      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the property.' },
+      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the a property.' },
       { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
       { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },
       { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
