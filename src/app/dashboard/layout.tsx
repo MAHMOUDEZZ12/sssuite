@@ -25,18 +25,11 @@ import { Logo } from '@/components/logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Home,
-  Briefcase,
-  Palette,
-  Database,
   Megaphone,
   Brush,
   Users2,
   BrainCircuit,
-  Settings,
-  Server,
-  LifeBuoy,
   ChevronRight,
-  UserPlus,
   Search,
 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
@@ -128,7 +121,7 @@ export default function DashboardLayout({
                   <Link href="/dashboard">
                       <SidebarMenuButton isActive={pathname === '/dashboard'}>
                           <Home />
-                          <span className="group-data-[collapsible=icon]:hidden">Seller Suite</span>
+                          <span className="group-data-[collapsible=icon]:hidden">Dashboard</span>
                       </SidebarMenuButton>
                   </Link>
                 </SidebarMenuItem>
@@ -137,30 +130,6 @@ export default function DashboardLayout({
                       <SidebarMenuButton isActive={pathname.startsWith('/dashboard/marketing')}>
                           <Megaphone />
                           <span className="group-data-[collapsible=icon]:hidden">Marketing Suite</span>
-                      </SidebarMenuButton>
-                  </Link>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <Link href="/dashboard/leads">
-                      <SidebarMenuButton isActive={pathname.startsWith('/dashboard/leads')}>
-                          <UserPlus />
-                          <span className="group-data-[collapsible=icon]:hidden">Leads (CRM)</span>
-                      </SidebarMenuButton>
-                  </Link>
-                </SidebarMenuItem>
-                 <SidebarMenuItem>
-                  <Link href="/dashboard/projects">
-                      <SidebarMenuButton isActive={pathname.startsWith('/dashboard/projects')}>
-                          <Briefcase />
-                          <span className="group-data-[collapsible=icon]:hidden">Projects</span>
-                      </SidebarMenuButton>
-                  </Link>
-                </SidebarMenuItem>
-                 <SidebarMenuItem>
-                  <Link href="/dashboard/brand">
-                      <SidebarMenuButton isActive={pathname.startsWith('/dashboard/brand')}>
-                          <Palette />
-                          <span className="group-data-[collapsible=icon]:hidden">Brand & Assets</span>
                       </SidebarMenuButton>
                   </Link>
                 </SidebarMenuItem>
@@ -186,16 +155,6 @@ export default function DashboardLayout({
                     </SidebarMenuItem>
                  </SidebarMenu>
             </div>
-            <Separator />
-          <div className="flex items-center gap-3 p-2">
-            <Avatar className="size-8">
-              <AvatarImage
-                alt="User"
-                data-ai-hint="profile picture"
-              />
-              <AvatarFallback>U</AvatarFallback>
-            </Avatar>
-          </div>
         </SidebarFooter>
       </Sidebar>
       <div className="flex-1 flex flex-col">

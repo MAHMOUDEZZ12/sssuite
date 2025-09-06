@@ -14,13 +14,35 @@ import {
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
-import { LifeBuoy, LogOut, Settings, User } from "lucide-react";
+import { LifeBuoy, LogOut, Settings, User, Briefcase, Palette, UserPlus } from "lucide-react";
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 export function DashboardHeader() {
+    const pathname = usePathname();
+
+    const navLinks = [
+        { href: '/dashboard/projects', label: 'Projects', icon: <Briefcase /> },
+        { href: '/dashboard/brand', label: 'Brand', icon: <Palette /> },
+        { href: '/dashboard/leads', label: 'Leads', icon: <UserPlus /> },
+    ];
+
     return (
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur-sm sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
             <SidebarTrigger className="sm:hidden" />
-            <div className="ml-auto flex items-center gap-4">
+
+            <div className="ml-auto flex items-center gap-2">
+                <nav className="hidden md:flex items-center gap-2">
+                    {navLinks.map(link => (
+                        <Link key={link.href} href={link.href}>
+                            <Button variant={pathname.startsWith(link.href) ? 'default' : 'ghost'} size="sm">
+                                {link.icon}
+                                {link.label}
+                            </Button>
+                        </Link>
+                    ))}
+                </nav>
+
                 <ThemeSwitcher />
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
