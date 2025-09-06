@@ -9,49 +9,16 @@
  * specific ad creatives.
  *
  * @module AI/Flows/CreateMetaCampaign
- *
- * @export {function} createMetaCampaign - The main function to create a campaign.
- * @export {type} CreateMetaCampaignInput - The Zod schema for the input.
- * @export {type} CreateMetaCampaignOutput - The Zod schema for the output.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-/**
- * Defines the schema for the input of the Meta campaign creation flow.
- */
-export const CreateMetaCampaignInputSchema = z.object({
-  campaignGoal: z.string().describe('The primary business objective for the campaign (e.g., "Generate leads for Azure Lofts").'),
-  projectBrochureDataUri: z.string().optional().describe(
-    "A project brochure, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'. This is the primary source of truth for the campaign."
-  ),
-  targetAudience: z.string().describe('A brief description of the ideal customer (e.g., "Young professionals and first-time homebuyers").'),
-  budget: z.number().describe('The total campaign budget.'),
-  durationDays: z.number().describe('The number of days the campaign should run.'),
-});
-export type CreateMetaCampaignInput = z.infer<typeof CreateMetaCampaignInputSchema>;
+// Input and Output schemas are now defined on the client-side component that uses this flow.
+// This file only contains the server-side logic.
+import type { CreateMetaCampaignInput, CreateMetaCampaignOutput } from '@/app/dashboard/tool/meta-ads-copilot/page';
+import { CreateMetaCampaignInputSchema, CreateMetaCampaignOutputSchema } from '@/app/dashboard/tool/meta-ads-copilot/page';
 
-/**
- * Defines the schema for the output of the Meta campaign creation flow.
- */
-export const CreateMetaCampaignOutputSchema = z.object({
-  campaignName: z.string().describe("A suitable name for the campaign."),
-  campaignObjective: z.string().describe("The recommended Meta campaign objective (e.g., 'LEAD_GENERATION', 'AWARENESS', 'TRAFFIC')."),
-  adSets: z.array(z.object({
-    name: z.string().describe("The name for this ad set."),
-    targetingSummary: z.string().describe("A summary of the recommended audience targeting for this ad set."),
-    dailyBudget: z.number().describe("The suggested daily budget for this ad set."),
-  })).describe("An array of suggested ad sets for the campaign."),
-  adCreatives: z.array(z.object({
-    headline: z.string().describe("A compelling headline for the ad."),
-    bodyText: z.string().describe("The primary text for the ad creative."),
-    callToAction: z.string().describe("The recommended call-to-action button text (e.g., 'Learn More', 'Sign Up')."),
-    imageSuggestion: z.string().describe("A detailed suggestion for the ad's visual (e.g., 'A high-quality photo of the modern kitchen with natural light.')."),
-  })).describe("An array of ad creative variations to test."),
-  optimizationAdvice: z.string().describe("A final piece of expert advice for running this campaign successfully."),
-});
-export type CreateMetaCampaignOutput = z.infer<typeof CreateMetaCampaignOutputSchema>;
 
 const createMetaCampaignPrompt = ai.definePrompt({
   name: 'createMetaCampaignPrompt',

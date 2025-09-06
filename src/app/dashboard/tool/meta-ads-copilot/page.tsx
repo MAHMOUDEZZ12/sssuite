@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { createMetaCampaign, CreateMetaCampaignInput, CreateMetaCampaignOutput } from '@/ai/flows/create-meta-campaign';
+import { createMetaCampaign } from '@/ai/flows/create-meta-campaign';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -22,8 +22,38 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
+// Define schemas here, on the client, for form validation.
+export const CreateMetaCampaignInputSchema = z.object({
+  campaignGoal: z.string().describe('The primary business objective for the campaign (e.g., "Generate leads for Azure Lofts").'),
+  projectBrochureDataUri: z.string().optional().describe(
+    "A project brochure, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'. This is the primary source of truth for the campaign."
+  ),
+  targetAudience: z.string().describe('A brief description of the ideal customer (e.g., "Young professionals and first-time homebuyers").'),
+  budget: z.number().describe('The total campaign budget.'),
+  durationDays: z.number().describe('The number of days the campaign should run.'),
+});
+export type CreateMetaCampaignInput = z.infer<typeof CreateMetaCampaignInputSchema>;
 
-const schema = z.object({
+export const CreateMetaCampaignOutputSchema = z.object({
+  campaignName: z.string().describe("A suitable name for the campaign."),
+  campaignObjective: z.string().describe("The recommended Meta campaign objective (e.g., 'LEAD_GENERATION', 'AWARENESS', 'TRAFFIC')."),
+  adSets: z.array(z.object({
+    name: z.string().describe("The name for this ad set."),
+    targetingSummary: z.string().describe("A summary of the recommended audience targeting for this ad set."),
+    dailyBudget: z.number().describe("The suggested daily budget for this ad set."),
+  })).describe("An array of suggested ad sets for the campaign."),
+  adCreatives: z.array(z.object({
+    headline: z.string().describe("A compelling headline for the ad."),
+    bodyText: z.string().describe("The primary text for the ad creative."),
+    callToAction: z.string().describe("The recommended call-to-action button text (e.g., 'Learn More', 'Sign Up')."),
+    imageSuggestion: z.string().describe("A detailed suggestion for the ad's visual (e.g., 'A high-quality photo of the modern kitchen with natural light.')."),
+  })).describe("An array of ad creative variations to test."),
+  optimizationAdvice: z.string().describe("A final piece of expert advice for running this campaign successfully."),
+});
+export type CreateMetaCampaignOutput = z.infer<typeof CreateMetaCampaignOutputSchema>;
+
+
+const formSchema = z.object({
   campaignGoal: z.string().min(10, 'Please provide a clear campaign goal.'),
   projectBrochure: z.custom<FileList>().refine(files => files && files.length > 0, 'A project brochure is required.'),
   targetAudience: z.string().min(10, 'Please describe your target audience.'),
@@ -31,7 +61,7 @@ const schema = z.object({
   durationDays: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Duration must be a positive number." }),
 });
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof formSchema>;
 
 const mockCampaigns = [
     { id: 1, name: "Azure Lofts Lead Gen", objective: "LEAD_GENERATION", budget: 500, status: "Active" },
@@ -116,7 +146,7 @@ export default function MetaAdsCopilotPage() {
   const [result, setResult] = useState<CreateMetaCampaignOutput | null>(null);
 
   const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(formSchema),
   });
 
   const handleGeneration = async (data: FormData) => {
@@ -327,5 +357,3 @@ export default function MetaAdsCopilotPage() {
     </main>
   );
 }
-
-    
