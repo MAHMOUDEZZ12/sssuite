@@ -53,17 +53,6 @@ export const CreateMetaCampaignOutputSchema = z.object({
 });
 export type CreateMetaCampaignOutput = z.infer<typeof CreateMetaCampaignOutputSchema>;
 
-/**
- * An AI flow that generates a full Meta ad campaign structure.
- *
- * @param {CreateMetaCampaignInput} input - The input data for the campaign.
- * @returns {Promise<CreateMetaCampaignOutput>} A promise that resolves with the generated campaign structure.
- */
-export async function createMetaCampaign(input: CreateMetaCampaignInput): Promise<CreateMetaCampaignOutput> {
-  return createMetaCampaignFlow(input);
-}
-
-
 const createMetaCampaignPrompt = ai.definePrompt({
   name: 'createMetaCampaignPrompt',
   input: {schema: CreateMetaCampaignInputSchema},
@@ -110,3 +99,15 @@ const createMetaCampaignFlow = ai.defineFlow(
     return output;
   }
 );
+
+
+/**
+ * An AI flow that generates a full Meta ad campaign structure.
+ * This is the exported server function that can be called from client components.
+ *
+ * @param {CreateMetaCampaignInput} input - The input data for the campaign.
+ * @returns {Promise<CreateMetaCampaignOutput>} A promise that resolves with the generated campaign structure.
+ */
+export async function createMetaCampaign(input: CreateMetaCampaignInput): Promise<CreateMetaCampaignOutput> {
+  return await createMetaCampaignFlow(input);
+}
