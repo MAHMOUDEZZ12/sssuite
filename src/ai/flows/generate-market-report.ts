@@ -66,12 +66,11 @@ const prompt = ai.definePrompt({
 
   **Instructions:**
 
-  1.  **Analyze the Market:** Synthesize available public data, recent sales, and general economic indicators for the specified location.
-  2.  **Generate a Compelling Title:** Create a clear and engaging title for the report.
-  3.  **Write an Executive Summary:** Provide a concise overview of the most critical takeaways for the target audience.
-  4.  **Identify Key Market Trends:** List 3-4 significant current trends (e.g., "Inventory levels are down 15% year-over-year," "Demand for properties with home offices is surging"). For each trend, provide a brief analysis of its impact.
-  5.  **Provide Pricing Analysis:** Discuss the current state of pricing for the specified property type. Include average price points, recent appreciation/depreciation, and the general pricing sentiment (e.g., "competitive," "buyer's market").
-  6.  **Offer a Future Outlook:** Based on the data, provide a brief forecast of what to expect in the next 3-6 months.
+  1.  **Generate a Compelling Title:** Create a clear and engaging title for the report.
+  2.  **Write an Executive Summary:** Provide a concise overview of the most critical takeaways for the target audience.
+  3.  **Identify Key Market Trends:** List 3-4 significant current trends (e.g., "Inventory levels are down 15% year-over-year," "Demand for properties with home offices is surging"). For each trend, provide a brief analysis of its impact.
+  4.  **Provide Pricing Analysis:** Discuss the current state of pricing for the specified property type. Include average price points, recent appreciation/depreciation, and the general pricing sentiment (e.g., "competitive," "buyer's market").
+  5.  **Offer a Future Outlook:** Based on the data, provide a brief forecast of what to expect in the next 3-6 months.
 
   Tailor the language and focus to be most valuable for the specified **Target Audience**. For example, an investor report should focus on ROI and cap rates, while a home buyer report should focus on lifestyle and value.
   `,
