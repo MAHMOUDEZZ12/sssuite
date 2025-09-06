@@ -11,13 +11,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Facebook, Upload, ArrowRight, CheckCircle, Lightbulb, Copy } from 'lucide-react';
+import { Loader2, Sparkles, Facebook, Upload, ArrowRight, CheckCircle, Lightbulb, Copy, LayoutDashboard, BarChart2, GalleryVertical, PlusCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { fileToDataUri } from '@/lib/tools-client';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+
 
 const schema = z.object({
   campaignGoal: z.string().min(10, 'Please provide a clear campaign goal.'),
@@ -28,6 +32,20 @@ const schema = z.object({
 });
 
 type FormData = z.infer<typeof schema>;
+
+const mockCampaigns = [
+    { id: 1, name: "Azure Lofts Lead Gen", objective: "LEAD_GENERATION", budget: 500, status: "Active" },
+    { id: 2, name: "Maple Creek Awareness", objective: "AWARENESS", budget: 300, status: "Completed" },
+    { id: 3, name: "Oceanview Villas Traffic", objective: "TRAFFIC", budget: 750, status: "Paused" },
+];
+
+const mockAnalyticsData = [
+  { name: 'Week 1', reach: 4000, clicks: 240, cpl: 5.20 },
+  { name: 'Week 2', reach: 3000, clicks: 139, cpl: 4.80 },
+  { name: 'Week 3', reach: 2000, clicks: 980, cpl: 2.50 },
+  { name: 'Week 4', reach: 2780, clicks: 390, cpl: 3.10 },
+];
+
 
 const ResultDisplay = ({ result, toast }: { result: CreateMetaCampaignOutput, toast: any }) => {
     const copyToClipboard = (text: string) => {
@@ -133,91 +151,181 @@ export default function MetaAdsCopilotPage() {
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
-        title="Meta Ads AI Co-Pilot"
-        description="Your dedicated agent for Facebook & Instagram advertising. Define your goal and let the AI build the campaign."
+        title="Meta Ads Manager"
+        description="Your dedicated suite for Facebook & Instagram advertising. Define, generate, monitor, and optimize your campaigns."
         icon={<Facebook className="h-8 w-8" />}
       />
 
-       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            <div className="lg:col-span-1 space-y-8">
-              <Card>
-                <CardHeader>
-                    <CardTitle>Campaign Setup</CardTitle>
-                    <CardDescription>Provide the core details for your campaign.</CardDescription>
-                </CardHeader>
-                 <form onSubmit={handleSubmit(handleGeneration)}>
-                    <CardContent className="space-y-4">
-                        <div className="space-y-2">
-                           <Label htmlFor="campaignGoal">Campaign Goal</Label>
-                           <Controller name="campaignGoal" control={control} render={({ field }) => (
-                                <Textarea id="campaignGoal" placeholder="e.g., Generate high-quality leads for the new Azure Lofts project." {...field} />
-                           )} />
-                           {errors.campaignGoal && <p className="text-sm text-destructive">{errors.campaignGoal.message}</p>}
-                        </div>
-                        <div className="space-y-2">
-                           <Label htmlFor="projectBrochure">Project Brochure</Label>
-                             <Controller name="projectBrochure" control={control} render={({ field: { onChange, ...fieldProps } }) => (
-                                <Input id="projectBrochure" type="file" accept=".pdf" onChange={(e) => onChange(e.target.files)} {...fieldProps} />
-                            )} />
-                            {errors.projectBrochure && <p className="text-sm text-destructive">{errors.projectBrochure.message as string}</p>}
-                        </div>
-                        <div className="space-y-2">
-                           <Label htmlFor="targetAudience">Target Audience</Label>
-                           <Controller name="targetAudience" control={control} render={({ field }) => (
-                                <Textarea id="targetAudience" placeholder="e.g., Young professionals, aged 25-40, interested in luxury urban living and technology." {...field} />
-                           )} />
-                            {errors.targetAudience && <p className="text-sm text-destructive">{errors.targetAudience.message}</p>}
-                        </div>
-                         <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                               <Label htmlFor="budget">Total Budget ($)</Label>
-                               <Controller name="budget" control={control} render={({ field }) => (
-                                    <Input id="budget" type="number" placeholder="e.g., 500" {...field} />
-                               )} />
-                               {errors.budget && <p className="text-sm text-destructive">{errors.budget.message}</p>}
-                            </div>
-                            <div className="space-y-2">
-                               <Label htmlFor="durationDays">Duration (days)</Label>
-                               <Controller name="durationDays" control={control} render={({ field }) => (
-                                    <Input id="durationDays" type="number" placeholder="e.g., 14" {...field} />
-                               )} />
-                               {errors.durationDays && <p className="text-sm text-destructive">{errors.durationDays.message}</p>}
-                            </div>
-                         </div>
-                    </CardContent>
-                    <CardFooter>
-                         <Button type="submit" size="lg" disabled={isLoading} className="w-full">
-                            {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Building Campaign...</> : <><Sparkles className="mr-2 h-5 w-5" />Generate Campaign Structure</>}
-                        </Button>
-                    </CardFooter>
-                 </form>
-              </Card>
-            </div>
+       <Tabs defaultValue="generator" className="w-full">
+            <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="generator"><PlusCircle className="mr-2 h-4 w-4" />Campaign Generator</TabsTrigger>
+                <TabsTrigger value="dashboard"><LayoutDashboard className="mr-2 h-4 w-4" />Dashboard</TabsTrigger>
+                <TabsTrigger value="analytics"><BarChart2 className="mr-2 h-4 w-4" />Analytics</TabsTrigger>
+                <TabsTrigger value="creatives"><GalleryVertical className="mr-2 h-4 w-4" />Creative Library</TabsTrigger>
+            </TabsList>
+            <TabsContent value="generator">
+                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start mt-6">
+                    <div className="lg:col-span-1 space-y-8">
+                      <Card>
+                        <CardHeader>
+                            <CardTitle>Campaign Setup</CardTitle>
+                            <CardDescription>Provide the core details for your campaign.</CardDescription>
+                        </CardHeader>
+                         <form onSubmit={handleSubmit(handleGeneration)}>
+                            <CardContent className="space-y-4">
+                                <div className="space-y-2">
+                                   <Label htmlFor="campaignGoal">Campaign Goal</Label>
+                                   <Controller name="campaignGoal" control={control} render={({ field }) => (
+                                        <Textarea id="campaignGoal" placeholder="e.g., Generate high-quality leads for the new Azure Lofts project." {...field} />
+                                   )} />
+                                   {errors.campaignGoal && <p className="text-sm text-destructive">{errors.campaignGoal.message}</p>}
+                                </div>
+                                <div className="space-y-2">
+                                   <Label htmlFor="projectBrochure">Project Brochure</Label>
+                                     <Controller name="projectBrochure" control={control} render={({ field: { onChange, ...fieldProps } }) => (
+                                        <Input id="projectBrochure" type="file" accept=".pdf" onChange={(e) => onChange(e.target.files)} {...fieldProps} />
+                                    )} />
+                                    {errors.projectBrochure && <p className="text-sm text-destructive">{errors.projectBrochure.message as string}</p>}
+                                </div>
+                                <div className="space-y-2">
+                                   <Label htmlFor="targetAudience">Target Audience</Label>
+                                   <Controller name="targetAudience" control={control} render={({ field }) => (
+                                        <Textarea id="targetAudience" placeholder="e.g., Young professionals, aged 25-40, interested in luxury urban living and technology." {...field} />
+                                   )} />
+                                    {errors.targetAudience && <p className="text-sm text-destructive">{errors.targetAudience.message}</p>}
+                                </div>
+                                 <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                       <Label htmlFor="budget">Total Budget ($)</Label>
+                                       <Controller name="budget" control={control} render={({ field }) => (
+                                            <Input id="budget" type="number" placeholder="e.g., 500" {...field} />
+                                       )} />
+                                       {errors.budget && <p className="text-sm text-destructive">{errors.budget.message}</p>}
+                                    </div>
+                                    <div className="space-y-2">
+                                       <Label htmlFor="durationDays">Duration (days)</Label>
+                                       <Controller name="durationDays" control={control} render={({ field }) => (
+                                            <Input id="durationDays" type="number" placeholder="e.g., 14" {...field} />
+                                       )} />
+                                       {errors.durationDays && <p className="text-sm text-destructive">{errors.durationDays.message}</p>}
+                                    </div>
+                                 </div>
+                            </CardContent>
+                            <CardFooter>
+                                 <Button type="submit" size="lg" disabled={isLoading} className="w-full">
+                                    {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Building Campaign...</> : <><Sparkles className="mr-2 h-5 w-5" />Generate Campaign Structure</>}
+                                </Button>
+                            </CardFooter>
+                         </form>
+                      </Card>
+                    </div>
 
-            <div className="lg:col-span-2">
-                {isLoading && (
-                    <Card className="flex items-center justify-center h-96">
-                        <div className="text-center text-muted-foreground">
-                            <Loader2 className="h-12 w-12 animate-spin mx-auto text-primary mb-4" />
-                            <p className="font-semibold">Your AI Co-Pilot is building your campaign...</p>
-                            <p className="text-sm">This may take up to a minute.</p>
-                        </div>
-                    </Card>
-                )}
-                 {result && (
-                    <ResultDisplay result={result} toast={toast} />
-                 )}
-                 {!isLoading && !result && (
-                    <Card className="flex items-center justify-center h-96 border-dashed">
-                        <div className="text-center text-muted-foreground">
-                            <Image src="https://picsum.photos/400/300" data-ai-hint="abstract marketing chart" alt="Campaign waiting" width={400} height={300} className="mx-auto mb-4 rounded-lg opacity-30" />
-                            <h3 className="text-lg font-semibold text-foreground">Your Campaign Plan Awaits</h3>
-                            <p>Fill out the setup form and let the AI build your path to success.</p>
-                        </div>
-                    </Card>
-                 )}
-            </div>
-        </div>
+                    <div className="lg:col-span-2">
+                        {isLoading && (
+                            <Card className="flex items-center justify-center h-96">
+                                <div className="text-center text-muted-foreground">
+                                    <Loader2 className="h-12 w-12 animate-spin mx-auto text-primary mb-4" />
+                                    <p className="font-semibold">Your AI Co-Pilot is building your campaign...</p>
+                                    <p className="text-sm">This may take up to a minute.</p>
+                                </div>
+                            </Card>
+                        )}
+                         {result && (
+                            <ResultDisplay result={result} toast={toast} />
+                         )}
+                         {!isLoading && !result && (
+                            <Card className="flex items-center justify-center h-96 border-dashed">
+                                <div className="text-center text-muted-foreground">
+                                    <Image src="https://picsum.photos/400/300" data-ai-hint="abstract marketing chart" alt="Campaign waiting" width={400} height={300} className="mx-auto mb-4 rounded-lg opacity-30" />
+                                    <h3 className="text-lg font-semibold text-foreground">Your Campaign Plan Awaits</h3>
+                                    <p>Fill out the setup form and let the AI build your path to success.</p>
+                                </div>
+                            </Card>
+                         )}
+                    </div>
+                </div>
+            </TabsContent>
+            <TabsContent value="dashboard">
+                <Card className="mt-6">
+                    <CardHeader>
+                        <CardTitle>Campaign Dashboard</CardTitle>
+                        <CardDescription>Overview of your active and past campaigns.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Campaign Name</TableHead>
+                                    <TableHead>Objective</TableHead>
+                                    <TableHead>Budget</TableHead>
+                                    <TableHead>Status</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {mockCampaigns.map((campaign) => (
+                                    <TableRow key={campaign.id}>
+                                        <TableCell className="font-medium">{campaign.name}</TableCell>
+                                        <TableCell><Badge variant="outline">{campaign.objective}</Badge></TableCell>
+                                        <TableCell>${campaign.budget.toLocaleString()}</TableCell>
+                                        <TableCell><Badge>{campaign.status}</Badge></TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </Card>
+            </TabsContent>
+            <TabsContent value="analytics">
+                <Card className="mt-6">
+                    <CardHeader>
+                        <CardTitle>Performance Analytics</CardTitle>
+                        <CardDescription>Visualizing the performance of the 'Azure Lofts Lead Gen' campaign.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <ResponsiveContainer width="100%" height={300}>
+                            <BarChart data={mockAnalyticsData}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))' }}/>
+                                <Legend />
+                                <Bar dataKey="reach" fill="hsl(var(--primary))" />
+                                <Bar dataKey="clicks" fill="hsl(var(--accent-foreground))" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </CardContent>
+                </Card>
+            </TabsContent>
+             <TabsContent value="creatives">
+                 <Card className="mt-6">
+                    <CardHeader>
+                        <CardTitle>Creative Library</CardTitle>
+                        <CardDescription>A gallery of your AI-generated ad creatives and suggestions.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {result?.adCreatives.map((creative, index) => (
+                            <Card key={index}>
+                                <CardHeader>
+                                    <CardTitle className="text-base">{creative.headline}</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="aspect-square bg-muted rounded-md flex items-center justify-center p-4">
+                                        <p className="text-sm text-center text-muted-foreground italic">{creative.imageSuggestion}</p>
+                                    </div>
+                                    <p className="text-sm mt-2">{creative.bodyText}</p>
+                                </CardContent>
+                            </Card>
+                        )) || (
+                             <div className="col-span-full text-center py-12 text-muted-foreground">
+                                <p>Generate a campaign to see your creative library.</p>
+                            </div>
+                        )}
+                    </CardContent>
+                </Card>
+            </TabsContent>
+        </Tabs>
     </main>
   );
 }
+
+    
