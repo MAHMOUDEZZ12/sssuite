@@ -85,7 +85,7 @@ export default function ProjectsFinderPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Search the Project Brain</CardTitle>
+          <CardTitle>Search the Market Library</CardTitle>
           <CardDescription>
             Start by searching for a developer to see their available projects.
           </CardDescription>
@@ -142,7 +142,7 @@ export default function ProjectsFinderPage() {
                 ) : (
                     <div className="p-8 text-center bg-muted/50 rounded-lg">
                         <h3 className="text-lg font-semibold">Can't find your project?</h3>
-                        <p className="text-muted-foreground mt-1 mb-4">Submit it for AI screening. We'll find it, verify it, and add it to the Project Brain.</p>
+                        <p className="text-muted-foreground mt-1 mb-4">Submit it for AI screening. We'll find it, verify it, and add it to the Market Library.</p>
                         <form onSubmit={handleNewProjectSubmit} className="max-w-md mx-auto space-y-4 text-left">
                             <div className="space-y-2">
                                 <Label htmlFor="new-project-name">Project Name</Label>
