@@ -80,6 +80,8 @@ export type Field = {
   options?: string[];
   multiple?: boolean;
   cta?: string;
+  value?: string;
+  hidden?: boolean;
 };
 
 export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing';
@@ -968,7 +970,7 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-      { id: 'platform', name: 'Platform', type: 'text', placeholder: '', description: '', value: 'Property Finder', hidden: true } as any,
+      { id: 'platform', name: 'Platform', type: 'text', placeholder: '', description: '', value: 'Property Finder', hidden: true },
       { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., 123 Main St, Anytown, USA', description: 'The address of the property.' },
       { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 4 beds, 3 baths, 2,500 sqft', description: 'Provide the basic stats.' },
       { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Renovated kitchen with quartz countertops, backyard oasis with a pool', description: 'What makes this property special?' },
@@ -1030,7 +1032,7 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-      { id: 'platform', name: 'Platform', type: 'text', placeholder: '', description: '', value: 'Bayut', hidden: true } as any,
+      { id: 'platform', name: 'Platform', type: 'text', placeholder: '', description: '', value: 'Bayut', hidden: true },
       { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the property.' },
       { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
       { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },

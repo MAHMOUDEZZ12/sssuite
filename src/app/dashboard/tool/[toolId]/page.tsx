@@ -6,7 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Tool } from '@/lib/tools-client.tsx';
+import { Feature, Field } from '@/lib/tools-client.tsx';
 import { tools as clientTools, fileToDataUri, filesToDataUris } from '@/lib/tools-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -23,23 +23,19 @@ import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { track } from '@/lib/events';
 
-const getToolSchema = (tool: Tool | undefined) => {
+const getToolSchema = (tool: Feature | undefined) => {
     if (!tool) return z.object({});
     
     const shape = tool.creationFields.reduce((acc, field) => {
         if (field.type === 'button' || field.type === 'group-header') return acc;
         
-        let fieldSchema;
+        let fieldSchema: z.ZodTypeAny;
 
         const optionalFileFields = ['companyLogoDataUri', 'projectBrochureDataUri', 'inspirationImageDataUri', 'newImages', 'brochureDataUri'];
         const optionalTextFields = ['additionalInformation', 'projectName', 'developer'];
 
         if (field.type === 'file') {
-            const isOptional = field.multiple || optionalFileFields.includes(field.id);
-            // We make file inputs optional in Zod and handle requirement logic in the UI/onSubmit
-            // because `FileList` can be tricky to validate conditionally.
             fieldSchema = z.custom<FileList>().nullable().optional();
-
         } else if (field.type === 'number') {
             fieldSchema = z.string().min(1, `${field.name} is required`).refine(val => !isNaN(Number(val)), { message: "Must be a number" });
         } else if (optionalTextFields.includes(field.id) ) {
@@ -49,12 +45,28 @@ const getToolSchema = (tool: Tool | undefined) => {
             fieldSchema = z.string().min(1, `${field.name} is required`);
         }
 
-        (acc as any)[field.id] = fieldSchema;
-        return acc;
-    }, {});
+        if (field.id.startsWith('min') || field.id.startsWith('max')) {
+            // Price and Age are grouped, so validation can be simpler here
+            // More complex cross-field validation happens below
+        } else {
+            (acc as any)[field.id] = fieldSchema;
+        }
 
-    // Add a cross-field validation for ad-creation tool
-    return z.object(shape).refine(data => {
+        return acc;
+    }, {} as Record<string, z.ZodTypeAny>);
+
+    // Special handling for grouped fields like price and age ranges
+    if (tool.id === 'targeting') {
+        shape.minPrice = z.string().refine(val => !isNaN(Number(val)), { message: "Must be a number" });
+        shape.maxPrice = z.string().refine(val => !isNaN(Number(val)), { message: "Must be a number" });
+        shape.minAge = z.string().refine(val => !isNaN(Number(val)), { message: "Must be a number" });
+        shape.maxAge = z.string().refine(val => !isNaN(Number(val)), { message: "Must be a number" });
+    }
+
+    const baseSchema = z.object(shape);
+
+    // Add cross-field validations
+    return baseSchema.refine(data => {
         if (tool.id === 'ad-creation') {
             return !!data.projectName || (data.brochureDataUri && data.brochureDataUri.length > 0);
         }
@@ -62,6 +74,22 @@ const getToolSchema = (tool: Tool | undefined) => {
     }, {
         message: 'Either a Project Name or a Brochure must be provided.',
         path: ['projectName'], 
+    }).refine(data => {
+         if (tool.id === 'targeting') {
+            return Number(data.maxPrice) >= Number(data.minPrice);
+        }
+        return true;
+    }, {
+        message: 'Max Price must be greater than or equal to Min Price.',
+        path: ['maxPrice'],
+    }).refine(data => {
+         if (tool.id === 'targeting') {
+            return Number(data.maxAge) >= Number(data.minAge);
+        }
+        return true;
+    }, {
+        message: 'Max Age must be greater than or equal to Min Age.',
+        path: ['maxAge'],
     });
 };
 
@@ -69,7 +97,7 @@ const getToolSchema = (tool: Tool | undefined) => {
 export default function ToolPage() {
   const { toolId } = useParams<{ toolId: string }>();
   const router = useRouter();
-  const [tool, setTool] = React.useState<Tool | undefined>(undefined);
+  const [tool, setTool] = React.useState<Feature | undefined>(undefined);
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [result, setResult] = React.useState<any | null>(null);
@@ -94,8 +122,8 @@ export default function ToolPage() {
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: tool?.creationFields.reduce((acc, field) => {
-      if (field.type !== 'button' && field.type !== 'group-header') {
-        (acc as any)[field.id] = field.type === 'file' ? null : (field as any).value || '';
+      if (field.type !== 'button' && field.type !== 'group-header' && !field.hidden) {
+        (acc as any)[field.id] = field.type === 'file' ? null : field.value || '';
       }
       return acc;
     }, {})
@@ -195,6 +223,93 @@ export default function ToolPage() {
     }
   };
   
+  const renderField = (field: Field) => {
+    if (field.hidden) return null;
+    
+    if (field.type === 'group-header') {
+        return (
+            <div key={field.id} className="md:col-span-2 mt-4 first:mt-0">
+                <h3 className="text-lg font-semibold text-foreground">{field.name}</h3>
+                 {field.description && <p className="text-sm text-muted-foreground mb-2">{field.description}</p>}
+                <Separator />
+            </div>
+        );
+    }
+
+    const fieldError = errors[field.id];
+
+    return (
+        <div key={field.id} className={cn("space-y-2", (field.type === 'textarea' && tool.id !== 'targeting') && "md:col-span-2" )}>
+        {field.type !== 'button' && <Label htmlFor={field.id} className="font-semibold">{field.name}</Label>}
+        <Controller
+            name={field.id as any}
+            control={control}
+            render={({ field: { onChange, onBlur, value, name, ref } }) => {
+                const fileList: FileList | null = value;
+                switch (field.type) {
+                    case 'text':
+                    return <Input id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
+                    case 'number':
+                        return <Input id={field.id} type="number" placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
+                    case 'textarea':
+                    return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} rows={field.id === 'editInstructions' ? 5 : 3} />;
+                    case 'file':
+                        return (
+                        <div>
+                            <Input id={field.id} type="file" multiple={field.multiple} onBlur={onBlur} name={name} ref={ref} onChange={e => onChange(e.target.files)} className="sr-only" />
+                            <label 
+                                htmlFor={field.id} 
+                                className={cn(
+                                    "flex items-center justify-center gap-2 w-full h-10 px-3 py-2 text-sm border-input border rounded-md cursor-pointer bg-background hover:bg-muted/50",
+                                    fileList && fileList.length > 0 && "text-primary border-primary/50"
+                                )}
+                            >
+                                <Upload className="h-4 w-4"/>
+                                <span>{fileList && fileList.length > 0 ? `${fileList.length} file(s) selected` : `Choose file(s)...`}</span>
+                            </label>
+                        </div>
+                        );
+                    case 'select':
+                    return (
+                        <Select 
+                            onValueChange={(val) => {
+                                if (val === 'Add New Project...') {
+                                    router.push('/dashboard/projects');
+                                } else {
+                                    onChange(val);
+                                }
+                            }} 
+                            defaultValue={value}
+                        >
+                        <SelectTrigger id={field.id}>
+                            <SelectValue placeholder={field.placeholder || `Select ${field.name}`} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {field.options?.map((option) => (
+                            <SelectItem key={option} value={option}>{option}</SelectItem>
+                            ))}
+                        </SelectContent>
+                        </Select>
+                    );
+                    case 'button':
+                        return (
+                            <Link href="/dashboard/brand" className='w-full'>
+                            <Button type="button" variant="outline" className='w-full justify-start'>
+                                {field.cta}
+                            </Button>
+                            </Link>
+                        )
+                    default:
+                    return null;
+                }
+            }}
+            />
+        <p className="text-xs text-muted-foreground">{field.description}</p>
+        {fieldError && <p className="text-sm text-destructive">{fieldError.message as string}</p>}
+        </div>
+    );
+  };
+  
   return (
     <main className="p-4 md:p-10 space-y-8">
       {showConfetti && <Confetti onComplete={() => setShowConfetti(false)} />}
@@ -213,88 +328,7 @@ export default function ToolPage() {
         <form onSubmit={handleSubmit(handleGeneration)}>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {tool.creationFields.map((field) => {
-                if ((field as any).hidden) return null;
-                if (field.type === 'group-header') {
-                    return (
-                        <div key={field.id} className="md:col-span-2 mt-4 first:mt-0">
-                            <h3 className="text-lg font-semibold text-foreground">{field.name}</h3>
-                             {field.description && <p className="text-sm text-muted-foreground mb-2">{field.description}</p>}
-                            <Separator />
-                        </div>
-                    )
-                }
-
-                return (
-                    <div key={field.id} className={cn("space-y-2", (field.type === 'textarea' && tool.id !== 'targeting') && "md:col-span-2" )}>
-                    {field.type !== 'button' && <Label htmlFor={field.id} className="font-semibold">{field.name}</Label>}
-                    <Controller
-                        name={field.id}
-                        control={control}
-                        render={({ field: { onChange, onBlur, value, name, ref } }) => {
-                            const fileList: FileList | null = value;
-                            switch (field.type) {
-                                case 'text':
-                                return <Input id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
-                                case 'number':
-                                    return <Input id={field.id} type="number" placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} />;
-                                case 'textarea':
-                                return <Textarea id={field.id} placeholder={field.placeholder} onChange={onChange} value={value || ''} onBlur={onBlur} name={name} ref={ref} rows={field.id === 'editInstructions' ? 5 : 3} />;
-                                case 'file':
-                                    return (
-                                    <div>
-                                        <Input id={field.id} type="file" multiple={field.multiple} onBlur={onBlur} name={name} ref={ref} onChange={e => onChange(e.target.files)} className="sr-only" />
-                                        <label 
-                                            htmlFor={field.id} 
-                                            className={cn(
-                                                "flex items-center justify-center gap-2 w-full h-10 px-3 py-2 text-sm border-input border rounded-md cursor-pointer bg-background hover:bg-muted/50",
-                                                fileList && fileList.length > 0 && "text-primary border-primary/50"
-                                            )}
-                                        >
-                                            <Upload className="h-4 w-4"/>
-                                            <span>{fileList && fileList.length > 0 ? `${fileList.length} file(s) selected` : `Choose file(s)...`}</span>
-                                        </label>
-                                    </div>
-                                    );
-                                case 'select':
-                                return (
-                                    <Select 
-                                        onValueChange={(val) => {
-                                            if (val === 'Add New Project...') {
-                                                router.push('/dashboard/projects');
-                                            } else {
-                                                onChange(val);
-                                            }
-                                        }} 
-                                        defaultValue={value}
-                                    >
-                                    <SelectTrigger id={field.id}>
-                                        <SelectValue placeholder={field.placeholder || `Select ${field.name}`} />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {field.options?.map((option) => (
-                                        <SelectItem key={option} value={option}>{option}</SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                    </Select>
-                                );
-                                case 'button':
-                                    return (
-                                        <Link href="/dashboard/brand" className='w-full'>
-                                        <Button type="button" variant="outline" className='w-full justify-start'>
-                                            {field.cta}
-                                        </Button>
-                                        </Link>
-                                    )
-                                default:
-                                return null;
-                            }
-                        }}
-                        />
-                    <p className="text-xs text-muted-foreground">{field.description}</p>
-                    {errors[field.id] && <p className="text-sm text-destructive">{errors[field.id]?.message as string}</p>}
-                    </div>
-                )})}
+              {tool.creationFields.map(renderField)}
             </div>
             {errors.root && <p className="text-sm text-destructive mt-4">{errors.root.message as string}</p>}
           </CardContent>
