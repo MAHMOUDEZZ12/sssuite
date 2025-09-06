@@ -64,7 +64,7 @@ export default function DashboardPage() {
       return (
           <main className="flex-1 flex-col p-4 md:p-10 space-y-8">
                <PageHeader
-                title="Welcome to the Super Marketing Suite!"
+                title="Welcome to Gemin!"
                 description="Let's get your workspace set up in just a few minutes."
                 icon={<PlusCircle className="h-8 w-8" />}
               />
@@ -168,3 +168,5 @@ export default function DashboardPage() {
   );
 }
 
+
+    

@@ -9,7 +9,7 @@ import { Separator } from './ui/separator';
 
 export function LandingFooter() {
   const footerLinks = {
-    sx3: [
+    gemin: [
         { name: 'About', href: '/about' },
         { name: 'Pricing', href: '/pricing' },
         { name: 'System Status', href: '/status' },
@@ -18,7 +18,7 @@ export function LandingFooter() {
     resources: [
         { name: 'Handbook', href: '/blog' },
         { name: 'Documentation', href: '/documentation' },
-        { name: 'SX3 Mindmap', href: '/sx3-mindmap' },
+        { name: 'Gemin Mindmap', href: '/sx3-mindmap' },
         { name: 'Technology', href: '/technology' },
     ],
     legal: [
@@ -61,9 +61,9 @@ export function LandingFooter() {
                 </div>
                 <div className='md:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-8'>
                      <div>
-                        <h3 className="font-semibold text-foreground">Sx3 AI</h3>
+                        <h3 className="font-semibold text-foreground">Gemin</h3>
                         <ul className="mt-4 space-y-2">
-                            {footerLinks.sx3.map((link) => (
+                            {footerLinks.gemin.map((link) => (
                                 <li key={link.name}>
                                     <Link href={link.href} className="text-foreground/60 hover:text-primary transition-colors">
                                         {link.name}
@@ -103,7 +103,7 @@ export function LandingFooter() {
 
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                  <p className="text-sm text-foreground/50 text-center md:text-left">
-                    Super Seller Suite © 2025 <a href="https://mtcmartech.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">mtc'</a>. All rights reserved.
+                    Gemin © 2025 <a href="https://mtcmartech.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">mtc'</a>. All rights reserved.
                 </p>
                 <div className="flex items-center gap-4">
                     <Link href="#" aria-label="Twitter">
@@ -121,3 +121,5 @@ export function LandingFooter() {
     </footer>
   );
 }
+
+    
