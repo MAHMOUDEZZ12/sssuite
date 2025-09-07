@@ -35,13 +35,12 @@ const publishCampaignToMeta = ai.defineTool(
     description: 'Publishes the generated campaign structure to the Meta Ads API.',
     inputSchema: z.object({
       campaignName: z.string().describe("The name of the campaign to be created."),
-      objective: z.string().describe("The Meta campaign objective (e.g., 'OUTCOME_TRAFFIC', 'LEAD_GENERATION')."),
     }),
     outputSchema: z.object({
       campaignId: z.string().describe("The ID of the newly created campaign."),
     }),
   },
-  async ({ campaignName, objective }) => {
+  async ({ campaignName }) => {
     const access_token = process.env.META_ACCESS_TOKEN;
     const ad_account_id = process.env.META_AD_ACCOUNT_ID;
 
@@ -57,7 +56,7 @@ const publishCampaignToMeta = ai.defineTool(
         [],
         {
           name: campaignName,
-          objective: objective,
+          objective: 'OUTCOME_TRAFFIC', // Default objective
           status: 'PAUSED',
           special_ad_categories: ['HOUSING'],
         }
@@ -103,7 +102,7 @@ const createMetaCampaignPrompt = ai.definePrompt({
       - Suggest a clear call-to-action for each ad.
       - Provide a specific image suggestion for each creative that would be visually appealing and relevant.
   5.  **Optimization Advice:** Provide one key piece of advice for the user to keep in mind while running this campaign on Meta's platforms.
-  6.  **Publish Campaign**: After generating the plan, use the 'publishCampaignToMeta' tool to create the campaign. Use the generated name and a valid Meta objective (like 'OUTCOME_TRAFFIC', 'LEAD_GENERATION', 'REACH') for the tool's input.
+  6.  **Publish Campaign**: After generating the plan, use the 'publishCampaignToMeta' tool to create the campaign. Use the generated campaign name as input for the tool.
   `,
 });
 

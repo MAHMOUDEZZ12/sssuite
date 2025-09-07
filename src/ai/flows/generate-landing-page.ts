@@ -149,9 +149,8 @@ const landingPagePrompt = ai.definePrompt({
 
   **Instructions:**
 
-  1.  **HTML Structure:** Create a full HTML5 document structure (`<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`).
-  2.  **Tailwind CSS:** Use the Tailwind CSS CDN script in the `<head>` for styling. Do not use any other CSS frameworks or custom CSS.
-      \`<script src="https://cdn.tailwindcss.com"></script>\`
+  1.  **HTML Structure:** Create a full HTML5 document structure (\`<!DOCTYPE html>\`, \`<html>\`, \`<head>\`, \`<body>\`).
+  2.  **Tailwind CSS:** Use the Tailwind CSS CDN script in the \`<head>\` for styling. Do not use any other CSS frameworks or custom CSS. \`<script src="https://cdn.tailwindcss.com"></script>\`
   3.  **Hero Section:** Create a visually impressive hero section using the provided hero image as the background. It should feature the project name and a compelling call-to-action.
   4.  **Content Sections:** Add sections for project details, amenities, a photo gallery (use placeholder images from picsum.photos), and location/map.
   5.  **Lead Capture Form:** This is critical. Include a prominent lead capture form with fields for Name, Email, and Phone Number, and a clear "Register Your Interest" button.
