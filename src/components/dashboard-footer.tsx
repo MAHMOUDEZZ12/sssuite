@@ -23,23 +23,29 @@ export function DashboardFooter() {
             <div className="flex items-center gap-2">
                  <span className="text-sm font-semibold text-muted-foreground">Open Tabs:</span>
                 {otherTabs.map((tab) => (
-                    <Link key={tab.href} href={tab.href} passHref legacyBehavior>
+                    <div key={tab.href} className="group relative flex items-center">
+                        <Link href={tab.href} passHref legacyBehavior>
+                            <Button
+                                variant="secondary"
+                                size="sm"
+                                className="h-8 pr-8"
+                            >
+                                <span>{tab.label}</span>
+                            </Button>
+                        </Link>
                         <Button
-                            variant="secondary"
-                            size="sm"
-                            className="h-8 group"
+                            variant="ghost"
+                            size="icon"
+                            className="absolute right-0 h-8 w-8 rounded-l-none opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                removeTab(tab.href);
+                            }}
                         >
-                            <span>{tab.label}</span>
-                            <X 
-                                className="h-3 w-3 ml-2 text-muted-foreground group-hover:text-foreground"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    removeTab(tab.href);
-                                }}
-                            />
+                            <X className="h-3 w-3" />
                         </Button>
-                    </Link>
+                    </div>
                 ))}
             </div>
         </footer>
