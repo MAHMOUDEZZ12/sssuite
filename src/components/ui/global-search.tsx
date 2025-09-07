@@ -17,6 +17,7 @@ const allTools = tools.filter(t => t.id !== 'superfreetime');
 
 const searchCategories: {title: string, category: FilterCategory | 'All'}[] = [
     { title: 'Marketing', category: 'Marketing' },
+    { title: 'Market Library', category: 'Market Library' },
     { title: 'Creative Suite', category: 'Creative' },
     { title: 'Sales Enablement', category: 'Sales Tools' },
     { title: 'Social & Comms', category: 'Social & Comms' },
@@ -109,4 +110,3 @@ export function GlobalSearch({ isOpen, setIsOpen }: GlobalSearchProps) {
     </Dialog>
   );
 }
-

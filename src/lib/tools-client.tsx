@@ -53,6 +53,7 @@ import {
   Loader2,
   ArrowLeft,
   Crown,
+  TrendingUp,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -99,7 +100,7 @@ export type Field = {
   hidden?: boolean;
 };
 
-export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing';
+export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing' | 'Market Library';
 
 export type Feature = {
   id: string;
@@ -728,75 +729,6 @@ export const tools: Feature[] = [
     ],
   },
   {
-    id: 'market-reports',
-    title: 'Market Reports',
-    dashboardTitle: 'Market Reports',
-    description: 'Hyper-local trends and insights.',
-    icon: <LineChart />,
-    color: '#f59e0b', // amber-500
-    cta: 'Generate Market Report',
-    categories: ['Marketing', 'Editing', 'Sales Tools'],
-    mindMapCategory: 'Marketing',
-    renderResult: (result, toast) => (
-      <div className="space-y-6 text-foreground">
-        <h3 className="text-2xl font-bold font-heading">{result.reportTitle}</h3>
-        <Separator />
-        <div>
-          <h4 className="font-semibold text-lg mb-1">Executive Summary</h4>
-          <p className="text-foreground/80">{result.executiveSummary}</p>
-        </div>
-        <Separator />
-        <div>
-          <h4 className="font-semibold text-lg mb-2">Key Market Trends</h4>
-          <ul className="space-y-3">
-            {result.marketTrends.map((item: any, index: number) => (
-              <li key={index} className="p-3 bg-muted/50 rounded-md">
-                <p className="font-semibold">{item.trend}</p>
-                <p className="text-sm text-muted-foreground">{item.analysis}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <Separator />
-        <div>
-          <h4 className="font-semibold text-lg mb-1">Pricing Analysis</h4>
-          <p className="text-foreground/80">{result.pricingAnalysis}</p>
-        </div>
-        <Separator />
-        <div>
-          <h4 className="font-semibold text-lg mb-1">Future Outlook</h4>
-          <p className="text-foreground/80">{result.futureOutlook}</p>
-        </div>
-      </div>
-    ),
-    details: {
-      steps: [
-        { text: 'Enter a neighborhood or address', icon: <MapPin className="h-6 w-6" /> },
-        { text: 'Select report type (e.g., buyer, seller, investor)', icon: <Search className="h-6 w-6" /> },
-        { text: 'Generate a branded, data-rich PDF report', icon: <FileText className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Time to Create', manual: 'Hours pulling MLS data and designing', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Data Scope', manual: 'Limited to basic MLS stats', ai: 'Includes supply/demand, price trends, sentiment', icon: <Sparkles /> },
-        { metric: 'Branding', manual: 'Requires manual design work', ai: 'Automatically branded with your logo & colors', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "Landing Page Builder", benefit: "Create a landing page with a lead form to download your hyper-local market report." },
-        { tool: "Social Writer", benefit: "Generate a week's worth of posts summarizing the key findings from your new report." }
-      ],
-       faqs: [
-        { question: "Where does the market data come from?", answer: "Our AI synthesizes data from multiple trusted sources, including public records, MLS data feeds, and local economic indicators to provide a comprehensive and up-to-date market snapshot." },
-        { question: "Can I customize the reports?", answer: "Yes, you can add your own commentary, select which sections to include, and ensure your branding is prominently displayed before finalizing the report." },
-        { question: "How are these different from standard MLS reports?", answer: "While they use MLS data as a foundation, our AI reports add another layer of insight, analyzing trends, predicting future movements, and presenting the information in a client-friendly, easy-to-understand format." }
-      ],
-    },
-    creationFields: [
-      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Beverly Hills, CA"', description: 'The neighborhood or city for the report.' },
-      { id: 'propertyType', name: 'Property Type', type: 'text', placeholder: 'e.g., "2-bedroom condos"', description: 'Specify a property type or focus for the report.' },
-      { id: 'reportType', name: 'Report Type', type: 'select', options: ['Investor', 'Home Buyer', 'Seller'], placeholder: 'Select report audience', description: 'Tailor the report for a specific audience.' },
-    ],
-  },
-  {
     id: 'email-creator',
     title: 'Email Campaigns',
     dashboardTitle: 'Email Campaigns',
@@ -1202,6 +1134,152 @@ export const tools: Feature[] = [
   },
   
   // --- CORE INTELLIGENCE ---
+    {
+    id: 'market-reports',
+    title: 'Market Reports',
+    dashboardTitle: 'Market Reports',
+    description: 'Hyper-local trends and insights.',
+    icon: <LineChart />,
+    color: '#f59e0b', // amber-500
+    cta: 'Generate Market Report',
+    categories: ['Market Library', 'Sales Tools', 'Editing'],
+    mindMapCategory: 'Core Intelligence',
+    renderResult: (result, toast) => (
+      <div className="space-y-6 text-foreground">
+        <h3 className="text-2xl font-bold font-heading">{result.reportTitle}</h3>
+        <Separator />
+        <div>
+          <h4 className="font-semibold text-lg mb-1">Executive Summary</h4>
+          <p className="text-foreground/80">{result.executiveSummary}</p>
+        </div>
+        <Separator />
+        <div>
+          <h4 className="font-semibold text-lg mb-2">Key Market Trends</h4>
+          <ul className="space-y-3">
+            {result.marketTrends.map((item: any, index: number) => (
+              <li key={index} className="p-3 bg-muted/50 rounded-md">
+                <p className="font-semibold">{item.trend}</p>
+                <p className="text-sm text-muted-foreground">{item.analysis}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <Separator />
+        <div>
+          <h4 className="font-semibold text-lg mb-1">Pricing Analysis</h4>
+          <p className="text-foreground/80">{result.pricingAnalysis}</p>
+        </div>
+        <Separator />
+        <div>
+          <h4 className="font-semibold text-lg mb-1">Future Outlook</h4>
+          <p className="text-foreground/80">{result.futureOutlook}</p>
+        </div>
+      </div>
+    ),
+    details: {
+      steps: [
+        { text: 'Enter a neighborhood or address', icon: <MapPin className="h-6 w-6" /> },
+        { text: 'Select report type (e.g., buyer, seller, investor)', icon: <Search className="h-6 w-6" /> },
+        { text: 'Generate a branded, data-rich PDF report', icon: <FileText className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Time to Create', manual: 'Hours pulling MLS data and designing', ai: 'Fast by default', icon: <Clock2 /> },
+        { metric: 'Data Scope', manual: 'Limited to basic MLS stats', ai: 'Includes supply/demand, price trends, sentiment', icon: <Sparkles /> },
+        { metric: 'Branding', manual: 'Requires manual design work', ai: 'Automatically branded with your logo & colors', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Landing Page Builder", benefit: "Create a landing page with a lead form to download your hyper-local market report." },
+        { tool: "Social Writer", benefit: "Generate a week's worth of posts summarizing the key findings from your new report." }
+      ],
+       faqs: [
+        { question: "Where does the market data come from?", answer: "Our AI synthesizes data from multiple trusted sources, including public records, MLS data feeds, and local economic indicators to provide a comprehensive and up-to-date market snapshot." },
+        { question: "Can I customize the reports?", answer: "Yes, you can add your own commentary, select which sections to include, and ensure your branding is prominently displayed before finalizing the report." },
+        { question: "How are these different from standard MLS reports?", answer: "While they use MLS data as a foundation, our AI reports add another layer of insight, analyzing trends, predicting future movements, and presenting the information in a client-friendly, easy-to-understand format." }
+      ],
+    },
+    creationFields: [
+      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Beverly Hills, CA"', description: 'The neighborhood or city for the report.' },
+      { id: 'propertyType', name: 'Property Type', type: 'text', placeholder: 'e.g., "2-bedroom condos"', description: 'Specify a property type or focus for the report.' },
+      { id: 'reportType', name: 'Report Type', type: 'select', options: ['Investor', 'Home Buyer', 'Seller'], placeholder: 'Select report audience', description: 'Tailor the report for a specific audience.' },
+    ],
+  },
+  {
+    id: 'market-trends',
+    title: 'Market Trends',
+    dashboardTitle: 'Market Trends',
+    description: 'Identify and analyze market shifts.',
+    icon: <TrendingUp />,
+    color: '#14b8a6', // teal-500
+    cta: 'Analyze Trends',
+    categories: ['Market Library', 'Sales Tools', 'Lead Gen'],
+    mindMapCategory: 'Core Intelligence',
+    badge: 'BETA',
+    details: {
+      steps: [
+        { text: 'Define a location or market segment', icon: <MapPin /> },
+        { text: 'AI analyzes news, social media, and data feeds', icon: <BrainCircuit /> },
+        { text: 'Get a report on emerging trends and sentiment', icon: <FileText /> },
+      ],
+      aiVsManual: [
+        { metric: 'Trend Spotting', manual: 'Reactive, based on news articles', ai: 'Proactive, identifies patterns before they are news', icon: <Sparkles /> },
+        { metric: 'Time Investment', manual: 'Hours of reading and research', ai: 'Automated and continuous monitoring', icon: <Clock2 /> },
+        { metric: 'Competitive Edge', manual: 'Acting on old information', ai: 'First-mover advantage on new opportunities', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Market Reports", benefit: "Incorporate the latest trends into your market reports to show you're on the cutting edge." },
+        { tool: "Social Writer", benefit: "Generate content that discusses emerging trends, positioning you as a thought leader." }
+      ],
+      faqs: [
+        { question: "How is this different from Market Reports?", answer: "Market Reports focuses on historical and current quantitative data (prices, sales volume). Market Trends is more qualitative, analyzing text and news to find emerging patterns and sentiment shifts that haven't shown up in the numbers yet." },
+        { question: "Can I set up alerts for new trends?", answer: "Yes, you can create 'Watchers' for specific keywords or locations (e.g., 'new luxury development in Miami'), and the AI will alert you when it detects a significant new trend." },
+        { question: "What kind of trends can it find?", answer: "It can identify things like rising interest in specific architectural styles, new zoning laws that could create opportunities, or shifts in buyer preferences towards certain amenities (like home offices or sustainable features)." }
+      ],
+    },
+    creationFields: [],
+  },
+   {
+    id: 'projects-finder',
+    title: 'Projects Finder',
+    dashboardTitle: 'Projects Finder',
+    description: "Search the Market Library for projects.",
+    icon: <Search />,
+    color: '#fde047', // yellow-300
+    cta: 'Search Market Library',
+    categories: ['Market Library', 'Sales Tools', 'Lead Gen'],
+    mindMapCategory: 'Core Intelligence',
+    badge: 'NEW',
+    isPage: true,
+    details: {
+      steps: [
+        { text: 'Define your target area and criteria', icon: <MapPin /> },
+        { text: 'AI scans public records and news for signals', icon: <BrainCircuit /> },
+        { text: 'Get a report of potential off-market deals', icon: <FileText /> },
+      ],
+      aiVsManual: [
+        { metric: 'Opportunity Sourcing', manual: 'Relies on word-of-mouth and existing network', ai: 'Scans thousands of data points continuously', icon: <Network /> },
+        { metric: 'Time Investment', manual: 'Hours of manual research per week', ai: 'Automated, on-demand reports', icon: <Clock2 /> },
+        { metric: 'Deal Flow', manual: 'Limited and sporadic', ai: 'Consistent, proactive deal sourcing', icon: <Sparkles /> },
+      ],
+      synergy: [
+        { tool: "Investor Matching", benefit: "Once a potential project is found, instantly match it with the right clients from your database." },
+        { tool: "Market Reports", benefit: "Generate a detailed market analysis for a newly discovered project to validate its potential." }
+      ],
+      faqs: [
+        { question: "What kind of projects can it find?", answer: "The AI can identify a range of opportunities, from single-lot development potential and fixer-uppers to larger plots suitable for multi-unit construction." },
+        { question: "Where does the AI get its information?", answer: "The AI scans a wide array of public data sources, including permit applications, zoning changes, property records, and local news articles to find signals of potential development or sales." },
+        { question: "Is this information verified?", answer: "The AI provides you with a list of potential leads and the source of the information. It is designed to be a powerful starting point for your own due diligence and outreach." }
+      ],
+    },
+    creationFields: [
+      { id: 'group-filters', name: 'Search Filters', type: 'group-header', description: 'Set your criteria to find relevant projects.'},
+      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Austin, TX" or "Zip code 90210"', description: 'The city, neighborhood, or zip code to search in.' },
+      { id: 'status', name: 'Project Status', type: 'select', options: ["Ready to move", "Under Construction", "New Launch"], placeholder: 'Select a project status', description: 'Filter by the current stage of the project.' },
+      { id: 'developer', name: 'Developer(s) (Optional)', type: 'text', placeholder: 'e.g., "Toll Brothers", "Hines"', description: 'Focus on projects by specific developers.'},
+      { id: 'minPrice', name: 'Min Price', type: 'number', placeholder: 'e.g., 500000', description: 'The minimum price for the project.' },
+      { id: 'maxPrice', name: 'Max Price', type: 'number', placeholder: 'e.g., 2000000', description: 'The maximum price for the project.' },
+      { id: 'setup', name: 'Configure Listing Websites', type: 'button', cta: 'Go to Settings to add Listing Sites', description: 'Add the primary listing websites for your market in the settings for better results.' },
+    ],
+  },
   {
     id: 'ai-brand-creator',
     title: 'Brand Creator',
@@ -1237,49 +1315,6 @@ export const tools: Feature[] = [
     creationFields: [
       { id: 'command', name: 'Command', type: 'text', placeholder: "e.g., Set up my brand and projects from these files.", description: "Tell the AI what you want to do." },
       { id: 'documents', name: 'Source Documents', type: 'file', multiple: true, description: 'Upload one or more files (PDF, CSV, TXT) for the AI to analyze.' },
-    ],
-  },
-  {
-    id: 'projects-finder',
-    title: 'Market Library Access',
-    dashboardTitle: 'Market Library',
-    description: "Access our verified Market Library to build your project portfolio.",
-    icon: <Search />,
-    color: '#fde047', // yellow-300
-    cta: 'Search Market Library',
-    categories: ['Sales Tools', 'Lead Gen'],
-    mindMapCategory: 'Core Intelligence',
-    badge: 'NEW',
-    isPage: true,
-    details: {
-      steps: [
-        { text: 'Define your target area and criteria', icon: <MapPin /> },
-        { text: 'AI scans public records and news for signals', icon: <BrainCircuit /> },
-        { text: 'Get a report of potential off-market deals', icon: <FileText /> },
-      ],
-      aiVsManual: [
-        { metric: 'Opportunity Sourcing', manual: 'Relies on word-of-mouth and existing network', ai: 'Scans thousands of data points continuously', icon: <Network /> },
-        { metric: 'Time Investment', manual: 'Hours of manual research per week', ai: 'Automated, on-demand reports', icon: <Clock2 /> },
-        { metric: 'Deal Flow', manual: 'Limited and sporadic', ai: 'Consistent, proactive deal sourcing', icon: <Sparkles /> },
-      ],
-      synergy: [
-        { tool: "Investor Matching", benefit: "Once a potential project is found, instantly match it with the right clients from your database." },
-        { tool: "Market Reports", benefit: "Generate a detailed market analysis for a newly discovered project to validate its potential." }
-      ],
-      faqs: [
-        { question: "What kind of projects can it find?", answer: "The AI can identify a range of opportunities, from single-lot development potential and fixer-uppers to larger plots suitable for multi-unit construction." },
-        { question: "Where does the AI get its information?", answer: "The AI scans a wide array of public data sources, including permit applications, zoning changes, property records, and local news articles to find signals of potential development or sales." },
-        { question: "Is this information verified?", answer: "The AI provides you with a list of potential leads and the source of the information. It is designed to be a powerful starting point for your own due diligence and outreach." }
-      ],
-    },
-    creationFields: [
-      { id: 'group-filters', name: 'Search Filters', type: 'group-header', description: 'Set your criteria to find relevant projects.'},
-      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Austin, TX" or "Zip code 90210"', description: 'The city, neighborhood, or zip code to search in.' },
-      { id: 'status', name: 'Project Status', type: 'select', options: ["Ready to move", "Under Construction", "New Launch"], placeholder: 'Select a project status', description: 'Filter by the current stage of the project.' },
-      { id: 'developer', name: 'Developer(s) (Optional)', type: 'text', placeholder: 'e.g., "Toll Brothers", "Hines"', description: 'Focus on projects by specific developers.'},
-      { id: 'minPrice', name: 'Min Price', type: 'number', placeholder: 'e.g., 500000', description: 'The minimum price for the project.' },
-      { id: 'maxPrice', name: 'Max Price', type: 'number', placeholder: 'e.g., 2000000', description: 'The maximum price for the project.' },
-      { id: 'setup', name: 'Configure Listing Websites', type: 'button', cta: 'Go to Settings to add Listing Sites', description: 'Add the primary listing websites for your market in the settings for better results.' },
     ],
   },
   {
@@ -1374,5 +1409,3 @@ export const tools: Feature[] = [
     creationFields: [],
   },
 ];
-
-    
