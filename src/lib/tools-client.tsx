@@ -395,7 +395,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'meta-ads-copilot',
-    title: 'Meta Ads Co-Pilot',
+    title: 'Campaign Builder',
     dashboardTitle: 'Campaign Builder',
     description: 'Your dedicated agent for Facebook & Instagram advertising.',
     icon: <Facebook />,
@@ -430,7 +430,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'audience-creator',
-    title: 'Audience Creator AI',
+    title: 'Audience Creator',
     dashboardTitle: 'Audience Creator',
     description: 'Find high-intent buyers before they search.',
     icon: <Binoculars />,
@@ -467,7 +467,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'insta-ads-designer',
-    title: 'Insta Ads Designer AI',
+    title: 'Insta Ads Designer',
     dashboardTitle: 'Insta Ads Designer',
     description: 'Create perfect ads for Instagram Stories & Feed.',
     icon: <Instagram />,
@@ -548,7 +548,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'reel-ads-ai',
-    title: 'Reel Ads AI',
+    title: 'Reel Ads',
     dashboardTitle: 'Reel Ads',
     description: 'Generate engaging video ads for Instagram Reels.',
     icon: <Clapperboard />,
@@ -561,7 +561,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'facebook-ads-ai',
-    title: 'Facebook Ads AI',
+    title: 'Facebook Ads',
     dashboardTitle: 'Facebook Ads',
     description: 'Design effective ads for the Facebook platform.',
     icon: <Facebook />,
@@ -574,7 +574,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'instagram-admin-ai',
-    title: 'Instagram Admin AI',
+    title: 'Instagram Admin',
     dashboardTitle: 'Instagram Admin',
     description: 'Schedules posts and handles replies on Instagram.',
     icon: <UserCog />,
@@ -587,7 +587,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'instagram-content-creator',
-    title: 'Instagram Content Creator AI',
+    title: 'Instagram Content Creator',
     dashboardTitle: 'Instagram Content',
     description: "Turn one idea into a one-week content plan for Instagram.",
     icon: <Share2 />,
@@ -641,7 +641,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'story-planner-ai',
-    title: 'Story Planner AI',
+    title: 'Story Planner',
     dashboardTitle: 'Story Planner',
     description: 'Plan and design animated Instagram stories.',
     icon: <Film />,
@@ -654,7 +654,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'instagram-hashtags-ai',
-    title: 'Instagram Hashtags AI',
+    title: 'Instagram Hashtags',
     dashboardTitle: 'Instagram Hashtags',
     description: 'Generate a tiered hashtag strategy for any post.',
     icon: <Hash />,
@@ -681,7 +681,7 @@ export const tools: Feature[] = [
   // --- GENERAL MARKETING ---
   {
     id: 'landing-pages',
-    title: 'Landing Page Builder AI',
+    title: 'Landing Page Builder',
     dashboardTitle: 'Landing Pages',
     description: 'Launch a high-converting page in minutes.',
     icon: <LayoutTemplate />,
@@ -729,7 +729,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'market-reports',
-    title: 'Market Reports AI',
+    title: 'Market Reports',
     dashboardTitle: 'Market Reports',
     description: 'Hyper-local trends and insights.',
     icon: <LineChart />,
@@ -798,7 +798,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'email-creator',
-    title: 'Email Campaigns AI',
+    title: 'Email Campaigns',
     dashboardTitle: 'Email Campaigns',
     description: 'Design, write, and schedule.',
     icon: <Mail />,
@@ -837,7 +837,7 @@ export const tools: Feature[] = [
   // --- CREATIVE SUITE ---
   {
     id: 'rebranding',
-    title: 'Rebranding AI',
+    title: 'Rebranding',
     dashboardTitle: 'Rebranding',
     description: 'Swap logos, colors, contacts in one click.',
     icon: <Palette />,
@@ -893,7 +893,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'pdf-editor',
-    title: 'PDF Editor AI',
+    title: 'PDF Editor',
     dashboardTitle: 'PDF Editor',
     description: 'Edit text, images, and layout with prompts.',
     icon: <PenTool />,
@@ -942,7 +942,7 @@ export const tools: Feature[] = [
   // --- SALES ENABLEMENT ---
   {
     id: 'investor-matching',
-    title: 'Investor Matching AI',
+    title: 'Investor Matching',
     dashboardTitle: 'Investor Matching',
     description: 'Pair budgets with the right projects.',
     icon: <Users2 />,
@@ -1002,7 +1002,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'property-finder-listing-ai',
-    title: 'Property Finder Listing AI',
+    title: 'Property Finder Listing',
     dashboardTitle: 'Property Finder Listing',
     description: 'Optimize your listings for Property Finder.',
     icon: <Building />,
@@ -1065,7 +1065,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'bayut-listing-ai',
-    title: 'Bayut Listing AI',
+    title: 'Bayut Listing',
     dashboardTitle: 'Bayut Listing',
     description: 'Craft perfect listings for the Bayut portal.',
     icon: <Building />,
@@ -1128,7 +1128,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'offer-generator',
-    title: 'Multi-Offer Builder AI',
+    title: 'Multi-Offer Builder',
     dashboardTitle: 'Multi-Offer Builder',
     description: 'Compare options side-by-side.',
     icon: <Briefcase />,
@@ -1165,7 +1165,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'whatsapp-campaigns',
-    title: 'WhatsApp Manager AI',
+    title: 'WhatsApp Manager',
     dashboardTitle: 'WhatsApp Manager',
     description: 'Personalized broadcasts + drips.',
     icon: <Phone />,
@@ -1204,7 +1204,7 @@ export const tools: Feature[] = [
   // --- CORE INTELLIGENCE ---
   {
     id: 'ai-brand-creator',
-    title: 'Brand Creator AI',
+    title: 'Brand Creator',
     dashboardTitle: 'Brand Creator',
     description: "Create your brand onboarding from documents.",
     icon: <Wrench />,
@@ -1284,7 +1284,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'crm-assistant',
-    title: 'CRM Memory AI',
+    title: 'CRM Memory',
     dashboardTitle: 'CRM Memory',
     description: 'Remembers every client detail.',
     icon: <Database />,
@@ -1320,7 +1320,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'ai-assistant',
-    title: 'Assistant AI',
+    title: 'Assistant',
     dashboardTitle: 'Assistant',
     description: 'Your personal, trainable AI partner.',
     icon: <BrainCircuit />,
