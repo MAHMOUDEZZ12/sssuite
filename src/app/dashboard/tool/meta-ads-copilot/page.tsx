@@ -35,6 +35,7 @@ export const CreateMetaCampaignInputSchema = z.object({
 export type CreateMetaCampaignInput = z.infer<typeof CreateMetaCampaignInputSchema>;
 
 export const CreateMetaCampaignOutputSchema = z.object({
+  publishedCampaignId: z.string().optional().describe("The ID of the campaign after it has been published to Meta."),
   campaignName: z.string().describe("A suitable name for the campaign."),
   campaignObjective: z.string().describe("The recommended Meta campaign objective (e.g., 'LEAD_GENERATION', 'AWARENESS', 'TRAFFIC')."),
   adSets: z.array(z.object({
@@ -81,15 +82,16 @@ type Campaign = typeof initialMockCampaigns[0];
 const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaignOutput, toast: any, onPublish: (campaign: Campaign) => void }) => {
     
     const handlePublish = () => {
+        const totalBudget = result.adSets.reduce((total, set) => total + (set.dailyBudget * 1), 0) * 14; // Simplified
         const newCampaign: Campaign = {
-            id: Date.now(),
+            id: result.publishedCampaignId ? parseInt(result.publishedCampaignId, 10) : Date.now(),
             name: result.campaignName,
             objective: result.campaignObjective,
-            budget: result.adSets.reduce((total, set) => total + (set.dailyBudget * 1), 0) * 14, // Simplified budget calculation
+            budget: totalBudget,
             status: "Active",
         };
         onPublish(newCampaign);
-        toast({ title: 'Campaign Published!', description: `${result.campaignName} is now live on Meta.` });
+        toast({ title: 'Campaign Published!', description: `${result.campaignName} (ID: ${result.publishedCampaignId}) is now live on Meta.` });
     };
 
     return (
@@ -105,7 +107,7 @@ const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaig
                         </div>
                         <AlertDialog>
                             <AlertDialogTrigger asChild>
-                                <Button>
+                                <Button disabled={!result.publishedCampaignId} title={!result.publishedCampaignId ? "Generate campaign structure first" : "Publish to Meta"}>
                                     <Send className="mr-2 h-4 w-4"/>
                                     Publish to Meta
                                 </Button>

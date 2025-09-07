@@ -43,11 +43,15 @@ const getToolSchema = (tool: Feature | undefined) => {
         let fieldSchema: z.ZodTypeAny;
 
         const optionalFileFields = ['companyLogoDataUri', 'projectBrochureDataUri', 'inspirationImageDataUri', 'newImages', 'brochureDataUri'];
-        const optionalTextFields = ['additionalInformation', 'projectName', 'developer'];
+        const optionalTextFields = ['additionalInformation', 'projectName', 'developer', 'context'];
 
         if (field.type === 'file') {
-            fieldSchema = z.custom<FileList>().nullable().optional();
-             if (!optionalFileFields.includes(field.id) && !field.multiple) {
+            const isOptional = optionalFileFields.includes(field.id);
+            const fileListSchema = z.custom<FileList>().nullable().optional();
+
+            if (isOptional) {
+                fieldSchema = fileListSchema;
+            } else {
                 fieldSchema = z.custom<FileList>().refine(files => files && files.length > 0, `${field.name} is required.`);
             }
         } else if (field.type === 'number') {
@@ -81,7 +85,7 @@ const getToolSchema = (tool: Feature | undefined) => {
 
     // Add cross-field validations
     return baseSchema.refine(data => {
-        if (tool.id === 'ad-creation' || tool.id === 'insta-ads-designer') {
+        if (tool.id === 'ad-creation' || tool.id === 'insta-ads-designer' || tool.id === 'facebook-ads-ai') {
             return !!data.projectId || (data.brochureDataUri && data.brochureDataUri.length > 0);
         }
         return true;
