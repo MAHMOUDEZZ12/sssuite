@@ -72,6 +72,9 @@ const OnboardingChecklist = ({ onDismiss }: { onDismiss: () => void }) => {
 export default function DashboardPage() {
   const [showOnboarding, setShowOnboarding] = useState(true);
 
+  const popularTools = tools.filter(t => ['insta-ads-designer', 'rebranding', 'instagram-content-creator', 'landing-pages', 'market-reports', 'pdf-editor'].includes(t.id));
+
+
   return (
     <div className="p-4 md:p-10 space-y-8">
        <PageHeader
@@ -92,12 +95,12 @@ export default function DashboardPage() {
            </Link>
         </div>
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {tools.filter(t => ['ad-creation', 'rebranding', 'social-posts', 'landing-pages', 'market-reports', 'pdf-editor'].includes(t.id)).map(tool => (
+            {popularTools.map(tool => (
                  <DashboardServiceCard 
                     key={tool.id}
-                    title={tool.title}
+                    title={tool.dashboardTitle || tool.title}
                     description={tool.description}
-                    href={`/dashboard/tool/${tool.id}`}
+                    href={tool.isPage ? `/dashboard/tool/${tool.id}` : `/dashboard/tool/${tool.id}`}
                     guideHref={`/blog/${tool.id}`}
                     icon={tool.icon}
                     color={tool.color}

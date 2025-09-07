@@ -95,6 +95,7 @@ export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | '
 export type Feature = {
   id: string;
   title: string;
+  dashboardTitle?: string;
   description: string;
   icon: React.ReactElement;
   color: string;
@@ -129,7 +130,8 @@ export const tools: Feature[] = [
   // --- META ADS AI SUITE ---
    {
     id: 'meta-auto-pilot',
-    title: 'Meta Auto Pilot (Manager)',
+    title: 'Meta Auto Pilot',
+    dashboardTitle: 'Meta Auto Pilot',
     description: 'The single-click manager for your entire Meta suite.',
     icon: <Star />,
     color: '#fbbf24', // amber-400
@@ -162,7 +164,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'campaign-builder',
-    title: 'Campaign Builder AI',
+    title: 'Campaign Builder',
     description: 'Your dedicated agent for Facebook & Instagram advertising.',
     icon: <Bot />,
     color: '#1d4ed8', // blue-700
@@ -183,7 +185,7 @@ export const tools: Feature[] = [
         { metric: 'Optimization', manual: 'Reacts slowly to performance data', ai: 'Optimizes bids and creative in real-time', icon: <LineChart /> },
       ],
       synergy: [
-        { tool: "Insta Ads Designer AI", benefit: "The Campaign Builder can automatically use your best-performing AI-generated ads." },
+        { tool: "Insta Ads Designer", benefit: "The Campaign Builder can automatically use your best-performing AI-generated ads." },
         { tool: "CRM Memory", benefit: "Feed campaign performance and lead data directly back into your CRM." }
       ],
        faqs: [
@@ -196,7 +198,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'audience-creator',
-    title: 'Audience Creator AI',
+    title: 'Audience Creator',
     description: 'Find high-intent buyers before they search.',
     icon: <Binoculars />,
     color: '#3b82f6', // blue-600
@@ -225,7 +227,7 @@ export const tools: Feature[] = [
         { metric: 'Budget Efficiency', manual: 'High waste on wrong audiences', ai: 'Optimized ad spend, higher ROI', icon: <Wallet /> },
       ],
       synergy: [
-        { tool: "Campaign Builder AI", benefit: "Design the perfect ad for the high-intent audience you've just identified." },
+        { tool: "Campaign Builder", benefit: "Design the perfect ad for the high-intent audience you've just identified." },
         { tool: "Instagram Content Creator", benefit: "Create organic posts that speak directly to the interests of your target persona." }
       ],
        faqs: [
@@ -240,7 +242,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'insta-ads-designer',
-    title: 'Insta Ads Designer AI',
+    title: 'Insta Ads Designer',
     description: 'Create perfect ads for Instagram Stories & Feed.',
     icon: <Instagram />,
     color: '#ec4899', // pink-500
@@ -289,8 +291,8 @@ export const tools: Feature[] = [
         { metric: 'Quality & Testing', manual: 'Relies on guesswork, 1-2 variations', ai: 'Data-driven, 5+ variations to test', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "Audience Creator AI", benefit: "Ensure your perfect ads are seen by people ready to buy." },
-        { tool: "Instagram Admin AI", benefit: "Deploy your new ad across social channels to maximize reach." }
+        { tool: "Audience Creator", benefit: "Ensure your perfect ads are seen by people ready to buy." },
+        { tool: "Instagram Admin", benefit: "Deploy your new ad across social channels to maximize reach." }
       ],
        faqs: [
         { question: "What kind of brochures can I use?", answer: "You can upload almost any standard PDF brochure from a developer or your own marketing materials. The AI is designed to extract key information like floor plans, features, and location." },
@@ -308,7 +310,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'reel-ads-ai',
-    title: 'Reel Ads AI',
+    title: 'Reel Ads',
     description: 'Generate engaging video ads for Instagram Reels.',
     icon: <Clapperboard />,
     color: '#7c3aed',
@@ -320,7 +322,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'facebook-ads-ai',
-    title: 'Facebook Ads AI',
+    title: 'Facebook Ads',
     description: 'Design effective ads for the Facebook platform.',
     icon: <Facebook />,
     color: '#2563eb',
@@ -331,8 +333,8 @@ export const tools: Feature[] = [
     details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
   },
   {
-    id: 'instagram-admin-ai',
-    title: 'Instagram Admin AI',
+    id: 'instagram-admin',
+    title: 'Instagram Admin',
     description: 'Schedules posts and handles replies on Instagram.',
     icon: <UserCog />,
     color: '#c026d3',
@@ -396,8 +398,8 @@ export const tools: Feature[] = [
     ],
   },
   {
-    id: 'story-planner-ai',
-    title: 'Story Planner AI',
+    id: 'story-planner',
+    title: 'Story Planner',
     description: 'Plan and design animated Instagram stories.',
     icon: <Film />,
     color: '#a855f7',
@@ -408,8 +410,8 @@ export const tools: Feature[] = [
     details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
   },
   {
-    id: 'instagram-hashtags-ai',
-    title: 'Instagram Hashtags AI',
+    id: 'instagram-hashtags',
+    title: 'Instagram Hashtags',
     description: 'Generate a tiered hashtag strategy for any post.',
     icon: <Hash />,
     color: '#f97316',
@@ -463,8 +465,8 @@ export const tools: Feature[] = [
         { metric: 'Features', manual: 'Lead forms, galleries added manually', ai: 'All features included automatically', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "AI Social Writer", benefit: "Generate promotional posts to drive traffic to your new landing page." },
-        { tool: "AI Ad Creator", benefit: "Run a targeted ad campaign that clicks through to your beautiful new page." }
+        { tool: "Social Writer", benefit: "Generate promotional posts to drive traffic to your new landing page." },
+        { tool: "Ad Creator", benefit: "Run a targeted ad campaign that clicks through to your beautiful new page." }
       ],
        faqs: [
         { question: "Can I use my own domain name?", answer: "Yes, you can connect your own custom domain name to the landing pages you create, ensuring a fully branded experience for your visitors." },
@@ -482,7 +484,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'market-reports',
-    title: 'AI Market Reports',
+    title: 'Market Reports',
     description: 'Hyper-local trends and insights.',
     icon: <LineChart />,
     color: '#f59e0b', // amber-500
@@ -534,7 +536,7 @@ export const tools: Feature[] = [
       ],
       synergy: [
         { tool: "Landing Page Builder", benefit: "Create a landing page with a lead form to download your hyper-local market report." },
-        { tool: "AI Social Writer", benefit: "Generate a week's worth of posts summarizing the key findings from your new report." }
+        { tool: "Social Writer", benefit: "Generate a week's worth of posts summarizing the key findings from your new report." }
       ],
        faqs: [
         { question: "Where does the market data come from?", answer: "Our AI synthesizes data from multiple trusted sources, including public records, MLS data feeds, and local economic indicators to provide a comprehensive and up-to-date market snapshot." },
@@ -550,7 +552,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'email-creator',
-    title: 'AI Email Campaigns',
+    title: 'Email Campaigns',
     description: 'Design, write, and schedule.',
     icon: <Mail />,
     color: '#0ea5e9', // sky-500
@@ -569,7 +571,7 @@ export const tools: Feature[] = [
         { metric: 'Subject Lines', manual: 'Guesswork, low open rates', ai: 'A/B tested variations for high engagement', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "AI Market Reports", benefit: "Generate a local report, then use this tool to create an email campaign to share it with your list." },
+        { tool: "Market Reports", benefit: "Generate a local report, then use this tool to create an email campaign to share it with your list." },
         { tool: "CRM Memory", benefit: "Personalize your email campaigns at scale using deep client insights from the assistant." }
       ],
        faqs: [
@@ -588,7 +590,7 @@ export const tools: Feature[] = [
   // --- CREATIVE SUITE ---
   {
     id: 'rebranding',
-    title: 'AI Rebranding',
+    title: 'Rebranding',
     description: 'Swap logos, colors, contacts in one click.',
     icon: <Palette />,
     color: '#f97316', // orange-600
@@ -623,7 +625,7 @@ export const tools: Feature[] = [
          { metric: 'Consistency', manual: 'Prone to human error and typos', ai: 'Perfectly consistent every time', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "AI Ad Creator", benefit: "Use your newly rebranded brochure to power an ad campaign." },
+        { tool: "Ad Creator", benefit: "Use your newly rebranded brochure to power an ad campaign." },
         { tool: "Landing Page Builder", benefit: "Generate a branded landing page that perfectly matches your rebranded brochure." }
       ],
        faqs: [
@@ -643,7 +645,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'pdf-editor',
-    title: 'AI PDF Editor',
+    title: 'PDF Editor',
     description: 'Edit text, images, and layout with prompts.',
     icon: <PenTool />,
     color: '#eab308', // yellow-500
@@ -672,7 +674,7 @@ export const tools: Feature[] = [
          { metric: 'Ease of Use', manual: 'Complex tools and formatting issues', ai: 'As easy as sending a text message', icon: <Sparkles /> },
       ],
       synergy: [
-        { tool: "AI Rebranding", benefit: "After rebranding a brochure, use the editor to make final tweaks to pricing or contact info." },
+        { tool: "Rebranding", benefit: "After rebranding a brochure, use the editor to make final tweaks to pricing or contact info." },
         { tool: "Listing Generator", benefit: "Generate a new listing description and then use the editor to paste it into your existing brochure." }
       ],
        faqs: [
@@ -730,7 +732,7 @@ export const tools: Feature[] = [
       ],
       synergy: [
         { tool: "CRM Memory", benefit: "The investor matcher uses the deep client knowledge from the CRM assistant to find non-obvious matches based on past conversations." },
-        { tool: "AI Rebranding", benefit: "Instantly create a personalized, rebranded brochure of the property for each of the top investor matches." }
+        { tool: "Rebranding", benefit: "Instantly create a personalized, rebranded brochure of the property for each of the top investor matches." }
       ],
        faqs: [
         { question: "How does the AI know what my investors want?", answer: "The AI learns from your CRM data—past purchases, stated investment goals, budget ranges, and even notes from conversations. The more data you provide, the smarter the matching becomes." },
@@ -750,7 +752,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'property-finder-listing-ai',
-    title: 'Property Finder Listing AI',
+    title: 'Property Finder Listing',
     description: 'Optimize your listings for Property Finder.',
     icon: <Building />,
     color: '#d946ef', // fuchsia-600
@@ -793,7 +795,7 @@ export const tools: Feature[] = [
         { metric: 'Completeness', manual: 'Often forgets key selling points', ai: 'Structured to include all critical information', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "AI Ad Creator", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
+        { tool: "Ad Creator", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
         { tool: "Landing Page Builder", benefit: "Instantly create a beautiful single-property website using your new listing details." }
       ],
        faqs: [
@@ -812,7 +814,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'bayut-listing-ai',
-    title: 'Bayut Listing AI',
+    title: 'Bayut Listing',
     description: 'Craft perfect listings for the Bayut portal.',
     icon: <Building />,
     color: '#22c55e', // green-500
@@ -855,7 +857,7 @@ export const tools: Feature[] = [
         { metric: 'Completeness', manual: 'Often forgets key selling points', ai: 'Structured to include all critical information', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "AI Ad Creator", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
+        { tool: "Ad Creator", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
         { tool: "Landing Page Builder", benefit: "Instantly create a beautiful single-property website using your new listing details." }
       ],
        faqs: [
@@ -929,7 +931,7 @@ export const tools: Feature[] = [
         { metric: 'Follow-up Consistency', manual: 'Easy to forget or miss someone', ai: 'Automated sequences ensure no lead is lost', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "AI Social Leads", benefit: "Directly import new leads and add them to an automated welcome message sequence on WhatsApp." },
+        { tool: "Social Leads", benefit: "Directly import new leads and add them to an automated welcome message sequence on WhatsApp." },
         { tool: "CRM Memory", benefit: "Use insights from the CRM to send highly targeted messages, like wishing a client a happy birthday or reminding them of an anniversary." }
       ],
        faqs: [
@@ -948,7 +950,7 @@ export const tools: Feature[] = [
   // --- CORE INTELLIGENCE ---
   {
     id: 'ai-brand-creator',
-    title: 'AI Brand Creator',
+    title: 'Brand Creator',
     description: "Create your brand onboarding from documents.",
     icon: <Wrench />,
     color: '#10b981', // emerald-500
@@ -985,6 +987,7 @@ export const tools: Feature[] = [
   {
     id: 'projects-finder',
     title: 'Market Library Access',
+    dashboardTitle: 'Market Library',
     description: "Access our verified Market Library to build your project portfolio.",
     icon: <Search />,
     color: '#fde047', // yellow-300
@@ -1006,7 +1009,7 @@ export const tools: Feature[] = [
       ],
       synergy: [
         { tool: "Investor Matching", benefit: "Once a potential project is found, instantly match it with the right clients from your database." },
-        { tool: "AI Market Reports", benefit: "Generate a detailed market analysis for a newly discovered project to validate its potential." }
+        { tool: "Market Reports", benefit: "Generate a detailed market analysis for a newly discovered project to validate its potential." }
       ],
       faqs: [
         { question: "What kind of projects can it find?", answer: "The AI can identify a range of opportunities, from single-lot development potential and fixer-uppers to larger plots suitable for multi-unit construction." },
@@ -1061,7 +1064,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'ai-assistant',
-    title: 'Your AI Assistant',
+    title: 'Assistant',
     description: 'Your personal, trainable AI partner.',
     icon: <BrainCircuit />,
     color: '#84cc16', // lime-500

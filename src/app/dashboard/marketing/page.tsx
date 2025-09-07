@@ -27,9 +27,9 @@ export default function MarketingDashboardPage() {
         {marketingTools.map(tool => (
             <DashboardServiceCard 
                 key={tool.id}
-                title={tool.title}
+                title={tool.dashboardTitle || tool.title}
                 description={tool.description}
-                href={`/dashboard/tool/${tool.id}`}
+                href={tool.isPage ? `/dashboard/tool/${tool.id}` : `/dashboard/tool/${tool.id}`}
                 guideHref={`/blog/${tool.id}`}
                 icon={tool.icon}
                 color={tool.color}
