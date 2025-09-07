@@ -779,17 +779,33 @@ export const tools: Feature[] = [
     mindMapCategory: 'Creative Suite',
     renderResult: (result, toast) => (
       <div className="space-y-6">
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Rebranded Brochure</h3>
-          <a href={result.rebrandedBrochureDataUri} download="rebranded-brochure.pdf">
-              <Button><Download className="mr-2 h-4 w-4"/>Download PDF</Button>
-          </a>
-        </div>
+        <Card>
+            <CardHeader>
+                <CardTitle>Rebranded Brochure</CardTitle>
+                <CardDescription>The AI has applied your branding to the document.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="border rounded-lg overflow-hidden">
+                    <iframe src={`${result.rebrandedBrochureDataUri}#view=fitH`} className="w-full h-[600px]"/>
+                </div>
+                <a href={result.rebrandedBrochureDataUri} download="rebranded-brochure.pdf" className="mt-4 inline-block">
+                    <Button variant="outline"><Download className="mr-2"/> Download PDF</Button>
+                </a>
+            </CardContent>
+        </Card>
         {result.logoDataUri && (
-           <div>
-              <h3 className="font-semibold text-lg mb-2">Generated Logo</h3>
-              <Image src={result.logoDataUri} alt="Generated logo" width={200} height={200} className="rounded-lg border bg-white p-2" />
-           </div>
+           <Card>
+              <CardHeader>
+                <CardTitle>Generated Logo</CardTitle>
+                <CardDescription>The AI created this logo based on your company name and color choices.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Image src={result.logoDataUri} alt="Generated logo" width={200} height={200} className="rounded-lg border bg-white p-2" />
+                <a href={result.logoDataUri} download="logo.png" className="mt-4 inline-block">
+                    <Button variant="outline"><Download className="mr-2"/> Download Logo</Button>
+                </a>
+              </CardContent>
+           </Card>
         )}
       </div>
     ),
@@ -811,7 +827,7 @@ export const tools: Feature[] = [
        faqs: [
         { question: "Will this work with any PDF?", answer: "It works best with text-based PDFs, which are standard for most property brochures. It may be less effective on image-only PDFs or scans." },
         { question: "What if I don't have a logo?", answer: "No problem. The tool can generate a professional logo for you based on your company name and brand colors, or simply add your name and contact information in a clean format." },
-        { question: "Can it change the text to match my 'brand voice'?", answer: "Yes. You can specify a tone (e.g., 'professional,' 'friendly,' 'luxurious'), and the AI can subtly adjust headings and key phrases to align with your brand's voice." }
+        { question: "Can it change the text to match my 'brand voice'?", answer: "Yes, you can specify a tone (e.g., 'professional,' 'friendly,' 'luxurious'), and the AI can subtly adjust headings and key phrases to align with your brand's voice." }
       ],
     },
     creationFields: [
