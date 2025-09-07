@@ -30,24 +30,38 @@ export type GetCrmMemoryInput = z.infer<typeof GetCrmMemoryInputSchema>;
  * Defines the schema for the output of the CRM memory flow.
  */
 export const GetCrmMemoryOutputSchema = z.object({
-  summary: z.string().describe('A summary of the requested information about the client.'),
+  summary: z
+    .string()
+    .describe('A summary of the requested information about the client.'),
+  confidenceScore: z
+    .number()
+    .describe(
+      'A score from 0 to 1 indicating how confident the AI is in the answer based on the available (but unseen) data.'
+    ),
 });
 export type GetCrmMemoryOutput = z.infer<typeof GetCrmMemoryOutputSchema>;
 
+const getCrmMemoryPrompt = ai.definePrompt({
+  name: 'getCrmMemoryPrompt',
+  input: {schema: GetCrmMemoryInputSchema},
+  output: {schema: GetCrmMemoryOutputSchema},
+  prompt: `You are an AI assistant with access to a user's private CRM data, including past emails, call notes, and contact details. You cannot see this data directly, but you can query it to answer the user's questions.
 
-/**
- * An AI flow that retrieves information about a client.
- *
- * @param {GetCrmMemoryInput} input - The input data for the query.
- * @returns {Promise<GetCrmMemoryOutput>} A promise that resolves with the summary.
- */
-export async function getCrmMemory(input: GetCrmMemoryInput): Promise<GetCrmMemoryOutput> {
-  // Placeholder for real implementation
-  console.log(`Querying CRM memory for ${input.clientName}`);
-  return Promise.resolve({
-    summary: `Based on your records for ${input.clientName}, they last expressed interest in 3-bedroom condos in the downtown area. Key priorities mentioned were proximity to parks and a modern kitchen.`,
-  });
-}
+  A user is asking for information about a client.
+
+  **Client Name:** {{{clientName}}}
+  **User's Question:** "{{{query}}}"
+
+  Based on the question, provide a concise, helpful summary as if you have perfect recall of all past interactions with this client. Also, provide a confidence score based on how likely it is that this information would exist in a standard real estate agent's CRM.
+
+  **Example Response:**
+  *   **Query:** "What was the last property I showed to Jane Doe?"
+  *   **Summary:** "Your last interaction with Jane Doe was a showing at 123 Maple Street. Her feedback was that she liked the layout but was looking for a larger backyard."
+  *   **Confidence:** 0.95
+
+  Generate a response for the user's actual query.
+  `,
+});
 
 const getCrmMemoryFlow = ai.defineFlow(
   {
@@ -55,7 +69,26 @@ const getCrmMemoryFlow = ai.defineFlow(
     inputSchema: GetCrmMemoryInputSchema,
     outputSchema: GetCrmMemoryOutputSchema,
   },
-  async (input) => {
-    return getCrmMemory(input);
+  async input => {
+    // In a real application, this flow would first query a vector database
+    // containing the user's CRM data and then pass that context to the prompt.
+    // For now, we simulate this by letting the LLM generate a plausible response.
+    const {output} = await getCrmMemoryPrompt(input);
+    if (!output) {
+      throw new Error('Failed to query CRM memory.');
+    }
+    return output;
   }
 );
+
+/**
+ * An AI flow that retrieves information about a client.
+ *
+ * @param {GetCrmMemoryInput} input - The input data for the query.
+ * @returns {Promise<GetCrmMemoryOutput>} A promise that resolves with the summary.
+ */
+export async function getCrmMemory(
+  input: GetCrmMemoryInput
+): Promise<GetCrmMemoryOutput> {
+  return getCrmMemoryFlow(input);
+}

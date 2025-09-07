@@ -21,8 +21,17 @@ import {z} from 'genkit';
  * Defines the schema for the input of the page admin flow.
  */
 export const ManageSocialPageInputSchema = z.object({
-  // For now, this is a placeholder as the real tool would be more complex
-  task: z.string().describe("The management task to perform."),
+  task: z
+    .string()
+    .describe(
+      'The management task to perform (e.g., "Draft 3 engaging replies to a comment asking about price", "Create a content schedule for next week").'
+    ),
+  context: z
+    .string()
+    .optional()
+    .describe(
+      'Any relevant context, such as the text of a comment or the topic for a content schedule.'
+    ),
 });
 export type ManageSocialPageInput = z.infer<typeof ManageSocialPageInputSchema>;
 
@@ -31,23 +40,28 @@ export type ManageSocialPageInput = z.infer<typeof ManageSocialPageInputSchema>;
  */
 export const ManageSocialPageOutputSchema = z.object({
   status: z.string().describe('A status update on the performed task.'),
+  result: z
+    .string()
+    .describe(
+      'The output of the task, such as drafted replies or a content schedule.'
+    ),
 });
 export type ManageSocialPageOutput = z.infer<typeof ManageSocialPageOutputSchema>;
 
+const manageSocialPagePrompt = ai.definePrompt({
+  name: 'manageSocialPagePrompt',
+  input: {schema: ManageSocialPageInputSchema},
+  output: {schema: ManageSocialPageOutputSchema},
+  prompt: `You are an expert social media manager for a real estate agent. Your job is to handle administrative tasks based on the user's request.
 
-/**
- * An AI flow that performs social media admin tasks.
- *
- * @param {ManageSocialPageInput} input - The input data for the task.
- * @returns {Promise<ManageSocialPageOutput>} A promise that resolves with a status.
- */
-export async function manageSocialPage(input: ManageSocialPageInput): Promise<ManageSocialPageOutput> {
-  // Placeholder for real implementation
-  console.log(`Performing task: ${input.task}`);
-  return Promise.resolve({
-    status: 'Task acknowledged. In a real app, this would trigger scheduling or response actions.',
-  });
-}
+  **Task:** {{{task}}}
+  {{#if context}}
+  **Context:** {{{context}}}
+  {{/if}}
+
+  Perform the requested task and provide a clear output. For example, if asked to draft replies, provide 3 distinct options. If asked to create a schedule, provide a clear, day-by-day breakdown.
+  `,
+});
 
 const manageSocialPageFlow = ai.defineFlow(
   {
@@ -55,7 +69,23 @@ const manageSocialPageFlow = ai.defineFlow(
     inputSchema: ManageSocialPageInputSchema,
     outputSchema: ManageSocialPageOutputSchema,
   },
-  async (input) => {
-    return manageSocialPage(input);
+  async input => {
+    const {output} = await manageSocialPagePrompt(input);
+    if (!output) {
+      throw new Error('The AI failed to perform the social media task.');
+    }
+    return output;
   }
 );
+
+/**
+ * An AI flow that performs social media admin tasks.
+ *
+ * @param {ManageSocialPageInput} input - The input data for the task.
+ * @returns {Promise<ManageSocialPageOutput>} A promise that resolves with a status.
+ */
+export async function manageSocialPage(
+  input: ManageSocialPageInput
+): Promise<ManageSocialPageOutput> {
+  return manageSocialPageFlow(input);
+}
