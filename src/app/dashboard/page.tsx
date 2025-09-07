@@ -1,7 +1,7 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import {
@@ -13,7 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Target, Palette, LineChart, Briefcase, Bot, Home, Building, Megaphone, Users, PlusCircle, MoreHorizontal } from 'lucide-react';
+import { ArrowRight, Target, Palette, LineChart, Briefcase, Bot, Home, Building, Megaphone, Users, PlusCircle, MoreHorizontal, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { PageHeader } from '@/components/ui/page-header';
 import { tools } from '@/lib/tools-client';
@@ -32,15 +32,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import type { Project } from '@/types';
 
 
 const topTools = tools.filter(t => ['meta-ads-copilot', 'audience-creator', 'rebranding', 'instagram-content-creator'].includes(t.id));
 
-const userProjects: any[] = [
-    { id: 'proj-1', name: 'Azure Lofts', type: 'Residential', location: 'Dubai Marina', status: 'Active' },
-    { id: 'proj-2', name: 'Emaar Beachfront', type: 'Residential', location: 'Dubai Harbour', status: 'Active' },
-    { id: 'proj-3', name: 'The Valley', type: 'Community', location: 'Al Yufrah 1', status: 'Planning' },
-];
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
   'Active': 'default',
   'Planning': 'secondary',
@@ -49,90 +45,132 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 };
 
 
-const MyProjectsWidget = () => (
-    <Card>
-        <CardHeader>
-            <CardTitle>My Projects</CardTitle>
-            <CardDescription>Your active project library.</CardDescription>
-        </CardHeader>
-        <CardContent>
-            <div className="space-y-3">
-                {userProjects.length > 0 ? (
-                    userProjects.slice(0, 2).map(project => (
-                        <div key={project.id} className="flex items-center justify-between p-2 bg-muted/50 rounded-md">
-                            <div>
-                                <p className="font-semibold">{project.name}</p>
-                                <p className="text-sm text-muted-foreground">{project.location}</p>
-                            </div>
-                            <Badge variant={statusVariant[project.status] || 'secondary'}>{project.status}</Badge>
+const MyProjectsWidget = () => {
+    const [userProjects, setUserProjects] = useState<Project[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        // In a real app, this would be a fetch call to your backend
+        // For this prototype, we simulate a fetch from localStorage
+        const fetchProjects = () => {
+            setIsLoading(true);
+            try {
+                const savedProjects = JSON.parse(localStorage.getItem('myProjects') || '[]');
+                setUserProjects(savedProjects);
+            } catch (e) {
+                console.error("Failed to load projects", e);
+                setUserProjects([]);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchProjects();
+
+        const handleStorageChange = () => {
+            fetchProjects();
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
+
+    const handleDeleteProject = (projectId: string) => {
+        const updatedProjects = userProjects.filter(p => p.id !== projectId);
+        setUserProjects(updatedProjects);
+        localStorage.setItem('myProjects', JSON.stringify(updatedProjects));
+    };
+
+    return (
+        <Card>
+            <CardHeader>
+                <CardTitle>My Projects</CardTitle>
+                <CardDescription>Your active project library.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-3">
+                    {isLoading ? (
+                        <div className="flex items-center justify-center h-24">
+                           <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
                         </div>
-                    ))
-                ) : (
-                    <p className="text-sm text-muted-foreground text-center py-4">No projects yet.</p>
-                )}
-            </div>
-        </CardContent>
-        <CardFooter className="justify-between">
-             <Link href="/dashboard/tool/projects-finder">
-                <Button variant="outline">
-                    <PlusCircle className="mr-2 h-4 w-4" />
-                    Add New Project
-                </Button>
-            </Link>
-            <Dialog>
-                <DialogTrigger asChild>
-                    <Button variant="default">View All</Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl">
-                    <DialogHeader>
-                        <DialogTitle>My Projects Library</DialogTitle>
-                        <DialogDescription>
-                            All projects you have saved to your personal library.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="max-h-[60vh] overflow-y-auto">
-                      <Table>
-                        <TableHeader>
-                            <TableRow>
-                            <TableHead>Project Name</TableHead>
-                            <TableHead>Location</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead><span className="sr-only">Actions</span></TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {userProjects.map((project) => (
-                            <TableRow key={project.id}>
-                                <TableCell className="font-medium">{project.name}</TableCell>
-                                <TableCell>{project.location}</TableCell>
-                                <TableCell>
-                                <Badge variant={statusVariant[project.status] || 'secondary'}>{project.status}</Badge>
-                                </TableCell>
-                                <TableCell>
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                    <Button aria-haspopup="true" size="icon" variant="ghost">
-                                        <MoreHorizontal className="h-4 w-4" />
-                                        <span className="sr-only">Toggle menu</span>
-                                    </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
-                                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                                    <DropdownMenuItem>Delete</DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                                </TableCell>
-                            </TableRow>
-                            ))}
-                        </TableBody>
-                        </Table>
-                    </div>
-                </DialogContent>
-            </Dialog>
-        </CardFooter>
-    </Card>
-)
+                    ) : userProjects.length > 0 ? (
+                        userProjects.slice(0, 2).map(project => (
+                            <div key={project.id} className="flex items-center justify-between p-2 bg-muted/50 rounded-md">
+                                <div>
+                                    <p className="font-semibold">{project.name}</p>
+                                    <p className="text-sm text-muted-foreground">{project.location}</p>
+                                </div>
+                                <Badge variant={statusVariant[project.status || 'Active'] || 'secondary'}>{project.status}</Badge>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-sm text-muted-foreground text-center py-4">No projects in your library yet.</p>
+                    )}
+                </div>
+            </CardContent>
+            <CardFooter className="justify-between">
+                 <Link href="/dashboard/tool/projects-finder">
+                    <Button variant="outline">
+                        <PlusCircle className="mr-2 h-4 w-4" />
+                        Add New Project
+                    </Button>
+                </Link>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button variant="default" disabled={isLoading || userProjects.length === 0}>View All</Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl">
+                        <DialogHeader>
+                            <DialogTitle>My Projects Library</DialogTitle>
+                            <DialogDescription>
+                                All projects you have saved to your personal library.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="max-h-[60vh] overflow-y-auto">
+                          <Table>
+                            <TableHeader>
+                                <TableRow>
+                                <TableHead>Project Name</TableHead>
+                                <TableHead>Location</TableHead>
+                                <TableHead>Status</TableHead>
+                                <TableHead><span className="sr-only">Actions</span></TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {userProjects.map((project) => (
+                                <TableRow key={project.id}>
+                                    <TableCell className="font-medium">{project.name}</TableCell>
+                                    <TableCell>{project.area}</TableCell>
+                                    <TableCell>
+                                    <Badge variant={statusVariant[project.status || 'Active'] || 'secondary'}>{project.status}</Badge>
+                                    </TableCell>
+                                    <TableCell>
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                        <Button aria-haspopup="true" size="icon" variant="ghost">
+                                            <MoreHorizontal className="h-4 w-4" />
+                                            <span className="sr-only">Toggle menu</span>
+                                        </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end">
+                                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                                        <DropdownMenuItem onClick={() => handleDeleteProject(project.id)}>Delete</DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                    </TableCell>
+                                </TableRow>
+                                ))}
+                            </TableBody>
+                            </Table>
+                        </div>
+                    </DialogContent>
+                </Dialog>
+            </CardFooter>
+        </Card>
+    );
+};
 
 export default function DashboardPage() {
   const hasActiveCampaigns = true; 

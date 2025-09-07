@@ -140,7 +140,7 @@ export function DashboardServiceCard({
   }
 
   return (
-    <Card className={cn("group flex h-full flex-col transition-all duration-300", isAdded && "border-primary/30")}>
+    <Card className={cn("group flex h-full flex-col transition-all duration-300", isAdded && "border-primary/30 bg-card")}>
       <CardHeader>
         <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-4">

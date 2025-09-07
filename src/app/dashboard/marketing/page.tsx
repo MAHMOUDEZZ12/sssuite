@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageHeader } from '@/components/ui/page-header';
 import { Puzzle, Star } from 'lucide-react';
 import { tools, Feature } from '@/lib/tools-client';
@@ -40,12 +40,21 @@ const appsThatNeedPayment: string[] = [
 export default function MarketingDashboardPage() {
   const [addedApps, setAddedApps] = useState<string[]>([]);
 
+  useEffect(() => {
+    // Load added apps from localStorage on component mount
+    const savedApps = JSON.parse(localStorage.getItem('addedApps') || '[]');
+    setAddedApps(savedApps);
+  }, []);
+
   const handleSetIsAdded = (toolId: string, isAdded: boolean) => {
+    let updatedApps: string[];
     if (isAdded) {
-        setAddedApps(prev => [...prev, toolId]);
+        updatedApps = [...addedApps, toolId];
     } else {
-        setAddedApps(prev => prev.filter(id => id !== toolId));
+        updatedApps = addedApps.filter(id => id !== toolId);
     }
+    setAddedApps(updatedApps);
+    localStorage.setItem('addedApps', JSON.stringify(updatedApps));
   }
   
   const getToolsForCategory = (category: Feature['mindMapCategory']) => {

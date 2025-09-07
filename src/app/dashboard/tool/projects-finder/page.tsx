@@ -11,6 +11,7 @@ import { Search, Loader2, PlusCircle, Building } from 'lucide-react';
 import type { Project } from '@/types';
 import { ProjectCard } from '@/components/ui/project-card';
 import { useToast } from '@/hooks/use-toast';
+import { track } from '@/lib/events';
 
 export default function ProjectsFinderPage() {
   const { toast } = useToast();
@@ -22,6 +23,14 @@ export default function ProjectsFinderPage() {
   const [newProjectName, setNewProjectName] = useState('');
   const [newProjectDeveloper, setNewProjectDeveloper] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [myProjects, setMyProjects] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Load projects from localStorage on mount
+    const savedProjects = JSON.parse(localStorage.getItem('myProjects') || '[]').map((p: Project) => p.id);
+    setMyProjects(savedProjects);
+  }, []);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,12 +75,15 @@ export default function ProjectsFinderPage() {
   }
 
   const handleAddToLibrary = (project: Project) => {
+    track('project_added_to_library', { projectId: project.id, projectName: project.name });
+    const currentProjects = JSON.parse(localStorage.getItem('myProjects') || '[]');
+    const newProjects = [...currentProjects, project];
+    localStorage.setItem('myProjects', JSON.stringify(newProjects));
+    setMyProjects(prev => [...prev, project.id]);
     toast({
         title: `${project.name} Added!`,
         description: "The project has been added to your personal library and is now available across the suite.",
     });
-    // In a real app, this would update user's library in the backend
-    // and the project would become part of the "Brain's" knowledge.
   }
 
   return (
@@ -137,9 +149,9 @@ export default function ProjectsFinderPage() {
                                 key={project.id}
                                 project={project}
                                 actions={
-                                    <Button size="sm" onClick={() => handleAddToLibrary(project)}>
+                                    <Button size="sm" onClick={() => handleAddToLibrary(project)} disabled={myProjects.includes(project.id)}>
                                         <PlusCircle className="mr-2 h-4 w-4" />
-                                        Add to Library
+                                        {myProjects.includes(project.id) ? 'Added' : 'Add to Library'}
                                     </Button>
                                 }
                             />

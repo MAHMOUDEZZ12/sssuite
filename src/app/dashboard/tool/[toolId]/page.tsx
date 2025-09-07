@@ -248,13 +248,13 @@ export default function ToolPage() {
   React.useEffect(() => {
     const currentTool = clientTools.find((t) => t.id === toolId);
     if (currentTool?.isPage) {
-        // This is a custom page, not a generic tool page. Redirect.
-        router.push(`/dashboard/tool/${currentTool.id}`);
+        // This is a custom page, not a generic tool page.
+        // The page component itself will handle rendering.
     } else {
         setTool(currentTool);
-        if (currentTool?.id === 'audience-creator') {
-            setShowCampaignNotice(true);
-        }
+    }
+    if (currentTool?.id === 'audience-creator') {
+        setShowCampaignNotice(true);
     }
   }, [toolId, router]);
   
