@@ -43,19 +43,41 @@ export function DashboardServiceCard({
   
   const { title, description, icon, href, guideHref, color, dashboardTitle } = tool;
 
-  const handleAction = (e: React.MouseEvent) => {
+  const handleAdd = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsAdded(true);
+    track('app_added', { toolId: tool.id, connectionType: 'direct' });
+    toast({ title: `${title} Added!`, description: 'The tool is now available in your workspace.' });
+  }
+
+  const handleConnect = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsConnecting(true);
     setTimeout(() => {
         setIsConnecting(false);
         setIsAdded(true);
-        track('app_added', { toolId: tool.id, connectionType: connectionRequired ? 'api' : paymentRequired ? 'payment' : 'direct' });
+        track('app_added', { toolId: tool.id, connectionType: 'api' });
         toast({
             title: `${title} Activated!`,
-            description: `You can now use the ${title} tool.`
+            description: `You have connected your ${connectionRequired} account.`
         });
     }, 1500);
   }
+
+  const handlePayment = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsConnecting(true);
+    setTimeout(() => {
+        setIsConnecting(false);
+        setIsAdded(true);
+        track('app_added', { toolId: tool.id, connectionType: 'payment' });
+        toast({
+            title: `${title} Unlocked!`,
+            description: `You can now use this premium tool.`
+        });
+    }, 1500);
+  }
+
   
   const AddButtonContent = () => (
     <>
@@ -77,66 +99,42 @@ export function DashboardServiceCard({
         )
     }
 
+    let dialogContent;
+    let actionHandler = handleAdd;
+    let actionText = "Add to Workspace";
+
     if (connectionRequired) {
-        return (
-            <AlertDialog>
-                <AlertDialogTrigger asChild>
-                     <Button size="sm" variant="outline"><AddButtonContent /></Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                    <AlertDialogTitle>Connect to {connectionRequired}</AlertDialogTitle>
-                    <AlertDialogDescription>
-                        To use the {title} tool, you need to securely connect your {connectionRequired} account. This allows the application to act on your behalf.
-                    </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleAction} disabled={isConnecting}>
-                        {isConnecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
-                        Connect to {connectionRequired}
-                    </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-        )
-    }
-    
-    if (paymentRequired) {
-        return (
-            <AlertDialog>
-                <AlertDialogTrigger asChild>
-                    <Button size="sm" variant="outline"><AddButtonContent /></Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                    <AlertDialogTitle className="flex items-center gap-2"><CreditCard /> Unlock with Subscription</AlertDialogTitle>
-                    <AlertDialogDescription>
-                        The "{title}" tool is a premium feature. To activate it, please confirm your subscription or add a payment method.
-                    </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleAction} disabled={isConnecting}>
-                        {isConnecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
-                        Confirm & Unlock
-                    </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-        )
+        dialogContent = `To use the ${title} tool, you need to securely connect your ${connectionRequired} account. This allows the application to act on your behalf.`;
+        actionText = `Connect to ${connectionRequired}`;
+        actionHandler = handleConnect;
+    } else if (paymentRequired) {
+        dialogContent = `The "${title}" tool is a premium feature. To activate it, please confirm your subscription or add a payment method.`;
+        actionText = "Confirm & Unlock";
+        actionHandler = handlePayment;
+    } else {
+        dialogContent = `You are about to add the "${title}" tool to your personal workspace.`;
     }
 
-     return (
-        <Button size="sm" variant="outline" onClick={(e) => {
-            e.preventDefault();
-            setIsAdded(true);
-            track('app_added', { toolId: tool.id, connectionType: 'direct' });
-            toast({ title: `${title} Added!`, description: 'The tool is now available in your workspace.' });
-        }}>
-            <AddButtonContent />
-        </Button>
-    )
+    return (
+        <AlertDialog>
+            <AlertDialogTrigger asChild>
+                    <Button size="sm" variant="outline"><AddButtonContent /></Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                <AlertDialogTitle>Add "{title}" to Your Workspace?</AlertDialogTitle>
+                <AlertDialogDescription>{dialogContent}</AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={actionHandler} disabled={isConnecting}>
+                    {isConnecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
+                    {actionText}
+                </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    );
   }
 
   return (
