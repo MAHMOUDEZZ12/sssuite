@@ -1040,6 +1040,7 @@ export const tools: Feature[] = [
     cta: 'Go to Manager',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
+    badge: 'SOON',
     isPage: true,
     details: { 
       steps: [
@@ -1065,65 +1066,43 @@ export const tools: Feature[] = [
     creationFields: [],
   },
   {
-    id: 'property-finder-listing-ai',
-    title: 'Property Finder Listing',
-    description: 'Optimize your listings for Property Finder.',
+    id: 'propertyfinder-sync',
+    title: 'Property Finder Sync',
+    dashboardTitle: 'Property Finder Sync',
+    description: 'Push and update your listings on Property Finder.',
     icon: <Building />,
     color: '#d946ef', // fuchsia-600
-    cta: 'Create Listing',
-    categories: ['Sales Tools', 'Editing', 'Web'],
+    cta: 'Sync Listing',
+    categories: ['Sales Tools', 'Web'],
     mindMapCategory: 'Sales Enablement',
-    renderResult: (result, toast) => (
-       <div className="space-y-6">
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Generated Title</h3>
-          <div className="p-4 bg-muted rounded-md relative group">
-            <p className="whitespace-pre-wrap">{result.title}</p>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.title, toast)}><Copy className="h-4 w-4" /></Button>
-          </div>
-        </div>
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Generated Description</h3>
-          <div className="p-4 bg-muted rounded-md relative group">
-            <p className="whitespace-pre-wrap">{result.description}</p>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.description, toast)}><Copy className="h-4 w-4" /></Button>
-          </div>
-        </div>
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Suggested Keywords</h3>
-          <div className="p-4 bg-muted rounded-md">
-            <p className="text-sm text-muted-foreground">{result.keywords.join(', ')}</p>
-          </div>
-        </div>
-      </div>
-    ),
+    badge: 'NEW',
     details: {
       steps: [
-        { text: 'Enter key property details (address, beds, baths)', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Mention 1-2 unique features', icon: <Sparkles className="h-6 w-6" /> },
-        { text: 'Generate a full, persuasive listing description', icon: <FileText className="h-6 w-6" /> },
+        { text: 'Connect your Property Finder account with an API key', icon: <Key className="h-6 w-6" /> },
+        { text: 'Select a project from your library', icon: <Briefcase className="h-6 w-6" /> },
+        { text: 'Push the listing data to Property Finder in one click', icon: <Upload className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Writing Time', manual: '30-60 minutes of creative writing', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'SEO & Keywords', manual: 'Guesswork on what terms to use', ai: 'Automatically includes relevant local keywords', icon: <Sparkles /> },
-        { metric: 'Completeness', manual: 'Often forgets key selling points', ai: 'Structured to include all critical information', icon: <BadgeCheck /> },
+        { metric: 'Listing Creation', manual: 'Manual data entry on the Property Finder website', ai: 'One-click push from your central library', icon: <Clock2 /> },
+        { metric: 'Updating Photos', manual: 'Re-uploading all images for one change', ai: 'Syncs only the changed images', icon: <Sparkles /> },
+        { metric: 'Accuracy', manual: 'Prone to typos and copy-paste errors', ai: 'Uses the single source of truth from your library', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "Ad Creator", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
-        { tool: "Landing Page Builder", benefit: "Instantly create a beautiful single-property website using your new listing details." }
+        { tool: "Bayut Sync", benefit: "Update your listing once in the suite, and use both sync tools to push the changes to multiple portals instantly." },
+        { tool: "Listing Manager", benefit: "This tool is a key component of the Listing Manager, allowing it to communicate directly with Property Finder." }
       ],
        faqs: [
-        { question: "Can I choose the tone of the listing?", answer: "Yes, you can specify a tone such as 'Luxurious,' 'Family-Friendly,' or 'Great for First-Time Buyers,' and the AI will adjust its language and emphasis accordingly." },
-        { question: "Is the output ready to copy and paste into the MLS?", answer: "Absolutely. The generated text is formatted to be easily copied and pasted into MLS systems and other listing sites like Zillow or Redfin." },
-        { question: "How does it know what keywords to use for SEO?", answer: "The AI analyzes the property's location and features to include relevant local keywords (like neighborhood names, school districts, or nearby landmarks) that a potential buyer is likely to search for." }
+        { question: "Do I need a special account with Property Finder?", answer: "Yes, you will need access to their Enterprise API, which is typically available to agencies and professional subscribers. You can get your API key from your Property Finder account manager." },
+        { question: "Can I update existing listings?", answer: "Yes, the tool can both create new listings and update existing ones. It uses the property's reference number to sync the correct listing." },
+        { question: "What data gets synced?", answer: "The tool syncs all standard listing data, including title, description, price, location, amenities, and photos." }
       ],
     },
     creationFields: [
-      { id: 'platform', name: 'Platform', type: 'text', placeholder: '', description: '', value: 'Property Finder', hidden: true },
-      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., 123 Main St, Anytown, USA', description: 'The address of the property.' },
-      { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 4 beds, 3 baths, 2,500 sqft', description: 'Provide the basic stats.' },
-      { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Renovated kitchen with quartz countertops, backyard oasis with a pool', description: 'What makes this property special?' },
-      { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
+      { id: 'listingReferenceNo', name: 'Listing Reference No.', type: 'text', placeholder: 'e.g., PF-12345', description: 'The unique ID for your listing on Property Finder.' },
+      { id: 'propertyTitle', name: 'Property Title', type: 'text', placeholder: 'e.g., "Spacious 3BR Villa with Garden View"', description: 'The main title for the listing.' },
+      { id: 'propertyDescription', name: 'Property Description', type: 'textarea', placeholder: 'Enter the full description of the property...', description: 'The detailed description for the listing.' },
+      { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 2500000', description: 'The asking price in the local currency.' },
+      { id: 'imageUrls', name: 'Image URLs', type: 'textarea', placeholder: 'Enter one image URL per line', description: 'Links to the property images.' },
     ],
   },
   {

@@ -19,6 +19,7 @@ import { generateMultiOffer } from '@/ai/flows/generate-multi-offer';
 import { createEmailCampaign } from '@/ai/flows/create-email-campaign';
 import { manageWhatsAppCampaign } from '@/ai/flows/manage-whatsapp-campaign';
 import { createMetaCampaign } from '@/ai/flows/create-meta-campaign';
+import { syncPropertyFinderListing } from '@/ai/flows/sync-property-finder-listing';
 
 
 // Import the client-safe tools definition
@@ -48,6 +49,7 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'whatsapp-campaigns': manageWhatsAppCampaign,
     'meta-ads-copilot': createMetaCampaign,
     'facebook-ads-ai': generateAdFromBrochure,
+    'propertyfinder-sync': syncPropertyFinderListing,
     // Note: Tools without a flowRunner will not be executable from the generic tool page.
     // They might be handled by custom pages or are for display only.
 };
