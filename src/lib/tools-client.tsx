@@ -129,13 +129,6 @@ export type Feature = {
   renderResult?: (result: any, toast: any) => React.ReactNode;
 };
 
-const mockProjects = [
-    'Azure Lofts Campaign',
-    'Maple Creek Development',
-    'Oceanview Villas',
-    'Add New Project...',
-];
-
 const AudienceRefinementCard = ({ strategy, toast, onBack }: { strategy: any, toast: any, onBack: () => void }) => {
     const [country, setCountry] = React.useState('United Arab Emirates');
     const [city, setCity] = React.useState('Dubai');
@@ -463,7 +456,7 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-       { id: 'projectId', name: 'Project', type: 'select', options: mockProjects, placeholder: 'Select a project', description: 'Choose the project you want to create an audience for.' },
+       { id: 'projectId', name: 'Project', type: 'select', options: ['Project 1 from Library', 'Project 2 from Library', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose the project you want to create an audience for.' },
     ],
   },
   {

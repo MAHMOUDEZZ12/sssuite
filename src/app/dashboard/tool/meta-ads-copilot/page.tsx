@@ -20,8 +20,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { mockProjects } from '@/lib/mock-data';
-
 
 // Define schemas here, on the client, for form validation.
 export const CreateMetaCampaignInputSchema = z.object({
@@ -195,8 +193,7 @@ export default function CampaignBuilderPage() {
     try {
         const brochureUri = await fileToDataUri(data.projectBrochure[0]);
         // In a real app, you would use the projectId to fetch project details.
-        const project = mockProjects.find(p => p === data.projectId);
-
+        
         const payload: CreateMetaCampaignInput = {
             campaignGoal: data.campaignGoal,
             projectBrochureDataUri: brochureUri,
@@ -268,7 +265,9 @@ export default function CampaignBuilderPage() {
                                                 <SelectValue placeholder="Select a project" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {mockProjects.map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}
+                                                <SelectItem value="azure-lofts">Azure Lofts Campaign</SelectItem>
+                                                <SelectItem value="maple-creek">Maple Creek Development</SelectItem>
+                                                <SelectItem value="oceanview-villas">Oceanview Villas</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     )} />

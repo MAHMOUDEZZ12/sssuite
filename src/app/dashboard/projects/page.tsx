@@ -21,13 +21,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from 'next/link';
 
-const mockProjects = [
-  { id: 1, name: 'Azure Lofts Campaign', status: 'Active', location: 'Downtown', type: 'Listing Promotion' },
-  { id: 2, name: 'Maple Creek Development', status: 'Planning', location: 'Suburbia', type: 'Developer Project' },
-  { id: 3, name: 'Oceanview Villas', status: 'Completed', location: 'Coastline', type: 'Listing Promotion' },
-  { id: 4, name: 'Downtown Market Report Q2', status: 'Active', location: 'Downtown', type: 'Market Analysis' },
-  { id: 5, name: 'Investor Outreach', status: 'On Hold', location: 'Various', type: 'Lead Generation' },
+// Mock data is now removed, this page is ready for real data.
+const mockProjects: any[] = [
+  // This will be populated by a fetch call in a future step.
+  // For now, we show an empty state.
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
@@ -45,10 +44,12 @@ export default function ProjectsPage() {
         description="Organize, track, and manage all your marketing and sales projects. Add new projects to your library here."
         icon={<PlusCircle className="h-8 w-8" />}
       >
-         <Button>
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Add New Project
-        </Button>
+         <Link href="/dashboard/tool/projects-finder">
+            <Button>
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Add New Project from Library
+            </Button>
+         </Link>
       </PageHeader>
 
       <div className="border rounded-lg w-full">
@@ -63,31 +64,42 @@ export default function ProjectsPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {mockProjects.map((project) => (
-              <TableRow key={project.id}>
-                <TableCell className="font-medium">{project.name}</TableCell>
-                <TableCell className="hidden md:table-cell">{project.type}</TableCell>
-                <TableCell className="hidden md:table-cell">{project.location}</TableCell>
-                <TableCell>
-                  <Badge variant={statusVariant[project.status] || 'secondary'}>{project.status}</Badge>
-                </TableCell>
-                <TableCell>
-                   <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button aria-haspopup="true" size="icon" variant="ghost">
-                        <MoreHorizontal className="h-4 w-4" />
-                        <span className="sr-only">Toggle menu</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem>Delete</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            ))}
+            {mockProjects.length > 0 ? (
+                mockProjects.map((project) => (
+                <TableRow key={project.id}>
+                    <TableCell className="font-medium">{project.name}</TableCell>
+                    <TableCell className="hidden md:table-cell">{project.type}</TableCell>
+                    <TableCell className="hidden md:table-cell">{project.location}</TableCell>
+                    <TableCell>
+                    <Badge variant={statusVariant[project.status] || 'secondary'}>{project.status}</Badge>
+                    </TableCell>
+                    <TableCell>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                        <Button aria-haspopup="true" size="icon" variant="ghost">
+                            <MoreHorizontal className="h-4 w-4" />
+                            <span className="sr-only">Toggle menu</span>
+                        </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                    </TableCell>
+                </TableRow>
+                ))
+            ) : (
+                <TableRow>
+                    <TableCell colSpan={5} className="h-24 text-center">
+                        No projects in your library yet.
+                        <Link href="/dashboard/tool/projects-finder" className="ml-2">
+                           <Button variant="link">Add projects from the Market Library</Button>
+                        </Link>
+                    </TableCell>
+                </TableRow>
+            )}
           </TableBody>
         </Table>
       </div>
