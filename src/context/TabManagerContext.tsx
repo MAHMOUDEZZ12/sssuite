@@ -23,7 +23,7 @@ const navMap: {[key: string]: string} = {
     '/dashboard': 'Home',
     '/dashboard/marketing': 'Marketing',
     '/dashboard/projects': 'Projects',
-    '/dashboard/brand': 'Brand Kit',
+    '/dashboard/brand': 'Brand & Assets',
     '/dashboard/clients': 'Clients',
     '/dashboard/leads': 'Leads (CRM)',
     '/dashboard/assistant': 'AI Assistant',

@@ -18,20 +18,21 @@ import React from "react";
 import { GlobalSearch } from "./ui/global-search";
 import { useTheme } from "./theme-switcher";
 import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import { Logo } from "./logo";
 import { useTabManager } from "@/context/TabManagerContext";
+import { cn } from "@/lib/utils";
 
 const mainNav = [
   { href: '/dashboard', label: 'Home', icon: Home },
   { href: '/dashboard/marketing', label: 'Marketing', icon: Megaphone },
   { href: '/dashboard/projects', label: 'Projects', icon: Building },
-  { href: '/dashboard/brand', label: 'Brand & Assets', icon: Palette },
-  { href: '/dashboard/clients', label: 'Clients', icon: Users },
 ];
 
-const secondaryNav = [
+const settingsNav = [
+  { href: '/dashboard/brand', label: 'Brand & Assets', icon: Palette },
+  { href: '/dashboard/clients', label: 'Clients', icon: Users },
   { href: '/dashboard/assistant', label: 'AI Assistant', icon: Bot },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
@@ -41,6 +42,7 @@ export function DashboardHeader() {
     const { setTheme, themes } = useTheme();
     const { user, loading } = useAuth();
     const router = useRouter();
+    const pathname = usePathname();
     const { addTab } = useTabManager();
 
     const handleLogout = async () => {
@@ -57,16 +59,40 @@ export function DashboardHeader() {
     return (
         <>
             <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/95 px-4 backdrop-blur-sm sm:px-6">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-6">
                     <Logo />
-                    <DropdownMenu>
+                    <nav className="hidden md:flex items-center gap-2">
+                        {mainNav.map((item) => (
+                           <Link href={item.href} key={item.href} passHref legacyBehavior>
+                                <Button 
+                                    variant="ghost" 
+                                    size="sm"
+                                    onClick={(e: any) => handleNavigation(item.href, item.label, e)}
+                                    className={cn(pathname === item.href && "bg-muted text-foreground")}
+                                >
+                                    <item.icon className="mr-2 h-4 w-4" />
+                                    {item.label}
+                                </Button>
+                            </Link>
+                        ))}
+                    </nav>
+                </div>
+                
+                <div className="flex flex-1 justify-center max-w-md">
+                   <Button variant="outline" className="w-full justify-start text-muted-foreground" onClick={() => setIsSearchOpen(true)}>
+                     <Search className="mr-2 h-4 w-4" />
+                     Search tools, projects, leads... (⌘K)
+                   </Button>
+                </div>
+
+                <div className="flex items-center gap-2">
+                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="outline" size="sm">
-                          <Menu className="h-4 w-4 mr-2" />
-                          Menu
+                         <Button variant="ghost" size="icon" className="md:hidden">
+                          <Menu className="h-5 w-5" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="start">
+                      <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Navigation</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
@@ -79,29 +105,9 @@ export function DashboardHeader() {
                             </Link>
                           ))}
                         </DropdownMenuGroup>
-                        <DropdownMenuSeparator />
-                         <DropdownMenuGroup>
-                           {secondaryNav.map((item) => (
-                            <Link href={item.href} key={item.href} passHref legacyBehavior>
-                                <DropdownMenuItem onClick={(e: any) => handleNavigation(item.href, item.label, e)}>
-                                  <item.icon className="mr-2 h-4 w-4" />
-                                  {item.label}
-                                </DropdownMenuItem>
-                            </Link>
-                          ))}
-                        </DropdownMenuGroup>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                </div>
-                
-                <div className="flex flex-1 justify-center max-w-md">
-                   <Button variant="outline" className="w-full justify-start text-muted-foreground" onClick={() => setIsSearchOpen(true)}>
-                     <Search className="mr-2 h-4 w-4" />
-                     Search tools, projects, leads... (⌘K)
-                   </Button>
-                </div>
 
-                <div className="flex items-center gap-2">
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button
@@ -115,13 +121,21 @@ export function DashboardHeader() {
                                 </Avatar>
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
+                        <DropdownMenuContent align="end" className="w-56">
                             <DropdownMenuLabel>{user?.displayName || "My Account"}</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <Link href="/dashboard/settings"><DropdownMenuItem>
-                                <Settings className="mr-2 h-4 w-4" />
-                                Settings
-                            </DropdownMenuItem></Link>
+                             <DropdownMenuGroup>
+                                {settingsNav.map((item) => (
+                                <Link href={item.href} key={item.href} passHref legacyBehavior>
+                                    <DropdownMenuItem onClick={(e: any) => handleNavigation(item.href, item.label, e)}>
+                                    <item.icon className="mr-2 h-4 w-4" />
+                                    {item.label}
+                                    </DropdownMenuItem>
+                                </Link>
+                                ))}
+                            </DropdownMenuGroup>
+
+                            <DropdownMenuSeparator />
                              <a href="mailto:support@supersalessuite.com">
                                 <DropdownMenuItem>
                                     <LifeBuoy className="mr-2 h-4 w-4" />

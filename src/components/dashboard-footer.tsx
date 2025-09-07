@@ -13,41 +13,35 @@ export function DashboardFooter() {
     const { openTabs, removeTab } = useTabManager();
     const pathname = usePathname();
     
-    // Don't show the current tab in the list of switchable tabs
-    const otherTabs = openTabs.filter(tab => tab.href !== pathname);
-
     if (openTabs.length <= 1) return null;
 
     return (
-        <footer className="sticky bottom-0 z-30 flex h-12 items-center gap-4 border-t bg-background/95 px-4 backdrop-blur-sm sm:px-6">
-            <div className="flex items-center gap-2">
-                 <span className="text-sm font-semibold text-muted-foreground">Open Tabs:</span>
-                {otherTabs.map((tab) => (
-                    <div key={tab.href} className="group relative flex items-center">
-                        <Link href={tab.href} passHref legacyBehavior>
-                            <Button
-                                variant="secondary"
-                                size="sm"
-                                className="h-8 pr-8"
-                            >
-                                <span>{tab.label}</span>
-                            </Button>
-                        </Link>
+        <footer className="sticky bottom-0 z-30 flex h-10 items-center gap-2 border-t bg-background/95 px-4 backdrop-blur-sm sm:px-6 overflow-x-auto no-scrollbar">
+            {openTabs.map((tab) => (
+                <div key={tab.href} className="group relative flex items-center flex-shrink-0">
+                    <Link href={tab.href} passHref legacyBehavior>
                         <Button
-                            variant="ghost"
-                            size="icon"
-                            className="absolute right-0 h-8 w-8 rounded-l-none opacity-0 group-hover:opacity-100 transition-opacity"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                removeTab(tab.href);
-                            }}
+                            variant={pathname === tab.href ? "secondary" : "ghost"}
+                            size="sm"
+                            className="h-8 pr-8 text-xs"
                         >
-                            <X className="h-3 w-3" />
+                            <span>{tab.label}</span>
                         </Button>
-                    </div>
-                ))}
-            </div>
+                    </Link>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-0 h-8 w-8 rounded-l-none opacity-50 group-hover:opacity-100 transition-opacity"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            removeTab(tab.href);
+                        }}
+                    >
+                        <X className="h-3 w-3" />
+                    </Button>
+                </div>
+            ))}
         </footer>
     );
 }
