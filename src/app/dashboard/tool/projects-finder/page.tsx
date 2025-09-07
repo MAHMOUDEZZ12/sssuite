@@ -92,9 +92,9 @@ export default function ProjectsFinderPage() {
           <CardContent>
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-grow space-y-2">
-                <Label htmlFor="developer-search" className="sr-only">Search Projects</Label>
+                <Label htmlFor="search-query" className="sr-only">Search Projects</Label>
                 <Input
-                  id="developer-search"
+                  id="search-query"
                   placeholder="Search by name, developer, area, status..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
@@ -118,7 +118,7 @@ export default function ProjectsFinderPage() {
             <CardHeader>
                 <CardTitle>Search Results for "{query}"</CardTitle>
                 <CardDescription>
-                    {searchResults.length > 0 ? `Found ${searchResults.length} projects. Add them to your library to get started.` : 'No projects found for this developer in our Market Library.'}
+                    {searchResults.length > 0 ? `Found ${searchResults.length} projects. Add them to your library to get started.` : 'No projects found matching your query.'}
                 </CardDescription>
             </CardHeader>
             <CardContent>

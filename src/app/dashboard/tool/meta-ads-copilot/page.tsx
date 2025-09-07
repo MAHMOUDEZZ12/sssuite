@@ -21,6 +21,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { mockProjects } from '@/lib/mock-data';
 
 
 // Define schemas here, on the client, for form validation.
@@ -55,9 +57,9 @@ export type CreateMetaCampaignOutput = z.infer<typeof CreateMetaCampaignOutputSc
 
 
 const formSchema = z.object({
-  campaignGoal: z.string().min(10, 'Please provide a clear campaign goal.'),
+  projectId: z.string().min(1, 'Please select a project.'),
+  campaignGoal: z.string().min(1, 'Please select a goal.'),
   projectBrochure: z.custom<FileList>().refine(files => files && files.length > 0, 'A project brochure is required.'),
-  targetAudience: z.string().min(10, 'Please describe your target audience.'),
   budget: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Budget must be a positive number." }),
   durationDays: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Duration must be a positive number." }),
 });
@@ -194,10 +196,13 @@ export default function CampaignBuilderPage() {
 
     try {
         const brochureUri = await fileToDataUri(data.projectBrochure[0]);
+        // In a real app, you would use the projectId to fetch project details.
+        const project = mockProjects.find(p => p === data.projectId);
+
         const payload: CreateMetaCampaignInput = {
             campaignGoal: data.campaignGoal,
             projectBrochureDataUri: brochureUri,
-            targetAudience: data.targetAudience,
+            targetAudience: "Automatically generated based on project", // Placeholder
             budget: Number(data.budget),
             durationDays: Number(data.durationDays)
         };
@@ -248,25 +253,50 @@ export default function CampaignBuilderPage() {
                          <form onSubmit={handleSubmit(handleGeneration)}>
                             <CardContent className="space-y-4">
                                 <div className="space-y-2">
-                                   <Label htmlFor="campaignGoal">Campaign Goal</Label>
+                                    <Label htmlFor="projectId">Project</Label>
+                                    <Controller name="projectId" control={control} render={({ field }) => (
+                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select a project" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {mockProjects.map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                    )} />
+                                    {errors.projectId && <p className="text-sm text-destructive">{errors.projectId.message}</p>}
+                                </div>
+                                <div className="space-y-2">
+                                   <Label htmlFor="campaignGoal">Goal</Label>
                                    <Controller name="campaignGoal" control={control} render={({ field }) => (
-                                        <Textarea id="campaignGoal" placeholder="e.g., Generate high-quality leads for the new Azure Lofts project." {...field} />
+                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select a campaign goal" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="Lead Generation to Landing Page">Lead Generation to Landing Page</SelectItem>
+                                                <SelectItem value="Lead Generation to WhatsApp">Lead Generation to WhatsApp</SelectItem>
+                                                <SelectItem value="Lead Generation to Instagram">Lead Generation to Instagram</SelectItem>
+                                                <SelectItem value="Lead Generation to Lead CRM">Lead Generation to Lead CRM</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                    )} />
                                    {errors.campaignGoal && <p className="text-sm text-destructive">{errors.campaignGoal.message}</p>}
                                 </div>
                                 <div className="space-y-2">
-                                   <Label htmlFor="projectBrochure">Project Brochure</Label>
+                                   <Label htmlFor="projectBrochure">Campaign Media</Label>
                                      <Controller name="projectBrochure" control={control} render={({ field: { onChange, ...fieldProps } }) => (
                                         <Input id="projectBrochure" type="file" accept=".pdf" onChange={(e) => onChange(e.target.files)} {...fieldProps} />
                                     )} />
+                                    <p className="text-xs text-muted-foreground">Upload the project brochure. This is the primary source material for ad creatives.</p>
                                     {errors.projectBrochure && <p className="text-sm text-destructive">{errors.projectBrochure.message as string}</p>}
                                 </div>
-                                <div className="space-y-2">
-                                   <Label htmlFor="targetAudience">Target Audience</Label>
-                                   <Controller name="targetAudience" control={control} render={({ field }) => (
-                                        <Textarea id="targetAudience" placeholder="e.g., Young professionals, aged 25-40, interested in luxury urban living and technology." {...field} />
-                                   )} />
-                                    {errors.targetAudience && <p className="text-sm text-destructive">{errors.targetAudience.message}</p>}
+                                 <div className="space-y-2">
+                                   <Label>Target Audience</Label>
+                                   <Button variant="outline" className="w-full justify-start" type="button">
+                                      <Sparkles className="mr-2 h-4 w-4" />
+                                      Generate Audience (then edit)
+                                   </Button>
                                 </div>
                                  <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
@@ -310,7 +340,7 @@ export default function CampaignBuilderPage() {
                          {!isLoading && !result && (
                             <Card className="flex items-center justify-center h-96 border-dashed">
                                 <div className="text-center text-muted-foreground">
-                                    <Image src="https://picsum.photos/400/300" data-ai-hint="abstract marketing chart" alt="Campaign waiting" width={400} height={300} className="mx-auto mb-4 rounded-lg opacity-30" />
+                                    <Facebook className="h-16 w-16 mx-auto mb-4 opacity-10" />
                                     <h3 className="text-lg font-semibold text-foreground">Your Campaign Plan Awaits</h3>
                                     <p>Fill out the setup form and let the AI build your path to success.</p>
                                 </div>
@@ -402,4 +432,3 @@ export default function CampaignBuilderPage() {
   );
 }
 
-    
