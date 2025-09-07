@@ -39,5 +39,3 @@ export function IntegrationCard({ title, description, icon, connected, onConnect
 const Card = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
     <div className={cn("rounded-lg border bg-card text-card-foreground", className)} {...props} />
 );
-
-    

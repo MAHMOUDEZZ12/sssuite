@@ -79,15 +79,13 @@ const mockAnalyticsData = [
 type Campaign = typeof initialMockCampaigns[0];
 
 const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaignOutput, toast: any, onPublish: (campaign: Campaign) => void }) => {
-    const form = useForm<FormData>(); // Use the form hook to access form data
     
     const handlePublish = () => {
-        const formData = form.getValues(); // It's better to get fresh values
         const newCampaign: Campaign = {
             id: Date.now(),
             name: result.campaignName,
             objective: result.campaignObjective,
-            budget: Number(formData.budget),
+            budget: result.adSets.reduce((total, set) => total + (set.dailyBudget * 1), 0) * 14, // Simplified budget calculation
             status: "Active",
         };
         onPublish(newCampaign);
