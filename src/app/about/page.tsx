@@ -70,9 +70,9 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {principles.map((tech) => (
               <Card key={tech.name} className="bg-card/50 backdrop-blur-lg border-primary/10">
-                <CardHeader className="flex flex-row items-center gap-4">
-                  <div className="p-3 bg-primary/10 text-primary rounded-lg">{tech.icon}</div>
-                  <CardTitle className="text-2xl">{tech.name}</CardTitle>
+                <CardHeader className="flex flex-col sm:flex-row items-center gap-4">
+                  <div className="p-3 bg-primary/10 text-primary rounded-lg shrink-0">{tech.icon}</div>
+                  <CardTitle className="text-2xl text-center sm:text-left">{tech.name}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-foreground/80">{tech.description}</p>

@@ -336,9 +336,9 @@ export default function Home() {
         
         <section className="mt-32 max-w-6xl mx-auto">
             <Card className="bg-card/50 backdrop-blur-lg border-border shadow-xl shadow-primary/10 overflow-hidden">
-                <div className="flex flex-col lg:grid lg:grid-cols-2 items-center">
+                <div className="flex flex-col lg:flex-row items-center">
                     <div className="p-8 md:p-12 lg:order-2">
-                        <div className="bg-muted/50 p-8 lg:p-12 h-full flex flex-col justify-center min-h-[400px]">
+                        <div className="bg-muted/50 p-4 sm:p-8 lg:p-12 h-full flex flex-col justify-center min-h-[400px]">
                             <div className="w-full max-w-lg mx-auto space-y-6">
                             <div className="flex items-start gap-3 justify-end">
                                 <div className="bg-primary text-primary-foreground p-4 rounded-2xl rounded-br-none max-w-sm">

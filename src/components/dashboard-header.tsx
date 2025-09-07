@@ -78,11 +78,14 @@ export function DashboardHeader() {
                     </nav>
                 </div>
                 
-                <div className="flex flex-1 justify-center max-w-md">
-                   <Button variant="outline" className="w-full justify-start text-muted-foreground" onClick={() => setIsSearchOpen(true)}>
-                     <Search className="mr-2 h-4 w-4" />
-                     Search tools, projects, leads... (⌘K)
-                   </Button>
+                <div className="flex flex-1 items-center justify-end md:justify-center">
+                   <div className="w-full max-w-sm">
+                     <Button variant="outline" className="w-full justify-start text-muted-foreground" onClick={() => setIsSearchOpen(true)}>
+                       <Search className="mr-2 h-4 w-4" />
+                       <span className="hidden sm:inline-block">Search tools, projects... (⌘K)</span>
+                       <span className="sm:hidden">Search... (⌘K)</span>
+                     </Button>
+                   </div>
                 </div>
 
                 <div className="flex items-center gap-2">

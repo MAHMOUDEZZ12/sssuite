@@ -482,9 +482,9 @@ export default function ToolPage() {
         <Alert data-state={showCampaignNotice ? 'open' : 'closed'} className="max-w-4xl mx-auto animate-in fade-in-0 slide-in-from-top-5 duration-500">
             <Info className="h-4 w-4" />
             <AlertTitle>Heads up!</AlertTitle>
-            <AlertDescription className='flex justify-between items-center'>
-               <div>You have no campaign creation started. You can still generate an audience, but to use them you must start a campaign.</div>
-               <div className='flex gap-2'>
+            <AlertDescription className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2'>
+               <div className="flex-grow">You have no campaign creation started. You can still generate an audience, but to use them you must start a campaign.</div>
+               <div className='flex gap-2 flex-shrink-0'>
                     <Link href="/dashboard/tool/meta-ads-copilot">
                         <Button size="sm">Start a Campaign</Button>
                     </Link>
@@ -500,8 +500,8 @@ export default function ToolPage() {
         <>
             <Card className="max-w-4xl mx-auto">
                 <CardHeader>
-                <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-lg w-fit text-white" style={{ backgroundColor: tool.color }}>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div className="p-3 rounded-lg w-fit text-white shrink-0" style={{ backgroundColor: tool.color }}>
                     {React.cloneElement(tool.icon, { className: 'h-8 w-8' })}
                     </div>
                     <div>
