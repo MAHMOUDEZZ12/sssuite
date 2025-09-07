@@ -121,5 +121,3 @@ export function LandingFooter() {
     </footer>
   );
 }
-
-    
