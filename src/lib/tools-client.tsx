@@ -626,7 +626,27 @@ export const tools: Feature[] = [
         </div>
       </div>
     ),
-    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] },
+    details: {
+      steps: [
+        { text: 'Provide a topic or URL as a source', icon: <PenTool className="h-6 w-6" /> },
+        { text: 'Choose a tone of voice', icon: <MessageCircle className="h-6 w-6" /> },
+        { text: 'Get a 7-day plan with posts, images, and hashtags', icon: <ClipboardList className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Planning Time', manual: '2-3 hours per week', ai: 'Fast by default', icon: <Clock2 /> },
+        { metric: 'Content Variety', manual: 'Tends to be repetitive', ai: 'Generates diverse angles and formats', icon: <Sparkles /> },
+        { metric: 'Hashtag Research', manual: 'Guesswork and manual searching', ai: 'Data-driven, tiered strategy', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Landing Page Builder", benefit: "Create content that drives traffic directly to a relevant landing page." },
+        { tool: "Market Reports", benefit: "Use the key findings from a market report as the source for your week of content." }
+      ],
+       faqs: [
+        { question: "Can I use this for platforms other than Instagram?", answer: "Yes. While it excels at creating visual-first content for Instagram, you can easily adapt the generated text and ideas for Facebook, LinkedIn, Twitter, and more." },
+        { question: "What if I don't like a suggested post?", answer: "The generated plan is a starting point. You can edit, replace, or shuffle any of the suggested posts to better fit your brand and schedule." },
+        { question: "How does the AI come up with image suggestions?", answer: "The AI analyzes the text of each post and suggests images that would visually complement the message, often including specific details like 'a close-up shot' or 'a family laughing' to guide your image selection or AI image generation." }
+      ],
+    },
     creationFields: [
       { id: 'source', name: 'Topic or URL', type: 'text', placeholder: 'e.g., "The benefits of buying a new build property"', description: 'The core idea for your week of content.' },
       { id: 'platform', name: 'Platform', type: 'text', value: 'Instagram', description: 'The social media platform.', hidden: true },
