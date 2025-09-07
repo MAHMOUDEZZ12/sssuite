@@ -550,8 +550,32 @@ export const tools: Feature[] = [
     cta: 'Generate Reel Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
-    creationFields: [],
-    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+    details: {
+      steps: [
+        { text: 'Select a project to source images/videos', icon: <Briefcase /> },
+        { text: 'Provide key selling points for captions', icon: <PenTool /> },
+        { text: 'AI generates a video with captions & music', icon: <Sparkles /> },
+      ],
+      aiVsManual: [
+        { metric: 'Video Editing Time', manual: '2-5 hours per reel', ai: 'Seconds to generate', icon: <Clock2 /> },
+        { metric: 'Software Cost', manual: 'Requires Adobe Premiere/CapCut Pro', ai: 'Included in your subscription', icon: <Wallet /> },
+        { metric: 'Trendiness', manual: 'Hard to keep up with trending audio/styles', ai: 'AI suggests current, popular formats', icon: <TrendingUp /> },
+      ],
+      synergy: [
+        { tool: "Insta Ads Designer", benefit: "Use the text and themes from your best-performing static ads as input for a new video reel." },
+        { tool: "Audience Creator", benefit: "Target your reel ad to the high-intent audience you identified to maximize engagement." },
+      ],
+      faqs: [
+        { question: "Can I upload my own video clips?", answer: "Yes, you can provide your own video clips and photos. The AI will analyze them, select the best segments, and edit them together into a compelling reel." },
+        { question: "Does the AI choose the music?", answer: "The AI can suggest trending audio styles and royalty-free music that matches the 'vibe' you select for your reel, ensuring it feels current and engaging." },
+        { question: "Can I edit the generated captions?", answer: "Absolutely. The AI generates dynamic, animated captions as a starting point, but you have full control to edit the text and timing before finalizing the video." },
+      ],
+    },
+    creationFields: [
+      { id: 'projectId', name: 'Project', type: 'select', options: ['Azure Lofts', 'Maple Creek Development', 'Oceanview Villas', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose the project to source visual assets from.' },
+      { id: 'sellingPoints', name: 'Selling Points', type: 'textarea', placeholder: 'e.g., Stunning ocean views\nFloor-to-ceiling windows\n5-star amenities', description: 'One key point per line for captions.' },
+      { id: 'vibe', name: 'Vibe', type: 'select', options: ['Modern & Fast-Paced', 'Luxurious & Cinematic', 'Upbeat & Fun', 'Calm & Relaxing'], placeholder: 'Select a vibe', description: 'This influences the music and editing style.' },
+    ]
   },
   {
     id: 'facebook-ads-ai',
@@ -563,8 +587,33 @@ export const tools: Feature[] = [
     cta: 'Create Facebook Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
-    creationFields: [],
-    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+    details: {
+       steps: [
+          { text: 'Upload a project brochure or select a project', icon: <Upload className="h-6 w-6" /> },
+          { text: 'Define the ad\'s focus (e.g., "investment")', icon: <Target className="h-6 w-6" /> },
+          { text: 'Generate multiple ad variants for different formats', icon: <Sparkles className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Time Investment', manual: '5-10 hours per campaign', ai: 'Fast by default', icon: <Clock2 /> },
+        { metric: 'Cost & Resources', manual: 'Requires copywriter & designer', ai: 'Included in your subscription', icon: <Wallet /> },
+        { metric: 'Quality & Testing', manual: 'Relies on guesswork, 1-2 variations', ai: 'Data-driven, 5+ variations to test', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Audience Creator", benefit: "Ensure your perfectly crafted Facebook ads are seen by the people most likely to convert." },
+        { tool: "Landing Page Builder", benefit: "Drive traffic from your Facebook ad to a dedicated, high-converting landing page." }
+      ],
+       faqs: [
+        { question: "How is this different from the Insta Ads Designer?", answer: "While the core engine is similar, this tool is specifically optimized for Facebook's formats and best practices, such as different image aspect ratios, headline lengths, and ad types like Carousel ads." },
+        { question: "Can I A/B test different headlines?", answer: "Yes, the tool is designed to generate multiple distinct headlines and body copy variations for the express purpose of A/B testing to find the most effective message." },
+        { question: "Does it create video ads?", answer: "This tool focuses on image and carousel ads. For video content, please use the dedicated 'Reel Ads' tool." }
+      ],
+    },
+    creationFields: [
+       { id: 'projectId', name: 'Project', type: 'select', options: ['Azure Lofts', 'Maple Creek Development', 'Oceanview Villas', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose from your saved projects.' },
+      { id: 'brochureDataUri', name: 'Developer Brochure (Optional)', type: 'file', description: 'Upload the original PDF for more detailed ad generation.' },
+      { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
+      { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
+    ],
   },
   {
     id: 'instagram-admin-ai',
@@ -576,81 +625,30 @@ export const tools: Feature[] = [
     cta: 'Run Admin Task',
     categories: ['Sales Tools', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
-    creationFields: [],
-    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
-  },
-  {
-    id: 'instagram-content-creator',
-    title: 'Instagram Content Creator',
-    dashboardTitle: 'Instagram Content',
-    description: "Turn one idea into a one-week content plan for Instagram.",
-    icon: <Share2 />,
-    color: '#e11d48',
-    cta: 'Generate Content Plan',
-    categories: ['Marketing', 'Social & Comms', 'Ads'],
-    mindMapCategory: 'Meta Ads AI Suite',
-    isPage: false,
-    renderResult: (result, toast) => (
-      <div className="space-y-8">
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Weekly Post Plan</h3>
-          <div className="space-y-4">
-            {result.posts.map((post: any, index: number) => (
-              <div key={index} className="p-4 bg-muted/50 rounded-lg border">
-                <p className="font-bold text-foreground mb-1">{post.day}</p>
-                <p className="text-foreground/80 whitespace-pre-wrap">{post.postContent}</p>
-                <p className="text-sm italic text-muted-foreground mt-2">
-                  <span className="font-semibold not-italic">Image Suggestion:</span> {post.imageSuggestion}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-        <Separator />
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Hashtag Strategy</h3>
-          <div className="space-y-2">
-            <div>
-              <p className="font-semibold">Primary Hashtags (Broad Reach)</p>
-              <p className="text-sm text-muted-foreground">{result.hashtagStrategy.primary.join(' ')}</p>
-            </div>
-             <div>
-              <p className="font-semibold">Secondary Hashtags (Niche Targeting)</p>
-              <p className="text-sm text-muted-foreground">{result.hashtagStrategy.secondary.join(' ')}</p>
-            </div>
-             <div>
-              <p className="font-semibold">Location Hashtags (Local Dominance)</p>
-              <p className="text-sm text-muted-foreground">{result.hashtagStrategy.location.join(' ')}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    ),
     details: {
       steps: [
-        { text: 'Provide a topic or URL as a source', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Choose a tone of voice', icon: <MessageCircle className="h-6 w-6" /> },
-        { text: 'Get a 7-day plan with posts, images, and hashtags', icon: <ClipboardList className="h-6 w-6" /> },
+        { text: 'Connect your Instagram account securely', icon: <Network /> },
+        { text: 'Provide a task (e.g., "Draft replies to this comment")', icon: <PenTool /> },
+        { text: 'AI executes the task and waits for your approval', icon: <CheckCircle /> },
       ],
       aiVsManual: [
-        { metric: 'Planning Time', manual: '2-3 hours per week', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Content Variety', manual: 'Tends to be repetitive', ai: 'Generates diverse angles and formats', icon: <Sparkles /> },
-        { metric: 'Hashtag Research', manual: 'Guesswork and manual searching', ai: 'Data-driven, tiered strategy', icon: <BadgeCheck /> },
+        { metric: 'Response Time', manual: 'Hours or days', ai: 'Instant, 24/7 monitoring', icon: <Clock2 /> },
+        { metric: 'Content Scheduling', manual: 'Requires manual posting or third-party tools', ai: 'Integrated, intelligent scheduling', icon: <Briefcase /> },
+        { metric: 'Lead Capture', manual: 'Manually identifying promising comments', ai: 'Flags high-intent comments for follow-up', icon: <Sparkles /> },
       ],
       synergy: [
-        { tool: "Landing Page Builder", benefit: "Create content that drives traffic directly to a relevant landing page." },
-        { tool: "Market Reports", benefit: "Use the key findings from a market report as the source for your week of content." }
+        { tool: "Instagram Content Creator", benefit: "Automatically schedule the 7-day content plan generated by the creator tool." },
+        { tool: "WhatsApp Manager", benefit: "When a high-intent comment is flagged, automatically send a personalized follow-up message on WhatsApp." },
       ],
-       faqs: [
-        { question: "Can I use this for platforms other than Instagram?", answer: "Yes. While it excels at creating visual-first content for Instagram, you can easily adapt the generated text and ideas for Facebook, LinkedIn, Twitter, and more." },
-        { question: "What if I don't like a suggested post?", answer: "The generated plan is a starting point. You can edit, replace, or shuffle any of the suggested posts to better fit your brand and schedule." },
-        { question: "How does the AI come up with image suggestions?", answer: "The AI analyzes the text of each post and suggests images that would visually complement the message, often including specific details like 'a close-up shot' or 'a family laughing' to guide your image selection or AI image generation." }
+      faqs: [
+        { question: "Will the AI post on my behalf automatically?", answer: "You have full control. You can set it to draft posts for your approval, or you can enable fully automated posting for certain types of content." },
+        { question: "How does it know how to reply to comments?", answer: "It uses your private knowledge base (brochures, price lists) to answer common questions accurately. For complex or sensitive queries, it will flag the comment for your personal attention." },
+        { question: "Can it handle direct messages (DMs)?", answer: "Yes, the tool can be configured to manage your Instagram DMs, answering common questions and filtering high-priority conversations for you to handle personally." },
       ],
     },
     creationFields: [
-      { id: 'source', name: 'Topic or URL', type: 'text', placeholder: 'e.g., "The benefits of buying a new build property"', description: 'The core idea for your week of content.' },
-      { id: 'platform', name: 'Platform', type: 'text', value: 'Instagram', description: 'The social media platform.', hidden: true },
-      { id: 'tone', name: 'Tone', type: 'select', options: ['Professional', 'Friendly', 'Exciting', 'Educational', 'Humorous'], placeholder: 'Select a tone', description: 'The desired tone for the posts.' },
+       { id: 'task', name: 'Task', type: 'text', placeholder: 'e.g., "Draft 3 replies to a comment asking about price"', description: 'What do you want the AI admin to do?' },
+       { id: 'context', name: 'Context (Optional)', type: 'textarea', placeholder: 'e.g., Paste the comment text here, or provide a topic for a content schedule.', description: 'Provide any relevant text or information for the task.' },
     ],
   },
   {
@@ -663,8 +661,32 @@ export const tools: Feature[] = [
     cta: 'Generate Story',
     categories: ['Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
-    creationFields: [],
-    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+    details: {
+      steps: [
+        { text: 'Select a project to source photos', icon: <Briefcase /> },
+        { text: 'Choose a vibe and a call to action', icon: <Palette /> },
+        { text: 'AI generates an animated, multi-slide story', icon: <Sparkles /> },
+      ],
+      aiVsManual: [
+        { metric: 'Design Time', manual: '30-60 minutes in Canva/etc.', ai: 'Seconds to generate', icon: <Clock2 /> },
+        { metric: 'Storyboarding', manual: 'Requires creative planning', ai: 'Generates a coherent narrative sequence', icon: <BrainCircuit /> },
+        { metric: 'Consistency', manual: 'Different apps for each part', ai: 'One unified, professionally designed output', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Reel Ads", benefit: "Repurpose the best clips from your reel into an interactive story with polls and Q&As." },
+        { tool: "Landing Page Builder", benefit: "End your story with a 'Swipe Up' link that goes directly to your newly generated landing page." },
+      ],
+      faqs: [
+        { question: "Can I add polls or quizzes to the story?", answer: "Yes, you can instruct the AI to include interactive elements like polls, quizzes, and question stickers to boost engagement." },
+        { question: "Does it use my brand fonts and colors?", answer: "Yes, the Story Planner will use the logo, colors, and fonts defined in your Brand Kit to ensure every story is perfectly on-brand." },
+        { question: "What if my project has no photos?", answer: "If no photos are available, the AI can generate high-quality, relevant stock images or use animated text and graphics to create a compelling visual story." },
+      ],
+    },
+    creationFields: [
+       { id: 'projectId', name: 'Project', type: 'select', options: ['Azure Lofts', 'Maple Creek Development', 'Oceanview Villas', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose the project to source photos from.' },
+       { id: 'vibe', name: 'Vibe', type: 'select', options: ['Modern & Edgy', 'Elegant & Luxurious', 'Informative & Clean', 'Playful & Bright'], placeholder: 'Select a vibe', description: 'The desired visual style for the story.' },
+       { id: 'callToAction', name: 'Call to Action', type: 'text', placeholder: 'e.g., "Swipe up to book a viewing!"', description: 'The final message for your story.' },
+    ],
   },
   {
     id: 'instagram-hashtags-ai',
@@ -676,8 +698,32 @@ export const tools: Feature[] = [
     cta: 'Generate Hashtag Strategy',
     categories: ['Marketing', 'Social & Comms', 'Lead Gen'],
     mindMapCategory: 'Meta Ads AI Suite',
-    creationFields: [],
-    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+    details: {
+      steps: [
+        { text: 'Provide the topic of your post', icon: <PenTool /> },
+        { text: 'AI analyzes the topic and relevant keywords', icon: <BrainCircuit /> },
+        { text: 'Get a tiered list of primary, secondary, and location tags', icon: <ClipboardList /> },
+      ],
+      aiVsManual: [
+        { metric: 'Research Time', manual: '15-30 minutes per post', ai: 'Instantaneous', icon: <Clock2 /> },
+        { metric: 'Strategy', manual: 'Guesswork, often uses overly broad tags', ai: 'Tiered strategy for broad reach and niche targeting', icon: <Sparkles /> },
+        { metric: 'Effectiveness', manual: 'Hit or miss', ai: 'Maximizes discoverability and engagement', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Instagram Content Creator", benefit: "This tool is an integral part of the content creator, providing a full strategy for every generated post." },
+        { tool: "Market Reports", benefit: "Generate hashtags based on the specific location and findings of a market report to target interested viewers." },
+      ],
+      faqs: [
+        { question: "Why is a 'tiered' strategy important?", answer: "A tiered strategy combines popular, high-volume hashtags for broad reach with niche-specific tags to connect with a highly relevant audience. This blend is key to sustainable growth on Instagram." },
+        { question: "How many hashtags should I use?", answer: "Instagram allows up to 30 hashtags per post. Our tool provides a strategic mix of 15-25 tags, which is generally considered the sweet spot for optimal performance." },
+        { question: "Can it find hashtags for any niche?", answer: "Yes, the AI has a broad understanding of various industries, but it excels at real estate-related topics, including specific architectural styles, locations, and investment strategies." },
+      ],
+    },
+    creationFields: [
+      { id: 'source', name: 'Post Topic', type: 'text', placeholder: 'e.g., "A modern 2-bedroom condo in downtown Dubai"', description: 'The subject of your Instagram post.' },
+      { id: 'platform', name: 'Platform', type: 'text', value: 'Instagram', hidden: true, description: '' },
+      { id: 'tone', name: 'Tone', type: 'text', value: 'Professional', hidden: true, description: '' },
+    ],
   },
   {
     id: 'meta-ads-reports',
@@ -688,8 +734,31 @@ export const tools: Feature[] = [
     cta: 'Generate Ad Report',
     categories: ['Marketing', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
-    creationFields: [],
-    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
+    details: {
+      steps: [
+        { text: 'Connect your Meta Ads account', icon: <Network /> },
+        { text: 'Select the campaign and date range', icon: <Briefcase /> },
+        { text: 'AI generates a report with insights and recommendations', icon: <Sparkles /> },
+      ],
+      aiVsManual: [
+        { metric: 'Data Analysis', manual: 'Manually exporting data to spreadsheets', ai: 'Automated analysis with plain-English insights', icon: <BrainCircuit /> },
+        { metric: 'Time to Report', manual: '1-2 hours per report', ai: 'Seconds to generate', icon: <Clock2 /> },
+        { metric: 'Actionability', manual: 'Just data, no recommendations', ai: 'Provides specific advice for optimization', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Campaign Builder", benefit: "Use the insights from your reports to inform the strategy for your next AI-generated campaign." },
+        { tool: "AI Assistant", benefit: "Ask your assistant, 'Summarize the performance of my Azure Lofts campaign last month,' to get instant insights without manually running a report." },
+      ],
+      faqs: [
+        { question: "What kind of recommendations does it make?", answer: "The AI can suggest actions like reallocating budget to better-performing ad sets, refreshing ad creative that is experiencing fatigue, or expanding targeting for successful audiences." },
+        { question: "Can I schedule recurring reports?", answer: "Yes, you can set up weekly or monthly reports to be automatically generated and sent to your email, keeping you informed of your campaign performance." },
+        { question: "Does this work for both Facebook and Instagram?", answer: "Yes, the tool pulls data from your entire Meta Ads account, providing a unified report on performance across both platforms." },
+      ],
+    },
+    creationFields: [
+      { id: 'campaignId', name: 'Campaign', type: 'select', options: ['Azure Lofts Leads - March', 'Maple Creek Awareness - Feb', 'Oceanview Traffic - April'], placeholder: 'Select a campaign', description: 'Choose the campaign to report on.' },
+      { id: 'dateRange', name: 'Date Range', type: 'select', options: ['Last 7 Days', 'Last 30 Days', 'This Month', 'Last Month'], placeholder: 'Select a date range', description: 'The time period for the report.' },
+    ],
   },
    
   // --- GENERAL MARKETING ---
@@ -972,7 +1041,27 @@ export const tools: Feature[] = [
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
     isPage: true,
-    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] },
+    details: { 
+      steps: [
+        { text: 'Connect your Property Finder & Bayut accounts', icon: <Network /> },
+        { text: 'View all your live listings in one place', icon: <Briefcase /> },
+        { text: 'Use AI to refresh descriptions or update status in bulk', icon: <Sparkles /> },
+      ],
+      aiVsManual: [
+        { metric: 'Updating Listings', manual: 'Logging into multiple portals one by one', ai: 'One-click sync and bulk updates', icon: <Clock2 /> },
+        { metric: 'Consistency', manual: 'Different information on different sites', ai: 'A single source of truth for all listings', icon: <BadgeCheck /> },
+        { metric: 'Performance', manual: 'No easy way to compare which portal is working', ai: 'Unified view of views and leads per portal', icon: <LineChart /> },
+      ],
+      synergy: [
+        { tool: "Listing Generator", benefit: "Generate a new, optimized description and then use the Manager to push the update to all connected portals instantly." },
+        { tool: "Market Reports", benefit: "When a market report shows a price trend, use the Manager to bulk-update the prices of relevant listings." },
+      ],
+      faqs: [
+        { question: "Which portals can I connect?", answer: "We are launching with support for Property Finder and Bayut, with plans to add more major international and regional portals soon." },
+        { question: "Is this a two-way sync?", answer: "Yes. Changes you make in the Listing Manager will be pushed to the portals, and new leads or inquiries from the portals can be automatically pulled into your CRM." },
+        { question: "Can I create new listings from here?", answer: "The initial version focuses on managing and updating existing listings. The ability to create new listings from scratch is on our roadmap." },
+      ],
+    },
     creationFields: [],
   },
   {
@@ -1108,7 +1197,27 @@ export const tools: Feature[] = [
     cta: 'Create Listing',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
-    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] },
+    details: {
+       steps: [
+        { text: 'Enter property details', icon: <PenTool /> },
+        { text: 'Highlight unique features', icon: <Sparkles /> },
+        { text: 'Generate a listing optimized for Dubizzle\'s format', icon: <FileText /> },
+      ],
+      aiVsManual: [
+        { metric: 'Writing Time', manual: '30-45 minutes', ai: 'Seconds', icon: <Clock2 /> },
+        { metric: 'Keyword Optimization', manual: 'Guesswork', ai: 'Includes high-traffic local search terms', icon: <Search /> },
+        { metric: 'Formatting', manual: 'Plain text', ai: 'Well-structured with bullet points and clear sections', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Listing Manager", benefit: "After generating your optimized Dubizzle listing, use the manager to push it live and sync it with your other portals." },
+        { tool: "Reel Ads", benefit: "Create a quick video reel showcasing the property and link it in your Dubizzle listing for higher engagement." },
+      ],
+      faqs: [
+        { question: "Does this tool post directly to Dubizzle?", answer: "This tool generates the optimized text and keyword suggestions. You can then copy and paste the content into your Dubizzle account. Direct posting is on our roadmap." },
+        { question: "How does it know what works best on Dubizzle?", answer: "The AI has been trained on thousands of successful Dubizzle listings to understand the formats, keywords, and tones that attract the most buyers on that specific platform." },
+        { question: "Can it generate listings in Arabic?", answer: "Yes, you can specify that you need the listing in Arabic, and the AI will provide a high-quality, fluent translation optimized for the local market." },
+      ],
+    },
     creationFields: [
       { id: 'platform', name: 'Platform', type: 'text', value: 'Dubizzle', hidden: true, description: '' },
       { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the a property.' },
