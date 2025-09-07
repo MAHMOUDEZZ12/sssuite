@@ -12,10 +12,9 @@ import {
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
-import { LifeBuoy, LogOut, Settings, User, Briefcase, Palette, UserPlus, Search } from "lucide-react";
+import { LifeBuoy, LogOut, Settings, User, Search } from "lucide-react";
 import { usePathname } from 'next/navigation';
 import { ThemeSwitcher } from "./theme-switcher";
-import { Input } from "./ui/input";
 import React from "react";
 import { GlobalSearch } from "./ui/global-search";
 
@@ -26,6 +25,7 @@ export function DashboardHeader() {
     const navLinks = [
         { href: '/dashboard/projects', label: 'Projects' },
         { href: '/dashboard/brand', label: 'Brand'},
+        { href: '/dashboard/clients', label: 'Clients'},
         { href: '/dashboard/leads', label: 'Leads'},
     ];
 
@@ -82,9 +82,9 @@ export function DashboardHeader() {
                                     Support
                                 </DropdownMenuItem>
                              </a>
-                             <DropdownMenuSeparator />
-                             <DropdownMenuLabel>Theme</DropdownMenuLabel>
-                             <ThemeSwitcher />
+                            <DropdownMenuSeparator />
+                            <DropdownMenuLabel>Theme</DropdownMenuLabel>
+                            <ThemeSwitcher />
                             <DropdownMenuSeparator />
                             <Link href="/login"><DropdownMenuItem>
                                  <LogOut className="mr-2 h-4 w-4" />
