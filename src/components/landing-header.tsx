@@ -17,8 +17,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from './theme-switcher';
 
@@ -31,7 +29,7 @@ const navLinks = [
 
 export function LandingHeader() {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme, setTheme, themes } = useTheme();
+  const { setTheme, themes } = useTheme();
   
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

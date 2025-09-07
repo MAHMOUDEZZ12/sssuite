@@ -21,7 +21,7 @@ const mainNav = [
   { href: '/dashboard', label: 'Home', icon: Home },
   { href: '/dashboard/marketing', label: 'Marketing', icon: Megaphone },
   { href: '/dashboard/projects', label: 'Projects', icon: Building },
-  { href: '/dashboard/brand', label: 'Brand Kit', icon: Palette },
+  { href: '/dashboard/brand', label: 'Brand & Assets', icon: Palette },
   { href: '/dashboard/clients', label: 'Clients', icon: Users },
 ];
 
@@ -54,7 +54,7 @@ export function DashboardSidebar() {
                 <Link href={item.href} passHref legacyBehavior>
                   <SidebarMenuButton
                      onClick={(e) => handleNavigation(item.href, item.label, e)}
-                     isActive={pathname === item.href}
+                     isActive={pathname.startsWith(item.href) && (item.href === '/dashboard' ? pathname === item.href : true)}
                      tooltip={item.label}
                      className="justify-start"
                   >
@@ -73,7 +73,7 @@ export function DashboardSidebar() {
                     <Link href={item.href} passHref legacyBehavior>
                         <SidebarMenuButton
                             onClick={(e) => handleNavigation(item.href, item.label, e)}
-                            isActive={pathname === item.href}
+                            isActive={pathname.startsWith(item.href)}
                             tooltip={item.label}
                             className="justify-start"
                         >

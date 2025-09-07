@@ -16,10 +16,20 @@ import { LifeBuoy, LogOut, Settings, User, Search } from "lucide-react";
 import React from "react";
 import { GlobalSearch } from "./ui/global-search";
 import { useTheme } from "./theme-switcher";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import { auth } from "@/lib/firebase";
 
 export function DashboardHeader() {
     const [isSearchOpen, setIsSearchOpen] = React.useState(false);
     const { setTheme, themes } = useTheme();
+    const { user, loading } = useAuth();
+    const router = useRouter();
+
+    const handleLogout = async () => {
+        await auth.signOut();
+        router.push('/login');
+    };
 
     return (
         <>
@@ -46,13 +56,13 @@ export function DashboardHeader() {
                             className="overflow-hidden rounded-full"
                             >
                                 <Avatar>
-                                    <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="Don's Avatar" />
-                                    <AvatarFallback>D</AvatarFallback>
+                                    <AvatarImage src={user?.photoURL || ''} alt={user?.displayName || 'User Avatar'} />
+                                    <AvatarFallback>{user?.displayName?.charAt(0) || 'U'}</AvatarFallback>
                                 </Avatar>
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Don's Account</DropdownMenuLabel>
+                            <DropdownMenuLabel>{user?.displayName || "My Account"}</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <Link href="/dashboard/settings"><DropdownMenuItem>
                                 <Settings className="mr-2 h-4 w-4" />
@@ -73,10 +83,10 @@ export function DashboardHeader() {
                                 </DropdownMenuItem>
                             ))}
                             <DropdownMenuSeparator />
-                            <Link href="/login"><DropdownMenuItem>
+                            <DropdownMenuItem onClick={handleLogout}>
                                  <LogOut className="mr-2 h-4 w-4" />
                                 Logout
-                            </DropdownMenuItem></Link>
+                            </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>

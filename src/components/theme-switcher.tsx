@@ -24,7 +24,7 @@ export function useTheme() {
   const setTheme = (newTheme: string) => {
     const root = document.documentElement;
     
-    // Clear existing theme classes
+    // Clear existing theme classes from both globals.css and the html element
     themes.forEach(t => root.classList.remove(t.value));
     
     let activeTheme = newTheme;
@@ -50,7 +50,7 @@ export function useTheme() {
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
-        if (theme === 'system') {
+        if (localStorage.getItem('theme') === 'system') {
             const newActiveTheme = mediaQuery.matches ? 'dark' : 'light';
             themes.forEach(t => root.classList.remove(t.value));
             root.classList.add(newActiveTheme);

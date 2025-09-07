@@ -103,7 +103,7 @@ export default function LoginPage() {
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Login
             </Button>
-            <Button variant="outline" className="w-full" onClick={handleGoogleLogin} disabled={isLoading}>
+            <Button variant="outline" className="w-full" onClick={handleGoogleLogin} disabled={isLoading} type="button">
               {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               Login with Google
             </Button>
