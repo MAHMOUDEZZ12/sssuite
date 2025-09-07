@@ -23,10 +23,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from 'next/link';
 
-// Mock data is now removed, this page is ready for real data.
-const mockProjects: any[] = [
-  // This will be populated by a fetch call in a future step.
-  // For now, we show an empty state.
+// This page is now ready for real data.
+// In a future step, we would use a hook to fetch the user's project library from Firestore.
+const userProjects: any[] = [
+  // Example:
+  // { id: 'some-project-id', name: 'Azure Lofts', type: 'Residential', location: 'Dubai Marina', status: 'Active' }
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
@@ -64,8 +65,8 @@ export default function ProjectsPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {mockProjects.length > 0 ? (
-                mockProjects.map((project) => (
+            {userProjects.length > 0 ? (
+                userProjects.map((project) => (
                 <TableRow key={project.id}>
                     <TableCell className="font-medium">{project.name}</TableCell>
                     <TableCell className="hidden md:table-cell">{project.type}</TableCell>
