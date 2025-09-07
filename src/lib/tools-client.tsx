@@ -51,6 +51,7 @@ import {
   Hash,
   Star,
   Loader2,
+  ArrowLeft,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -130,7 +131,7 @@ const mockProjects = [
     'Add New Project...',
 ];
 
-const AudienceResultCard = ({ strategy, toast }: { strategy: any, toast: any }) => {
+const AudienceRefinementCard = ({ strategy, toast, onBack }: { strategy: any, toast: any, onBack: () => void }) => {
     const [country, setCountry] = React.useState('United Arab Emirates');
     const [city, setCity] = React.useState('Dubai');
     const [audienceSize, setAudienceSize] = React.useState<number | null>(null);
@@ -149,9 +150,12 @@ const AudienceResultCard = ({ strategy, toast }: { strategy: any, toast: any }) 
     };
 
     return (
-        <Card className="flex flex-col bg-muted/30">
+         <Card className="flex flex-col bg-muted/30 col-span-full">
             <CardHeader>
-                <CardTitle className="text-lg text-primary">{strategy.strategyName}</CardTitle>
+                <Button variant="ghost" size="sm" onClick={onBack} className="absolute top-4 right-4">
+                    <ArrowLeft className="mr-2 h-4 w-4" /> Back to Strategies
+                </Button>
+                <CardTitle className="text-xl text-primary">{strategy.strategyName}</CardTitle>
                 <CardDescription>
                      <Badge>{strategy.audienceType}</Badge>
                 </CardDescription>
@@ -209,6 +213,42 @@ const AudienceResultCard = ({ strategy, toast }: { strategy: any, toast: any }) 
     );
 };
 
+const AudienceIdeationResult = ({ result, toast }: { result: any, toast: any }) => {
+    const [selectedStrategy, setSelectedStrategy] = React.useState<any | null>(null);
+    
+    if (selectedStrategy) {
+        return <AudienceRefinementCard strategy={selectedStrategy} toast={toast} onBack={() => setSelectedStrategy(null)} />
+    }
+
+    return (
+        <div className="space-y-6">
+            <div className="text-center">
+                 <h3 className="font-semibold text-xl text-foreground">Recommended Targeting Strategies</h3>
+                <p className="text-muted-foreground mt-1">The AI has generated multiple distinct strategies for your project. Select one to refine and estimate its potential reach.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {result.strategies.map((strategy: any, index: number) => (
+                <Card key={index} className="flex flex-col">
+                    <CardHeader>
+                        <CardTitle className="text-lg">{strategy.strategyName}</CardTitle>
+                        <CardDescription>
+                            <Badge variant="outline">{strategy.audienceType}</Badge>
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                        <p className="text-sm text-muted-foreground">{strategy.demographics}</p>
+                    </CardContent>
+                    <CardFooter>
+                        <Button className="w-full" onClick={() => setSelectedStrategy(strategy)}>
+                            Select & Refine <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                    </CardFooter>
+                </Card>
+            ))}
+            </div>
+        </div>
+    );
+}
 
 export const tools: Feature[] = [
   // --- META ADS AI SUITE ---
@@ -292,17 +332,7 @@ export const tools: Feature[] = [
     categories: ['Marketing', 'Lead Gen', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
     isPage: false,
-    renderResult: (result, toast) => (
-      <div className="space-y-6">
-        <h3 className="font-semibold text-xl text-foreground">Recommended Targeting Strategies</h3>
-        <p className="text-muted-foreground">The AI has generated multiple distinct strategies for your project. Choose one to refine, or send it directly to the Campaign Builder.</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {result.strategies.map((strategy: any, index: number) => (
-            <AudienceResultCard key={index} strategy={strategy} toast={toast} />
-          ))}
-        </div>
-      </div>
-    ),
+    renderResult: (result, toast) => <AudienceIdeationResult result={result} toast={toast} />,
     details: {
       steps: [
         { text: 'Select a project from your library', icon: <Briefcase className="h-6 w-6" /> },
