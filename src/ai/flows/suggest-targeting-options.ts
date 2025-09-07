@@ -38,6 +38,7 @@ const SuggestTargetingOptionsOutputSchema = z.object({
    */
   strategies: z.array(z.object({
     strategyName: z.string().describe("The name of the targeting strategy (e.g., 'The Local Professional')."),
+    audienceType: z.string().describe("The type of Meta audience to create (e.g., 'Detailed Targeting', 'Lookalike Audience')."),
     demographics: z.string().describe("The demographic targeting parameters (e.g., 'Age: 30-45, Location: Downtown Dubai')."),
     interests: z.string().describe("The interest-based targeting for platforms like Facebook/Instagram."),
     keywords: z.string().describe("The keyword targeting for platforms like Google Ads."),
@@ -65,7 +66,7 @@ const prompt = ai.definePrompt({
   input: {schema: SuggestTargetingOptionsInputSchema},
   output: {schema: SuggestTargetingOptionsOutputSchema},
   prompt: `You are an expert in digital marketing and advertising, specializing in real estate.
-  Based on the provided project details, suggest 2-3 distinct targeting strategies for an ad campaign on platforms like Facebook and Google.
+  Based on the provided project details, suggest 2-3 distinct targeting strategies for an ad campaign on platforms like Meta (Facebook/Instagram) and Google.
 
   **TODO: The project data should be fetched from a database using the projectId.**
   For now, use this placeholder data for Project ID: {{projectId}}
@@ -75,14 +76,16 @@ const prompt = ai.definePrompt({
   - Property Type: "Luxury High-rise Condo"
   - Price Range: $1,000,000 - $2,500,000
   - Key Amenities: "Rooftop infinity pool, 24/7 concierge, state-of-the-art gym, valet parking"
+  - Past Buyers Profile: High-net-worth individuals, tech executives, international investors.
 
   **Instructions:**
   
   1.  **Analyze the Project**: Based on the property details, infer the most likely buyer personas.
-  2.  **Generate 2-3 Distinct Strategies**: Create multiple, distinct targeting strategies. For example:
-      - **Strategy 1: The Local Professional**: Target high-income professionals already living or working in the area.
-      - **Strategy 2: The International Investor**: Target individuals in key international markets known for investing in this city.
-  3.  **Detail Each Strategy**: For each strategy, provide a clear name and a detailed breakdown of:
+  2.  **Generate 2-3 Distinct Strategies**: Create multiple, distinct targeting strategies. For each strategy, recommend the most appropriate Meta Audience Type. For example:
+      - **Strategy 1: The Local Professional**: Use 'Detailed Targeting' for high-income professionals in the area.
+      - **Strategy 2: The International Investor**: Use 'Detailed Targeting' for individuals in key international markets known for investing in this city.
+      - **Strategy 3: Past Buyer Lookalikes**: Suggest creating a 'Lookalike Audience' based on past buyer profiles to find similar users.
+  3.  **Detail Each Strategy**: For each strategy, provide a clear name, the audience type, and a detailed breakdown of:
       - **Demographics:** Location, Age, Language, etc.
       - **Interests (for Facebook/Instagram):** Specific, actionable interests to target.
       - **Keywords (for Google Ads):** High-intent keywords for search campaigns.

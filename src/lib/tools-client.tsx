@@ -55,7 +55,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
@@ -152,7 +152,9 @@ const AudienceResultCard = ({ strategy, toast }: { strategy: any, toast: any }) 
         <Card className="flex flex-col bg-muted/30">
             <CardHeader>
                 <CardTitle className="text-lg text-primary">{strategy.strategyName}</CardTitle>
-                <CardDescription>Aimed at capturing a specific market segment.</CardDescription>
+                <CardDescription>
+                     <Badge>{strategy.audienceType}</Badge>
+                </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
                  <div>
@@ -1102,7 +1104,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'projects-finder',
-    title: 'Market Library Access AI',
+    title: 'Market Library Access',
     dashboardTitle: 'Market Library',
     description: "Access our verified Market Library to build your project portfolio.",
     icon: <Search />,
