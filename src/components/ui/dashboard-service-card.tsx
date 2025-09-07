@@ -20,15 +20,11 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useToast } from '@/hooks/use-toast';
 import { track } from '@/lib/events';
+import { Feature } from '@/lib/tools-client';
 
 
 interface DashboardServiceCardProps {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  href: string;
-  guideHref?: string;
-  color?: string;
+  tool: Feature;
   isAdded: boolean;
   setIsAdded: (isAdded: boolean) => void;
   connectionRequired?: string; // e.g., "Facebook"
@@ -36,12 +32,7 @@ interface DashboardServiceCardProps {
 }
 
 export function DashboardServiceCard({
-  title,
-  description,
-  icon,
-  href,
-  guideHref,
-  color,
+  tool,
   isAdded,
   setIsAdded,
   connectionRequired,
@@ -49,6 +40,8 @@ export function DashboardServiceCard({
 }: DashboardServiceCardProps) {
   const { toast } = useToast();
   const [isConnecting, setIsConnecting] = useState(false);
+  
+  const { title, description, icon, href, guideHref, color, dashboardTitle } = tool;
 
   const handleAction = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -56,7 +49,7 @@ export function DashboardServiceCard({
     setTimeout(() => {
         setIsConnecting(false);
         setIsAdded(true);
-        track('app_added', { toolId: title, connectionType: connectionRequired ? 'api' : paymentRequired ? 'payment' : 'direct' });
+        track('app_added', { toolId: tool.id, connectionType: connectionRequired ? 'api' : paymentRequired ? 'payment' : 'direct' });
         toast({
             title: `${title} Activated!`,
             description: `You can now use the ${title} tool.`
@@ -73,8 +66,9 @@ export function DashboardServiceCard({
 
   const MainAction = () => {
     if (isAdded) {
+        const destination = tool.isPage ? `/dashboard/tool/${tool.id}` : `/dashboard/tool/${tool.id}`;
         return (
-             <Link href={href} onClick={() => track('app_opened', { toolId: title })}>
+             <Link href={destination} onClick={() => track('app_opened', { toolId: tool.id })}>
                 <Button size="sm">
                     Open
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -137,7 +131,7 @@ export function DashboardServiceCard({
         <Button size="sm" variant="outline" onClick={(e) => {
             e.preventDefault();
             setIsAdded(true);
-            track('app_added', { toolId: title, connectionType: 'direct' });
+            track('app_added', { toolId: tool.id, connectionType: 'direct' });
             toast({ title: `${title} Added!`, description: 'The tool is now available in your workspace.' });
         }}>
             <AddButtonContent />
@@ -156,7 +150,7 @@ export function DashboardServiceCard({
                 >
                     {React.cloneElement(icon as React.ReactElement, { className: 'h-6 w-6' })}
                 </div>
-                <CardTitle className="text-xl font-heading">{title}</CardTitle>
+                <CardTitle className="text-xl font-heading">{dashboardTitle || title}</CardTitle>
             </div>
             {isAdded && <Check className="h-5 w-5 text-green-500" />}
         </div>

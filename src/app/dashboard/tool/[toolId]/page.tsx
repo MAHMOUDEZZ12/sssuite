@@ -15,13 +15,24 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
-import { Loader2, Sparkles, AlertCircle, Upload, Info } from 'lucide-react';
+import { Loader2, Sparkles, AlertCircle, Upload, Info, PlusCircle, CreditCard } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Confetti } from '@/components/confetti';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { track } from '@/lib/events';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 const getToolSchema = (tool: Feature | undefined) => {
     if (!tool) return z.object({});
@@ -97,6 +108,129 @@ const getToolSchema = (tool: Feature | undefined) => {
 };
 
 
+const appsThatNeedConnection: { [key: string]: string } = {
+    'meta-ads-copilot': 'Facebook',
+    'audience-creator': 'Facebook',
+    'insta-ads-designer': 'Instagram',
+    'instagram-admin-ai': 'Instagram',
+    'email-creator': 'Gmail / Outlook',
+    'whatsapp-campaigns': 'WhatsApp Business',
+    'facebook-ads-ai': 'Facebook',
+    'reel-ads-ai': 'Instagram',
+    'story-planner-ai': 'Instagram'
+};
+
+const appsThatNeedPayment: string[] = [
+    'rebranding',
+    'pdf-editor',
+    'landing-pages',
+    'investor-matching',
+    'market-reports',
+    'market-trends'
+];
+
+
+const AppActivationGate = ({ tool, onActivated }: { tool: Feature, onActivated: () => void }) => {
+    const { toast } = useToast();
+    const [isConnecting, setIsConnecting] = React.useState(false);
+    const connectionRequired = appsThatNeedConnection[tool.id];
+    const paymentRequired = appsThatNeedPayment.includes(tool.id);
+
+    const handleAction = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setIsConnecting(true);
+        setTimeout(() => {
+            setIsConnecting(false);
+            onActivated();
+            track('app_added', { toolId: tool.id, connectionType: connectionRequired ? 'api' : paymentRequired ? 'payment' : 'direct' });
+            toast({
+                title: `${tool.title} Activated!`,
+                description: `You can now use the ${tool.title} tool.`
+            });
+        }, 1500);
+    }
+    
+    let DialogComponent;
+    
+    if (connectionRequired) {
+        DialogComponent = (
+            <AlertDialog>
+                <AlertDialogTrigger asChild>
+                     <Button size="lg"><PlusCircle className="mr-2 h-4 w-4" /> Add to Workspace</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                    <AlertDialogTitle>Connect to {connectionRequired}</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        To use the {tool.title} tool, you need to securely connect your {connectionRequired} account.
+                    </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleAction} disabled={isConnecting}>
+                        {isConnecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
+                        Connect to {connectionRequired}
+                    </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        )
+    } else if (paymentRequired) {
+         DialogComponent = (
+            <AlertDialog>
+                <AlertDialogTrigger asChild>
+                     <Button size="lg"><PlusCircle className="mr-2 h-4 w-4" /> Add to Workspace</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                    <AlertDialogTitle className="flex items-center gap-2"><CreditCard /> Unlock with Subscription</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        The "{tool.title}" tool is a premium feature. To activate it, please confirm your subscription or add a payment method.
+                    </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleAction} disabled={isConnecting}>
+                        {isConnecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
+                        Confirm & Unlock
+                    </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        )
+    } else {
+        DialogComponent = (
+             <Button size="lg" onClick={(e) => {
+                e.preventDefault();
+                onActivated();
+                track('app_added', { toolId: tool.id, connectionType: 'direct' });
+                toast({ title: `${tool.title} Added!`, description: 'The tool is now available in your workspace.' });
+            }}>
+                <PlusCircle className="mr-2 h-4 w-4" /> Add to Workspace
+            </Button>
+        )
+    }
+
+    return (
+        <Card className="max-w-2xl mx-auto text-center">
+            <CardHeader>
+                <div className="p-3 rounded-lg w-fit text-white mx-auto" style={{ backgroundColor: tool.color }}>
+                    {React.cloneElement(tool.icon, { className: 'h-10 w-10' })}
+                </div>
+                 <CardTitle className="text-2xl mt-4">Activate {tool.title}</CardTitle>
+                <CardDescription>This app isn't in your workspace yet. Add it to start generating.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                {DialogComponent}
+                 <Link href="/dashboard/marketing">
+                    <Button variant="link" className="mt-4">Back to Apps</Button>
+                </Link>
+            </CardContent>
+        </Card>
+    );
+};
+
+
 export default function ToolPage() {
   const { toolId } = useParams<{ toolId: string }>();
   const router = useRouter();
@@ -107,6 +241,9 @@ export default function ToolPage() {
   const [showConfetti, setShowConfetti] = React.useState(false);
   const [showCampaignNotice, setShowCampaignNotice] = React.useState(false);
   const { toast } = useToast();
+  
+  const [isAppAdded, setIsAppAdded] = React.useState(false);
+
 
   React.useEffect(() => {
     const currentTool = clientTools.find((t) => t.id === toolId);
@@ -120,6 +257,19 @@ export default function ToolPage() {
         }
     }
   }, [toolId, router]);
+  
+  React.useEffect(() => {
+    if (toolId) {
+        const addedApps = JSON.parse(localStorage.getItem('addedApps') || '[]');
+        setIsAppAdded(addedApps.includes(toolId));
+    }
+  }, [toolId]);
+
+  const handleAppActivation = () => {
+    const addedApps = JSON.parse(localStorage.getItem('addedApps') || '[]');
+    localStorage.setItem('addedApps', JSON.stringify([...addedApps, toolId]));
+    setIsAppAdded(true);
+  }
 
   const schema = React.useMemo(() => getToolSchema(tool), [tool]);
 
@@ -339,62 +489,68 @@ export default function ToolPage() {
             </AlertDescription>
         </Alert>
       )}
-
-      <Card className="max-w-4xl mx-auto">
-        <CardHeader>
-          <div className="flex items-center gap-4">
-            <div className="p-3 rounded-lg w-fit text-white" style={{ backgroundColor: tool.color }}>
-              {React.cloneElement(tool.icon, { className: 'h-8 w-8' })}
-            </div>
-            <div>
-              <CardTitle className="text-3xl font-heading">{tool.title}</CardTitle>
-              <CardDescription className="text-md">{tool.description}</CardDescription>
-            </div>
-          </div>
-        </CardHeader>
-        <form onSubmit={handleSubmit(handleGeneration)}>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {tool.creationFields.map(renderField)}
-            </div>
-            {errors.root && <p className="text-sm text-destructive mt-4">{errors.root.message as string}</p>}
-          </CardContent>
-          <CardFooter>
-            <Button type="submit" size="lg" disabled={isLoading}>
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  {tool.cta.replace(/\b\w/g, l => l.toUpperCase()).replace(/([a-z])([A-Z])/g, '$1 $2')}ing...
-                </>
-              ) : (
-                <>
-                  <Sparkles className="mr-2 h-5 w-5" />
-                  {tool.cta}
-                </>
-              )}
-            </Button>
-          </CardFooter>
-        </form>
-      </Card>
       
-      {error && !result && (
-         <Alert variant="destructive" className="max-w-4xl mx-auto">
-            <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
-         </Alert>
-      )}
+      {!isAppAdded ? (
+        <AppActivationGate tool={tool} onActivated={handleAppActivation} />
+      ) : (
+        <>
+            <Card className="max-w-4xl mx-auto">
+                <CardHeader>
+                <div className="flex items-center gap-4">
+                    <div className="p-3 rounded-lg w-fit text-white" style={{ backgroundColor: tool.color }}>
+                    {React.cloneElement(tool.icon, { className: 'h-8 w-8' })}
+                    </div>
+                    <div>
+                    <CardTitle className="text-3xl font-heading">{tool.title}</CardTitle>
+                    <CardDescription className="text-md">{tool.description}</CardDescription>
+                    </div>
+                </div>
+                </CardHeader>
+                <form onSubmit={handleSubmit(handleGeneration)}>
+                <CardContent className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {tool.creationFields.map(renderField)}
+                    </div>
+                    {errors.root && <p className="text-sm text-destructive mt-4">{errors.root.message as string}</p>}
+                </CardContent>
+                <CardFooter>
+                    <Button type="submit" size="lg" disabled={isLoading}>
+                    {isLoading ? (
+                        <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        {tool.cta.replace(/\b\w/g, l => l.toUpperCase()).replace(/([a-z])([A-Z])/g, '$1 $2')}ing...
+                        </>
+                    ) : (
+                        <>
+                        <Sparkles className="mr-2 h-5 w-5" />
+                        {tool.cta}
+                        </>
+                    )}
+                    </Button>
+                </CardFooter>
+                </form>
+            </Card>
+            
+            {error && !result && (
+                <Alert variant="destructive" className="max-w-4xl mx-auto">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertTitle>Error</AlertTitle>
+                    <AlertDescription>{error}</AlertDescription>
+                </Alert>
+            )}
 
-      {result && tool.renderResult && (
-        <Card className="max-w-4xl mx-auto">
-          <CardHeader>
-            <CardTitle className="font-heading">Your Result</CardTitle>
-            <CardDescription>Here is the content generated by the AI.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {tool.renderResult(result, toast)}
-          </CardContent>
-        </Card>
+            {result && tool.renderResult && (
+                <Card className="max-w-4xl mx-auto">
+                <CardHeader>
+                    <CardTitle className="font-heading">Your Result</CardTitle>
+                    <CardDescription>Here is the content generated by the AI.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    {tool.renderResult(result, toast)}
+                </CardContent>
+                </Card>
+            )}
+        </>
       )}
     </main>
   );
