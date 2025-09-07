@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React from 'react';
@@ -679,7 +680,7 @@ export const tools: Feature[] = [
       faqs: [
         { question: "Can I add polls or quizzes to the story?", answer: "Yes, you can instruct the AI to include interactive elements like polls, quizzes, and question stickers to boost engagement." },
         { question: "Does it use my brand fonts and colors?", answer: "Yes, the Story Planner will use the logo, colors, and fonts defined in your Brand Kit to ensure every story is perfectly on-brand." },
-        { question: "What if my project has no photos?", answer: "If no photos are available, the AI can generate high-quality, relevant stock images or use animated text and graphics to create a compelling visual story." },
+        { question: "What if my project has no photos?", answer: "If no photos are available, the AI can generate high-quality, relevant stock images or use animated text and graphics to create a compelling visual story." }
       ],
     },
     creationFields: [
@@ -1060,7 +1061,7 @@ export const tools: Feature[] = [
       faqs: [
         { question: "Which portals can I connect?", answer: "We are launching with support for Property Finder and Bayut, with plans to add more major international and regional portals soon." },
         { question: "Is this a two-way sync?", answer: "Yes. Changes you make in the Listing Manager will be pushed to the portals, and new leads or inquiries from the portals can be automatically pulled into your CRM." },
-        { question: "Can I create new listings from here?", answer: "The initial version focuses on managing and updating existing listings. The ability to create new listings from scratch is on our roadmap." },
+        { question: "Can I create new listings from here?", answer: "The initial version focuses on managing and updating existing listings. The ability to create new listings from scratch is on our roadmap." }
       ],
     },
     creationFields: [],
@@ -1099,6 +1100,46 @@ export const tools: Feature[] = [
     },
     creationFields: [
       { id: 'listingReferenceNo', name: 'Listing Reference No.', type: 'text', placeholder: 'e.g., PF-12345', description: 'The unique ID for your listing on Property Finder.' },
+      { id: 'propertyTitle', name: 'Property Title', type: 'text', placeholder: 'e.g., "Spacious 3BR Villa with Garden View"', description: 'The main title for the listing.' },
+      { id: 'propertyDescription', name: 'Property Description', type: 'textarea', placeholder: 'Enter the full description of the property...', description: 'The detailed description for the listing.' },
+      { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 2500000', description: 'The asking price in the local currency.' },
+      { id: 'imageUrls', name: 'Image URLs', type: 'textarea', placeholder: 'Enter one image URL per line', description: 'Links to the property images.' },
+    ],
+  },
+   {
+    id: 'bayut-sync',
+    title: 'Bayut Sync',
+    dashboardTitle: 'Bayut Sync',
+    description: 'Push and update your listings on Bayut.',
+    icon: <Building />,
+    color: '#059669', // emerald-600
+    cta: 'Sync Listing',
+    categories: ['Sales Tools', 'Web'],
+    mindMapCategory: 'Sales Enablement',
+    badge: 'NEW',
+    details: {
+      steps: [
+        { text: 'Connect your Bayut account with an API key', icon: <Key className="h-6 w-6" /> },
+        { text: 'Select a project from your library', icon: <Briefcase className="h-6 w-6" /> },
+        { text: 'Push the listing data to Bayut in one click', icon: <Upload className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Listing Creation', manual: 'Manual data entry on the Bayut website', ai: 'One-click push from your central library', icon: <Clock2 /> },
+        { metric: 'Lead Management', manual: 'Checking for leads in the Bayut portal', ai: 'Leads are automatically fed into your CRM', icon: <Sparkles /> },
+        { metric: 'Accuracy', manual: 'Prone to typos and copy-paste errors', ai: 'Uses the single source of truth from your library', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Property Finder Sync", benefit: "Update your listing once in the suite, and use both sync tools to push the changes to multiple portals instantly." },
+        { tool: "Listing Manager", benefit: "This tool is a key component of the Listing Manager, allowing it to communicate directly with Bayut." }
+      ],
+       faqs: [
+        { question: "Do I need a special account with Bayut?", answer: "Yes, you will need access to their Broker API. You can get your API key from your Bayut account representative." },
+        { question: "Can this tool also pull leads from Bayut?", answer: "Yes, this integration is two-way. It can push listing data to Bayut and pull new lead inquiries from Bayut into your CRM Memory." },
+        { question: "What data gets synced?", answer: "The tool syncs all standard listing data, including title, description, price, location, amenities, and photos." }
+      ],
+    },
+    creationFields: [
+      { id: 'listingReferenceNo', name: 'Listing Reference No.', type: 'text', placeholder: 'e.g., bayut-12345', description: 'The unique ID for your listing on Bayut.' },
       { id: 'propertyTitle', name: 'Property Title', type: 'text', placeholder: 'e.g., "Spacious 3BR Villa with Garden View"', description: 'The main title for the listing.' },
       { id: 'propertyDescription', name: 'Property Description', type: 'textarea', placeholder: 'Enter the full description of the property...', description: 'The detailed description for the listing.' },
       { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 2500000', description: 'The asking price in the local currency.' },

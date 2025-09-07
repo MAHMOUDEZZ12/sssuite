@@ -1,4 +1,5 @@
 
+
 // AI Flow Imports
 import { generateAdFromBrochure } from '@/ai/flows/generate-ad-from-brochure';
 import { generateLandingPage } from '@/ai/flows/generate-landing-page';
@@ -20,6 +21,7 @@ import { createEmailCampaign } from '@/ai/flows/create-email-campaign';
 import { manageWhatsAppCampaign } from '@/ai/flows/manage-whatsapp-campaign';
 import { createMetaCampaign } from '@/ai/flows/create-meta-campaign';
 import { syncPropertyFinderListing } from '@/ai/flows/sync-property-finder-listing';
+import { syncBayutListing } from '@/ai/flows/sync-bayut-listing';
 
 
 // Import the client-safe tools definition
@@ -50,6 +52,7 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'meta-ads-copilot': createMetaCampaign,
     'facebook-ads-ai': generateAdFromBrochure,
     'propertyfinder-sync': syncPropertyFinderListing,
+    'bayut-sync': syncBayutListing,
     // Note: Tools without a flowRunner will not be executable from the generic tool page.
     // They might be handled by custom pages or are for display only.
 };
