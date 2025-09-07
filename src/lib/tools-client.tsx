@@ -589,9 +589,9 @@ export const tools: Feature[] = [
     mindMapCategory: 'Meta Ads AI Suite',
     details: {
        steps: [
-          { text: 'Upload a project brochure or select a project', icon: <Upload className="h-6 w-6" /> },
-          { text: 'Define the ad\'s focus (e.g., "investment")', icon: <Target className="h-6 w-6" /> },
-          { text: 'Generate multiple ad variants for different formats', icon: <Sparkles className="h-6 w-6" /> },
+        { text: 'Upload a project brochure or select a project', icon: <Upload className="h-6 w-6" /> },
+        { text: 'Define the ad\'s focus (e.g., "investment")', icon: <Target className="h-6 w-6" /> },
+        { text: 'Generate multiple ad variants for different formats', icon: <Sparkles className="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Time Investment', manual: '5-10 hours per campaign', ai: 'Fast by default', icon: <Clock2 /> },
@@ -1306,7 +1306,7 @@ export const tools: Feature[] = [
     id: 'market-reports',
     title: 'Market Reports',
     dashboardTitle: 'Market Reports',
-    description: 'Hyper-local trends and insights.',
+    description: 'Generates PDF reports on market trends, pricing, and sentiment, turning raw data into client-ready insights.',
     icon: <LineChart />,
     color: '#f59e0b', // amber-500
     cta: 'Generate Market Report',
@@ -1375,7 +1375,7 @@ export const tools: Feature[] = [
     id: 'market-trends',
     title: 'Market Trends',
     dashboardTitle: 'Market Trends',
-    description: 'Identify and analyze market shifts.',
+    description: 'Acts as a "Watcher" agent, synthesizing news and data to identify emerging market trends and sentiment before they become mainstream.',
     icon: <TrendingUp />,
     color: '#14b8a6', // teal-500
     cta: 'Analyze Trends',
@@ -1409,7 +1409,7 @@ export const tools: Feature[] = [
     id: 'projects-finder',
     title: 'Projects Finder',
     dashboardTitle: 'Projects Finder',
-    description: "Search the Market Library for projects.",
+    description: "Continuously scans public records and news to find off-market deals and development opportunities, feeding the central library.",
     icon: <Search />,
     color: '#fde047', // yellow-300
     cta: 'Search Market Library',
@@ -1452,7 +1452,7 @@ export const tools: Feature[] = [
     id: 'ai-brand-creator',
     title: 'Brand Creator',
     dashboardTitle: 'Brand Creator',
-    description: "Create your brand onboarding from documents.",
+    description: "Configures your entire brand kit and project library by analyzing uploaded documents with a single command.",
     icon: <Wrench />,
     color: '#10b981', // emerald-500
     cta: 'Create Brand Kit',
@@ -1489,7 +1489,7 @@ export const tools: Feature[] = [
     id: 'crm-assistant',
     title: 'CRM Memory',
     dashboardTitle: 'CRM Memory',
-    description: 'Remembers every client detail.',
+    description: 'The core data store of the "Brain". It remembers every client interaction, preference, and detail, making all other tools smarter.',
     icon: <Database />,
     color: '#0d9488', // teal-600
     cta: 'Get Client Record',

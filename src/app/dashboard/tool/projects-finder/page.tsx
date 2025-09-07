@@ -68,9 +68,10 @@ export default function ProjectsFinderPage() {
   const handleAddToLibrary = (project: Project) => {
     toast({
         title: `${project.name} Added!`,
-        description: "The project has been added to your personal library.",
+        description: "The project has been added to your personal library and is now available across the suite.",
     });
     // In a real app, this would update user's library in the backend
+    // and the project would become part of the "Brain's" knowledge.
   }
 
   return (
@@ -85,7 +86,7 @@ export default function ProjectsFinderPage() {
         <CardHeader>
           <CardTitle>Search the Market Library</CardTitle>
           <CardDescription>
-            Search by project name, developer, area, status, or any other keyword.
+            Search by project name, developer, area, status, or any other keyword. Our AI continuously watches the market and updates this library.
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSearch}>
