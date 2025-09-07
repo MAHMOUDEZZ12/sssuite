@@ -14,10 +14,8 @@ import {
   SidebarFooter,
 } from '@/components/ui/sidebar';
 import { Logo } from './logo';
-import { Separator } from './ui/separator';
-import { Home, Users, Building, Megaphone, Palette, Bot, LifeBuoy, Settings } from 'lucide-react';
+import { Home, Users, Building, Megaphone, Palette, Bot, Settings } from 'lucide-react';
 import { useTabManager } from '@/context/TabManagerContext';
-import { tools } from '@/lib/tools-client';
 
 const mainNav = [
   { href: '/dashboard', label: 'Home', icon: Home },
@@ -32,13 +30,6 @@ const secondaryNav = [
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 
-
-const getToolFromPath = (path: string) => {
-    if (!path.startsWith('/dashboard/tool/')) return null;
-    const toolId = path.split('/')[3];
-    return tools.find(t => t.id === toolId) || null;
-}
-
 export function DashboardSidebar() {
   const pathname = usePathname();
   const { addTab } = useTabManager();
@@ -50,25 +41,6 @@ export function DashboardSidebar() {
       router.push(href);
   }
   
-  const renderToolItem = (tool: (typeof tools)[0]) => {
-     const href = `/dashboard/tool/${tool.id}`;
-     return (
-        <SidebarMenuItem key={tool.id}>
-             <Link href={href} passHref legacyBehavior>
-                <SidebarMenuButton
-                    onClick={(e) => handleNavigation(href, tool.title, e)}
-                    isActive={pathname === href}
-                    tooltip={tool.title}
-                    className="justify-start"
-                >
-                    {React.cloneElement(tool.icon, {style: {color: tool.color}})}
-                    <span>{tool.title}</span>
-                </SidebarMenuButton>
-             </Link>
-        </SidebarMenuItem>
-     )
-  }
-
   return (
     <Sidebar>
       <SidebarHeader>
@@ -92,15 +64,6 @@ export function DashboardSidebar() {
                 </Link>
               </SidebarMenuItem>
             ))}
-
-            <Separator className="my-4 group-data-[collapsible=icon]:hidden" />
-            <p className="px-3 text-xs font-semibold text-muted-foreground tracking-wider mb-2 group-data-[collapsible=icon]:hidden">CREATIVE SUITE</p>
-            {tools.filter(t => t.mindMapCategory === 'Creative Suite').map(renderToolItem)}
-
-            <Separator className="my-4 group-data-[collapsible=icon]:hidden" />
-            <p className="px-3 text-xs font-semibold text-muted-foreground tracking-wider mb-2 group-data-[collapsible=icon]:hidden">SALES ENABLEMENT</p>
-            {tools.filter(t => t.mindMapCategory === 'Sales Enablement').map(renderToolItem)}
-            
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter>
