@@ -681,54 +681,6 @@ export const tools: Feature[] = [
    
   // --- GENERAL MARKETING ---
   {
-    id: 'landing-pages',
-    title: 'Landing Page Builder',
-    dashboardTitle: 'Landing Pages',
-    description: 'Launch a high-converting page in minutes.',
-    icon: <LayoutTemplate />,
-    color: '#22c55e', // green-500
-    cta: 'Create Landing Page',
-    categories: ['Marketing', 'Web'],
-    mindMapCategory: 'Marketing',
-    renderResult: (result, toast) => (
-      <div>
-          <h3 className="font-semibold text-lg mb-2">Landing Page HTML</h3>
-          <div className="p-4 bg-muted rounded-md relative group">
-            <pre className="whitespace-pre-wrap text-sm">{result.landingPageHtml}</pre>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.landingPageHtml, toast)}><Copy className="h-4 w-4" /></Button>
-          </div>
-      </div>
-    ),
-    details: {
-      steps: [
-        { text: 'Provide project details', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Choose a style or provide inspiration', icon: <Palette className="h-6 w-6" /> },
-        { text: 'Generate a complete landing page with a lead form', icon: <LayoutTemplate className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Time to Build', manual: '1-2 days using a website builder', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Technical Skill', manual: 'Requires web design & dev knowledge', ai: 'None. Just provide the source.', icon: <Sparkles /> },
-        { metric: 'Features', manual: 'Lead forms, galleries added manually', ai: 'All features included automatically', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "Social Writer", benefit: "Generate promotional posts to drive traffic to your new landing page." },
-        { tool: "Ad Creator", benefit: "Run a targeted ad campaign that clicks through to your beautiful new page." }
-      ],
-       faqs: [
-        { question: "Can I use my own domain name?", answer: "Yes, you can connect your own custom domain name to the landing pages you create, ensuring a fully branded experience for your visitors." },
-        { question: "Are the landing pages mobile-friendly?", answer: "Absolutely. Every landing page generated is fully responsive and looks great on all devices, from desktops to smartphones." },
-        { question: "Is it optimized for SEO?", answer: "Yes. The AI automatically generates SEO-friendly titles, meta descriptions, and image alt-tags to help your page rank better on search engines." }
-      ],
-    },
-    creationFields: [
-      { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "Azure Lofts"', description: 'The name of the project or listing.' },
-      { id: 'projectDetails', name: 'Project Details', type: 'textarea', placeholder: 'e.g., "Luxury condos in downtown Miami..."', description: 'A detailed description of the property.' },
-      { id: 'brandingStyle', name: 'Branding Style', type: 'select', options: ["Modern & Minimalist", "Luxury & Elegant", "Cozy & Welcoming", "Bold & Colorful"], placeholder: 'Select a branding style', description: 'Describe the desired look and feel.' },
-      { id: 'projectBrochureDataUri', name: 'Project Brochure (Optional)', type: 'file', description: 'Upload a brochure to provide more context.' },
-      { id: 'inspirationImageDataUri', name: 'Inspiration Image (Optional)', type: 'file', description: 'Upload a screenshot of a website you like to guide the style.' },
-    ],
-  },
-  {
     id: 'email-creator',
     title: 'Email Campaigns',
     dashboardTitle: 'Email Campaigns',
@@ -767,6 +719,54 @@ export const tools: Feature[] = [
   },
   
   // --- CREATIVE SUITE ---
+  {
+    id: 'landing-pages',
+    title: 'Landing Page Builder',
+    dashboardTitle: 'Landing Pages',
+    description: 'Launch a high-converting page in minutes.',
+    icon: <LayoutTemplate />,
+    color: '#22c55e', // green-500
+    cta: 'Create Landing Page',
+    categories: ['Creative', 'Web'],
+    mindMapCategory: 'Creative Suite',
+    renderResult: (result, toast) => (
+      <div>
+          <h3 className="font-semibold text-lg mb-2">Landing Page HTML</h3>
+          <div className="p-4 bg-muted rounded-md relative group">
+            <pre className="whitespace-pre-wrap text-sm">{result.landingPageHtml}</pre>
+            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.landingPageHtml, toast)}><Copy className="h-4 w-4" /></Button>
+          </div>
+      </div>
+    ),
+    details: {
+      steps: [
+        { text: 'Provide project details', icon: <PenTool className="h-6 w-6" /> },
+        { text: 'Choose a style or provide inspiration', icon: <Palette className="h-6 w-6" /> },
+        { text: 'Generate a complete landing page with a lead form', icon: <LayoutTemplate className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Time to Build', manual: '1-2 days using a website builder', ai: 'Fast by default', icon: <Clock2 /> },
+        { metric: 'Technical Skill', manual: 'Requires web design & dev knowledge', ai: 'None. Just provide the source.', icon: <Sparkles /> },
+        { metric: 'Features', manual: 'Lead forms, galleries added manually', ai: 'All features included automatically', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Social Writer", benefit: "Generate promotional posts to drive traffic to your new landing page." },
+        { tool: "Ad Creator", benefit: "Run a targeted ad campaign that clicks through to your beautiful new page." }
+      ],
+       faqs: [
+        { question: "Can I use my own domain name?", answer: "Yes, you can connect your own custom domain name to the landing pages you create, ensuring a fully branded experience for your visitors." },
+        { question: "Are the landing pages mobile-friendly?", answer: "Absolutely. Every landing page generated is fully responsive and looks great on all devices, from desktops to smartphones." },
+        { question: "Is it optimized for SEO?", answer: "Yes. The AI automatically generates SEO-friendly titles, meta descriptions, and image alt-tags to help your page rank better on search engines." }
+      ],
+    },
+    creationFields: [
+      { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "Azure Lofts"', description: 'The name of the project or listing.' },
+      { id: 'projectDetails', name: 'Project Details', type: 'textarea', placeholder: 'e.g., "Luxury condos in downtown Miami..."', description: 'A detailed description of the property.' },
+      { id: 'brandingStyle', name: 'Branding Style', type: 'select', options: ["Modern & Minimalist", "Luxury & Elegant", "Cozy & Welcoming", "Bold & Colorful"], placeholder: 'Select a branding style', description: 'Describe the desired look and feel.' },
+      { id: 'projectBrochureDataUri', name: 'Project Brochure (Optional)', type: 'file', description: 'Upload a brochure to provide more context.' },
+      { id: 'inspirationImageDataUri', name: 'Inspiration Image (Optional)', type: 'file', description: 'Upload a screenshot of a website you like to guide the style.' },
+    ],
+  },
   {
     id: 'rebranding',
     title: 'Rebranding',
@@ -930,6 +930,26 @@ export const tools: Feature[] = [
       { id: 'capRate', name: 'Cap Rate (%)', type: 'number', placeholder: 'e.g., 6.5', description: 'The capitalization rate of the property.'},
       { id: 'investmentThesis', name: 'Investment Thesis', type: 'select', options: ["Value-Add / Renovation", "Turnkey Rental", "Long-Term Appreciation", "Development Opportunity", "1031 Exchange"], placeholder: 'Select investment strategy', description: 'Primary strategy for this investment.'},
       { id: 'keyFeatures', name: 'Key Features', type: 'textarea', placeholder: 'e.g., Long-term tenants in place, zoned for mixed-use, located in an opportunity zone.', description: 'Additional selling points for an investor.' },
+    ],
+  },
+    {
+    id: 'dubizzle-listing-ai',
+    title: 'Dubizzle Listing',
+    dashboardTitle: 'Dubizzle Listing',
+    description: 'Optimize your listings for Dubizzle.',
+    icon: <Building />,
+    color: '#16a34a',
+    cta: 'Create Listing',
+    categories: ['Sales Tools', 'Editing', 'Web'],
+    mindMapCategory: 'Sales Enablement',
+    badge: 'NEW',
+    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] },
+    creationFields: [
+      { id: 'platform', name: 'Platform', type: 'text', value: 'Dubizzle', hidden: true, description: '' },
+      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the a property.' },
+      { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
+      { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },
+      { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
     ],
   },
   {
