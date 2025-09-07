@@ -78,10 +78,10 @@ const mockAnalyticsData = [
 type Campaign = typeof initialMockCampaigns[0];
 
 const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaignOutput, toast: any, onPublish: (campaign: Campaign) => void }) => {
-    const { getValues } = useForm<FormData>();
-    const formData = getValues();
+    const form = useForm<FormData>(); // Use the form hook to access form data
     
     const handlePublish = () => {
+        const formData = form.getValues(); // It's better to get fresh values
         const newCampaign: Campaign = {
             id: Date.now(),
             name: result.campaignName,
