@@ -92,32 +92,71 @@ export async function generateLandingPage(
   return generateLandingPageFlow(input);
 }
 
+
+const HeroImageInputSchema = z.object({
+  projectName: z.string(),
+  projectDetails: z.string(),
+  brandingStyle: z.string(),
+});
+
+const generateHeroImage = ai.defineFlow(
+  {
+    name: 'generateHeroImage',
+    inputSchema: HeroImageInputSchema,
+    outputSchema: z.string(),
+  },
+  async ({projectName, projectDetails, brandingStyle}) => {
+    const prompt = `Generate a beautiful, high-resolution hero image for a real estate landing page. The project is called "${projectName}".
+    
+    Details: ${projectDetails}
+    The desired style is "${brandingStyle}".
+    
+    The image should be professional, visually stunning, and suitable for a website header.`;
+    
+    const {media} = await ai.generate({
+      model: 'googleai/imagen-4.0-fast-generate-001',
+      prompt,
+      config: {
+        aspectRatio: "16:9"
+      }
+    });
+
+    if (!media) {
+      throw new Error('Failed to generate hero image.');
+    }
+    return media.url!;
+  }
+);
+
+
 const landingPagePrompt = ai.definePrompt({
   name: 'landingPagePrompt',
-  input: {schema: GenerateLandingPageInputSchema},
+  input: {schema: GenerateLandingPageInputSchema.extend({ heroImageDataUri: z.string() }) },
   output: {schema: GenerateLandingPageOutputSchema},
-  prompt: `You are an AI assistant specialized in creating landing pages for real estate projects.
+  prompt: `You are an expert web developer specializing in high-converting real estate landing pages. Your task is to generate a complete, single-file HTML document using Tailwind CSS for styling.
 
-  Based on the provided project details, chosen branding style, and optional brochure/inspiration image,
-  generate an HTML landing page.
-
-  Project Name: {{{projectName}}}
-  Project Details: {{{projectDetails}}}
-  Branding Style: {{{brandingStyle}}}
+  **Project Details:**
+  - Project Name: {{{projectName}}}
+  - Project Details: {{{projectDetails}}}
+  - Branding Style: {{{brandingStyle}}}
+  - Hero Image: {{media url=heroImageDataUri}}
   {{#if projectBrochureDataUri}}
-  Project Brochure: {{media url=projectBrochureDataUri}}
+  - Project Brochure: {{media url=projectBrochureDataUri}}
   {{/if}}
   {{#if inspirationImageDataUri}}
-  Inspiration Image: {{media url=inspirationImageDataUri}}
+  - Inspiration Image: {{media url=inspirationImageDataUri}}
   {{/if}}
 
-  Instructions:
-  1.  Incorporate the project details and branding style into the landing page design.
-  2.  If an inspiration image is provided, use it as a strong reference for the layout, color scheme, and overall aesthetic.
-  3.  If a project brochure is provided, extract key information and use it to enhance the landing page content.
-  4.  Ensure the landing page is visually appealing and optimized for conversions.
-  5.  Crucially, the landing page MUST include a prominent lead capture form with fields for Name, Email, and Phone Number.
-  6.  Return only the HTML code for the landing page. Do not include any additional text or explanations.
+  **Instructions:**
+
+  1.  **HTML Structure:** Create a full HTML5 document structure (`<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`).
+  2.  **Tailwind CSS:** Use the Tailwind CSS CDN script in the `<head>` for styling. Do not use any other CSS frameworks or custom CSS.
+      \`<script src="https://cdn.tailwindcss.com"></script>\`
+  3.  **Hero Section:** Create a visually impressive hero section using the provided hero image as the background. It should feature the project name and a compelling call-to-action.
+  4.  **Content Sections:** Add sections for project details, amenities, a photo gallery (use placeholder images from picsum.photos), and location/map.
+  5.  **Lead Capture Form:** This is critical. Include a prominent lead capture form with fields for Name, Email, and Phone Number, and a clear "Register Your Interest" button.
+  6.  **Branding:** Ensure the overall design (colors, fonts) reflects the specified 'Branding Style'.
+  7.  **Output:** Return ONLY the complete, raw HTML code for the landing page. Do not include any explanations, markdown, or other text outside of the HTML itself.
   `,
 });
 
@@ -128,7 +167,23 @@ const generateLandingPageFlow = ai.defineFlow(
     outputSchema: GenerateLandingPageOutputSchema,
   },
   async input => {
-    const {output} = await landingPagePrompt(input);
-    return output!;
+    // Step 1: Generate the hero image
+    const heroImageDataUri = await generateHeroImage({
+      projectName: input.projectName,
+      projectDetails: input.projectDetails,
+      brandingStyle: input.brandingStyle,
+    });
+
+    // Step 2: Generate the HTML with the hero image
+    const {output} = await landingPagePrompt({
+      ...input,
+      heroImageDataUri,
+    });
+
+    if (!output) {
+      throw new Error('Failed to generate landing page HTML.');
+    }
+    
+    return output;
   }
 );
