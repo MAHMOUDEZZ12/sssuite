@@ -50,10 +50,14 @@ import {
   BarChart,
   Hash,
   Star,
+  Loader2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export const fileToDataUri = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -126,6 +130,84 @@ const mockProjects = [
     'Add New Project...',
 ];
 
+const AudienceResultCard = ({ strategy, toast }: { strategy: any, toast: any }) => {
+    const [country, setCountry] = React.useState('United Arab Emirates');
+    const [city, setCity] = React.useState('Dubai');
+    const [audienceSize, setAudienceSize] = React.useState<number | null>(null);
+    const [isEstimating, setIsEstimating] = React.useState(false);
+
+    const handleEstimate = () => {
+        setIsEstimating(true);
+        setAudienceSize(null);
+        setTimeout(() => {
+            // Simulate API call to Facebook/Google
+            const size = 50000 + Math.floor(Math.random() * 2000000);
+            setAudienceSize(size);
+            setIsEstimating(false);
+            toast({ title: "Audience Refined!", description: `New estimate for ${city}, ${country} is ready.`});
+        }, 1500);
+    };
+
+    return (
+        <Card className="flex flex-col bg-muted/30">
+            <CardHeader>
+                <CardTitle className="text-lg text-primary">{strategy.strategyName}</CardTitle>
+                <CardDescription>Aimed at capturing a specific market segment.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4 text-sm">
+                 <div>
+                    <p className="font-semibold text-foreground">Demographics:</p>
+                    <p className="text-muted-foreground">{strategy.demographics}</p>
+                </div>
+                <div>
+                    <p className="font-semibold text-foreground">Interests (Social):</p>
+                    <p className="text-muted-foreground">{strategy.interests}</p>
+                </div>
+                <div>
+                    <p className="font-semibold text-foreground">Keywords (Search):</p>
+                    <p className="text-muted-foreground">{strategy.keywords}</p>
+                </div>
+                <Separator />
+                 <div>
+                    <h4 className="font-semibold text-foreground mb-2">Refine Audience & Estimate Reach</h4>
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                         <div className="space-y-1">
+                            <Label htmlFor={`country-${strategy.strategyName}`}>Country</Label>
+                            <Input id={`country-${strategy.strategyName}`} value={country} onChange={e => setCountry(e.target.value)} placeholder="e.g., United States" />
+                        </div>
+                        <div className="space-y-1">
+                            <Label htmlFor={`city-${strategy.strategyName}`}>City</Label>
+                            <Input id={`city-${strategy.strategyName}`} value={city} onChange={e => setCity(e.target.value)} placeholder="e.g., New York" />
+                        </div>
+                    </div>
+                     <Button onClick={handleEstimate} disabled={isEstimating} size="sm">
+                        {isEstimating ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Sparkles className="mr-2 h-4 w-4"/>}
+                        Refine & Estimate
+                    </Button>
+                </div>
+                {audienceSize !== null && (
+                    <div className="p-3 bg-background rounded-lg border space-y-2 animate-in fade-in-50">
+                        <div className="flex justify-between items-center">
+                            <span className="font-semibold text-muted-foreground">Est. Audience Size:</span>
+                            <span className="font-bold text-lg text-primary">{audienceSize.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-xs">
+                            <span className="text-muted-foreground">Potential Daily Reach:</span>
+                            <span className="font-semibold">{(audienceSize * 0.05).toLocaleString('en-US', { maximumFractionDigits: 0 })} - {(audienceSize * 0.15).toLocaleString('en-US', { maximumFractionDigits: 0 })}</span>
+                        </div>
+                    </div>
+                )}
+            </CardContent>
+            <CardFooter>
+                 <Button className="w-full" onClick={() => toast({title: "Strategy Sent!", description: `The "${strategy.strategyName}" has been sent to the Campaign Builder.`})}>
+                    Send to Campaign Builder
+                </Button>
+            </CardFooter>
+        </Card>
+    );
+};
+
+
 export const tools: Feature[] = [
   // --- META ADS AI SUITE ---
    {
@@ -165,6 +247,7 @@ export const tools: Feature[] = [
   {
     id: 'campaign-builder',
     title: 'Campaign Builder AI',
+    dashboardTitle: 'Campaign Builder',
     description: 'Your dedicated agent for Facebook & Instagram advertising.',
     icon: <Bot />,
     color: '#1d4ed8', // blue-700
@@ -198,7 +281,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'audience-creator',
-    title: 'Audience Creator',
+    title: 'Audience Creator AI',
+    dashboardTitle: 'Audience Creator',
     description: 'Find high-intent buyers before they search.',
     icon: <Binoculars />,
     color: '#3b82f6', // blue-600
@@ -208,27 +292,11 @@ export const tools: Feature[] = [
     isPage: false,
     renderResult: (result, toast) => (
       <div className="space-y-6">
-        <h3 className="font-semibold text-lg text-foreground">Here are some recommended targeting strategies for your project:</h3>
+        <h3 className="font-semibold text-xl text-foreground">Recommended Targeting Strategies</h3>
+        <p className="text-muted-foreground">The AI has generated multiple distinct strategies for your project. Choose one to refine, or send it directly to the Campaign Builder.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {result.strategies.map((strategy: any, index: number) => (
-            <div key={index} className="p-4 bg-muted/50 rounded-lg border flex flex-col">
-              <h4 className="font-bold text-lg text-primary mb-3">{strategy.strategyName}</h4>
-              <div className="space-y-3 text-sm">
-                <div>
-                  <p className="font-semibold">Demographics:</p>
-                  <p className="text-muted-foreground">{strategy.demographics}</p>
-                </div>
-                <div>
-                  <p className="font-semibold">Interests (Social):</p>
-                  <p className="text-muted-foreground">{strategy.interests}</p>
-                </div>
-                <div>
-                  <p className="font-semibold">Keywords (Search):</p>
-                  <p className="text-muted-foreground">{strategy.keywords}</p>
-                </div>
-              </div>
-               <Button className="mt-4" onClick={() => toast({title: "Strategy Sent!", description: `The "${strategy.strategyName}" has been sent to the Campaign Builder.`})}>Send to Campaign Builder</Button>
-            </div>
+            <AudienceResultCard key={index} strategy={strategy} toast={toast} />
           ))}
         </div>
       </div>
@@ -271,31 +339,43 @@ export const tools: Feature[] = [
     isPage: false,
     renderResult: (result, toast) => (
        <div className="space-y-6">
-          <div>
-            <h3 className="font-semibold text-lg mb-2">Ad Copy</h3>
-            <div className="p-4 bg-muted rounded-md relative group">
-              <p className="whitespace-pre-wrap">{result.adCopy}</p>
-              <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.adCopy, toast)}><Copy className="h-4 w-4" /></Button>
-            </div>
-          </div>
-          <div>
-            <h3 className="font-semibold text-lg mb-2">Ad Design (Brochure)</h3>
-            <div className="border rounded-lg overflow-hidden">
-                <iframe src={`${result.adDesign}#view=fitH`} className="w-full h-[600px]"/>
-            </div>
-             <a href={result.adDesign} download="brochure.pdf" className="mt-2 inline-block">
-                <Button variant="outline"><Download className="mr-2"/> Download PDF</Button>
-            </a>
-          </div>
-          <div>
-            <h3 className="font-semibold text-lg mb-2">Landing Page Preview</h3>
-            <div className="border rounded-lg overflow-hidden w-fit">
-              <Image src={result.landingPage} alt="Generated landing page" width={800} height={600} className="object-contain" />
-            </div>
-             <a href={result.landingPage} download="landing-page.png" className="mt-2 inline-block">
-                <Button variant="outline"><Download className="mr-2"/> Download Image</Button>
-            </a>
-          </div>
+          <Card>
+            <CardHeader>
+                <CardTitle>Generated Ad Copy</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="p-4 bg-muted rounded-md relative group">
+                    <p className="whitespace-pre-wrap">{result.adCopy}</p>
+                    <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.adCopy, toast)}><Copy className="h-4 w-4" /></Button>
+                </div>
+            </CardContent>
+          </Card>
+           <Card>
+            <CardHeader>
+                <CardTitle>Generated Ad Design (Brochure)</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="border rounded-lg overflow-hidden">
+                    <iframe src={`${result.adDesign}#view=fitH`} className="w-full h-[600px]"/>
+                </div>
+                 <a href={result.adDesign} download="brochure.pdf" className="mt-4 inline-block">
+                    <Button variant="outline"><Download className="mr-2"/> Download PDF</Button>
+                </a>
+            </CardContent>
+          </Card>
+           <Card>
+            <CardHeader>
+                <CardTitle>Generated Landing Page Preview</CardTitle>
+            </CardHeader>
+            <CardContent>
+                 <div className="border rounded-lg overflow-hidden w-fit">
+                    <Image src={result.landingPage} alt="Generated landing page" width={800} height={600} className="object-contain" />
+                    </div>
+                    <a href={result.landingPage} download="landing-page.png" className="mt-4 inline-block">
+                        <Button variant="outline"><Download className="mr-2"/> Download Image</Button>
+                    </a>
+            </CardContent>
+          </Card>
         </div>
     ),
     details: {
@@ -368,7 +448,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'instagram-content-creator',
-    title: 'Instagram Content Creator',
+    title: 'Instagram Content Creator AI',
+    dashboardTitle: 'Instagram Content',
     description: "Turn one idea into a one-week content plan for Instagram.",
     icon: <Share2 />,
     color: '#e11d48',
@@ -461,7 +542,8 @@ export const tools: Feature[] = [
   // --- GENERAL MARKETING ---
   {
     id: 'landing-pages',
-    title: 'Landing Page Builder',
+    title: 'Landing Page Builder AI',
+    dashboardTitle: 'Landing Pages',
     description: 'Launch a high-converting page in minutes.',
     icon: <LayoutTemplate />,
     color: '#22c55e', // green-500
@@ -508,7 +590,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'market-reports',
-    title: 'Market Reports',
+    title: 'Market Reports AI',
+    dashboardTitle: 'Market Reports',
     description: 'Hyper-local trends and insights.',
     icon: <LineChart />,
     color: '#f59e0b', // amber-500
@@ -576,7 +659,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'email-creator',
-    title: 'Email Campaigns',
+    title: 'Email Campaigns AI',
+    dashboardTitle: 'Email Campaigns',
     description: 'Design, write, and schedule.',
     icon: <Mail />,
     color: '#0ea5e9', // sky-500
@@ -614,7 +698,8 @@ export const tools: Feature[] = [
   // --- CREATIVE SUITE ---
   {
     id: 'rebranding',
-    title: 'Rebranding',
+    title: 'Rebranding AI',
+    dashboardTitle: 'Rebranding',
     description: 'Swap logos, colors, contacts in one click.',
     icon: <Palette />,
     color: '#f97316', // orange-600
@@ -669,7 +754,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'pdf-editor',
-    title: 'PDF Editor',
+    title: 'PDF Editor AI',
+    dashboardTitle: 'PDF Editor',
     description: 'Edit text, images, and layout with prompts.',
     icon: <PenTool />,
     color: '#eab308', // yellow-500
@@ -717,7 +803,8 @@ export const tools: Feature[] = [
   // --- SALES ENABLEMENT ---
   {
     id: 'investor-matching',
-    title: 'Investor Matching',
+    title: 'Investor Matching AI',
+    dashboardTitle: 'Investor Matching',
     description: 'Pair budgets with the right projects.',
     icon: <Users2 />,
     color: '#6366f1', // indigo-500
@@ -776,7 +863,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'property-finder-listing-ai',
-    title: 'Property Finder Listing',
+    title: 'Property Finder Listing AI',
+    dashboardTitle: 'Property Finder Listing',
     description: 'Optimize your listings for Property Finder.',
     icon: <Building />,
     color: '#d946ef', // fuchsia-600
@@ -838,7 +926,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'bayut-listing-ai',
-    title: 'Bayut Listing',
+    title: 'Bayut Listing AI',
+    dashboardTitle: 'Bayut Listing',
     description: 'Craft perfect listings for the Bayut portal.',
     icon: <Building />,
     color: '#22c55e', // green-500
@@ -900,7 +989,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'offer-generator',
-    title: 'Multi-Offer Builder',
+    title: 'Multi-Offer Builder AI',
+    dashboardTitle: 'Multi-Offer Builder',
     description: 'Compare options side-by-side.',
     icon: <Briefcase />,
     color: '#78716c', // stone-500
@@ -936,7 +1026,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'whatsapp-campaigns',
-    title: 'WhatsApp Manager',
+    title: 'WhatsApp Manager AI',
+    dashboardTitle: 'WhatsApp Manager',
     description: 'Personalized broadcasts + drips.',
     icon: <Phone />,
     color: '#16a34a', // green-600
@@ -974,7 +1065,8 @@ export const tools: Feature[] = [
   // --- CORE INTELLIGENCE ---
   {
     id: 'ai-brand-creator',
-    title: 'Brand Creator',
+    title: 'Brand Creator AI',
+    dashboardTitle: 'Brand Creator',
     description: "Create your brand onboarding from documents.",
     icon: <Wrench />,
     color: '#10b981', // emerald-500
@@ -1010,7 +1102,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'projects-finder',
-    title: 'Market Library Access',
+    title: 'Market Library Access AI',
     dashboardTitle: 'Market Library',
     description: "Access our verified Market Library to build your project portfolio.",
     icon: <Search />,
@@ -1053,7 +1145,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'crm-assistant',
-    title: 'CRM Memory',
+    title: 'CRM Memory AI',
+    dashboardTitle: 'CRM Memory',
     description: 'Remembers every client detail.',
     icon: <Database />,
     color: '#0d9488', // teal-600
@@ -1088,7 +1181,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'ai-assistant',
-    title: 'Assistant',
+    title: 'Assistant AI',
+    dashboardTitle: 'Assistant',
     description: 'Your personal, trainable AI partner.',
     icon: <BrainCircuit />,
     color: '#84cc16', // lime-500
