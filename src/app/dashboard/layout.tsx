@@ -13,7 +13,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarInput,
-  SidebarInset,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -170,5 +169,3 @@ export default function DashboardLayout({
     </SidebarProvider>
   );
 }
-
-    
