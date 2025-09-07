@@ -37,7 +37,10 @@ const GenerateAdFromBrochureInputSchema = z.object({
   /**
    * Additional information or key details about the project.
    */
-  additionalInformation: z.string().optional().describe('Additional key details about the project.'),
+  additionalInformation: z
+    .string()
+    .optional()
+    .describe('Additional key details about the project.'),
   /**
    * The specific aspect of the project the ad should highlight (e.g., luxury, family-friendly).
    */
