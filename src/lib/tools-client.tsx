@@ -55,6 +55,7 @@ import {
   ArrowLeft,
   Crown,
   TrendingUp,
+  CheckCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -753,7 +754,7 @@ export const tools: Feature[] = [
       faqs: [
         { question: "What kind of recommendations does it make?", answer: "The AI can suggest actions like reallocating budget to better-performing ad sets, refreshing ad creative that is experiencing fatigue, or expanding targeting for successful audiences." },
         { question: "Can I schedule recurring reports?", answer: "Yes, you can set up weekly or monthly reports to be automatically generated and sent to your email, keeping you informed of your campaign performance." },
-        { question: "Does this work for both Facebook and Instagram?", answer: "Yes, the tool pulls data from your entire Meta Ads account, providing a unified report on performance across both platforms." },
+        { question: "Does this work for both Facebook and Instagram?", answer: "Yes, the tool pulls data from your entire Meta Ads account, providing a unified report on performance across both platforms." }
       ],
     },
     creationFields: [
@@ -1235,7 +1236,7 @@ export const tools: Feature[] = [
       faqs: [
         { question: "Does this tool post directly to Dubizzle?", answer: "This tool generates the optimized text and keyword suggestions. You can then copy and paste the content into your Dubizzle account. Direct posting is on our roadmap." },
         { question: "How does it know what works best on Dubizzle?", answer: "The AI has been trained on thousands of successful Dubizzle listings to understand the formats, keywords, and tones that attract the most buyers on that specific platform." },
-        { question: "Can it generate listings in Arabic?", answer: "Yes, you can specify that you need the listing in Arabic, and the AI will provide a high-quality, fluent translation optimized for the local market." },
+        { question: "Can it generate listings in Arabic?", answer: "Yes, you can specify that you need the listing in Arabic, and the AI will provide a high-quality, fluent translation optimized for the local market." }
       ],
     },
     creationFields: [
