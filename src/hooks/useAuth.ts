@@ -13,6 +13,11 @@ export function useAuth() {
   const pathname = usePathname();
 
   useEffect(() => {
+    // If firebase is not configured, don't do anything.
+    if (!auth) {
+        setLoading(false);
+        return;
+    }
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
