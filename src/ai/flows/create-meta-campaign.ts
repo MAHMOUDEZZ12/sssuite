@@ -6,24 +6,79 @@
  *
  * This flow acts as an expert ad manager, taking a high-level goal and project details
  * and generating a comprehensive campaign plan, from campaign objectives down to
- * specific ad creatives.
+ * specific ad creatives. It now also uses a tool to publish the campaign directly to Meta.
  *
  * @module AI/Flows/CreateMetaCampaign
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import {config} from 'dotenv';
 
-// Input and Output schemas are now defined on the client-side component that uses this flow.
-// This file only contains the server-side logic.
+// Load environment variables from .env file
+config();
+
+// Client-side schemas are imported to be used in the server-side flow.
 import type { CreateMetaCampaignInput, CreateMetaCampaignOutput } from '@/app/dashboard/tool/meta-ads-copilot/page';
 import { CreateMetaCampaignInputSchema, CreateMetaCampaignOutputSchema } from '@/app/dashboard/tool/meta-ads-copilot/page';
+
+const bizSdk = require('facebook-nodejs-business-sdk');
+const AdAccount = bizSdk.AdAccount;
+
+/**
+ * A Genkit tool to publish a campaign to the Meta Ads API.
+ * This tool is not exported and is intended for internal use by the main flow.
+ */
+const publishCampaignToMeta = ai.defineTool(
+  {
+    name: 'publishCampaignToMeta',
+    description: 'Publishes the generated campaign structure to the Meta Ads API.',
+    inputSchema: z.object({
+      campaignName: z.string().describe("The name of the campaign to be created."),
+      objective: z.string().describe("The Meta campaign objective (e.g., 'OUTCOME_TRAFFIC', 'LEAD_GENERATION')."),
+    }),
+    outputSchema: z.object({
+      campaignId: z.string().describe("The ID of the newly created campaign."),
+    }),
+  },
+  async ({ campaignName, objective }) => {
+    const access_token = process.env.META_ACCESS_TOKEN;
+    const ad_account_id = process.env.META_AD_ACCOUNT_ID;
+
+    if (!access_token || !ad_account_id) {
+      throw new Error("Meta API credentials are not configured in the environment.");
+    }
+
+    const api = bizSdk.FacebookAdsApi.init(access_token);
+    api.setDebug(true);
+
+    try {
+      const campaign = await (new AdAccount(ad_account_id)).createCampaign(
+        [],
+        {
+          name: campaignName,
+          objective: objective,
+          status: 'PAUSED',
+          special_ad_categories: ['HOUSING'],
+        }
+      );
+
+      const campaignId = campaign.id;
+      console.log('Successfully created campaign with ID:', campaignId);
+      return { campaignId };
+    } catch (error: any) {
+      console.error('Error publishing campaign to Meta:', error?.response?.body || error.message);
+      throw new Error(`Failed to publish campaign to Meta: ${error?.response?.body?.error?.message || error.message}`);
+    }
+  }
+);
 
 
 const createMetaCampaignPrompt = ai.definePrompt({
   name: 'createMetaCampaignPrompt',
   input: {schema: CreateMetaCampaignInputSchema},
-  output: {schema: CreateMetaCampaignOutputSchema},
+  output: {schema: CreateMetaCampaignOutputSchema.extend({ publishedCampaignId: z.string().optional() })},
+  tools: [publishCampaignToMeta],
   prompt: `You are an expert Meta Ads strategist specializing in real estate. Your task is to take a user's goal and project brochure and create a complete, ready-to-launch campaign structure.
 
   **User Inputs:**
@@ -48,6 +103,7 @@ const createMetaCampaignPrompt = ai.definePrompt({
       - Suggest a clear call-to-action for each ad.
       - Provide a specific image suggestion for each creative that would be visually appealing and relevant.
   5.  **Optimization Advice:** Provide one key piece of advice for the user to keep in mind while running this campaign on Meta's platforms.
+  6.  **Publish Campaign**: After generating the plan, use the 'publishCampaignToMeta' tool to create the campaign. Use the generated name and a valid Meta objective (like 'OUTCOME_TRAFFIC', 'LEAD_GENERATION', 'REACH') for the tool's input.
   `,
 });
 
@@ -63,13 +119,14 @@ const createMetaCampaignFlow = ai.defineFlow(
     if (!output) {
       throw new Error('The AI failed to generate a campaign structure.');
     }
+    // The tool call to publish the campaign is now handled automatically by the model.
     return output;
   }
 );
 
 
 /**
- * An AI flow that generates a full Meta ad campaign structure.
+ * An AI flow that generates a full Meta ad campaign structure and publishes it.
  * This is the exported server function that can be called from client components.
  *
  * @param {CreateMetaCampaignInput} input - The input data for the campaign.
