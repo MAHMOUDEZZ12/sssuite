@@ -203,6 +203,7 @@ export const tools: Feature[] = [
     cta: 'Generate Strategies',
     categories: ['Marketing', 'Lead Gen', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
+    isPage: false,
     renderResult: (result, toast) => (
       <div>
         <h3 className="font-semibold text-lg mb-2">Suggested Targeting Options</h3>
@@ -246,6 +247,7 @@ export const tools: Feature[] = [
     cta: 'Generate Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
+    isPage: false,
     renderResult: (result, toast) => (
        <div className="space-y-6">
           <div>
@@ -349,6 +351,7 @@ export const tools: Feature[] = [
     cta: 'Generate Content Plan',
     categories: ['Marketing', 'Social & Comms', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
+    isPage: false,
     renderResult: (result, toast) => (
       <div className="space-y-8">
         <div>
@@ -981,14 +984,15 @@ export const tools: Feature[] = [
   },
   {
     id: 'projects-finder',
-    title: 'AI Projects Finder',
-    description: "Discover off-market projects and development opportunities.",
+    title: 'Market Library Access',
+    description: "Access our verified Market Library to build your project portfolio.",
     icon: <Search />,
     color: '#fde047', // yellow-300
-    cta: 'Generate Project Report',
+    cta: 'Search Market Library',
     categories: ['Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Core Intelligence',
     badge: 'NEW',
+    isPage: true,
     details: {
       steps: [
         { text: 'Define your target area and criteria', icon: <MapPin /> },

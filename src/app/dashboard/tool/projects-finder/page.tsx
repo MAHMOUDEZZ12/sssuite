@@ -76,7 +76,7 @@ export default function ProjectsFinderPage() {
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
-        title="AI Projects Finder"
+        title="Market Library Access"
         description="Search our intelligent Market Library for verified projects. Add them to your personal library to use across the suite."
         icon={<Building className="h-8 w-8" />}
       />
