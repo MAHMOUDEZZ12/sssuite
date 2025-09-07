@@ -4,10 +4,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sun, Moon, Laptop, Bot } from 'lucide-react';
 
@@ -42,25 +39,15 @@ export function ThemeSwitcher() {
     root.classList.add(activeTheme);
     localStorage.setItem('theme', theme);
   }, [theme]);
-  
-  const ActiveIcon = themes.find(t => t.value === theme)?.icon || Laptop;
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <ActiveIcon className="h-5 w-5" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        {themes.map((t) => (
-          <DropdownMenuItem key={t.value} onClick={() => setTheme(t.value)}>
-            <t.icon className="mr-2 h-4 w-4" />
-            <span>{t.label}</span>
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      {themes.map((t) => (
+        <DropdownMenuItem key={t.value} onClick={() => setTheme(t.value)}>
+          <t.icon className="mr-2 h-4 w-4" />
+          <span>{t.label}</span>
+        </DropdownMenuItem>
+      ))}
+    </>
   );
 }
