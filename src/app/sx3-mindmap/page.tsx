@@ -82,14 +82,14 @@ const ToolLeaf = ({ tool, onClick, className }: { tool: Feature; onClick: (tool:
                                 <span
                                   className={cn(
                                     'ml-auto px-1.5 py-0.5 text-xs font-semibold text-white rounded-full',
-                                    tool.badge === 'NEW' ? 'bg-blue-500' : 'bg-yellow-500'
+                                    tool.badge === 'NEW' ? 'bg-blue-500' : tool.badge === 'Pilot*' ? 'bg-amber-400' : 'bg-yellow-500'
                                   )}
                                 >
                                   {tool.badge}
                                 </span>
                               </TooltipTrigger>
                               <TooltipContent side="top">
-                                 <p>{tool.badge === 'NEW' ? 'This is a brand new feature!' : 'This feature is in active development.'}</p>
+                                 <p>{tool.badge === 'NEW' ? 'This is a brand new feature!' : tool.badge === 'Pilot*' ? 'This is an automated workflow pilot.' : 'This feature is in active development.'}</p>
                               </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
@@ -230,7 +230,7 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
             <Separator />
 
             <div className="p-6 text-center">
-                <Link href={`/dashboard/tool/${feature.id}`}>
+                <Link href={feature.isPage ? `/dashboard/tool/${feature.id}` : `/dashboard/tool/${feature.id}`}>
                     <Button variant="outline" size="lg" className='text-base'>
                       Create your first {feature.cta} today
                     </Button>
@@ -248,7 +248,7 @@ export default function SX3MindmapPage() {
     const [selectedFeature, setSelectedFeature] = React.useState<Feature | null>(null);
 
     const toolCategories = [
-        { name: "Marketing", tools: tools.filter(t => t.mindMapCategory === 'Marketing') },
+        { name: "Meta Ads AI Suite", tools: tools.filter(t => t.mindMapCategory === 'Meta Ads AI Suite') },
         { name: "Creative Suite", tools: tools.filter(t => t.mindMapCategory === 'Creative Suite') },
         { name: "Sales Enablement", tools: tools.filter(t => t.mindMapCategory === 'Sales Enablement') },
         { name: "Core Intelligence", tools: tools.filter(t => t.mindMapCategory === 'Core Intelligence') },
