@@ -319,7 +319,7 @@ export default function ToolPage() {
       {showConfetti && <Confetti onComplete={() => setShowConfetti(false)} />}
       
       {showCampaignNotice && (
-        <Alert data-state={showCampaignNotice ? 'open' : 'closed'} className="max-w-4xl mx-auto animate-fade-in">
+        <Alert data-state={showCampaignNotice ? 'open' : 'closed'} className="max-w-4xl mx-auto animate-in fade-in-0 slide-in-from-top-5 duration-500">
             <Info className="h-4 w-4" />
             <AlertTitle>Heads up!</AlertTitle>
             <AlertDescription className='flex justify-between items-center'>
