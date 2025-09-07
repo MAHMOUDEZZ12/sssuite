@@ -23,8 +23,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from 'next/link';
 
-// This page is now ready for real data.
-// In a future step, we would use a hook to fetch the user's project library from Firestore.
+// This page is now deprecated in favor of the My Projects widget on the dashboard.
+// It is kept for routing purposes but should not be directly linked to.
+// A redirect could be added in next.config.js if needed.
 const userProjects: any[] = [
   // Example:
   // { id: 'some-project-id', name: 'Azure Lofts', type: 'Residential', location: 'Dubai Marina', status: 'Active' }
@@ -42,7 +43,7 @@ export default function ProjectsPage() {
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
         title="My Projects"
-        description="Organize, track, and manage all your marketing and sales projects. Add new projects to your library here."
+        description="This page is deprecated. Please use the 'My Projects' widget on the dashboard."
         icon={<PlusCircle className="h-8 w-8" />}
       >
          <Link href="/dashboard/tool/projects-finder">

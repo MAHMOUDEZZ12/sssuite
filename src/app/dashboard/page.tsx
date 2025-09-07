@@ -4,23 +4,134 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { ArrowRight, Search, Target, Palette, Share2, LineChart, Briefcase, Bot, Home, Building, Megaphone, Users, PlusCircle } from 'lucide-react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from '@/components/ui/badge';
+import { ArrowRight, Target, Palette, LineChart, Briefcase, Bot, Home, Building, Megaphone, Users, PlusCircle, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import { PageHeader } from '@/components/ui/page-header';
-import { Input } from '@/components/ui/input';
 import { tools } from '@/lib/tools-client';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 
 const topTools = tools.filter(t => ['meta-ads-copilot', 'audience-creator', 'rebranding', 'instagram-content-creator'].includes(t.id));
 
-const quickActions = [
-    { title: "Add New Project", href: "/dashboard/tool/projects-finder", icon: <Building /> },
-    { title: "Create Ad Creative", href: "/dashboard/tool/insta-ads-designer", icon: <Megaphone /> },
-    { title: "Update Brand Kit", href: "/dashboard/brand", icon: <Palette /> },
-    { title: "Chat with Assistant", href: "#", icon: <Bot /> },
-]
+const userProjects: any[] = [
+    { id: 'proj-1', name: 'Azure Lofts', type: 'Residential', location: 'Dubai Marina', status: 'Active' },
+    { id: 'proj-2', name: 'Emaar Beachfront', type: 'Residential', location: 'Dubai Harbour', status: 'Active' },
+    { id: 'proj-3', name: 'The Valley', type: 'Community', location: 'Al Yufrah 1', status: 'Planning' },
+];
+const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
+  'Active': 'default',
+  'Planning': 'secondary',
+  'Completed': 'outline',
+  'On Hold': 'destructive',
+};
+
+
+const MyProjectsWidget = () => (
+    <Card>
+        <CardHeader>
+            <CardTitle>My Projects</CardTitle>
+            <CardDescription>Your active project library.</CardDescription>
+        </CardHeader>
+        <CardContent>
+            <div className="space-y-3">
+                {userProjects.slice(0,2).map(project => (
+                    <div key={project.id} className="flex items-center justify-between p-2 bg-muted/50 rounded-md">
+                        <div>
+                            <p className="font-semibold">{project.name}</p>
+                            <p className="text-sm text-muted-foreground">{project.location}</p>
+                        </div>
+                        <Badge variant={statusVariant[project.status] || 'secondary'}>{project.status}</Badge>
+                    </div>
+                ))}
+                 {userProjects.length === 0 && <p className="text-sm text-muted-foreground text-center py-4">No projects yet.</p>}
+            </div>
+        </CardContent>
+        <CardFooter className="justify-between">
+             <Link href="/dashboard/tool/projects-finder">
+                <Button variant="outline">
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    Add New Project
+                </Button>
+            </Link>
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button variant="default">View All</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl">
+                    <DialogHeader>
+                        <DialogTitle>My Projects Library</DialogTitle>
+                        <DialogDescription>
+                            All projects you have saved to your personal library.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="max-h-[60vh] overflow-y-auto">
+                      <Table>
+                        <TableHeader>
+                            <TableRow>
+                            <TableHead>Project Name</TableHead>
+                            <TableHead>Location</TableHead>
+                            <TableHead>Status</TableHead>
+                            <TableHead><span className="sr-only">Actions</span></TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {userProjects.map((project) => (
+                            <TableRow key={project.id}>
+                                <TableCell className="font-medium">{project.name}</TableCell>
+                                <TableCell>{project.location}</TableCell>
+                                <TableCell>
+                                <Badge variant={statusVariant[project.status] || 'secondary'}>{project.status}</Badge>
+                                </TableCell>
+                                <TableCell>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                    <Button aria-haspopup="true" size="icon" variant="ghost">
+                                        <MoreHorizontal className="h-4 w-4" />
+                                        <span className="sr-only">Toggle menu</span>
+                                    </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                                    <DropdownMenuItem>Delete</DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                                </TableCell>
+                            </TableRow>
+                            ))}
+                        </TableBody>
+                        </Table>
+                    </div>
+                </DialogContent>
+            </Dialog>
+        </CardFooter>
+    </Card>
+)
 
 export default function DashboardPage() {
-  // In a real app, this data would come from a user-specific hook
   const hasActiveCampaigns = true; 
 
   return (
@@ -82,7 +193,7 @@ export default function DashboardPage() {
                     <h3 className="text-xl font-bold">Your Dashboard is Ready</h3>
                     <p className="text-muted-foreground mt-2 mb-6">As you use the tools, your key metrics and active tasks will appear here. Let's get your first campaign started.</p>
                      <Link href="/dashboard/marketing">
-                        <Button>Go to Marketing Suite <ArrowRight /></Button>
+                        <Button>Go to Apps <ArrowRight /></Button>
                     </Link>
                 </CardContent>
             </Card>
@@ -114,22 +225,7 @@ export default function DashboardPage() {
             </Card>
         </div>
          <div className="lg:col-span-1">
-            <Card>
-                 <CardHeader>
-                    <CardTitle>Quick Actions</CardTitle>
-                    <CardDescription>Start a new task with a single click.</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                    {quickActions.map(action => (
-                         <Link href={action.href} key={action.title}>
-                            <Button variant="outline" className="w-full justify-start">
-                                {action.icon}
-                                {action.title}
-                            </Button>
-                         </Link>
-                    ))}
-                </CardContent>
-            </Card>
+            <MyProjectsWidget />
         </div>
       </div>
     </div>
