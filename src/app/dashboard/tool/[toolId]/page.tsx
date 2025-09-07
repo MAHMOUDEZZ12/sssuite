@@ -284,7 +284,7 @@ export default function ToolPage() {
                         <Select 
                             onValueChange={(val) => {
                                 if (val === 'Add New Project...') {
-                                    router.push('/dashboard/projects');
+                                    router.push('/dashboard/tool/projects-finder');
                                 } else {
                                     onChange(val);
                                 }

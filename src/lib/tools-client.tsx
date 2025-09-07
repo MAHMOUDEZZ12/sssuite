@@ -533,8 +533,8 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-      { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "Azure Lofts"', description: 'Provide a name if you are not uploading a brochure.' },
-      { id: 'brochureDataUri', name: 'Developer Brochure (Optional)', type: 'file', description: 'Upload the original PDF. This is the best source of info.' },
+      { id: 'projectId', name: 'Project', type: 'select', options: ['Azure Lofts', 'Maple Creek Development', 'Oceanview Villas', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose from your saved projects.' },
+      { id: 'brochureDataUri', name: 'Developer Brochure (Optional)', type: 'file', description: 'Upload the original PDF for more detailed ad generation.' },
       { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
       { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
       { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of condo fees waived."', description: 'Add any other key details or offers. (Optional)' },
