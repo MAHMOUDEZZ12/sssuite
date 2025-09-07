@@ -32,13 +32,14 @@ const mockLeads = [
   { id: 7, name: 'George Rodriguez', email: 'george@example.com', status: 'Not Interested', lastContacted: '1 month ago' },
 ];
 
-const statusVariant: { [key: string]: "default" | "secondary" | "destructive" } = {
+const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
   'New': 'default',
   'Contacted': 'secondary',
   'Qualified': 'default',
   'Proposal Sent': 'default',
   'Closed': 'secondary',
   'Not Interested': 'destructive',
+  'default': 'outline',
 };
 
 export default function LeadsPage() {
@@ -98,5 +99,3 @@ export default function LeadsPage() {
     </main>
   );
 }
-
-    

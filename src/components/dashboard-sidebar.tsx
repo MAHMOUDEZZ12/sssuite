@@ -30,8 +30,8 @@ const mainNav = [
 const secondaryNav = [
   { href: '/dashboard/assistant', label: 'AI Assistant', icon: Bot },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
-  { href: '/dashboard/support', label: 'Support', icon: LifeBuoy },
 ];
+
 
 const getToolFromPath = (path: string) => {
     if (!path.startsWith('/dashboard/tool/')) return null;

@@ -1,8 +1,8 @@
 
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { tools } from '@/lib/tools-client';
 
 interface Tab {
@@ -25,9 +25,9 @@ const navMap: {[key: string]: string} = {
     '/dashboard/projects': 'Projects',
     '/dashboard/brand': 'Brand Kit',
     '/dashboard/clients': 'Clients',
+    '/dashboard/leads': 'Leads (CRM)',
     '/dashboard/assistant': 'AI Assistant',
     '/dashboard/settings': 'Settings',
-    '/dashboard/support': 'Support',
 };
 
 const getLabelForPath = (path: string): string => {
@@ -45,41 +45,46 @@ export const TabProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [openTabs, setOpenTabs] = useState<Tab[]>([]);
   const [activeTab, setActiveTab] = useState<Tab | null>(null);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
-    // Add initial tab on load if it's a dashboard page
-    if (pathname.startsWith('/dashboard')) {
+    // On initial load, set the first tab
+    if (pathname.startsWith('/dashboard') && openTabs.length === 0) {
         const initialTab = { href: pathname, label: getLabelForPath(pathname) };
         setOpenTabs([initialTab]);
         setActiveTab(initialTab);
     }
-  }, []);
+  }, [pathname, openTabs.length]);
 
   useEffect(() => {
-    // Sync active tab with current path
     const currentTab = openTabs.find(tab => tab.href === pathname);
     if (currentTab) {
-        setActiveTab(currentTab);
-    } else if (pathname.startsWith('/dashboard')) {
-        // If the path is not in openTabs, add it
-        addTab({ href: pathname, label: getLabelForPath(pathname) });
+      setActiveTab(currentTab);
     }
   }, [pathname, openTabs]);
 
 
-  const addTab = (newTab: Tab) => {
+  const addTab = useCallback((newTab: Tab) => {
     setOpenTabs((prevTabs) => {
-      // Prevent duplicates
       if (prevTabs.some(tab => tab.href === newTab.href)) {
         return prevTabs;
       }
       return [...prevTabs, newTab];
     });
-  };
+  }, []);
 
-  const removeTab = (hrefToRemove: string) => {
-    setOpenTabs((prevTabs) => prevTabs.filter((tab) => tab.href !== hrefToRemove));
-  };
+  const removeTab = useCallback((hrefToRemove: string) => {
+    let nextActiveTab: Tab | null = null;
+    const remainingTabs = openTabs.filter((tab) => tab.href !== hrefToRemove);
+
+    if (pathname === hrefToRemove && remainingTabs.length > 0) {
+        // If we closed the active tab, navigate to the last remaining tab
+        nextActiveTab = remainingTabs[remainingTabs.length - 1];
+        router.push(nextActiveTab.href);
+    }
+    
+    setOpenTabs(remainingTabs);
+  }, [openTabs, pathname, router]);
 
   const value = { openTabs, activeTab, addTab, removeTab };
 

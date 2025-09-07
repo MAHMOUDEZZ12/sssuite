@@ -10,7 +10,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 export function DashboardFooter() {
-    const { openTabs, removeTab, activeTab } = useTabManager();
+    const { openTabs, removeTab } = useTabManager();
     const pathname = usePathname();
     
     // Don't show the current tab in the list of switchable tabs
