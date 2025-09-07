@@ -4,7 +4,7 @@ import { auth } from "@/lib/firebase";
 export async function track(event: string, props: Record<string, any> = {}) {
   try {
     // This function will now call our API endpoint
-    const uid = auth.currentUser?.uid;
+    const uid = auth?.currentUser?.uid;
 
     await fetch('/api/events', {
         method: 'POST',

@@ -19,6 +19,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { useToast } from '@/hooks/use-toast';
+import { track } from '@/lib/events';
 
 
 interface DashboardServiceCardProps {
@@ -55,6 +56,7 @@ export function DashboardServiceCard({
     setTimeout(() => {
         setIsConnecting(false);
         setIsAdded(true);
+        track('app_added', { toolId: title, connectionType: connectionRequired ? 'api' : paymentRequired ? 'payment' : 'direct' });
         toast({
             title: `${title} Activated!`,
             description: `You can now use the ${title} tool.`
@@ -72,7 +74,7 @@ export function DashboardServiceCard({
   const MainAction = () => {
     if (isAdded) {
         return (
-             <Link href={href}>
+             <Link href={href} onClick={() => track('app_opened', { toolId: title })}>
                 <Button size="sm">
                     Open
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -135,6 +137,7 @@ export function DashboardServiceCard({
         <Button size="sm" variant="outline" onClick={(e) => {
             e.preventDefault();
             setIsAdded(true);
+            track('app_added', { toolId: title, connectionType: 'direct' });
             toast({ title: `${title} Added!`, description: 'The tool is now available in your workspace.' });
         }}>
             <AddButtonContent />
