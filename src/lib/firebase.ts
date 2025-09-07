@@ -12,8 +12,21 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+// Check if all required environment variables are set
+const isFirebaseConfigValid = firebaseConfig.apiKey &&
+                              firebaseConfig.authDomain &&
+                              firebaseConfig.projectId &&
+                              firebaseConfig.storageBucket &&
+                              firebaseConfig.messagingSenderId &&
+                              firebaseConfig.appId;
 
-export const db = getFirestore(app);
-export const auth = getAuth(app);
+// Initialize Firebase only if the config is valid
+const app = isFirebaseConfigValid && !getApps().length ? initializeApp(firebaseConfig) : (getApps().length ? getApp() : null);
+
+// Export the instances only if the app was initialized
+export const db = app ? getFirestore(app) : null;
+export const auth = app ? getAuth(app) : null;
+
+if (!app) {
+    console.error("Firebase initialization failed: Missing environment variables. Please check your .env file.");
+}
