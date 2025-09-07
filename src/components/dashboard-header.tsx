@@ -12,30 +12,23 @@ import {
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
-import { LifeBuoy, LogOut, Settings, User, Search, Sun, Moon, Laptop, Bot } from "lucide-react";
-import { usePathname } from 'next/navigation';
-import { useTheme } from "./theme-switcher";
+import { LifeBuoy, LogOut, Settings, User, Search } from "lucide-react";
 import React from "react";
 import { GlobalSearch } from "./ui/global-search";
+import { useTheme } from "./theme-switcher";
+import { SidebarTrigger } from "./ui/sidebar";
 
 export function DashboardHeader() {
-    const pathname = usePathname();
     const [isSearchOpen, setIsSearchOpen] = React.useState(false);
-    const { theme, setTheme, themes } = useTheme();
-
-    const navLinks = [
-        { href: '/dashboard/projects', label: 'Projects' },
-        { href: '/dashboard/brand', label: 'Brand'},
-        { href: '/dashboard/clients', label: 'Clients'},
-        { href: '/dashboard/leads', label: 'Leads'},
-    ];
+    const { setTheme, themes } = useTheme();
 
     return (
         <>
             <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/95 px-4 backdrop-blur-sm sm:px-6">
-                <div className="flex items-center gap-4">
-                     <Link href="/dashboard" className="text-xl font-bold text-foreground/80 hover:text-foreground transition-colors">
-                        AI Smart Ground
+                <div className="flex items-center gap-2">
+                    <SidebarTrigger />
+                     <Link href="/dashboard" className="text-xl font-bold text-foreground/80 hover:text-foreground transition-colors hidden md:block">
+                        Gemin
                      </Link>
                 </div>
                 
@@ -47,17 +40,7 @@ export function DashboardHeader() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <nav className="hidden md:flex items-center gap-1">
-                        {navLinks.map(link => (
-                            <Link key={link.href} href={link.href}>
-                                <Button variant={pathname.startsWith(link.href) ? 'secondary' : 'ghost'} size="sm">
-                                    {link.label}
-                                </Button>
-                            </Link>
-                        ))}
-                    </nav>
-                    
-                     <DropdownMenu>
+                    <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button
                             variant="outline"
