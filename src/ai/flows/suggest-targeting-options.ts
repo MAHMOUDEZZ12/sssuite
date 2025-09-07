@@ -34,13 +34,14 @@ export type SuggestTargetingOptionsInput = z.infer<
  */
 const SuggestTargetingOptionsOutputSchema = z.object({
   /**
-   * A comprehensive list of suggested targeting options for the ad campaign, optimized for the project details and target audience.
+   * A list of comprehensive targeting strategies.
    */
-  suggestedTargetingOptions: z
-    .string()
-    .describe(
-      'A list of suggested targeting options for the ad campaign, including demographics, interests, behaviors, and keywords, optimized for the project details and target audience.'
-    ),
+  strategies: z.array(z.object({
+    strategyName: z.string().describe("The name of the targeting strategy (e.g., 'The Local Professional')."),
+    demographics: z.string().describe("The demographic targeting parameters (e.g., 'Age: 30-45, Location: Downtown Dubai')."),
+    interests: z.string().describe("The interest-based targeting for platforms like Facebook/Instagram."),
+    keywords: z.string().describe("The keyword targeting for platforms like Google Ads."),
+  })).describe("A list of 2-3 distinct targeting strategies."),
 });
 export type SuggestTargetingOptionsOutput = z.infer<
   typeof SuggestTargetingOptionsOutputSchema
@@ -64,7 +65,7 @@ const prompt = ai.definePrompt({
   input: {schema: SuggestTargetingOptionsInputSchema},
   output: {schema: SuggestTargetingOptionsOutputSchema},
   prompt: `You are an expert in digital marketing and advertising, specializing in real estate.
-  Based on the provided project details, suggest the best targeting options for an ad campaign on platforms like Facebook and Google.
+  Based on the provided project details, suggest 2-3 distinct targeting strategies for an ad campaign on platforms like Facebook and Google.
 
   **TODO: The project data should be fetched from a database using the projectId.**
   For now, use this placeholder data for Project ID: {{projectId}}
@@ -81,12 +82,11 @@ const prompt = ai.definePrompt({
   2.  **Generate 2-3 Distinct Strategies**: Create multiple, distinct targeting strategies. For example:
       - **Strategy 1: The Local Professional**: Target high-income professionals already living or working in the area.
       - **Strategy 2: The International Investor**: Target individuals in key international markets known for investing in this city.
-      - **Strategy 3: The Lifestyle Seeker**: Target users interested in luxury brands, fine dining, and specific lifestyle activities associated with the property.
-  3.  **Detail Each Strategy**: For each strategy, provide a detailed breakdown of:
+  3.  **Detail Each Strategy**: For each strategy, provide a clear name and a detailed breakdown of:
       - **Demographics:** Location, Age, Language, etc.
-      - **Interests & Behaviors (for Facebook/Instagram):** Specific, actionable interests to target.
+      - **Interests (for Facebook/Instagram):** Specific, actionable interests to target.
       - **Keywords (for Google Ads):** High-intent keywords for search campaigns.
-  4.  **Format as Markdown**: Present the output in a clear, well-formatted markdown structure. Use headings for each strategy.
+  4.  **Format the Output**: Structure your response strictly according to the 'strategies' array in the output schema.
 `,
 });
 

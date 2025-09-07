@@ -164,7 +164,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'campaign-builder',
-    title: 'Campaign Builder',
+    title: 'Campaign Builder AI',
     description: 'Your dedicated agent for Facebook & Instagram advertising.',
     icon: <Bot />,
     color: '#1d4ed8', // blue-700
@@ -207,11 +207,29 @@ export const tools: Feature[] = [
     mindMapCategory: 'Meta Ads AI Suite',
     isPage: false,
     renderResult: (result, toast) => (
-      <div>
-        <h3 className="font-semibold text-lg mb-2">Suggested Targeting Options</h3>
-          <div className="p-4 bg-muted rounded-md relative group">
-            <p className="whitespace-pre-wrap">{result.suggestedTargetingOptions}</p>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.suggestedTargetingOptions, toast)}><Copy className="h-4 w-4" /></Button>
+      <div className="space-y-6">
+        <h3 className="font-semibold text-lg text-foreground">Here are some recommended targeting strategies for your project:</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {result.strategies.map((strategy: any, index: number) => (
+            <div key={index} className="p-4 bg-muted/50 rounded-lg border flex flex-col">
+              <h4 className="font-bold text-lg text-primary mb-3">{strategy.strategyName}</h4>
+              <div className="space-y-3 text-sm">
+                <div>
+                  <p className="font-semibold">Demographics:</p>
+                  <p className="text-muted-foreground">{strategy.demographics}</p>
+                </div>
+                <div>
+                  <p className="font-semibold">Interests (Social):</p>
+                  <p className="text-muted-foreground">{strategy.interests}</p>
+                </div>
+                <div>
+                  <p className="font-semibold">Keywords (Search):</p>
+                  <p className="text-muted-foreground">{strategy.keywords}</p>
+                </div>
+              </div>
+               <Button className="mt-4" onClick={() => toast({title: "Strategy Sent!", description: `The "${strategy.strategyName}" has been sent to the Campaign Builder.`})}>Send to Campaign Builder</Button>
+            </div>
+          ))}
         </div>
       </div>
     ),
@@ -242,7 +260,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'insta-ads-designer',
-    title: 'Insta Ads Designer',
+    title: 'Insta Ads Designer AI',
+    dashboardTitle: 'Insta Ads Designer',
     description: 'Create perfect ads for Instagram Stories & Feed.',
     icon: <Instagram />,
     color: '#ec4899', // pink-500
@@ -310,7 +329,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'reel-ads-ai',
-    title: 'Reel Ads',
+    title: 'Reel Ads AI',
+    dashboardTitle: 'Reel Ads',
     description: 'Generate engaging video ads for Instagram Reels.',
     icon: <Clapperboard />,
     color: '#7c3aed',
@@ -322,7 +342,8 @@ export const tools: Feature[] = [
   },
   {
     id: 'facebook-ads-ai',
-    title: 'Facebook Ads',
+    title: 'Facebook Ads AI',
+    dashboardTitle: 'Facebook Ads',
     description: 'Design effective ads for the Facebook platform.',
     icon: <Facebook />,
     color: '#2563eb',
@@ -333,8 +354,9 @@ export const tools: Feature[] = [
     details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
   },
   {
-    id: 'instagram-admin',
-    title: 'Instagram Admin',
+    id: 'instagram-admin-ai',
+    title: 'Instagram Admin AI',
+    dashboardTitle: 'Instagram Admin',
     description: 'Schedules posts and handles replies on Instagram.',
     icon: <UserCog />,
     color: '#c026d3',
@@ -398,8 +420,9 @@ export const tools: Feature[] = [
     ],
   },
   {
-    id: 'story-planner',
-    title: 'Story Planner',
+    id: 'story-planner-ai',
+    title: 'Story Planner AI',
+    dashboardTitle: 'Story Planner',
     description: 'Plan and design animated Instagram stories.',
     icon: <Film />,
     color: '#a855f7',
@@ -410,8 +433,9 @@ export const tools: Feature[] = [
     details: { steps: [], aiVsManual: [], synergy: [], faqs: [] }
   },
   {
-    id: 'instagram-hashtags',
-    title: 'Instagram Hashtags',
+    id: 'instagram-hashtags-ai',
+    title: 'Instagram Hashtags AI',
+    dashboardTitle: 'Instagram Hashtags',
     description: 'Generate a tiered hashtag strategy for any post.',
     icon: <Hash />,
     color: '#f97316',
