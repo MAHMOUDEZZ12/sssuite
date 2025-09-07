@@ -152,8 +152,8 @@ export default function BrandPage() {
       
       setIsTraining(true);
       toast({
-          title: "Training Started",
-          description: `The assistant is learning from ${filesToTrain.length} file(s). This may take a moment.`,
+          title: "AI Extraction Started",
+          description: `The assistant is analyzing ${filesToTrain.length} file(s) for brand info.`,
       });
 
       try {
@@ -174,7 +174,7 @@ export default function BrandPage() {
           if (contactInfo) setValue('contactInfo', contactInfo);
 
            toast({
-              title: "AI Training Complete!",
+              title: "AI Extraction Complete!",
               description: result.summary,
            });
         } else {
@@ -356,13 +356,13 @@ export default function BrandPage() {
                 <div>
                     <CardTitle>Your Asset Storage</CardTitle>
                     <CardDescription>
-                        Manage all your uploaded assets and AI-generated files. Select files to train your assistant.
+                        Manage all your uploaded assets and AI-generated files. Select files to train your assistant or populate your brand kit.
                     </CardDescription>
                 </div>
                 <div className='flex items-center gap-2 flex-wrap'>
                     <Button onClick={handleTrainAssistant} disabled={selectedFiles.length === 0 || isTraining}>
                         {isTraining ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <BrainCircuit className="mr-2 h-4 w-4" />}
-                        {isTraining ? 'Training...' : `Train on ${selectedFiles.length > 0 ? `${selectedFiles.length} file(s)` : 'Selection'}`}
+                        {isTraining ? 'Extracting...' : `Extract Brand Info from ${selectedFiles.length > 0 ? `${selectedFiles.length} file(s)` : 'Selection'}`}
                     </Button>
                      <Button onClick={handleDeleteFiles} disabled={selectedFiles.length === 0} variant="destructive">
                         <Trash2 className="mr-2 h-4 w-4" />
@@ -431,3 +431,5 @@ export default function BrandPage() {
     
  
       
+
+    

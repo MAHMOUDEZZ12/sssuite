@@ -22,6 +22,7 @@ import { fileToDataUri } from '@/lib/tools-client';
 import { aiBrandCreator } from '@/ai/flows/ai-brand-creator';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 
 const samplePrompts = [
@@ -43,11 +44,6 @@ export default function AssistantPage() {
     const [format, setFormat] = useState("for a new luxury condo listing");
     const [generatedPrompt, setGeneratedPrompt] = useState("Based on the new luxury condo listing, create a bulleted list of 5 social media post ideas.");
 
-    const [isTraining, setIsTraining] = useState(false);
-    const [files, setFiles] = useState<MockFile[]>([]);
-    const fileInputRef = React.useRef<HTMLInputElement>(null);
-    const [selectedFiles, setSelectedFiles] = useState<number[]>([]);
-
     const handleGeneratePrompt = () => {
         const goalTextMap: { [key: string]: string } = {
             create: "create",
@@ -62,94 +58,19 @@ export default function AssistantPage() {
         const prompt = `Act as an expert real estate marketing assistant. Your task is to ${fullGoalText} ${fullFormat} based on ${fullContext}.`;
         setGeneratedPrompt(prompt);
     }
-    
-    const handleAssetFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const uploadedFiles = event.target.files;
-        if (!uploadedFiles) return;
-
-        const newFiles: MockFile[] = Array.from(uploadedFiles).map((file, index) => ({
-        id: files.length + index + 1,
-        name: file.name,
-        type: file.type.split('/')[1]?.toUpperCase() || 'File',
-        icon: <FileText className="h-10 w-10 text-muted-foreground" />,
-        size: `${(file.size / 1024).toFixed(2)} KB`,
-        file: file,
-        }));
-
-        setFiles(prev => [...prev, ...newFiles]);
-    };
-    
-    const handleSelectFile = (fileId: number) => {
-      setSelectedFiles(prev => 
-          prev.includes(fileId) 
-              ? prev.filter(id => id !== fileId) 
-              : [...prev, fileId]
-      );
-    };
-  
-    const handleDeleteFiles = () => {
-        setFiles(prev => prev.filter(f => !selectedFiles.includes(f.id)));
-        setSelectedFiles([]);
-    }
-
-    const handleTrainAssistant = async () => {
-        const filesToTrain = files.filter(f => selectedFiles.includes(f.id) && f.file);
-        if (filesToTrain.length === 0) {
-            toast({
-                title: "No Files Selected",
-                description: "Please upload and select at least one file to train the assistant.",
-                variant: "destructive"
-            });
-            return;
-        }
-        
-        setIsTraining(true);
-        toast({
-            title: "Training Started",
-            description: `The assistant is learning from ${filesToTrain.length} file(s). This may take a moment.`,
-        });
-
-        try {
-            const fileDataUris = await Promise.all(
-            filesToTrain.map(f => fileToDataUri(f.file!))
-            );
-
-            const result = await aiBrandCreator({
-            command: "Analyze the provided documents to understand my business. Extract key information like my company name, brand colors, contact info, and current projects. Use this to help configure my workspace.",
-            documents: fileDataUris,
-            });
-
-            toast({
-                title: "AI Training Complete!",
-                description: result.summary,
-            });
-        
-        } catch (error) {
-            console.error("AI training failed:", error);
-            toast({
-                title: "An Error Occurred",
-                description: "The AI was unable to process the documents. Please try again.",
-                variant: "destructive"
-            });
-        } finally {
-            setIsTraining(false);
-            setSelectedFiles([]);
-        }
-    }
 
 
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
-        title="Train Your Assistant"
-        description="Personalize your AI assistant by giving it instructions and knowledge."
+        title="AI Assistant"
+        description="Personalize your AI assistant by giving it instructions and managing its prompt library."
         icon={<BrainCircuit className="h-8 w-8" />}
       />
 
-      <Tabs defaultValue="knowledge" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+      <Tabs defaultValue="personality" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="personality"><Bot className="mr-2 h-4 w-4" /> Personality</TabsTrigger>
-          <TabsTrigger value="knowledge"><BookOpen className="mr-2 h-4 w-4" /> Knowledge Base</TabsTrigger>
           <TabsTrigger value="prompts"><Wand2 className="mr-2 h-4 w-4" /> Prompt Library</TabsTrigger>
         </TabsList>
         
@@ -177,6 +98,16 @@ export default function AssistantPage() {
                     defaultValue="You are an expert real estate sales and marketing assistant. Your primary function is to help the user save time, create high-quality marketing materials, and identify sales opportunities. You should be professional, insightful, and proactive. Use the knowledge provided in the 'Knowledge Base' to inform your answers."
                    />
                </div>
+               <div className="space-y-2">
+                 <Label>Knowledge Base</Label>
+                 <p className="text-sm text-muted-foreground">The AI's knowledge comes from the files you upload in the <Link href="/dashboard/brand" className="underline font-semibold hover:text-primary">Brand &amp; Assets</Link> section. The assistant has access to all uploaded brochures, reports, and data to provide more relevant and accurate responses.</p>
+                  <Link href="/dashboard/brand">
+                    <Button variant="outline">
+                        <BookOpen className="mr-2 h-4 w-4" />
+                        Manage Knowledge Base
+                    </Button>
+                 </Link>
+               </div>
             </CardContent>
             <CardFooter>
                  <Button>Save Personality</Button>
@@ -184,82 +115,6 @@ export default function AssistantPage() {
           </Card>
         </TabsContent>
         
-        <TabsContent value="knowledge">
-            <Card>
-                <CardHeader>
-                    <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4'>
-                        <div>
-                            <CardTitle>Knowledge Base</CardTitle>
-                            <CardDescription>
-                                Upload brochures, reports, and data to give your assistant context. The AI will use this information to provide more relevant and accurate responses.
-                            </CardDescription>
-                        </div>
-                        <div className='flex items-center gap-2 flex-wrap'>
-                            <Button onClick={handleTrainAssistant} disabled={selectedFiles.length === 0 || isTraining}>
-                                {isTraining ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <BrainCircuit className="mr-2 h-4 w-4" />}
-                                {isTraining ? 'Training...' : `Train on ${selectedFiles.length > 0 ? `${selectedFiles.length} file(s)` : 'Selection'}`}
-                            </Button>
-                            <Button onClick={handleDeleteFiles} disabled={selectedFiles.length === 0} variant="destructive">
-                                <Trash2 className="mr-2 h-4 w-4" />
-                                Delete {selectedFiles.length > 0 ? `${selectedFiles.length} file(s)` : 'Selection'}
-                            </Button>
-                        </div>
-                    </div>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                    <label htmlFor="knowledge-file-upload" 
-                        className="relative block w-full p-8 text-center border-2 border-dashed rounded-lg cursor-pointer hover:border-primary transition-colors"
-                    >
-                        <Upload className="mx-auto h-12 w-12 text-muted-foreground" />
-                        <h3 className="mt-4 text-lg font-medium text-foreground">
-                            Upload Documents
-                        </h3>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                            Drag and drop files here, or click to browse.
-                        </p>
-                         <Input
-                            id="knowledge-file-upload"
-                            type="file"
-                            ref={fileInputRef}
-                            className="sr-only"
-                            onChange={handleAssetFileUpload}
-                            multiple
-                        />
-                    </label>
-                    {files.length > 0 && (
-                         <div>
-                            <h4 className="font-medium text-lg mb-2">Uploaded Files</h4>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                                {files.map((file) => (
-                                    <Card 
-                                        key={file.id} 
-                                        className={cn(
-                                            "group relative transition-all duration-200 cursor-pointer",
-                                            selectedFiles.includes(file.id) && "border-primary ring-2 ring-primary/50"
-                                        )}
-                                        onClick={() => handleSelectFile(file.id)}
-                                    >
-                                        <div className="absolute top-2 right-2 z-10">
-                                            <Checkbox
-                                                checked={selectedFiles.includes(file.id)}
-                                                onCheckedChange={() => handleSelectFile(file.id)}
-                                                aria-label={`Select file ${file.name}`}
-                                            />
-                                        </div>
-                                        <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                                            <div className="mb-4">{file.icon}</div>
-                                            <p className="font-semibold text-sm truncate w-full" title={file.name}>{file.name}</p>
-                                            <p className="text-xs text-muted-foreground">{file.size}</p>
-                                        </CardContent>
-                                    </Card>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                </CardContent>
-            </Card>
-        </TabsContent>
-
         <TabsContent value="prompts">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card className="col-span-1">
@@ -326,3 +181,5 @@ export default function AssistantPage() {
     </main>
   );
 }
+
+    
