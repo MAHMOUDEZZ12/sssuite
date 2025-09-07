@@ -57,16 +57,19 @@ const MyProjectsWidget = () => (
         </CardHeader>
         <CardContent>
             <div className="space-y-3">
-                {userProjects.slice(0,2).map(project => (
-                    <div key={project.id} className="flex items-center justify-between p-2 bg-muted/50 rounded-md">
-                        <div>
-                            <p className="font-semibold">{project.name}</p>
-                            <p className="text-sm text-muted-foreground">{project.location}</p>
+                {userProjects.length > 0 ? (
+                    userProjects.slice(0, 2).map(project => (
+                        <div key={project.id} className="flex items-center justify-between p-2 bg-muted/50 rounded-md">
+                            <div>
+                                <p className="font-semibold">{project.name}</p>
+                                <p className="text-sm text-muted-foreground">{project.location}</p>
+                            </div>
+                            <Badge variant={statusVariant[project.status] || 'secondary'}>{project.status}</Badge>
                         </div>
-                        <Badge variant={statusVariant[project.status] || 'secondary'}>{project.status}</Badge>
-                    </div>
-                ))}
-                 {userProjects.length === 0 && <p className="text-sm text-muted-foreground text-center py-4">No projects yet.</p>}
+                    ))
+                ) : (
+                    <p className="text-sm text-muted-foreground text-center py-4">No projects yet.</p>
+                )}
             </div>
         </CardContent>
         <CardFooter className="justify-between">
