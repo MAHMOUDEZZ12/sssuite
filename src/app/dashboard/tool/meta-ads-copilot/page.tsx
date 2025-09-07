@@ -20,6 +20,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Link from 'next/link';
 
 // Define schemas here, on the client, for form validation.
 export const CreateMetaCampaignInputSchema = z.object({
@@ -27,7 +28,7 @@ export const CreateMetaCampaignInputSchema = z.object({
   projectBrochureDataUri: z.string().optional().describe(
     "A project brochure, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'. This is the primary source of truth for the campaign."
   ),
-  targetAudience: z.string().describe('A brief description of the ideal customer (e.g., "Young professionals and first-time homebuyers").'),
+  targetAudience: z.string().describe('A brief description of the ideal customer (e.g., "Young professionals and first-time homebuyers").').optional(),
   budget: z.number().describe('The total campaign budget.'),
   durationDays: z.number().describe('The number of days the campaign should run.'),
 });
@@ -197,7 +198,7 @@ export default function CampaignBuilderPage() {
         const payload: CreateMetaCampaignInput = {
             campaignGoal: data.campaignGoal,
             projectBrochureDataUri: brochureUri,
-            targetAudience: "Automatically generated based on project", // Placeholder
+            // targetAudience is now optional and will be inferred by the AI
             budget: Number(data.budget),
             durationDays: Number(data.durationDays)
         };
@@ -300,10 +301,13 @@ export default function CampaignBuilderPage() {
                                 </div>
                                  <div className="space-y-2">
                                    <Label>Target Audience</Label>
-                                   <Button variant="outline" className="w-full justify-start" type="button">
-                                      <Sparkles className="mr-2 h-4 w-4" />
-                                      Generate Audience (then edit)
-                                   </Button>
+                                    <Link href="/dashboard/tool/audience-creator">
+                                       <Button variant="outline" className="w-full justify-start" type="button">
+                                          <Sparkles className="mr-2 h-4 w-4" />
+                                          Use Audience Creator AI
+                                       </Button>
+                                    </Link>
+                                    <p className="text-xs text-muted-foreground">The AI will infer the audience from the brochure, or you can use the dedicated tool for advanced targeting.</p>
                                 </div>
                                  <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">

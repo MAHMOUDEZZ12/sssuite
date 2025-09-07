@@ -24,11 +24,10 @@ const createMetaCampaignPrompt = ai.definePrompt({
   name: 'createMetaCampaignPrompt',
   input: {schema: CreateMetaCampaignInputSchema},
   output: {schema: CreateMetaCampaignOutputSchema},
-  prompt: `You are an expert Meta Ads strategist specializing in real estate. Your task is to take a user's goal and create a complete, ready-to-launch campaign structure.
+  prompt: `You are an expert Meta Ads strategist specializing in real estate. Your task is to take a user's goal and project brochure and create a complete, ready-to-launch campaign structure.
 
   **User Inputs:**
   - Campaign Goal: {{{campaignGoal}}}
-  - Target Audience: {{{targetAudience}}}
   - Total Budget: {{{budget}}}
   - Duration (Days): {{{durationDays}}}
   {{#if projectBrochureDataUri}}
@@ -37,17 +36,18 @@ const createMetaCampaignPrompt = ai.definePrompt({
 
   **Instructions:**
 
-  1.  **Campaign Name & Objective:** Based on the user's goal, create a clear campaign name and choose the most appropriate Meta Ads objective (e.g., LEAD_GENERATION, AWARENESS, TRAFFIC).
-  2.  **Ad Sets:**
-      - Create at least two ad sets. One for a broad audience and one for a more niche, targeted audience.
+  1.  **Infer Audience:** Based *only* on the project brochure, infer the ideal target audience. Who is this property for? (e.g., "Young professionals," "High-net-worth families," "First-time international investors").
+  2.  **Campaign Name & Objective:** Based on the user's goal and the project, create a clear campaign name and choose the most appropriate Meta Ads objective (e.g., LEAD_GENERATION, AWARENESS, TRAFFIC).
+  3.  **Ad Sets:**
+      - Create at least two ad sets. One for a broad audience based on your inferred persona, and one for a more niche, targeted audience (e.g., a specific interest group or lookalike audience).
       - For each ad set, provide a name and a summary of the targeting strategy (demographics, interests, location).
       - Calculate a reasonable daily budget for each ad set based on the total budget and duration.
-  3.  **Ad Creatives:**
+  4.  **Ad Creatives:**
       - Generate at least three distinct ad creative variations.
-      - For each creative, write a compelling headline and body text, extracting key selling points from the brochure if available.
+      - For each creative, write a compelling headline and body text, extracting key selling points from the brochure.
       - Suggest a clear call-to-action for each ad.
       - Provide a specific image suggestion for each creative that would be visually appealing and relevant.
-  4.  **Optimization Advice:** Provide one key piece of advice for the user to keep in mind while running this campaign on Meta's platforms.
+  5.  **Optimization Advice:** Provide one key piece of advice for the user to keep in mind while running this campaign on Meta's platforms.
   `,
 });
 
