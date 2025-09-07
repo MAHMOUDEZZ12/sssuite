@@ -35,18 +35,18 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'investor-matching': matchInvestors,
     'ai-brand-creator': aiBrandCreator,
     'market-reports': generateMarketReport,
-    'property-finder-listing': generateListing,
-    'bayut-listing': generateListing,
-    'story-planner': generateStory,
-    'reel-ads': generateReel,
+    'property-finder-listing-ai': generateListing,
+    'bayut-listing-ai': generateListing,
+    'story-planner-ai': generateStory,
+    'reel-ads-ai': generateReel,
     'tiktok-editor': generateTikTokVideo,
     'crm-assistant': getCrmMemory,
-    'instagram-admin': manageSocialPage,
+    'instagram-admin-ai': manageSocialPage,
     'offer-generator': generateMultiOffer,
     'email-creator': createEmailCampaign,
     'whatsapp-campaigns': manageWhatsAppCampaign,
-    'campaign-builder': createMetaCampaign,
-    'facebook-ads': generateAdFromBrochure,
+    'meta-ads-copilot': createMetaCampaign,
+    'facebook-ads-ai': generateAdFromBrochure,
     // Note: Tools without a flowRunner will not be executable from the generic tool page.
     // They might be handled by custom pages or are for display only.
 };
@@ -64,3 +64,5 @@ export const tools = clientTools.map(tool => {
 
 // Re-export client-safe types and components for use in server components if needed
 export * from './tools-client';
+
+    

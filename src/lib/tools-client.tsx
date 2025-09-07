@@ -394,11 +394,11 @@ export const tools: Feature[] = [
     creationFields: [],
   },
   {
-    id: 'campaign-builder',
-    title: 'Campaign Builder AI',
+    id: 'meta-ads-copilot',
+    title: 'Meta Ads Co-Pilot',
     dashboardTitle: 'Campaign Builder',
     description: 'Your dedicated agent for Facebook & Instagram advertising.',
-    icon: <Bot />,
+    icon: <Facebook />,
     color: '#1d4ed8', // blue-700
     cta: 'Create Campaign',
     categories: ['Marketing', 'Ads', 'Lead Gen'],
@@ -1374,3 +1374,5 @@ export const tools: Feature[] = [
     creationFields: [],
   },
 ];
+
+    
