@@ -29,7 +29,7 @@ export function DashboardHeader() {
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-4 backdrop-blur-sm sm:px-6">
             <div>
                  <Link href="/dashboard" className="text-xl font-bold text-foreground/80 hover:text-foreground transition-colors">
-                    (Username) GroundPlay
+                    Don's GroundPlay
                  </Link>
             </div>
             <div className="flex items-center gap-2">
