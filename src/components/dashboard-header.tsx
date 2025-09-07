@@ -26,8 +26,13 @@ export function DashboardHeader() {
     ];
 
     return (
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur-sm sm:px-6">
-            <div className="ml-auto flex items-center gap-2">
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-4 backdrop-blur-sm sm:px-6">
+            <div>
+                 <Link href="/dashboard" className="text-xl font-bold text-foreground/80 hover:text-foreground transition-colors">
+                    (Username) GroundPlay
+                 </Link>
+            </div>
+            <div className="flex items-center gap-2">
                 <nav className="hidden md:flex items-center gap-1">
                     {navLinks.map(link => (
                         <Link key={link.href} href={link.href}>
