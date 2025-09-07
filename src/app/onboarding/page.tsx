@@ -9,7 +9,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { StepHeader } from '@/components/ui/step-header';
 import { ProjectCard } from '@/components/ui/project-card';
 import { ProviderTile } from '@/components/ui/provider-tile';
 import { Check, ChevronRight, X, ArrowLeft, Loader2, Sparkles, Upload } from 'lucide-react';
@@ -148,7 +147,8 @@ function OnboardingComponent() {
                 return (
                     <Card>
                         <CardHeader>
-                            <StepHeader title="Let's build your project library" subtitle="We'll start by confirming your market and identifying key developers." />
+                            <CardTitle>Let's build your project library</CardTitle>
+                            <CardDescription>We'll start by confirming your market and identifying key developers.</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-8">
                             <div>
@@ -206,7 +206,7 @@ function OnboardingComponent() {
                 return (
                     <Card>
                         <CardHeader>
-                            <StepHeader title="Your data. Your control." />
+                            <CardTitle>Your data. Your control.</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
                            <ul className="space-y-3">
@@ -234,7 +234,8 @@ function OnboardingComponent() {
                 return (
                      <Card>
                         <CardHeader>
-                            <StepHeader title="Add a payment method" subtitle="Used for exports & publishing. No charge to start." />
+                            <CardTitle>Add a payment method</CardTitle>
+                            <CardDescription>Used for exports & publishing. No charge to start.</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="grid gap-2">
@@ -271,7 +272,8 @@ function OnboardingComponent() {
                 return (
                      <Card>
                         <CardHeader>
-                            <StepHeader title="Here's a broader scan based on your choices." subtitle="Select 5-8 projects to build your initial library. This helps the AI understand your focus." />
+                             <CardTitle>Here's a broader scan based on your choices.</CardTitle>
+                            <CardDescription>Select 5-8 projects to build your initial library. This helps the AI understand your focus.</CardDescription>
                         </CardHeader>
                         <CardContent>
                              {isLoading && scannedProjects.length === 0 ? (
@@ -311,7 +313,8 @@ function OnboardingComponent() {
                 return (
                      <Card>
                         <CardHeader>
-                            <StepHeader title="Make it yours." subtitle="Add your brand to personalize all AI-generated content." />
+                            <CardTitle>Make it yours.</CardTitle>
+                            <CardDescription>Add your brand to personalize all AI-generated content.</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <div className="space-y-2">
@@ -371,7 +374,8 @@ function OnboardingComponent() {
                 return (
                      <Card>
                         <CardHeader>
-                            <StepHeader title="Connect your accounts" subtitle="Unlock automations for posting, messaging, and more. You can always do this later." />
+                            <CardTitle>Connect your accounts</CardTitle>
+                            <CardDescription>Unlock automations for posting, messaging, and more. You can always do this later.</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="grid gap-3 sm:grid-cols-2">
@@ -395,7 +399,7 @@ function OnboardingComponent() {
                              <div className="mx-auto w-fit p-4 bg-primary/10 text-primary rounded-full mb-4">
                                 <Sparkles className="h-10 w-10" />
                              </div>
-                            <StepHeader title="You're all set. Choose your starting plan." />
+                            <CardTitle>You're all set. Choose your starting plan.</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <p className="text-muted-foreground">Your brand and project library are ready. You can start for free or pick a plan.</p>
@@ -453,3 +457,5 @@ export default function OnboardingPage() {
         </div>
     )
 }
+
+    
