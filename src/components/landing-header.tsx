@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Laptop, Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
@@ -17,8 +17,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { ThemeSwitcher } from './theme-switcher';
+import { useTheme } from './theme-switcher';
 
 const navLinks = [
     { name: 'Pricing', href: '/pricing' },
@@ -29,6 +31,7 @@ const navLinks = [
 
 export function LandingHeader() {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, setTheme, themes } = useTheme();
   
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -57,7 +60,12 @@ export function LandingHeader() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <ThemeSwitcher />
+                 {themes.map((t) => (
+                    <DropdownMenuItem key={t.value} onClick={() => setTheme(t.value)}>
+                    <t.icon className="mr-2 h-4 w-4" />
+                    <span>{t.label}</span>
+                    </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
         </div>
@@ -83,7 +91,12 @@ export function LandingHeader() {
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end">
-                                <ThemeSwitcher />
+                                {themes.map((t) => (
+                                    <DropdownMenuItem key={t.value} onClick={() => setTheme(t.value)}>
+                                    <t.icon className="mr-2 h-4 w-4" />
+                                    <span>{t.label}</span>
+                                    </DropdownMenuItem>
+                                ))}
                               </DropdownMenuContent>
                             </DropdownMenu>
                             <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
@@ -115,5 +128,3 @@ export function LandingHeader() {
     </header>
   );
 }
-
-    

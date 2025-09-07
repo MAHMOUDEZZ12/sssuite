@@ -12,15 +12,16 @@ import {
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
-import { LifeBuoy, LogOut, Settings, User, Search } from "lucide-react";
+import { LifeBuoy, LogOut, Settings, User, Search, Sun, Moon, Laptop, Bot } from "lucide-react";
 import { usePathname } from 'next/navigation';
-import { ThemeSwitcher } from "./theme-switcher";
+import { useTheme } from "./theme-switcher";
 import React from "react";
 import { GlobalSearch } from "./ui/global-search";
 
 export function DashboardHeader() {
     const pathname = usePathname();
     const [isSearchOpen, setIsSearchOpen] = React.useState(false);
+    const { theme, setTheme, themes } = useTheme();
 
     const navLinks = [
         { href: '/dashboard/projects', label: 'Projects' },
@@ -84,7 +85,12 @@ export function DashboardHeader() {
                              </a>
                             <DropdownMenuSeparator />
                             <DropdownMenuLabel>Theme</DropdownMenuLabel>
-                            <ThemeSwitcher />
+                            {themes.map((t) => (
+                                <DropdownMenuItem key={t.value} onClick={() => setTheme(t.value)}>
+                                <t.icon className="mr-2 h-4 w-4" />
+                                <span>{t.label}</span>
+                                </DropdownMenuItem>
+                            ))}
                             <DropdownMenuSeparator />
                             <Link href="/login"><DropdownMenuItem>
                                  <LogOut className="mr-2 h-4 w-4" />
@@ -98,5 +104,3 @@ export function DashboardHeader() {
         </>
     );
 }
-
-    
