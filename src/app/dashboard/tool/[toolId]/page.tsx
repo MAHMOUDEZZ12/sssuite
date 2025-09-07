@@ -36,6 +36,9 @@ const getToolSchema = (tool: Feature | undefined) => {
 
         if (field.type === 'file') {
             fieldSchema = z.custom<FileList>().nullable().optional();
+             if (!optionalFileFields.includes(field.id) && !field.multiple) {
+                fieldSchema = z.custom<FileList>().refine(files => files && files.length > 0, `${field.name} is required.`);
+            }
         } else if (field.type === 'number') {
             fieldSchema = z.string().min(1, `${field.name} is required`).refine(val => !isNaN(Number(val)), { message: "Must be a number" });
         } else if (optionalTextFields.includes(field.id) ) {
@@ -67,7 +70,7 @@ const getToolSchema = (tool: Feature | undefined) => {
 
     // Add cross-field validations
     return baseSchema.refine(data => {
-        if (tool.id === 'ad-creation') {
+        if (tool.id === 'ad-creation' || tool.id === 'insta-ads-designer') {
             return !!data.projectName || (data.brochureDataUri && data.brochureDataUri.length > 0);
         }
         return true;
@@ -108,6 +111,7 @@ export default function ToolPage() {
   React.useEffect(() => {
     const currentTool = clientTools.find((t) => t.id === toolId);
     if (currentTool?.isPage) {
+        // This is a custom page, not a generic tool page. Redirect.
         router.push(`/dashboard/tool/${currentTool.id}`);
     } else {
         setTool(currentTool);
@@ -160,9 +164,11 @@ export default function ToolPage() {
 
         for (const field of currentTool.creationFields) {
             const fieldId = field.id;
-            if (field.type === 'button' || field.type === 'group-header' || !data[fieldId]) continue;
+            if (field.type === 'button' || field.type === 'group-header' || !data.hasOwnProperty(fieldId)) continue;
 
             const value = data[fieldId];
+            if (value === null || value === undefined) continue;
+
             if (field.type === 'file' && value instanceof FileList && value.length > 0) {
                  if (field.multiple) {
                     payload[fieldId] = await filesToDataUris(value);
