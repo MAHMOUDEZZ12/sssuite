@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -49,7 +49,7 @@ export default function BrandPage() {
   const [selectedPalette, setSelectedPalette] = React.useState({ name: 'Charcoal & Mint', primary: '#36454F', secondary: '#98FF98' });
   
   const [isTraining, setIsTraining] = useState(false);
-  const [files, setFiles] = useState<MockFile[]>(initialMockFiles);
+  const [files, setFiles] = useState<MockFile[]>([]);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<number[]>([]);
 
@@ -430,3 +430,4 @@ export default function BrandPage() {
 }
     
  
+      
