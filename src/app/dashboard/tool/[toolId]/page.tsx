@@ -15,7 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
-import { Loader2, Sparkles, AlertCircle, Upload } from 'lucide-react';
+import { Loader2, Sparkles, AlertCircle, Upload, Info } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Confetti } from '@/components/confetti';
 import Link from 'next/link';
@@ -102,6 +102,7 @@ export default function ToolPage() {
   const [error, setError] = React.useState<string | null>(null);
   const [result, setResult] = React.useState<any | null>(null);
   const [showConfetti, setShowConfetti] = React.useState(false);
+  const [showCampaignNotice, setShowCampaignNotice] = React.useState(false);
   const { toast } = useToast();
 
   React.useEffect(() => {
@@ -110,6 +111,9 @@ export default function ToolPage() {
         router.push(`/dashboard/tool/${currentTool.id}`);
     } else {
         setTool(currentTool);
+        if (currentTool?.id === 'audience-creator') {
+            setShowCampaignNotice(true);
+        }
     }
   }, [toolId, router]);
 
@@ -313,6 +317,23 @@ export default function ToolPage() {
   return (
     <main className="p-4 md:p-10 space-y-8">
       {showConfetti && <Confetti onComplete={() => setShowConfetti(false)} />}
+      
+      {showCampaignNotice && (
+        <Alert className="max-w-4xl mx-auto">
+            <Info className="h-4 w-4" />
+            <AlertTitle>Heads up!</AlertTitle>
+            <AlertDescription className='flex justify-between items-center'>
+               <div>You have no campaign creation started. You can still generate an audience, but to use them you must start a campaign.</div>
+               <div className='flex gap-2'>
+                    <Link href="/dashboard/tool/meta-ads-copilot">
+                        <Button size="sm">Start a Campaign</Button>
+                    </Link>
+                    <Button size="sm" variant="ghost" onClick={() => setShowCampaignNotice(false)}>I'm just discovering</Button>
+               </div>
+            </AlertDescription>
+        </Alert>
+      )}
+
       <Card className="max-w-4xl mx-auto">
         <CardHeader>
           <div className="flex items-center gap-4">
