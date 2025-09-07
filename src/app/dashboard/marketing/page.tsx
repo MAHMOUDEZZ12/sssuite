@@ -16,12 +16,30 @@ const marketingTools = tools.filter(t =>
     t.categories.includes('Editing')
 ).filter(t => t.id !== 'superfreetime' && t.id !== 'ai-assistant');
 
+const appsThatNeedConnection = [
+    'meta-ads-copilot',
+    'audience-creator',
+    'insta-ads-designer',
+    'instagram-admin-ai',
+    'email-creator',
+    'whatsapp-campaigns'
+];
+
+const connectionPlatform: {[key: string]: string} = {
+    'meta-ads-copilot': 'Facebook',
+    'audience-creator': 'Facebook',
+    'insta-ads-designer': 'Instagram',
+    'instagram-admin-ai': 'Instagram',
+    'email-creator': 'Gmail / Outlook',
+    'whatsapp-campaigns': 'WhatsApp Business'
+}
+
 export default function MarketingDashboardPage() {
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
         title="Apps"
-        description="Your command center for all AI-powered applications. Discover and launch tools to accelerate your workflow."
+        description="Your command center for all AI-powered applications. Add apps to your workspace to get started."
         icon={<Puzzle className="h-8 w-8" />}
       />
 
@@ -35,6 +53,7 @@ export default function MarketingDashboardPage() {
                 guideHref={`/blog/${tool.id}`}
                 icon={tool.icon}
                 color={tool.color}
+                connectionRequired={connectionPlatform[tool.id]}
             />
         ))}
       </div>
