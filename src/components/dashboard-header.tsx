@@ -12,13 +12,15 @@ import {
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
-import { LifeBuoy, LogOut, Settings, User, Search } from "lucide-react";
+import { LifeBuoy, LogOut, Settings, User, Search, PanelLeft } from "lucide-react";
 import React from "react";
 import { GlobalSearch } from "./ui/global-search";
 import { useTheme } from "./theme-switcher";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
+import { SidebarTrigger } from "./ui/sidebar";
+import { Logo } from "./logo";
 
 export function DashboardHeader() {
     const [isSearchOpen, setIsSearchOpen] = React.useState(false);
@@ -35,9 +37,10 @@ export function DashboardHeader() {
         <>
             <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/95 px-4 backdrop-blur-sm sm:px-6">
                 <div className="flex items-center gap-2">
-                     <Link href="/dashboard" className="text-xl font-bold text-foreground/80 hover:text-foreground transition-colors hidden md:block">
-                        Gemin
-                     </Link>
+                     <SidebarTrigger className="md:hidden" />
+                     <div className="hidden md:block">
+                        <Logo />
+                     </div>
                 </div>
                 
                 <div className="flex flex-1 justify-center max-w-md">

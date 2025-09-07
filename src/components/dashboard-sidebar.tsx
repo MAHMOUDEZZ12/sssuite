@@ -12,10 +12,12 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarFooter,
+  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { Logo } from './logo';
-import { Home, Users, Building, Megaphone, Palette, Bot, Settings } from 'lucide-react';
+import { Home, Users, Building, Megaphone, Palette, Bot, Settings, PanelLeft } from 'lucide-react';
 import { useTabManager } from '@/context/TabManagerContext';
+import { Button } from './ui/button';
 
 const mainNav = [
   { href: '/dashboard', label: 'Home', icon: Home },
@@ -43,8 +45,9 @@ export function DashboardSidebar() {
   
   return (
     <Sidebar>
-      <SidebarHeader>
+      <SidebarHeader className="flex items-center justify-between">
         <Logo />
+         <SidebarTrigger className="hidden md:flex" />
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
@@ -59,7 +62,7 @@ export function DashboardSidebar() {
                      className="justify-start"
                   >
                     <item.icon />
-                    <span>{item.label}</span>
+                    <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
@@ -78,7 +81,7 @@ export function DashboardSidebar() {
                             className="justify-start"
                         >
                             <item.icon />
-                            <span>{item.label}</span>
+                            <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
                         </SidebarMenuButton>
                     </Link>
                 </SidebarMenuItem>

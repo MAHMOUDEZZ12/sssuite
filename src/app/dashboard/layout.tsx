@@ -5,7 +5,7 @@ import * as React from 'react';
 import { AssistantChat } from '@/components/assistant-chat';
 import { DashboardHeader } from '@/components/dashboard-header';
 import { DashboardFooter } from '@/components/dashboard-footer';
-import { Sidebar, SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { DashboardSidebar } from '@/components/dashboard-sidebar';
 import { TabProvider } from '@/context/TabManagerContext';
 
