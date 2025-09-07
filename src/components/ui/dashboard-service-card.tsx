@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BookOpen, Plus, Check, Loader2 } from 'lucide-react';
+import { ArrowRight, BookOpen, Plus, Check, Loader2, CreditCard } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   AlertDialog,
@@ -28,7 +28,10 @@ interface DashboardServiceCardProps {
   href: string;
   guideHref?: string;
   color?: string;
+  isAdded: boolean;
+  setIsAdded: (isAdded: boolean) => void;
   connectionRequired?: string; // e.g., "Facebook"
+  paymentRequired?: boolean;
 }
 
 export function DashboardServiceCard({
@@ -38,24 +41,33 @@ export function DashboardServiceCard({
   href,
   guideHref,
   color,
-  connectionRequired
+  isAdded,
+  setIsAdded,
+  connectionRequired,
+  paymentRequired,
 }: DashboardServiceCardProps) {
   const { toast } = useToast();
-  const [isAdded, setIsAdded] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
 
-  const handleConnect = (e: React.MouseEvent) => {
+  const handleAction = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsConnecting(true);
     setTimeout(() => {
         setIsConnecting(false);
         setIsAdded(true);
         toast({
-            title: `${connectionRequired} Connected!`,
+            title: `${title} Activated!`,
             description: `You can now use the ${title} tool.`
         });
     }, 1500);
   }
+  
+  const AddButtonContent = () => (
+    <>
+        <Plus className="mr-2 h-4 w-4" />
+        Add
+    </>
+  );
 
   const MainAction = () => {
     if (isAdded) {
@@ -68,14 +80,12 @@ export function DashboardServiceCard({
             </Link>
         )
     }
+
     if (connectionRequired) {
         return (
             <AlertDialog>
                 <AlertDialogTrigger asChild>
-                     <Button size="sm" variant="outline">
-                        <Plus className="mr-2 h-4 w-4" />
-                        Add
-                    </Button>
+                     <Button size="sm" variant="outline"><AddButtonContent /></Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                     <AlertDialogHeader>
@@ -86,7 +96,7 @@ export function DashboardServiceCard({
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleConnect} disabled={isConnecting}>
+                    <AlertDialogAction onClick={handleAction} disabled={isConnecting}>
                         {isConnecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
                         Connect to {connectionRequired}
                     </AlertDialogAction>
@@ -95,13 +105,40 @@ export function DashboardServiceCard({
             </AlertDialog>
         )
     }
+    
+    if (paymentRequired) {
+        return (
+            <AlertDialog>
+                <AlertDialogTrigger asChild>
+                    <Button size="sm" variant="outline"><AddButtonContent /></Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                    <AlertDialogTitle className="flex items-center gap-2"><CreditCard /> Unlock with Subscription</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        The "{title}" tool is a premium feature. To activate it, please confirm your subscription or add a payment method.
+                    </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleAction} disabled={isConnecting}>
+                        {isConnecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
+                        Confirm & Unlock
+                    </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        )
+    }
+
      return (
-        <Link href={href}>
-            <Button size="sm">
-                Use Tool
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-        </Link>
+        <Button size="sm" variant="outline" onClick={(e) => {
+            e.preventDefault();
+            setIsAdded(true);
+            toast({ title: `${title} Added!`, description: 'The tool is now available in your workspace.' });
+        }}>
+            <AddButtonContent />
+        </Button>
     )
   }
 
