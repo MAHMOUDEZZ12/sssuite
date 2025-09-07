@@ -52,6 +52,7 @@ import {
   Star,
   Loader2,
   ArrowLeft,
+  Crown,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -59,6 +60,9 @@ import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
 
 export const fileToDataUri = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -213,6 +217,23 @@ const AudienceRefinementCard = ({ strategy, toast, onBack }: { strategy: any, to
     );
 };
 
+const ProFeatureLock = ({ children, title }: { children: React.ReactNode, title: string }) => (
+    <div className="relative">
+        <div className="blur-sm grayscale pointer-events-none opacity-60">
+            {children}
+        </div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/50 rounded-lg">
+            <div className="p-4 bg-background border shadow-lg rounded-xl text-center">
+                <Crown className="mx-auto h-8 w-8 text-amber-500 mb-2" />
+                <h3 className="font-bold text-lg text-foreground">{title}</h3>
+                <p className="text-sm text-muted-foreground mb-4">This is a Pro-level feature.</p>
+                <Button>Upgrade to Pro</Button>
+            </div>
+        </div>
+    </div>
+);
+
+
 const AudienceIdeationResult = ({ result, toast }: { result: any, toast: any }) => {
     const [selectedStrategy, setSelectedStrategy] = React.useState<any | null>(null);
     
@@ -221,32 +242,118 @@ const AudienceIdeationResult = ({ result, toast }: { result: any, toast: any }) 
     }
 
     return (
-        <div className="space-y-6">
-            <div className="text-center">
+      <Tabs defaultValue="suggestions">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="suggestions">
+            <Sparkles className="mr-2 h-4 w-4" /> AI Suggestions
+          </TabsTrigger>
+          <TabsTrigger value="custom">
+            <Upload className="mr-2 h-4 w-4" /> Custom Audience
+          </TabsTrigger>
+          <TabsTrigger value="lookalike">
+            <Users2 className="mr-2 h-4 w-4" /> Lookalike Audience
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="suggestions" className="mt-6">
+            <div className="text-center mb-6">
                  <h3 className="font-semibold text-xl text-foreground">Recommended Targeting Strategies</h3>
-                <p className="text-muted-foreground mt-1">The AI has generated multiple distinct strategies for your project. Select one to refine and estimate its potential reach.</p>
+                <p className="text-muted-foreground mt-1 text-sm">The AI has generated multiple distinct strategies for your project. Select one to refine and estimate its potential reach.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {result.strategies.map((strategy: any, index: number) => (
-                <Card key={index} className="flex flex-col">
+                {result.strategies.map((strategy: any, index: number) => (
+                    <Card key={index} className="flex flex-col">
+                        <CardHeader>
+                            <CardTitle className="text-lg">{strategy.strategyName}</CardTitle>
+                            <CardDescription>
+                                <Badge variant="outline">{strategy.audienceType}</Badge>
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex-grow">
+                            <p className="text-sm text-muted-foreground">{strategy.demographics}</p>
+                        </CardContent>
+                        <CardFooter>
+                            <Button className="w-full" onClick={() => setSelectedStrategy(strategy)}>
+                                Select & Refine <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+        </TabsContent>
+
+        <TabsContent value="custom" className="mt-6">
+            <ProFeatureLock title="Custom Audience from File">
+                <Card>
                     <CardHeader>
-                        <CardTitle className="text-lg">{strategy.strategyName}</CardTitle>
-                        <CardDescription>
-                            <Badge variant="outline">{strategy.audienceType}</Badge>
-                        </CardDescription>
+                        <CardTitle>Create a Custom Audience</CardTitle>
+                        <CardDescription>Upload a list of your existing customers or leads (CSV or TXT). The data is securely hashed before being sent to Meta.</CardDescription>
                     </CardHeader>
-                    <CardContent className="flex-grow">
-                        <p className="text-sm text-muted-foreground">{strategy.demographics}</p>
+                    <CardContent className="space-y-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="audienceName">Audience Name</Label>
+                            <Input id="audienceName" placeholder="e.g., 'Past Buyers Q1 2024'" />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="customerFile">Customer File</Label>
+                            <Input id="customerFile" type="file" accept=".csv,.txt" />
+                        </div>
                     </CardContent>
                     <CardFooter>
-                        <Button className="w-full" onClick={() => setSelectedStrategy(strategy)}>
-                            Select & Refine <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
+                        <Button className="w-full">Upload & Create Audience</Button>
                     </CardFooter>
                 </Card>
-            ))}
-            </div>
-        </div>
+            </ProFeatureLock>
+        </TabsContent>
+        
+        <TabsContent value="lookalike" className="mt-6">
+            <ProFeatureLock title="Lookalike Audience">
+                 <Card>
+                    <CardHeader>
+                        <CardTitle>Create a Lookalike Audience</CardTitle>
+                        <CardDescription>Find new people who are similar to your most valuable audiences. This is a powerful way to scale your campaigns.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                         <div className="space-y-2">
+                            <Label htmlFor="sourceAudience">Source Audience</Label>
+                             <Select>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select a source..." />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="past-buyers">Custom Audience: Past Buyers</SelectItem>
+                                    <SelectItem value="website-visitors">Custom Audience: Website Visitors (30 days)</SelectItem>
+                                    <SelectItem value="azure-leads">Campaign Leads: Azure Lofts</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="lookalike-location">Target Location</Label>
+                            <Input id="lookalike-location" placeholder="e.g., United States" />
+                        </div>
+                        <div className="space-y-2">
+                            <Label>Audience Size</Label>
+                            <p className="text-sm text-muted-foreground">1% is most similar to your source, while 10% increases reach.</p>
+                             <Select defaultValue="1">
+                                <SelectTrigger>
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="1">1%</SelectItem>
+                                    <SelectItem value="2">2%</SelectItem>
+                                    <SelectItem value="5">5%</SelectItem>
+                                    <SelectItem value="10">10%</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                         <Button className="w-full">Create Lookalike Audience</Button>
+                    </CardFooter>
+                </Card>
+            </ProFeatureLock>
+        </TabsContent>
+      </Tabs>
     );
 }
 
