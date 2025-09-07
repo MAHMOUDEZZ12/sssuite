@@ -71,12 +71,12 @@ const getToolSchema = (tool: Feature | undefined) => {
     // Add cross-field validations
     return baseSchema.refine(data => {
         if (tool.id === 'ad-creation' || tool.id === 'insta-ads-designer') {
-            return !!data.projectName || (data.brochureDataUri && data.brochureDataUri.length > 0);
+            return !!data.projectId || (data.brochureDataUri && data.brochureDataUri.length > 0);
         }
         return true;
     }, {
-        message: 'Either a Project Name or a Brochure must be provided.',
-        path: ['projectName'], 
+        message: 'Either a Project or a Brochure must be provided.',
+        path: ['projectId'], 
     }).refine(data => {
          if (tool.id === 'targeting') {
             return Number(data.maxPrice) >= Number(data.minPrice);
