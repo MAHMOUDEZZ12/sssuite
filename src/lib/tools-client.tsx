@@ -932,30 +932,23 @@ export const tools: Feature[] = [
       { id: 'keyFeatures', name: 'Key Features', type: 'textarea', placeholder: 'e.g., Long-term tenants in place, zoned for mixed-use, located in an opportunity zone.', description: 'Additional selling points for an investor.' },
     ],
   },
-    {
-    id: 'dubizzle-listing-ai',
-    title: 'Dubizzle Listing',
-    dashboardTitle: 'Dubizzle Listing',
-    description: 'Optimize your listings for Dubizzle.',
+  {
+    id: 'listing-manager',
+    title: 'Listing Manager',
+    dashboardTitle: 'Listing Manager',
+    description: 'Manage all your portal listings from one dashboard.',
     icon: <Building />,
-    color: '#16a34a',
-    cta: 'Create Listing',
+    color: '#0891b2', // cyan-600
+    cta: 'Go to Manager',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
-    badge: 'NEW',
+    isPage: true,
     details: { steps: [], aiVsManual: [], synergy: [], faqs: [] },
-    creationFields: [
-      { id: 'platform', name: 'Platform', type: 'text', value: 'Dubizzle', hidden: true, description: '' },
-      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the a property.' },
-      { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
-      { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },
-      { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
-    ],
+    creationFields: [],
   },
   {
     id: 'property-finder-listing-ai',
     title: 'Property Finder Listing',
-    dashboardTitle: 'Property Finder Listing',
     description: 'Optimize your listings for Property Finder.',
     icon: <Building />,
     color: '#d946ef', // fuchsia-600
@@ -963,7 +956,7 @@ export const tools: Feature[] = [
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
     renderResult: (result, toast) => (
-      <div className="space-y-6">
+       <div className="space-y-6">
         <div>
           <h3 className="font-semibold text-lg mb-2">Generated Title</h3>
           <div className="p-4 bg-muted rounded-md relative group">
@@ -1018,7 +1011,6 @@ export const tools: Feature[] = [
   {
     id: 'bayut-listing-ai',
     title: 'Bayut Listing',
-    dashboardTitle: 'Bayut Listing',
     description: 'Craft perfect listings for the Bayut portal.',
     icon: <Building />,
     color: '#22c55e', // green-500
@@ -1072,6 +1064,24 @@ export const tools: Feature[] = [
     },
     creationFields: [
       { id: 'platform', name: 'Platform', type: 'text', placeholder: '', description: '', value: 'Bayut', hidden: true },
+      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the a property.' },
+      { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
+      { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },
+      { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
+    ],
+  },
+   {
+    id: 'dubizzle-listing-ai',
+    title: 'Dubizzle Listing',
+    description: 'Optimize your listings for Dubizzle.',
+    icon: <Building />,
+    color: '#16a34a',
+    cta: 'Create Listing',
+    categories: ['Sales Tools', 'Editing', 'Web'],
+    mindMapCategory: 'Sales Enablement',
+    details: { steps: [], aiVsManual: [], synergy: [], faqs: [] },
+    creationFields: [
+      { id: 'platform', name: 'Platform', type: 'text', value: 'Dubizzle', hidden: true, description: '' },
       { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the a property.' },
       { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
       { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },

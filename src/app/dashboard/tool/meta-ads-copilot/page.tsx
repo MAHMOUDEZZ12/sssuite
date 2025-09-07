@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { createMetaCampaign } from '@/ai/flows/create-meta-campaign';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -206,9 +205,19 @@ export default function CampaignBuilderPage() {
             budget: Number(data.budget),
             durationDays: Number(data.durationDays)
         };
+        
+        const response = await fetch('/api/tools/run', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ toolId: 'meta-ads-copilot', payload }),
+        });
 
-        const response = await createMetaCampaign(payload);
-        setResult(response);
+        const responseData = await response.json();
+        if (!response.ok) {
+            throw new Error(responseData.error || 'An API error occurred.');
+        }
+
+        setResult(responseData);
 
     } catch (e: any) {
         console.error(e);
@@ -431,4 +440,3 @@ export default function CampaignBuilderPage() {
     </main>
   );
 }
-

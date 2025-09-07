@@ -36,6 +36,7 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'ai-brand-creator': aiBrandCreator,
     'market-reports': generateMarketReport,
     'property-finder-listing-ai': generateListing,
+    'dubizzle-listing-ai': generateListing,
     'bayut-listing-ai': generateListing,
     'story-planner-ai': generateStory,
     'reel-ads-ai': generateReel,
@@ -64,5 +65,3 @@ export const tools = clientTools.map(tool => {
 
 // Re-export client-safe types and components for use in server components if needed
 export * from './tools-client';
-
-    
