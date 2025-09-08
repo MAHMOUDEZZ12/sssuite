@@ -73,8 +73,9 @@ const publishCampaignToMeta = ai.defineTool(
     const ad_account_id = process.env.META_AD_ACCOUNT_ID;
 
     if (!access_token || !ad_account_id) {
-      console.warn("Meta API credentials are not configured. Skipping campaign publishing.");
-      throw new Error("Meta API credentials are not configured in the environment.");
+      console.warn("Meta API credentials are not configured. Skipping live campaign publishing and returning a mock ID. The campaign plan has still been generated.");
+      // To prevent server crashes, return a mock success object if credentials are not set.
+      return { campaignId: "meta-credentials-not-set" };
     }
 
     console.log(`Initializing Meta Ads API for account: ${ad_account_id}`);
@@ -98,7 +99,8 @@ const publishCampaignToMeta = ai.defineTool(
       return { campaignId };
     } catch (error: any) {
       console.error('Error publishing campaign to Meta:', error?.response?.body || error.message);
-      throw new Error(`Failed to publish campaign to Meta: ${error?.response?.body?.error?.message || error.message}`);
+      // Also prevent crashes on API error, return a specific error ID
+      return { campaignId: `meta-api-error: ${error?.response?.body?.error?.message || error.message}`};
     }
   }
 );

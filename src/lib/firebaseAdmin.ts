@@ -15,20 +15,16 @@ let app: App;
 
 if (!getApps().length) {
   try {
-    const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT;
-    if (serviceAccountJson && serviceAccountJson.trim() !== '') {
-      const serviceAccount = JSON.parse(serviceAccountJson);
-      console.log('Initializing Firebase Admin with explicit service account credentials.');
-      app = initializeApp({
-        credential: cert(serviceAccount),
-      });
-    } else {
-      // This will cause the catch block to run
-      throw new Error('FIREBASE_SERVICE_ACCOUNT is not a valid JSON string or is empty.');
-    }
+    // This will succeed in local development if the service account is set
+    const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT!);
+     console.log('Initializing Firebase Admin with explicit service account credentials.');
+    app = initializeApp({
+      credential: cert(serviceAccount),
+    });
   } catch (e: any) {
+    // This will happen in the cloud environment where the variable is not set
     console.warn(
-        `Could not initialize with explicit credentials (Error: ${e.message}). Falling back to application default credentials. This is expected in a managed environment.`
+        `Could not initialize with explicit credentials. Falling back to application default credentials. This is expected in a managed cloud environment.`
     );
     app = initializeApp({
       credential: applicationDefault(),
