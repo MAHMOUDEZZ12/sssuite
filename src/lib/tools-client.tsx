@@ -184,7 +184,6 @@ export const tools: Feature[] = [
     cta: 'Create Campaign',
     categories: ['Marketing', 'Ads', 'Lead Gen'],
     mindMapCategory: 'Meta Ads AI Suite',
-    badge: 'NEW',
     isPage: true,
     href: '/dashboard/tool/meta-ads-copilot',
     guideHref: '/blog/meta-ads-copilot',
@@ -583,7 +582,7 @@ export const tools: Feature[] = [
     cta: 'Edit YouTube Video',
     categories: ['Creative', 'Editing', 'Social & Comms'],
     mindMapCategory: 'Creative Suite',
-    badge: 'NEW',
+    badge: 'SOON',
     href: '/dashboard/tool/youtube-video-editor',
     guideHref: '/blog/youtube-video-editor',
     details: {
@@ -801,7 +800,7 @@ export const tools: Feature[] = [
     cta: 'Translate Brochure',
     categories: ['Creative', 'Editing', 'Sales Tools'],
     mindMapCategory: 'Creative Suite',
-    badge: 'NEW',
+    badge: 'SOON',
     href: '/dashboard/tool/brochure-translator',
     guideHref: '/blog/brochure-translator',
     renderResult: (result, toast) => (
@@ -912,7 +911,7 @@ export const tools: Feature[] = [
     cta: 'Generate Plan',
     categories: ['Sales Tools'],
     mindMapCategory: 'Sales Enablement',
-    badge: 'NEW',
+    badge: 'SOON',
     href: '/dashboard/tool/payment-planner',
     guideHref: '/blog/payment-planner',
     details: {
@@ -1045,7 +1044,7 @@ export const tools: Feature[] = [
     cta: 'Create Listing',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
-    badge: 'NEW',
+    badge: 'SOON',
     href: '/dashboard/tool/listing-generator',
     guideHref: '/blog/bayut-listing-ai',
     renderResult: (result, toast) => (
@@ -1148,7 +1147,7 @@ export const tools: Feature[] = [
     cta: 'Sync Listing',
     categories: ['Sales Tools', 'Web'],
     mindMapCategory: 'Sales Enablement',
-    badge: 'NEW',
+    badge: 'SOON',
     href: '/dashboard/tool/propertyfinder-sync',
     guideHref: '/blog/bayut-listing-ai',
     details: {
@@ -1190,7 +1189,7 @@ export const tools: Feature[] = [
     cta: 'Sync Listing',
     categories: ['Sales Tools', 'Web'],
     mindMapCategory: 'Sales Enablement',
-    badge: 'NEW',
+    badge: 'SOON',
     href: '/dashboard/tool/bayut-sync',
     guideHref: '/blog/bayut-listing-ai',
     details: {
@@ -1386,7 +1385,7 @@ export const tools: Feature[] = [
     cta: 'Analyze Trends',
     categories: ['Market Library', 'Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Core Intelligence',
-    badge: 'BETA',
+    badge: 'SOON',
     href: '/dashboard/tool/market-trends',
     guideHref: '/blog/market-reports',
     details: {
