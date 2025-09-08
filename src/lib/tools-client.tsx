@@ -1519,6 +1519,38 @@ export const tools: Feature[] = [
   
   // --- UTILITIES ---
   {
+    id: 'property-finder-sync',
+    title: 'Property Finder Pilot',
+    description: 'PULL data from Property Finder, or PUSH listing plans to it.',
+    icon: <Building />,
+    color: '#6b7280',
+    cta: 'Go to Pilot',
+    categories: ['Utilities', 'Web'],
+    mindMapCategory: 'Utilities',
+    isPage: true,
+    href: '/dashboard/tool/property-finder-sync',
+    details: {
+      steps: [], aiVsManual: [], synergy: [], faqs: [],
+    },
+    creationFields: [],
+  },
+  {
+    id: 'bayut-sync',
+    title: 'Bayut Pilot',
+    description: 'PULL data from Bayut, or PUSH listing plans to it.',
+    icon: <Building />,
+    color: '#6b7280',
+    cta: 'Go to Pilot',
+    categories: ['Utilities', 'Web'],
+    mindMapCategory: 'Utilities',
+    isPage: true,
+    href: '/dashboard/tool/bayut-sync',
+    details: {
+      steps: [], aiVsManual: [], synergy: [], faqs: [],
+    },
+    creationFields: [],
+  },
+  {
     id: 'creative-execution-terminal',
     title: 'Creative Execution Terminal',
     description: 'The execution engine for your creative tasks. Paste a plan and watch it run.',
@@ -1574,5 +1606,3 @@ export const tools: Feature[] = [
     creationFields: [],
   },
 ];
-
-    
