@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React from 'react';
@@ -444,6 +445,7 @@ export const tools: Feature[] = [
     categories: ['Marketing', 'Lead Gen', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
     isPage: false,
+    badge: 'SOON',
     href: '/dashboard/tool/audience-creator',
     guideHref: '/blog/audience-creator',
     renderResult: (result, toast) => <AudienceIdeationResult result={result} toast={toast} />,
@@ -485,6 +487,7 @@ export const tools: Feature[] = [
     href: '/dashboard/tool/insta-ads-designer',
     guideHref: '/blog/insta-ads-designer',
     isPage: false,
+    badge: 'SOON',
     renderResult: (result, toast) => (
        <div className="space-y-6">
           <Card>
@@ -565,6 +568,7 @@ export const tools: Feature[] = [
     cta: 'Generate Reel Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
+    badge: 'SOON',
     href: '/dashboard/tool/reel-ads-ai',
     guideHref: '/blog/instagram-content-creator', // Placeholder, should be reel-ads-ai
     details: {
@@ -604,6 +608,7 @@ export const tools: Feature[] = [
     cta: 'Create Facebook Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
+    badge: 'SOON',
     href: '/dashboard/tool/facebook-ads-ai',
     guideHref: '/blog/insta-ads-designer', // Placeholder, should be facebook-ads-ai
     details: {
@@ -644,6 +649,7 @@ export const tools: Feature[] = [
     cta: 'Run Admin Task',
     categories: ['Sales Tools', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
+    badge: 'SOON',
     href: '/dashboard/tool/instagram-admin-ai',
     guideHref: '/blog/instagram-admin-ai',
     details: {
@@ -682,6 +688,7 @@ export const tools: Feature[] = [
     cta: 'Generate Story',
     categories: ['Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
+    badge: 'SOON',
     href: '/dashboard/tool/story-planner-ai',
     guideHref: '/blog/story-planner-ai',
     details: {
@@ -721,6 +728,7 @@ export const tools: Feature[] = [
     cta: 'Generate Content Strategy',
     categories: ['Marketing', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Marketing',
+    badge: 'SOON',
     href: '/dashboard/tool/instagram-content-creator',
     guideHref: '/blog/instagram-content-creator',
     details: {
@@ -760,6 +768,7 @@ export const tools: Feature[] = [
     cta: 'Generate Hashtag Strategy',
     categories: ['Marketing', 'Social & Comms', 'Lead Gen'],
     mindMapCategory: 'Meta Ads AI Suite',
+    badge: 'SOON',
     href: '/dashboard/tool/instagram-hashtags-ai',
     guideHref: '/blog/instagram-content-creator',
     details: {
@@ -798,6 +807,7 @@ export const tools: Feature[] = [
     cta: 'Generate Ad Report',
     categories: ['Marketing', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
+    badge: 'SOON',
     href: '/dashboard/tool/meta-ads-reports',
     guideHref: '/blog/meta-ads-copilot',
     details: {
@@ -838,6 +848,7 @@ export const tools: Feature[] = [
     cta: 'Send Email Campaign',
     categories: ['Marketing', 'Social & Comms', 'Sales Tools'],
     mindMapCategory: 'Marketing',
+    badge: 'SOON',
     href: '/dashboard/tool/email-creator',
     guideHref: '/blog/email-creator',
     details: {
@@ -970,6 +981,7 @@ export const tools: Feature[] = [
     cta: 'Generate Rebranded Brochure',
     categories: ['Creative', 'Editing'],
     mindMapCategory: 'Creative Suite',
+    badge: 'SOON',
     href: '/dashboard/tool/rebranding',
     guideHref: '/blog/rebranding',
     renderResult: (result, toast) => (
@@ -1045,6 +1057,7 @@ export const tools: Feature[] = [
     cta: 'Generate Edited PDF',
     categories: ['Creative', 'Editing'],
     mindMapCategory: 'Creative Suite',
+    badge: 'SOON',
     href: '/dashboard/tool/pdf-editor',
     guideHref: '/blog/pdf-editor',
     renderResult: (result, toast) => (
@@ -1276,6 +1289,7 @@ export const tools: Feature[] = [
     cta: 'Generate Investor Match',
     categories: ['Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Sales Enablement',
+    badge: 'SOON',
     href: '/dashboard/tool/investor-matching',
     guideHref: '/blog/investor-matching',
     renderResult: (result, toast) => (
@@ -1458,6 +1472,7 @@ export const tools: Feature[] = [
     cta: 'Create Listing',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
+    badge: 'SOON',
     href: '/dashboard/tool/bayut-listing-ai',
     guideHref: '/blog/bayut-listing-ai',
     renderResult: (result, toast) => (
@@ -1522,6 +1537,7 @@ export const tools: Feature[] = [
     cta: 'Create Listing',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
+    badge: 'SOON',
     href: '/dashboard/tool/dubizzle-listing-ai',
     guideHref: '/blog/bayut-listing-ai',
     details: {
@@ -1563,6 +1579,7 @@ export const tools: Feature[] = [
     cta: 'Create Offer Package',
     categories: ['Sales Tools', 'Editing'],
     mindMapCategory: 'Sales Enablement',
+    badge: 'SOON',
     href: '/dashboard/tool/offer-generator',
     guideHref: '/blog/email-creator',
     details: {
@@ -1602,6 +1619,7 @@ export const tools: Feature[] = [
     cta: 'Send WhatsApp Campaign',
     categories: ['Sales Tools', 'Social & Comms', 'Lead Gen'],
     mindMapCategory: 'Sales Enablement',
+    badge: 'SOON',
     href: '/dashboard/tool/whatsapp-campaigns',
     guideHref: '/blog/instagram-admin-ai',
     details: {
@@ -1643,6 +1661,7 @@ export const tools: Feature[] = [
     cta: 'Generate Market Report',
     categories: ['Market Library', 'Sales Tools', 'Editing'],
     mindMapCategory: 'Core Intelligence',
+    badge: 'SOON',
     href: '/dashboard/tool/market-reports',
     guideHref: '/blog/market-reports',
     renderResult: (result, toast) => (
@@ -1834,6 +1853,7 @@ export const tools: Feature[] = [
     cta: 'Get Client Record',
     categories: ['Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Core Intelligence',
+    badge: 'SOON',
     href: '/dashboard/tool/crm-assistant',
     guideHref: '/blog/ai-brand-creator',
     details: {
