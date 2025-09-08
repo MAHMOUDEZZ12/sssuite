@@ -937,9 +937,9 @@ export const tools: Feature[] = [
         { text: 'Generate a complete landing page with a lead form', icon: <LayoutTemplate className="h-6 w-6" /> },
       ],
       aiVsManual: [
-        { metric: 'Time to Build', manual: '1-2 days using a website builder', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Technical Skill', manual: 'Requires web design &amp; dev knowledge', ai: 'None. Just provide the source.', icon: <Sparkles /> },
-        { metric: 'Features', manual: 'Lead forms, galleries added manually', ai: 'All features included automatically', icon: <BadgeCheck /> },
+         { metric: 'Time to Build', manual: '1-2 days using a website builder', ai: 'Fast by default', icon: <Clock2 /> },
+         { metric: 'Technical Skill', manual: 'Requires web design &amp; dev knowledge', ai: 'None. Just provide the source.', icon: <Sparkles /> },
+         { metric: 'Features', manual: 'Lead forms, galleries added manually', ai: 'All features included automatically', icon: <BadgeCheck /> },
       ],
       synergy: [
         { tool: "Social Writer", benefit: "Generate promotional posts to drive traffic to your new landing page." },

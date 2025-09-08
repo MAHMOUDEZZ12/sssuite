@@ -61,7 +61,7 @@ function OnboardingComponent() {
     useEffect(() => {
         if (step === 4 && scannedProjects.length === 0) {
             setIsLoading(true);
-            const devQuery = draft.devFocus.length > 0 ? `devs=${draft.devFocus.join(',')}` : 'devs=Emaar,Damac,Sobha,Nakheel,Meraas,Aldar';
+            const devQuery = draft.devFocus.length > 0 ? `q=${draft.devFocus.join(',')}` : 'q=emaar,damac,sobha,nakheel,meraas,aldar';
             fetch(`/api/projects/scan?${devQuery}&limit=12`)
                 .then(res => res.json())
                 .then(data => setScannedProjects(data.data || []))
@@ -326,7 +326,7 @@ function OnboardingComponent() {
                                        <Input id="logo" type="file" accept="image/*" className="sr-only" onChange={(e) => handleFileChange(e.target.files)} />
                                        <label htmlFor="logo" className="w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                          {logoPreview ? (
-                                            <Image src={logoPreview} alt="Logo preview" layout="fill" className="object-contain rounded-md p-2" />
+                                            <Image src={logoPreview} alt="Logo preview" fill={true} className="object-contain rounded-md p-2" />
                                          ) : (
                                            <div className="text-center text-muted-foreground">
                                              <Upload className="mx-auto h-8 w-8 mb-1" />
