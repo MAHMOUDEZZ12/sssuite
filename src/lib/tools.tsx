@@ -22,6 +22,7 @@ import { manageWhatsAppCampaign } from '@/ai/flows/manage-whatsapp-campaign';
 import { createMetaCampaign } from '@/ai/flows/create-meta-campaign';
 import { syncPropertyFinderListing } from '@/ai/flows/sync-property-finder-listing';
 import { syncBayutListing } from '@/ai/flows/sync-bayut-listing';
+import { generatePaymentPlan } from '@/ai/flows/generate-payment-plan';
 
 
 // Import the client-safe tools definition
@@ -53,8 +54,12 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'facebook-ads-ai': generateAdFromBrochure,
     'propertyfinder-sync': syncPropertyFinderListing,
     'bayut-sync': syncBayutListing,
-    // Note: Tools without a flowRunner will not be executable from the generic tool page.
-    // They might be handled by custom pages or are for display only.
+    'payment-planner': generatePaymentPlan,
+    'commission-calculator': async (data: { salePrice: string }) => {
+        // This is a simple client-side calculation, so we don't need a flow.
+        // We can just return the data and let the renderResult function handle it.
+        return Promise.resolve(data);
+    },
 };
 
 export const tools = clientTools.map(tool => {

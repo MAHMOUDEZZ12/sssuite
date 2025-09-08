@@ -55,6 +55,8 @@ import {
   Crown,
   TrendingUp,
   CheckCircle,
+  Percent,
+  Calendar,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -1040,6 +1042,131 @@ export const tools: Feature[] = [
   },
 
   // --- SALES ENABLEMENT ---
+  {
+    id: 'commission-calculator',
+    title: 'Commission Calculator',
+    description: 'Instantly calculate your 5% sales commission.',
+    icon: <Percent />,
+    color: '#16a34a',
+    cta: 'Calculate Commission',
+    categories: ['Sales Tools'],
+    mindMapCategory: 'Sales Enablement',
+    badge: 'NEW',
+    href: '/dashboard/tool/commission-calculator',
+    details: {
+      steps: [
+        { text: 'Enter the final sale price of the property', icon: <Wallet /> },
+        { text: 'The tool instantly calculates your gross commission', icon: <Sparkles /> },
+        { text: 'View the breakdown for clarity', icon: <ClipboardList /> },
+      ],
+      aiVsManual: [
+        { metric: 'Calculation Speed', manual: 'Seconds on a calculator app', ai: 'Instantaneous within your workflow', icon: <Clock2 /> },
+        { metric: 'Accuracy', manual: 'Potential for typos', ai: 'Always accurate', icon: <BadgeCheck /> },
+        { metric: 'Integration', manual: 'Requires switching apps', ai: 'Integrated directly into your sales suite', icon: <Network /> },
+      ],
+      synergy: [
+        { tool: "CRM Memory", benefit: "Log the final commission amount directly to the client's deal record in your CRM." },
+        { tool: "Offer Generator", benefit: "Quickly calculate potential commission when preparing offers for clients." },
+      ],
+      faqs: [
+        { question: "Is the 5% commission rate adjustable?", answer: "The initial version is locked at 5% to reflect the standard UAE market rate, making it a quick, one-click tool. Adjustable rates are on our roadmap." },
+        { question: "Can this calculate splits or brokerage fees?", answer: "Not at this time. This tool is designed for a quick, straightforward gross commission calculation. More advanced financial tools are planned for the future." },
+      ],
+    },
+    creationFields: [
+      { id: 'salePrice', name: 'Sale Price (AED)', type: 'number', placeholder: 'e.g., 2500000', description: 'The final sale price of the property.' },
+    ],
+    renderResult: (result, toast) => {
+      const salePrice = Number(result.salePrice);
+      const commission = salePrice * 0.05;
+      return (
+        <div className="space-y-4">
+          <Card className="text-center">
+            <CardHeader>
+              <CardDescription>Total Commission (5%)</CardDescription>
+              <CardTitle className="text-4xl text-primary">
+                AED {commission.toLocaleString()}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">
+                Based on a sale price of AED {salePrice.toLocaleString()}
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      );
+    },
+  },
+  {
+    id: 'payment-planner',
+    title: 'Payment Planner',
+    description: 'Generate tailored payment plans for clients.',
+    icon: <Calendar />,
+    color: '#0ea5e9',
+    cta: 'Generate Plan',
+    categories: ['Sales Tools'],
+    mindMapCategory: 'Sales Enablement',
+    badge: 'NEW',
+    href: '/dashboard/tool/payment-planner',
+    guideHref: '/blog/payment-planner',
+    details: {
+      steps: [
+        { text: 'Select a project from your library', icon: <Briefcase /> },
+        { text: 'Enter the total property price', icon: <Wallet /> },
+        { text: 'AI generates a clear, milestone-based payment plan', icon: <Sparkles /> },
+      ],
+      aiVsManual: [
+        { metric: 'Plan Creation Time', manual: '30-60 minutes in a spreadsheet', ai: 'Seconds to generate', icon: <Clock2 /> },
+        { metric: 'Clarity', manual: 'Can be confusing for clients', ai: 'Generates a simple, easy-to-read schedule', icon: <BadgeCheck /> },
+        { metric: 'Customization', manual: 'Rigid spreadsheet formulas', ai: 'Can create multiple flexible options', icon: <Wrench /> },
+      ],
+      synergy: [
+        { tool: "Offer Generator", benefit: "Include the AI-generated payment plan directly in your offer package to the client." },
+        { tool: "CRM Memory", benefit: "Save the final payment plan to the client's record for future reference and follow-ups." },
+      ],
+      faqs: [
+        { question: "Can it handle different payment structures?", answer: "Yes, you can specify different structures, such as post-handover plans, 50/50, or construction-linked plans, and the AI will adapt." },
+        { question: "Can I export the payment plan?", answer: "Yes, the generated plan can be exported as a formatted PDF to share directly with your client." },
+      ],
+    },
+    creationFields: [
+      { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project', description: 'The project the payment plan is for.' },
+      { id: 'totalPrice', name: 'Total Property Price (AED)', type: 'number', placeholder: 'e.g., 3000000', description: 'The full price of the unit.' },
+      { id: 'planType', name: 'Payment Plan Type', type: 'select', options: ['Standard (e.g., 20/80)', 'Post-Handover', 'Construction-Linked', 'Flexible (AI Suggestion)'], placeholder: 'Select a plan type', description: 'The structure of the payment plan.' },
+    ],
+    renderResult: (result, toast) => (
+      <div className="space-y-4">
+        <h3 className="font-semibold text-lg">{result.planName}</h3>
+        <p className="text-sm text-muted-foreground">{result.planDescription}</p>
+        <div className="border rounded-md">
+          <table className="w-full">
+            <thead className="bg-muted/50">
+              <tr>
+                <th className="p-2 text-left text-sm font-medium">Milestone</th>
+                <th className="p-2 text-left text-sm font-medium">Date</th>
+                <th className="p-2 text-right text-sm font-medium">Amount (AED)</th>
+                <th className="p-2 text-right text-sm font-medium">Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              {result.milestones.map((item: any, index: number) => (
+                <tr key={index} className="border-t">
+                  <td className="p-2 font-medium">{item.milestone}</td>
+                  <td className="p-2 text-muted-foreground">{item.date}</td>
+                  <td className="p-2 text-right font-mono">{item.amount.toLocaleString()}</td>
+                  <td className="p-2 text-right font-mono text-primary">{item.percentage}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <Button onClick={() => toast({ title: "Plan Saved!", description: "The payment plan has been saved to the project." })}>
+          Save Plan to Project
+        </Button>
+      </div>
+    ),
+  },
   {
     id: 'investor-matching',
     title: 'Investor Matching',

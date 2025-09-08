@@ -158,10 +158,18 @@ export const blogContent: { [key: string]: BlogContent[string] } = {
         sections: [
           { heading: 'True Automation is Here', body: "The Auto Pilot is more than just a tool; it's a workflow. It sequentially runs the Audience Creator AI, feeds the results into the Campaign Builder, generates all the necessary ad creatives, and publishes the final campaign to your Meta account. It's a complete, end-to-end process that runs with a single click." },
           { heading: 'How It Works: An AI Workflow', body: "When you start the Auto Pilot, you are watching an AI agent at work. It intelligently connects the different services in your suite, passing data from one to the next, just as a human marketing manager would. This represents the true power of the Super Seller Suite—an integrated system, not just a collection of tools." },
-          { heading: 'Your Role: The CEO', body: "With the Auto Pilot, your role shifts from operator to strategist. You provide the high-level goal and the budget, and the AI handles the tactical execution. You can monitor its progress in real-time and have full control to pause or adjust at any point. It's like having an expert marketing team on standby, ready to launch a campaign at a moment's notice." },
+          { heading: 'Your Role: The CEO', body: "With the Auto Pilot, your role shifts from operator to strategist. You provide the high-level goal and the budget, and the AI handles the tactical execution. You can monitor its progress in real-time and have full control to pause or adjust at any point. It's like having an expert marketing team on standby, ready to launch a campaign at a moment's notice." }
         ],
         cta: 'Automated Workflow',
       },
+    'payment-planner': {
+        title: 'From Price to Plan: AI-Powered Payment Planning',
+        intro: "Don't let a complex payment schedule confuse your clients. The AI Payment Planner takes a total property price and generates a clear, simple, milestone-based payment plan that is easy for anyone to understand.",
+        sections: [
+            { heading: "The Problem: Confusing Spreadsheets", body: "Manually creating a payment plan in Excel is time-consuming and often results in a document that is confusing for clients. It's hard to clearly visualize the payment journey, which can create uncertainty during the closing process." },
+            { heading: "The Hack: Instant Clarity", body: "This tool simplifies everything. Select a project, enter the total price, and choose a plan type (like 'Standard 20/80' or 'Post-Handover'). The AI instantly generates a professional, easy-to-read schedule with clear milestones, dates, and amounts. It removes all ambiguity." },
+            { heading: "How to Use It:", body: "Attach the generated payment plan PDF to your offers to provide complete transparency to your clients. Use it during presentations to walk buyers through their financial commitments clearly and confidently. It's a simple tool that builds immense trust and professionalism." }
+        ],
+        cta: 'Payment Plan',
+    },
 };
-
-    
