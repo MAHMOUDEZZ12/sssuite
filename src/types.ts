@@ -103,5 +103,3 @@ export const CreateMetaCampaignOutputSchema = z.object({
 
 export type CreateMetaCampaignInput = z.infer<typeof CreateMetaCampaignInputSchema>;
 export type CreateMetaCampaignOutput = z.infer<typeof CreateMetaCampaignOutputSchema>;
-
-    
