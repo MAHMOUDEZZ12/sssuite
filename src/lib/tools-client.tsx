@@ -1245,6 +1245,42 @@ export const tools: Feature[] = [
       { id: 'sendTime', name: 'Schedule', type: 'select', options: ['Send Immediately', 'Schedule for 1 hour from now', 'Schedule for tomorrow at 9 AM'], placeholder: 'Select send time', description: 'When should the campaign be sent?' },
     ],
   },
+  {
+    id: 'lead-investigator',
+    title: 'Lead Investigator AI',
+    dashboardTitle: 'Lead Investigator',
+    description: 'Investigate any lead. Find their social profiles and professional history.',
+    icon: <Search />,
+    color: '#0284c7', // sky-600
+    cta: 'Investigate Lead',
+    categories: ['Sales Tools', 'Lead Gen'],
+    mindMapCategory: 'Sales Enablement',
+    badge: 'NEW',
+    isPage: true,
+    href: '/dashboard/tool/lead-investigator',
+    details: {
+      steps: [
+        { text: 'Provide a name, email, or company', icon: <PenTool /> },
+        { text: 'AI scans public sources like LinkedIn, social media, etc.', icon: <Network /> },
+        { text: 'Get a report with potential matches and profile links', icon: <FileText /> },
+      ],
+      aiVsManual: [
+        { metric: 'Time to Research', manual: '15-30 minutes per lead', ai: 'Seconds', icon: <Clock2 /> },
+        { metric: 'Information Scope', manual: 'Limited to what you can find on Google', ai: 'Scans multiple platforms simultaneously', icon: <Sparkles /> },
+        { metric: 'Accuracy', manual: 'Easy to find the wrong "John Smith"', ai: 'Uses multiple data points to increase match confidence', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "CRM Memory", benefit: "Enrich your CRM profiles with the data found by the investigator, giving your AI Assistant more context." },
+        { tool: "Email Campaigns", benefit: "Tailor your email outreach based on the lead's professional background and interests discovered by the investigator." },
+      ],
+      faqs: [
+        { question: "Is this legal and ethical?", answer: "Yes. The tool only searches publicly available information that anyone could find with manual searching. It simply automates the process to save you time. No private data is accessed." },
+        { question: "What happens if there are multiple people with the same name?", answer: "The AI will return a list of the most likely matches and provide a confidence score for each, along with a summary (e.g., 'John Smith, CEO at Acme Corp' vs. 'John Smith, artist in New York'). You can then use this information to identify the correct person." },
+        { question: "Can I use this to find contact information?", answer: "The tool is designed to find public profiles and professional information to help you understand your lead. While it may find publicly listed contact information, it is not primarily a contact-scraping tool." },
+      ],
+    },
+    creationFields: [],
+  },
   
   // --- CORE INTELLIGENCE ---
     {

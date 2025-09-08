@@ -29,6 +29,7 @@ import { syncBayutListing } from '@/ai/flows/sync-bayut-listing';
 import { generatePaymentPlan } from '@/ai/flows/generate-payment-plan';
 import { translateBrochure } from '@/ai/flows/translate-brochure';
 import { editYoutubeVideo } from '@/ai/flows/edit-youtube-video';
+import { investigateLead } from '@/ai/flows/investigate-lead';
 
 const runToolSchema = z.object({
   toolId: z.string(),
@@ -61,6 +62,7 @@ const flowRunnerMap: { [key: string]: (payload: any) => Promise<any> } = {
     'brochure-translator': translateBrochure,
     'youtube-video-editor': editYoutubeVideo,
     'commission-calculator': (payload) => Promise.resolve(payload),
+    'lead-investigator': investigateLead,
 };
 
 export async function POST(req: NextRequest) {
