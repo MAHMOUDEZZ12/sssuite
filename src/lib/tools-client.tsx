@@ -32,7 +32,7 @@ import {
   UserCog,
   Database,
   Clapperboard,
-  Link as LinkIcon,
+  LinkIcon,
   Users2,
   Clock2,
   BadgeCheck,
@@ -61,6 +61,7 @@ import {
   Youtube,
   Terminal,
   Edit,
+  Server,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
