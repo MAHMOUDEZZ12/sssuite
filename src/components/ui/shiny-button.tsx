@@ -13,7 +13,7 @@ export const ShinyButton = React.forwardRef<HTMLButtonElement, ButtonProps>(({ c
         className={cn(
           "relative overflow-hidden group",
           "text-lg py-7 px-8",
-          "bg-accent text-accent-foreground hover:bg-accent/90",
+          "bg-primary text-primary-foreground hover:bg-primary/90",
           className
         )}
       >

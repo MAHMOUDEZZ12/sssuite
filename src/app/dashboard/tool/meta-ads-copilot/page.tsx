@@ -345,10 +345,9 @@ export default function CampaignBuilderPage() {
                                 </div>
                             </Card>
                         )}
-                         {result && (
+                         {result ? (
                             <ResultDisplay result={result} toast={toast} onPublish={handlePublishCampaign} />
-                         )}
-                         {!isLoading && !result && (
+                         ) : !isLoading && (
                             <Card className="flex items-center justify-center h-96 border-dashed">
                                 <div className="text-center text-muted-foreground">
                                     <Facebook className="h-16 w-16 mx-auto mb-4 opacity-10" />

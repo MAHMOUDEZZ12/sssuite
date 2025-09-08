@@ -93,27 +93,25 @@ const FeatureCard = ({
             >
                 {React.cloneElement(feature.icon, { className: 'h-8 w-8' })}
             </div>
-        </div>
-        <div className="flex items-center gap-2 mb-2">
-            <h2 className="text-2xl font-bold font-heading text-foreground">{feature.title}</h2>
-            {(feature.badge) && (
+             {(feature.badge) && (
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
                      <span className={cn(
                         `px-2 py-0.5 text-xs font-semibold text-white rounded-full transition-all duration-200`,
-                         feature.badge === 'NEW' ? 'bg-blue-500 hover:bg-transparent hover:text-blue-500 border-2 border-transparent hover:border-blue-500' : 'bg-yellow-500 hover:bg-transparent hover:text-yellow-500 border-2 border-transparent hover:border-yellow-500'
+                         feature.badge === 'NEW' ? 'bg-blue-500' : 'bg-amber-400'
                      )}>
                         {feature.badge}
                     </span>
                   </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{feature.badge === 'NEW' ? 'This is a brand new feature!' : 'This feature is in active development.'}</p>
+                  <TooltipContent side="top">
+                    <p>{feature.badge === 'NEW' ? 'This is a brand new feature!' : 'This is an automated workflow pilot.'}</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             )}
         </div>
+        <h2 className="text-2xl font-bold font-heading text-foreground mb-2">{feature.title}</h2>
         <p className="text-lg text-foreground/70 flex-grow">{feature.description}</p>
          <div className="mt-6">
             <Button variant="link" className="p-0 text-base text-primary">
