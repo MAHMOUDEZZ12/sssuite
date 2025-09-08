@@ -65,9 +65,9 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const initialMockCampaigns = [
-    { id: 1, name: "Azure Lofts Lead Gen", objective: "LEAD_GENERATION", budget: 500, status: "Active" },
-    { id: 2, name: "Maple Creek Awareness", objective: "AWARENESS", budget: 300, status: "Completed" },
-    { id: 3, name: "Oceanview Villas Traffic", objective: "TRAFFIC", budget: 750, status: "Paused" },
+    { id: 1, name: "Emaar Beachfront Leads", objective: "LEAD_GENERATION", budget: 5000, status: "Active" },
+    { id: 2, name: "Damac Hills 2 Awareness", objective: "AWARENESS", budget: 3000, status: "Completed" },
+    { id: 3, name: "Sobha Hartland Traffic", objective: "TRAFFIC", budget: 7500, status: "Paused" },
 ];
 
 const mockAnalyticsData = [
@@ -266,9 +266,9 @@ export default function CampaignBuilderPage() {
                                                 <SelectValue placeholder="Select a project" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="azure-lofts">Azure Lofts Campaign</SelectItem>
-                                                <SelectItem value="maple-creek">Maple Creek Development</SelectItem>
-                                                <SelectItem value="oceanview-villas">Oceanview Villas</SelectItem>
+                                                <SelectItem value="emaar-beachfront">Emaar Beachfront</SelectItem>
+                                                <SelectItem value="damac-hills-2">Damac Hills 2</SelectItem>
+                                                <SelectItem value="sobha-hartland">Sobha Hartland</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     )} />
@@ -394,7 +394,7 @@ export default function CampaignBuilderPage() {
                 <Card className="mt-6">
                     <CardHeader>
                         <CardTitle>Performance Analytics</CardTitle>
-                        <CardDescription>Visualizing the performance of the 'Azure Lofts Lead Gen' campaign.</CardDescription>
+                        <CardDescription>Visualizing the performance of the 'Emaar Beachfront Leads' campaign.</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <ResponsiveContainer width="100%" height={300}>

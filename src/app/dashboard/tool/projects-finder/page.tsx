@@ -108,7 +108,7 @@ export default function ProjectsFinderPage() {
                 <Label htmlFor="search-query" className="sr-only">Search Projects</Label>
                 <Input
                   id="search-query"
-                  placeholder="Search by name, developer, area, status..."
+                  placeholder="Search by name, developer, area (e.g. Dubai Marina), status..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
@@ -164,7 +164,7 @@ export default function ProjectsFinderPage() {
                         <form onSubmit={handleNewProjectSubmit} className="max-w-md mx-auto space-y-4 text-left">
                             <div className="space-y-2">
                                 <Label htmlFor="new-project-name">Project Name</Label>
-                                <Input id="new-project-name" value={newProjectName} onChange={e => setNewProjectName(e.target.value)} placeholder="e.g., Azure Lofts" required />
+                                <Input id="new-project-name" value={newProjectName} onChange={e => setNewProjectName(e.target.value)} placeholder="e.g., Emaar Beachfront" required />
                             </div>
                              <div className="space-y-2">
                                 <Label htmlFor="new-project-developer">Developer</Label>

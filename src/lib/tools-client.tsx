@@ -458,7 +458,7 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-       { id: 'projectId', name: 'Project', type: 'select', options: ['Project 1 from Library', 'Project 2 from Library', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose the project you want to create an audience for.' },
+       { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose the project you want to create an audience for.' },
     ],
   },
   {
@@ -535,11 +535,11 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-      { id: 'projectId', name: 'Project', type: 'select', options: ['Azure Lofts', 'Maple Creek Development', 'Oceanview Villas', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose from your saved projects.' },
+      { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose from your saved projects.' },
       { id: 'brochureDataUri', name: 'Developer Brochure (Optional)', type: 'file', description: 'Upload the original PDF for more detailed ad generation.' },
       { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
       { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
-      { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of condo fees waived."', description: 'Add any other key details or offers. (Optional)' },
+      { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of service charges waived."', description: 'Add any other key details or offers. (Optional)' },
     ],
   },
   {
@@ -574,7 +574,7 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-      { id: 'projectId', name: 'Project', type: 'select', options: ['Azure Lofts', 'Maple Creek Development', 'Oceanview Villas', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose the project to source visual assets from.' },
+      { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose the project to source visual assets from.' },
       { id: 'sellingPoints', name: 'Selling Points', type: 'textarea', placeholder: 'e.g., Stunning ocean views\nFloor-to-ceiling windows\n5-star amenities', description: 'One key point per line for captions.' },
       { id: 'vibe', name: 'Vibe', type: 'select', options: ['Modern & Fast-Paced', 'Luxurious & Cinematic', 'Upbeat & Fun', 'Calm & Relaxing'], placeholder: 'Select a vibe', description: 'This influences the music and editing style.' },
     ]
@@ -611,7 +611,7 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-       { id: 'projectId', name: 'Project', type: 'select', options: ['Azure Lofts', 'Maple Creek Development', 'Oceanview Villas', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose from your saved projects.' },
+       { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose from your saved projects.' },
       { id: 'brochureDataUri', name: 'Developer Brochure (Optional)', type: 'file', description: 'Upload the original PDF for more detailed ad generation.' },
       { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
       { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
@@ -645,7 +645,7 @@ export const tools: Feature[] = [
       faqs: [
         { question: "Will the AI post on my behalf automatically?", answer: "You have full control. You can set it to draft posts for your approval, or you can enable fully automated posting for certain types of content." },
         { question: "How does it know how to reply to comments?", answer: "It uses your private knowledge base (brochures, price lists) to answer common questions accurately. For complex or sensitive queries, it will flag the comment for your personal attention." },
-        { question: "Can it handle direct messages (DMs)?", answer: "Yes, the tool can be configured to manage your Instagram DMs, answering common questions and filtering high-priority conversations for you to handle personally." },
+        { question: "Can it handle direct messages (DMs)?", answer: "Yes, the tool can be configured to manage your Instagram DMs, answering common questions and filtering high-priority conversations for you to handle personally." }
       ],
     },
     creationFields: [
@@ -685,7 +685,7 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-       { id: 'projectId', name: 'Project', type: 'select', options: ['Azure Lofts', 'Maple Creek Development', 'Oceanview Villas', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose the project to source photos from.' },
+       { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose the project to source photos from.' },
        { id: 'vibe', name: 'Vibe', type: 'select', options: ['Modern & Edgy', 'Elegant & Luxurious', 'Informative & Clean', 'Playful & Bright'], placeholder: 'Select a vibe', description: 'The desired visual style for the story.' },
        { id: 'callToAction', name: 'Call to Action', type: 'text', placeholder: 'e.g., "Swipe up to book a viewing!"', description: 'The final message for your story.' },
     ],
@@ -718,7 +718,7 @@ export const tools: Feature[] = [
       faqs: [
         { question: "Why is a 'tiered' strategy important?", answer: "A tiered strategy combines popular, high-volume hashtags for broad reach with niche-specific tags to connect with a highly relevant audience. This blend is key to sustainable growth on Instagram." },
         { question: "How many hashtags should I use?", answer: "Instagram allows up to 30 hashtags per post. Our tool provides a strategic mix of 15-25 tags, which is generally considered the sweet spot for optimal performance." },
-        { question: "Can it find hashtags for any niche?", answer: "Yes, the AI has a broad understanding of various industries, but it excels at real estate-related topics, including specific architectural styles, locations, and investment strategies." },
+        { question: "Can it find hashtags for any niche?", answer: "Yes, the AI has a broad understanding of various industries, but it excels at real estate-related topics, including specific architectural styles, locations, and investment strategies." }
       ],
     },
     creationFields: [
@@ -749,7 +749,7 @@ export const tools: Feature[] = [
       ],
       synergy: [
         { tool: "Campaign Builder", benefit: "Use the insights from your reports to inform the strategy for your next AI-generated campaign." },
-        { tool: "AI Assistant", benefit: "Ask your assistant, 'Summarize the performance of my Azure Lofts campaign last month,' to get instant insights without manually running a report." },
+        { tool: "AI Assistant", benefit: "Ask your assistant, 'Summarize the performance of my Emaar Beachfront campaign last month,' to get instant insights without manually running a report." },
       ],
       faqs: [
         { question: "What kind of recommendations does it make?", answer: "The AI can suggest actions like reallocating budget to better-performing ad sets, refreshing ad creative that is experiencing fatigue, or expanding targeting for successful audiences." },
@@ -758,7 +758,7 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-      { id: 'campaignId', name: 'Campaign', type: 'select', options: ['Azure Lofts Leads - March', 'Maple Creek Awareness - Feb', 'Oceanview Traffic - April'], placeholder: 'Select a campaign', description: 'Choose the campaign to report on.' },
+      { id: 'campaignId', name: 'Campaign', type: 'select', options: ['Emaar Beachfront Leads - March', 'Damac Hills 2 Awareness - Feb', 'Sobha Hartland Traffic - April'], placeholder: 'Select a campaign', description: 'Choose the campaign to report on.' },
       { id: 'dateRange', name: 'Date Range', type: 'select', options: ['Last 7 Days', 'Last 30 Days', 'This Month', 'Last Month'], placeholder: 'Select a date range', description: 'The time period for the report.' },
     ],
   },
@@ -844,8 +844,8 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-      { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "Azure Lofts"', description: 'The name of the project or listing.' },
-      { id: 'projectDetails', name: 'Project Details', type: 'textarea', placeholder: 'e.g., "Luxury condos in downtown Miami..."', description: 'A detailed description of the property.' },
+      { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "Emaar Beachfront"', description: 'The name of the project or listing.' },
+      { id: 'projectDetails', name: 'Project Details', type: 'textarea', placeholder: 'e.g., "Luxury beachfront apartments in Dubai..."', description: 'A detailed description of the property.' },
       { id: 'brandingStyle', name: 'Branding Style', type: 'select', options: ["Modern & Minimalist", "Luxury & Elegant", "Cozy & Welcoming", "Bold & Colorful"], placeholder: 'Select a branding style', description: 'Describe the desired look and feel.' },
       { id: 'projectBrochureDataUri', name: 'Project Brochure (Optional)', type: 'file', description: 'Upload a brochure to provide more context.' },
       { id: 'inspirationImageDataUri', name: 'Inspiration Image (Optional)', type: 'file', description: 'Upload a screenshot of a website you like to guide the style.' },
@@ -1025,8 +1025,8 @@ export const tools: Feature[] = [
     creationFields: [
       { id: 'clientDatabase', name: 'Your Client List', type: 'file', description: 'Upload a CSV of your investor contacts for the AI to analyze.' },
       { id: 'propertyType', name: 'Property Type', type: 'select', options: ["Duplex", "Triplex", "Fourplex", "Multi-Family (5+ units)", "Commercial Retail", "Office Space"], placeholder: 'Select property type', description: 'Type of investment property.' },
-      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., Austin, TX', description: 'City and state of the property.'},
-      { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 750000', description: 'Asking price of the property.'},
+      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., Dubai Marina, Dubai', description: 'City and state of the property.'},
+      { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 2500000', description: 'Asking price of the property in AED.'},
       { id: 'capRate', name: 'Cap Rate (%)', type: 'number', placeholder: 'e.g., 6.5', description: 'The capitalization rate of the property.'},
       { id: 'investmentThesis', name: 'Investment Thesis', type: 'select', options: ["Value-Add / Renovation", "Turnkey Rental", "Long-Term Appreciation", "Development Opportunity", "1031 Exchange"], placeholder: 'Select investment strategy', description: 'Primary strategy for this investment.'},
       { id: 'keyFeatures', name: 'Key Features', type: 'textarea', placeholder: 'e.g., Long-term tenants in place, zoned for mixed-use, located in an opportunity zone.', description: 'Additional selling points for an investor.' },
@@ -1280,7 +1280,7 @@ export const tools: Feature[] = [
     },
     creationFields: [
       { id: 'properties', name: 'Properties', type: 'textarea', placeholder: 'List property addresses, one per line', description: 'The properties to include in the offer package.' },
-      { id: 'clientInfo', name: 'Client Info', type: 'text', placeholder: 'e.g., John Smith, Budget: $1.5M', description: 'Basic information about the client.' },
+      { id: 'clientInfo', name: 'Client Info', type: 'text', placeholder: 'e.g., John Smith, Budget: AED 5.5M', description: 'Basic information about the client.' },
       { id: 'terms', name: 'Offer Terms', type: 'textarea', placeholder: 'e.g., 20% down, 30-day closing, inspection contingency', description: 'Key terms to include in the offers.' },
     ],
   },
@@ -1387,8 +1387,8 @@ export const tools: Feature[] = [
       ],
     },
     creationFields: [
-      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Beverly Hills, CA"', description: 'The neighborhood or city for the report.' },
-      { id: 'propertyType', name: 'Property Type', type: 'text', placeholder: 'e.g., "2-bedroom condos"', description: 'Specify a property type or focus for the report.' },
+      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Dubai Marina, Dubai"', description: 'The neighborhood or city for the report.' },
+      { id: 'propertyType', name: 'Property Type', type: 'text', placeholder: 'e.g., "2-bedroom apartments"', description: 'Specify a property type or focus for the report.' },
       { id: 'reportType', name: 'Report Type', type: 'select', options: ['Investor', 'Home Buyer', 'Seller'], placeholder: 'Select report audience', description: 'Tailor the report for a specific audience.' },
     ],
   },
@@ -1461,9 +1461,9 @@ export const tools: Feature[] = [
     },
     creationFields: [
       { id: 'group-filters', name: 'Search Filters', type: 'group-header', description: 'Set your criteria to find relevant projects.'},
-      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Austin, TX" or "Zip code 90210"', description: 'The city, neighborhood, or zip code to search in.' },
+      { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., "Dubai Marina, Dubai" or "Zip code 12345"', description: 'The city, neighborhood, or zip code to search in.' },
       { id: 'status', name: 'Project Status', type: 'select', options: ["Ready to move", "Under Construction", "New Launch"], placeholder: 'Select a project status', description: 'Filter by the current stage of the project.' },
-      { id: 'developer', name: 'Developer(s) (Optional)', type: 'text', placeholder: 'e.g., "Toll Brothers", "Hines"', description: 'Focus on projects by specific developers.'},
+      { id: 'developer', name: 'Developer(s) (Optional)', type: 'text', placeholder: 'e.g., "Emaar", "Damac"', description: 'Focus on projects by specific developers.'},
       { id: 'minPrice', name: 'Min Price', type: 'number', placeholder: 'e.g., 500000', description: 'The minimum price for the project.' },
       { id: 'maxPrice', name: 'Max Price', type: 'number', placeholder: 'e.g., 2000000', description: 'The maximum price for the project.' },
       { id: 'setup', name: 'Configure Listing Websites', type: 'button', cta: 'Go to Settings to add Listing Sites', description: 'Add the primary listing websites for your market in the settings for better results.' },

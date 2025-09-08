@@ -66,7 +66,7 @@ export const blogContent: { [key: string]: BlogContent[string] } = {
         title: 'The WhatsApp Pro-Move: From Social Post to High-Conversion Chat',
         intro: "Stop just collecting likes; start conversations. This pro-level hack shows you how to use the AI Page Admin in synergy with your social content to drive interested users directly into high-conversion WhatsApp chats.",
         sections: [
-            { heading: "Step 1: The Engagement Post", body: "First, use the AI Social Writer to create an engaging post with a clear Call-to-Action, like 'Comment a 'Price' below for details on our new Azure Lofts listing.' This invites public engagement and signals buying intent." },
+            { heading: "Step 1: The Engagement Post", body: "First, use the AI Social Writer to create an engaging post with a clear Call-to-Action, like 'Comment a 'Price' below for details on our new Emaar Beachfront listing.' This invites public engagement and signals buying intent." },
             { heading: "Step 2: Automate the First Touch", body: "Configure your AI Page Admin to monitor comments on that post. When it detects the keyword 'Price,' it should automatically send a Direct Message saying, 'Thanks for your interest! For instant details and floor plans, tap this link to chat with us on WhatsApp.' This moves the conversation from a public forum to a private, one-on-one channel." },
             { heading: "Step 3: The Conversion", body: "The user is now in a direct, high-intent conversation with you on WhatsApp. Use the WhatsApp Manager tool to send a pre-written, personalized message with the brochure and your contact details. You've just seamlessly converted a passive social media user into a hot lead in your primary sales channel, all with minimal manual effort." }
         ],
@@ -107,7 +107,7 @@ export const blogContent: { [key: string]: BlogContent[string] } = {
         intro: "You've got a final PDF, but you spot a typo. Or you need to swap an image. Before, this meant going back to the designer or wrestling with clunky software. Now, you can just tell the AI what to change. This is PDF editing, reimagined.",
         sections: [
             { heading: "The Locked Box Problem", body: "PDFs are designed to be final, unchangeable documents. This is great for security, but a nightmare for marketers and agents who need to make small, last-minute changes. Finding the original source file can be impossible, and online editors often destroy formatting." },
-            { heading: "Conversational Editing", body: "Our AI PDF Editor works like a conversation. You upload the PDF and simply tell the AI what to do: 'Change the price on page 2 to $799,000,' or 'Replace the logo on the first page with this new file.' The AI understands your instructions, makes the change, and generates a new, perfectly formatted PDF." },
+            { heading: "Conversational Editing", body: "Our AI PDF Editor works like a conversation. You upload the PDF and simply tell the AI what to do: 'Change the price on page 2 to AED 2.5M,' or 'Replace the logo on the first page with this new file.' The AI understands your instructions, makes the change, and generates a new, perfectly formatted PDF." },
             { heading: "The Ultimate Failsafe", body: "This tool is your ultimate safety net. It means no brochure is ever truly final, and no marketing material is ever out-of-date. It's the freedom to adapt, correct, and update your assets on the fly, giving you an unparalleled level of agility in your marketing efforts." }
         ],
         cta: 'Edited PDF',
@@ -126,7 +126,7 @@ export const blogContent: { [key: string]: BlogContent[string] } = {
         title: 'Beyond the Rolodex: AI-Powered Investor Matching',
         intro: "You just landed a great off-market deal. Who's the perfect buyer? The old way was to scroll through your phone or CRM, relying on memory. The new way is to let the AI do the work. Our Investor Matching tool turns your client list into an intelligent, opportunity-finding engine.",
         sections: [
-            { heading: "The Limits of Human Memory", body: "Even the best agent can't remember the exact buying criteria for every single client. You might remember that John wants a duplex, but forget that he mentioned a specific interest in a certain neighborhood three months ago. These forgotten details are missed opportunities." },
+            { heading: "The Limits of Human Memory", body: "Even the best agent can't remember the exact buying criteria for every single client. You might remember that John wants a duplex, but forget that he mentioned a specific interest in Dubai Marina three months ago. These forgotten details are missed opportunities." },
             { heading: "Data-Driven Matchmaking", body: "Our AI doesn't forget. Upload your client list (as a simple CSV file) and the details of your investment property. The AI analyzes your list against the property's specifics—price, cap rate, location, investment thesis—and instantly provides a ranked list of the top 3-5 best-fit investors. It even provides a justification for *why* each client is a good match." },
             { heading: "From List to Deal", body: "This tool transforms your passive client list into a proactive deal-making machine. It ensures the right opportunities get in front of the right people instantly, increasing your deal velocity and building your reputation as an agent who brings perfect-fit deals to their clients." }
         ],
@@ -136,14 +136,10 @@ export const blogContent: { [key: string]: BlogContent[string] } = {
         title: 'The End of Writer\'s Block: Generate Perfect Listings, Every Time',
         intro: "You know the property inside and out, but translating its essence into compelling listing copy is a challenge. Our AI Listing Generator takes the pressure off, turning a few key details into persuasive, SEO-friendly descriptions that attract buyers and sell properties faster.",
         sections: [
-            { heading: "More Than Just a Description", body: "A great listing isn't just a list of features; it's a story. It needs to be engaging for buyers, but also optimized with the right keywords for search engines like Zillow and Google. Hitting both of these notes consistently is tough." },
+            { heading: "More Than Just a Description", body: "A great listing isn't just a list of features; it's a story. It needs to be engaging for buyers, but also optimized with the right keywords for search engines like Bayut and Property Finder. Hitting both of these notes consistently is tough." },
             { heading: "Your Personal Copywriter", body: "This tool is your on-demand real estate copywriter. Simply provide the basic facts—address, beds, baths, square footage—and highlight one or two unique features. The AI will then craft a complete, well-structured listing description. It will write an enticing headline, a narrative-driven opening paragraph, a clear list of key features, and a compelling call-to-action." },
             { heading: "Optimized for Discovery", body: "Crucially, the AI understands how people search for homes. It automatically weaves in relevant local keywords, neighborhood names, and popular search terms to ensure your listing gets seen by the largest possible audience of relevant buyers. Stop staring at a blank page and start generating listings that sell." }
         ],
         cta: 'Listing',
     },
 };
-
-    
-
-    
