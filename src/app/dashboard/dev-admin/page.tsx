@@ -12,7 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from '@/components/ui/badge';
-import { PlusCircle, Bot, GitCommit, AlertTriangle, GanttChartSquare, RotateCw, Loader2, Sparkles, CheckCircle, MessageSquare, Undo } from 'lucide-react';
+import { PlusCircle, Bot, GitCommit, AlertTriangle, GanttChartSquare, RotateCw, Loader2, Sparkles, CheckCircle, MessageSquare, Undo, Copy } from 'lucide-react';
 import { PageHeader } from '@/components/ui/page-header';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
@@ -22,7 +22,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { tools } from '@/lib/tools-client';
 
 type TaskStatus = 'New' | 'Planned' | 'Coded' | 'Implemented' | 'Assured' | 'Issue Reported';
-type PipelineStatus = 'idle' | 'implementing';
 
 interface ChangeLogEntry {
     id: string;
@@ -47,8 +46,15 @@ export default function DevAdminPage() {
     const { toast } = useToast();
     const [currentTask, setCurrentTask] = useState('');
     const [selectedToolId, setSelectedToolId] = useState('');
-    const [pipelineStatus, setPipelineStatus] = useState<PipelineStatus>('idle');
     const [changeLog, setChangeLog] = useState<ChangeLogEntry[]>([]);
+
+    const copyToClipboard = (text: string, message: string) => {
+        navigator.clipboard.writeText(text);
+        toast({
+            title: 'Prompt Copied!',
+            description: message,
+        });
+    }
 
     const handleAssignTask = () => {
         if (!currentTask || !selectedToolId) {
@@ -70,57 +76,44 @@ export default function DevAdminPage() {
             description: currentTask,
             status: 'New',
         };
+
         setChangeLog(prev => [newLogEntry, ...prev]);
+        
+        const promptText = `Task Assigned (ID: ${newLogEntry.id}): For the "${selectedTool.title}" app, please start work on the following task: "${currentTask}". Please update the status to 'Planned' once you begin and 'Implemented' when you are done.`;
+        copyToClipboard(promptText, "The prompt to assign this new task has been copied to your clipboard. Paste it in our chat to have me start.");
+
         setCurrentTask('');
         setSelectedToolId('');
-        setPipelineStatus('implementing');
-        toast({ title: "Task Assigned!", description: "I have received the task and will begin implementation." });
-
-
-        // Simulate the AI workflow
-        setTimeout(() => {
-            updateLogStatus(newLogEntry.id, 'Planned');
-            
-            setTimeout(() => {
-                updateLogStatus(newLogEntry.id, 'Coded');
-
-                setTimeout(() => {
-                    updateLogStatus(newLogEntry.id, 'Implemented');
-                    setPipelineStatus('idle');
-                    toast({
-                        title: "Implementation Complete!",
-                        description: `The task for "${selectedTool.title}" is now implemented and ready for your review in the Change Log.`,
-                    });
-                }, 1500);
-            }, 1000);
-        }, 500);
     };
-
-    const updateLogStatus = (logId: string, status: TaskStatus) => {
-        setChangeLog(prev => prev.map(log => log.id === logId ? { ...log, status } : log));
-    }
     
-    const handleAction = (logId: string, action: 'assure' | 'rerun' | 'undo' | 'comment') => {
+    const handleAction = (log: ChangeLogEntry, action: 'assure' | 'rerun' | 'undo' | 'comment') => {
+        let promptText = '';
+        let toastMessage = '';
+
         switch(action) {
             case 'assure':
-                updateLogStatus(logId, 'Assured');
-                toast({ title: 'Task Assured!', description: 'Thank you for confirming the implementation.' });
+                promptText = `Assurance for Task (ID: ${log.id}): The implementation for "${log.description}" is correct. Please mark this task as 'Assured'.`;
+                toastMessage = 'Prompt to assure this task has been copied.';
                 break;
             case 'rerun':
-                updateLogStatus(logId, 'Issue Reported');
-                toast({ title: 'Issue Reported', description: 'I will re-run this task. Please provide more details in a new task if needed.' });
+                promptText = `Rerun Task (ID: ${log.id}): The implementation for "${log.description}" was not successful. Please mark this task as 'Issue Reported' and rerun the implementation.`;
+                toastMessage = 'Prompt to rerun this task has been copied.';
                 break;
             case 'undo':
-                toast({ title: 'Undo Action', description: 'The "Undo" functionality is currently a placeholder for a future version control system.', variant: 'destructive' });
+                 promptText = `Undo Task (ID: ${log.id}): Please revert the changes made for the task: "${log.description}".`;
+                 toastMessage = 'Prompt to undo this task has been copied.';
                 break;
             case 'comment':
-                const comment = prompt("Enter your comment for this log entry:");
+                const comment = window.prompt("Enter your comment for this log entry:");
                 if (comment) {
-                   setChangeLog(prev => prev.map(log => log.id === logId ? { ...log, comment } : log));
-                   toast({ title: 'Comment Added', description: 'Your comment has been saved.' });
+                   promptText = `Comment on Task (ID: ${log.id}): Please add the following note to this task: "${comment}".`;
+                   toastMessage = 'Prompt to add your comment has been copied.';
+                } else {
+                    return; // Don't do anything if comment is cancelled
                 }
                 break;
         }
+        copyToClipboard(promptText, toastMessage);
     }
 
   return (
@@ -135,7 +128,7 @@ export default function DevAdminPage() {
         <Card>
             <CardHeader>
                 <CardTitle>Task Pipeline</CardTitle>
-                <CardDescription>Assign a new development task. This simulates sending the task directly to me for implementation.</CardDescription>
+                <CardDescription>Assign a new development task. This will add it to the Change Log and copy a prompt for you to send to me.</CardDescription>
             </CardHeader>
             <CardContent>
                  <div className="flex flex-col sm:flex-row gap-4">
@@ -153,18 +146,17 @@ export default function DevAdminPage() {
                         placeholder="Enter your next task for me here..."
                         value={currentTask}
                         onChange={(e) => setCurrentTask(e.target.value)}
-                        disabled={pipelineStatus === 'implementing'}
                         rows={2}
                         className="flex-grow"
                     />
                     <Button 
                         size="lg" 
                         onClick={handleAssignTask}
-                        disabled={pipelineStatus === 'implementing' || !currentTask || !selectedToolId}
+                        disabled={!currentTask || !selectedToolId}
                         className="w-full sm:w-auto"
                     >
-                        {pipelineStatus === 'implementing' ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <GitCommit className="mr-2 h-4 w-4"/>}
-                        {pipelineStatus === 'implementing' ? 'Implementing...' : 'Assign Task'}
+                        <Copy className="mr-2 h-4 w-4"/>
+                        Assign & Copy Prompt
                     </Button>
                  </div>
             </CardContent>
@@ -197,9 +189,7 @@ export default function DevAdminPage() {
                             changeLog.map((log) => (
                             <TableRow 
                                 key={log.id} 
-                                className={cn(
-                                    pipelineStatus === 'implementing' && changeLog[0].id === log.id && 'bg-primary/5 animate-pulse'
-                                )}
+                                className={cn(log.status === 'Planned' && 'bg-yellow-500/5 animate-pulse')}
                             >
                                 <TableCell>
                                     <div className="flex flex-col">
@@ -218,10 +208,10 @@ export default function DevAdminPage() {
                                      </Badge>
                                 </TableCell>
                                 <TableCell className="text-right space-x-1">
-                                    <Button size="sm" variant="ghost" onClick={() => handleAction(log.id, 'comment')} title="Comment"><MessageSquare className="h-4 w-4"/></Button>
-                                    <Button size="sm" variant="ghost" onClick={() => handleAction(log.id, 'undo')} title="Undo"><Undo className="h-4 w-4"/></Button>
-                                    <Button size="sm" variant="ghost" onClick={() => handleAction(log.id, 'rerun')} title="Report Issue & Rerun"><RotateCw className="h-4 w-4 text-destructive"/></Button>
-                                    <Button size="sm" variant="outline" onClick={() => handleAction(log.id, 'assure')} title="Assure">
+                                    <Button size="sm" variant="ghost" onClick={() => handleAction(log, 'comment')} title="Comment"><MessageSquare className="h-4 w-4"/></Button>
+                                    <Button size="sm" variant="ghost" onClick={() => handleAction(log, 'undo')} title="Undo"><Undo className="h-4 w-4"/></Button>
+                                    <Button size="sm" variant="ghost" onClick={() => handleAction(log, 'rerun')} title="Report Issue & Rerun"><RotateCw className="h-4 w-4 text-destructive"/></Button>
+                                    <Button size="sm" variant="outline" onClick={() => handleAction(log, 'assure')} title="Assure">
                                         <Sparkles className="mr-2 h-4 w-4 text-green-500"/>
                                         Assure
                                     </Button>
