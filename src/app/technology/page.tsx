@@ -69,12 +69,12 @@ export default function TechnologyPage() {
                     <div className="flex flex-col items-center text-center p-4 bg-muted/50 rounded-lg">
                         <div className="p-3 bg-primary/10 text-primary rounded-full mb-3"><Upload className="h-6 w-6"/></div>
                         <h3 className="font-semibold">Knowledge Ingestion</h3>
-                        <p className="text-sm text-muted-foreground">Upload your brochures, market reports, and client lists. The agent learns from this private data pool.</p>
+                        <p className="text-sm text-muted-foreground">Upload your brochures, market reports, and client lists to the Knowledge Base to teach the assistant.</p>
                     </div>
                      <div className="flex flex-col items-center text-center p-4 bg-muted/50 rounded-lg">
                         <div className="p-3 bg-primary/10 text-primary rounded-full mb-3"><Cpu className="h-6 w-6"/></div>
                         <h3 className="font-semibold">Contextual Reasoning</h3>
-                        <p className="text-sm text-muted-foreground">The agent uses your private data to inform its responses, providing insights and executing tasks with high relevance.</p>
+                        <p className="text-sm text-muted-foreground">The agent uses your private data to inform its responses, executing tasks with high relevance to your business.</p>
                     </div>
                      <div className="flex flex-col items-center text-center p-4 bg-muted/50 rounded-lg">
                         <div className="p-3 bg-primary/10 text-primary rounded-full mb-3"><Puzzle className="h-6 w-6"/></div>
@@ -88,7 +88,7 @@ export default function TechnologyPage() {
                 <CardHeader>
                     <CardTitle className="text-2xl">Onboarding: The First Training Session</CardTitle>
                     <p className="text-foreground/70">
-                        The agent's training begins the moment a user starts onboarding. By asking for key developers and confirming market relevance, the agent builds its initial understanding of the user's business focus. This data immediately personalizes the project library and tool suggestions.
+                        The agent's training begins the moment a user starts onboarding. By asking for key developers and confirming market relevance, the agent builds its initial understanding of the user's business focus. This data immediately personalizes the project library and tool suggestions, making the suite useful from day one.
                     </p>
                 </CardHeader>
             </Card>

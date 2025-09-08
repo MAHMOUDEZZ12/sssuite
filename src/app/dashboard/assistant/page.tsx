@@ -28,10 +28,10 @@ import Link from 'next/link';
 const samplePrompts = [
     { title: "Summarize Market Trends", prompt: "Summarize the latest market trends for downtown luxury condos based on the Q2 report I uploaded." },
     { title: "Draft a Follow-up Email", prompt: "Draft a polite but persistent follow-up email to Jane Doe regarding the offer on 123 Main St." },
-    { title: "Analyze a Brochure", prompt: "What are the top 3 selling points from the 'Azure Lofts' brochure?" },
-    { title: "Generate Social Post Ideas", prompt: "Give me 5 Instagram post ideas for the new listing at 456 Ocean Ave." },
-    { title: "Compare Two Properties", prompt: "Create a comparison table for a client between 'Azure Lofts' and 'Maple Creek Development'." },
-    { title: "Role-play a Negotiation", prompt: "Let's role-play. I'm the seller's agent for 123 Main St, and you're a buyer's agent with a low offer. Start the conversation." },
+    { title: "Analyze a Brochure", prompt: "What are the top 3 selling points from the 'Emaar Beachfront' brochure?" },
+    { title: "Generate Social Post Ideas", prompt: "Give me 5 Instagram post ideas for the new listing at Sobha Hartland." },
+    { title: "Compare Two Properties", prompt: "Create a comparison table for a client between 'Emaar Beachfront' and 'Damac Hills 2'." },
+    { title: "Role-play a Negotiation", prompt: "Let's role-play. I'm the seller's agent for a property in Dubai Marina, and you're a buyer's agent with a low offer. Start the conversation." },
 ]
 
 type MockFile = { id: number; name: string; type: string; icon: React.ReactNode; size: string; file?: File };
@@ -106,7 +106,7 @@ export default function AssistantPage() {
                  <Card className="bg-muted/50 p-4">
                     <div className="flex flex-col md:flex-row md:items-center gap-4">
                         <div className="flex-grow">
-                             <p className="text-sm text-foreground">The AI's knowledge comes from the files you upload in the <Link href="/dashboard/brand" className="underline font-semibold hover:text-primary">Brand &amp; Assets</Link> section. The assistant has access to all uploaded brochures, reports, and data to provide more relevant and accurate responses.</p>
+                             <p className="text-sm text-foreground">The AI's knowledge comes from the files you upload in the <Link href="/dashboard/brand" className="underline font-semibold hover:text-primary">Asset Storage &amp; Knowledge Base</Link> section. The assistant has access to all uploaded brochures, reports, and data to provide more relevant and accurate responses. You are in full control of its knowledge.</p>
                         </div>
                         <Link href="/dashboard/brand">
                            <Button variant="outline">

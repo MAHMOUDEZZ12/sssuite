@@ -355,9 +355,9 @@ export default function BrandPage() {
         <CardHeader>
             <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4'>
                 <div>
-                    <CardTitle>Asset Storage & Knowledge Base</CardTitle>
+                    <CardTitle>Asset Storage &amp; Knowledge Base</CardTitle>
                     <CardDescription>
-                        Manage all your uploaded assets and AI-generated files. Select files to provide knowledge to your assistant.
+                        Manage all your uploaded assets. This is the "Knowledge Base" that trains your AI assistant.
                     </CardDescription>
                 </div>
                 <div className='flex items-center gap-2 flex-wrap'>
