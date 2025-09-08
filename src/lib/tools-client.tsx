@@ -805,7 +805,7 @@ export const tools: Feature[] = [
       { id: 'sourcePdf', name: 'Source PDF', type: 'file', description: 'Upload the PDF you want to edit.' },
       { id: 'editInstructions', name: 'Editing Instructions', type: 'textarea', placeholder: '- Change the main contact name to "Jane Smith".\n- Replace the hero image with the one I uploaded.\n- Update the completion date to "Fall 2025".', description: 'Be specific. The more detailed your command, the better the result.' },
       { id: 'newImages', name: 'New Images (Optional)', type: 'file', multiple: true, description: 'Only upload images if your instructions refer to them.' },
-      { id: 'deepEditInstructions', name: 'Deep Edit Instructions (Optional)', type: 'textarea', placeholder: 'e.g., "On page 3, change the heading color to primary brand color. Make the price text 10% larger."', description: 'Provide specific, granular instructions for fine-tuning the document.' },
+      { id: 'deepEditInstructions', name: 'Deep Edit Instructions (Optional)', type: 'textarea', placeholder: 'e.g., "On page 3, change the heading color to primary brand color. Make the price text 10% larger."', description: 'Provide specific instructions for fine-tuning the document.' },
     ],
   },
   {
