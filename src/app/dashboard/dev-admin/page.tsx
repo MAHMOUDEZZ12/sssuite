@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from '@/components/ui/badge';
-import { PlusCircle, Bot } from 'lucide-react';
+import { PlusCircle, Bot, GitCommit, AlertTriangle } from 'lucide-react';
 import { PageHeader } from '@/components/ui/page-header';
 import { Input } from '@/components/ui/input';
 import { tools, Feature } from '@/lib/tools-client';
@@ -28,10 +28,13 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Textarea } from '@/components/ui/textarea';
 
 type DevStatus = 'Pending' | 'Planned' | 'Implemented' | 'Upgraded';
+type TaskStatus = 'idle' | 'assigned' | 'completed';
 
 interface AppState extends Feature {
   devStatus: DevStatus;
-  task: string;
+  currentTask: string;
+  assignedTask: string | null;
+  taskStatus: TaskStatus;
 }
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
@@ -73,7 +76,9 @@ export default function DevAdminPage() {
         const appsWithState = tools.map(tool => ({
             ...tool,
             devStatus: initialDevStatus[tool.id] || 'Pending',
-            task: '',
+            currentTask: '',
+            assignedTask: null,
+            taskStatus: 'idle' as TaskStatus,
         }));
         setApps(appsWithState);
     }, []);
@@ -83,18 +88,33 @@ export default function DevAdminPage() {
     };
 
     const handleTaskChange = (appId: string, newTask: string) => {
-        setApps(prevApps => prevApps.map(app => app.id === appId ? { ...app, task: newTask } : app));
+        setApps(prevApps => prevApps.map(app => app.id === appId ? { ...app, currentTask: newTask } : app));
     };
-    
-    const handleLogTask = (appId: string, task: string) => {
-        if (!task) {
-            toast({ title: "Task is empty", description: "Please enter a task before logging.", variant: "destructive" });
-            return;
+
+    const handleTaskAction = (appId: string, currentStatus: TaskStatus, taskText: string) => {
+        if (currentStatus === 'idle') {
+            if (!taskText) {
+                toast({ title: "Task is empty", description: "Please enter a task before assigning.", variant: "destructive" });
+                return;
+            }
+            setApps(prevApps => prevApps.map(app => app.id === appId ? { ...app, taskStatus: 'assigned', assignedTask: taskText } : app));
+            toast({
+                title: `Task Assigned for ${appId}`,
+                description: `I will now work on: "${taskText}"`,
+            });
+             // Simulate AI completing the task
+            setTimeout(() => {
+                 setApps(prevApps => prevApps.map(app => app.id === appId ? { ...app, taskStatus: 'completed' } : app));
+            }, 2000);
+        } else if (currentStatus === 'completed') {
+            // This is the "Report Issue" button
+            setApps(prevApps => prevApps.map(app => app.id === appId ? { ...app, taskStatus: 'idle', assignedTask: null, currentTask: '' } : app));
+            toast({
+                title: 'Issue Reported',
+                description: `Thank you for the feedback on "${taskText}". The task has been reset. Please provide new instructions.`,
+                variant: 'destructive'
+            })
         }
-        toast({
-            title: `Task Logged for ${appId}`,
-            description: `I will now work on: "${task}"`,
-        });
     };
     
     const handleAddNewIdea = () => {
@@ -153,9 +173,9 @@ export default function DevAdminPage() {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[250px]">Application</TableHead>
-              <TableHead className="w-[150px]">Status</TableHead>
+              <TableHead className="w-[150px]">Dev Status</TableHead>
               <TableHead>Task / Notes</TableHead>
-              <TableHead className="w-[120px] text-right">Action</TableHead>
+              <TableHead className="w-[180px] text-right">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -184,14 +204,27 @@ export default function DevAdminPage() {
                   </Select>
                 </TableCell>
                 <TableCell>
-                  <Input 
-                    placeholder="Enter task or notes for Gemini..."
-                    value={app.task}
-                    onChange={(e) => handleTaskChange(app.id, e.target.value)}
-                  />
+                  {app.taskStatus === 'idle' ? (
+                     <Input 
+                        placeholder="Enter task or notes for Gemini..."
+                        value={app.currentTask}
+                        onChange={(e) => handleTaskChange(app.id, e.target.value)}
+                      />
+                  ) : (
+                    <p className="text-sm text-muted-foreground italic pl-2">"{app.assignedTask}"</p>
+                  )}
                 </TableCell>
                 <TableCell className="text-right">
-                   <Button size="sm" onClick={() => handleLogTask(app.id, app.task)}>Log Task</Button>
+                    <Button 
+                        size="sm" 
+                        onClick={() => handleTaskAction(app.id, app.taskStatus, app.currentTask)}
+                        variant={app.taskStatus === 'completed' ? 'destructive' : 'default'}
+                        disabled={app.taskStatus === 'assigned'}
+                    >
+                      {app.taskStatus === 'idle' && <><GitCommit className="mr-2 h-4 w-4"/>Assign Task</>}
+                      {app.taskStatus === 'assigned' && 'Implementing...'}
+                      {app.taskStatus === 'completed' && <><AlertTriangle className="mr-2 h-4 w-4"/>Report Issue</>}
+                   </Button>
                 </TableCell>
               </TableRow>
             ))}
