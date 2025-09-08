@@ -49,6 +49,7 @@ export async function POST(req: NextRequest) {
     switch (toolId) {
         case 'insta-ads-designer':
         case 'facebook-ads-ai':
+        case 'ad-creation': // Legacy ID
             result = await generateAdFromBrochure(payload);
             break;
         case 'audience-creator':
@@ -64,6 +65,7 @@ export async function POST(req: NextRequest) {
             result = await generateLandingPage(payload);
             break;
         case 'instagram-content-creator':
+        case 'instagram-hashtags-ai':
             result = await generateSocialPost(payload);
             break;
         case 'investor-matching':

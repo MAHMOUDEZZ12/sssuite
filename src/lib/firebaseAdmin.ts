@@ -1,3 +1,4 @@
+
 // Server-side Firestore (Admin SDK). Safe for API routes & jobs.
 import {
   getApps,
@@ -11,30 +12,25 @@ import { getFirestore } from 'firebase-admin/firestore';
 let app: App;
 
 if (!getApps().length) {
-  const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT;
-  let credential;
-
-  if (serviceAccountJson) {
-    try {
+  try {
+    const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT;
+    if (serviceAccountJson) {
       const serviceAccount = JSON.parse(serviceAccountJson);
-      credential = cert(serviceAccount);
-      console.log(
-        'Initializing Firebase Admin with explicit service account credentials.'
-      );
-    } catch (e: any) {
-      console.warn(
-        `Could not parse or use FIREBASE_SERVICE_ACCOUNT. Falling back to default credentials. Error: ${e.message}`
-      );
-      credential = applicationDefault();
+      console.log('Initializing Firebase Admin with explicit service account credentials.');
+      app = initializeApp({
+        credential: cert(serviceAccount),
+      });
+    } else {
+      throw new Error('FIREBASE_SERVICE_ACCOUNT environment variable is not set.');
     }
-  } else {
-    console.log(
-      'Initializing Firebase Admin with default credentials. This is expected for managed environments.'
+  } catch (e: any) {
+    console.warn(
+      `Could not use FIREBASE_SERVICE_ACCOUNT. Falling back to default credentials. Error: ${e.message}`
     );
-    credential = applicationDefault();
+    app = initializeApp({
+      credential: applicationDefault(),
+    });
   }
-
-  app = initializeApp({ credential });
 } else {
   app = getApps()[0];
 }

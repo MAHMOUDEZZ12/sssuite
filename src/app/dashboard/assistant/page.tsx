@@ -106,7 +106,7 @@ export default function AssistantPage() {
                  <Card className="bg-muted/50 p-4">
                     <div className="flex flex-col md:flex-row md:items-center gap-4">
                         <div className="flex-grow">
-                             <p className="text-sm text-foreground">The AI's knowledge comes from the files you upload in the <Link href="/dashboard/brand" className="underline font-semibold hover:text-primary">Asset Storage &amp; Knowledge Base</Link> section. The assistant has access to all uploaded brochures, reports, and data to provide more relevant and accurate responses. You are in full control of its knowledge.</p>
+                             <p className="text-sm text-foreground">The AI's knowledge comes from the files you upload in the <Link href="/dashboard/brand" className="underline font-semibold hover:text-primary">'Asset Storage & Knowledge Base'</Link> section on the Brand & Assets page. The assistant has access to all uploaded brochures, reports, and data to provide more relevant and accurate responses. You are in full control of its knowledge.</p>
                         </div>
                         <Link href="/dashboard/brand">
                            <Button variant="outline">

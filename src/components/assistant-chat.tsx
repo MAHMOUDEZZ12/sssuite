@@ -100,8 +100,8 @@ export function AssistantChat() {
   return (
     <>
       <div className="fixed inset-0 z-[60] flex items-end justify-end bg-black/50 animate-in fade-in">
-          <div className="m-4 w-full max-w-lg rounded-2xl border bg-card text-card-foreground p-4 animate-in slide-in-from-bottom-8">
-            <div className="flex items-center justify-between pb-3">
+          <div className="m-4 w-full max-w-lg rounded-2xl border bg-card text-card-foreground shadow-lg animate-in slide-in-from-bottom-8">
+            <div className="flex items-center justify-between p-4 border-b">
               <h3 className="text-base font-semibold flex items-center gap-2">
                 <Bot className="h-5 w-5 text-primary"/>
                 Your AI Assistant
@@ -113,7 +113,7 @@ export function AssistantChat() {
             </div>
             
             <CardContent className="p-0">
-                <ScrollArea className="h-[400px] p-4 border-t" ref={scrollAreaRef as any}>
+                <ScrollArea className="h-[400px] p-4" ref={scrollAreaRef as any}>
                 <div className="space-y-4">
                     {messages.map((msg, index) => (
                     <div
@@ -163,7 +163,7 @@ export function AssistantChat() {
                 </ScrollArea>
             </CardContent>
             
-             <CardFooter className="p-0 pt-3 border-t">
+             <CardFooter className="p-4 border-t">
                 <form onSubmit={handleSendMessage} className="flex w-full items-center gap-2">
                     <Input 
                         placeholder="Ask anything or enter a secret code..." 

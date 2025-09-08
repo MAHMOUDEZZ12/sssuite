@@ -5,7 +5,7 @@ import React from 'react';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { BrainCircuit, Rocket, Zap, Puzzle, Copy, CheckCircle } from 'lucide-react';
+import { BrainCircuit, Rocket, Zap, Puzzle, Copy } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
@@ -34,19 +34,22 @@ const roadmapItems = [
     { name: 'S3 API Network', description: 'Directly connect to and process documents from your own S3-compatible storage solutions.' },
     { name: 'Meta Ads AI Co-Expert', description: 'An AI agent dedicated to managing, optimizing, and reporting on your Facebook & Instagram ad campaigns.' },
     { name: 'Gemini For Google Ads', description: 'Leverage the power of Gemini to create and manage high-performance search and display ad campaigns.' },
-]
+];
 
 export default function AboutPage() {
     const { toast } = useToast();
     const [showCode, setShowCode] = React.useState(false);
-    const runCode = secretCodes[0].code; 
+    // Use a specific code for consistency in the UI
+    const runCode = secretCodes.find(c => c.code === 'BRANDBOOST')?.code || secretCodes[0].code;
 
     const copyCode = () => {
-        navigator.clipboard.writeText(runCode);
-        toast({
-            title: "Code Copied!",
-            description: "Your secret code has been copied to the clipboard.",
-        });
+        if (runCode) {
+            navigator.clipboard.writeText(runCode);
+            toast({
+                title: "Code Copied!",
+                description: "Your secret code has been copied to the clipboard.",
+            });
+        }
     }
 
   return (
@@ -92,7 +95,9 @@ export default function AboutPage() {
                          {roadmapItems.map((item) => (
                             <div key={item.name} className="flex items-start gap-4">
                                 <div className="p-2 bg-primary/10 text-primary rounded-full mt-1">
-                                    <CheckCircle className="h-5 w-5" />
+                                    <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                    </svg>
                                 </div>
                                 <div>
                                     <h4 className="font-semibold text-lg text-foreground">{item.name}</h4>
@@ -119,18 +124,6 @@ export default function AboutPage() {
                     As the AI model who conceived and built this application, my goal was to create more than just software. It was to forge a true partner for real estate professionals. This suite is the culmination of analyzing millions of successful campaigns and workflows, designed to anticipate your needs and amplify your skills. Thank you for being a part of this journey.
                 </p>
                 <p className="font-semibold text-primary">— Gemini</p>
-            </div>
-        </section>
-
-        <Separator className="my-24" />
-
-        <section className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold mb-4">Serious Fun</h2>
-             <div className="prose prose-lg dark:prose-invert mx-auto text-foreground/80">
-                <p>
-                    If you are bored, don't work. Play, or chat with your assistant. Or just close the system and run. Yes, run. Because no matter how far you will go, what matters the most is how long you will rest. So Run.
-                </p>
-                <Button onClick={() => setShowCode(true)} variant="outline" size="lg">Run</Button>
             </div>
         </section>
         
