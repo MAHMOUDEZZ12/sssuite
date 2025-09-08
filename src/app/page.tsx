@@ -385,7 +385,7 @@ export default function Home() {
                          <div className="p-3 bg-primary/10 text-primary rounded-full w-fit mb-4">
                             <Bot className="h-8 w-8" />
                         </div>
-                        <h2 className="text-4xl font-bold font-heading tracking-tight mb-4">Your AI Co-Pilot, Supercharged</h2>
+                        <h2 className="text-4xl font-bold font-heading tracking-tight mb-4">Your AI Agent, Supercharged</h2>
                         <p className="text-lg text-foreground/70 mb-6">
                            Your assistant is more than a chatbot. It's a command center for your entire suite. Train it, command it, and let it run entire campaigns for you.
                         </p>
@@ -393,22 +393,22 @@ export default function Home() {
                             <div className="flex items-start gap-4">
                                 <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><BrainCircuit className="h-6 w-6" /></div>
                                 <div>
-                                    <h4 className="font-semibold text-lg">Local data training</h4>
-                                    <p className="text-md text-foreground/60">Upload your brochures, market reports, and contact lists. Your assistant learns from your data to give hyper-relevant, private responses that public AIs can't match.</p>
+                                    <h4 className="font-semibold text-lg">Trainable Intelligence</h4>
+                                    <p className="text-md text-foreground/60">Upload your brochures, market reports, and client lists. Your assistant learns from your private data to give hyper-relevant answers that public AIs can't match.</p>
                                 </div>
                             </div>
                              <div className="flex items-start gap-4">
                                 <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Sparkles className="h-6 w-6" /></div>
                                 <div>
-                                    <h4 className="font-semibold text-lg">Text to Action commands</h4>
-                                    <p className="text-md text-foreground/60">Issue direct orders. Instead of just asking for ideas, tell your assistant: "Rebrand this brochure with my logo" or "Find me three investors for this property from my list."</p>
+                                    <h4 className="font-semibold text-lg">Text-to-Action Commands</h4>
+                                    <p className="text-md text-foreground/60">Issue direct orders. Instead of just asking for ideas, tell your assistant: "Rebrand this brochure with my logo" or "Find three investors for this property from my list."</p>
                                 </div>
                             </div>
                               <div className="flex items-start gap-4">
                                 <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Megaphone className="h-6 w-6" /></div>
                                 <div>
-                                    <h4 className="font-semibold text-lg">Cross Services performing</h4>
-                                    <p className="text-md text-foreground/60">Orchestrate multi-step workflows. Tell the assistant: "Create a new project for Azure Lofts, generate a promotional video for it, and save the final video to my drive."</p>
+                                    <h4 className="font-semibold text-lg">Cross-Tool Workflows</h4>
+                                    <p className="text-md text-foreground/60">Orchestrate multi-step campaigns. Command the assistant: "Create a new project for Azure Lofts, generate a promotional video, and save the final video to my drive."</p>
                                 </div>
                             </div>
                         </div>
