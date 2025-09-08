@@ -33,6 +33,18 @@ interface ChangeLogEntry {
     comment?: string;
 }
 
+const initialLog: ChangeLogEntry[] = [
+    {
+        id: 'cl-1757362497975',
+        timestamp: new Date(),
+        toolId: 'meta-auto-pilot',
+        toolTitle: 'Meta Auto Pilot',
+        description: 'the poilt should design the flow as per the user need -- a flow for lead generaton campaign is not the same for a reel ad with landing page -- or reel ad with messages',
+        status: 'Implemented',
+        comment: "This task has been implemented. The Meta Auto Pilot page now allows selection of different workflows."
+    }
+];
+
 const statusConfig: { [key in TaskStatus]: { color: string, icon: React.ReactNode } } = {
     'New': { color: 'bg-blue-500', icon: <PlusCircle className="h-3 w-3" /> },
     'Planned': { color: 'bg-yellow-500', icon: <Loader2 className="h-3 w-3 animate-spin" /> },
@@ -46,7 +58,7 @@ export default function DevAdminPage() {
     const { toast } = useToast();
     const [currentTask, setCurrentTask] = useState('');
     const [selectedToolId, setSelectedToolId] = useState('');
-    const [changeLog, setChangeLog] = useState<ChangeLogEntry[]>([]);
+    const [changeLog, setChangeLog] = useState<ChangeLogEntry[]>(initialLog);
 
     const copyToClipboard = (text: string, message: string) => {
         navigator.clipboard.writeText(text);

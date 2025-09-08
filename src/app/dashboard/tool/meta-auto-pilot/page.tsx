@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { tools } from '@/lib/tools-client';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const metaTools = tools.filter(t => t.mindMapCategory === 'Meta Ads AI Suite' && t.id !== 'meta-auto-pilot');
 
@@ -23,26 +24,58 @@ interface Step {
   status: Status;
 }
 
-const initialWorkflowSteps: Step[] = [
-  { id: 'audience-creator', title: 'Define Target Audience', description: 'Using Audience Creator AI to find high-intent buyers.', status: 'pending' },
-  { id: 'campaign-builder', title: 'Generate Ad Creatives', description: 'Using Campaign Builder AI to create compelling ads.', status: 'pending' },
-  { id: 'publish', title: 'Publish to Meta', description: 'Sending campaign structure to Meta Ads API.', status: 'pending' },
-  { id: 'monitor', title: 'Launch & Monitor', description: 'Campaign is live. The pilot is now monitoring performance.', status: 'pending' },
-];
+const workflows: { [key: string]: { name: string; description: string; steps: Step[] } } = {
+  'lead-gen': {
+    name: 'Lead Generation Campaign',
+    description: 'Find new leads directly on Meta using Lead Forms.',
+    steps: [
+      { id: 'audience', title: 'Define Target Audience', description: 'Using Audience Creator AI to find high-intent buyers.', status: 'pending' },
+      { id: 'creative', title: 'Generate Ad Creatives & Lead Form', description: 'Using Campaign Builder to create ads and an instant form.', status: 'pending' },
+      { id: 'publish', title: 'Publish Campaign to Meta', description: 'Sending campaign with Lead Form objective.', status: 'pending' },
+      { id: 'monitor', title: 'Launch & Monitor Leads', description: 'Pilot is monitoring new leads and performance.', status: 'pending' },
+    ],
+  },
+  'website-traffic': {
+    name: 'Website Traffic Campaign',
+    description: 'Drive targeted users to your landing page.',
+    steps: [
+      { id: 'audience', title: 'Define Target Audience', description: 'Using Audience Creator AI for your landing page.', status: 'pending' },
+      { id: 'creative', title: 'Generate Ad Creatives', description: 'Using Insta Ads Designer for traffic-focused ads.', status: 'pending' },
+      { id: 'publish', title: 'Publish Campaign to Meta', description: 'Sending campaign with Traffic objective to your URL.', status: 'pending' },
+      { id: 'monitor', title: 'Launch & Monitor Clicks', description: 'Pilot is monitoring click-through rates and cost.', status: 'pending' },
+    ],
+  },
+  'messages-campaign': {
+    name: 'Messenger/WhatsApp Campaign',
+    description: 'Start conversations with potential buyers.',
+    steps: [
+      { id: 'audience', title: 'Define Conversation Starters', description: 'Using Audience Creator AI to find users likely to engage.', status: 'pending' },
+      { id: 'creative', title: 'Generate "Send Message" Ad', description: 'Using Campaign Builder for click-to-message ads.', status: 'pending' },
+      { id: 'publish', title: 'Publish Campaign to Meta', description: 'Sending campaign with Messages objective.', status: 'pending' },
+      { id: 'monitor', title: 'Launch & Monitor Conversations', description: 'Pilot is monitoring new conversations started.', status: 'pending' },
+    ],
+  },
+};
+
 
 export default function MetaAutoPilotPage() {
   const { toast } = useToast();
+  const [selectedWorkflowId, setSelectedWorkflowId] = useState('lead-gen');
   const [isAutomating, setIsAutomating] = useState(false);
-  const [workflow, setWorkflow] = useState<Step[]>(initialWorkflowSteps);
+  const [workflow, setWorkflow] = useState<Step[]>(workflows[selectedWorkflowId].steps);
+
+  useEffect(() => {
+    setWorkflow(workflows[selectedWorkflowId].steps);
+  }, [selectedWorkflowId]);
   
   const handleStartAutomation = () => {
     setIsAutomating(true);
-    setWorkflow(initialWorkflowSteps); // Reset workflow
+    setWorkflow(workflows[selectedWorkflowId].steps); // Reset workflow
 
     const runStep = (index: number) => {
-      if (index >= initialWorkflowSteps.length) {
+      if (index >= workflow.length) {
         setIsAutomating(false);
-        toast({ title: 'Automation Complete!', description: 'Your campaign is now live and being monitored.' });
+        toast({ title: 'Automation Complete!', description: `The '${workflows[selectedWorkflowId].name}' is now live.` });
         return;
       }
       
@@ -64,6 +97,8 @@ export default function MetaAutoPilotPage() {
       default: return <Circle className="h-5 w-5 text-muted-foreground/50" />;
     }
   }
+  
+  const currentWorkflow = workflows[selectedWorkflowId];
 
   return (
     <main className="p-4 md:p-10 space-y-8">
@@ -97,19 +132,28 @@ export default function MetaAutoPilotPage() {
             <Card>
                 <CardHeader>
                     <CardTitle>Automated Workflows</CardTitle>
-                    <CardDescription>Run multi-step campaigns with a single click.</CardDescription>
+                    <CardDescription>Select a goal and the Pilot will execute the correct workflow.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="p-4 border rounded-lg">
-                        <div className="flex justify-between items-center">
+                        <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
                             <div className="flex items-center gap-3">
-                                <div className="p-2 bg-primary/10 rounded-md text-primary"><GanttChartSquare className="h-6 w-6"/></div>
-                                <div>
-                                    <h3 className="font-semibold">Quick Start: Full Campaign</h3>
-                                    <p className="text-sm text-muted-foreground">Define audience, create ads, and launch.</p>
+                                <div className="p-2 bg-primary/10 rounded-md text-primary shrink-0"><GanttChartSquare className="h-6 w-6"/></div>
+                                <div className="flex-grow">
+                                    <Select value={selectedWorkflowId} onValueChange={setSelectedWorkflowId} disabled={isAutomating}>
+                                      <SelectTrigger className="w-full md:w-[280px]">
+                                        <SelectValue placeholder="Select a workflow..." />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        {Object.entries(workflows).map(([id, wf]) => (
+                                          <SelectItem key={id} value={id}>{wf.name}</SelectItem>
+                                        ))}
+                                      </SelectContent>
+                                    </Select>
+                                    <p className="text-sm text-muted-foreground mt-1">{currentWorkflow.description}</p>
                                 </div>
                             </div>
-                             <Button onClick={handleStartAutomation} disabled={isAutomating}>
+                             <Button onClick={handleStartAutomation} disabled={isAutomating} className="w-full md:w-auto">
                                 {isAutomating ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Play className="mr-2 h-4 w-4"/>}
                                 {isAutomating ? 'Running...' : 'Run Workflow'}
                             </Button>
