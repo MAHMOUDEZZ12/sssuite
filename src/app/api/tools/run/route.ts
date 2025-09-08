@@ -28,42 +28,6 @@ import { generatePaymentPlan } from '@/ai/flows/generate-payment-plan';
 import { translateBrochure } from '@/ai/flows/translate-brochure';
 import { editYoutubeVideo } from '@/ai/flows/edit-youtube-video';
 
-
-// Define the map directly in the API route
-const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
-    'insta-ads-designer': generateAdFromBrochure,
-    'audience-creator': suggestTargetingOptions,
-    'rebranding': rebrandBrochure,
-    'pdf-editor': editPdf,
-    'landing-pages': generateLandingPage,
-    'instagram-content-creator': generateSocialPost,
-    'investor-matching': matchInvestors,
-    'ai-brand-creator': aiBrandCreator,
-    'market-reports': generateMarketReport,
-    'property-finder-listing-ai': generateListing,
-    'bayut-listing-ai': generateListing,
-    'dubizzle-listing-ai': generateListing,
-    'story-planner-ai': generateStory,
-    'reel-ads-ai': generateReel,
-    'tiktok-editor': generateTikTokVideo,
-    'crm-assistant': getCrmMemory,
-    'instagram-admin-ai': manageSocialPage,
-    'offer-generator': generateMultiOffer,
-    'email-creator': createEmailCampaign,
-    'whatsapp-campaigns': manageWhatsAppCampaign,
-    'meta-ads-copilot': createMetaCampaign,
-    'facebook-ads-ai': generateAdFromBrochure,
-    'propertyfinder-sync': syncPropertyFinderListing,
-    'bayut-sync': syncBayutListing,
-    'payment-planner': generatePaymentPlan,
-    'brochure-translator': translateBrochure,
-    'youtube-video-editor': editYoutubeVideo,
-    'commission-calculator': async (data: { salePrice: string }) => {
-        return Promise.resolve(data);
-    },
-};
-
-
 const runToolSchema = z.object({
   toolId: z.string(),
   payload: z.any(),
@@ -79,15 +43,94 @@ export async function POST(req: NextRequest) {
     }
 
     const { toolId, payload } = validation.data;
+    
+    let result;
 
-    const flowRunner = flowRunnerMap[toolId];
-
-    if (!flowRunner) {
-      return NextResponse.json({ error: `Tool with id "${toolId}" not found or has no flow runner.` }, { status: 404 });
+    switch (toolId) {
+        case 'insta-ads-designer':
+        case 'facebook-ads-ai':
+            result = await generateAdFromBrochure(payload);
+            break;
+        case 'audience-creator':
+            result = await suggestTargetingOptions(payload);
+            break;
+        case 'rebranding':
+            result = await rebrandBrochure(payload);
+            break;
+        case 'pdf-editor':
+            result = await editPdf(payload);
+            break;
+        case 'landing-pages':
+            result = await generateLandingPage(payload);
+            break;
+        case 'instagram-content-creator':
+            result = await generateSocialPost(payload);
+            break;
+        case 'investor-matching':
+            result = await matchInvestors(payload);
+            break;
+        case 'ai-brand-creator':
+            result = await aiBrandCreator(payload);
+            break;
+        case 'market-reports':
+            result = await generateMarketReport(payload);
+            break;
+        case 'property-finder-listing-ai':
+        case 'bayut-listing-ai':
+        case 'dubizzle-listing-ai':
+            result = await generateListing(payload);
+            break;
+        case 'story-planner-ai':
+            result = await generateStory(payload);
+            break;
+        case 'reel-ads-ai':
+            result = await generateReel(payload);
+            break;
+        case 'tiktok-editor':
+            result = await generateTikTokVideo(payload);
+            break;
+        case 'crm-assistant':
+            result = await getCrmMemory(payload);
+            break;
+        case 'instagram-admin-ai':
+            result = await manageSocialPage(payload);
+            break;
+        case 'offer-generator':
+            result = await generateMultiOffer(payload);
+            break;
+        case 'email-creator':
+            result = await createEmailCampaign(payload);
+            break;
+        case 'whatsapp-campaigns':
+            result = await manageWhatsAppCampaign(payload);
+            break;
+        case 'meta-ads-copilot':
+            result = await createMetaCampaign(payload);
+            break;
+        case 'propertyfinder-sync':
+            result = await syncPropertyFinderListing(payload);
+            break;
+        case 'bayut-sync':
+            result = await syncBayutListing(payload);
+            break;
+        case 'payment-planner':
+            result = await generatePaymentPlan(payload);
+            break;
+        case 'brochure-translator':
+            result = await translateBrochure(payload);
+            break;
+        case 'youtube-video-editor':
+            result = await editYoutubeVideo(payload);
+            break;
+        case 'commission-calculator':
+            result = await Promise.resolve(payload);
+            break;
+        default:
+            return NextResponse.json({ error: `Tool with id "${toolId}" not found.` }, { status: 404 });
     }
 
-    const result = await flowRunner(payload);
     return NextResponse.json(result);
+
   } catch (e: any) {
     console.error(`Error running tool: ${e.message}`, e);
     const errorMessage = e.message || 'An unexpected error occurred.';
