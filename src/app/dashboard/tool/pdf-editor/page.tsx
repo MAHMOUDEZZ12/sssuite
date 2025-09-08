@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Upload, FileText, Plus, Trash2, Edit, Move, Save } from 'lucide-react';
+import { Loader2, Sparkles, Upload, FileText, Plus, Trash2, Edit, Move, Save, PenLine, Type, Image as ImageIcon, Palettes } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { useCanvas } from '@/context/CanvasContext';
@@ -24,12 +24,34 @@ const initialPages: Page[] = Array.from({ length: 4 }, (_, i) => ({
 
 const EditInCanvas = ({ page, onSave, onCancel }: { page: Page; onSave: (instructions: string) => void; onCancel: () => void }) => {
     const [instructions, setInstructions] = useState('');
+
+    const appendInstruction = (instruction: string) => {
+        setInstructions(prev => prev ? `${prev}\n- ${instruction}` : `- ${instruction}`);
+    };
+
     return (
         <div className="space-y-4">
             <img src={page.thumbnailUrl} alt={`Page ${page.id}`} className="w-full rounded-lg border" />
-            <h3 className="font-semibold">Editing Page {page.id}</h3>
+            <h3 className="font-semibold">Editing Instructions for Page {page.id}</h3>
+             <div className="p-3 bg-muted/50 rounded-lg space-y-2">
+                <p className="text-sm text-muted-foreground">Use the smart tools below to build your instructions or write them freely.</p>
+                <div className="grid grid-cols-2 gap-2">
+                    <Button variant="outline" size="sm" onClick={() => appendInstruction("Replace text '...' with '...'")}>
+                        <Type className="mr-2 h-4 w-4"/> Replace Text
+                    </Button>
+                     <Button variant="outline" size="sm" onClick={() => appendInstruction("Swap image '[describe image]' with the one from my brand assets.")}>
+                        <ImageIcon className="mr-2 h-4 w-4"/> Swap Image
+                    </Button>
+                     <Button variant="outline" size="sm" onClick={() => appendInstruction("Highlight the section about '...' with a light blue box.")}>
+                        <PenLine className="mr-2 h-4 w-4"/> Highlight Area
+                    </Button>
+                     <Button variant="outline" size="sm" onClick={() => appendInstruction("Change all heading colors to my primary brand color.")}>
+                        <Palettes className="mr-2 h-4 w-4"/> Adjust Colors
+                    </Button>
+                </div>
+            </div>
             <Textarea 
-                placeholder={`Tell the AI what to change on this page...\n\ne.g., "Change the headline to 'Luxury Living Redefined'".`}
+                placeholder={`e.g., "Change the headline to 'Luxury Living Redefined'".`}
                 value={instructions}
                 onChange={(e) => setInstructions(e.target.value)}
                 rows={6}

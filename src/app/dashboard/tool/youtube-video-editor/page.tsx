@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Pen, Upload, Youtube, Download, Save } from 'lucide-react';
+import { Loader2, Sparkles, Pen, Upload, Youtube, Download, Save, Scissors, Text, Music, Film } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { editYoutubeVideo } from '@/ai/flows/edit-youtube-video';
@@ -14,10 +14,32 @@ import { Textarea } from '@/components/ui/textarea';
 
 const EditInCanvas = ({ videoUri, onSave, onCancel }: { videoUri: string; onSave: (instructions: string) => void; onCancel: () => void }) => {
     const [instructions, setInstructions] = useState('');
+
+    const appendInstruction = (instruction: string) => {
+        setInstructions(prev => prev ? `${prev}\n- ${instruction}` : `- ${instruction}`);
+    };
+
     return (
         <div className="space-y-4">
             <video src={videoUri} controls className="w-full rounded-lg border bg-black" />
-            <h3 className="font-semibold">Editing Instructions</h3>
+            <h3 className="font-semibold">Video Editing Instructions</h3>
+            <div className="p-3 bg-muted/50 rounded-lg space-y-2">
+                <p className="text-sm text-muted-foreground">Use smart tools to build your instructions or write them freely.</p>
+                <div className="grid grid-cols-2 gap-2">
+                    <Button variant="outline" size="sm" onClick={() => appendInstruction("Trim the video to keep only the segment from 0:30 to 1:15.")}>
+                        <Scissors className="mr-2 h-4 w-4"/> Trim Video
+                    </Button>
+                     <Button variant="outline" size="sm" onClick={() => appendInstruction("Add a text overlay at 0:10 saying '...'")}>
+                        <Text className="mr-2 h-4 w-4"/> Add Text Overlay
+                    </Button>
+                     <Button variant="outline" size="sm" onClick={() => appendInstruction("Add upbeat, royalty-free background music.")}>
+                        <Music className="mr-2 h-4 w-4"/> Change Music
+                    </Button>
+                     <Button variant="outline" size="sm" onClick={() => appendInstruction("Create a 30-second highlight reel of the best moments.")}>
+                        <Film className="mr-2 h-4 w-4"/> Create Highlight Reel
+                    </Button>
+                </div>
+            </div>
             <Textarea 
                 placeholder={`Tell the AI what to change in this video...\n\ne.g., "Create a 2-minute highlight reel. Add my company logo at the start and end. Use upbeat background music."`}
                 value={instructions}

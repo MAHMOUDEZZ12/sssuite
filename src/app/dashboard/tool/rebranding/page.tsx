@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Wand2, Palette, Pen, Upload, Download, Save } from 'lucide-react';
+import { Loader2, Sparkles, Wand2, Palette, Pen, Upload, Download, Save, Image as ImageIcon, Type, Brush } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { rebrandBrochure } from '@/ai/flows/rebrand-brochure';
@@ -17,10 +17,32 @@ import { useCanvas } from '@/context/CanvasContext';
 
 const EditInCanvas = ({ brochureUri, onSave, onCancel }: { brochureUri: string; onSave: (instructions: string) => void; onCancel: () => void }) => {
     const [instructions, setInstructions] = useState('');
+
+    const appendInstruction = (instruction: string) => {
+        setInstructions(prev => prev ? `${prev}\n- ${instruction}` : `- ${instruction}`);
+    };
+
     return (
         <div className="space-y-4">
             <iframe src={`${brochureUri}#view=fitH`} className="w-full h-[500px] rounded-lg border" />
             <h3 className="font-semibold">Rebranding Instructions</h3>
+             <div className="p-3 bg-muted/50 rounded-lg space-y-2">
+                <p className="text-sm text-muted-foreground">Use smart tools to build your command or write freely below.</p>
+                <div className="grid grid-cols-2 gap-2">
+                    <Button variant="outline" size="sm" onClick={() => appendInstruction("Apply my primary and accent colors to all titles and highlights.")}>
+                        <Brush className="mr-2 h-4 w-4"/> Apply Brand Colors
+                    </Button>
+                     <Button variant="outline" size="sm" onClick={() => appendInstruction("Replace the existing logo with my company logo from my brand kit.")}>
+                        <ImageIcon className="mr-2 h-4 w-4"/> Swap Logo
+                    </Button>
+                     <Button variant="outline" size="sm" onClick={() => appendInstruction("Add my contact details to the footer of every page.")}>
+                        <Type className="mr-2 h-4 w-4"/> Add Contact Info
+                    </Button>
+                     <Button variant="outline" size="sm" onClick={() => appendInstruction("Change the overall font to 'Poppins' to match my brand.")}>
+                        <Palette className="mr-2 h-4 w-4"/> Change Font
+                    </Button>
+                </div>
+            </div>
             <Textarea 
                 placeholder={`Tell the AI what to change on this brochure...\n\ne.g., "Apply my new blue and gold color scheme. Replace the logo on the first page with the new one I uploaded to my brand kit.".`}
                 value={instructions}
@@ -58,8 +80,7 @@ export default function RebrandingPage() {
                             title: 'Rebranding in Progress...',
                             description: 'The AI is applying your changes.',
                         });
-                        // Here you would trigger the actual AI flow with instructions
-                        console.log('Rebranding with instructions:', instructions);
+                        handleGenerate(file, instructions);
                         closeCanvas();
                     }}
                 />,
@@ -69,24 +90,18 @@ export default function RebrandingPage() {
         }
     };
 
-    const handleGenerate = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!sourceBrochure) {
-            toast({ title: "No Brochure", description: "Please upload a brochure to rebrand.", variant: "destructive" });
-            return;
-        }
-
+    const handleGenerate = async (file: File, instructions: string) => {
         setIsLoading(true);
         setResultData(null);
         try {
-            const brochureUri = await fileToDataUri(sourceBrochure);
-            // This is a simplified payload. A real implementation would gather more details.
+            const brochureUri = await fileToDataUri(file);
             const payload = {
                 brochureDataUri: brochureUri,
                 contactDetails: "From Brand Kit",
                 companyName: "From Brand Kit",
                 toneOfVoice: "Professional",
                 colors: "From Brand Kit",
+                deepEditInstructions: instructions,
             };
             
             const response = await rebrandBrochure(payload);
@@ -139,10 +154,11 @@ export default function RebrandingPage() {
             )}
             
              {isLoading && (
-                 <div className="flex items-center justify-center h-64 text-muted-foreground">
-                    <Loader2 className="mr-2 h-8 w-8 animate-spin" />
-                    <span>The AI is rebranding your document...</span>
-                  </div>
+                 <div className="flex flex-col items-center justify-center text-center h-64">
+                    <Loader2 className="h-12 w-12 text-primary animate-spin mb-4" />
+                    <p className="font-semibold">The AI is rebranding your document...</p>
+                    <p className="text-sm text-muted-foreground">Please wait a moment.</p>
+                </div>
               )}
 
              {resultData && (
