@@ -24,6 +24,7 @@ import { Label } from '@/components/ui/label';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Textarea } from '@/components/ui/textarea';
+import { useCanvas } from '@/context/CanvasContext';
 
 
 type Campaign = {
@@ -255,6 +256,7 @@ const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (fi
 
 const CreativeLibraryTab = ({ creatives: initialCreatives, toast }: { creatives: CreateMetaCampaignOutput['adCreatives'] | null, toast: any }) => {
     const [creatives, setCreatives] = useState(initialCreatives);
+    const { openCanvas } = useCanvas();
 
     const handleUpdateCreative = (index: number, field: string, value: string) => {
         setCreatives(prev => {
@@ -263,6 +265,17 @@ const CreativeLibraryTab = ({ creatives: initialCreatives, toast }: { creatives:
             newCreatives[index] = { ...newCreatives[index], [field]: value };
             return newCreatives;
         });
+    };
+
+    const handleOpenCanvas = (creative: any, index: number) => {
+        openCanvas(
+            <div className="p-4">
+                 <EditableAdMockup 
+                    creative={creative} 
+                    onUpdate={(field, value) => handleUpdateCreative(index, field, value)}
+                 />
+            </div>
+        );
     };
 
     if (!creatives || creatives.length === 0) {
@@ -276,12 +289,15 @@ const CreativeLibraryTab = ({ creatives: initialCreatives, toast }: { creatives:
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {creatives.map((creative, index) => (
-                <div key={index}>
-                    <EditableAdMockup 
-                      creative={creative} 
-                      onUpdate={(field, value) => handleUpdateCreative(index, field, value)}
-                    />
-                </div>
+                <Card key={index} className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => handleOpenCanvas(creative, index)}>
+                    <CardHeader>
+                        <CardTitle className="text-base truncate">{creative.headline}</CardTitle>
+                        <CardDescription>{creative.bodyText.substring(0, 50)}...</CardDescription>
+                    </CardHeader>
+                    <CardFooter>
+                         <Badge variant="secondary">{creative.callToAction}</Badge>
+                    </CardFooter>
+                </Card>
             ))}
         </div>
     )
@@ -558,7 +574,7 @@ export default function CampaignBuilderPage() {
                      <Card className="mt-6">
                         <CardHeader>
                             <CardTitle>Creative Library</CardTitle>
-                            <CardDescription>A gallery of your AI-generated ad creatives and suggestions. Click on the text to edit it directly.</CardDescription>
+                            <CardDescription>A gallery of your AI-generated ad creatives. Click a card to open it in the Creative Canvas.</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <CreativeLibraryTab creatives={result?.adCreatives || null} toast={toast} />

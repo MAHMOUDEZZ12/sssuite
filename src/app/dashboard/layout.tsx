@@ -6,6 +6,8 @@ import { AssistantChat } from '@/components/assistant-chat';
 import { DashboardHeader } from '@/components/dashboard-header';
 import { DashboardFooter } from '@/components/dashboard-footer';
 import { TabProvider } from '@/context/TabManagerContext';
+import { CanvasProvider } from '@/context/CanvasContext';
+import { CreativeCanvas } from '@/components/creative-canvas';
 
 
 export default function DashboardLayout({
@@ -15,6 +17,7 @@ export default function DashboardLayout({
 }) {
   return (
     <TabProvider>
+      <CanvasProvider>
        <div className="flex flex-col min-h-screen">
         <DashboardHeader />
         <div className="flex-1 flex flex-col">
@@ -22,9 +25,9 @@ export default function DashboardLayout({
           <DashboardFooter />
         </div>
          <AssistantChat />
+         <CreativeCanvas />
        </div>
+      </CanvasProvider>
     </TabProvider>
   );
 }
-
-    
