@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Palette, Upload, Save, CheckCircle, BrainCircuit, FileText, ImageIcon, FileSpreadsheet, Download, Trash2, Loader2 } from 'lucide-react';
+import { Palette, Upload, Save, CheckCircle, BrainCircuit, FileText, ImageIcon, FileSpreadsheet, Download, Trash2, Loader2, Info } from 'lucide-react';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -19,6 +19,7 @@ import { Separator } from '@/components/ui/separator';
 import { Checkbox } from '@/components/ui/checkbox';
 import { aiBrandCreator } from '@/ai/flows/ai-brand-creator';
 import { fileToDataUri } from '@/lib/tools-client';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const brandSchema = z.object({
   companyName: z.string().min(2, 'Company name is required.'),
@@ -33,12 +34,12 @@ type MockFile = { id: number; name: string; type: string; icon: React.ReactNode;
 
 
 const initialMockFiles: MockFile[] = [
-  { id: 1, name: 'Luxury_Condo_Brochure.pdf', type: 'PDF', icon: <FileText className="h-10 w-10 text-destructive" />, size: '2.5 MB' },
+  { id: 1, name: 'Emaar_Beachfront_Brochure.pdf', type: 'PDF', icon: <FileText className="h-10 w-10 text-destructive" />, size: '2.5 MB' },
   { id: 2, name: 'Company_Logo_White.png', type: 'PNG', icon: <ImageIcon className="h-10 w-10 text-primary" />, size: '150 KB' },
-  { id: 3, name: 'Ad_Creative_V1.jpg', type: 'JPG', icon: <ImageIcon className="h-10 w-10 text-primary" />, size: '800 KB' },
+  { id: 3, name: 'Sobha_Hartland_Ad.jpg', type: 'JPG', icon: <ImageIcon className="h-10 w-10 text-primary" />, size: '800 KB' },
   { id: 4, name: 'Investor_List_Q2.csv', type: 'CSV', icon: <FileSpreadsheet className="h-10 w-10 text-green-500" />, size: '320 KB' },
-  { id: 5, name: 'Rebranded_Brochure.pdf', type: 'PDF', icon: <FileText className="h-10 w-10 text-destructive" />, size: '2.8 MB' },
-  { id: 6, name: 'Landing_Page_Hero.jpg', type: 'JPG', icon: <ImageIcon className="h-10 w-10 text-primary" />, size: '1.2 MB' },
+  { id: 5, name: 'Rebranded_DAMAC_Brochure.pdf', type: 'PDF', icon: <FileText className="h-10 w-10 text-destructive" />, size: '2.8 MB' },
+  { id: 6, name: 'Marina_Landing_Page_Hero.jpg', type: 'JPG', icon: <ImageIcon className="h-10 w-10 text-primary" />, size: '1.2 MB' },
 ];
 
 
@@ -49,7 +50,7 @@ export default function BrandPage() {
   const [selectedPalette, setSelectedPalette] = React.useState({ name: 'Charcoal & Mint', primary: '#36454F', secondary: '#98FF98' });
   
   const [isTraining, setIsTraining] = useState(false);
-  const [files, setFiles] = useState<MockFile[]>([]);
+  const [files, setFiles] = useState<MockFile[]>(initialMockFiles);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<number[]>([]);
 
@@ -144,7 +145,7 @@ export default function BrandPage() {
       if (filesToTrain.length === 0) {
         toast({
             title: "No Files Selected",
-            description: "Please upload and select a file to train the assistant.",
+            description: "Please select one or more files to extract brand information from.",
             variant: "destructive"
         });
         return;
@@ -153,7 +154,7 @@ export default function BrandPage() {
       setIsTraining(true);
       toast({
           title: "AI Extraction Started",
-          description: `The assistant is analyzing ${filesToTrain.length} file(s) for brand info.`,
+          description: `The assistant is analyzing ${filesToTrain.length} file(s) to populate your brand kit.`,
       });
 
       try {
@@ -202,7 +203,7 @@ export default function BrandPage() {
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
         title="Brand & Assets"
-        description="Manage your brand and all your creative files in one unified workspace."
+        description="Manage your brand and all your creative files. This is the Knowledge Base for your AI assistant."
         icon={<Palette className="h-8 w-8" />}
       />
 
@@ -354,19 +355,28 @@ export default function BrandPage() {
         <CardHeader>
             <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4'>
                 <div>
-                    <CardTitle>Your Asset Storage</CardTitle>
+                    <CardTitle>Asset Storage & Knowledge Base</CardTitle>
                     <CardDescription>
-                        Manage all your uploaded assets and AI-generated files. Select files to train your assistant or populate your brand kit.
+                        Manage all your uploaded assets and AI-generated files. Select files to provide knowledge to your assistant.
                     </CardDescription>
                 </div>
                 <div className='flex items-center gap-2 flex-wrap'>
-                    <Button onClick={handleTrainAssistant} disabled={selectedFiles.length === 0 || isTraining}>
-                        {isTraining ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <BrainCircuit className="mr-2 h-4 w-4" />}
-                        {isTraining ? 'Extracting...' : `Extract Brand Info from ${selectedFiles.length > 0 ? `${selectedFiles.length} file(s)` : 'Selection'}`}
-                    </Button>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button onClick={handleTrainAssistant} disabled={selectedFiles.length === 0 || isTraining}>
+                                    {isTraining ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <BrainCircuit className="mr-2 h-4 w-4" />}
+                                    {isTraining ? 'Extracting...' : `Extract Brand Info from Selection`}
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Select files and use the AI to populate your brand kit fields automatically.</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
                      <Button onClick={handleDeleteFiles} disabled={selectedFiles.length === 0} variant="destructive">
                         <Trash2 className="mr-2 h-4 w-4" />
-                        Delete {selectedFiles.length > 0 ? `${selectedFiles.length} file(s)` : 'Selection'}
+                        Delete ({selectedFiles.length})
                     </Button>
                     <Button onClick={() => fileInputRef.current?.click()} variant="outline">
                         <Upload className="mr-2 h-4 w-4" />

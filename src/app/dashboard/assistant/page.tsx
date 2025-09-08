@@ -64,30 +64,32 @@ export default function AssistantPage() {
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
         title="AI Assistant"
-        description="Personalize your AI assistant by giving it instructions and managing its prompt library."
+        description="Your command center. Train your AI by managing its knowledge base and define its personality and core instructions."
         icon={<BrainCircuit className="h-8 w-8" />}
       />
 
       <Tabs defaultValue="personality" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="personality"><Bot className="mr-2 h-4 w-4" /> Personality</TabsTrigger>
+          <TabsTrigger value="personality"><Bot className="mr-2 h-4 w-4" /> Personality & Instructions</TabsTrigger>
           <TabsTrigger value="prompts"><Wand2 className="mr-2 h-4 w-4" /> Prompt Library</TabsTrigger>
         </TabsList>
         
         <TabsContent value="personality">
           <Card>
             <CardHeader>
-              <CardTitle>Assistant Personality</CardTitle>
-              <CardDescription>Define how your assistant interacts and what its core purpose is.</CardDescription>
+              <CardTitle>Assistant Configuration</CardTitle>
+              <CardDescription>Define how your assistant interacts and what its core purpose is. The more specific you are, the better it will perform.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-               <div className="space-y-2">
-                  <Label htmlFor="assistant-name">Assistant Name</Label>
-                  <Input 
-                    id="assistant-name" 
-                    defaultValue="My Assistant"
-                  />
-                  <p className="text-sm text-muted-foreground">Give your assistant a name to make it feel more personal.</p>
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <div className="space-y-2">
+                    <Label htmlFor="assistant-name">Assistant Name</Label>
+                    <Input 
+                      id="assistant-name" 
+                      defaultValue="My Assistant"
+                    />
+                    <p className="text-sm text-muted-foreground">Give your assistant a name to make it feel more personal.</p>
+                 </div>
                </div>
                <div className="space-y-2">
                   <Label htmlFor="assistant-instructions">Core Instructions</Label>
@@ -95,22 +97,29 @@ export default function AssistantPage() {
                     id="assistant-instructions" 
                     placeholder="e.g., You are a real estate marketing expert. Your goal is to help me create compelling content and find leads..."
                     rows={8}
-                    defaultValue="You are an expert real estate sales and marketing assistant. Your primary function is to help the user save time, create high-quality marketing materials, and identify sales opportunities. You should be professional, insightful, and proactive. Use the knowledge provided in the 'Knowledge Base' to inform your answers."
+                    defaultValue="You are an expert real estate sales and marketing assistant for the Dubai market. Your primary function is to help the user save time, create high-quality marketing materials, and identify sales opportunities. You should be professional, insightful, and proactive. Use the knowledge provided in the 'Knowledge Base' to inform your answers. Always tailor your responses to the UAE real estate landscape."
                    />
+                    <p className="text-sm text-muted-foreground">This is the most important setting. It defines the base personality and directives for your AI.</p>
                </div>
                <div className="space-y-2">
                  <Label>Knowledge Base</Label>
-                 <p className="text-sm text-muted-foreground">The AI's knowledge comes from the files you upload in the <Link href="/dashboard/brand" className="underline font-semibold hover:text-primary">Brand &amp; Assets</Link> section. The assistant has access to all uploaded brochures, reports, and data to provide more relevant and accurate responses.</p>
-                  <Link href="/dashboard/brand">
-                    <Button variant="outline">
-                        <BookOpen className="mr-2 h-4 w-4" />
-                        Manage Knowledge Base
-                    </Button>
-                 </Link>
+                 <Card className="bg-muted/50 p-4">
+                    <div className="flex flex-col md:flex-row md:items-center gap-4">
+                        <div className="flex-grow">
+                             <p className="text-sm text-foreground">The AI's knowledge comes from the files you upload in the <Link href="/dashboard/brand" className="underline font-semibold hover:text-primary">Brand &amp; Assets</Link> section. The assistant has access to all uploaded brochures, reports, and data to provide more relevant and accurate responses.</p>
+                        </div>
+                        <Link href="/dashboard/brand">
+                           <Button variant="outline">
+                               <BookOpen className="mr-2 h-4 w-4" />
+                               Manage Knowledge Base
+                           </Button>
+                        </Link>
+                    </div>
+                 </Card>
                </div>
             </CardContent>
             <CardFooter>
-                 <Button>Save Personality</Button>
+                 <Button>Save Configuration</Button>
             </CardFooter>
           </Card>
         </TabsContent>
