@@ -67,7 +67,38 @@ export default function DevAdminPage() {
     const { toast } = useToast();
     const [currentTask, setCurrentTask] = useState('');
     const [selectedToolId, setSelectedToolId] = useState('');
-    const [changeLog, setChangeLog] = useState<ChangeLogEntry[]>(initialLog);
+    const [changeLog, setChangeLog] = useState<ChangeLogEntry[]>([]);
+
+    useEffect(() => {
+        // Load changelog from localStorage on mount
+        try {
+            const savedLog = localStorage.getItem('changeLog');
+            if (savedLog) {
+                // Parse and revive dates
+                const parsedLog = JSON.parse(savedLog).map((log: any) => ({
+                    ...log,
+                    timestamp: new Date(log.timestamp),
+                }));
+                setChangeLog(parsedLog);
+            } else {
+                setChangeLog(initialLog);
+            }
+        } catch (error) {
+            console.error("Failed to load changelog from localStorage", error);
+            setChangeLog(initialLog);
+        }
+    }, []);
+
+    useEffect(() => {
+        // Save changelog to localStorage whenever it changes
+        try {
+            if (changeLog.length > 0) {
+               localStorage.setItem('changeLog', JSON.stringify(changeLog));
+            }
+        } catch (error) {
+            console.error("Failed to save changelog to localStorage", error);
+        }
+    }, [changeLog]);
 
     const copyToClipboard = (text: string, message: string) => {
         navigator.clipboard.writeText(text);
@@ -186,7 +217,7 @@ export default function DevAdminPage() {
         <Card>
             <CardHeader>
                 <CardTitle>Change Log</CardTitle>
-                <CardDescription>A chronological record of all tasks and their real-time implementation status.</CardDescription>
+                <CardDescription>A chronological record of all tasks and their real-time implementation status. Records are permanent and cannot be deleted.</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="border rounded-lg w-full max-h-[60vh] overflow-y-auto">
@@ -214,8 +245,8 @@ export default function DevAdminPage() {
                             >
                                 <TableCell>
                                     <div className="flex flex-col">
-                                        <span className="font-medium">{log.timestamp.toLocaleDateString()}</span>
-                                        <span className="text-xs text-muted-foreground">{log.timestamp.toLocaleTimeString()}</span>
+                                        <span className="font-medium">{new Date(log.timestamp).toLocaleDateString()}</span>
+                                        <span className="text-xs text-muted-foreground">{new Date(log.timestamp).toLocaleTimeString()}</span>
                                     </div>
                                 </TableCell>
                                 <TableCell className="text-sm">
