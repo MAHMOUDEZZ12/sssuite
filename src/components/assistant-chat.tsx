@@ -6,20 +6,46 @@ import { Button } from './ui/button';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './ui/card';
 import { Input } from './ui/input';
 import { ScrollArea } from './ui/scroll-area';
-import { Bot, Send, X, Sparkles, Loader2 } from 'lucide-react';
+import { Bot, Send, X, Sparkles, Loader2, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { secretCodes } from '@/lib/codes';
+import Link from 'next/link';
 
 type Message = {
     from: 'ai' | 'user';
-    text: string;
+    text: string | React.ReactNode;
 };
+
+const InitialAssistantMessage = () => (
+    <div>
+        <p className="font-semibold mb-2">Hello! I'm your AI co-pilot, the brain of your Super Seller Suite.</p>
+        <p className="mb-2">You can command me to perform complex tasks, but first, you should train me. The more I know, the better I can help you.</p>
+        <div className="p-3 bg-background rounded-lg border space-y-2">
+            <div className="flex items-start gap-3">
+                <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><BookOpen className="h-5 w-5" /></div>
+                <div>
+                    <h4 className="font-semibold text-foreground">How to Train Me</h4>
+                    <p className="text-sm text-foreground/80">Go to the <Link href="/dashboard/brand" className="underline font-semibold hover:text-primary">Brand & Assets</Link> page and upload your brochures, price lists, and market reports. This is my "Knowledge Base".</p>
+                </div>
+            </div>
+             <div className="flex items-start gap-3">
+                 <div className="p-2 bg-primary/10 text-primary rounded-md mt-1"><Sparkles className="h-5 w-5" /></div>
+                <div>
+                    <h4 className="font-semibold text-foreground">Next Best Step</h4>
+                    <p className="text-sm text-foreground/80">A great place to start is the <Link href="/dashboard/tool/meta-auto-pilot" className="underline font-semibold hover:text-primary">Meta Auto Pilot</Link>. It can run an entire ad campaign for you with a single click.</p>
+                </div>
+            </div>
+        </div>
+         <p className="mt-3 text-sm">If you have a secret code, feel free to enter it below.</p>
+    </div>
+);
+
 
 export function AssistantChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { from: 'ai', text: "Hello! How can I help you accelerate your sales today? If you have a secret code, feel free to share it." },
+    { from: 'ai', text: <InitialAssistantMessage /> },
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,10 +53,12 @@ export function AssistantChat() {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({ top: scrollAreaRef.current.scrollHeight, behavior: 'smooth' });
+    if (isOpen && scrollAreaRef.current) {
+      setTimeout(() => {
+          scrollAreaRef.current?.scrollTo({ top: scrollAreaRef.current.scrollHeight, behavior: 'smooth' });
+      }, 100);
     }
-  }, [messages]);
+  }, [messages, isOpen]);
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +70,7 @@ export function AssistantChat() {
     setIsLoading(true);
 
     setTimeout(() => {
-        const foundCode = secretCodes.find(c => input.includes(c.code));
+        const foundCode = secretCodes.find(c => input.toUpperCase().includes(c.code));
         let aiResponse: Message;
 
         if (foundCode) {
@@ -143,7 +171,7 @@ export function AssistantChat() {
                         onChange={(e) => setInput(e.target.value)}
                         disabled={isLoading}
                     />
-                    <Button type="submit" size="icon" disabled={isLoading}>
+                    <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
                         <Send className="h-4 w-4" />
                     </Button>
                 </form>
