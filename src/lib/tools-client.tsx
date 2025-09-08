@@ -900,9 +900,11 @@ export const tools: Feature[] = [
       { id: 'propertyDescription', name: 'Property Description', type: 'textarea', placeholder: 'Enter the full description of the property...', description: 'The detailed description for the listing.' },
       { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 2500000', description: 'The asking price in the local currency.' },
       { id: 'imageUrls', name: 'Image URLs', type: 'textarea', placeholder: 'Enter one image URL per line', description: 'Links to the property images.' },
-
-      { id: 'group-portals', name: 'Portal Syndication', type: 'group-header', description: 'Generate a plan to send to a specific portal pilot.'},
       { id: 'listingReferenceNo', name: 'Listing Reference No.', type: 'text', placeholder: 'e.g., PF-12345 or bayut-abc', description: 'The unique portal-specific ID for your listing.' },
+      { id: 'group-ai-assist', name: 'AI Assistance', type: 'group-header', description: 'Let the AI help you refine your listing.'},
+      { id: 'suggestChange', name: 'Suggest a Change', type: 'button', cta: '✨ Suggest a Better Title/Description', description: 'Let the AI rewrite your content for better engagement.' },
+      { id: 'group-portals', name: 'Syndication', type: 'group-header', description: 'Generate a plan to send to a specific portal pilot.'},
+
     ],
   },
   {

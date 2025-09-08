@@ -128,7 +128,7 @@ export default function ListingPerformancePage() {
                             </p>
                             <Link href="/dashboard/tool/listing-manager">
                                 <Button size="sm" variant="secondary" className="w-full">
-                                    Promote Emaar Beachfront <ArrowRight className="ml-2 h-4 w-4"/>
+                                    Manage Emaar Beachfront Listing <ArrowRight className="ml-2 h-4 w-4"/>
                                 </Button>
                             </Link>
                         </div>
@@ -175,4 +175,3 @@ export default function ListingPerformancePage() {
         </main>
     );
 }
-
