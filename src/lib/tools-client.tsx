@@ -919,6 +919,7 @@ export const tools: Feature[] = [
     cta: 'Create Landing Page',
     categories: ['Creative', 'Web'],
     mindMapCategory: 'Creative Suite',
+    isPage: true,
     href: '/dashboard/tool/landing-pages',
     guideHref: '/blog/landing-pages',
     renderResult: (result, toast) => (
