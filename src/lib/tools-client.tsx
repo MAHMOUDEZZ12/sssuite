@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import React from 'react';
@@ -570,7 +569,7 @@ export const tools: Feature[] = [
       faqs: [
         { question: "Can I upload my own video clips?", answer: "Yes, you can provide your own video clips and photos. The AI will analyze them, select the best segments, and edit them together into a compelling reel." },
         { question: "Does the AI choose the music?", answer: "The AI can suggest trending audio styles and royalty-free music that matches the 'vibe' you select for your reel, ensuring it feels current and engaging." },
-        { question: "Can I edit the generated captions?", answer: "Absolutely. The AI generates dynamic, animated captions as a starting point, but you have full control to edit the text and timing before finalizing the video." },
+        { question: "Can I edit the generated captions?", answer: "Absolutely. The AI generates dynamic, animated captions as a starting point, but you have full control to edit the text and timing before finalizing the video." }
       ],
     },
     creationFields: [
@@ -1026,7 +1025,7 @@ export const tools: Feature[] = [
       { id: 'clientDatabase', name: 'Your Client List', type: 'file', description: 'Upload a CSV of your investor contacts for the AI to analyze.' },
       { id: 'propertyType', name: 'Property Type', type: 'select', options: ["Duplex", "Triplex", "Fourplex", "Multi-Family (5+ units)", "Commercial Retail", "Office Space"], placeholder: 'Select property type', description: 'Type of investment property.' },
       { id: 'location', name: 'Location', type: 'text', placeholder: 'e.g., Dubai Marina, Dubai', description: 'City and state of the property.'},
-      { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 2500000', description: 'Asking price of the property in AED.'},
+      { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 2500000', description: 'Asking price in the local currency.'},
       { id: 'capRate', name: 'Cap Rate (%)', type: 'number', placeholder: 'e.g., 6.5', description: 'The capitalization rate of the property.'},
       { id: 'investmentThesis', name: 'Investment Thesis', type: 'select', options: ["Value-Add / Renovation", "Turnkey Rental", "Long-Term Appreciation", "Development Opportunity", "1031 Exchange"], placeholder: 'Select investment strategy', description: 'Primary strategy for this investment.'},
       { id: 'keyFeatures', name: 'Key Features', type: 'textarea', placeholder: 'e.g., Long-term tenants in place, zoned for mixed-use, located in an opportunity zone.', description: 'Additional selling points for an investor.' },

@@ -13,7 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Target, Palette, LineChart, Briefcase, Bot, Home, Building, Megaphone, Users, PlusCircle, MoreHorizontal, Loader2 } from 'lucide-react';
+import { ArrowRight, Target, Palette, LineChart, Briefcase, Bot, Home, Building, Megaphone, Users, PlusCircle, MoreHorizontal, Loader2, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import { PageHeader } from '@/components/ui/page-header';
 import { tools } from '@/lib/tools-client';
@@ -241,7 +241,7 @@ export default function DashboardPage() {
         )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 space-y-8">
             <Card>
                 <CardHeader>
                     <CardTitle>Top Tools For You</CardTitle>
@@ -264,6 +264,20 @@ export default function DashboardPage() {
                     ))}
                 </CardContent>
             </Card>
+             <Link href="/blog" className="block">
+                <Card className="group hover:bg-muted/50 transition-colors">
+                    <CardContent className="p-6 flex items-center gap-6">
+                        <div className="p-3 bg-primary/10 text-primary rounded-lg">
+                           <BookOpen className="h-8 w-8" />
+                        </div>
+                        <div>
+                           <h3 className="font-semibold text-lg text-foreground">Explore the Handbook</h3>
+                           <p className="text-muted-foreground">Discover expert guides and hacks to get the most out of every tool.</p>
+                        </div>
+                        <ArrowRight className="h-5 w-5 ml-auto text-muted-foreground opacity-50 group-hover:opacity-100 transition-opacity" />
+                    </CardContent>
+                </Card>
+            </Link>
         </div>
          <div className="lg:col-span-1">
             <MyProjectsWidget />
