@@ -1,8 +1,8 @@
 
 import { adminDb } from "@/lib/firebaseAdmin";
 import { ok, fail } from "@/lib/api-helpers";
-import { readMarketFromCookies } from "@/lib/api-helpers";
 import type { Project } from "@/types";
+import { cookies } from "next/headers";
 
 export async function GET(req: Request) {
   try {
@@ -10,8 +10,10 @@ export async function GET(req: Request) {
     const limit = Number(searchParams.get("limit") || 20);
     const query = (searchParams.get("q") || "").toLowerCase().trim();
 
-    const { country, city } = readMarketFromCookies();
-
+    const cookieStore = cookies();
+    const country = cookieStore.get("country")?.value || "AE";
+    const city = cookieStore.get("city")?.value || "Dubai";
+    
     let q = adminDb.collection("projects_catalog")
       .where("country", "==", country);
 
