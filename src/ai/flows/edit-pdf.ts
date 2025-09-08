@@ -2,14 +2,15 @@
 'use server';
 
 /**
- * @fileOverview An AI flow to edit PDF documents based on user instructions.
+ * @fileOverview An AI flow to generate a plan for editing PDF documents based on user instructions.
  *
  * This flow takes a source PDF, a set of instructions, and optional new images,
- * and returns a new, edited PDF.
+ * and returns a structured execution plan. This plan can then be passed to an
+ * "Execution Terminal" to perform the actual edits. This flow acts as a "Planner".
  *
  * @module AI/Flows/EditPdf
  *
- * @export {function} editPdf - The main function to edit a PDF.
+ * @export {function} editPdf - The main function to create a PDF editing plan.
  * @export {type} EditPdfInput - The Zod schema for the input of the editPdf flow.
  * @export {type} EditPdfOutput - The Zod schema for the output of the editPdf flow.
  */
@@ -57,35 +58,45 @@ const EditPdfInputSchema = z.object({
 export type EditPdfInput = z.infer<typeof EditPdfInputSchema>;
 
 /**
- * Defines the schema for the output of the PDF editing flow.
+ * Defines the schema for a single step in the execution plan.
+ */
+const ExecutionStepSchema = z.object({
+    description: z.string().describe("A human-readable description of the step."),
+    tool: z.string().describe("The name of the tool or API to be called."),
+    parameters: z.any().describe("The parameters to be passed to the tool."),
+});
+
+/**
+ * Defines the schema for the output of the PDF editing plan generation flow.
  */
 const EditPdfOutputSchema = z.object({
   /**
-   * The edited PDF document, returned as a Base64 data URI.
+   * A human-readable summary of the plan.
    */
-  editedPdfDataUri: z
-    .string()
-    .describe(
-      "The edited PDF document, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
-    ),
+  summary: z.string().describe("A brief summary of the planned edits."),
+  /**
+   * The structured execution plan.
+   */
+  executionPlan: z.array(ExecutionStepSchema).describe("An array of steps to be executed."),
 });
 export type EditPdfOutput = z.infer<typeof EditPdfOutputSchema>;
 
+
 /**
- * An AI flow that edits a PDF based on user instructions.
+ * An AI flow that creates a plan for editing a PDF based on user instructions.
  *
  * @param {EditPdfInput} input - The input data for editing the PDF.
- * @returns {Promise<EditPdfOutput>} A promise that resolves with the edited PDF data URI.
+ * @returns {Promise<EditPdfOutput>} A promise that resolves with the execution plan.
  */
 export async function editPdf(input: EditPdfInput): Promise<EditPdfOutput> {
   return editPdfFlow(input);
 }
 
 const editPdfPrompt = ai.definePrompt({
-  name: 'editPdfPrompt',
+  name: 'editPdfPlannerPrompt',
   input: {schema: EditPdfInputSchema},
   output: {schema: EditPdfOutputSchema},
-  prompt: `You are an expert document editor. Your task is to edit the provided PDF document based on the user's instructions. You can modify text, replace images, and adjust layouts.
+  prompt: `You are an expert document editing planner. Your task is to analyze user instructions and generate a structured execution plan for editing a PDF. Do not perform the edit yourself.
 
   Source PDF: {{media url=sourcePdf}}
 
@@ -93,18 +104,24 @@ const editPdfPrompt = ai.definePrompt({
   {{{editInstructions}}}
 
   {{#if newImages}}
-  New Images to use (if referenced in instructions):
+  New Images to use:
   {{#each newImages}}
-  - Image {{add @index 1}}: {{media url=this}}
+  - Image {{add @index 1}}: Available for use.
   {{/each}}
   {{/if}}
 
   {{#if deepEditInstructions}}
-  Deep Edit Instructions: Apply these specific changes carefully:
+  Deep Edit Instructions:
   {{{deepEditInstructions}}}
   {{/if}}
 
-  Apply the changes as requested and return the newly edited PDF as a data URI.
+  Analyze the instructions and break them down into a series of steps. For each step, provide a description, the tool needed (e.g., 'text.replace', 'image.swap', 'layout.adjust'), and the necessary parameters.
+
+  Example Plan:
+  - Step 1: Replace text on page 2. Tool: 'text.replace', Params: { page: 2, old: 'AED 2.4M', new: 'AED 2.5M' }
+  - Step 2: Swap image on page 1. Tool: 'image.swap', Params: { page: 1, targetImage: 'logo.png', newImage: 'Image 1' }
+
+  Provide a human-readable summary and the detailed executionPlan array.
   `,
 });
 
@@ -115,9 +132,10 @@ const editPdfFlow = ai.defineFlow(
     outputSchema: EditPdfOutputSchema,
   },
   async input => {
-    // In a real-world scenario, we might have more complex logic here to handle
-    // multi-step edits or validation before calling the prompt.
     const {output} = await editPdfPrompt(input);
-    return output!;
+    if (!output) {
+      throw new Error("Failed to generate an editing plan.");
+    }
+    return output;
   }
 );

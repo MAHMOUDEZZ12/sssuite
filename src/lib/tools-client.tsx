@@ -746,27 +746,37 @@ export const tools: Feature[] = [
     description: 'Edit text, images, and layout with prompts.',
     icon: <PenTool />,
     color: '#eab308', // yellow-500
-    cta: 'Generate Edited PDF',
+    cta: 'Generate PDF Editing Plan',
     categories: ['Creative', 'Editing'],
     mindMapCategory: 'Creative Suite',
-    badge: 'SOON',
+    badge: 'NEW',
     href: '/dashboard/tool/pdf-editor',
     guideHref: '/blog/pdf-editor',
     renderResult: (result, toast) => (
       <div className="space-y-6">
-        <div>
-            <h3 className="font-semibold text-lg mb-2">Edited PDF</h3>
-            <a href={result.editedPdfDataUri} download="edited.pdf">
-                <Button><Download className="mr-2 h-4 w-4"/>Download Edited PDF</Button>
-            </a>
-        </div>
-    </div>
+        <Card>
+            <CardHeader>
+                <CardTitle>PDF Editing Plan Generated</CardTitle>
+                <CardDescription>{result.summary}</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-2">
+                    <Label>Execution Plan (for AI Terminal)</Label>
+                    <div className="p-4 bg-muted rounded-md relative group font-mono text-xs">
+                        <pre className="whitespace-pre-wrap">{JSON.stringify(result.executionPlan, null, 2)}</pre>
+                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(JSON.stringify(result.executionPlan, null, 2), toast)}><Copy className="h-4 w-4" /></Button>
+                    </div>
+                     <p className="text-xs text-muted-foreground">This is a machine-readable plan. In a future update, you'll be able to pass this to a "Creative Execution Terminal" to run the edits.</p>
+                </div>
+            </CardContent>
+        </Card>
+      </div>
     ),
     details: {
       steps: [
         { text: 'Upload your PDF document', icon: <Upload className="h-6 w-6" /> },
         { text: 'Tell the AI what to change in plain English', icon: <MessageCircle className="h-6 w-6" /> },
-        { text: 'Download your edited PDF instantly', icon: <FileText className="h-6 w-6" /> },
+        { text: 'Generate an execution plan for an AI terminal', icon: <FileText className="h-6 w-6" /> },
       ],
       aiVsManual: [
          { metric: 'Time to Edit', manual: 'Hours finding source files or using clunky editors', ai: 'Fast by default', icon: <Clock2 /> },
