@@ -1,7 +1,6 @@
 
 'use server';
 
-// Server-side Firestore (Admin SDK). Safe for API routes & jobs.
 import {
   getApps,
   initializeApp,
@@ -12,25 +11,25 @@ import {
 import { getFirestore } from 'firebase-admin/firestore';
 
 let app: App;
+let adminDb: ReturnType<typeof getFirestore>;
 
 if (getApps().length === 0) {
   try {
-    // This is the robust way to handle service account credentials.
-    // It will only attempt to parse if the variable exists and is a valid JSON string.
-    // If it fails at any point, it will fall back to applicationDefault().
     const serviceAccountString = process.env.FIREBASE_SERVICE_ACCOUNT;
-    if (serviceAccountString) {
-      console.log('Service account environment variable found. Attempting to initialize with explicit credentials.');
+    // Ensure the variable is a non-empty string and looks like a JSON object.
+    if (serviceAccountString && serviceAccountString.startsWith('{')) {
       const serviceAccount = JSON.parse(serviceAccountString);
-       app = initializeApp({
+      app = initializeApp({
         credential: cert(serviceAccount),
       });
-       console.log('Firebase Admin SDK initialized successfully with service account credentials.');
+      console.log('Firebase Admin SDK initialized successfully with service account credentials.');
     } else {
-        throw new Error("FIREBASE_SERVICE_ACCOUNT environment variable not set.");
+      // Throw an error to be caught by the catch block, ensuring fallback.
+      throw new Error("FIREBASE_SERVICE_ACCOUNT env variable is missing, empty, or not a valid JSON object.");
     }
   } catch (error: any) {
-    console.warn(`Firebase Admin SDK initialization with service account failed: ${error.message}. Falling back to application default credentials. This is expected in a managed cloud environment.`);
+    console.warn(`CRITICAL: Firebase Admin SDK initialization failed with service account. Falling back to default. ${error.message}`);
+    // Fallback to application default credentials, which works in managed environments like Cloud Run.
     app = initializeApp({
       credential: applicationDefault(),
     });
@@ -39,6 +38,6 @@ if (getApps().length === 0) {
   app = getApps()[0];
 }
 
-const adminDb = getFirestore(app);
+adminDb = getFirestore(app);
 
 export { adminDb };

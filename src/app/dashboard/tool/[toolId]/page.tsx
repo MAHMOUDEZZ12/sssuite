@@ -358,7 +358,7 @@ export default function ToolPage() {
         
         track('tool_run_started', { toolId });
 
-        const response = await fetch('/api/tools/run', {
+        const response = await fetch('/api/run', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ toolId, payload }),

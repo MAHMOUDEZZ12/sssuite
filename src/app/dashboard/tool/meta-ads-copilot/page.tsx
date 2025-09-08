@@ -21,7 +21,39 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, Cart
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Link from 'next/link';
-import type { CreateMetaCampaignInput, CreateMetaCampaignOutput } from '@/ai/flows/create-meta-campaign';
+import { createMetaCampaign } from '@/ai/flows/create-meta-campaign';
+
+
+// Schemas are defined here, on the client, for the form.
+export const CreateMetaCampaignInputSchema = z.object({
+  campaignGoal: z.string().describe("The user's primary objective for the campaign."),
+  projectBrochureDataUri: z.string().describe("The project brochure as a data URI."),
+  targetAudience: z.string().optional().describe("A hint about the target audience."),
+  budget: z.number().describe("The total ad spend budget."),
+  durationDays: z.number().describe("The campaign duration in days."),
+});
+
+export const CreateMetaCampaignOutputSchema = z.object({
+    publishedCampaignId: z.string().optional().describe("The ID of the campaign after it has been published to Meta."),
+    campaignName: z.string().describe("The AI-generated name for the campaign."),
+    campaignObjective: z.string().describe("The recommended Meta Ads objective (e.g., 'LEAD_GENERATION')."),
+    inferredAudience: z.string().describe("A description of the target audience inferred by the AI."),
+    adSets: z.array(z.object({
+        name: z.string().describe("The name of the ad set."),
+        targetingSummary: z.string().describe("A summary of the targeting strategy for this set."),
+        dailyBudget: z.number().describe("The calculated daily budget for this ad set."),
+    })).describe("A list of ad sets for the campaign."),
+    adCreatives: z.array(z.object({
+        headline: z.string().describe("The ad headline."),
+        bodyText: z.string().describe("The ad's primary text/body."),
+        callToAction: z.string().describe("The suggested call-to-action button text."),
+        imageSuggestion: z.string().describe("A detailed suggestion for the ad's visual creative."),
+    })).describe("A list of ad creative variations to test."),
+    optimizationAdvice: z.string().describe("A key piece of advice for running the campaign."),
+});
+
+export type CreateMetaCampaignInput = z.infer<typeof CreateMetaCampaignInputSchema>;
+export type CreateMetaCampaignOutput = z.infer<typeof CreateMetaCampaignOutputSchema>;
 
 
 // Client-side form validation schema
@@ -174,16 +206,7 @@ export default function CampaignBuilderPage() {
             durationDays: Number(data.durationDays)
         };
         
-        const response = await fetch('/api/tools/run', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ toolId: 'meta-ads-copilot', payload }),
-        });
-
-        const responseData = await response.json();
-        if (!response.ok) {
-            throw new Error(responseData.error || 'An API error occurred.');
-        }
+        const responseData = await createMetaCampaign(payload);
 
         setResult(responseData);
 
