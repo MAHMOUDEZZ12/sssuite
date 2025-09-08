@@ -21,39 +21,9 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, Cart
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Link from 'next/link';
+import { CreateMetaCampaignInput, CreateMetaCampaignOutput } from '@/ai/flows/create-meta-campaign';
 
-// Define schemas here, on the client, for form validation.
-export const CreateMetaCampaignInputSchema = z.object({
-  campaignGoal: z.string().describe('The primary business objective for the campaign (e.g., "Generate leads for Azure Lofts").'),
-  projectBrochureDataUri: z.string().optional().describe(
-    "A project brochure, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'. This is the primary source of truth for the campaign."
-  ),
-  targetAudience: z.string().describe('A brief description of the ideal customer (e.g., "Young professionals and first-time homebuyers").').optional(),
-  budget: z.number().describe('The total campaign budget.'),
-  durationDays: z.number().describe('The number of days the campaign should run.'),
-});
-export type CreateMetaCampaignInput = z.infer<typeof CreateMetaCampaignInputSchema>;
-
-export const CreateMetaCampaignOutputSchema = z.object({
-  publishedCampaignId: z.string().optional().describe("The ID of the campaign after it has been published to Meta."),
-  campaignName: z.string().describe("A suitable name for the campaign."),
-  campaignObjective: z.string().describe("The recommended Meta campaign objective (e.g., 'LEAD_GENERATION', 'AWARENESS', 'TRAFFIC')."),
-  adSets: z.array(z.object({
-    name: z.string().describe("The name for this ad set."),
-    targetingSummary: z.string().describe("A summary of the recommended audience targeting for this ad set."),
-    dailyBudget: z.number().describe("The suggested daily budget for this ad set."),
-  })).describe("An array of suggested ad sets for the campaign."),
-  adCreatives: z.array(z.object({
-    headline: z.string().describe("A compelling headline for the ad."),
-    bodyText: z.string().describe("The primary text for the ad creative."),
-    callToAction: z.string().describe("The recommended call-to-action button text (e.g., 'Learn More', 'Sign Up')."),
-    imageSuggestion: z.string().describe("A detailed suggestion for the ad's visual (e.g., 'A high-quality photo of the modern kitchen with natural light.')."),
-  })).describe("An array of ad creative variations to test."),
-  optimizationAdvice: z.string().describe("A final piece of expert advice for running this campaign successfully."),
-});
-export type CreateMetaCampaignOutput = z.infer<typeof CreateMetaCampaignOutputSchema>;
-
-
+// Client-side form validation schema
 const formSchema = z.object({
   projectId: z.string().min(1, 'Please select a project.'),
   campaignGoal: z.string().min(1, 'Please select a goal.'),

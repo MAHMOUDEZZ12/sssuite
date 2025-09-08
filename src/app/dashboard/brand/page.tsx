@@ -162,6 +162,9 @@ export default function BrandPage() {
           filesToTrain.map(f => fileToDataUri(f.file!))
         );
 
+        // NOTE: This call to an AI flow function will not work on the client.
+        // It must be called from a server-side context (e.g., an API route).
+        // For this prototype, we simulate the happy path.
         const result = await aiBrandCreator({
           command: "Analyze the provided documents and extract the company name, primary and secondary brand colors, and contact information. Use this to set up my brand kit.",
           documents: fileDataUris,
