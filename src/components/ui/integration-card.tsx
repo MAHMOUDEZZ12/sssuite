@@ -22,11 +22,11 @@ export function IntegrationCard({ title, description, icon, connected, onConnect
                 {icon}
             </div>
             <div className="flex-grow">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 mb-1">
                     <h3 className="font-semibold">{title}</h3>
                     {connected && <Badge variant="default">Connected</Badge>}
                 </div>
-                <p className="text-sm text-muted-foreground">{description}</p>
+                <p className="text-sm text-muted-foreground max-w-lg">{description}</p>
             </div>
         </div>
         <Button onClick={connected ? onDisconnect : onConnect} variant="outline" className="w-full sm:w-auto flex-shrink-0">
