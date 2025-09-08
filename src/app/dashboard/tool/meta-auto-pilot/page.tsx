@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Star, CheckCircle, Circle, Play, GanttChartSquare, Upload, Bot } from 'lucide-react';
+import { Loader2, Sparkles, Star, CheckCircle, Circle, Play, GanttChartSquare, Upload, Bot, MessageCircle, Link as LinkIcon, Facebook } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { cn } from '@/lib/utils';
@@ -23,6 +23,12 @@ interface Step {
   status: Status;
 }
 
+const workflowOptions = [
+    { id: 'landing-page', title: 'Lead Gen to Landing Page', icon: <LinkIcon/> },
+    { id: 'whatsapp', title: 'Lead Gen to WhatsApp', icon: <MessageCircle/> },
+    { id: 'instagram-dm', title: 'Lead Gen to Instagram DM', icon: <Facebook/> }
+];
+
 const generateStepsFromPayload = (payload: any): Step[] => {
     if (!payload || !payload.campaignName) return [];
     return [
@@ -39,6 +45,8 @@ export default function MetaAutoPilotPage() {
   const [isAutomating, setIsAutomating] = useState(false);
   const [workflow, setWorkflow] = useState<Step[]>([]);
   const [pastedPayload, setPastedPayload] = useState('');
+  const [selectedWorkflow, setSelectedWorkflow] = useState<string>('');
+
 
   const handleStartAutomation = () => {
     let parsedPayload;
@@ -116,11 +124,28 @@ export default function MetaAutoPilotPage() {
             <Card>
                 <CardHeader>
                     <CardTitle>Launch Campaign Workflow</CardTitle>
-                    <CardDescription>Paste your generated campaign plan below to begin the automated publishing workflow.</CardDescription>
+                    <CardDescription>Select a workflow, paste your generated campaign plan, and the pilot will handle the rest.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="p-4 border rounded-lg space-y-4">
+                         <div className="space-y-2">
+                             <h4 className="font-semibold text-sm">1. Select Workflow Type</h4>
+                              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                {workflowOptions.map(wf => (
+                                    <button key={wf.id} onClick={() => setSelectedWorkflow(wf.id)}
+                                        className={cn(
+                                            'flex flex-col items-center justify-center text-center gap-2 p-4 rounded-lg border-2 transition-colors h-28',
+                                            selectedWorkflow === wf.id ? 'border-primary bg-primary/10' : 'bg-card hover:bg-muted/50'
+                                        )}>
+                                        {wf.icon}
+                                        <span className="text-xs font-medium">{wf.title}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
                         <div className="space-y-2">
+                             <h4 className="font-semibold text-sm">2. Paste Campaign Plan</h4>
                              <Textarea 
                                 placeholder="Paste your 'Roll-In' campaign plan from the Campaign Builder here..."
                                 value={pastedPayload}
@@ -130,14 +155,14 @@ export default function MetaAutoPilotPage() {
                                 className="font-mono text-xs"
                              />
                         </div>
-                        <Button onClick={handleStartAutomation} disabled={isAutomating || !pastedPayload} className="w-full md:w-auto">
+                        <Button onClick={handleStartAutomation} disabled={isAutomating || !pastedPayload || !selectedWorkflow} className="w-full md:w-auto">
                             {isAutomating ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Play className="mr-2 h-4 w-4"/>}
                             {isAutomating ? 'Running Workflow...' : 'Run Workflow'}
                         </Button>
                         
                         {workflow.length > 0 && (
                             <div className="mt-4 pt-4 border-t">
-                                <h4 className="font-semibold mb-3">Execution Progress:</h4>
+                                <h4 className="font-semibold mb-3">3. Execution Progress:</h4>
                                 <div className="space-y-4">
                                     {workflow.map((step) => (
                                         <div key={step.id} className="flex items-start gap-4">

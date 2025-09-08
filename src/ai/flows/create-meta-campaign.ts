@@ -45,7 +45,7 @@ const createMetaCampaignPrompt = ai.definePrompt({
   4.  **Ad Creatives:**
       - Generate at least three distinct ad creative variations.
       - For each creative, write a compelling headline and body text, extracting key selling points from the brochure.
-      - Suggest a clear call-to-action for each ad.
+      - **CRITICAL**: The call to action and ad copy MUST be tailored to the specific 'Campaign Goal'. For example, if the goal is "Lead Generation to WhatsApp", the CTA should be "Chat on WhatsApp" and the copy should encourage a direct conversation. If the goal is "Lead Generation to Landing Page", the CTA should be "Learn More" and the copy should drive clicks to the website.
       - Provide a specific image suggestion for each creative that would be visually appealing and relevant.
   5.  **Optimization Advice:** Provide one key piece of advice for the user to keep in mind while running this campaign on Meta's platforms.
   6.  **Confirmation**: Output a dummy publishedCampaignId of "campaign-not-published" to indicate the plan is ready but has not been sent to Meta.
@@ -80,5 +80,3 @@ const createMetaCampaignFlow = ai.defineFlow(
 export async function createMetaCampaign(input: CreateMetaCampaignInput): Promise<CreateMetaCampaignOutput> {
   return await createMetaCampaignFlow(input);
 }
-
-    

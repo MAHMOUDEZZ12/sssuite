@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Facebook, Upload, ArrowRight, CheckCircle, Lightbulb, Copy, LayoutDashboard, BarChart2, GalleryVertical, PlusCircle, Send } from 'lucide-react';
+import { Loader2, Sparkles, Facebook, Upload, ArrowRight, CheckCircle, Lightbulb, Copy, LayoutDashboard, BarChart2, GalleryVertical, PlusCircle, Send, Link as LinkIcon, MessageCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { fileToDataUri } from '@/lib/tools-client';
@@ -23,12 +23,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Link from 'next/link';
 import { createMetaCampaign } from '@/ai/flows/create-meta-campaign';
 import { CreateMetaCampaignInput, CreateMetaCampaignOutput } from '@/types';
+import { cn } from '@/lib/utils';
 
 
 // Client-side form validation schema
 const formSchema = z.object({
   projectId: z.string().min(1, 'Please select a project.'),
-  campaignGoal: z.string().min(1, 'Please select a goal.'),
+  campaignGoal: z.string().min(1, 'Please select a campaign workflow.'),
   projectBrochure: z.custom<FileList>().refine(files => files && files.length > 0, 'A project brochure is required.'),
   budget: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Budget must be a positive number." }),
   durationDays: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Duration must be a positive number." }),
@@ -50,6 +51,12 @@ const mockAnalyticsData = [
 ];
 
 type Campaign = typeof initialMockCampaigns[0];
+
+const campaignWorkflows = [
+    { id: 'Lead Generation to Landing Page', title: 'Leads to Landing Page', description: 'Drive traffic to a webpage to capture leads via a form.', icon: <LinkIcon className="h-5 w-5"/> },
+    { id: 'Lead Generation to WhatsApp', title: 'Leads to WhatsApp', description: 'Start direct conversations with potential buyers on WhatsApp.', icon: <MessageCircle className="h-5 w-5"/> },
+    { id: 'Lead Generation to Instagram', title: 'Leads to Instagram DMs', description: 'Engage with users directly in their Instagram Direct Messages.', icon: <Facebook className="h-5 w-5"/> },
+];
 
 const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaignOutput, toast: any, onPublish: (campaign: Campaign) => void }) => {
     
@@ -164,7 +171,8 @@ export default function CampaignBuilderPage() {
         durationDays: '',
     }
   });
-  const { control, handleSubmit, formState: { errors } } = form;
+  const { control, handleSubmit, formState: { errors }, watch } = form;
+  const selectedWorkflowId = watch('campaignGoal');
 
   const handleGeneration = async (data: FormData) => {
     setIsLoading(true);
@@ -245,19 +253,23 @@ export default function CampaignBuilderPage() {
                                     {errors.projectId && <p className="text-sm text-destructive">{errors.projectId.message}</p>}
                                 </div>
                                 <div className="space-y-2">
-                                   <Label htmlFor="campaignGoal">Goal</Label>
-                                   <Controller name="campaignGoal" control={control} render={({ field }) => (
-                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select a campaign goal" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="Lead Generation to Landing Page">Lead Generation to Landing Page</SelectItem>
-                                                <SelectItem value="Lead Generation to WhatsApp">Lead Generation to WhatsApp</SelectItem>
-                                                <SelectItem value="Lead Generation to Instagram">Lead Generation to Instagram</SelectItem>
-                                                <SelectItem value="Lead Generation to Lead CRM">Lead Generation to Lead CRM</SelectItem>
-                                            </SelectContent>
-                                        </Select>
+                                   <Label htmlFor="campaignGoal">Campaign Workflow</Label>
+                                    <Controller name="campaignGoal" control={control} render={({ field }) => (
+                                        <div className="grid grid-cols-1 gap-2">
+                                            {campaignWorkflows.map(wf => (
+                                                <button key={wf.id} type="button" onClick={() => field.onChange(wf.id)}
+                                                    className={cn(
+                                                        'flex items-start text-left gap-3 p-3 rounded-lg border transition-colors',
+                                                        selectedWorkflowId === wf.id ? 'bg-primary/10 border-primary' : 'bg-muted/50 hover:bg-muted'
+                                                    )}>
+                                                        {wf.icon}
+                                                    <div>
+                                                        <p className="font-semibold">{wf.title}</p>
+                                                        <p className="text-xs text-muted-foreground">{wf.description}</p>
+                                                    </div>
+                                                </button>
+                                            ))}
+                                        </div>
                                    )} />
                                    {errors.campaignGoal && <p className="text-sm text-destructive">{errors.campaignGoal.message}</p>}
                                 </div>
