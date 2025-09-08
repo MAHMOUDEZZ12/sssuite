@@ -186,6 +186,7 @@ export const tools: Feature[] = [
     cta: 'Create Campaign',
     categories: ['Marketing', 'Ads', 'Lead Gen'],
     mindMapCategory: 'Meta Ads AI Suite',
+    badge: 'NEW',
     isPage: true,
     href: '/dashboard/tool/meta-ads-copilot',
     guideHref: '/blog/meta-ads-copilot',
@@ -222,6 +223,7 @@ export const tools: Feature[] = [
     cta: 'Generate Strategies',
     categories: ['Marketing', 'Lead Gen', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
+    badge: 'NEW',
     isPage: true,
     href: '/dashboard/tool/audience-creator',
     guideHref: '/blog/audience-creator',
@@ -1565,6 +1567,7 @@ export const tools: Feature[] = [
     categories: ['Utilities', 'Web', 'Listing Intelligence AI'],
     mindMapCategory: 'Listing Intelligence AI',
     isPage: true,
+    badge: 'Pilot*',
     href: '/dashboard/tool/property-finder-sync',
     details: {
       steps: [], aiVsManual: [], synergy: [], faqs: [],
@@ -1581,6 +1584,7 @@ export const tools: Feature[] = [
     categories: ['Utilities', 'Web', 'Listing Intelligence AI'],
     mindMapCategory: 'Listing Intelligence AI',
     isPage: true,
+    badge: 'Pilot*',
     href: '/dashboard/tool/bayut-sync',
     details: {
       steps: [], aiVsManual: [], synergy: [], faqs: [],
@@ -1597,6 +1601,7 @@ export const tools: Feature[] = [
     categories: ['Utilities'],
     mindMapCategory: 'Utilities',
     isPage: true,
+    badge: 'Pilot*',
     href: '/dashboard/tool/creative-execution-terminal',
     details: {
       steps: [
