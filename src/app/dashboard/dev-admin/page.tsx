@@ -35,12 +35,21 @@ interface ChangeLogEntry {
 
 const initialLog: ChangeLogEntry[] = [
     {
+        id: 'cl-1757362654349',
+        timestamp: new Date(),
+        toolId: 'meta-ads-copilot',
+        toolTitle: 'Campaign Builder',
+        description: 'here is the same --- the best way is to make this tool design the full campaign internallly while the pilot is what fly it to meta --- ',
+        status: 'Implemented',
+        comment: "This task has been implemented. The Meta Ads Co-Pilot now only generates the campaign plan. The publishing is handled by the Auto Pilot."
+    },
+    {
         id: 'cl-1757362497975',
         timestamp: new Date(),
         toolId: 'meta-auto-pilot',
         toolTitle: 'Meta Auto Pilot',
         description: 'the poilt should design the flow as per the user need -- a flow for lead generaton campaign is not the same for a reel ad with landing page -- or reel ad with messages',
-        status: 'Implemented',
+        status: 'Assured',
         comment: "This task has been implemented. The Meta Auto Pilot page now allows selection of different workflows."
     }
 ];
