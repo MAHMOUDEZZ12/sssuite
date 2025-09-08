@@ -115,6 +115,8 @@ export type Feature = {
   mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal' | 'Meta Ads AI Suite';
   badge?: 'NEW' | 'BETA' | 'SOON' | 'Pilot*';
   isPage?: boolean;
+  href: string;
+  guideHref?: string;
   details: {
     steps: { text: string; icon: React.ReactElement }[];
     aiVsManual: {
@@ -366,6 +368,8 @@ export const tools: Feature[] = [
     mindMapCategory: 'Meta Ads AI Suite',
     badge: 'Pilot*',
     isPage: true,
+    href: '/dashboard/tool/meta-auto-pilot',
+    guideHref: '/blog/meta-auto-pilot',
     details: {
       steps: [
           { text: 'Connect all your Meta ad tools', icon: <LinkIcon className="h-6 w-6" /> },
@@ -400,6 +404,8 @@ export const tools: Feature[] = [
     mindMapCategory: 'Meta Ads AI Suite',
     badge: 'NEW',
     isPage: true,
+    href: '/dashboard/tool/meta-ads-copilot',
+    guideHref: '/blog/meta-ads-copilot',
     details: {
       steps: [
           { text: 'Connect your Meta Business account', icon: <LinkIcon className="h-6 w-6" /> },
@@ -434,6 +440,8 @@ export const tools: Feature[] = [
     categories: ['Marketing', 'Lead Gen', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
     isPage: false,
+    href: '/dashboard/tool/audience-creator',
+    guideHref: '/blog/audience-creator',
     renderResult: (result, toast) => <AudienceIdeationResult result={result} toast={toast} />,
     details: {
       steps: [
@@ -470,6 +478,8 @@ export const tools: Feature[] = [
     cta: 'Generate Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
+    href: '/dashboard/tool/insta-ads-designer',
+    guideHref: '/blog/insta-ads-designer',
     isPage: false,
     renderResult: (result, toast) => (
        <div className="space-y-6">
@@ -551,6 +561,8 @@ export const tools: Feature[] = [
     cta: 'Generate Reel Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
+    href: '/dashboard/tool/reel-ads-ai',
+    guideHref: '/blog/instagram-content-creator', // Placeholder, should be reel-ads-ai
     details: {
       steps: [
         { text: 'Select a project to source images/videos', icon: <Briefcase /> },
@@ -588,6 +600,8 @@ export const tools: Feature[] = [
     cta: 'Create Facebook Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
+    href: '/dashboard/tool/facebook-ads-ai',
+    guideHref: '/blog/insta-ads-designer', // Placeholder, should be facebook-ads-ai
     details: {
        steps: [
         { text: 'Upload a project brochure or select a project', icon: <Upload className="h-6 w-6" /> },
@@ -626,6 +640,8 @@ export const tools: Feature[] = [
     cta: 'Run Admin Task',
     categories: ['Sales Tools', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
+    href: '/dashboard/tool/instagram-admin-ai',
+    guideHref: '/blog/instagram-admin-ai',
     details: {
       steps: [
         { text: 'Connect your Instagram account securely', icon: <Network /> },
@@ -662,6 +678,8 @@ export const tools: Feature[] = [
     cta: 'Generate Story',
     categories: ['Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
+    href: '/dashboard/tool/story-planner-ai',
+    guideHref: '/blog/story-planner-ai',
     details: {
       steps: [
         { text: 'Select a project to source photos', icon: <Briefcase /> },
@@ -690,6 +708,45 @@ export const tools: Feature[] = [
     ],
   },
   {
+    id: 'instagram-content-creator',
+    title: 'Instagram Content Creator',
+    dashboardTitle: 'Instagram Content',
+    description: 'Generate a full week of social media content and a tiered hashtag strategy from a single topic or URL.',
+    icon: <Share2 />,
+    color: '#ea580c',
+    cta: 'Generate Content Strategy',
+    categories: ['Marketing', 'Creative', 'Social & Comms'],
+    mindMapCategory: 'Marketing',
+    href: '/dashboard/tool/instagram-content-creator',
+    guideHref: '/blog/instagram-content-creator',
+    details: {
+        steps: [
+            { text: 'Enter a topic, URL, or project name', icon: <PenTool className="h-6 w-6" /> },
+            { text: 'AI generates a 7-day content plan', icon: <ClipboardList className="h-6 w-6" /> },
+            { text: 'Get image suggestions and a hashtag strategy', icon: <Hash className="h-6 w-6" /> },
+        ],
+        aiVsManual: [
+            { metric: 'Planning Time', manual: '2-3 hours per week', ai: 'Fast by default', icon: <Clock2 /> },
+            { metric: 'Content Variety', manual: 'Tends to be repetitive', ai: 'Generates diverse daily themes and angles', icon: <Sparkles /> },
+            { metric: 'Hashtag Research', manual: 'Time-consuming and often ineffective', ai: 'Creates a tiered, data-driven strategy', icon: <LineChart /> },
+        ],
+        synergy: [
+            { tool: "Landing Page Builder", benefit: "Create posts that drive traffic directly to your newly generated landing page." },
+            { tool: "Instagram Admin", benefit: "Automatically schedule your entire 7-day content plan for hands-free social media management." }
+        ],
+        faqs: [
+            { question: "Can I edit the generated posts?", answer: "Yes, the generated content is a starting point. You can edit, remove, or add posts to the plan before you schedule them." },
+            { question: "Does it create the images for me?", answer: "The tool provides detailed *suggestions* for images that would complement the text. For full image creation, use the Insta Ads Designer or Reel Ads tools." },
+            { question: "How does it decide on the daily themes?", answer: "The AI uses a proven content marketing framework, mixing promotional content with educational, engaging, and behind-the-scenes posts to keep your audience interested and build community." }
+        ]
+    },
+    creationFields: [
+        { id: 'source', name: 'Source', type: 'text', placeholder: 'Enter a URL or topic (e.g., "The benefits of living in Dubai Marina")', description: 'The core idea for your content plan.' },
+        { id: 'platform', name: 'Platform', type: 'select', options: ['Instagram', 'Facebook', 'LinkedIn', 'Twitter'], placeholder: 'Select a platform', description: 'The platform you are creating content for.' },
+        { id: 'tone', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Humorous', 'Authoritative'], placeholder: 'Select a tone', description: 'Set the tone for the generated posts.' },
+    ],
+},
+  {
     id: 'instagram-hashtags-ai',
     title: 'Instagram Hashtags',
     dashboardTitle: 'Instagram Hashtags',
@@ -699,6 +756,8 @@ export const tools: Feature[] = [
     cta: 'Generate Hashtag Strategy',
     categories: ['Marketing', 'Social & Comms', 'Lead Gen'],
     mindMapCategory: 'Meta Ads AI Suite',
+    href: '/dashboard/tool/instagram-hashtags-ai',
+    guideHref: '/blog/instagram-content-creator',
     details: {
       steps: [
         { text: 'Provide the topic of your post', icon: <PenTool /> },
@@ -735,6 +794,8 @@ export const tools: Feature[] = [
     cta: 'Generate Ad Report',
     categories: ['Marketing', 'Ads'],
     mindMapCategory: 'Meta Ads AI Suite',
+    href: '/dashboard/tool/meta-ads-reports',
+    guideHref: '/blog/meta-ads-copilot',
     details: {
       steps: [
         { text: 'Connect your Meta Ads account', icon: <Network /> },
@@ -773,6 +834,8 @@ export const tools: Feature[] = [
     cta: 'Send Email Campaign',
     categories: ['Marketing', 'Social & Comms', 'Sales Tools'],
     mindMapCategory: 'Marketing',
+    href: '/dashboard/tool/email-creator',
+    guideHref: '/blog/email-creator',
     details: {
       steps: [
         { text: 'Define your campaign goal (e.g., New Listing)', icon: <Target className="h-6 w-6" /> },
@@ -812,6 +875,8 @@ export const tools: Feature[] = [
     cta: 'Create Landing Page',
     categories: ['Creative', 'Web'],
     mindMapCategory: 'Creative Suite',
+    href: '/dashboard/tool/landing-pages',
+    guideHref: '/blog/landing-pages',
     renderResult: (result, toast) => (
       <div>
           <h3 className="font-semibold text-lg mb-2">Landing Page HTML</h3>
@@ -860,6 +925,8 @@ export const tools: Feature[] = [
     cta: 'Generate Rebranded Brochure',
     categories: ['Creative', 'Editing'],
     mindMapCategory: 'Creative Suite',
+    href: '/dashboard/tool/rebranding',
+    guideHref: '/blog/rebranding',
     renderResult: (result, toast) => (
       <div className="space-y-6">
         <Card>
@@ -932,6 +999,8 @@ export const tools: Feature[] = [
     cta: 'Generate Edited PDF',
     categories: ['Creative', 'Editing'],
     mindMapCategory: 'Creative Suite',
+    href: '/dashboard/tool/pdf-editor',
+    guideHref: '/blog/pdf-editor',
     renderResult: (result, toast) => (
       <div className="space-y-6">
         <div>
@@ -981,6 +1050,8 @@ export const tools: Feature[] = [
     cta: 'Generate Investor Match',
     categories: ['Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Sales Enablement',
+    href: '/dashboard/tool/investor-matching',
+    guideHref: '/blog/investor-matching',
     renderResult: (result, toast) => (
        <div className="space-y-4">
             <h3 className="font-semibold text-lg mb-2">Top Investor Matches</h3>
@@ -1043,6 +1114,8 @@ export const tools: Feature[] = [
     mindMapCategory: 'Sales Enablement',
     badge: 'SOON',
     isPage: true,
+    href: '/dashboard/tool/listing-manager',
+    guideHref: '/blog/bayut-listing-ai',
     details: { 
       steps: [
         { text: 'Connect your Property Finder &amp; Bayut accounts', icon: <Network /> },
@@ -1077,6 +1150,8 @@ export const tools: Feature[] = [
     categories: ['Sales Tools', 'Web'],
     mindMapCategory: 'Sales Enablement',
     badge: 'NEW',
+    href: '/dashboard/tool/propertyfinder-sync',
+    guideHref: '/blog/bayut-listing-ai',
     details: {
       steps: [
         { text: 'Connect your Property Finder account with an API key', icon: <Key className="h-6 w-6" /> },
@@ -1117,6 +1192,8 @@ export const tools: Feature[] = [
     categories: ['Sales Tools', 'Web'],
     mindMapCategory: 'Sales Enablement',
     badge: 'NEW',
+    href: '/dashboard/tool/bayut-sync',
+    guideHref: '/blog/bayut-listing-ai',
     details: {
       steps: [
         { text: 'Connect your Bayut account with an API key', icon: <Key className="h-6 w-6" /> },
@@ -1155,6 +1232,8 @@ export const tools: Feature[] = [
     cta: 'Create Listing',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
+    href: '/dashboard/tool/bayut-listing-ai',
+    guideHref: '/blog/bayut-listing-ai',
     renderResult: (result, toast) => (
        <div className="space-y-6">
         <div>
@@ -1217,6 +1296,8 @@ export const tools: Feature[] = [
     cta: 'Create Listing',
     categories: ['Sales Tools', 'Editing', 'Web'],
     mindMapCategory: 'Sales Enablement',
+    href: '/dashboard/tool/dubizzle-listing-ai',
+    guideHref: '/blog/bayut-listing-ai',
     details: {
        steps: [
         { text: 'Enter property details', icon: <PenTool /> },
@@ -1256,6 +1337,8 @@ export const tools: Feature[] = [
     cta: 'Create Offer Package',
     categories: ['Sales Tools', 'Editing'],
     mindMapCategory: 'Sales Enablement',
+    href: '/dashboard/tool/offer-generator',
+    guideHref: '/blog/email-creator',
     details: {
       steps: [
         { text: 'Select multiple properties for the client', icon: <Building className="h-6 w-6" /> },
@@ -1293,6 +1376,8 @@ export const tools: Feature[] = [
     cta: 'Send WhatsApp Campaign',
     categories: ['Sales Tools', 'Social & Comms', 'Lead Gen'],
     mindMapCategory: 'Sales Enablement',
+    href: '/dashboard/tool/whatsapp-campaigns',
+    guideHref: '/blog/instagram-admin-ai',
     details: {
       steps: [
         { text: 'Upload your client contact list', icon: <Upload className="h-6 w-6" /> },
@@ -1332,6 +1417,8 @@ export const tools: Feature[] = [
     cta: 'Generate Market Report',
     categories: ['Market Library', 'Sales Tools', 'Editing'],
     mindMapCategory: 'Core Intelligence',
+    href: '/dashboard/tool/market-reports',
+    guideHref: '/blog/market-reports',
     renderResult: (result, toast) => (
       <div className="space-y-6 text-foreground">
         <h3 className="text-2xl font-bold font-heading">{result.reportTitle}</h3>
@@ -1402,6 +1489,8 @@ export const tools: Feature[] = [
     categories: ['Market Library', 'Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Core Intelligence',
     badge: 'BETA',
+    href: '/dashboard/tool/market-trends',
+    guideHref: '/blog/market-reports',
     details: {
       steps: [
         { text: 'Define a location or market segment', icon: <MapPin /> },
@@ -1437,6 +1526,8 @@ export const tools: Feature[] = [
     mindMapCategory: 'Core Intelligence',
     badge: 'NEW',
     isPage: true,
+    href: '/dashboard/tool/projects-finder',
+    guideHref: '/blog/ai-brand-creator',
     details: {
       steps: [
         { text: 'Define your target area and criteria', icon: <MapPin /> },
@@ -1479,6 +1570,8 @@ export const tools: Feature[] = [
     categories: ['Sales Tools', 'Creative'],
     mindMapCategory: 'Core Intelligence',
     badge: 'NEW',
+    href: '/dashboard/tool/ai-brand-creator',
+    guideHref: '/blog/ai-brand-creator',
     details: {
       steps: [
         { text: 'Upload documents (brand guide, project lists)', icon: <Upload /> },
@@ -1515,6 +1608,8 @@ export const tools: Feature[] = [
     cta: 'Get Client Record',
     categories: ['Sales Tools', 'Lead Gen'],
     mindMapCategory: 'Core Intelligence',
+    href: '/dashboard/tool/crm-assistant',
+    guideHref: '/blog/ai-brand-creator',
     details: {
       steps: [
         { text: 'Connect your contacts or calendar', icon: <Network className="h-6 w-6" /> },
@@ -1552,6 +1647,8 @@ export const tools: Feature[] = [
     categories: ['Sales Tools'],
     mindMapCategory: 'Core Intelligence',
     badge: 'BETA',
+    href: '/dashboard/assistant',
+    guideHref: '/blog/ai-brand-creator',
     details: {
       steps: [
         { text: 'Give your assistant core instructions', icon: <PenTool className="h-6 w-6" /> },
@@ -1588,6 +1685,8 @@ export const tools: Feature[] = [
     cta: 'Play Game',
     categories: ['All'],
     mindMapCategory: 'Internal',
+    href: '/superfreetime',
+    guideHref: '/superfreetime',
     details: {
       steps: [{ text: 'It is a secret.', icon: <Sparkles /> }],
       aiVsManual: [{ metric: 'Fun', manual: 'Work, work, work.', ai: 'A delightful surprise.', icon: <Sparkles /> }],

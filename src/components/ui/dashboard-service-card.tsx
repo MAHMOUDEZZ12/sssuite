@@ -111,11 +111,29 @@ export function DashboardServiceCard({
         actionHandler = handleConnect;
     } else if (paymentRequired) {
         titleText = `Unlock "${title}"?`;
-        dialogContent = `The "${title}" tool is a premium feature. To activate it, please confirm your subscription or add a payment method.`;
+        dialogContent = (
+            <div>
+                <p>The "{title}" tool is a premium feature. To activate it, please confirm your subscription or add a payment method.</p>
+                {guideHref && (
+                    <p className="mt-2 text-sm text-muted-foreground">
+                        Read the <Link href={guideHref} className="underline hover:text-primary">Handbook guide</Link> to learn more.
+                    </p>
+                )}
+            </div>
+        );
         actionText = "Confirm & Unlock";
         actionHandler = handlePayment;
     } else {
-        dialogContent = `You are about to add the "${title}" tool to your personal workspace. This will make it available on your main dashboard.`;
+        dialogContent = (
+             <div>
+                <p>You are about to add the "{title}" tool to your personal workspace. This will make it available on your main dashboard.</p>
+                {guideHref && (
+                    <p className="mt-2 text-sm text-muted-foreground">
+                        Read the <Link href={guideHref} className="underline hover:text-primary">Handbook guide</Link> to learn more.
+                    </p>
+                )}
+            </div>
+        );
     }
 
     return (
@@ -126,7 +144,9 @@ export function DashboardServiceCard({
             <AlertDialogContent>
                 <AlertDialogHeader>
                 <AlertDialogTitle>{titleText}</AlertDialogTitle>
-                <AlertDialogDescription>{dialogContent}</AlertDialogDescription>
+                <AlertDialogDescription asChild>
+                    <div>{dialogContent}</div>
+                </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -159,7 +179,7 @@ export function DashboardServiceCard({
       </CardHeader>
       <CardFooter className="mt-auto flex justify-end gap-2">
         {guideHref && (
-          <Link href={guideHref}>
+          <Link href={guideHref} target="_blank">
             <Button variant="ghost" size="sm">
               <BookOpen className="mr-2 h-4 w-4" />
               Guide
