@@ -262,7 +262,6 @@ export const tools: Feature[] = [
     href: '/dashboard/tool/insta-ads-designer',
     guideHref: '/blog/insta-ads-designer',
     isPage: false,
-    badge: 'SOON',
     renderResult: (result, toast) => (
        <div className="space-y-6">
           <Card>
@@ -372,47 +371,6 @@ export const tools: Feature[] = [
       { id: 'sellingPoints', name: 'Selling Points', type: 'textarea', placeholder: 'e.g., Stunning ocean views\nFloor-to-ceiling windows\n5-star amenities', description: 'One key point per line for captions.' },
       { id: 'vibe', name: 'Vibe', type: 'select', options: ['Modern & Fast-Paced', 'Luxurious & Cinematic', 'Upbeat & Fun', 'Calm & Relaxing'], placeholder: 'Select a vibe', description: 'This influences the music and editing style.' },
     ]
-  },
-  {
-    id: 'facebook-ads-ai',
-    title: 'Facebook Ads',
-    dashboardTitle: 'Facebook Ads',
-    description: 'Design effective ads for the Facebook platform.',
-    icon: <Facebook />,
-    color: '#2563eb',
-    cta: 'Create Facebook Ad',
-    categories: ['Ads', 'Creative', 'Social & Comms'],
-    mindMapCategory: 'Meta Ads AI Suite',
-    badge: 'SOON',
-    href: '/dashboard/tool/facebook-ads-ai',
-    guideHref: '/blog/insta-ads-designer', // Placeholder, should be facebook-ads-ai
-    details: {
-       steps: [
-        { text: 'Upload a project brochure or select a project', icon: <Upload className="h-6 w-6" /> },
-        { text: 'Define the ad\'s focus (e.g., "investment")', icon: <Target className="h-6 w-6" /> },
-        { text: 'Generate multiple ad variants for different formats', icon: <Sparkles className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Time Investment', manual: '5-10 hours per campaign', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Cost &amp; Resources', manual: 'Requires copywriter &amp; designer', ai: 'Included in your subscription', icon: <Wallet /> },
-        { metric: 'Quality &amp; Testing', manual: 'Relies on guesswork, 1-2 variations', ai: 'Data-driven, 5+ variations to test', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "Audience Creator", benefit: "Ensure your perfectly crafted Facebook ads are seen by the people most likely to convert." },
-        { tool: "Landing Page Builder", benefit: "Drive traffic from your Facebook ad to a dedicated, high-converting landing page." }
-      ],
-       faqs: [
-        { question: "How is this different from the Insta Ads Designer?", answer: "While the core engine is similar, this tool is specifically optimized for Facebook's formats and best practices, such as different image aspect ratios, headline lengths, and ad types like Carousel ads." },
-        { question: "Can I A/B test different headlines?", answer: "Yes, the tool is designed to generate multiple distinct headlines and body copy variations for the express purpose of A/B testing to find the most effective message." },
-        { question: "Does it create video ads?", answer: "This tool focuses on image and carousel ads. For video content, please use the dedicated 'Reel Ads' tool." }
-      ],
-    },
-    creationFields: [
-       { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose from your saved projects.' },
-      { id: 'brochureDataUri', name: 'Developer Brochure (Optional)', type: 'file', description: 'Upload the original PDF for more detailed ad generation.' },
-      { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
-      { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
-    ],
   },
   {
     id: 'instagram-admin-ai',

@@ -37,8 +37,6 @@ const runToolSchema = z.object({
 
 const flowRunnerMap: { [key: string]: (payload: any) => Promise<any> } = {
     'insta-ads-designer': generateAdFromBrochure,
-    'facebook-ads-ai': generateAdFromBrochure,
-    'ad-creation': generateAdFromBrochure,
     'audience-creator': suggestTargetingOptions,
     'rebranding': rebrandBrochure,
     'pdf-editor': editPdf,

@@ -46,7 +46,7 @@ const getToolSchema = (tool: Feature | undefined) => {
         const optionalTextFields = ['additionalInformation', 'projectName', 'developer', 'context', 'deepEditInstructions'];
 
         if (field.type === 'file') {
-            const isOptional = optionalFileFields.includes(field.id) || field.id === 'brochureDataUri' || field.id === 'companyLogoDataUri';
+            const isOptional = optionalFileFields.includes(field.id);
             const fileListSchema = z.custom<FileList>().nullable().optional();
 
             if (isOptional) {
@@ -85,8 +85,9 @@ const getToolSchema = (tool: Feature | undefined) => {
 
     // Add cross-field validations
     return baseSchema.refine(data => {
-        if (tool.id === 'ad-creation' || tool.id === 'insta-ads-designer' || tool.id === 'facebook-ads-ai') {
-            return !!data.projectId || (data.brochureDataUri && data.brochureDataUri.length > 0);
+        if (tool.id === 'insta-ads-designer') {
+            // Either projectId is selected, or a brochure is uploaded.
+            return data.projectId || (data.brochureDataUri && data.brochureDataUri.length > 0);
         }
         return true;
     }, {
