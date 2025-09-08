@@ -1277,7 +1277,7 @@ export const tools: Feature[] = [
       faqs: [
         { question: "Is this legal and ethical?", answer: "Yes. The tool only searches publicly available information that anyone could find with manual searching. It simply automates the process to save you time. No private data is accessed." },
         { question: "What happens if there are multiple people with the same name?", answer: "The AI will return a list of the most likely matches and provide a confidence score for each, along with a summary (e.g., 'John Smith, CEO at Acme Corp' vs. 'John Smith, artist in New York'). You can then use this information to identify the correct person." },
-        { question: "Can I use this to find contact information?", answer: "The tool is designed to find public profiles and professional information to help you understand your lead. While it may find publicly listed contact information, it is not primarily a contact-scraping tool." },
+        { question: "Can I use this to find contact information?", answer: "The tool is designed to find public profiles and professional information to help you understand your lead. While it may find publicly listed contact information, it is not primarily a contact-scraping tool." }
       ],
     },
     creationFields: [],
@@ -1643,3 +1643,5 @@ export const tools: Feature[] = [
     creationFields: [],
   },
 ];
+
+    
