@@ -15,7 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
-import { Loader2, Sparkles, AlertCircle, Upload, Info, PlusCircle, CreditCard, CheckCircle } from 'lucide-react';
+import { Loader2, Sparkles, AlertCircle, Upload, Info, PlusCircle, CreditCard, CheckCircle, ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Confetti } from '@/components/confetti';
 import Link from 'next/link';
@@ -46,7 +46,7 @@ const getToolSchema = (tool: Feature | undefined) => {
         const optionalTextFields = ['additionalInformation', 'projectName', 'developer', 'context'];
 
         if (field.type === 'file') {
-            const isOptional = optionalFileFields.includes(field.id);
+            const isOptional = optionalFileFields.includes(field.id) || field.id === 'brochureDataUri' || field.id === 'companyLogoDataUri';
             const fileListSchema = z.custom<FileList>().nullable().optional();
 
             if (isOptional) {

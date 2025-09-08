@@ -5,7 +5,7 @@ import React from 'react';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Component, Wind, BrainCircuit, Rocket, Zap, Puzzle, Copy, CheckCircle } from 'lucide-react';
+import { BrainCircuit, Rocket, Zap, Puzzle, Copy, CheckCircle } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';

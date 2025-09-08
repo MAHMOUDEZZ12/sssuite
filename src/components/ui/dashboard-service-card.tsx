@@ -102,17 +102,20 @@ export function DashboardServiceCard({
     let dialogContent;
     let actionHandler = handleAdd;
     let actionText = "Add to Workspace";
+    let titleText = `Add "${title}" to Your Workspace?`;
 
     if (connectionRequired) {
+        titleText = `Connect to ${connectionRequired}?`;
         dialogContent = `To use the ${title} tool, you need to securely connect your ${connectionRequired} account. This allows the application to act on your behalf.`;
         actionText = `Connect to ${connectionRequired}`;
         actionHandler = handleConnect;
     } else if (paymentRequired) {
+        titleText = `Unlock "${title}"?`;
         dialogContent = `The "${title}" tool is a premium feature. To activate it, please confirm your subscription or add a payment method.`;
         actionText = "Confirm & Unlock";
         actionHandler = handlePayment;
     } else {
-        dialogContent = `You are about to add the "${title}" tool to your personal workspace.`;
+        dialogContent = `You are about to add the "${title}" tool to your personal workspace. This will make it available on your main dashboard.`;
     }
 
     return (
@@ -122,7 +125,7 @@ export function DashboardServiceCard({
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                <AlertDialogTitle>Add "{title}" to Your Workspace?</AlertDialogTitle>
+                <AlertDialogTitle>{titleText}</AlertDialogTitle>
                 <AlertDialogDescription>{dialogContent}</AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
