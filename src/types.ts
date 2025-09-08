@@ -77,14 +77,14 @@ export type SuggestTargetingOptionsOutput = z.infer<typeof SuggestTargetingOptio
 // Schemas for Meta Ads Co-Pilot
 export const CreateMetaCampaignInputSchema = z.object({
   campaignGoal: z.string().describe("The user's primary objective for the campaign."),
-  projectBrochureDataUri: z.string().optional().describe("The project brochure as a data URI."),
+  projectBrochureDataUri: z.string().describe("The project brochure as a data URI."),
   targetAudience: z.string().optional().describe("A hint about the target audience."),
   budget: z.number().describe("The total ad spend budget."),
   durationDays: z.number().describe("The campaign duration in days."),
 });
 
 export const CreateMetaCampaignOutputSchema = z.object({
-    publishedCampaignId: z.string().optional().describe("The ID of the campaign after it has been published to Meta."),
+    publishedCampaignId: z.string().describe("A dummy ID confirming the plan is ready. Always 'campaign-not-published'."),
     campaignName: z.string().describe("The AI-generated name for the campaign."),
     campaignObjective: z.string().describe("The recommended Meta Ads objective (e.g., 'LEAD_GENERATION')."),
     inferredAudience: z.string().describe("A description of the target audience inferred by the AI."),
