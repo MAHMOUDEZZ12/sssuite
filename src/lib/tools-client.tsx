@@ -333,6 +333,42 @@ export const tools: Feature[] = [
     ],
   },
   {
+    id: 'listing-performance',
+    title: 'Listing Performance',
+    dashboardTitle: 'Listing Performance',
+    description: 'Track listing views and performance.',
+    icon: <BarChart />,
+    color: '#ef4444',
+    cta: 'View Performance',
+    categories: ['Sales Tools', 'Lead Gen', 'Ads'],
+    mindMapCategory: 'Sales Enablement',
+    isPage: true,
+    href: '/dashboard/tool/listing-performance',
+    guideHref: '/blog/listing-performance',
+    details: {
+      steps: [
+        { text: 'Connect your listings portals (e.g. Google Search Console)', icon: <LinkIcon /> },
+        { text: 'The tool tracks views and visitor types', icon: <Users2 /> },
+        { text: 'Get reports to optimize your listings and ads', icon: <LineChart /> },
+      ],
+      aiVsManual: [
+        { metric: 'Performance Insight', manual: 'Guessing which listings are popular', ai: 'Hard data on what buyers are looking at', icon: <Sparkles /> },
+        { metric: 'Bot Filtering', manual: 'Unable to distinguish bot traffic', ai: 'Advanced filtering for true visitor counts', icon: <BadgeCheck /> },
+        { metric: 'Ad Strategy', manual: 'Boosting listings based on intuition', ai: 'Promoting listings with proven organic interest', icon: <BrainCircuit /> },
+      ],
+      synergy: [
+        { tool: "Campaign Builder", benefit: "Create ad campaigns that specifically boost your top-performing organic listings for maximum ROI." },
+        { tool: "Listing Manager", benefit: "Use the performance data to refine and improve your underperforming listings." }
+      ],
+      faqs: [
+        { question: "How does it track views?", answer: "The tool integrates with web analytics services like Google Search Console to track clicks and impressions on your listings across different portals." },
+        { question: "What is 'bot traffic'?", answer: "A significant portion of web traffic comes from automated web crawlers (bots) from search engines and other services. Our tool filters this out to show you how many actual potential buyers are viewing your listings." },
+        { question: "How does this help my ad strategy?", answer: "By identifying which of your listings get the most organic views, you know which properties have the highest natural interest. Creating ads for these properties is often more effective and cost-efficient than promoting less popular ones." }
+      ],
+    },
+    creationFields: [],
+  },
+  {
     id: 'reel-ads-ai',
     title: 'Reel Ads',
     dashboardTitle: 'Reel Ads',
@@ -491,46 +527,6 @@ export const tools: Feature[] = [
         { id: 'tone', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Humorous', 'Authoritative'], placeholder: 'Select a tone', description: 'Set the tone for the generated posts.' },
     ],
 },
-  {
-    id: 'meta-ads-reports',
-    title: 'Meta Ads Reports',
-    description: 'Generate performance reports for your campaigns.',
-    icon: <BarChart />,
-    color: '#f59e0b',
-    cta: 'Generate Ad Report',
-    categories: ['Marketing', 'Ads'],
-    mindMapCategory: 'Meta Ads AI Suite',
-    badge: 'SOON',
-    href: '/dashboard/tool/meta-ads-reports',
-    guideHref: '/blog/meta-ads-copilot',
-    details: {
-      steps: [
-        { text: 'Connect your Meta Ads account', icon: <Network /> },
-        { text: 'Select the campaign and date range', icon: <Briefcase /> },
-        { text: 'AI generates a report with insights and recommendations', icon: <Sparkles /> },
-      ],
-      aiVsManual: [
-        { metric: 'Data Analysis', manual: 'Manually exporting data to spreadsheets', ai: 'Automated analysis with plain-English insights', icon: <BrainCircuit /> },
-        { metric: 'Time to Report', manual: '1-2 hours per report', ai: 'Seconds to generate', icon: <Clock2 /> },
-        { metric: 'Actionability', manual: 'Just data, no recommendations', ai: 'Provides specific advice for optimization', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "Campaign Builder", benefit: "Use the insights from your reports to inform the strategy for your next AI-generated campaign." },
-        { tool: "AI Assistant", benefit: "Ask your assistant, 'Summarize the performance of my Emaar Beachfront campaign last month,' to get instant insights without manually running a report." },
-      ],
-      faqs: [
-        { question: "What kind of recommendations does it make?", answer: "The AI can suggest actions like reallocating budget to better-performing ad sets, refreshing ad creative that is experiencing fatigue, or expanding targeting for successful audiences." },
-        { question: "Can I schedule recurring reports?", answer: "Yes, you can set up weekly or monthly reports to be automatically generated and sent to your email, keeping you informed of your campaign performance." },
-        { question: "Does this work for both Facebook and Instagram?", answer: "Yes, the tool pulls data from your entire Meta Ads account, providing a unified report on performance across both platforms." }
-      ],
-    },
-    creationFields: [
-      { id: 'campaignId', name: 'Campaign', type: 'select', options: ['Emaar Beachfront Leads - March', 'Damac Hills 2 Awareness - Feb', 'Sobha Hartland Traffic - April'], placeholder: 'Select a campaign', description: 'Choose the campaign to report on.' },
-      { id: 'dateRange', name: 'Date Range', type: 'select', options: ['Last 7 Days', 'Last 30 Days', 'This Month', 'Last Month'], placeholder: 'Select a date range', description: 'The time period for the report.' },
-    ],
-  },
-   
-  // --- GENERAL MARKETING ---
   {
     id: 'email-creator',
     title: 'Email Campaigns',
