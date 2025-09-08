@@ -49,7 +49,7 @@ function OnboardingComponent() {
     useEffect(() => {
         if (step === 1 && suggestedProjects.length === 0) {
             setIsLoading(true);
-            fetch('/api/projects/suggest')
+            fetch('/api/projects/suggest?devs=Emaar,Damac&limit=2')
                 .then(res => res.json())
                 .then(data => setSuggestedProjects(data.data || []))
                 .catch(err => console.error("Failed to fetch suggestions", err))
@@ -61,8 +61,8 @@ function OnboardingComponent() {
     useEffect(() => {
         if (step === 4 && scannedProjects.length === 0) {
             setIsLoading(true);
-            const devQuery = draft.devFocus.length > 0 ? `?devs=${draft.devFocus.join(',')}` : '';
-            fetch(`/api/projects/scan${devQuery}`)
+            const devQuery = draft.devFocus.length > 0 ? `devs=${draft.devFocus.join(',')}` : 'devs=Emaar,Damac,Sobha,Nakheel,Meraas,Aldar';
+            fetch(`/api/projects/scan?${devQuery}&limit=12`)
                 .then(res => res.json())
                 .then(data => setScannedProjects(data.data || []))
                 .catch(err => console.error("Failed to fetch scan", err))
@@ -136,6 +136,8 @@ function OnboardingComponent() {
     }
     
     const handleFinalizeShortlist = () => {
+        const selectedProjectObjects = scannedProjects.filter(p => draft.scanSelected.includes(p.id));
+        localStorage.setItem('myProjects', JSON.stringify(selectedProjectObjects));
         track('onboarding_shortlist_finalized', { projects: draft.scanSelected, count: draft.scanSelected.length });
         nextStep();
     };
@@ -186,7 +188,7 @@ function OnboardingComponent() {
                                 ) : (
                                     <div className="grid sm:grid-cols-2 gap-4">
                                         {suggestedProjects.map((proj: Project) => (
-                                            <ProjectCard key={proj.name} project={{...proj, badge: 'Suggested'}} actions={
+                                            <ProjectCard key={proj.id} project={{...proj, badge: 'Suggested'}} actions={
                                                 <div className="flex gap-2">
                                                     <Button size="sm" onClick={() => handleFirstPass(proj.name, 'relevant')}>Relevant</Button>
                                                     <Button size="sm" variant="ghost" onClick={() => handleFirstPass(proj.name, 'not')}>Not relevant</Button>
@@ -285,14 +287,14 @@ function OnboardingComponent() {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                     {scannedProjects.map((proj: Project) => (
                                         <ProjectCard 
-                                            key={proj.name} 
+                                            key={proj.id} 
                                             project={proj} 
                                             selectable 
-                                            selected={draft.scanSelected.includes(proj.name)}
+                                            selected={draft.scanSelected.includes(proj.id)}
                                             onToggle={() => {
-                                                const newSelection = draft.scanSelected.includes(proj.name)
-                                                    ? draft.scanSelected.filter(p => p !== proj.name)
-                                                    : [...draft.scanSelected, proj.name];
+                                                const newSelection = draft.scanSelected.includes(proj.id)
+                                                    ? draft.scanSelected.filter(p => p !== proj.id)
+                                                    : [...draft.scanSelected, proj.id];
                                                 updateDraft({ scanSelected: newSelection });
                                             }}
                                         />
