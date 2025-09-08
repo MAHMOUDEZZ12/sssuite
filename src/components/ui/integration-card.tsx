@@ -17,11 +17,11 @@ interface IntegrationCardProps {
 export function IntegrationCard({ title, description, icon, connected, onConnect, onDisconnect }: IntegrationCardProps) {
   return (
     <Card className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4">
-        <div className="flex items-center gap-4">
-            <div className="p-3 bg-primary/10 text-primary rounded-lg w-fit">
+        <div className="flex items-start gap-4">
+            <div className="p-3 bg-primary/10 text-primary rounded-lg w-fit shrink-0">
                 {icon}
             </div>
-            <div>
+            <div className="flex-grow">
                 <div className="flex items-center gap-2">
                     <h3 className="font-semibold">{title}</h3>
                     {connected && <Badge variant="default">Connected</Badge>}
@@ -29,7 +29,7 @@ export function IntegrationCard({ title, description, icon, connected, onConnect
                 <p className="text-sm text-muted-foreground">{description}</p>
             </div>
         </div>
-        <Button onClick={connected ? onDisconnect : onConnect} variant="outline">
+        <Button onClick={connected ? onDisconnect : onConnect} variant="outline" className="w-full sm:w-auto flex-shrink-0">
             {connected ? 'Disconnect' : 'Connect'}
         </Button>
     </Card>

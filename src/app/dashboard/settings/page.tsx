@@ -25,6 +25,7 @@ import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import Image from 'next/image';
 import { IntegrationCard } from '@/components/ui/integration-card';
+import { Separator } from '@/components/ui/separator';
 
 const mockBillingHistory = [
   { id: 'inv-001', date: 'Feb 20, 2024', amount: '$99.00', status: 'Paid' },
@@ -47,6 +48,7 @@ export default function SettingsPage() {
     whatsapp: false,
     propertyFinder: false,
     bayut: true,
+    googleDrive: false,
   });
 
   const handleConnectionToggle = (key: keyof typeof connections) => {
@@ -189,46 +191,74 @@ export default function SettingsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-                <IntegrationCard
-                    title="Property Finder"
-                    description="Connect your Property Finder account to sync listings and manage inquiries."
-                    icon={<Building />}
-                    connected={connections.propertyFinder}
-                    onConnect={() => handleConnectionToggle('propertyFinder')}
-                    onDisconnect={() => handleConnectionToggle('propertyFinder')}
-                />
-                <IntegrationCard
-                    title="Bayut"
-                    description="Connect your Bayut account for automated listing updates and lead management."
-                    icon={<Building />}
-                    connected={connections.bayut}
-                    onConnect={() => handleConnectionToggle('bayut')}
-                    onDisconnect={() => handleConnectionToggle('bayut')}
-                />
-                 <IntegrationCard
-                    title="Social Media Accounts"
-                    description="Connect Instagram, Facebook, LinkedIn, and X for automated posting and AI Page Admin."
-                    icon={<Share2 />}
-                    connected={connections.social}
-                    onConnect={() => handleConnectionToggle('social')}
-                    onDisconnect={() => handleConnectionToggle('social')}
-                />
-                <IntegrationCard
-                    title="Email Account"
-                    description="Connect Gmail or Outlook to send AI-generated email campaigns directly."
-                    icon={<Mail />}
-                    connected={connections.email}
-                    onConnect={() => handleConnectionToggle('email')}
-                    onDisconnect={() => handleConnectionToggle('email')}
-                />
-                 <IntegrationCard
-                    title="WhatsApp Business"
-                    description="Enable WhatsApp campaigns and automated follow-ups."
-                    icon={<MessageCircle />}
-                    connected={connections.whatsapp}
-                    onConnect={() => handleConnectionToggle('whatsapp')}
-                    onDisconnect={() => handleConnectionToggle('whatsapp')}
-                />
+                <div>
+                  <h4 className="font-semibold text-lg">Listing Portals</h4>
+                   <Separator className="my-2"/>
+                   <div className="space-y-2 pt-2">
+                      <IntegrationCard
+                          title="Property Finder"
+                          description="Connect your Property Finder account to sync listings and manage inquiries."
+                          icon={<Building />}
+                          connected={connections.propertyFinder}
+                          onConnect={() => handleConnectionToggle('propertyFinder')}
+                          onDisconnect={() => handleConnectionToggle('propertyFinder')}
+                      />
+                      <IntegrationCard
+                          title="Bayut"
+                          description="Connect your Bayut account for automated listing updates and lead management."
+                          icon={<Building />}
+                          connected={connections.bayut}
+                          onConnect={() => handleConnectionToggle('bayut')}
+                          onDisconnect={() => handleConnectionToggle('bayut')}
+                      />
+                   </div>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-lg">Communication</h4>
+                  <Separator className="my-2"/>
+                  <div className="space-y-2 pt-2">
+                    <IntegrationCard
+                        title="Social Media Accounts"
+                        description="Connect Instagram, Facebook, LinkedIn, and X for automated posting and AI Page Admin."
+                        icon={<Share2 />}
+                        connected={connections.social}
+                        onConnect={() => handleConnectionToggle('social')}
+                        onDisconnect={() => handleConnectionToggle('social')}
+                    />
+                    <IntegrationCard
+                        title="Email Account"
+                        description="Connect Gmail or Outlook to send AI-generated email campaigns directly."
+                        icon={<Mail />}
+                        connected={connections.email}
+                        onConnect={() => handleConnectionToggle('email')}
+                        onDisconnect={() => handleConnectionToggle('email')}
+                    />
+                    <IntegrationCard
+                        title="WhatsApp Business"
+                        description="Enable WhatsApp campaigns and automated follow-ups."
+                        icon={<MessageCircle />}
+                        connected={connections.whatsapp}
+                        onConnect={() => handleConnectionToggle('whatsapp')}
+                        onDisconnect={() => handleConnectionToggle('whatsapp')}
+                    />
+                  </div>
+                </div>
+
+                 <div>
+                  <h4 className="font-semibold text-lg">Storage</h4>
+                   <Separator className="my-2"/>
+                   <div className="space-y-2 pt-2">
+                      <IntegrationCard
+                          title="Google Drive"
+                          description="Connect your Google Drive to allow the AI to access and learn from your documents for a smarter assistant."
+                          icon={<Database />}
+                          connected={connections.googleDrive}
+                          onConnect={() => handleConnectionToggle('googleDrive')}
+                          onDisconnect={() => handleConnectionToggle('googleDrive')}
+                      />
+                   </div>
+                </div>
             </CardContent>
           </Card>
         </TabsContent>
