@@ -102,9 +102,10 @@ export function LandingFooter() {
             <Separator className="my-8" />
 
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                 <p className="text-sm text-foreground/50 text-center md:text-left">
-                    Gemin © 2025 <a href="https://mtcmartech.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">mtc'</a>. All rights reserved.
-                </p>
+                 <div className="text-sm text-foreground/50 text-center md:text-left space-y-1">
+                    <p>Gemin © 2025 <a href="https://mtcmartech.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">mtc'</a>. All rights reserved.</p>
+                    <p>AI Intelligence powered by Gemini (Google AI)</p>
+                 </div>
                 <div className="flex items-center gap-4">
                     <Link href="#" aria-label="Twitter">
                         <Twitter className="h-5 w-5 text-foreground/60 hover:text-primary transition-colors" />
