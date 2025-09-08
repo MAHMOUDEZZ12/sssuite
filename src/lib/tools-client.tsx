@@ -61,6 +61,7 @@ import {
   Youtube,
   Terminal,
   Server,
+  Edit,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -707,70 +708,40 @@ export const tools: Feature[] = [
   },
   {
     id: 'pdf-editor',
-    title: 'PDF Editor',
+    title: 'Visual PDF Editor',
     dashboardTitle: 'PDF Editor',
-    description: 'Edit text, images, and layout with prompts.',
-    icon: <PenTool />,
+    description: 'Edit text, images, and layout visually.',
+    icon: <Edit />,
     color: '#eab308', // yellow-500
-    cta: 'Generate PDF Editing Plan',
+    cta: 'Edit a PDF',
     categories: ['Creative', 'Editing'],
     mindMapCategory: 'Creative Suite',
     badge: 'NEW',
+    isPage: true,
     href: '/dashboard/tool/pdf-editor',
     guideHref: '/blog/pdf-editor',
-    renderResult: (result, toast) => (
-      <div className="space-y-6">
-        <Card>
-            <CardHeader>
-                <CardTitle>PDF Editing Plan Generated</CardTitle>
-                <CardDescription>{result.summary}</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <div className="space-y-2">
-                    <Label>Execution Plan</Label>
-                    <div className="p-4 bg-muted rounded-md relative group font-mono text-xs">
-                        <pre className="whitespace-pre-wrap">{JSON.stringify(result.executionPlan, null, 2)}</pre>
-                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(JSON.stringify(result.executionPlan, null, 2), toast)}><Copy className="h-4 w-4" /></Button>
-                    </div>
-                     <p className="text-xs text-muted-foreground">This is a machine-readable plan. Copy this and paste it into the Creative Execution Terminal to run the edits.</p>
-                </div>
-            </CardContent>
-            <CardFooter>
-                 <Link href="/dashboard/tool/creative-execution-terminal">
-                    <Button>
-                        Send to Execution Terminal <ArrowRight className="ml-2 h-4 w-4"/>
-                    </Button>
-                </Link>
-            </CardFooter>
-        </Card>
-      </div>
-    ),
     details: {
       steps: [
         { text: 'Upload your PDF document', icon: <Upload className="h-6 w-6" /> },
-        { text: 'Tell the AI what to change in plain English', icon: <MessageCircle className="h-6 w-6" /> },
-        { text: 'Generate an execution plan for an AI terminal', icon: <FileText className="h-6 w-6" /> },
+        { text: 'Pages are displayed as interactive cards', icon: <LayoutTemplate className="h-6 w-6" /> },
+        { text: 'Click a page to edit it in the Creative Canvas', icon: <Sparkles className="h-6 w-6" /> },
       ],
       aiVsManual: [
-         { metric: 'Time to Edit', manual: 'Hours finding source files or using clunky editors', ai: 'Fast by default', icon: <Clock2 /> },
+         { metric: 'Time to Edit', manual: 'Hours finding source files or using clunky editors', ai: 'Fast, intuitive, and visual', icon: <Clock2 /> },
          { metric: 'Software Cost', manual: 'Requires expensive Acrobat Pro subscription', ai: 'Included in your suite', icon: <Wallet /> },
-         { metric: 'Ease of Use', manual: 'Complex tools and formatting issues', ai: 'As easy as sending a text message', icon: <Sparkles /> },
+         { metric: 'Ease of Use', manual: 'Complex tools and formatting issues', ai: 'As easy as clicking on a page', icon: <Sparkles /> },
       ],
       synergy: [
-        { tool: "Rebranding", benefit: "After rebranding a brochure, use the editor to make final tweaks to pricing or contact info." },
-        { tool: "Listing Generator", benefit: "Generate a new listing description and then use the editor to paste it into your existing brochure." }
+        { tool: "Rebranding", benefit: "After rebranding a brochure, use the editor to make final visual tweaks to pricing or contact info." },
+        { tool: "Listing Generator", benefit: "Generate a new listing description and then use the editor to visually place it into your existing brochure." }
       ],
        faqs: [
-        { question: "Can it change complex layouts?", answer: "For best results, focus on targeted edits like text, images, and colors. While the AI can make layout adjustments, complex redesigns are better suited for the Landing Page Generator." },
-        { question: "What if the PDF is just an image?", answer: "The AI's OCR (Optical Character Recognition) capabilities can often identify and replace text even in image-based PDFs, but results are best with text-based documents." },
-        { question: "Can it edit a 50-page document?", answer: "Yes, though processing time will increase with the document's length and complexity. For very large documents, it's best to specify the page numbers you want to edit in your instructions." }
+        { question: "Can it change complex layouts?", answer: "For best results, focus on targeted edits like text and images. The AI can make layout adjustments within the canvas, but complex redesigns are better suited for the Landing Page Generator." },
+        { question: "What happens when I save?", answer: "When you save the final PDF, the AI compiles all your changes—reordered pages, deleted pages, and edits made in the canvas—into a new, final PDF document." },
+        { question: "What is the 'Creative Canvas'?", answer: "It's a slide-out panel that provides a focused workspace for editing a specific asset, like a single page of a PDF, without leaving your main workflow." }
       ],
     },
-    creationFields: [
-      { id: 'sourcePdf', name: 'Source PDF', type: 'file', description: 'Upload the PDF you want to edit.' },
-      { id: 'editInstructions', name: 'Editing Instructions', type: 'textarea', placeholder: '- Change the main contact name to "Jane Smith".\n- Replace the hero image with the one I uploaded.\n- Update the completion date to "Fall 2025".', description: 'Be specific. The more detailed your command, the better the result.' },
-      { id: 'newImages', name: 'New Images (Optional)', type: 'file', multiple: true, description: 'Only upload images if your instructions refer to them.' },
-    ],
+    creationFields: [], // This tool now has a custom page, so it doesn't use the generic form.
   },
   {
     id: 'brochure-translator',
