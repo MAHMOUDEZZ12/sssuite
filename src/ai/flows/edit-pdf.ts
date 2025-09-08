@@ -46,13 +46,6 @@ const EditPdfInputSchema = z.object({
     .describe(
       "An optional array of new images to be used, as data URIs. Expected format: 'data:<mimetype>;base64,<encoded_data>'. Only provide if your instructions reference replacing an image."
     ),
-   /**
-   * Optional granular instructions for fine-tuning the edit.
-   */
-    deepEditInstructions: z
-    .string()
-    .optional()
-    .describe('Optional specific instructions for deep editing.'),
 });
 
 export type EditPdfInput = z.infer<typeof EditPdfInputSchema>;
@@ -108,11 +101,6 @@ const editPdfPrompt = ai.definePrompt({
   {{#each newImages}}
   - Image {{add @index 1}}: Available for use.
   {{/each}}
-  {{/if}}
-
-  {{#if deepEditInstructions}}
-  Deep Edit Instructions:
-  {{{deepEditInstructions}}}
   {{/if}}
 
   Analyze the instructions and break them down into a series of steps. For each step, provide a description, the tool needed (e.g., 'text.replace', 'image.swap', 'layout.adjust'), and the necessary parameters.
