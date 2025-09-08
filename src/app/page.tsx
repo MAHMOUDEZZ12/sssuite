@@ -378,7 +378,7 @@ export default function Home() {
                         <div className="w-full max-w-lg mx-auto space-y-6">
                             <div className="flex items-start gap-3 justify-end">
                                 <div className="bg-primary text-primary-foreground p-4 rounded-2xl rounded-br-none max-w-sm shadow-md">
-                                    <p>Create a new project for 'Emaar Beachfront', generate a promotional video for it, and save the final video to my drive.</p>
+                                    <p>Create a new project for 'Emaar Beachfront', generate a promotional video, and save it to my library.</p>
                                 </div>
                                 <Avatar className="w-10 h-10">
                                     <AvatarFallback>U</AvatarFallback>
@@ -393,7 +393,7 @@ export default function Home() {
                                     <ul className="mt-2 space-y-1 list-inside">
                                         <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 1. Project Created: 'Emaar Beachfront'</li>
                                         <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 2. Video Generation: In progress...</li>
-                                        <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 3. File Transfer: Pending</li>
+                                        <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-green-500" /> 3. File Saved: Pending</li>
                                     </ul>
                                     <p className="text-xs text-muted-foreground mt-2">I will notify you when the video is ready.</p>
                                 </div>
@@ -403,7 +403,7 @@ export default function Home() {
                                     <AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-6 w-6"/></AvatarFallback>
                                 </Avatar>
                                 <div className="bg-background border p-4 rounded-2xl rounded-bl-none max-w-sm shadow-md">
-                                    <p>Quick update: The promotional video for 'Emaar Beachfront' has been generated. You can <Link href="#" className="underline">preview it here</Link>. I am now uploading it to your connected Google Drive.</p>
+                                    <p>Update: The video for 'Emaar Beachfront' is ready. You can <Link href="#" className="underline">preview it here</Link>. It's also been saved to your asset library.</p>
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import React from 'react';
@@ -1142,6 +1141,7 @@ export const tools: Feature[] = [
   {
     id: 'commission-calculator',
     title: 'Commission Calculator',
+    dashboardTitle: 'Commission Calculator',
     description: 'Instantly calculate your 5% sales commission.',
     icon: <Percent />,
     color: '#16a34a',
@@ -1198,6 +1198,7 @@ export const tools: Feature[] = [
   {
     id: 'payment-planner',
     title: 'Payment Planner',
+    dashboardTitle: 'Payment Planner',
     description: 'Generate tailored payment plans for clients.',
     icon: <Calendar />,
     color: '#0ea5e9',
@@ -1754,9 +1755,9 @@ export const tools: Feature[] = [
     guideHref: '/blog/ai-brand-creator',
     details: {
       steps: [
-        { text: 'Define your target area and criteria', icon: <MapPin /> },
-        { text: 'AI scans public records and news for signals', icon: <BrainCircuit /> },
-        { text: 'Get a report of potential off-market deals', icon: <FileText /> },
+        { text: 'Define your target area and criteria', icon: <MapPin className="h-6 w-6" /> },
+        { text: 'AI scans public records and news for signals', icon: <BrainCircuit className="h-6 w-6" /> },
+        { text: 'Get a report of potential off-market deals', icon: <FileText className="h-6 w-6" /> },
       ],
       aiVsManual: [
         { metric: 'Opportunity Sourcing', manual: 'Relies on word-of-mouth and existing network', ai: 'Scans thousands of data points continuously', icon: <Network /> },
