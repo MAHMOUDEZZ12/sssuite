@@ -44,7 +44,6 @@ const publishCampaignToMeta = ai.defineTool(
 
     if (!access_token || !ad_account_id) {
       console.warn("Meta API credentials are not configured. Skipping live campaign publishing and returning a mock ID. The campaign plan has still been generated.");
-      // To prevent server crashes, return a mock success object if credentials are not set.
       return { campaignId: "meta-credentials-not-set" };
     }
 
@@ -58,7 +57,7 @@ const publishCampaignToMeta = ai.defineTool(
         [],
         {
           name: campaignName,
-          objective: 'OUTCOME_LEADS', // Defaulting to a more common objective
+          objective: 'OUTCOME_LEADS', 
           status: 'PAUSED',
           special_ad_categories: ['HOUSING'],
         }
@@ -69,7 +68,6 @@ const publishCampaignToMeta = ai.defineTool(
       return { campaignId };
     } catch (error: any) {
       console.error('Error publishing campaign to Meta:', error?.response?.body || error.message);
-      // Also prevent crashes on API error, return a specific error ID
       return { campaignId: `meta-api-error: ${error?.response?.body?.error?.message || error.message}`};
     }
   }
@@ -77,8 +75,8 @@ const publishCampaignToMeta = ai.defineTool(
 
 const createMetaCampaignPrompt = ai.definePrompt({
   name: 'createMetaCampaignPrompt',
-  input: {schema: z.any()}, // Using z.any() as schema is now defined in the client
-  output: {schema: z.any()},
+  input: {schema: CreateMetaCampaignInputSchema}, 
+  output: {schema: CreateMetaCampaignOutputSchema},
   tools: [publishCampaignToMeta],
   prompt: `You are an expert Meta Ads strategist specializing in real estate. Your task is to take a user's goal and project brochure and create a complete, ready-to-launch campaign structure.
 
@@ -115,8 +113,8 @@ const createMetaCampaignPrompt = ai.definePrompt({
 const createMetaCampaignFlow = ai.defineFlow(
   {
     name: 'createMetaCampaignFlow',
-    inputSchema: z.any(),
-    outputSchema: z.any(),
+    inputSchema: CreateMetaCampaignInputSchema,
+    outputSchema: CreateMetaCampaignOutputSchema,
   },
   async input => {
     const {output} = await createMetaCampaignPrompt(input);

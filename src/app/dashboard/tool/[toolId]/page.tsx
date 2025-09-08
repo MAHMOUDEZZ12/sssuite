@@ -252,8 +252,7 @@ export default function ToolPage() {
   React.useEffect(() => {
     const currentTool = clientTools.find((t) => t.id === toolId);
     if (currentTool?.isPage) {
-        // This is a custom page, not a generic tool page.
-        // The page component itself will handle rendering.
+        router.push(`/dashboard/tool/${toolId}`);
     } else {
         setTool(currentTool);
     }

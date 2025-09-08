@@ -16,37 +16,9 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { SuggestTargetingOptionsInputSchema, SuggestTargetingOptionsOutputSchema } from '@/app/dashboard/tool/audience-creator/page';
+export type { SuggestTargetingOptionsInput, SuggestTargetingOptionsOutput } from '@/app/dashboard/tool/audience-creator/page';
 
-/**
- * Defines the schema for the input of the targeting options suggestion flow.
- */
-const SuggestTargetingOptionsInputSchema = z.object({
-  /** The project ID to generate targeting for. */
-  projectId: z.string().describe('The ID of the project to generate targeting for.'),
-});
-
-export type SuggestTargetingOptionsInput = z.infer<
-  typeof SuggestTargetingOptionsInputSchema
->;
-
-/**
- * Defines the schema for the output of the targeting options suggestion flow.
- */
-const SuggestTargetingOptionsOutputSchema = z.object({
-  /**
-   * A list of comprehensive targeting strategies.
-   */
-  strategies: z.array(z.object({
-    strategyName: z.string().describe("The name of the targeting strategy (e.g., 'The Local Professional')."),
-    audienceType: z.string().describe("The type of Meta audience to create (e.g., 'Detailed Targeting', 'Lookalike Audience')."),
-    demographics: z.string().describe("The demographic targeting parameters (e.g., 'Age: 30-45, Location: Downtown Dubai')."),
-    interests: z.string().describe("The interest-based targeting for platforms like Facebook/Instagram."),
-    keywords: z.string().describe("The keyword targeting for platforms like Google Ads."),
-  })).describe("A list of 2-3 distinct targeting strategies."),
-});
-export type SuggestTargetingOptionsOutput = z.infer<
-  typeof SuggestTargetingOptionsOutputSchema
->;
 
 /**
  * An AI flow that suggests targeting options for an ad campaign.
@@ -56,8 +28,8 @@ export type SuggestTargetingOptionsOutput = z.infer<
  * @returns {Promise<SuggestTargetingOptionsOutput>} A promise that resolves with the suggested targeting options.
  */
 export async function suggestTargetingOptions(
-  input: SuggestTargetingOptionsInput
-): Promise<SuggestTargetingOptionsOutput> {
+  input: z.infer<typeof SuggestTargetingOptionsInputSchema>
+): Promise<z.infer<typeof SuggestTargetingOptionsOutputSchema>> {
   return suggestTargetingOptionsFlow(input);
 }
 
