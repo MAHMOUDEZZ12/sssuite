@@ -73,10 +73,12 @@ export default function DevAdminPage() {
         setChangeLog(prev => [newLogEntry, ...prev]);
         setCurrentTask('');
         setSelectedToolId('');
+        setPipelineStatus('implementing');
+        toast({ title: "Task Assigned!", description: "I have received the task and will begin implementation." });
+
 
         // Simulate the AI workflow
         setTimeout(() => {
-            setPipelineStatus('implementing');
             updateLogStatus(newLogEntry.id, 'Planned');
             
             setTimeout(() => {
@@ -86,8 +88,8 @@ export default function DevAdminPage() {
                     updateLogStatus(newLogEntry.id, 'Implemented');
                     setPipelineStatus('idle');
                     toast({
-                        title: "Task Complete!",
-                        description: `The task for "${selectedTool.title}" has been implemented and is ready for your review.`,
+                        title: "Implementation Complete!",
+                        description: `The task for "${selectedTool.title}" is now implemented and ready for your review in the Change Log.`,
                     });
                 }, 1500);
             }, 1000);
@@ -133,7 +135,7 @@ export default function DevAdminPage() {
         <Card>
             <CardHeader>
                 <CardTitle>Task Pipeline</CardTitle>
-                <CardDescription>Assign a new development task. Once assigned, it will appear in the Change Log below with its status.</CardDescription>
+                <CardDescription>Assign a new development task. This simulates sending the task directly to me for implementation.</CardDescription>
             </CardHeader>
             <CardContent>
                  <div className="flex flex-col sm:flex-row gap-4">
@@ -171,7 +173,7 @@ export default function DevAdminPage() {
         <Card>
             <CardHeader>
                 <CardTitle>Change Log</CardTitle>
-                <CardDescription>A chronological record of all tasks and their current implementation status.</CardDescription>
+                <CardDescription>A chronological record of all tasks and their real-time implementation status.</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="border rounded-lg w-full">
@@ -236,7 +238,3 @@ export default function DevAdminPage() {
     </main>
   );
 }
-
-    
-
-    
