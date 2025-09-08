@@ -259,9 +259,9 @@ export const tools: Feature[] = [
     cta: 'Generate Ad',
     categories: ['Ads', 'Creative', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
+    isPage: false,
     href: '/dashboard/tool/insta-ads-designer',
     guideHref: '/blog/insta-ads-designer',
-    isPage: false,
     renderResult: (result, toast) => (
        <div className="space-y-6">
           <Card>
@@ -1595,7 +1595,3 @@ export const tools: Feature[] = [
     creationFields: [],
   },
 ];
-
-    
-
-    

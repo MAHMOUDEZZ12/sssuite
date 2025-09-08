@@ -72,3 +72,35 @@ export const SuggestTargetingOptionsOutputSchema = z.object({
 });
 export type SuggestTargetingOptionsInput = z.infer<typeof SuggestTargetingOptionsInputSchema>;
 export type SuggestTargetingOptionsOutput = z.infer<typeof SuggestTargetingOptionsOutputSchema>;
+
+
+// Schemas for Meta Ads Co-Pilot
+export const CreateMetaCampaignInputSchema = z.object({
+  campaignGoal: z.string().describe("The user's primary objective for the campaign."),
+  projectBrochureDataUri: z.string().optional().describe("The project brochure as a data URI."),
+  targetAudience: z.string().optional().describe("A hint about the target audience."),
+  budget: z.number().describe("The total ad spend budget."),
+  durationDays: z.number().describe("The campaign duration in days."),
+});
+
+export const CreateMetaCampaignOutputSchema = z.object({
+    publishedCampaignId: z.string().optional().describe("The ID of the campaign after it has been published to Meta."),
+    campaignName: z.string().describe("The AI-generated name for the campaign."),
+    campaignObjective: z.string().describe("The recommended Meta Ads objective (e.g., 'LEAD_GENERATION')."),
+    inferredAudience: z.string().describe("A description of the target audience inferred by the AI."),
+    adSets: z.array(z.object({
+        name: z.string().describe("The name of the ad set."),
+        targetingSummary: z.string().describe("A summary of the targeting strategy for this set."),
+        dailyBudget: z.number().describe("The calculated daily budget for this ad set."),
+    })).describe("A list of ad sets for the campaign."),
+    adCreatives: z.array(z.object({
+        headline: z.string().describe("The ad headline."),
+        bodyText: z.string().describe("The ad's primary text/body."),
+        callToAction: z.string().describe("The suggested call-to-action button text."),
+        imageSuggestion: z.string().describe("A detailed suggestion for the ad's visual creative."),
+    })).describe("A list of ad creative variations to test."),
+    optimizationAdvice: z.string().describe("A key piece of advice for running the campaign."),
+});
+
+export type CreateMetaCampaignInput = z.infer<typeof CreateMetaCampaignInputSchema>;
+export type CreateMetaCampaignOutput = z.infer<typeof CreateMetaCampaignOutputSchema>;
