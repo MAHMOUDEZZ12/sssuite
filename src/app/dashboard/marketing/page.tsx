@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '@/components/ui/page-header';
-import { Puzzle, Star } from 'lucide-react';
+import { Puzzle, Star, BarChart } from 'lucide-react';
 import { tools, Feature } from '@/lib/tools-client';
 import { DashboardServiceCard } from '@/components/ui/dashboard-service-card';
 import { Separator } from '@/components/ui/separator';
@@ -11,6 +11,7 @@ import { Separator } from '@/components/ui/separator';
 // Explicitly define which tools are for which suite or category
 const toolCategories: { title: string; category: Feature['mindMapCategory'], icon?: React.ReactNode }[] = [
     { title: 'Meta Ads AI Suite', category: 'Meta Ads AI Suite', icon: <Star className="h-6 w-6 text-amber-400"/> },
+    { title: 'Listing Intelligence AI', category: 'Listing Intelligence AI', icon: <BarChart className="h-6 w-6 text-blue-500"/> },
     { title: 'Creative Suite', category: 'Creative Suite' },
     { title: 'Sales Enablement', category: 'Sales Enablement' },
     { title: 'Core Intelligence', category: 'Core Intelligence' },

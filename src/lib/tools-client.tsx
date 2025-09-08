@@ -60,6 +60,7 @@ import {
   Languages,
   Youtube,
   Terminal,
+  Server,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -106,7 +107,7 @@ export type Field = {
   hidden?: boolean;
 };
 
-export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing' | 'Market Library' | 'Utilities';
+export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing' | 'Market Library' | 'Utilities' | 'Listing Intelligence AI';
 
 export type Feature = {
   id: string;
@@ -117,7 +118,7 @@ export type Feature = {
   color: string;
   cta: string;
   categories: FilterCategory[];
-  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal' | 'Meta Ads AI Suite' | 'Utilities';
+  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal' | 'Meta Ads AI Suite' | 'Utilities' | 'Listing Intelligence AI';
   badge?: 'NEW' | 'BETA' | 'SOON' | 'Pilot*';
   isPage?: boolean;
   href: string;
@@ -333,42 +334,6 @@ export const tools: Feature[] = [
     ],
   },
   {
-    id: 'listing-performance',
-    title: 'Listing Performance',
-    dashboardTitle: 'Listing Performance',
-    description: 'Track listing views and performance.',
-    icon: <BarChart />,
-    color: '#ef4444',
-    cta: 'View Performance',
-    categories: ['Sales Tools', 'Lead Gen', 'Ads'],
-    mindMapCategory: 'Sales Enablement',
-    isPage: true,
-    href: '/dashboard/tool/listing-performance',
-    guideHref: '/blog/listing-performance',
-    details: {
-      steps: [
-        { text: 'Connect your listings portals (e.g. Google Search Console)', icon: <LinkIcon /> },
-        { text: 'The tool tracks views and visitor types', icon: <Users2 /> },
-        { text: 'Get reports to optimize your listings and ads', icon: <LineChart /> },
-      ],
-      aiVsManual: [
-        { metric: 'Performance Insight', manual: 'Guessing which listings are popular', ai: 'Hard data on what buyers are looking at', icon: <Sparkles /> },
-        { metric: 'Bot Filtering', manual: 'Unable to distinguish bot traffic', ai: 'Advanced filtering for true visitor counts', icon: <BadgeCheck /> },
-        { metric: 'Ad Strategy', manual: 'Boosting listings based on intuition', ai: 'Promoting listings with proven organic interest', icon: <BrainCircuit /> },
-      ],
-      synergy: [
-        { tool: "Campaign Builder", benefit: "Create ad campaigns that specifically boost your top-performing organic listings for maximum ROI." },
-        { tool: "Listing Manager", benefit: "Use the performance data to refine and improve your underperforming listings." }
-      ],
-      faqs: [
-        { question: "How does it track views?", answer: "The tool integrates with web analytics services like Google Search Console to track clicks and impressions on your listings across different portals." },
-        { question: "What is 'bot traffic'?", answer: "A significant portion of web traffic comes from automated web crawlers (bots) from search engines and other services. Our tool filters this out to show you how many actual potential buyers are viewing your listings." },
-        { question: "How does this help my ad strategy?", answer: "By identifying which of your listings get the most organic views, you know which properties have the highest natural interest. Creating ads for these properties is often more effective and cost-efficient than promoting less popular ones." }
-      ],
-    },
-    creationFields: [],
-  },
-  {
     id: 'reel-ads-ai',
     title: 'Reel Ads',
     dashboardTitle: 'Reel Ads',
@@ -487,6 +452,8 @@ export const tools: Feature[] = [
        { id: 'callToAction', name: 'Call to Action', type: 'text', placeholder: 'e.g., "Swipe up to book a viewing!"', description: 'The final message for your story.' },
     ],
   },
+  
+  // --- MARKETING ---
   {
     id: 'instagram-content-creator',
     title: 'Instagram Content Creator',
@@ -857,7 +824,7 @@ export const tools: Feature[] = [
     ],
   },
 
-  // --- SALES ENABLEMENT ---
+  // --- SALES ENABLEMENT & LISTING INTELLIGENCE AI ---
   {
     id: 'listing-manager',
     title: 'Listing Manager',
@@ -866,10 +833,10 @@ export const tools: Feature[] = [
     icon: <Building />,
     color: '#0891b2',
     cta: 'Manage Listings',
-    categories: ['Sales Tools', 'Editing', 'Web'],
-    mindMapCategory: 'Sales Enablement',
+    categories: ['Listing Intelligence AI', 'Sales Tools', 'Editing', 'Web'],
+    mindMapCategory: 'Listing Intelligence AI',
     badge: 'NEW',
-    isPage: true, // This will be its own page
+    isPage: true,
     href: '/dashboard/tool/listing-manager',
     guideHref: '/blog/listing-manager',
     details: {
@@ -905,6 +872,108 @@ export const tools: Feature[] = [
       { id: 'suggestChange', name: 'Suggest a Change', type: 'button', cta: '✨ Suggest a Better Title/Description', description: 'Let the AI rewrite your content for better engagement.' },
       { id: 'group-portals', name: 'Syndication', type: 'group-header', description: 'Generate a plan to send to a specific portal pilot.'},
 
+    ],
+  },
+  {
+    id: 'listing-performance',
+    title: 'Listing Performance',
+    dashboardTitle: 'Listing Performance',
+    description: 'Track listing views and performance.',
+    icon: <BarChart />,
+    color: '#ef4444',
+    cta: 'View Performance',
+    categories: ['Listing Intelligence AI', 'Sales Tools', 'Lead Gen', 'Ads'],
+    mindMapCategory: 'Listing Intelligence AI',
+    isPage: true,
+    href: '/dashboard/tool/listing-performance',
+    guideHref: '/blog/listing-performance',
+    details: {
+      steps: [
+        { text: 'Connect your listings portals (e.g. Google Search Console)', icon: <LinkIcon /> },
+        { text: 'The tool tracks views and visitor types', icon: <Users2 /> },
+        { text: 'Get reports to optimize your listings and ads', icon: <LineChart /> },
+      ],
+      aiVsManual: [
+        { metric: 'Performance Insight', manual: 'Guessing which listings are popular', ai: 'Hard data on what buyers are looking at', icon: <Sparkles /> },
+        { metric: 'Bot Filtering', manual: 'Unable to distinguish bot traffic', ai: 'Advanced filtering for true visitor counts', icon: <BadgeCheck /> },
+        { metric: 'Ad Strategy', manual: 'Boosting listings based on intuition', ai: 'Promoting listings with proven organic interest', icon: <BrainCircuit /> },
+      ],
+      synergy: [
+        { tool: "Campaign Builder", benefit: "Create ad campaigns that specifically boost your top-performing organic listings for maximum ROI." },
+        { tool: "Listing Manager", benefit: "Use the performance data to refine and improve your underperforming listings." }
+      ],
+      faqs: [
+        { question: "How does it track views?", answer: "The tool integrates with web analytics services like Google Search Console to track clicks and impressions on your listings across different portals." },
+        { question: "What is 'bot traffic'?", answer: "A significant portion of web traffic comes from automated web crawlers (bots) from search engines and other services. Our tool filters this out to show you how many actual potential buyers are viewing your listings." },
+        { question: "How does this help my ad strategy?", answer: "By identifying which of your listings get the most organic views, you know which properties have the highest natural interest. Creating ads for these properties is often more effective and cost-efficient than promoting less popular ones." }
+      ],
+    },
+    creationFields: [],
+  },
+  {
+    id: 'listing-generator',
+    title: 'Listing Generator',
+    dashboardTitle: 'Listing Generator',
+    description: 'Craft perfect listings for portals like Property Finder, Bayut, and Dubizzle.',
+    icon: <Building />,
+    color: '#10b981',
+    cta: 'Create Listing',
+    categories: ['Listing Intelligence AI', 'Sales Tools', 'Editing', 'Web'],
+    mindMapCategory: 'Listing Intelligence AI',
+    badge: 'SOON',
+    href: '/dashboard/tool/listing-generator',
+    guideHref: '/blog/bayut-listing-ai',
+    renderResult: (result, toast) => (
+       <div className="space-y-6">
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Generated Title</h3>
+          <div className="p-4 bg-muted rounded-md relative group">
+            <p className="whitespace-pre-wrap">{result.title}</p>
+            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.title, toast)}><Copy className="h-4 w-4" /></Button>
+          </div>
+        </div>
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Generated Description</h3>
+          <div className="p-4 bg-muted rounded-md relative group">
+            <p className="whitespace-pre-wrap">{result.description}</p>
+            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.description, toast)}><Copy className="h-4 w-4" /></Button>
+          </div>
+        </div>
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Suggested Keywords</h3>
+          <div className="p-4 bg-muted rounded-md">
+            <p className="text-sm text-muted-foreground">{result.keywords.join(', ')}</p>
+          </div>
+        </div>
+      </div>
+    ),
+    details: {
+      steps: [
+        { text: 'Enter key property details (address, beds, baths)', icon: <PenTool className="h-6 w-6" /> },
+        { text: 'Mention 1-2 unique features', icon: <Sparkles className="h-6 w-6" /> },
+        { text: 'Generate a full, persuasive listing description', icon: <FileText className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Writing Time', manual: '30-60 minutes of creative writing', ai: 'Fast by default', icon: <Clock2 /> },
+        { metric: 'SEO &amp; Keywords', manual: 'Guesswork on what terms to use', ai: 'Automatically includes relevant local keywords', icon: <Sparkles /> },
+        { metric: 'Completeness', manual: 'Often forgets key selling points', ai: 'Structured to include all critical information', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Ad Creator", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
+        { tool: "Landing Page Builder", benefit: "Instantly create a beautiful single-property website using your new listing details." }
+      ],
+       faqs: [
+        { question: "Can I choose the tone of the listing?", answer: "Yes, you can specify a tone such as 'Luxurious,' 'Family-Friendly,' or 'Great for First-Time Buyers,' and the AI will adjust its language and emphasis accordingly." },
+        { question: "Is the output ready to copy and paste?", answer: "Absolutely. The generated text is formatted to be easily copied and pasted directly into any listing portal." },
+        { question: "How does it know what keywords to use for SEO?", answer: "The AI analyzes the property's location and features to include relevant local keywords (like neighborhood names, school districts, or nearby landmarks) that a potential buyer is likely to search for." }
+      ],
+    },
+    creationFields: [
+      { id: 'platform', name: 'Platform', type: 'select', options: ['Property Finder', 'Bayut', 'Dubizzle', 'Generic'], placeholder: 'Select a listing platform', description: 'The listing portal you are writing for.' },
+      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the a property.' },
+      { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
+      { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },
+      { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
     ],
   },
   {
@@ -1095,72 +1164,6 @@ export const tools: Feature[] = [
       { id: 'capRate', name: 'Cap Rate (%)', type: 'number', placeholder: 'e.g., 6.5', description: 'The capitalization rate of the property.'},
       { id: 'investmentThesis', name: 'Investment Thesis', type: 'select', options: ["Value-Add / Renovation", "Turnkey Rental", "Long-Term Appreciation", "Development Opportunity", "1031 Exchange"], placeholder: 'Select investment strategy', description: 'Primary strategy for this investment.'},
       { id: 'keyFeatures', name: 'Key Features', type: 'textarea', placeholder: 'e.g., Long-term tenants in place, zoned for mixed-use, located in an opportunity zone.', description: 'Additional selling points for an investor.' },
-    ],
-  },
-  {
-    id: 'listing-generator',
-    title: 'Listing Generator',
-    dashboardTitle: 'Listing Generator',
-    description: 'Craft perfect listings for portals like Property Finder, Bayut, and Dubizzle.',
-    icon: <Building />,
-    color: '#10b981',
-    cta: 'Create Listing',
-    categories: ['Sales Tools', 'Editing', 'Web'],
-    mindMapCategory: 'Sales Enablement',
-    badge: 'SOON',
-    href: '/dashboard/tool/listing-generator',
-    guideHref: '/blog/bayut-listing-ai',
-    renderResult: (result, toast) => (
-       <div className="space-y-6">
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Generated Title</h3>
-          <div className="p-4 bg-muted rounded-md relative group">
-            <p className="whitespace-pre-wrap">{result.title}</p>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.title, toast)}><Copy className="h-4 w-4" /></Button>
-          </div>
-        </div>
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Generated Description</h3>
-          <div className="p-4 bg-muted rounded-md relative group">
-            <p className="whitespace-pre-wrap">{result.description}</p>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.description, toast)}><Copy className="h-4 w-4" /></Button>
-          </div>
-        </div>
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Suggested Keywords</h3>
-          <div className="p-4 bg-muted rounded-md">
-            <p className="text-sm text-muted-foreground">{result.keywords.join(', ')}</p>
-          </div>
-        </div>
-      </div>
-    ),
-    details: {
-      steps: [
-        { text: 'Enter key property details (address, beds, baths)', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Mention 1-2 unique features', icon: <Sparkles className="h-6 w-6" /> },
-        { text: 'Generate a full, persuasive listing description', icon: <FileText className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Writing Time', manual: '30-60 minutes of creative writing', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'SEO &amp; Keywords', manual: 'Guesswork on what terms to use', ai: 'Automatically includes relevant local keywords', icon: <Sparkles /> },
-        { metric: 'Completeness', manual: 'Often forgets key selling points', ai: 'Structured to include all critical information', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "Ad Creator", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
-        { tool: "Landing Page Builder", benefit: "Instantly create a beautiful single-property website using your new listing details." }
-      ],
-       faqs: [
-        { question: "Can I choose the tone of the listing?", answer: "Yes, you can specify a tone such as 'Luxurious,' 'Family-Friendly,' or 'Great for First-Time Buyers,' and the AI will adjust its language and emphasis accordingly." },
-        { question: "Is the output ready to copy and paste?", answer: "Absolutely. The generated text is formatted to be easily copied and pasted directly into any listing portal." },
-        { question: "How does it know what keywords to use for SEO?", answer: "The AI analyzes the property's location and features to include relevant local keywords (like neighborhood names, school districts, or nearby landmarks) that a potential buyer is likely to search for." }
-      ],
-    },
-    creationFields: [
-      { id: 'platform', name: 'Platform', type: 'select', options: ['Property Finder', 'Bayut', 'Dubizzle', 'Generic'], placeholder: 'Select a listing platform', description: 'The listing portal you are writing for.' },
-      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the a property.' },
-      { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
-      { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },
-      { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
     ],
   },
   {
@@ -1556,11 +1559,11 @@ export const tools: Feature[] = [
     id: 'property-finder-sync',
     title: 'Property Finder Pilot',
     description: 'PULL data from Property Finder, or PUSH listing plans to it.',
-    icon: <Building />,
+    icon: <Server />,
     color: '#6b7280',
     cta: 'Go to Pilot',
-    categories: ['Utilities', 'Web'],
-    mindMapCategory: 'Utilities',
+    categories: ['Utilities', 'Web', 'Listing Intelligence AI'],
+    mindMapCategory: 'Listing Intelligence AI',
     isPage: true,
     href: '/dashboard/tool/property-finder-sync',
     details: {
@@ -1572,11 +1575,11 @@ export const tools: Feature[] = [
     id: 'bayut-sync',
     title: 'Bayut Pilot',
     description: 'PULL data from Bayut, or PUSH listing plans to it.',
-    icon: <Building />,
+    icon: <Server />,
     color: '#6b7280',
     cta: 'Go to Pilot',
-    categories: ['Utilities', 'Web'],
-    mindMapCategory: 'Utilities',
+    categories: ['Utilities', 'Web', 'Listing Intelligence AI'],
+    mindMapCategory: 'Listing Intelligence AI',
     isPage: true,
     href: '/dashboard/tool/bayut-sync',
     details: {
