@@ -6,11 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
-import { LineChart, Users2, Eye, Target, Sparkles, Download } from 'lucide-react';
+import { LineChart, Users2, Eye, Target, Sparkles, Download, ArrowRight } from 'lucide-react';
 import { PageHeader } from '@/components/ui/page-header';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
 
 const mockPerformanceData = [
     { name: 'Emaar Beachfront', views: 4800, leads: 218, conversion: 4.54 },
@@ -23,6 +24,7 @@ const mockPerformanceData = [
 
 export default function ListingPerformancePage() {
     const [timeRange, setTimeRange] = useState('30d');
+    const { toast } = useToast();
 
     const chartData = mockPerformanceData.slice(0, 5).map(d => ({ name: d.name, Views: d.views }));
     
@@ -31,6 +33,13 @@ export default function ListingPerformancePage() {
         uniqueVisitors: mockPerformanceData.reduce((sum, d) => sum + d.views, 0) * 0.78, // mock
         leadsGenerated: mockPerformanceData.reduce((sum, d) => sum + d.leads, 0),
     };
+    
+    const handleApplySuggestion = () => {
+        toast({
+            title: "Suggestion Applied!",
+            description: "The listing title has been updated across relevant portals."
+        });
+    }
 
 
     return (
@@ -108,31 +117,31 @@ export default function ListingPerformancePage() {
                 </Card>
                 <Card className="lg:col-span-2">
                     <CardHeader>
-                        <CardTitle>Performance Insights</CardTitle>
-                        <CardDescription>Use this data to power your ad strategy.</CardDescription>
+                        <CardTitle>AI-Powered Recommendations</CardTitle>
+                        <CardDescription>Actionable insights to boost your performance.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        <div className="p-3 bg-primary/10 rounded-lg">
-                            <h4 className="font-semibold text-primary">Top Organic Performer</h4>
-                            <p className="text-sm text-primary/80">
-                                **Emaar Beachfront** is getting the most organic views. This indicates strong market interest.
+                        <div className="p-3 bg-primary/10 rounded-lg space-y-2">
+                            <h4 className="font-semibold text-primary">Prioritization Alert</h4>
+                            <p className="text-sm text-primary/90">
+                               Reports show high search volume for 'Dubai Marina' on Property Finder. Prioritizing your 'Emaar Beachfront' listing could increase views by up to 40%.
                             </p>
+                            <Link href="/dashboard/tool/listing-manager">
+                                <Button size="sm" variant="secondary" className="w-full">
+                                    Promote Emaar Beachfront <ArrowRight className="ml-2 h-4 w-4"/>
+                                </Button>
+                            </Link>
                         </div>
-                         <div className="p-3 bg-secondary rounded-lg">
-                            <h4 className="font-semibold text-secondary-foreground">Highest Conversion</h4>
+                         <div className="p-3 bg-secondary rounded-lg space-y-2">
+                            <h4 className="font-semibold text-secondary-foreground">Optimization Suggestion</h4>
                             <p className="text-sm text-muted-foreground">
-                                **JVC** has the highest lead conversion rate (7.33%). Listings here are highly effective at capturing interest.
+                                The title for your 'Damac Hills 2' listing is underperforming. We recommend changing it to: <span className="font-semibold italic">"Spacious 3BR Villa with Lake View & Upgraded Interiors"</span>.
                             </p>
+                            <Button size="sm" variant="outline" className="w-full" onClick={handleApplySuggestion}>
+                                Roll-in this change now
+                            </Button>
                         </div>
                     </CardContent>
-                    <CardFooter>
-                         <Link href="/dashboard/tool/meta-ads-copilot" className="w-full">
-                            <Button className="w-full">
-                                <Sparkles className="mr-2 h-4 w-4" />
-                                Create Ad for Top Listing
-                            </Button>
-                        </Link>
-                    </CardFooter>
                 </Card>
             </div>
 
