@@ -14,12 +14,39 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import {config} from 'dotenv';
-import { CreateMetaCampaignInputSchema, CreateMetaCampaignOutputSchema } from '@/app/dashboard/tool/meta-ads-copilot/page';
 
 // Load environment variables from .env file
 config();
 
+
+export const CreateMetaCampaignInputSchema = z.object({
+  campaignGoal: z.string().describe('The primary business objective for the campaign (e.g., "Generate leads for Azure Lofts").'),
+  projectBrochureDataUri: z.string().optional().describe(
+    "A project brochure, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'. This is the primary source of truth for the campaign."
+  ),
+  targetAudience: z.string().describe('A brief description of the ideal customer (e.g., "Young professionals and first-time homebuyers").').optional(),
+  budget: z.number().describe('The total campaign budget.'),
+  durationDays: z.number().describe('The number of days the campaign should run.'),
+});
 export type CreateMetaCampaignInput = z.infer<typeof CreateMetaCampaignInputSchema>;
+
+export const CreateMetaCampaignOutputSchema = z.object({
+  publishedCampaignId: z.string().optional().describe("The ID of the campaign after it has been published to Meta."),
+  campaignName: z.string().describe("A suitable name for the campaign."),
+  campaignObjective: z.string().describe("The recommended Meta campaign objective (e.g., 'LEAD_GENERATION', 'AWARENESS', 'TRAFFIC')."),
+  adSets: z.array(z.object({
+    name: z.string().describe("The name for this ad set."),
+    targetingSummary: z.string().describe("A summary of the recommended audience targeting for this ad set."),
+    dailyBudget: z.number().describe("The suggested daily budget for this ad set."),
+  })).describe("An array of suggested ad sets for the campaign."),
+  adCreatives: z.array(z.object({
+    headline: z.string().describe("A compelling headline for the ad."),
+    bodyText: z.string().describe("The primary text for the ad creative."),
+    callToAction: z.string().describe("The recommended call-to-action button text (e.g., 'Learn More', 'Sign Up')."),
+    imageSuggestion: z.string().describe("A detailed suggestion for the ad's visual (e.g., 'A high-quality photo of the modern kitchen with natural light.')."),
+  })).describe("An array of ad creative variations to test."),
+  optimizationAdvice: z.string().describe("A final piece of expert advice for running this campaign successfully."),
+});
 export type CreateMetaCampaignOutput = z.infer<typeof CreateMetaCampaignOutputSchema>;
 
 
@@ -46,25 +73,28 @@ const publishCampaignToMeta = ai.defineTool(
     const ad_account_id = process.env.META_AD_ACCOUNT_ID;
 
     if (!access_token || !ad_account_id) {
+      console.warn("Meta API credentials are not configured. Skipping campaign publishing.");
       throw new Error("Meta API credentials are not configured in the environment.");
     }
 
+    console.log(`Initializing Meta Ads API for account: ${ad_account_id}`);
     const api = bizSdk.FacebookAdsApi.init(access_token);
     api.setDebug(true);
 
     try {
+      console.log(`Attempting to create campaign: "${campaignName}"`);
       const campaign = await (new AdAccount(ad_account_id)).createCampaign(
         [],
         {
           name: campaignName,
-          objective: 'OUTCOME_TRAFFIC', // Default objective
+          objective: 'OUTCOME_LEADS', // Defaulting to a more common objective
           status: 'PAUSED',
           special_ad_categories: ['HOUSING'],
         }
       );
 
       const campaignId = campaign.id;
-      console.log('Successfully created campaign with ID:', campaignId);
+      console.log('Successfully published campaign to Meta with ID:', campaignId);
       return { campaignId };
     } catch (error: any) {
       console.error('Error publishing campaign to Meta:', error?.response?.body || error.message);
