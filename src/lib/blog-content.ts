@@ -112,13 +112,35 @@ export const blogContent: { [key: string]: BlogContent[string] } = {
         ],
         cta: 'Edited PDF',
     },
-     'landing-pages': {
-        title: 'From Idea to Published Page in Under 5 Minutes',
-        intro: "Every great listing deserves its own stage. But building a dedicated landing page can be a technical and time-consuming task. Our Landing Page Builder streamlines this process, allowing you to generate and publish a beautiful, high-converting page faster than ever before.",
+    'landing-page-lead-gen': {
+        title: "Blueprint for Leads: Building a High-Converting Landing Page",
+        intro: "A landing page is more than a webpage; it's your digital storefront, your 24/7 salesperson. This guide walks you through using the modular Landing Page Builder to construct a page that doesn't just look good—it systematically converts visitors into valuable leads.",
         sections: [
-            { heading: "The Agency Bottleneck", body: "Need a landing page? The old way involved briefing a designer, waiting for mockups, going through revisions, and then handing it off to a developer. This process can take days or even weeks, delaying your campaign launch and costing thousands." },
-            { heading: "AI-Powered Instant Architecture", body: "This tool bypasses the entire process. Provide the key details of your property, choose a visual style (e.g., 'Modern & Minimalist,' 'Luxury & Elegant'), and the AI generates the complete HTML for a stunning, responsive landing page. It intelligently structures the content, selects appropriate visuals, and, most importantly, includes a prominent lead-capture form." },
-            { heading: "Launch Campaigns at the Speed of Thought", body: "Now you can create a dedicated, professional landing page for every single listing, ad campaign, or open house. This ability to instantly create highly relevant pages is a massive advantage, allowing you to tailor your marketing and capture more qualified leads without the technical overhead." }
+            { heading: "Start with the 'Why': Project-First Design", body: "The most effective landing pages are laser-focused. Instead of starting with a blank canvas, our builder begins by asking you to select a project from your library. This allows the AI to instantly customize all available options, suggesting hero images, headlines, and features that are perfectly tailored to that specific property. The result is a page that is relevant and compelling from the very first click." },
+            { heading: "The 5-Part Structure of Success", body: "Our builder constructs your page using a proven 5-part template. But it's not rigid. Each of the five sections (e.g., Hero, Features, Gallery, Location, Contact) has a '+' icon. Clicking this reveals a library of component options. Don't want a gallery? Swap it for a 'Unique Selling Points' block. Want the lead form in the hero section instead of at the end? Just select that component. This modular approach gives you both structure and flexibility." },
+            { heading: "Deep Editing: The Final Polish", body: "Once the structure is in place, you have full control to make it your own. Use the 'Deep Edit' panel to adjust brand colors, rewrite the hero text to match your ad campaign's messaging, and customize the fields on your lead capture form. This ensures the final page is not only functional but also perfectly aligned with your brand and campaign goals." },
+            { heading: "Publish and Connect: Your Lead Engine", body: "When you're ready, publish your page. You can connect a custom domain you own or use a free *.s3.pages subdomain provided by us. The moment you publish, the lead capture form is live. Every submission will automatically appear in the 'Leads' section of your dashboard, ready for you to follow up." }
+        ],
+        cta: 'Landing Page'
+    },
+    'landing-page-campaign': {
+        title: "From Page to Pipeline: Running a Lead-Gen Campaign",
+        intro: "A great landing page is only half the battle. Now you need to drive targeted traffic to it. This guide shows you how to connect your new landing page to the Reel Ads and Instagram Ads tools to create a seamless, end-to-end lead generation machine.",
+        sections: [
+            { heading: "The Goal: Qualified Traffic", body: "The objective is simple: get the right people to your new landing page. 'Right' is the key word. We don't want just any traffic; we want visitors who are genuinely interested in the property, as they are the most likely to fill out your lead form." },
+            { heading: "Step 1: Create the Ad Creative", body: "Go to the Reel Ads or Insta Ads Designer. When the AI generates the ad creative (the video or image), instruct it to create a strong Call-to-Action (CTA) that aligns with your landing page. For example: 'Tap to see the full gallery and floor plans' or 'Click for exclusive launch pricing.'" },
+            { heading: "Step 2: Link Your Page", body: "When you set up the ad in the Meta Ads Co-Pilot, you'll be prompted for a destination URL. This is where you paste the link to the landing page you just published. Now, when a user clicks your ad, they will be taken directly to your highly relevant, project-specific page." },
+            { heading: "Step 3: Track and Convert", body: "As your ad campaign runs, you can watch the leads come in. Visit the 'Leads' tab in your dashboard to see a real-time list of everyone who has submitted the form on your landing page. The system has done the work of attracting and capturing the lead; now you can focus on what you do best: closing the deal." }
+        ],
+        cta: 'Ad Campaign'
+    },
+     'landing-pages': {
+        title: 'The Modular Landing Page: Your Digital Salesperson',
+        intro: "Every great listing deserves its own stage. With our AI-powered modular builder, you can construct and publish a beautiful, high-converting landing page that works as your 24/7 digital salesperson, turning visitors into qualified leads.",
+        sections: [
+            { heading: "Project-First, Purpose-Built", body: "An effective landing page is focused. Our builder starts by asking you to select a project. The AI then uses the project's data—images, details, location—to intelligently suggest content and pre-fill the page, ensuring it's relevant from the very beginning." },
+            { heading: "Build with Blocks", body: "Your page is constructed from 5 core sections. Each section is a modular block (like Hero, Gallery, Features) that you can customize. Click the '+' icon on any section to swap it out for a different component, like changing a photo gallery to a virtual tour embed. You can even choose the position of your lead form—place it in the hero for immediate impact or at the end for a final call to action." },
+            { heading: "Deep Customization & Publishing", body: "Once your layout is set, dive into the details. Use the deep editing panel to tweak colors, fonts, and text to perfectly match your brand. When you're ready, publish your page to a free `.s3.pages` subdomain or connect your own custom domain. All leads captured through your page's form will flow directly into your 'Leads' dashboard, completing your automated sales funnel." }
         ],
         cta: 'Landing Page',
     },
