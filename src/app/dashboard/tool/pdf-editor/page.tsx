@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Upload, FileText, Plus, Trash2, Edit, Move, Save, PenLine, Type, Image as ImageIcon, Palettes } from 'lucide-react';
+import { Loader2, Sparkles, Upload, FileText, Plus, Trash2, Edit, Move, Save, PenLine, Type, Image as ImageIcon, Palette } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { useCanvas } from '@/context/CanvasContext';
@@ -46,7 +46,7 @@ const EditInCanvas = ({ page, onSave, onCancel }: { page: Page; onSave: (instruc
                         <PenLine className="mr-2 h-4 w-4"/> Highlight Area
                     </Button>
                      <Button variant="outline" size="sm" onClick={() => appendInstruction("Change all heading colors to my primary brand color.")}>
-                        <Palettes className="mr-2 h-4 w-4"/> Adjust Colors
+                        <Palette className="mr-2 h-4 w-4"/> Adjust Colors
                     </Button>
                 </div>
             </div>
