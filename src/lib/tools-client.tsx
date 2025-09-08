@@ -60,7 +60,6 @@ import {
   Languages,
   Youtube,
   Terminal,
-  Server,
   Edit,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -832,19 +831,7 @@ export const tools: Feature[] = [
         { question: "Why not just publish directly?", answer: "This 'Planner' -> 'Terminal' architecture is more powerful and secure. It allows us to have one smart app for content creation (the Manager) and separate, simple apps for the technical job of publishing, which is a more robust system." },
       ],
     },
-    creationFields: [
-       { id: 'group-listing-details', name: 'Listing Details', type: 'group-header', description: 'The core information for your listing.'},
-       { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project to pre-fill data', description: 'Start with a project from your library.' },
-       { id: 'propertyTitle', name: 'Property Title', type: 'text', placeholder: 'e.g., "Spacious 3BR Villa with Garden View"', description: 'The main title for the listing.' },
-      { id: 'propertyDescription', name: 'Property Description', type: 'textarea', placeholder: 'Enter the full description of the property...', description: 'The detailed description for the listing.' },
-      { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 2500000', description: 'The asking price in the local currency.' },
-      { id: 'imageUrls', name: 'Image URLs', type: 'textarea', placeholder: 'Enter one image URL per line', description: 'Links to the property images.' },
-      { id: 'listingReferenceNo', name: 'Listing Reference No.', type: 'text', placeholder: 'e.g., PF-12345 or bayut-abc', description: 'The unique portal-specific ID for your listing.' },
-      { id: 'group-ai-assist', name: 'AI Assistance', type: 'group-header', description: 'Let the AI help you refine your listing.'},
-      { id: 'suggestChange', name: 'Suggest a Change', type: 'button', cta: '✨ Suggest a Better Title/Description', description: 'Let the AI rewrite your content for better engagement.' },
-      { id: 'group-portals', name: 'Syndication', type: 'group-header', description: 'Generate a plan to send to a specific portal pilot.'},
-
-    ],
+    creationFields: [],
   },
   {
     id: 'listing-performance',
