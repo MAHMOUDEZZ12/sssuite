@@ -6,19 +6,23 @@ import { getFirestore } from "firebase-admin/firestore";
 const apps = getApps();
 if (!apps.length) {
   let credential;
-  // Check if the service account environment variable exists and is valid JSON
-  if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-    try {
-      // Attempt to parse the service account JSON
-      const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+  const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT;
+
+  try {
+    // Attempt to use the service account JSON if it exists and is valid.
+    if (serviceAccountJson) {
+      const serviceAccount = JSON.parse(serviceAccountJson);
       credential = cert(serviceAccount);
-    } catch (e) {
-      console.warn("Could not parse FIREBASE_SERVICE_ACCOUNT, falling back to default.", e);
-      credential = applicationDefault();
+      console.log("Initializing Firebase Admin with service account.");
+    } else {
+      throw new Error("FIREBASE_SERVICE_ACCOUNT environment variable not found.");
     }
-  } else {
-    // Fallback for environments where the variable isn't set (like local dev without the env var)
-    console.warn("FIREBASE_SERVICE_ACCOUNT not found, falling back to default credentials.");
+  } catch (error) {
+    // If the service account is missing or invalid, fall back to default credentials.
+    // This is the expected behavior for many managed environments.
+    console.warn(
+      `Warning: Could not initialize Firebase Admin with service account. Error: ${(error as Error).message}. Falling back to default credentials. This is normal for local development or if the environment variable is not set.`
+    );
     credential = applicationDefault();
   }
 
