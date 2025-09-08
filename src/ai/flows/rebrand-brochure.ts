@@ -61,6 +61,13 @@ const RebrandBrochureInputSchema = z.object({
    * @example "Blue and Silver"
    */
   colors: z.string().describe('The desired colors for the brochure.'),
+  /**
+   * Optional specific instructions for fine-tuning the rebranding.
+   */
+  deepEditInstructions: z
+    .string()
+    .optional()
+    .describe('Optional specific instructions for deep editing.'),
 });
 
 export type RebrandBrochureInput = z.infer<typeof RebrandBrochureInputSchema>;
@@ -122,6 +129,11 @@ Tone of Voice: {{{toneOfVoice}}}
 Colors: {{{colors}}}
 
 Brochure: {{media url=brochureDataUri}}
+
+{{#if deepEditInstructions}}
+Deep Edit Instructions: Apply these specific changes carefully:
+{{{deepEditInstructions}}}
+{{/if}}
 
 Output the rebranded brochure as a data URI.
 `,

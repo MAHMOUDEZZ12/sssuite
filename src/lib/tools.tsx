@@ -24,6 +24,7 @@ import { syncPropertyFinderListing } from '@/ai/flows/sync-property-finder-listi
 import { syncBayutListing } from '@/ai/flows/sync-bayut-listing';
 import { generatePaymentPlan } from '@/ai/flows/generate-payment-plan';
 import { translateBrochure } from '@/ai/flows/translate-brochure';
+import { editYoutubeVideo } from '@/ai/flows/edit-youtube-video';
 
 
 // Import the client-safe tools definition
@@ -57,6 +58,7 @@ const flowRunnerMap: { [key: string]: (data: any) => Promise<any> } = {
     'bayut-sync': syncBayutListing,
     'payment-planner': generatePaymentPlan,
     'brochure-translator': translateBrochure,
+    'youtube-video-editor': editYoutubeVideo,
     'commission-calculator': async (data: { salePrice: string }) => {
         // This is a simple client-side calculation, so we don't need a flow.
         // We can just return the data and let the renderResult function handle it.

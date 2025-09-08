@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React from 'react';
@@ -58,6 +59,7 @@ import {
   Percent,
   Calendar,
   Languages,
+  Youtube,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -869,6 +871,46 @@ export const tools: Feature[] = [
   
   // --- CREATIVE SUITE ---
   {
+    id: 'youtube-video-editor',
+    title: 'YouTube Video Editor',
+    dashboardTitle: 'YouTube Video Editor',
+    description: 'Edit any video to be YouTube-ready.',
+    icon: <Youtube />,
+    color: '#ef4444', // red-500
+    cta: 'Edit YouTube Video',
+    categories: ['Creative', 'Editing', 'Social & Comms'],
+    mindMapCategory: 'Creative Suite',
+    badge: 'NEW',
+    href: '/dashboard/tool/youtube-video-editor',
+    guideHref: '/blog/youtube-video-editor',
+    details: {
+      steps: [
+        { text: 'Upload your source video file', icon: <Upload className="h-6 w-6" /> },
+        { text: 'Provide instructions for editing', icon: <PenTool className="h-6 w-6" /> },
+        { text: 'AI generates a new, edited video file', icon: <Sparkles className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Editing Time', manual: 'Hours in complex software like Final Cut', ai: 'Minutes, based on your instructions', icon: <Clock2 /> },
+        { metric: 'Software Cost', manual: 'Expensive video editing software', ai: 'Included in your subscription', icon: <Wallet /> },
+        { metric: 'Ease of Use', manual: 'Steep learning curve', ai: 'As simple as writing an email', icon: <Sparkles /> },
+      ],
+      synergy: [
+        { tool: "Reel Ads", benefit: "Combine your best-performing short-form reels into a longer YouTube video tour." },
+        { tool: "Landing Page Builder", benefit: "Embed your newly edited YouTube video directly into a project landing page." }
+      ],
+      faqs: [
+        { question: "What kind of edits can I request?", answer: "You can ask for a wide range of edits, such as trimming the video, adding text overlays and titles, applying color correction, adding background music, or creating a highlight reel." },
+        { question: "Can it generate a video from just photos?", answer: "This specific tool is for editing existing video files. To create a video from photos, please use the 'Reel Ads' or 'Story Planner' tools." },
+        { question: "What is the maximum video length I can upload?", answer: "The maximum upload size and length depend on your subscription plan, but the tool is optimized for typical real estate video lengths (up to 10-15 minutes)." }
+      ],
+    },
+    creationFields: [
+      { id: 'sourceVideo', name: 'Source Video', type: 'file', description: 'Upload the video file you want to edit.' },
+      { id: 'editingInstructions', name: 'General Instructions', type: 'textarea', placeholder: 'e.g., "Create a 2-minute highlight reel. Add my company logo at the start and end. Use upbeat background music."', description: 'Tell the AI what you want to achieve with the video.' },
+      { id: 'deepEditInstructions', name: 'Deep Edit Instructions (Optional)', type: 'textarea', placeholder: 'e.g., "At 0:45, add a text overlay: \'Stunning Marina Views\'. Replace the music from 1:30 to the end."', description: 'Provide specific, time-stamped instructions for fine-tuning.' },
+    ],
+  },
+  {
     id: 'landing-pages',
     title: 'Landing Page Builder',
     dashboardTitle: 'Landing Pages',
@@ -990,6 +1032,7 @@ export const tools: Feature[] = [
       { id: 'contactDetails', name: 'Contact Details', type: 'textarea', placeholder: 'Your Name\nYour Phone\nYour Email', description: 'The contact info to place in the brochure.' },
       { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Luxury', 'Modern'], placeholder: 'Select a tone', description: 'The tone to use for any generated text.' },
       { id: 'colors', name: 'Colors', type: 'text', placeholder: 'e.g., "Blue and Gold"', description: 'The color scheme to use for rebranding.' },
+      { id: 'deepEditInstructions', name: 'Deep Edit Instructions (Optional)', type: 'textarea', placeholder: 'e.g., "Change the main contact name to \'Jane Smith\'. Replace the hero image with the one I uploaded. Update the completion date to \'Fall 2025\'."', description: 'Provide specific instructions for fine-tuning the rebranded document.' },
     ],
   },
   {
@@ -1039,6 +1082,7 @@ export const tools: Feature[] = [
       { id: 'sourcePdf', name: 'Source PDF', type: 'file', description: 'Upload the PDF you want to edit.' },
       { id: 'editInstructions', name: 'Editing Instructions', type: 'textarea', placeholder: '- Change the main contact name to "Jane Smith".\n- Replace the hero image with the one I uploaded.\n- Update the completion date to "Fall 2025".', description: 'Be specific. The more detailed your command, the better the result.' },
       { id: 'newImages', name: 'New Images (Optional)', type: 'file', multiple: true, description: 'Only upload images if your instructions refer to them.' },
+      { id: 'deepEditInstructions', name: 'Deep Edit Instructions (Optional)', type: 'textarea', placeholder: 'e.g., "On page 3, change the heading color to primary brand color. Make the price text 10% larger."', description: 'Provide specific, granular instructions for fine-tuning the document.' },
     ],
   },
   {

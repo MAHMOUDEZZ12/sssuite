@@ -45,6 +45,13 @@ const EditPdfInputSchema = z.object({
     .describe(
       "An optional array of new images to be used, as data URIs. Expected format: 'data:<mimetype>;base64,<encoded_data>'. Only provide if your instructions reference replacing an image."
     ),
+   /**
+   * Optional granular instructions for fine-tuning the edit.
+   */
+    deepEditInstructions: z
+    .string()
+    .optional()
+    .describe('Optional specific instructions for deep editing.'),
 });
 
 export type EditPdfInput = z.infer<typeof EditPdfInputSchema>;
@@ -90,6 +97,11 @@ const editPdfPrompt = ai.definePrompt({
   {{#each newImages}}
   - Image {{add @index 1}}: {{media url=this}}
   {{/each}}
+  {{/if}}
+
+  {{#if deepEditInstructions}}
+  Deep Edit Instructions: Apply these specific changes carefully:
+  {{{deepEditInstructions}}}
   {{/if}}
 
   Apply the changes as requested and return the newly edited PDF as a data URI.
