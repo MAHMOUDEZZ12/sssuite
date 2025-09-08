@@ -13,7 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Target, Palette, LineChart, Briefcase, Bot, Home, Building, Megaphone, Users, PlusCircle, MoreHorizontal, Loader2, BookOpen } from 'lucide-react';
+import { ArrowRight, Target, Palette, LineChart, Briefcase, Bot, Home, Building, Megaphone, Users, PlusCircle, MoreHorizontal, Loader2, BookOpen, GanttChartSquare } from 'lucide-react';
 import Link from 'next/link';
 import { PageHeader } from '@/components/ui/page-header';
 import { tools } from '@/lib/tools-client';
@@ -180,7 +180,14 @@ export default function DashboardPage() {
        <PageHeader
         title="Welcome Back"
         description="Here's a snapshot of your sales universe today."
-      />
+      >
+        <Link href="/dashboard/dev-admin">
+            <Button variant="outline">
+                <GanttChartSquare className="mr-2 h-4 w-4" />
+                Dev Admin
+            </Button>
+        </Link>
+      </PageHeader>
 
         {hasActiveCampaigns ? (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
