@@ -40,7 +40,7 @@ const initialLog: ChangeLogEntry[] = [
         toolId: 'meta-ads-copilot',
         toolTitle: 'Campaign Builder',
         description: 'here is the same --- the best way is to make this tool design the full campaign internallly while the pilot is what fly it to meta --- ',
-        status: 'Implemented',
+        status: 'Assured',
         comment: "This task has been implemented. The Meta Ads Co-Pilot now only generates the campaign plan. The publishing is handled by the Auto Pilot."
     },
     {
