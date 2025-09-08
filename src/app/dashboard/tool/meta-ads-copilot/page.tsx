@@ -415,6 +415,7 @@ export default function CampaignBuilderPage() {
                             <Card key={index}>
                                 <CardHeader>
                                     <CardTitle className="text-base">{creative.headline}</CardTitle>
+
                                 </CardHeader>
                                 <CardContent>
                                     <div className="aspect-square bg-muted rounded-md flex items-center justify-center p-4">
@@ -435,3 +436,5 @@ export default function CampaignBuilderPage() {
     </main>
   );
 }
+
+    
