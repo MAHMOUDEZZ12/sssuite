@@ -326,7 +326,7 @@ export const tools: Feature[] = [
     },
     creationFields: [
       { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose from your saved projects.' },
-      { id: 'brochureDataUri', name: 'Developer Brochure (Optional)', type: 'file', description: 'Upload the original PDF for more detailed ad generation.' },
+      { id: 'brochureDataUri', name: 'Or Upload Developer Brochure', type: 'file', description: 'Upload the original PDF for more detailed ad generation.' },
       { id: 'focusArea', name: 'Ad Focus', type: 'select', options: ['Luxury & Prestige', 'Family-Friendly', 'Investment Opportunity', 'Modern & Urban', 'First-Time Buyer'], placeholder: 'Select the ad\'s main angle', description: 'What key aspect should the ad highlight?' },
       { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Exciting', 'Welcoming', 'Urgent', 'Sophisticated'], placeholder: 'Select a tone', description: 'Set the tone for the ad copy.' },
       { id: 'additionalInformation', name: 'Additional Information', type: 'textarea', placeholder: 'e.g., "Limited time offer: 2 years of service charges waived."', description: 'Add any other key details or offers. (Optional)' },
@@ -491,46 +491,6 @@ export const tools: Feature[] = [
         { id: 'tone', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Humorous', 'Authoritative'], placeholder: 'Select a tone', description: 'Set the tone for the generated posts.' },
     ],
 },
-  {
-    id: 'instagram-hashtags-ai',
-    title: 'Instagram Hashtags',
-    dashboardTitle: 'Instagram Hashtags',
-    description: 'Generate a tiered hashtag strategy for any post.',
-    icon: <Hash />,
-    color: '#f97316',
-    cta: 'Generate Hashtag Strategy',
-    categories: ['Marketing', 'Social & Comms', 'Lead Gen'],
-    mindMapCategory: 'Meta Ads AI Suite',
-    badge: 'SOON',
-    href: '/dashboard/tool/instagram-hashtags-ai',
-    guideHref: '/blog/instagram-content-creator',
-    details: {
-      steps: [
-        { text: 'Provide the topic of your post', icon: <PenTool /> },
-        { text: 'AI analyzes the topic and relevant keywords', icon: <BrainCircuit /> },
-        { text: 'Get a tiered list of primary, secondary, and location tags', icon: <ClipboardList /> },
-      ],
-      aiVsManual: [
-        { metric: 'Research Time', manual: '15-30 minutes per post', ai: 'Instantaneous', icon: <Clock2 /> },
-        { metric: 'Strategy', manual: 'Guesswork, often uses overly broad tags', ai: 'Tiered strategy for broad reach and niche targeting', icon: <Sparkles /> },
-        { metric: 'Effectiveness', manual: 'Hit or miss', ai: 'Maximizes discoverability and engagement', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "Instagram Content Creator", benefit: "This tool is an integral part of the content creator, providing a full strategy for every generated post." },
-        { tool: "Market Reports", benefit: "Generate hashtags based on the specific location and findings of a market report to target interested viewers." },
-      ],
-      faqs: [
-        { question: "Why is a 'tiered' strategy important?", answer: "A tiered strategy combines popular, high-volume hashtags for broad reach with niche-specific tags to connect with a highly relevant audience. This blend is key to sustainable growth on Instagram." },
-        { question: "How many hashtags should I use?", answer: "Instagram allows up to 30 hashtags per post. Our tool provides a strategic mix of 15-25 tags, which is generally considered the sweet spot for optimal performance." },
-        { question: "Can it find hashtags for any niche?", answer: "Yes, the AI has a broad understanding of various industries, but it excels at real estate-related topics, including specific architectural styles, locations, and investment strategies." }
-      ],
-    },
-    creationFields: [
-      { id: 'source', name: 'Post Topic', type: 'text', placeholder: 'e.g., "A modern 2-bedroom condo in downtown Dubai"', description: 'The subject of your Instagram post.' },
-      { id: 'platform', name: 'Platform', type: 'text', value: 'Instagram', hidden: true, description: '' },
-      { id: 'tone', name: 'Tone', type: 'text', value: 'Professional', hidden: true, description: '' },
-    ],
-  },
   {
     id: 'meta-ads-reports',
     title: 'Meta Ads Reports',
@@ -1076,6 +1036,72 @@ export const tools: Feature[] = [
     ],
   },
   {
+    id: 'listing-generator',
+    title: 'Listing Generator',
+    dashboardTitle: 'Listing Generator',
+    description: 'Craft perfect listings for portals like Property Finder, Bayut, and Dubizzle.',
+    icon: <Building />,
+    color: '#10b981',
+    cta: 'Create Listing',
+    categories: ['Sales Tools', 'Editing', 'Web'],
+    mindMapCategory: 'Sales Enablement',
+    badge: 'NEW',
+    href: '/dashboard/tool/listing-generator',
+    guideHref: '/blog/bayut-listing-ai',
+    renderResult: (result, toast) => (
+       <div className="space-y-6">
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Generated Title</h3>
+          <div className="p-4 bg-muted rounded-md relative group">
+            <p className="whitespace-pre-wrap">{result.title}</p>
+            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.title, toast)}><Copy className="h-4 w-4" /></Button>
+          </div>
+        </div>
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Generated Description</h3>
+          <div className="p-4 bg-muted rounded-md relative group">
+            <p className="whitespace-pre-wrap">{result.description}</p>
+            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.description, toast)}><Copy className="h-4 w-4" /></Button>
+          </div>
+        </div>
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Suggested Keywords</h3>
+          <div className="p-4 bg-muted rounded-md">
+            <p className="text-sm text-muted-foreground">{result.keywords.join(', ')}</p>
+          </div>
+        </div>
+      </div>
+    ),
+    details: {
+      steps: [
+        { text: 'Enter key property details (address, beds, baths)', icon: <PenTool className="h-6 w-6" /> },
+        { text: 'Mention 1-2 unique features', icon: <Sparkles className="h-6 w-6" /> },
+        { text: 'Generate a full, persuasive listing description', icon: <FileText className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Writing Time', manual: '30-60 minutes of creative writing', ai: 'Fast by default', icon: <Clock2 /> },
+        { metric: 'SEO &amp; Keywords', manual: 'Guesswork on what terms to use', ai: 'Automatically includes relevant local keywords', icon: <Sparkles /> },
+        { metric: 'Completeness', manual: 'Often forgets key selling points', ai: 'Structured to include all critical information', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Ad Creator", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
+        { tool: "Landing Page Builder", benefit: "Instantly create a beautiful single-property website using your new listing details." }
+      ],
+       faqs: [
+        { question: "Can I choose the tone of the listing?", answer: "Yes, you can specify a tone such as 'Luxurious,' 'Family-Friendly,' or 'Great for First-Time Buyers,' and the AI will adjust its language and emphasis accordingly." },
+        { question: "Is the output ready to copy and paste?", answer: "Absolutely. The generated text is formatted to be easily copied and pasted directly into any listing portal." },
+        { question: "How does it know what keywords to use for SEO?", answer: "The AI analyzes the property's location and features to include relevant local keywords (like neighborhood names, school districts, or nearby landmarks) that a potential buyer is likely to search for." }
+      ],
+    },
+    creationFields: [
+      { id: 'platform', name: 'Platform', type: 'select', options: ['Property Finder', 'Bayut', 'Dubizzle', 'Generic'], placeholder: 'Select a listing platform', description: 'The listing portal you are writing for.' },
+      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the a property.' },
+      { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
+      { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },
+      { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
+    ],
+  },
+  {
     id: 'listing-manager',
     title: 'Listing Manager',
     dashboardTitle: 'Listing Manager',
@@ -1194,112 +1220,6 @@ export const tools: Feature[] = [
       { id: 'propertyDescription', name: 'Property Description', type: 'textarea', placeholder: 'Enter the full description of the property...', description: 'The detailed description for the listing.' },
       { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 2500000', description: 'The asking price in the local currency.' },
       { id: 'imageUrls', name: 'Image URLs', type: 'textarea', placeholder: 'Enter one image URL per line', description: 'Links to the property images.' },
-    ],
-  },
-  {
-    id: 'bayut-listing-ai',
-    title: 'Bayut Listing',
-    description: 'Craft perfect listings for the Bayut portal.',
-    icon: <Building />,
-    color: '#22c55e', // green-500
-    cta: 'Create Listing',
-    categories: ['Sales Tools', 'Editing', 'Web'],
-    mindMapCategory: 'Sales Enablement',
-    badge: 'SOON',
-    href: '/dashboard/tool/bayut-listing-ai',
-    guideHref: '/blog/bayut-listing-ai',
-    renderResult: (result, toast) => (
-       <div className="space-y-6">
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Generated Title</h3>
-          <div className="p-4 bg-muted rounded-md relative group">
-            <p className="whitespace-pre-wrap">{result.title}</p>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.title, toast)}><Copy className="h-4 w-4" /></Button>
-          </div>
-        </div>
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Generated Description</h3>
-          <div className="p-4 bg-muted rounded-md relative group">
-            <p className="whitespace-pre-wrap">{result.description}</p>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.description, toast)}><Copy className="h-4 w-4" /></Button>
-          </div>
-        </div>
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Suggested Keywords</h3>
-          <div className="p-4 bg-muted rounded-md">
-            <p className="text-sm text-muted-foreground">{result.keywords.join(', ')}</p>
-          </div>
-        </div>
-      </div>
-    ),
-    details: {
-      steps: [
-        { text: 'Enter key property details (address, beds, baths)', icon: <PenTool className="h-6 w-6" /> },
-        { text: 'Mention 1-2 unique features', icon: <Sparkles className="h-6 w-6" /> },
-        { text: 'Generate a full, persuasive listing description', icon: <FileText className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Writing Time', manual: '30-60 minutes of creative writing', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'SEO &amp; Keywords', manual: 'Guesswork on what terms to use', ai: 'Automatically includes relevant local keywords', icon: <Sparkles /> },
-        { metric: 'Completeness', manual: 'Often forgets key selling points', ai: 'Structured to include all critical information', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "Ad Creator", benefit: "Use your new listing description as the source material for a targeted ad campaign." },
-        { tool: "Landing Page Builder", benefit: "Instantly create a beautiful single-property website using your new listing details." }
-      ],
-       faqs: [
-        { question: "Can I choose the tone of the listing?", answer: "Yes, you can specify a tone such as 'Luxurious,' 'Family-Friendly,' or 'Great for First-Time Buyers,' and the AI will adjust its language and emphasis accordingly." },
-        { question: "Is the output ready to copy and paste into Bayut?", answer: "Absolutely. The generated text is formatted to be easily copied and pasted directly into the Bayut listing portal." },
-        { question: "How does it know what keywords to use for SEO?", answer: "The AI analyzes the property's location and features to include relevant local keywords (like neighborhood names, school districts, or nearby landmarks) that a potential buyer is likely to search for on Bayut." }
-      ],
-    },
-    creationFields: [
-      { id: 'platform', name: 'Platform', type: 'text', placeholder: '', description: '', value: 'Bayut', hidden: true },
-      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the a property.' },
-      { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
-      { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },
-      { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
-    ],
-  },
-   {
-    id: 'dubizzle-listing-ai',
-    title: 'Dubizzle Listing',
-    description: 'Optimize your listings for Dubizzle.',
-    icon: <Building />,
-    color: '#16a34a',
-    cta: 'Create Listing',
-    categories: ['Sales Tools', 'Editing', 'Web'],
-    mindMapCategory: 'Sales Enablement',
-    badge: 'SOON',
-    href: '/dashboard/tool/dubizzle-listing-ai',
-    guideHref: '/blog/bayut-listing-ai',
-    details: {
-       steps: [
-        { text: 'Enter property details', icon: <PenTool /> },
-        { text: 'Highlight unique features', icon: <Sparkles /> },
-        { text: 'Generate a listing optimized for Dubizzle\'s format', icon: <FileText /> },
-      ],
-      aiVsManual: [
-        { metric: 'Writing Time', manual: '30-45 minutes', ai: 'Seconds', icon: <Clock2 /> },
-        { metric: 'Keyword Optimization', manual: 'Guesswork', ai: 'Includes high-traffic local search terms', icon: <Search /> },
-        { metric: 'Formatting', manual: 'Plain text', ai: 'Well-structured with bullet points and clear sections', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "Listing Manager", benefit: "After generating your optimized Dubizzle listing, use the manager to push it live and sync it with your other portals." },
-        { tool: "Reel Ads", benefit: "Create a quick video reel showcasing the property and link it in your Dubizzle listing for higher engagement." },
-      ],
-      faqs: [
-        { question: "Does this tool post directly to Dubizzle?", answer: "This tool generates the optimized text and keyword suggestions. You can then copy and paste the content into your Dubizzle account. Direct posting is on our roadmap." },
-        { question: "How does it know what works best on Dubizzle?", answer: "The AI has been trained on thousands of successful Dubizzle listings to understand the formats, keywords, and tones that attract the most buyers on that specific platform." },
-        { question: "Can it generate listings in Arabic?", answer: "Yes, you can specify that you need the listing in Arabic, and the AI will provide a high-quality, fluent translation optimized for the local market." }
-      ],
-    },
-    creationFields: [
-      { id: 'platform', name: 'Platform', type: 'text', value: 'Dubizzle', hidden: true, description: '' },
-      { id: 'propertyAddress', name: 'Property Address', type: 'text', placeholder: 'e.g., Villa 1, The Lakes, Dubai', description: 'The address of the a property.' },
-      { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
-      { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },
-      { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
     ],
   },
   {

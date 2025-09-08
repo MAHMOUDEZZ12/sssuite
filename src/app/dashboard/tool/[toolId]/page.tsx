@@ -42,11 +42,11 @@ const getToolSchema = (tool: Feature | undefined) => {
         
         let fieldSchema: z.ZodTypeAny;
 
-        const optionalFileFields = ['companyLogoDataUri', 'projectBrochureDataUri', 'inspirationImageDataUri', 'newImages', 'brochureDataUri'];
+        const optionalFileFields = ['companyLogoDataUri', 'brochureDataUri', 'inspirationImageDataUri', 'newImages'];
         const optionalTextFields = ['additionalInformation', 'projectName', 'developer', 'context', 'deepEditInstructions'];
 
         if (field.type === 'file') {
-            const isOptional = optionalFileFields.includes(field.id);
+            const isOptional = optionalFileFields.includes(field.id) || (tool.id === 'insta-ads-designer' && field.id === 'brochureDataUri');
             const fileListSchema = z.custom<FileList>().nullable().optional();
 
             if (isOptional) {
@@ -56,7 +56,7 @@ const getToolSchema = (tool: Feature | undefined) => {
             }
         } else if (field.type === 'number') {
             fieldSchema = z.string().min(1, `${field.name} is required`).refine(val => !isNaN(Number(val)), { message: "Must be a number" });
-        } else if (optionalTextFields.includes(field.id) ) {
+        } else if (optionalTextFields.includes(field.id) || (tool.id === 'insta-ads-designer' && field.id === 'projectId') ) {
              fieldSchema = z.string().optional();
         }
         else {
@@ -253,7 +253,7 @@ export default function ToolPage() {
   React.useEffect(() => {
     const currentTool = clientTools.find((t) => t.id === toolId);
     if (currentTool?.isPage) {
-        router.push(`/dashboard/tool/${toolId}`);
+        // This logic can be simplified or removed if all tools get custom pages
     } else {
         setTool(currentTool);
     }
@@ -265,7 +265,8 @@ export default function ToolPage() {
   React.useEffect(() => {
     if (toolId) {
         const addedApps = JSON.parse(localStorage.getItem('addedApps') || '[]');
-        setIsAppAdded(addedApps.includes(toolId));
+        const currentTool = clientTools.find((t) => t.id === toolId);
+        setIsAppAdded(addedApps.includes(toolId) || !currentTool?.badge);
     }
   }, [toolId]);
 
@@ -316,9 +317,28 @@ export default function ToolPage() {
 
         let payload: Record<string, any> = {};
 
+        // Special handling for insta-ads-designer
+        if (currentTool.id === 'insta-ads-designer' && data.projectId) {
+            // In a real app, we'd fetch the project's brochure URI from a database.
+            // For now, we'll simulate this.
+            const projectBrochures: { [key: string]: string } = {
+                'emaar-beachfront': 'https://www.example.com/emaar-brochure.pdf',
+                'damac-hills-2': 'https://www.example.com/damac-brochure.pdf',
+                'sobha-hartland': 'https://www.example.com/sobha-brochure.pdf',
+            };
+            payload.projectName = data.projectId; // Send name instead of brochure
+            // brochureDataUri will be omitted, letting the backend know to use the project name.
+        }
+
+
         for (const field of currentTool.creationFields) {
             const fieldId = field.id;
             if (field.type === 'button' || field.type === 'group-header' || !data.hasOwnProperty(fieldId)) continue;
+            
+            // Skip brochureDataUri for insta-ads if projectId is set
+            if (currentTool.id === 'insta-ads-designer' && data.projectId && fieldId === 'brochureDataUri') {
+                continue;
+            }
 
             const value = data[fieldId];
             if (value === null || value === undefined) continue;
