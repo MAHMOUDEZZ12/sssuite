@@ -22,7 +22,7 @@ export const blogContent: { [key: string]: BlogContent[string] } = {
         ],
         cta: 'Brand Kit',
     },
-    'ad-creation': {
+    'insta-ads-designer': {
         title: 'Stop Guessing, Start Generating: How AI Creates High-Performance Ads in 60 Seconds',
         intro: "In the competitive world of real estate, a great ad can be the difference between a listing that sits and a property that sells. But creating compelling ads takes time, design skills, and a dash of copywriting magic. What if you could skip the guesswork and generate a full campaign from a single brochure? Now you can.",
         sections: [
@@ -32,12 +32,12 @@ export const blogContent: { [key: string]: BlogContent[string] } = {
         ],
         cta: 'Ad',
     },
-    'targeting': {
+    'audience-creator': {
         title: 'Find Your Perfect Buyer Before They Find You: The Power of Precision Targeting',
-        intro: "Stop wasting your ad budget on broad audiences. In today's digital landscape, the key to a successful ad campaign isn't just reaching more people—it's reaching the *right* people. Our Precision Targeting tool gives you an almost unfair advantage by identifying high-intent buyers before they even know they're looking.",
+        intro: "Stop wasting your ad budget on broad audiences. In today's digital landscape, the key to a successful ad campaign isn't just reaching more people—it's reaching the *right* people. Our Audience Creator AI gives you an almost unfair advantage by identifying high-intent buyers before they even know they're looking.",
         sections: [
-            { heading: "Beyond Basic Demographics", body: "Most ad platforms let you target by age and location. That's not enough. Our AI goes deeper, analyzing thousands of anonymous data points—like searches for mortgage calculators, activity in local community groups, and engagement with specific types of real estate content—to build a rich profile of your ideal buyer." },
-            { heading: "From Property to Persona", body: "Provide the details of your listing, and the AI builds a detailed persona of the most likely buyer. Is it a young family looking for good schools? A professional couple seeking a downtown lifestyle? Our tool tells you exactly who they are, what they're interested in, and how to reach them on platforms like Facebook and Google." },
+            { heading: "Beyond Basic Demographics", body: "Most ad platforms let you target by age and location. That's not enough. Our AI goes deeper, analyzing thousands of anonymous data points to build a rich profile of your ideal buyer for any given property. Is it a young family looking for good schools? A professional couple seeking a downtown lifestyle? Our tool tells you exactly who they are, what they're interested in, and how to reach them." },
+            { heading: "From Property to Persona", body: "Provide the details of your listing, and the AI builds a detailed persona of the most likely buyer. It generates multiple targeting strategies, complete with the exact interests, demographics, and behaviors to plug into your Meta Ads campaigns. It's a roadmap to your ideal customer." },
             { heading: "Maximize Your ROI", body: "When you know exactly who you're talking to, every ad dollar works harder. Precision Targeting eliminates wasted spend, increases click-through rates, and fills your pipeline with qualified, high-intent leads who are genuinely interested in what you have to offer." }
         ],
         cta: 'Targeting Profile',
@@ -52,37 +52,37 @@ export const blogContent: { [key: string]: BlogContent[string] } = {
         ],
         cta: 'Rebranded Brochure',
     },
-    'story-designer': {
+    'story-planner-ai': {
         title: 'The Illusion of Quality: How a Simple Prompt Commands Credibility',
         intro: "In visual marketing, perception is reality. A photo that looks professional and high-quality is inherently more trustworthy. This hack shows you how to use a simple prompt modifier to significantly boost the perceived quality of your AI-generated images.",
         sections: [
             { heading: "The 'Credibility' Prompt", body: "When using any AI image tool, a buyer's brain is subconsciously looking for tells that an image is 'fake' or low-effort. You can overcome this by adding a simple phrase to your prompt: 'shot on cinematic camera, 35mm lens'. This doesn't just change the image; it changes the viewer's perception." },
             { heading: "Why This Works", body: "This phrase signals to the AI that you want an image with specific professional characteristics: a shallow depth of field (blurry background), realistic lighting, and a composition that feels intentional and high-end. The result is an image that feels less like a stock photo and more like a professional photoshoot, immediately boosting its credibility and stopping the scroll." },
-            { heading: "When to Use It", body: "Use this modifier in the Story Designer, Reel Designer, or even when generating a new logo. Anytime you need a visual that feels authentic and commands trust, add this phrase to your prompt. It's a small tweak that makes a massive difference in how your marketing is perceived." }
+            { heading: "When to Use It", body: "Use this modifier in the Story Planner, Reel Ads designer, or even when generating a new logo. Anytime you need a visual that feels authentic and commands trust, add this phrase to your prompt. It's a small tweak that makes a massive difference in how your marketing is perceived." }
         ],
         cta: 'Story',
     },
-    'page-admin': {
+    'instagram-admin-ai': {
         title: 'The WhatsApp Pro-Move: From Social Post to High-Conversion Chat',
         intro: "Stop just collecting likes; start conversations. This pro-level hack shows you how to use the AI Page Admin in synergy with your social content to drive interested users directly into high-conversion WhatsApp chats.",
         sections: [
-            { heading: "Step 1: The Engagement Post", body: "First, use the AI Social Writer to create an engaging post with a clear Call-to-Action, like 'Comment a 'Price' below for details on our new Emaar Beachfront listing.' This invites public engagement and signals buying intent." },
-            { heading: "Step 2: Automate the First Touch", body: "Configure your AI Page Admin to monitor comments on that post. When it detects the keyword 'Price,' it should automatically send a Direct Message saying, 'Thanks for your interest! For instant details and floor plans, tap this link to chat with us on WhatsApp.' This moves the conversation from a public forum to a private, one-on-one channel." },
+            { heading: "Step 1: The Engagement Post", body: "First, use the Social Post Writer to create an engaging post with a clear Call-to-Action, like 'Comment a 'Price' below for details on our new Emaar Beachfront listing.' This invites public engagement and signals buying intent." },
+            { heading: "Step 2: Automate the First Touch", body: "Configure your Instagram Admin AI to monitor comments on that post. When it detects the keyword 'Price,' it should automatically send a Direct Message saying, 'Thanks for your interest! For instant details and floor plans, tap this link to chat with us on WhatsApp.' This moves the conversation from a public forum to a private, one-on-one channel." },
             { heading: "Step 3: The Conversion", body: "The user is now in a direct, high-intent conversation with you on WhatsApp. Use the WhatsApp Manager tool to send a pre-written, personalized message with the brochure and your contact details. You've just seamlessly converted a passive social media user into a hot lead in your primary sales channel, all with minimal manual effort." }
         ],
-        cta: 'Page Admin',
+        cta: 'Admin Task',
     },
     'email-creator': {
         title: 'The Weekly Investor Update: Combining Offers & Email Automation',
         intro: "Keep your investor clients engaged and ready to act with a powerful weekly update. This hack combines the Multi-Offer Builder and AI Email Campaigns to create a must-read email that showcases your best opportunities.",
         sections: [
             { heading: "Step 1: Curate Your 'Top 3'", body: "First, identify the top three investment opportunities of the week. These could be new listings, properties with recent price reductions, or off-market deals. Use the Multi-Offer Builder tool to create a clean, side-by-side comparison document of these three properties, highlighting key metrics like price, cap rate, and potential ROI." },
-            { heading: "Step 2: Generate the Campaign", body: "Next, go to the AI Email Campaigns tool. Use a prompt like: 'Create a weekly investor update email. The topic is 'This Week's Top 3 Opportunities.' Use an expert, insightful tone. Announce that the full comparison PDF is attached.' The AI will generate a compelling subject line and body copy that teases the opportunities and encourages readers to view the attached document." },
+            { heading: "Step 2: Generate the Campaign", body: "Next, go to the Email Campaigns tool. Use a prompt like: 'Create a weekly investor update email. The topic is 'This Week's Top 3 Opportunities.' Use an expert, insightful tone. Announce that the full comparison PDF is attached.' The AI will generate a compelling subject line and body copy that teases the opportunities and encourages readers to view the attached document." },
             { heading: "Step 3: Schedule and Send", body: "Attach the PDF generated by the Multi-Offer Builder to the email draft. Schedule the campaign to go out to your investor list. You've now created a high-value, data-rich touchpoint that took minutes to assemble, positioning you as a market expert and keeping your best deals top-of-mind." }
         ],
         cta: 'Email Campaign',
     },
-    'social-posts': {
+    'instagram-content-creator': {
         title: 'Beyond Single Posts: Generating a Full Week Social Media Strategy',
         intro: "A single great post is good, but a consistent, strategic presence is what builds an audience and drives leads. This guide shows how to use the AI Social Post Strategist to turn one idea into a complete, seven-day content calendar, saving you hours of planning.",
         sections: [
@@ -132,7 +132,7 @@ export const blogContent: { [key: string]: BlogContent[string] } = {
         ],
         cta: 'Investor Match',
     },
-    'listing-generator': {
+    'bayut-listing-ai': {
         title: 'The End of Writer\'s Block: Generate Perfect Listings, Every Time',
         intro: "You know the property inside and out, but translating its essence into compelling listing copy is a challenge. Our AI Listing Generator takes the pressure off, turning a few key details into persuasive, SEO-friendly descriptions that attract buyers and sell properties faster.",
         sections: [
@@ -142,4 +142,26 @@ export const blogContent: { [key: string]: BlogContent[string] } = {
         ],
         cta: 'Listing',
     },
+    'meta-ads-copilot': {
+        title: 'Your AI Ad Manager: The Meta Ads Co-Pilot',
+        intro: "Stop just boosting posts. The Meta Ads Co-Pilot is your dedicated strategist for Facebook and Instagram. It takes your high-level goal and turns it into a complete, ready-to-launch campaign, from audience targeting to ad creative, and even publishes it for you.",
+        sections: [
+          { heading: 'From Goal to Campaign in Minutes', body: "Simply tell the AI your objective, like 'Generate leads for the new Emaar project,' and provide the brochure. The AI then acts as an expert ad manager. It infers the audience, defines ad sets, writes multiple ad creatives, and provides optimization advice. It's a full campaign strategy, generated in seconds." },
+          { heading: 'Direct-to-Meta Publishing', body: "This isn't just a plan. The Co-Pilot uses a secure API connection to publish the generated campaign directly to your Meta Ads account. The campaigns are created in a 'Paused' state, giving you full control to review everything before you spend a single dollar." },
+          { heading: 'Synergy with Audience Creator', body: "For even more power, use the Audience Creator tool first to identify your perfect buyer persona. You can then provide this audience to the Co-Pilot to ensure your ads are hyper-targeted for maximum impact. It's a seamless workflow from strategy to execution." },
+        ],
+        cta: 'Meta Campaign',
+    },
+    'meta-auto-pilot': {
+        title: 'The One-Click Campaign: Meet the Meta Auto Pilot',
+        intro: "Why manage the tools when an AI can do it for you? The Meta Auto Pilot is the orchestrator for your entire Meta advertising suite. It takes a single command—'Launch a campaign for this project'—and automates the entire workflow, from audience creation to ad generation to publishing.",
+        sections: [
+          { heading: 'True Automation is Here', body: "The Auto Pilot is more than just a tool; it's a workflow. It sequentially runs the Audience Creator AI, feeds the results into the Campaign Builder, generates all the necessary ad creatives, and publishes the final campaign to your Meta account. It's a complete, end-to-end process that runs with a single click." },
+          { heading: 'How It Works: An AI Workflow', body: "When you start the Auto Pilot, you are watching an AI agent at work. It intelligently connects the different services in your suite, passing data from one to the next, just as a human marketing manager would. This represents the true power of the Super Seller Suite—an integrated system, not just a collection of tools." },
+          { heading: 'Your Role: The CEO', body: "With the Auto Pilot, your role shifts from operator to strategist. You provide the high-level goal and the budget, and the AI handles the tactical execution. You can monitor its progress in real-time and have full control to pause or adjust at any point. It's like having an expert marketing team on standby, ready to launch a campaign at a moment's notice." },
+        ],
+        cta: 'Automated Workflow',
+      },
 };
+
+    
