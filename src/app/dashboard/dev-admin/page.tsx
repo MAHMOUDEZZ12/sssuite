@@ -36,7 +36,7 @@ interface ChangeLogEntry {
 const initialLog: ChangeLogEntry[] = [
     {
         id: 'cl-1757362654349',
-        timestamp: new Date(),
+        timestamp: new Date('2024-07-27T10:10:00Z'),
         toolId: 'meta-ads-copilot',
         toolTitle: 'Campaign Builder',
         description: 'here is the same --- the best way is to make this tool design the full campaign internallly while the pilot is what fly it to meta --- ',
@@ -45,7 +45,7 @@ const initialLog: ChangeLogEntry[] = [
     },
     {
         id: 'cl-1757362497975',
-        timestamp: new Date(),
+        timestamp: new Date('2024-07-27T10:05:00Z'),
         toolId: 'meta-auto-pilot',
         toolTitle: 'Meta Auto Pilot',
         description: 'the poilt should design the flow as per the user need -- a flow for lead generaton campaign is not the same for a reel ad with landing page -- or reel ad with messages',
@@ -189,9 +189,9 @@ export default function DevAdminPage() {
                 <CardDescription>A chronological record of all tasks and their real-time implementation status.</CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="border rounded-lg w-full">
+                <div className="border rounded-lg w-full max-h-[60vh] overflow-y-auto">
                     <Table>
-                    <TableHeader>
+                    <TableHeader className="sticky top-0 bg-background z-10">
                         <TableRow>
                             <TableHead className="w-[150px]">Timestamp</TableHead>
                             <TableHead>Change Description</TableHead>
