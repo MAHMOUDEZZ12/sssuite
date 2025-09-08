@@ -4,11 +4,11 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Wand2, Palette, Pen, GalleryHorizontal, Map, Mail, Download, MonitorPlay, ArrowRight, ArrowLeft, Users2, Upload, Crown, Info, CheckCircle, Wallet, Clock2, LineChart, Bot, BadgeCheck, Briefcase, ClipboardList, Target, BrainCircuit, Network, Key, Search, FileText, Building, MessageCircle, Phone, Link as LinkIcon } from 'lucide-react';
+import { Loader2, Sparkles, Wand2, Palette, Pen, GalleryHorizontal, Map, Mail, Download, MonitorPlay, ArrowRight, ArrowLeft, Users2, Upload, Crown, Info, CheckCircle, Wallet, Clock2, LineChart, Bot, BadgeCheck, Briefcase, ClipboardList, Target, BrainCircuit, Network, Key, Search, FileText, Building, MessageCircle, Phone, Link as LinkIcon, Binoculars } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { suggestTargetingOptions } from '@/ai/flows/suggest-targeting-options';
+import { suggestTargetingOptions, SuggestTargetingOptionsInput, SuggestTargetingOptionsOutputSchema, SuggestTargetingOptionsOutput } from '@/ai/flows/suggest-targeting-options';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { track } from '@/lib/events';
@@ -16,23 +16,6 @@ import * as z from 'zod';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
-
-// Define schemas here on the client
-export const SuggestTargetingOptionsInputSchema = z.object({
-  projectId: z.string().describe('The project ID to generate targeting for.'),
-});
-export const SuggestTargetingOptionsOutputSchema = z.object({
-  strategies: z.array(z.object({
-    strategyName: z.string().describe("The name of the targeting strategy (e.g., 'The Local Professional')."),
-    audienceType: z.string().describe("The type of Meta audience to create (e.g., 'Detailed Targeting', 'Lookalike Audience')."),
-    demographics: z.string().describe("The demographic targeting parameters (e.g., 'Age: 30-45, Location: Downtown Dubai')."),
-    interests: z.string().describe("The interest-based targeting for platforms like Facebook/Instagram."),
-    keywords: z.string().describe("The keyword targeting for platforms like Google Ads."),
-  })).describe("A list of 2-3 distinct targeting strategies."),
-});
-export type SuggestTargetingOptionsInput = z.infer<typeof SuggestTargetingOptionsInputSchema>;
-export type SuggestTargetingOptionsOutput = z.infer<typeof SuggestTargetingOptionsOutputSchema>;
 
 
 const ProFeatureLock = ({ children, title }: { children: React.ReactNode, title: string }) => (

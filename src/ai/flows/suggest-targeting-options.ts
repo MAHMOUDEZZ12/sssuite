@@ -16,8 +16,21 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import { SuggestTargetingOptionsInputSchema, SuggestTargetingOptionsOutputSchema } from '@/app/dashboard/tool/audience-creator/page';
-export type { SuggestTargetingOptionsInput, SuggestTargetingOptionsOutput } from '@/app/dashboard/tool/audience-creator/page';
+
+export const SuggestTargetingOptionsInputSchema = z.object({
+  projectId: z.string().describe('The project ID to generate targeting for.'),
+});
+export const SuggestTargetingOptionsOutputSchema = z.object({
+  strategies: z.array(z.object({
+    strategyName: z.string().describe("The name of the targeting strategy (e.g., 'The Local Professional')."),
+    audienceType: z.string().describe("The type of Meta audience to create (e.g., 'Detailed Targeting', 'Lookalike Audience')."),
+    demographics: z.string().describe("The demographic targeting parameters (e.g., 'Age: 30-45, Location: Downtown Dubai')."),
+    interests: z.string().describe("The interest-based targeting for platforms like Facebook/Instagram."),
+    keywords: z.string().describe("The keyword targeting for platforms like Google Ads."),
+  })).describe("A list of 2-3 distinct targeting strategies."),
+});
+export type SuggestTargetingOptionsInput = z.infer<typeof SuggestTargetingOptionsInputSchema>;
+export type SuggestTargetingOptionsOutput = z.infer<typeof SuggestTargetingOptionsOutputSchema>;
 
 
 /**
