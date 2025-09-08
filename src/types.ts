@@ -1,4 +1,6 @@
 
+import { z } from 'zod';
+
 // Core market identity
 export type MarketKey = `${string}:${string}`; // e.g. "AE:Dubai"
 export interface Market { country: string; city: string; key?: MarketKey }
@@ -54,3 +56,19 @@ export interface AppEvent {
   props?: Record<string, any>;
   ts?: any; // serverTimestamp()
 }
+
+// Schemas for Audience Creator AI
+export const SuggestTargetingOptionsInputSchema = z.object({
+  projectId: z.string().describe('The project ID to generate targeting for.'),
+});
+export const SuggestTargetingOptionsOutputSchema = z.object({
+  strategies: z.array(z.object({
+    strategyName: z.string().describe("The name of the targeting strategy (e.g., 'The Local Professional')."),
+    audienceType: z.string().describe("The type of Meta audience to create (e.g., 'Detailed Targeting', 'Lookalike Audience')."),
+    demographics: z.string().describe("The demographic targeting parameters (e.g., 'Age: 30-45, Location: Downtown Dubai')."),
+    interests: z.string().describe("The interest-based targeting for platforms like Facebook/Instagram."),
+    keywords: z.string().describe("The keyword targeting for platforms like Google Ads."),
+  })).describe("A list of 2-3 distinct targeting strategies."),
+});
+export type SuggestTargetingOptionsInput = z.infer<typeof SuggestTargetingOptionsInputSchema>;
+export type SuggestTargetingOptionsOutput = z.infer<typeof SuggestTargetingOptionsOutputSchema>;

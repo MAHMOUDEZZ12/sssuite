@@ -8,7 +8,8 @@ import { Loader2, Sparkles, Wand2, Palette, Pen, GalleryHorizontal, Map, Mail, D
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { suggestTargetingOptions, SuggestTargetingOptionsInput, SuggestTargetingOptionsOutputSchema, SuggestTargetingOptionsOutput } from '@/ai/flows/suggest-targeting-options';
+import { suggestTargetingOptions } from '@/ai/flows/suggest-targeting-options';
+import { SuggestTargetingOptionsOutput } from '@/types';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { track } from '@/lib/events';
