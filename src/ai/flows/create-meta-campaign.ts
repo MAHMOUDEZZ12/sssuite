@@ -14,41 +14,11 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import {config} from 'dotenv';
+import type { CreateMetaCampaignInput, CreateMetaCampaignOutput } from '@/app/dashboard/tool/meta-ads-copilot/page';
+
 
 // Load environment variables from .env file
 config();
-
-
-export const CreateMetaCampaignInputSchema = z.object({
-  campaignGoal: z.string().describe('The primary business objective for the campaign (e.g., "Generate leads for Azure Lofts").'),
-  projectBrochureDataUri: z.string().optional().describe(
-    "A project brochure, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'. This is the primary source of truth for the campaign."
-  ),
-  targetAudience: z.string().describe('A brief description of the ideal customer (e.g., "Young professionals and first-time homebuyers").').optional(),
-  budget: z.number().describe('The total campaign budget.'),
-  durationDays: z.number().describe('The number of days the campaign should run.'),
-});
-export type CreateMetaCampaignInput = z.infer<typeof CreateMetaCampaignInputSchema>;
-
-export const CreateMetaCampaignOutputSchema = z.object({
-  publishedCampaignId: z.string().optional().describe("The ID of the campaign after it has been published to Meta."),
-  campaignName: z.string().describe("A suitable name for the campaign."),
-  campaignObjective: z.string().describe("The recommended Meta campaign objective (e.g., 'LEAD_GENERATION', 'AWARENESS', 'TRAFFIC')."),
-  adSets: z.array(z.object({
-    name: z.string().describe("The name for this ad set."),
-    targetingSummary: z.string().describe("A summary of the recommended audience targeting for this ad set."),
-    dailyBudget: z.number().describe("The suggested daily budget for this ad set."),
-  })).describe("An array of suggested ad sets for the campaign."),
-  adCreatives: z.array(z.object({
-    headline: z.string().describe("A compelling headline for the ad."),
-    bodyText: z.string().describe("The primary text for the ad creative."),
-    callToAction: z.string().describe("The recommended call-to-action button text (e.g., 'Learn More', 'Sign Up')."),
-    imageSuggestion: z.string().describe("A detailed suggestion for the ad's visual (e.g., 'A high-quality photo of the modern kitchen with natural light.')."),
-  })).describe("An array of ad creative variations to test."),
-  optimizationAdvice: z.string().describe("A final piece of expert advice for running this campaign successfully."),
-});
-export type CreateMetaCampaignOutput = z.infer<typeof CreateMetaCampaignOutputSchema>;
-
 
 const bizSdk = require('facebook-nodejs-business-sdk');
 const AdAccount = bizSdk.AdAccount;
@@ -78,11 +48,11 @@ const publishCampaignToMeta = ai.defineTool(
       return { campaignId: "meta-credentials-not-set" };
     }
 
-    console.log(`Initializing Meta Ads API for account: ${ad_account_id}`);
-    const api = bizSdk.FacebookAdsApi.init(access_token);
-    api.setDebug(true);
-
     try {
+      console.log(`Initializing Meta Ads API for account: ${ad_account_id}`);
+      const api = bizSdk.FacebookAdsApi.init(access_token);
+      api.setDebug(true);
+      
       console.log(`Attempting to create campaign: "${campaignName}"`);
       const campaign = await (new AdAccount(ad_account_id)).createCampaign(
         [],
@@ -105,11 +75,10 @@ const publishCampaignToMeta = ai.defineTool(
   }
 );
 
-
 const createMetaCampaignPrompt = ai.definePrompt({
   name: 'createMetaCampaignPrompt',
-  input: {schema: CreateMetaCampaignInputSchema},
-  output: {schema: CreateMetaCampaignOutputSchema.extend({ publishedCampaignId: z.string().optional() })},
+  input: {schema: z.any()}, // Using z.any() as schema is now defined in the client
+  output: {schema: z.any()},
   tools: [publishCampaignToMeta],
   prompt: `You are an expert Meta Ads strategist specializing in real estate. Your task is to take a user's goal and project brochure and create a complete, ready-to-launch campaign structure.
 
@@ -120,14 +89,17 @@ const createMetaCampaignPrompt = ai.definePrompt({
   {{#if projectBrochureDataUri}}
   - Project Brochure: {{media url=projectBrochureDataUri}}
   {{/if}}
+  {{#if targetAudience}}
+  - Target Audience Hint: {{{targetAudience}}}
+  {{/if}}
 
   **Instructions:**
 
-  1.  **Infer Audience:** Based *only* on the project brochure, infer the ideal target audience. Who is this property for? (e.g., "Young professionals," "High-net-worth families," "First-time international investors").
+  1.  **Infer Audience:** Based *only* on the project brochure and the user's hint (if provided), infer the ideal target audience. Who is this property for? (e.g., "Young professionals," "High-net-worth families," "First-time international investors").
   2.  **Campaign Name & Objective:** Based on the user's goal and the project, create a clear campaign name and choose the most appropriate Meta Ads objective (e.g., LEAD_GENERATION, AWARENESS, TRAFFIC).
   3.  **Ad Sets:**
       - Create at least two ad sets. One for a broad audience based on your inferred persona, and one for a more niche, targeted audience (e.g., a specific interest group or lookalike audience).
-      - For each ad set, provide a name and a summary of the targeting strategy (demographics, interests, location).
+      - For each ad set, provide a name and a summary of the recommended targeting strategy (demographics, interests, location).
       - Calculate a reasonable daily budget for each ad set based on the total budget and duration.
   4.  **Ad Creatives:**
       - Generate at least three distinct ad creative variations.
@@ -143,8 +115,8 @@ const createMetaCampaignPrompt = ai.definePrompt({
 const createMetaCampaignFlow = ai.defineFlow(
   {
     name: 'createMetaCampaignFlow',
-    inputSchema: CreateMetaCampaignInputSchema,
-    outputSchema: CreateMetaCampaignOutputSchema,
+    inputSchema: z.any(),
+    outputSchema: z.any(),
   },
   async input => {
     const {output} = await createMetaCampaignPrompt(input);
