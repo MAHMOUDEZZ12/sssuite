@@ -172,4 +172,14 @@ export const blogContent: { [key: string]: BlogContent[string] } = {
         ],
         cta: 'Payment Plan',
     },
+    'brochure-translator': {
+        title: 'Speak Their Language: Translating Brochures for a Global Audience',
+        intro: 'In a global city like Dubai, your next client could be from anywhere. The Brochure Translator breaks down language barriers, allowing you to instantly translate any property brochure into multiple languages, opening up new markets with a single click.',
+        sections: [
+          { heading: 'The Challenge: The Language Barrier', body: "A brochure in the wrong language is a closed door. Manually translating a designed document is a complex process involving expensive translators and designers to re-layout the entire file, taking days or even weeks." },
+          { heading: 'The Solution: Instant, Design-Aware Translation', body: "Our AI translator doesn't just translate words; it understands design. Upload a PDF, choose a target language like Arabic, Chinese, or Russian, and the AI will generate a new PDF with the text translated while preserving the original layout, images, and branding. It's a seamless way to create market-ready materials." },
+          { heading: 'How to Use It:', body: "Preparing for a meeting with an international client? Translate the brochure into their native language beforehand as a professional courtesy. Running an ad campaign targeting a specific nationality? Use a translated landing page and brochure to achieve significantly higher conversion rates. This tool makes global business personal." },
+        ],
+        cta: 'Translated Brochure',
+    },
 };

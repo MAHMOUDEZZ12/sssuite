@@ -57,6 +57,7 @@ import {
   CheckCircle,
   Percent,
   Calendar,
+  Languages,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -1038,6 +1039,58 @@ export const tools: Feature[] = [
       { id: 'sourcePdf', name: 'Source PDF', type: 'file', description: 'Upload the PDF you want to edit.' },
       { id: 'editInstructions', name: 'Editing Instructions', type: 'textarea', placeholder: '- Change the main contact name to "Jane Smith".\n- Replace the hero image with the one I uploaded.\n- Update the completion date to "Fall 2025".', description: 'Be specific. The more detailed your command, the better the result.' },
       { id: 'newImages', name: 'New Images (Optional)', type: 'file', multiple: true, description: 'Only upload images if your instructions refer to them.' },
+    ],
+  },
+  {
+    id: 'brochure-translator',
+    title: 'Brochure Translator',
+    dashboardTitle: 'Brochure Translator',
+    description: 'Translate brochures to multiple languages.',
+    icon: <Languages />,
+    color: '#8b5cf6', // violet-500
+    cta: 'Translate Brochure',
+    categories: ['Creative', 'Editing', 'Sales Tools'],
+    mindMapCategory: 'Creative Suite',
+    badge: 'NEW',
+    href: '/dashboard/tool/brochure-translator',
+    guideHref: '/blog/brochure-translator',
+    renderResult: (result, toast) => (
+      <div className="space-y-6">
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Translated Brochure</h3>
+          <div className="border rounded-lg overflow-hidden">
+            <iframe src={`${result.translatedBrochureDataUri}#view=fitH`} className="w-full h-[600px]"/>
+          </div>
+          <a href={result.translatedBrochureDataUri} download="translated-brochure.pdf" className="mt-4 inline-block">
+            <Button variant="outline"><Download className="mr-2"/> Download PDF</Button>
+          </a>
+        </div>
+      </div>
+    ),
+    details: {
+      steps: [
+        { text: 'Upload your PDF brochure', icon: <Upload className="h-6 w-6" /> },
+        { text: 'Select the target language', icon: <Languages className="h-6 w-6" /> },
+        { text: 'AI generates a new, translated PDF', icon: <FileText className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Time to Translate', manual: 'Days or weeks with translators & designers', ai: 'Minutes', icon: <Clock2 /> },
+        { metric: 'Cost', manual: 'Hundreds of dollars per document', ai: 'Included in your subscription', icon: <Wallet /> },
+        { metric: 'Layout Preservation', manual: 'Designer must re-layout the entire document', ai: 'AI attempts to preserve the original design', icon: <Sparkles /> },
+      ],
+      synergy: [
+        { tool: "Landing Page Builder", benefit: "Create a landing page in the same language as your translated brochure for a fully localized campaign." },
+        { tool: "Audience Creator", benefit: "Target audiences based on language preference and serve them ads with your newly translated materials." },
+      ],
+      faqs: [
+        { question: "How accurate is the translation?", answer: "Our AI uses advanced neural machine translation models to provide high-quality, fluent translations. While very accurate, for legally binding documents, we always recommend a final review by a native speaker." },
+        { question: "Does it work with any language?", answer: "We are continuously adding support for more languages. The initial launch supports major global languages relevant to the international real estate market." },
+        { question: "What happens to the design and images?", answer: "The AI is designed to be 'layout-aware'. It translates the text in-place, aiming to keep all your images, logos, and design elements exactly where they are." }
+      ],
+    },
+    creationFields: [
+      { id: 'brochureDataUri', name: 'Source Brochure', type: 'file', description: 'Upload the PDF brochure you want to translate.' },
+      { id: 'targetLanguage', name: 'Target Language', type: 'select', options: ['Arabic', 'English', 'Chinese', 'Russian', 'French', 'Italian', 'Spanish', 'Japanese'], placeholder: 'Select a language', description: 'Choose the language to translate into.' },
     ],
   },
 
