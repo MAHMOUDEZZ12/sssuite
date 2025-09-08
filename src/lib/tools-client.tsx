@@ -174,7 +174,7 @@ const AudienceRefinementCard = ({ strategy, toast, onBack }: { strategy: any, to
                 </div>
                 <Separator />
                  <div>
-                    <h4 className="font-semibold text-foreground mb-2">Refine Audience & Estimate Reach</h4>
+                    <h4 className="font-semibold text-foreground mb-2">Refine Audience &amp; Estimate Reach</h4>
                     <div className="grid grid-cols-2 gap-4 mb-4">
                          <div className="space-y-1">
                             <Label htmlFor={`country-${strategy.strategyName}`}>Country</Label>
@@ -187,7 +187,7 @@ const AudienceRefinementCard = ({ strategy, toast, onBack }: { strategy: any, to
                     </div>
                      <Button onClick={handleEstimate} disabled={isEstimating} size="sm">
                         {isEstimating ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Sparkles className="mr-2 h-4 w-4"/>}
-                        Refine & Estimate
+                        Refine &amp; Estimate
                     </Button>
                 </div>
                 {audienceSize !== null && (
@@ -269,7 +269,7 @@ const AudienceIdeationResult = ({ result, toast }: { result: any, toast: any }) 
                         </CardContent>
                         <CardFooter>
                             <Button className="w-full" onClick={() => setSelectedStrategy(strategy)}>
-                                Select & Refine <ArrowRight className="ml-2 h-4 w-4" />
+                                Select &amp; Refine <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
                         </CardFooter>
                     </Card>
@@ -295,7 +295,7 @@ const AudienceIdeationResult = ({ result, toast }: { result: any, toast: any }) 
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <Button className="w-full">Upload & Create Audience</Button>
+                        <Button className="w-full">Upload &amp; Create Audience</Button>
                     </CardFooter>
                 </Card>
             </ProFeatureLock>
@@ -392,7 +392,7 @@ export const tools: Feature[] = [
     id: 'meta-ads-copilot',
     title: 'Campaign Builder',
     dashboardTitle: 'Campaign Builder',
-    description: 'Your dedicated agent for Facebook & Instagram advertising.',
+    description: 'Your dedicated agent for Facebook &amp; Instagram advertising.',
     icon: <Facebook />,
     color: '#1d4ed8', // blue-700
     cta: 'Create Campaign',
@@ -408,7 +408,7 @@ export const tools: Feature[] = [
       ],
       aiVsManual: [
         { metric: 'Time Investment', manual: '10+ hours per week managing ads', ai: 'Set your goal and let the agent work', icon: <Clock2 /> },
-        { metric: 'Cost & Resources', manual: 'Requires a dedicated ad manager', ai: 'Included in your subscription', icon: <Wallet /> },
+        { metric: 'Cost &amp; Resources', manual: 'Requires a dedicated ad manager', ai: 'Included in your subscription', icon: <Wallet /> },
         { metric: 'Optimization', manual: 'Reacts slowly to performance data', ai: 'Optimizes bids and creative in real-time', icon: <LineChart /> },
       ],
       synergy: [
@@ -464,7 +464,7 @@ export const tools: Feature[] = [
     id: 'insta-ads-designer',
     title: 'Insta Ads Designer',
     dashboardTitle: 'Insta Ads Designer',
-    description: 'Create perfect ads for Instagram Stories & Feed.',
+    description: 'Create perfect ads for Instagram Stories &amp; Feed.',
     icon: <Instagram />,
     color: '#ec4899', // pink-500
     cta: 'Generate Ad',
@@ -520,8 +520,8 @@ export const tools: Feature[] = [
       ],
       aiVsManual: [
         { metric: 'Time Investment', manual: '5-10 hours per campaign', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Cost & Resources', manual: 'Requires copywriter & designer', ai: 'Included in your subscription', icon: <Wallet /> },
-        { metric: 'Quality & Testing', manual: 'Relies on guesswork, 1-2 variations', ai: 'Data-driven, 5+ variations to test', icon: <BadgeCheck /> },
+        { metric: 'Cost &amp; Resources', manual: 'Requires copywriter &amp; designer', ai: 'Included in your subscription', icon: <Wallet /> },
+        { metric: 'Quality &amp; Testing', manual: 'Relies on guesswork, 1-2 variations', ai: 'Data-driven, 5+ variations to test', icon: <BadgeCheck /> },
       ],
       synergy: [
         { tool: "Audience Creator", benefit: "Ensure your perfect ads are seen by people ready to buy." },
@@ -596,8 +596,8 @@ export const tools: Feature[] = [
       ],
       aiVsManual: [
         { metric: 'Time Investment', manual: '5-10 hours per campaign', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Cost & Resources', manual: 'Requires copywriter & designer', ai: 'Included in your subscription', icon: <Wallet /> },
-        { metric: 'Quality & Testing', manual: 'Relies on guesswork, 1-2 variations', ai: 'Data-driven, 5+ variations to test', icon: <BadgeCheck /> },
+        { metric: 'Cost &amp; Resources', manual: 'Requires copywriter &amp; designer', ai: 'Included in your subscription', icon: <Wallet /> },
+        { metric: 'Quality &amp; Testing', manual: 'Relies on guesswork, 1-2 variations', ai: 'Data-driven, 5+ variations to test', icon: <BadgeCheck /> },
       ],
       synergy: [
         { tool: "Audience Creator", benefit: "Ensure your perfectly crafted Facebook ads are seen by the people most likely to convert." },
@@ -674,7 +674,7 @@ export const tools: Feature[] = [
         { metric: 'Consistency', manual: 'Different apps for each part', ai: 'One unified, professionally designed output', icon: <BadgeCheck /> },
       ],
       synergy: [
-        { tool: "Reel Ads", benefit: "Repurpose the best clips from your reel into an interactive story with polls and Q&As." },
+        { tool: "Reel Ads", benefit: "Repurpose the best clips from your reel into an interactive story with polls and Q&amp;As." },
         { tool: "Landing Page Builder", benefit: "End your story with a 'Swipe Up' link that goes directly to your newly generated landing page." },
       ],
       faqs: [
@@ -829,7 +829,7 @@ export const tools: Feature[] = [
       ],
       aiVsManual: [
         { metric: 'Time to Build', manual: '1-2 days using a website builder', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Technical Skill', manual: 'Requires web design & dev knowledge', ai: 'None. Just provide the source.', icon: <Sparkles /> },
+        { metric: 'Technical Skill', manual: 'Requires web design &amp; dev knowledge', ai: 'None. Just provide the source.', icon: <Sparkles /> },
         { metric: 'Features', manual: 'Lead forms, galleries added manually', ai: 'All features included automatically', icon: <BadgeCheck /> },
       ],
       synergy: [
@@ -1008,7 +1008,7 @@ export const tools: Feature[] = [
       ],
       aiVsManual: [
         { metric: 'Time to Match', manual: 'Hours reviewing CRM and spreadsheets', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'Match Accuracy', manual: 'Relies on memory, may miss clients', ai: 'Data-driven, based on past deals & stated goals', icon: <Sparkles /> },
+        { metric: 'Match Accuracy', manual: 'Relies on memory, may miss clients', ai: 'Data-driven, based on past deals &amp; stated goals', icon: <Sparkles /> },
         { metric: 'Personalization', manual: 'Generic email blast to all investors', ai: 'Generates personalized outreach for each match', icon: <BadgeCheck /> },
       ],
       synergy: [
@@ -1045,7 +1045,7 @@ export const tools: Feature[] = [
     isPage: true,
     details: { 
       steps: [
-        { text: 'Connect your Property Finder & Bayut accounts', icon: <Network /> },
+        { text: 'Connect your Property Finder &amp; Bayut accounts', icon: <Network /> },
         { text: 'View all your live listings in one place', icon: <Briefcase /> },
         { text: 'Use AI to refresh descriptions or update status in bulk', icon: <Sparkles /> },
       ],
@@ -1187,7 +1187,7 @@ export const tools: Feature[] = [
       ],
       aiVsManual: [
         { metric: 'Writing Time', manual: '30-60 minutes of creative writing', ai: 'Fast by default', icon: <Clock2 /> },
-        { metric: 'SEO & Keywords', manual: 'Guesswork on what terms to use', ai: 'Automatically includes relevant local keywords', icon: <Sparkles /> },
+        { metric: 'SEO &amp; Keywords', manual: 'Guesswork on what terms to use', ai: 'Automatically includes relevant local keywords', icon: <Sparkles /> },
         { metric: 'Completeness', manual: 'Often forgets key selling points', ai: 'Structured to include all critical information', icon: <BadgeCheck /> },
       ],
       synergy: [
@@ -1373,7 +1373,7 @@ export const tools: Feature[] = [
       aiVsManual: [
         { metric: 'Time to Create', manual: 'Hours pulling MLS data and designing', ai: 'Fast by default', icon: <Clock2 /> },
         { metric: 'Data Scope', manual: 'Limited to basic MLS stats', ai: 'Includes supply/demand, price trends, sentiment', icon: <Sparkles /> },
-        { metric: 'Branding', manual: 'Requires manual design work', ai: 'Automatically branded with your logo & colors', icon: <BadgeCheck /> },
+        { metric: 'Branding', manual: 'Requires manual design work', ai: 'Automatically branded with your logo &amp; colors', icon: <BadgeCheck /> },
       ],
       synergy: [
         { tool: "Landing Page Builder", benefit: "Create a landing page with a lead form to download your hyper-local market report." },
@@ -1483,7 +1483,7 @@ export const tools: Feature[] = [
       steps: [
         { text: 'Upload documents (brand guide, project lists)', icon: <Upload /> },
         { text: "Tell the assistant to set up your workspace", icon: <Bot /> },
-        { text: 'The AI configures your brand, projects & more', icon: <Sparkles /> },
+        { text: 'The AI configures your brand, projects &amp; more', icon: <Sparkles /> },
       ],
       aiVsManual: [
         { metric: 'Setup Time', manual: '1-2 hours of manual data entry', ai: 'Under 5 minutes', icon: <Clock2 /> },

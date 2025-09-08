@@ -334,7 +334,7 @@ export default function Home() {
           ))}
         </div>
         
-        <section className="mt-32 max-w-6xl mx-auto">
+         <section className="mt-32 max-w-6xl mx-auto">
             <Card className="bg-card/50 backdrop-blur-lg border-border shadow-xl shadow-primary/10 overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
                     <div className="p-8 md:p-12">
