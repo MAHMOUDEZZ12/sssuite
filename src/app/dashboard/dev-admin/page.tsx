@@ -14,11 +14,12 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { PlusCircle, Bot, GitCommit, AlertTriangle, GanttChartSquare, RotateCw, Loader2, Sparkles, CheckCircle, MessageSquare, Undo } from 'lucide-react';
 import { PageHeader } from '@/components/ui/page-header';
-import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { tools } from '@/lib/tools-client';
 
 type TaskStatus = 'New' | 'Planned' | 'Coded' | 'Implemented' | 'Assured' | 'Issue Reported';
 type PipelineStatus = 'idle' | 'implementing';
@@ -26,6 +27,8 @@ type PipelineStatus = 'idle' | 'implementing';
 interface ChangeLogEntry {
     id: string;
     timestamp: Date;
+    toolId: string;
+    toolTitle: string;
     description: string;
     status: TaskStatus;
     comment?: string;
@@ -43,23 +46,33 @@ const statusConfig: { [key in TaskStatus]: { color: string, icon: React.ReactNod
 export default function DevAdminPage() {
     const { toast } = useToast();
     const [currentTask, setCurrentTask] = useState('');
+    const [selectedToolId, setSelectedToolId] = useState('');
     const [pipelineStatus, setPipelineStatus] = useState<PipelineStatus>('idle');
     const [changeLog, setChangeLog] = useState<ChangeLogEntry[]>([]);
 
     const handleAssignTask = () => {
-        if (!currentTask) {
-            toast({ title: "Task is empty", description: "Please enter a task before assigning.", variant: "destructive" });
+        if (!currentTask || !selectedToolId) {
+            toast({ title: "Task or Tool is empty", description: "Please select a tool and enter a task before assigning.", variant: "destructive" });
+            return;
+        }
+        
+        const selectedTool = tools.find(t => t.id === selectedToolId);
+        if (!selectedTool) {
+             toast({ title: "Tool not found", description: "The selected tool could not be found.", variant: "destructive" });
             return;
         }
 
         const newLogEntry: ChangeLogEntry = {
             id: `cl-${Date.now()}`,
             timestamp: new Date(),
+            toolId: selectedTool.id,
+            toolTitle: selectedTool.title,
             description: currentTask,
             status: 'New',
         };
         setChangeLog(prev => [newLogEntry, ...prev]);
         setCurrentTask('');
+        setSelectedToolId('');
 
         // Simulate the AI workflow
         setTimeout(() => {
@@ -74,7 +87,7 @@ export default function DevAdminPage() {
                     setPipelineStatus('idle');
                     toast({
                         title: "Task Complete!",
-                        description: `The task has been implemented and is ready for your review.`,
+                        description: `The task for "${selectedTool.title}" has been implemented and is ready for your review.`,
                     });
                 }, 1500);
             }, 1000);
@@ -124,17 +137,28 @@ export default function DevAdminPage() {
             </CardHeader>
             <CardContent>
                  <div className="flex flex-col sm:flex-row gap-4">
+                     <Select value={selectedToolId} onValueChange={setSelectedToolId}>
+                        <SelectTrigger className="w-full sm:w-[280px]">
+                            <SelectValue placeholder="Select an app to task..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {tools.filter(t => t.id !== 'superfreetime').map(tool => (
+                                <SelectItem key={tool.id} value={tool.id}>{tool.title}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
                     <Textarea 
                         placeholder="Enter your next task for me here..."
                         value={currentTask}
                         onChange={(e) => setCurrentTask(e.target.value)}
                         disabled={pipelineStatus === 'implementing'}
                         rows={2}
+                        className="flex-grow"
                     />
                     <Button 
                         size="lg" 
                         onClick={handleAssignTask}
-                        disabled={pipelineStatus === 'implementing' || !currentTask}
+                        disabled={pipelineStatus === 'implementing' || !currentTask || !selectedToolId}
                         className="w-full sm:w-auto"
                     >
                         {pipelineStatus === 'implementing' ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <GitCommit className="mr-2 h-4 w-4"/>}
@@ -182,7 +206,7 @@ export default function DevAdminPage() {
                                     </div>
                                 </TableCell>
                                 <TableCell className="text-sm">
-                                    <p>{log.description}</p>
+                                    <p><span className="font-semibold text-primary">{log.toolTitle}:</span> {log.description}</p>
                                     {log.comment && <p className="text-xs italic text-muted-foreground mt-1 pl-2 border-l-2">Comment: {log.comment}</p>}
                                 </TableCell>
                                 <TableCell>
@@ -212,5 +236,7 @@ export default function DevAdminPage() {
     </main>
   );
 }
+
+    
 
     
