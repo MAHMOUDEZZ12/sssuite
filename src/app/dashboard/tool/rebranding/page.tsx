@@ -4,16 +4,15 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Wand2, Palette, Pen, Upload, Download, Save, Image as ImageIcon, Type, Brush } from 'lucide-react';
+import { Loader2, Sparkles, Pen, Upload, Youtube, Download, Save, Scissors, Text, Music, Film, Brush, Palette, Image as ImageIcon, Type } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
-import { rebrandBrochure } from '@/ai/flows/rebrand-brochure';
+import { editYoutubeVideo } from '@/ai/flows/edit-youtube-video';
 import { fileToDataUri } from '@/lib/tools-client';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import Image from 'next/image';
 import { useCanvas } from '@/context/CanvasContext';
+import { Textarea } from '@/components/ui/textarea';
+import { rebrandBrochure } from '@/ai/flows/rebrand-brochure';
+import Image from 'next/image';
 
 const EditInCanvas = ({ brochureUri, onSave, onCancel }: { brochureUri: string; onSave: (instructions: string) => void; onCancel: () => void }) => {
     const [instructions, setInstructions] = useState('');
@@ -51,7 +50,7 @@ const EditInCanvas = ({ brochureUri, onSave, onCancel }: { brochureUri: string; 
             />
             <div className="flex justify-end gap-2">
                 <Button variant="ghost" onClick={onCancel}>Cancel</Button>
-                <Button onClick={() => onSave(instructions)}>Save Changes</Button>
+                <Button onClick={() => onSave(instructions)}>Rebrand Document</Button>
             </div>
         </div>
     )
@@ -76,10 +75,6 @@ export default function RebrandingPage() {
                     brochureUri={dataUri}
                     onCancel={closeCanvas}
                     onSave={(instructions) => {
-                        toast({
-                            title: 'Rebranding in Progress...',
-                            description: 'The AI is applying your changes.',
-                        });
                         handleGenerate(file, instructions);
                         closeCanvas();
                     }}
@@ -93,6 +88,10 @@ export default function RebrandingPage() {
     const handleGenerate = async (file: File, instructions: string) => {
         setIsLoading(true);
         setResultData(null);
+        toast({
+            title: 'Rebranding in Progress...',
+            description: 'The AI is applying your changes. This may take a few moments.',
+        });
         try {
             const brochureUri = await fileToDataUri(file);
             const payload = {
@@ -106,6 +105,7 @@ export default function RebrandingPage() {
             
             const response = await rebrandBrochure(payload);
             setResultData(response);
+            toast({ title: 'Rebranding Complete!', description: 'Your new brochure is ready and has been saved to your Asset Library.' });
 
         } catch (error: any) {
             toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -123,7 +123,7 @@ export default function RebrandingPage() {
                 icon={<Palette className="h-8 w-8" />}
             />
 
-            {!sourceBrochureUri ? (
+            {!sourceBrochureUri && !isLoading && !resultData && (
                 <Card className="max-w-xl mx-auto">
                     <CardContent className="p-6">
                         <label
@@ -137,11 +137,13 @@ export default function RebrandingPage() {
                         </label>
                     </CardContent>
                 </Card>
-            ) : (
+            )}
+            
+            {sourceBrochureUri && !resultData && !isLoading && (
                  <Card>
                     <CardHeader>
-                        <CardTitle>Rebranding Canvas</CardTitle>
-                        <CardDescription>Your brochure is loaded. Click the button to open it in the canvas for editing.</CardDescription>
+                        <CardTitle>Brochure Loaded</CardTitle>
+                        <CardDescription>Your brochure is ready for the canvas. Click the button to start editing.</CardDescription>
                     </CardHeader>
                     <CardContent className="text-center">
                         <iframe src={`${sourceBrochureUri}#view=fitH`} className="w-full max-w-lg mx-auto h-[600px] border rounded-lg" />
@@ -165,13 +167,19 @@ export default function RebrandingPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle>Rebranded Brochure</CardTitle>
-                        <CardDescription>Here is the final output from the AI.</CardDescription>
+                        <CardDescription>Here is the final output from the AI, now saved in your assets.</CardDescription>
                     </CardHeader>
-                    <CardContent>
-                        <iframe src={`${resultData.rebrandedBrochureDataUri}#view=fitH`} className="w-full h-[600px] border rounded-lg" />
-                        <a href={resultData.rebrandedBrochureDataUri} download="rebranded-brochure.pdf" className="mt-4 inline-block">
-                            <Button variant="outline"><Download className="mr-2"/> Download PDF</Button>
-                        </a>
+                    <CardContent className="text-center">
+                        <iframe src={`${resultData.rebrandedBrochureDataUri}#view=fitH`} className="w-full max-w-lg mx-auto h-[600px] border rounded-lg" />
+                         <div className="flex justify-center gap-2 mt-4">
+                            <a href={resultData.rebrandedBrochureDataUri} download="rebranded-brochure.pdf">
+                                <Button variant="outline"><Download className="mr-2"/> Download PDF</Button>
+                            </a>
+                            <Button onClick={() => handleFileChange({ target: { files: [sourceBrochure] } } as any)} className="mt-0">
+                                <Pen className="mr-2 h-4 w-4" />
+                                Continue Editing
+                             </Button>
+                         </div>
                     </CardContent>
                 </Card>
              )}

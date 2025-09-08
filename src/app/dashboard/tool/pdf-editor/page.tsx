@@ -15,11 +15,13 @@ type Page = {
   id: number;
   thumbnailUrl: string;
   isNew?: boolean;
+  isEdited?: boolean;
 };
 
 const initialPages: Page[] = Array.from({ length: 4 }, (_, i) => ({
   id: i + 1,
   thumbnailUrl: `https://picsum.photos/seed/pdfpage${i+1}/400/566`,
+  isEdited: false,
 }));
 
 const EditInCanvas = ({ page, onSave, onCancel }: { page: Page; onSave: (instructions: string) => void; onCancel: () => void }) => {
@@ -91,9 +93,13 @@ export default function PdfEditorPage() {
         page={page} 
         onCancel={closeCanvas}
         onSave={(instructions) => {
+            // Simulate updating the page thumbnail and marking it as edited
+            setPages(prevPages => prevPages.map(p => 
+                p.id === page.id ? { ...p, isEdited: true, thumbnailUrl: `${page.thumbnailUrl}?t=${Date.now()}` } : p
+            ));
             toast({
-                title: 'Page Updated!',
-                description: `Your edits for page ${page.id} have been saved and will be applied.`,
+                title: 'Page Updated & Saved!',
+                description: `Your edits for page ${page.id} have been saved to your Asset Library.`,
             });
             console.log(`Editing page ${page.id} with instructions:`, instructions);
             closeCanvas();
@@ -121,7 +127,7 @@ export default function PdfEditorPage() {
   const handleSavePdf = () => {
     toast({
         title: 'Saving PDF...',
-        description: 'Your document is being compiled with all your changes.',
+        description: 'Your document is being compiled with all your changes and saved to your Asset Library.',
     });
     // In a real app, this would trigger a backend process to assemble the new PDF
   }
@@ -170,7 +176,7 @@ export default function PdfEditorPage() {
                 <CardHeader className="flex-row items-center justify-between">
                     <div>
                         <CardTitle>Your Document Pages</CardTitle>
-                        <CardDescription>Click a page to edit in the Canvas, or rearrange and delete pages here.</CardDescription>
+                        <CardDescription>Click a page to edit in the Canvas. All changes are saved automatically.</CardDescription>
                     </div>
                      <Button onClick={handleSavePdf} size="lg"><Save className="mr-2"/> Save Final PDF</Button>
                 </CardHeader>
@@ -178,6 +184,7 @@ export default function PdfEditorPage() {
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                         {pages.map((page) => (
                         <Card key={page.id} className="group relative overflow-hidden">
+                             {page.isEdited && <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs font-bold px-2 py-1 rounded-full z-10">Edited</div>}
                             <img src={page.thumbnailUrl} alt={`Page ${page.id}`} className="aspect-[8.5/11] w-full object-cover" />
                              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-2">
                                 <Button size="sm" className="w-full" onClick={() => handleEditPage(page)}>

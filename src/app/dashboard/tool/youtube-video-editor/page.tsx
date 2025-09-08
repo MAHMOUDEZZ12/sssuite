@@ -48,7 +48,7 @@ const EditInCanvas = ({ videoUri, onSave, onCancel }: { videoUri: string; onSave
             />
             <div className="flex justify-end gap-2">
                 <Button variant="ghost" onClick={onCancel}>Cancel</Button>
-                <Button onClick={() => onSave(instructions)}>Save Changes</Button>
+                <Button onClick={() => onSave(instructions)}>Apply Edits</Button>
             </div>
         </div>
     )
@@ -73,10 +73,6 @@ export default function YoutubeVideoEditorPage() {
                     videoUri={dataUri}
                     onCancel={closeCanvas}
                     onSave={(instructions) => {
-                        toast({
-                            title: 'Video Edit Queued...',
-                            description: 'The AI will apply your changes. This may take a few moments.',
-                        });
                         handleGenerate(file, instructions);
                         closeCanvas();
                     }}
@@ -92,6 +88,10 @@ export default function YoutubeVideoEditorPage() {
     const handleGenerate = async (file: File, instructions: string) => {
         setIsLoading(true);
         setResultData(null);
+        toast({
+            title: 'Video Edit Queued...',
+            description: 'The AI will apply your changes. This may take a few moments.',
+        });
         try {
             const videoUri = await fileToDataUri(file);
             const payload = {
@@ -101,7 +101,7 @@ export default function YoutubeVideoEditorPage() {
             
             const response = await editYoutubeVideo(payload);
             setResultData(response);
-             toast({ title: 'Video Edited!', description: 'Your new video is ready for review.' });
+             toast({ title: 'Video Edited & Saved!', description: 'Your new video is ready for review and has been saved to your assets.' });
         } catch (error: any) {
             toast({ title: "Error", description: error.message, variant: "destructive" });
         } finally {
@@ -118,7 +118,7 @@ export default function YoutubeVideoEditorPage() {
                 icon={<Youtube className="h-8 w-8" />}
             />
 
-            {!sourceVideoUri ? (
+            {!sourceVideoUri && !isLoading && (
                 <Card className="max-w-xl mx-auto">
                     <CardContent className="p-6">
                         <label
@@ -132,7 +132,9 @@ export default function YoutubeVideoEditorPage() {
                         </label>
                     </CardContent>
                 </Card>
-            ) : (
+            )}
+            
+            {sourceVideoUri && !resultData && !isLoading && (
                  <Card>
                     <CardHeader>
                         <CardTitle>Video Loaded</CardTitle>
@@ -160,13 +162,18 @@ export default function YoutubeVideoEditorPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle>Edited Video</CardTitle>
-                        <CardDescription>Here is the final output from the AI.</CardDescription>
+                        <CardDescription>Here is the final output from the AI. This has been saved to your Asset Library.</CardDescription>
                     </CardHeader>
                     <CardContent className="text-center">
                          <video src={resultData.editedVideoDataUri} controls className="w-full max-w-lg mx-auto border rounded-lg bg-black" />
-                        <a href={resultData.editedVideoDataUri} download="edited-video.mp4" className="mt-4 inline-block">
-                            <Button variant="outline"><Download className="mr-2"/> Download Video</Button>
-                        </a>
+                         <div className="flex justify-center gap-2 mt-4">
+                            <a href={resultData.editedVideoDataUri} download="edited-video.mp4">
+                                <Button variant="outline"><Download className="mr-2"/> Download Video</Button>
+                            </a>
+                            <Button onClick={() => handleFileChange({ target: { files: [sourceVideo] } } as any)}>
+                                <Pen className="mr-2 h-4 w-4" /> Continue Editing
+                            </Button>
+                         </div>
                     </CardContent>
                 </Card>
              )}
