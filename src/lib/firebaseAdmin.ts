@@ -14,18 +14,17 @@ let app: App;
 if (!getApps().length) {
   try {
     const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT;
-    if (serviceAccountJson) {
-      const serviceAccount = JSON.parse(serviceAccountJson);
-      console.log('Initializing Firebase Admin with explicit service account credentials.');
-      app = initializeApp({
-        credential: cert(serviceAccount),
-      });
-    } else {
+    if (!serviceAccountJson) {
       throw new Error('FIREBASE_SERVICE_ACCOUNT environment variable is not set.');
     }
+    const serviceAccount = JSON.parse(serviceAccountJson);
+    console.log('Initializing Firebase Admin with explicit service account credentials.');
+    app = initializeApp({
+      credential: cert(serviceAccount),
+    });
   } catch (e: any) {
     console.warn(
-      `Could not use FIREBASE_SERVICE_ACCOUNT. Falling back to default credentials. Error: ${e.message}`
+      `Could not initialize with explicit credentials, falling back to default. Error: ${e.message}`
     );
     app = initializeApp({
       credential: applicationDefault(),
