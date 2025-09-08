@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Facebook, Upload, ArrowRight, CheckCircle, Lightbulb, Copy, LayoutDashboard, BarChart2, GalleryVertical, PlusCircle, Send, Link as LinkIcon, MessageCircle, ArrowLeft, Building, Wallet, Calendar, Image as ImageIcon } from 'lucide-react';
+import { Loader2, Sparkles, Facebook, Upload, ArrowRight, CheckCircle, Lightbulb, Copy, LayoutDashboard, BarChart2, GalleryVertical, PlusCircle, Send, Link as LinkIcon, MessageCircle, ArrowLeft, Building, Wallet, Calendar, Image as ImageIcon, ThumbsUp, MessageSquare, Share2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { fileToDataUri } from '@/lib/tools-client';
@@ -22,6 +22,9 @@ import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Textarea } from '@/components/ui/textarea';
+
 
 type Campaign = {
     id: number | string;
@@ -147,19 +150,83 @@ const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaig
     );
 };
 
-const CreativeLibraryTab = ({ creatives, toast }: { creatives: CreateMetaCampaignOutput['adCreatives'] | null, toast: any }) => {
-    const [generatedImages, setGeneratedImages] = useState<Record<number, string>>({});
-    const [generatingId, setGeneratingId] = useState<number | null>(null);
-    
-    const handleGenerateImage = (index: number, suggestion: string) => {
-        setGeneratingId(index);
-        setTimeout(() => {
-            // In a real app, this would be an API call. Here we simulate it.
-            const imageUrl = `https://picsum.photos/seed/${suggestion.replace(/\s/g,'')}/600/400`;
-            setGeneratedImages(prev => ({ ...prev, [index]: imageUrl }));
-            setGeneratingId(null);
-            toast({ title: 'Image Generated!', description: 'Your new creative is ready.' });
-        }, 2000);
+
+const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (field: string, value: string) => void }) => {
+    const [isEditingBody, setIsEditingBody] = useState(false);
+    const [isEditingHeadline, setIsEditingHeadline] = useState(false);
+
+    return (
+        <Card className="w-full max-w-[340px] mx-auto overflow-hidden font-sans text-sm">
+            <CardContent className="p-0">
+                <div className="p-3 bg-card">
+                    <div className="flex items-center gap-2">
+                        <Avatar>
+                           <AvatarImage src="https://picsum.photos/seed/brand/40/40" data-ai-hint="logo" />
+                            <AvatarFallback>PN</AvatarFallback>
+                        </Avatar>
+                        <div>
+                            <p className="font-bold">Page Name</p>
+                            <p className="text-xs text-muted-foreground">Sponsored</p>
+                        </div>
+                    </div>
+                    {isEditingBody ? (
+                        <Textarea
+                            value={creative.bodyText}
+                            onChange={(e) => onUpdate('bodyText', e.target.value)}
+                            onBlur={() => setIsEditingBody(false)}
+                            autoFocus
+                            className="mt-2 text-sm"
+                        />
+                    ) : (
+                        <p className="mt-2" onClick={() => setIsEditingBody(true)}>
+                            {creative.bodyText}
+                        </p>
+                    )}
+                </div>
+                <div className="aspect-square bg-muted flex items-center justify-center relative">
+                    <ImageIcon className="h-16 w-16 text-muted-foreground/30" />
+                    <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
+                        {isEditingHeadline ? (
+                             <Input 
+                                value={creative.headline}
+                                onChange={(e) => onUpdate('headline', e.target.value)}
+                                onBlur={() => setIsEditingHeadline(false)}
+                                autoFocus
+                                className="bg-transparent border-white/50 text-white placeholder:text-white/70"
+                             />
+                        ) : (
+                             <h3 className="font-bold text-white text-lg" onClick={() => setIsEditingHeadline(true)}>
+                                {creative.headline}
+                            </h3>
+                        )}
+                    </div>
+                </div>
+                 <div className="p-3 bg-card flex justify-between items-center">
+                    <div>
+                        <p className="text-xs uppercase text-muted-foreground">yourwebsite.com</p>
+                    </div>
+                    <Button variant="secondary" size="sm" className="px-4 h-8">{creative.callToAction}</Button>
+                </div>
+                <div className="p-3 border-t flex justify-around text-muted-foreground">
+                    <Button variant="ghost" size="sm" className="flex items-center gap-2"><ThumbsUp className="h-4 w-4"/> Like</Button>
+                    <Button variant="ghost" size="sm" className="flex items-center gap-2"><MessageSquare className="h-4 w-4"/> Comment</Button>
+                    <Button variant="ghost" size="sm" className="flex items-center gap-2"><Share2 className="h-4 w-4"/> Share</Button>
+                </div>
+            </CardContent>
+        </Card>
+    )
+}
+
+const CreativeLibraryTab = ({ creatives: initialCreatives, toast }: { creatives: CreateMetaCampaignOutput['adCreatives'] | null, toast: any }) => {
+    const [creatives, setCreatives] = useState(initialCreatives);
+
+    const handleUpdateCreative = (index: number, field: string, value: string) => {
+        setCreatives(prev => {
+            if (!prev) return null;
+            const newCreatives = [...prev];
+            newCreatives[index] = { ...newCreatives[index], [field]: value };
+            return newCreatives;
+        });
     };
 
     if (!creatives || creatives.length === 0) {
@@ -173,34 +240,12 @@ const CreativeLibraryTab = ({ creatives, toast }: { creatives: CreateMetaCampaig
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {creatives.map((creative, index) => (
-                <Card key={index} className="flex flex-col">
-                    <CardHeader>
-                        <CardTitle className="text-base">{creative.headline}</CardTitle>
-                        <CardDescription className="text-xs italic">Image Idea: {creative.imageSuggestion}</CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex-grow">
-                        <div className="aspect-video bg-muted rounded-md flex items-center justify-center p-4 overflow-hidden relative">
-                             {generatingId === index && (
-                                <div className="absolute inset-0 bg-background/50 flex flex-col items-center justify-center gap-2">
-                                    <Loader2 className="h-8 w-8 animate-spin text-primary"/>
-                                    <p className="text-sm text-muted-foreground">Generating...</p>
-                                </div>
-                            )}
-                            {generatedImages[index] ? (
-                                <Image src={generatedImages[index]} alt={creative.imageSuggestion} width={600} height={400} className="object-cover w-full h-full" />
-                            ) : (
-                                <ImageIcon className="h-10 w-10 text-muted-foreground/50"/>
-                            )}
-                        </div>
-                        <p className="text-sm mt-3">{creative.bodyText}</p>
-                    </CardContent>
-                    <CardFooter>
-                         <Button className="w-full" onClick={() => handleGenerateImage(index, creative.imageSuggestion)} disabled={generatingId !== null}>
-                            {generatingId === index ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Sparkles className="mr-2 h-4 w-4"/>}
-                            Generate Image
-                        </Button>
-                    </CardFooter>
-                </Card>
+                <div key={index}>
+                    <EditableAdMockup 
+                      creative={creative} 
+                      onUpdate={(field, value) => handleUpdateCreative(index, field, value)}
+                    />
+                </div>
             ))}
         </div>
     )
@@ -246,6 +291,7 @@ export default function CampaignBuilderPage() {
             
             const responseData = await createMetaCampaign(payload);
             setResult(responseData);
+            setActiveTab("creatives");
 
         } catch (e: any) {
             console.error(e);
@@ -476,7 +522,7 @@ export default function CampaignBuilderPage() {
                      <Card className="mt-6">
                         <CardHeader>
                             <CardTitle>Creative Library</CardTitle>
-                            <CardDescription>A gallery of your AI-generated ad creatives and suggestions.</CardDescription>
+                            <CardDescription>A gallery of your AI-generated ad creatives and suggestions. Click on the text to edit it directly.</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <CreativeLibraryTab creatives={result?.adCreatives || null} toast={toast} />
