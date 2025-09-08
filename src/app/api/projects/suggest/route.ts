@@ -1,15 +1,16 @@
 
 import { adminDb } from "@/lib/firebaseAdmin";
 import { ok, bad, fail } from "@/lib/api-helpers";
-import { readMarketFromCookies } from "@/lib/api-helpers";
+import { NextRequest } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const devs = (searchParams.get("devs") || "").split(",").filter(Boolean);
     const limit = Number(searchParams.get("limit") || 2);
 
-    const { country, city } = readMarketFromCookies();
+    const country = req.cookies.get("country")?.value || "AE";
+    const city = req.cookies.get("city")?.value || "Dubai";
 
     let q = adminDb.collection("projects_catalog")
       .where("country", "==", country);
