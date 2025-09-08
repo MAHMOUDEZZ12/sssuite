@@ -33,13 +33,10 @@ const createMetaCampaignPrompt = ai.definePrompt({
   {{#if projectBrochureDataUri}}
   - Project Brochure: {{media url=projectBrochureDataUri}}
   {{/if}}
-  {{#if targetAudience}}
-  - Target Audience Hint: {{{targetAudience}}}
-  {{/if}}
 
   **Instructions:**
 
-  1.  **Infer Audience:** Based *only* on the project brochure and the user's hint (if provided), infer the ideal target audience. Who is this property for? (e.g., "Young professionals," "High-net-worth families," "First-time international investors").
+  1.  **Infer Audience:** Based *only* on the project brochure, infer the ideal target audience. Who is this property for? (e.g., "Young professionals," "High-net-worth families," "First-time international investors").
   2.  **Campaign Name & Objective:** Based on the user's goal and the project, create a clear campaign name and choose the most appropriate Meta Ads objective (e.g., LEAD_GENERATION, AWARENESS, TRAFFIC).
   3.  **Ad Sets:**
       - Create at least two ad sets. One for a broad audience based on your inferred persona, and one for a more niche, targeted audience (e.g., a specific interest group or lookalike audience).
@@ -83,3 +80,5 @@ const createMetaCampaignFlow = ai.defineFlow(
 export async function createMetaCampaign(input: CreateMetaCampaignInput): Promise<CreateMetaCampaignOutput> {
   return await createMetaCampaignFlow(input);
 }
+
+    

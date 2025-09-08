@@ -78,7 +78,6 @@ export type SuggestTargetingOptionsOutput = z.infer<typeof SuggestTargetingOptio
 export const CreateMetaCampaignInputSchema = z.object({
   campaignGoal: z.string().describe("The user's primary objective for the campaign."),
   projectBrochureDataUri: z.string().describe("The project brochure as a data URI."),
-  targetAudience: z.string().optional().describe("A hint about the target audience."),
   budget: z.number().describe("The total ad spend budget."),
   durationDays: z.number().describe("The campaign duration in days."),
 });
@@ -104,3 +103,5 @@ export const CreateMetaCampaignOutputSchema = z.object({
 
 export type CreateMetaCampaignInput = z.infer<typeof CreateMetaCampaignInputSchema>;
 export type CreateMetaCampaignOutput = z.infer<typeof CreateMetaCampaignOutputSchema>;
+
+    

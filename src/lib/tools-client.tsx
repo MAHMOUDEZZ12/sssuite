@@ -863,6 +863,53 @@ export const tools: Feature[] = [
 
   // --- SALES ENABLEMENT ---
   {
+    id: 'listing-manager',
+    title: 'Listing Manager',
+    dashboardTitle: 'Listing Manager',
+    description: 'The central command center to create, manage, and syndicate your property listings to all major portals.',
+    icon: <Building />,
+    color: '#0891b2',
+    cta: 'Manage Listings',
+    categories: ['Sales Tools', 'Editing', 'Web'],
+    mindMapCategory: 'Sales Enablement',
+    badge: 'NEW',
+    isPage: true, // This will be its own page
+    href: '/dashboard/tool/listing-manager',
+    guideHref: '/blog/listing-manager',
+    details: {
+      steps: [
+        { text: 'Select a project from your library', icon: <Briefcase /> },
+        { text: 'AI pre-fills all listing details', icon: <Sparkles /> },
+        { text: 'Customize for each portal & generate a "Rollflow Plan"', icon: <PenTool /> },
+      ],
+      aiVsManual: [
+        { metric: 'Listing Creation', manual: 'Manually entering data into multiple portals', ai: 'Create once, customize, then syndicate everywhere', icon: <Clock2 /> },
+        { metric: 'Consistency', manual: 'Risk of different data on different portals', ai: 'A single source of truth for each listing', icon: <BadgeCheck /> },
+        { metric: 'Updating Listings', manual: 'Logging in to each portal to make one change', ai: 'Update in the manager, then re-sync to all portals', icon: <Network /> },
+      ],
+      synergy: [
+        { tool: "Property Finder Sync & Bayut Sync", benefit: "The Listing Manager generates the plans that these 'Pilot' tools execute, creating a seamless workflow." },
+        { tool: "Listing Generator", benefit: "Use the Generator to craft the perfect description, then use the Manager to place it in the right fields for each portal." },
+      ],
+      faqs: [
+        { question: "Which portals will this support?", answer: "The initial version will generate plans for Property Finder and Bayut, with more portals being added based on user demand." },
+        { question: "What is a 'Rollflow Plan'?", answer: "It's a machine-readable code (JSON) that contains all the finalized data for your listing. You copy this plan and paste it into the specific 'Sync' tool (e.g., Bayut Pilot) to execute the listing." },
+        { question: "Why not just publish directly?", answer: "This 'Planner' -> 'Terminal' architecture is more powerful and secure. It allows us to have one smart app for content creation (the Manager) and separate, simple apps for the technical job of publishing, which is a more robust system." },
+      ],
+    },
+    creationFields: [
+       { id: 'group-listing-details', name: 'Listing Details', type: 'group-header', description: 'The core information for your listing.'},
+       { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project to pre-fill data', description: 'Start with a project from your library.' },
+       { id: 'propertyTitle', name: 'Property Title', type: 'text', placeholder: 'e.g., "Spacious 3BR Villa with Garden View"', description: 'The main title for the listing.' },
+      { id: 'propertyDescription', name: 'Property Description', type: 'textarea', placeholder: 'Enter the full description of the property...', description: 'The detailed description for the listing.' },
+      { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 2500000', description: 'The asking price in the local currency.' },
+      { id: 'imageUrls', name: 'Image URLs', type: 'textarea', placeholder: 'Enter one image URL per line', description: 'Links to the property images.' },
+
+      { id: 'group-portals', name: 'Portal Syndication', type: 'group-header', description: 'Generate a plan to send to a specific portal pilot.'},
+      { id: 'listingReferenceNo', name: 'Listing Reference No.', type: 'text', placeholder: 'e.g., PF-12345 or bayut-abc', description: 'The unique portal-specific ID for your listing.' },
+    ],
+  },
+  {
     id: 'commission-calculator',
     title: 'Commission Calculator',
     dashboardTitle: 'Commission Calculator',
@@ -1116,127 +1163,6 @@ export const tools: Feature[] = [
       { id: 'keyDetails', name: 'Key Details', type: 'text', placeholder: 'e.g., 5 beds, 6 baths, 4,500 sqft', description: 'Provide the basic stats.' },
       { id: 'uniqueFeatures', name: 'Unique Features', type: 'textarea', placeholder: 'e.g., Upgraded interior, private pool, lake view', description: 'What makes this property special?' },
       { id: 'tone', name: 'Tone', type: 'select', options: ['Luxury', 'Family-Friendly', 'Modern', 'Cozy', 'Urgent'], placeholder: 'Select a tone', description: 'The tone of voice for the listing.' },
-    ],
-  },
-  {
-    id: 'listing-manager',
-    title: 'Listing Manager',
-    dashboardTitle: 'Listing Manager',
-    description: 'Manage all your portal listings from one dashboard.',
-    icon: <Building />,
-    color: '#0891b2', // cyan-600
-    cta: 'Go to Manager',
-    categories: ['Sales Tools', 'Editing', 'Web'],
-    mindMapCategory: 'Sales Enablement',
-    badge: 'SOON',
-    isPage: true,
-    href: '/dashboard/tool/listing-manager',
-    guideHref: '/blog/bayut-listing-ai',
-    details: { 
-      steps: [
-        { text: 'Connect your Property Finder &amp; Bayut accounts', icon: <Network /> },
-        { text: 'View all your live listings in one place', icon: <Briefcase /> },
-        { text: 'Use AI to refresh descriptions or update status in bulk', icon: <Sparkles /> },
-      ],
-      aiVsManual: [
-        { metric: 'Updating Listings', manual: 'Logging into multiple portals one by one', ai: 'One-click sync and bulk updates', icon: <Clock2 /> },
-        { metric: 'Consistency', manual: 'Different information on different sites', ai: 'A single source of truth for all listings', icon: <BadgeCheck /> },
-        { metric: 'Performance', manual: 'No easy way to compare which portal is working', ai: 'Unified view of views and leads per portal', icon: <LineChart /> },
-      ],
-      synergy: [
-        { tool: "Listing Generator", benefit: "Generate a new, optimized description and then use the Manager to push the update to all connected portals instantly." },
-        { tool: "Market Reports", benefit: "When a market report shows a price trend, use the Manager to bulk-update the prices of relevant listings." },
-      ],
-      faqs: [
-        { question: "Which portals can I connect?", answer: "We are launching with support for Property Finder and Bayut, with plans to add more major international and regional portals soon." },
-        { question: "Is this a two-way sync?", answer: "Yes. Changes you make in the Listing Manager will be pushed to the portals, and new leads or inquiries from the portals can be automatically pulled into your CRM." },
-        { question: "Can I create new listings from here?", answer: "The initial version focuses on managing and updating existing listings. The ability to create new listings from scratch is on our roadmap." }
-      ],
-    },
-    creationFields: [],
-  },
-  {
-    id: 'propertyfinder-sync',
-    title: 'Property Finder Sync',
-    dashboardTitle: 'Property Finder Sync',
-    description: 'Push and update your listings on Property Finder.',
-    icon: <Building />,
-    color: '#d946ef', // fuchsia-600
-    cta: 'Sync Listing',
-    categories: ['Sales Tools', 'Web'],
-    mindMapCategory: 'Sales Enablement',
-    badge: 'SOON',
-    href: '/dashboard/tool/propertyfinder-sync',
-    guideHref: '/blog/bayut-listing-ai',
-    details: {
-      steps: [
-        { text: 'Connect your Property Finder account with an API key', icon: <Key className="h-6 w-6" /> },
-        { text: 'Select a project from your library', icon: <Briefcase className="h-6 w-6" /> },
-        { text: 'Push the listing data to Property Finder in one click', icon: <Upload className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Listing Creation', manual: 'Manual data entry on the Property Finder website', ai: 'One-click push from your central library', icon: <Clock2 /> },
-        { metric: 'Updating Photos', manual: 'Re-uploading all images for one change', ai: 'Syncs only the changed images', icon: <Sparkles /> },
-        { metric: 'Accuracy', manual: 'Prone to typos and copy-paste errors', ai: 'Uses the single source of truth from your library', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "Bayut Sync", benefit: "Update your listing once in the suite, and use both sync tools to push the changes to multiple portals instantly." },
-        { tool: "Listing Manager", benefit: "This tool is a key component of the Listing Manager, allowing it to communicate directly with Property Finder." }
-      ],
-       faqs: [
-        { question: "Do I need a special account with Property Finder?", answer: "Yes, you will need access to their Enterprise API, which is typically available to agencies and professional subscribers. You can get your API key from your Property Finder account manager." },
-        { question: "Can I update existing listings?", answer: "Yes, the tool can both create new listings and update existing ones. It uses the property's reference number to sync the correct listing." },
-        { question: "What data gets synced?", answer: "The tool syncs all standard listing data, including title, description, price, location, amenities, and photos." }
-      ],
-    },
-    creationFields: [
-      { id: 'listingReferenceNo', name: 'Listing Reference No.', type: 'text', placeholder: 'e.g., PF-12345', description: 'The unique ID for your listing on Property Finder.' },
-      { id: 'propertyTitle', name: 'Property Title', type: 'text', placeholder: 'e.g., "Spacious 3BR Villa with Garden View"', description: 'The main title for the listing.' },
-      { id: 'propertyDescription', name: 'Property Description', type: 'textarea', placeholder: 'Enter the full description of the property...', description: 'The detailed description for the listing.' },
-      { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 2500000', description: 'The asking price in the local currency.' },
-      { id: 'imageUrls', name: 'Image URLs', type: 'textarea', placeholder: 'Enter one image URL per line', description: 'Links to the property images.' },
-    ],
-  },
-   {
-    id: 'bayut-sync',
-    title: 'Bayut Sync',
-    dashboardTitle: 'Bayut Sync',
-    description: 'Push and update your listings on Bayut.',
-    icon: <Building />,
-    color: '#059669', // emerald-600
-    cta: 'Sync Listing',
-    categories: ['Sales Tools', 'Web'],
-    mindMapCategory: 'Sales Enablement',
-    badge: 'SOON',
-    href: '/dashboard/tool/bayut-sync',
-    guideHref: '/blog/bayut-listing-ai',
-    details: {
-      steps: [
-        { text: 'Connect your Bayut account with an API key', icon: <Key className="h-6 w-6" /> },
-        { text: 'Select a project from your library', icon: <Briefcase className="h-6 w-6" /> },
-        { text: 'Push the listing data to Bayut in one click', icon: <Upload className="h-6 w-6" /> },
-      ],
-      aiVsManual: [
-        { metric: 'Listing Creation', manual: 'Manual data entry on the Bayut website', ai: 'One-click push from your central library', icon: <Clock2 /> },
-        { metric: 'Lead Management', manual: 'Checking for leads in the Bayut portal', ai: 'Leads are automatically fed into your CRM', icon: <Sparkles /> },
-        { metric: 'Accuracy', manual: 'Prone to typos and copy-paste errors', ai: 'Uses the single source of truth from your library', icon: <BadgeCheck /> },
-      ],
-      synergy: [
-        { tool: "Property Finder Sync", benefit: "Update your listing once in the suite, and use both sync tools to push the changes to multiple portals instantly." },
-        { tool: "Listing Manager", benefit: "This tool is a key component of the Listing Manager, allowing it to communicate directly with Bayut." }
-      ],
-       faqs: [
-        { question: "Do I need a special account with Bayut?", answer: "Yes, you will need access to their Broker API. You can get your API key from your Bayut account representative." },
-        { question: "Can this tool also pull leads from Bayut?", answer: "Yes, this integration is two-way. It can push listing data to Bayut and pull new lead inquiries from Bayut into your CRM Memory." },
-        { question: "What data gets synced?", answer: "The tool syncs all standard listing data, including title, description, price, location, amenities, and photos." }
-      ],
-    },
-    creationFields: [
-      { id: 'listingReferenceNo', name: 'Listing Reference No.', type: 'text', placeholder: 'e.g., bayut-12345', description: 'The unique ID for your listing on Bayut.' },
-      { id: 'propertyTitle', name: 'Property Title', type: 'text', placeholder: 'e.g., "Spacious 3BR Villa with Garden View"', description: 'The main title for the listing.' },
-      { id: 'propertyDescription', name: 'Property Description', type: 'textarea', placeholder: 'Enter the full description of the property...', description: 'The detailed description for the listing.' },
-      { id: 'price', name: 'Price', type: 'number', placeholder: 'e.g., 2500000', description: 'The asking price in the local currency.' },
-      { id: 'imageUrls', name: 'Image URLs', type: 'textarea', placeholder: 'Enter one image URL per line', description: 'Links to the property images.' },
     ],
   },
   {
@@ -1648,3 +1574,5 @@ export const tools: Feature[] = [
     creationFields: [],
   },
 ];
+
+    
