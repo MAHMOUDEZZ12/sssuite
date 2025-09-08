@@ -154,6 +154,33 @@ const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaig
 const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (field: string, value: string) => void }) => {
     const [isEditingBody, setIsEditingBody] = useState(false);
     const [isEditingHeadline, setIsEditingHeadline] = useState(false);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+    
+    const handleBrainstorm = () => {
+        // In a real app, this would trigger a call to an AI flow.
+        // For this demo, we'll cycle through some mock suggestions.
+        const suggestions = [
+            { headline: "Your Dream Home Awaits", bodyText: "Experience unparalleled luxury and breathtaking views. Tap 'Learn More' to discover your new life at Emaar Beachfront." },
+            { headline: "Exclusive Waterfront Living", bodyText: "Discover a new standard of coastal luxury. Limited residences available. Inquire now for exclusive access." },
+            { headline: "The Ultimate Investment", bodyText: "Secure your future with a property in Dubai's most sought-after community. High ROI potential. Contact us today." },
+        ];
+        const currentIndex = suggestions.findIndex(s => s.headline === creative.headline);
+        const nextIndex = (currentIndex + 1) % suggestions.length;
+        onUpdate('headline', suggestions[nextIndex].headline);
+        onUpdate('bodyText', suggestions[nextIndex].bodyText);
+    };
 
     return (
         <Card className="w-full max-w-[340px] mx-auto overflow-hidden font-sans text-sm">
@@ -183,8 +210,17 @@ const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (fi
                         </p>
                     )}
                 </div>
-                <div className="aspect-square bg-muted flex items-center justify-center relative">
-                    <ImageIcon className="h-16 w-16 text-muted-foreground/30" />
+                <div className="aspect-square bg-muted flex items-center justify-center relative group">
+                    <Input type="file" ref={fileInputRef} className="hidden" onChange={handleImageUpload} accept="image/*" />
+                    {imagePreview ? (
+                        <Image src={imagePreview} alt="Ad preview" layout="fill" objectFit="cover" />
+                    ) : (
+                        <ImageIcon className="h-16 w-16 text-muted-foreground/30" />
+                    )}
+                    <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                        <Button variant="secondary" onClick={() => fileInputRef.current?.click()}><Upload className="mr-2 h-4 w-4"/> Upload</Button>
+                        <Button variant="secondary" onClick={handleBrainstorm}><Sparkles className="mr-2 h-4 w-4"/> AI</Button>
+                    </div>
                     <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
                         {isEditingHeadline ? (
                              <Input 
