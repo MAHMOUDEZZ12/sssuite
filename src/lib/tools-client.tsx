@@ -59,6 +59,7 @@ import {
   Calendar,
   Languages,
   Youtube,
+  Terminal,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -105,7 +106,7 @@ export type Field = {
   hidden?: boolean;
 };
 
-export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing' | 'Market Library';
+export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing' | 'Market Library' | 'Utilities';
 
 export type Feature = {
   id: string;
@@ -116,7 +117,7 @@ export type Feature = {
   color: string;
   cta: string;
   categories: FilterCategory[];
-  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal' | 'Meta Ads AI Suite';
+  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal' | 'Meta Ads AI Suite' | 'Utilities';
   badge?: 'NEW' | 'BETA' | 'SOON' | 'Pilot*';
   isPage?: boolean;
   href: string;
@@ -761,14 +762,21 @@ export const tools: Feature[] = [
             </CardHeader>
             <CardContent>
                 <div className="space-y-2">
-                    <Label>Execution Plan (for AI Terminal)</Label>
+                    <Label>Execution Plan</Label>
                     <div className="p-4 bg-muted rounded-md relative group font-mono text-xs">
                         <pre className="whitespace-pre-wrap">{JSON.stringify(result.executionPlan, null, 2)}</pre>
                         <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(JSON.stringify(result.executionPlan, null, 2), toast)}><Copy className="h-4 w-4" /></Button>
                     </div>
-                     <p className="text-xs text-muted-foreground">This is a machine-readable plan. In a future update, you'll be able to pass this to a "Creative Execution Terminal" to run the edits.</p>
+                     <p className="text-xs text-muted-foreground">This is a machine-readable plan. Copy this and paste it into the Creative Execution Terminal to run the edits.</p>
                 </div>
             </CardContent>
+            <CardFooter>
+                 <Link href="/dashboard/tool/creative-execution-terminal">
+                    <Button>
+                        Send to Execution Terminal <ArrowRight className="ml-2 h-4 w-4"/>
+                    </Button>
+                </Link>
+            </CardFooter>
         </Card>
       </div>
     ),
@@ -1583,6 +1591,42 @@ export const tools: Feature[] = [
     ],
   },
   
+  // --- UTILITIES ---
+  {
+    id: 'creative-execution-terminal',
+    title: 'Creative Execution Terminal',
+    description: 'The execution engine for your creative tasks. Paste a plan and watch it run.',
+    icon: <Terminal />,
+    color: '#64748b', // slate-500
+    cta: 'Go to Terminal',
+    categories: ['Utilities'],
+    mindMapCategory: 'Utilities',
+    isPage: true,
+    href: '/dashboard/tool/creative-execution-terminal',
+    details: {
+      steps: [
+          { text: 'Generate a plan from a creator tool (e.g., PDF Editor)', icon: <FileText className="h-6 w-6" /> },
+          { text: 'Paste the machine-readable plan into the terminal', icon: <ClipboardList className="h-6 w-6" /> },
+          { text: 'Watch as the AI executes each step of your plan', icon: <Sparkles className="h-6 w-6" /> },
+      ],
+      aiVsManual: [
+        { metric: 'Workflow', manual: 'Each tool works in isolation', ai: 'A unified workflow of planning and execution', icon: <Network /> },
+        { metric: 'Transparency', manual: 'The AI\'s process is a "black box"', ai: 'Every step of the execution is visible and logged', icon: <CheckCircle /> },
+        { metric: 'Control', manual: 'You can only approve the final output', ai: 'You approve the plan *before* the AI does the heavy lifting', icon: <UserCog /> },
+      ],
+      synergy: [
+        { tool: "PDF Editor", benefit: "The PDF Editor generates a plan that this terminal can execute." },
+        { tool: "Rebranding", benefit: "The Rebranding tool will also be converted to generate plans for this terminal, allowing complex rebranding jobs to be executed." }
+      ],
+      faqs: [
+        { question: "Why is this a separate tool?", answer: "Separating planning from execution is a powerful architectural choice. It allows many simple 'planner' tools to use one powerful, centralized 'execution' engine. This makes the system more robust, secure, and scalable." },
+        { question: "What happens if a step fails?", answer: "The terminal will halt execution at the step that failed, report the error to you, and allow you to adjust the plan and re-run it. This gives you granular control over the entire process." },
+        { question: "What kind of plans can it run?", answer: "Initially, it will support plans from the PDF Editor. In the future, it will be the execution engine for all creative tasks, including video editing, rebranding, and more." }
+      ],
+    },
+    creationFields: [],
+  },
+
   // --- INTERNAL & HIDDEN ---
   {
     id: 'superfreetime',
