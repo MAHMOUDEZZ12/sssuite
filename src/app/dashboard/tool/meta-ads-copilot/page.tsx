@@ -79,7 +79,7 @@ const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaig
                         </div>
                         <AlertDialog>
                             <AlertDialogTrigger asChild>
-                                <Button disabled={!result.publishedCampaignId || result.publishedCampaignId.includes('not-set')} title={!result.publishedCampaignId ? "Generate campaign structure first" : "Publish to Meta"}>
+                                <Button disabled={!result.publishedCampaignId || result.publishedCampaignId.includes('not-published')} title={!result.publishedCampaignId ? "Generate campaign structure first" : "Publish to Meta"}>
                                     <Send className="mr-2 h-4 w-4"/>
                                     Publish to Meta
                                 </Button>
