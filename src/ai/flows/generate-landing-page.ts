@@ -94,7 +94,7 @@ const landingPagePrompt = ai.definePrompt({
 
   **Project Details:**
   - Project Name: {{{projectName}}}
-  - Project Details: {{{projectDetails}}}
+  - Offer Details: {{{projectDetails}}}
   - Branding Style(s): {{{brandingStyle}}}
   - Desired Page Structure: Create a page with {{{numberOfSections}}} main sections.
   {{#if projectBrochureDataUri}}
