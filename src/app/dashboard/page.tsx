@@ -99,7 +99,7 @@ const MyProjectsWidget = () => {
                             <div key={project.id} className="flex items-center justify-between p-2 bg-muted/50 rounded-md">
                                 <div>
                                     <p className="font-semibold">{project.name}</p>
-                                    <p className="text-sm text-muted-foreground">{project.location}</p>
+                                    <p className="text-sm text-muted-foreground">{project.area}</p>
                                 </div>
                                 <Badge variant={statusVariant[project.status || 'Active'] || 'secondary'}>{project.status}</Badge>
                             </div>
@@ -293,3 +293,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
