@@ -299,93 +299,76 @@ export default function LandingPageBuilderPage() {
                 description="Use the AI to construct your perfect landing page, then open it in the canvas to make live edits."
                 icon={<LayoutTemplate className="h-8 w-8" />}
             />
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-                <div className="lg:col-span-1 space-y-6 sticky top-24">
-                    <Card>
-                        <form onSubmit={handleGeneration}>
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={currentStep}
-                                    initial={{ opacity: 0, x: 50 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: -50 }}
-                                    transition={{ duration: 0.3 }}
-                                >
-                                     <CardHeader>
-                                        <CardTitle className="capitalize">{currentStep} Setup</CardTitle>
-                                        <CardDescription>Step {steps.indexOf(currentStep) + 1} of {steps.length}</CardDescription>
-                                    </CardHeader>
-                                    <CardContent className="min-h-[220px]">
-                                        {isLoading && currentStep === 'review' ? (
-                                            <div className="flex items-center justify-center h-full text-muted-foreground">
-                                                <Loader2 className="h-6 w-6 animate-spin mr-2"/> Generating strategies...
-                                            </div>
-                                        ) : (
-                                            renderStepContent()
-                                        )}
-                                    </CardContent>
-                                </motion.div>
-                            </AnimatePresence>
-                             <CardFooter className="flex justify-between">
-                                <Button type="button" variant="ghost" onClick={handlePrevStep} disabled={currentStep === 'project'}>
-                                    <ArrowLeft className="mr-2 h-4 w-4" /> Back
+            
+            {resultHtml ? (
+                <Card className="max-w-5xl mx-auto">
+                    <CardHeader>
+                        <CardTitle>Live Preview</CardTitle>
+                        <CardDescription>Your generated landing page is ready. You can now publish it or edit it in the canvas.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="border rounded-lg overflow-hidden h-[600px]">
+                            <iframe srcDoc={resultHtml} className="w-full h-full" title="Landing Page Preview" />
+                        </div>
+                    </CardContent>
+                    <CardFooter className="flex-wrap gap-2">
+                        <Button onClick={openInCanvas}>
+                            <Pen className="mr-2" /> Edit in Canvas
+                        </Button>
+                        <a href={`data:text/html;charset=UTF-8,${encodeURIComponent(resultHtml)}`} download={`${formData.projectName}-landing-page.html`}>
+                           <Button variant="outline"><Download className="mr-2" /> Download HTML</Button>
+                        </a>
+                        <Button onClick={() => toast({title: "Published!", description: "Your landing page is now live."})}>
+                            <MonitorPlay className="mr-2" /> Publish Page
+                        </Button>
+                         <Button variant="ghost" onClick={() => setResultHtml(null)}>
+                            <ArrowLeft className="mr-2"/> Start Over
+                        </Button>
+                    </CardFooter>
+                </Card>
+            ) : (
+                <Card className="max-w-2xl mx-auto">
+                    <form onSubmit={handleGeneration}>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={currentStep}
+                                initial={{ opacity: 0, x: 50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -50 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                 <CardHeader>
+                                    <CardTitle className="capitalize">{currentStep} Setup</CardTitle>
+                                    <CardDescription>Step {steps.indexOf(currentStep) + 1} of {steps.length}</CardDescription>
+                                </CardHeader>
+                                <CardContent className="min-h-[220px]">
+                                    {isLoading && currentStep === 'review' ? (
+                                        <div className="flex items-center justify-center h-full text-muted-foreground">
+                                            <Loader2 className="h-6 w-6 animate-spin mr-2"/> Generating strategies...
+                                        </div>
+                                    ) : (
+                                        renderStepContent()
+                                    )}
+                                </CardContent>
+                            </motion.div>
+                        </AnimatePresence>
+                         <CardFooter className="flex justify-between">
+                            <Button type="button" variant="ghost" onClick={handlePrevStep} disabled={currentStep === 'project'}>
+                                <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                            </Button>
+                            {currentStep === 'review' ? (
+                                <Button type="submit" size="lg" disabled={isLoading || !formData.headlineStrategy}>
+                                    {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Building...</> : <><Wand2 className="mr-2 h-5 w-5" />Generate Page</>}
                                 </Button>
-                                {currentStep === 'review' ? (
-                                    <Button type="submit" size="lg" disabled={isLoading || !formData.headlineStrategy}>
-                                        {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Building...</> : <><Wand2 className="mr-2 h-5 w-5" />Generate Page</>}
-                                    </Button>
-                                ) : (
-                                    <Button type="button" onClick={handleNextStep}>
-                                        {currentStep === 'brochure' ? 'Review & Generate' : 'Next'} <ArrowRight className="ml-2 h-4 w-4" />
-                                    </Button>
-                                )}
-                            </CardFooter>
-                        </form>
-                    </Card>
-                </div>
-
-                <div className="lg:col-span-2">
-                    {isLoading && currentStep !== 'review' ? (
-                        <Card className="flex items-center justify-center h-96">
-                            <div className="text-center text-muted-foreground">
-                                <Loader2 className="h-12 w-12 animate-spin mx-auto text-primary mb-4" />
-                                <p className="font-semibold">Your AI Co-Pilot is building your page...</p>
-                                <p className="text-sm">This may take a moment.</p>
-                            </div>
-                        </Card>
-                    ) : resultHtml ? (
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Live Preview</CardTitle>
-                                <CardDescription>Your generated landing page is ready. You can now publish it or edit it in the canvas.</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="border rounded-lg overflow-hidden h-[600px]">
-                                    <iframe srcDoc={resultHtml} className="w-full h-full" title="Landing Page Preview" />
-                                </div>
-                            </CardContent>
-                            <CardFooter className="flex-wrap gap-2">
-                                <Button onClick={openInCanvas}>
-                                    <Pen className="mr-2" /> Edit in Canvas
+                            ) : (
+                                <Button type="button" onClick={handleNextStep}>
+                                    {currentStep === 'brochure' ? 'Review & Generate' : 'Next'} <ArrowRight className="ml-2 h-4 w-4" />
                                 </Button>
-                                <a href={`data:text/html;charset=UTF-8,${encodeURIComponent(resultHtml)}`} download={`${formData.projectName}-landing-page.html`}>
-                                   <Button variant="outline"><Download className="mr-2" /> Download HTML</Button>
-                                </a>
-                                <Button onClick={() => toast({title: "Published!", description: "Your landing page is now live."})}>
-                                    <MonitorPlay className="mr-2" /> Publish Page
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                    ) : (
-                        <Card className="flex flex-col items-center justify-center h-96 border-dashed text-center p-6">
-                            <Palette className="h-16 w-16 mx-auto mb-4 opacity-10" />
-                            <h3 className="text-lg font-semibold text-foreground">Your Landing Page Canvas</h3>
-                            <p className="text-muted-foreground">Complete the setup steps to let the AI architect your high-converting page.</p>
-                        </Card>
-                    )}
-                </div>
-            </div>
+                            )}
+                        </CardFooter>
+                    </form>
+                </Card>
+            )}
         </main>
     );
 }
