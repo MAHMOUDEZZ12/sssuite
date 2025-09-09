@@ -70,7 +70,6 @@ export default function DevAdminPage() {
     const [changeLog, setChangeLog] = useState<ChangeLogEntry[]>([]);
     
     const [scrapingStates, setScrapingStates] = useState<{ [key: string]: boolean }>({});
-    const [scrapeStatus, setScrapeStatus] = useState('');
 
     useEffect(() => {
         // Load changelog from localStorage on mount
@@ -173,18 +172,36 @@ export default function DevAdminPage() {
     
     const handleScrape = async (source: string) => {
         setScrapingStates(prev => ({ ...prev, [source]: true }));
-        setScrapeStatus(`Starting scraping job for ${source}...`);
         toast({ title: 'Data Ingestion Started', description: `Request sent to scraper API for ${source}.`});
+        
+        const newLogEntry: ChangeLogEntry = {
+            id: `scrape-${Date.now()}`,
+            timestamp: new Date(),
+            toolId: 'data-ingestion',
+            toolTitle: 'Data Ingestion',
+            description: `Scraping data from source: ${source}`,
+            status: 'Planned',
+        };
+
+        setChangeLog(prev => [newLogEntry, ...prev]);
+
+        // Simulate the scraping process and UI updates
+        setTimeout(() => setChangeLog(prev => prev.map(l => l.id === newLogEntry.id ? {...l, status: 'Coded'} : l)), 1000);
+        setTimeout(() => setChangeLog(prev => prev.map(l => l.id === newLogEntry.id ? {...l, status: 'Implemented'} : l)), 2000);
+
         try {
             const response = await fetch(`/api/admin/scrape?source=${source}`);
             const data = await response.json();
             if (!data.ok) throw new Error(data.error);
-
-            setScrapeStatus(`Scraping from ${source} complete! Found and updated ${data.data.projectsAdded} projects.`);
+            
+            const successMessage = `Scraping from ${source} complete! Found and updated ${data.data.projectsAdded} projects.`;
+            setChangeLog(prev => prev.map(l => l.id === newLogEntry.id ? {...l, status: 'Assured', comment: successMessage} : l));
             toast({ title: 'Scraping Complete!', description: `Added/updated ${data.data.projectsAdded} projects from ${source} in the Market Library.`});
+
         } catch (e: any) {
-            setScrapeStatus(`Error during scraping from ${source}: ${e.message}`);
-             toast({ title: 'Scraping Failed', description: e.message, variant: 'destructive'});
+            const errorMessage = `Error during scraping from ${source}: ${e.message}`;
+            setChangeLog(prev => prev.map(l => l.id === newLogEntry.id ? {...l, status: 'Issue Reported', comment: errorMessage} : l));
+            toast({ title: 'Scraping Failed', description: e.message, variant: 'destructive'});
         } finally {
             setScrapingStates(prev => ({ ...prev, [source]: false }));
         }
@@ -252,9 +269,6 @@ export default function DevAdminPage() {
                            {scrapingStates['propertyfinder'] ? 'Scraping...' : 'Scrape Property Finder'}
                         </Button>
                     </div>
-                    {scrapeStatus && (
-                        <p className="text-sm text-muted-foreground mt-3">{scrapeStatus}</p>
-                    )}
                 </CardContent>
             </Card>
         </div>
@@ -326,3 +340,5 @@ export default function DevAdminPage() {
     </main>
   );
 }
+
+    
