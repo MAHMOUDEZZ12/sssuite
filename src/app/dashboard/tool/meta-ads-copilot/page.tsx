@@ -256,13 +256,27 @@ const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (fi
 
 const CreativeLibraryTab = ({ creatives: initialCreatives, toast }: { creatives: CreateMetaCampaignOutput['adCreatives'] | null, toast: any }) => {
     const [creatives, setCreatives] = useState(initialCreatives);
-    const { openCanvas } = useCanvas();
+    const { openCanvas, closeCanvas } = useCanvas();
 
     const handleUpdateCreative = (index: number, field: string, value: string) => {
         setCreatives(prev => {
             if (!prev) return null;
             const newCreatives = [...prev];
-            newCreatives[index] = { ...newCreatives[index], [field]: value };
+            const updatedCreative = { ...newCreatives[index], [field]: value };
+            newCreatives[index] = updatedCreative;
+
+            // Also update the creative inside the canvas for real-time feedback
+             openCanvas(
+                <div className="p-4">
+                     <EditableAdMockup 
+                        creative={updatedCreative} 
+                        onUpdate={(field, value) => handleUpdateCreative(index, field, value)}
+                     />
+                </div>,
+                `Editing: ${updatedCreative.headline}`,
+                "Click on any text to edit it, or use the buttons to upload a new image or brainstorm with AI."
+            );
+
             return newCreatives;
         });
     };
@@ -279,6 +293,11 @@ const CreativeLibraryTab = ({ creatives: initialCreatives, toast }: { creatives:
             "Click on any text to edit it, or use the buttons to upload a new image or brainstorm with AI."
         );
     };
+    
+    const handleSaveAndClose = () => {
+         toast({ title: 'Creatives Saved!', description: 'Your changes have been saved to the creative library.'});
+        closeCanvas();
+    }
 
     if (!creatives || creatives.length === 0) {
         return (
