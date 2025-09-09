@@ -15,6 +15,7 @@ import { editPdf } from '@/ai/flows/edit-pdf';
 import { matchInvestors } from '@/ai/flows/match-investors';
 import { aiBrandCreator } from '@/ai/flows/ai-brand-creator';
 import { generateMarketReport } from '@/ai/flows/generate-market-report';
+import { getMarketTrends } from '@/ai/flows/get-market-trends';
 import { generateListing } from '@/ai/flows/generate-listing';
 import { generateStory } from '@/ai/flows/generate-story';
 import { generateReel } from '@/ai/flows/generate-reel';
@@ -57,6 +58,7 @@ const flowRunnerMap: { [key: string]: (payload: any) => Promise<any> } = {
     'investor-matching': matchInvestors,
     'ai-brand-creator': aiBrandCreator,
     'market-reports': generateMarketReport,
+    'market-trends': getMarketTrends,
     'listing-generator': generateListing,
     'story-planner-ai': generateStory,
     'reel-ads-ai': generateReel,
