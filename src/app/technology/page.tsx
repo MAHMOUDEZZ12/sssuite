@@ -14,6 +14,8 @@ import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Input } from '@/components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { motion } from 'framer-motion';
 
 type ChatMessage = {
     from: 'user' | 'ai';
@@ -48,7 +50,7 @@ const LiveChatbotDemo = () => {
                     setMessages(prev => [...prev, { from: 'ai', text: (
                         <div>
                             <p className="font-semibold text-primary mb-1">Accessing Private Knowledge...</p>
-                            <p>Based on the 'Company_Profile.pdf' you provided, the CEO of Super Seller Suite is a highly advanced language model from Google.</p>
+                            <p>Based on the 'Company_Profile.pdf' I was trained on, the CEO of Super Seller Suite is a highly advanced language model from Google.</p>
                         </div>
                     )}]);
                     setIsLoading(false);
@@ -118,6 +120,116 @@ const LiveChatbotDemo = () => {
     );
 }
 
+const TrainingScenarioTabs = () => {
+    const languages = ['Hello', 'Hola', 'こんにちは', 'مرحبا', 'Bonjour', '你好'];
+    const [currentLang, setCurrentLang] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentLang(prev => (prev + 1) % languages.length);
+        }, 2000);
+        return () => clearInterval(interval);
+    }, [languages.length]);
+
+    return (
+        <Tabs defaultValue="document" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="document"><Upload className="mr-2 h-4 w-4" />From Document</TabsTrigger>
+                <TabsTrigger value="link"><LinkIcon className="mr-2 h-4 w-4" />From Website</TabsTrigger>
+                <TabsTrigger value="prompt"><Sparkles className="mr-2 h-4 w-4" />From Prompt</TabsTrigger>
+            </TabsList>
+            <TabsContent value="document">
+                <Card className="bg-card/50">
+                    <CardContent className="p-6 space-y-4">
+                        <div className="flex items-center gap-3 justify-start">
+                            <div className="p-2 bg-muted rounded-md border text-muted-foreground flex items-center gap-2 text-sm">
+                                <Upload className="h-4 w-4" />
+                                <span>You upload <span className="font-semibold text-foreground">Company_Profile.pdf</span></span>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-3 justify-end">
+                            <div className="bg-primary text-primary-foreground p-3 rounded-2xl rounded-br-none max-w-sm shadow-md">
+                                <p>A customer asks: "Who is the CEO of Super Seller Suite?"</p>
+                            </div>
+                            <Avatar className="w-10 h-10"><AvatarFallback>C</AvatarFallback></Avatar>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <Avatar className="w-10 h-10"><AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-6 w-6"/></AvatarFallback></Avatar>
+                            <div className="bg-muted border p-3 rounded-2xl rounded-bl-none max-w-sm shadow-sm">
+                                <p className="font-semibold text-primary">Accessing Private Knowledge...</p>
+                                <p>Based on 'Company_Profile.pdf', the CEO is a language model from Google.</p>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+            </TabsContent>
+             <TabsContent value="link">
+                <Card className="bg-card/50">
+                    <CardContent className="p-6 space-y-4">
+                        <div className="flex items-center gap-3 justify-start">
+                            <div className="p-2 bg-muted rounded-md border text-muted-foreground flex items-center gap-2 text-sm">
+                                <LinkIcon className="h-4 w-4" />
+                                <span>You train with link: <span className="font-semibold text-foreground">/blog/new-offer</span></span>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-3 justify-end">
+                            <div className="bg-primary text-primary-foreground p-3 rounded-2xl rounded-br-none max-w-sm shadow-md">
+                                <p>A customer asks: "What's the latest promotion?"</p>
+                            </div>
+                            <Avatar className="w-10 h-10"><AvatarFallback>C</AvatarFallback></Avatar>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <Avatar className="w-10 h-10"><AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-6 w-6"/></AvatarFallback></Avatar>
+                            <div className="bg-muted border p-3 rounded-2xl rounded-bl-none max-w-sm shadow-sm">
+                                <p className="font-semibold text-primary">Accessing Website Knowledge...</p>
+                                <p>Our current promotion is '5% Cashback on Handover'. This is a limited time offer for the first 50 units.</p>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+            </TabsContent>
+            <TabsContent value="prompt">
+                 <Card className="bg-card/50">
+                    <CardContent className="p-6 space-y-4">
+                        <div className="flex items-center gap-3 justify-start">
+                            <div className="p-2 bg-muted rounded-md border text-muted-foreground flex items-center gap-2 text-sm">
+                                <Sparkles className="h-4 w-4" />
+                                <span>You tell the AI about a new offer via prompt.</span>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-3 justify-end">
+                            <div className="bg-primary text-primary-foreground p-3 rounded-2xl rounded-br-none max-w-sm shadow-md">
+                                <p>A multilingual client asks about promotions in Spanish.</p>
+                            </div>
+                             <Avatar className="w-10 h-10"><AvatarFallback>J</AvatarFallback></Avatar>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <Avatar className="w-10 h-10"><AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-6 w-6"/></AvatarFallback></Avatar>
+                            <div className="bg-muted border p-3 rounded-2xl rounded-bl-none max-w-sm shadow-sm">
+                                <p className="font-semibold text-primary">Accessing Real-time Knowledge...</p>
+                                <div className="relative h-12 flex items-center justify-center">
+                                    <AnimatePresence>
+                                        <motion.span
+                                            key={currentLang}
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 10 }}
+                                            transition={{ duration: 0.5 }}
+                                            className="absolute"
+                                        >
+                                            {languages[currentLang]}! Our new offer is 5% cashback.
+                                        </motion.span>
+                                    </AnimatePresence>
+                                </div>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+            </TabsContent>
+        </Tabs>
+    );
+};
+
 
 export default function ChatbotProductPage() {
   const deploymentChannels = [
@@ -147,7 +259,7 @@ export default function ChatbotProductPage() {
                                 <ShinyButton>Get Your AI Agent Now</ShinyButton>
                             </Link>
                             <Link href="/pricing">
-                                <Button variant="ghost" size="lg">View Pricing <ArrowRight /></Button>
+                                <Button variant="ghost" size="lg">View Pricing <ArrowRight/></Button>
                             </Link>
                          </div>
                     </div>
@@ -200,7 +312,7 @@ export default function ChatbotProductPage() {
                                 <div>
                                     <h4 className="font-semibold text-lg">Your Private Training Center</h4>
                                     <p className="text-md text-foreground/70">
-                                        This is the game-changer. Use our simple dashboard to upload your own private documents—brochures, price lists, and company profiles. The AI uses this data to answer specific questions about <span className="font-bold text-primary">your</span> business, making it a true expert on your brand.
+                                        This is the game-changer. Use our simple dashboard to upload your own private documents, add website links, or give real-time updates. The AI uses this data to answer specific questions about <span className="font-bold text-primary">your</span> business, making it a true expert on your brand.
                                     </p>
                                 </div>
                             </div>
@@ -210,33 +322,7 @@ export default function ChatbotProductPage() {
                         </Link>
                     </div>
                      <div className="hidden lg:block">
-                        <Card className="bg-card/50">
-                            <CardHeader>
-                                <CardTitle>Training Scenario</CardTitle>
-                                <CardDescription>See how your private data empowers the AI.</CardDescription>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                                <div className="flex items-start gap-3 justify-start">
-                                     <div className="p-2 bg-muted rounded-md border text-muted-foreground flex items-center gap-2 text-sm">
-                                        <Upload className="h-4 w-4" />
-                                        <span>You upload <span className="font-semibold text-foreground">Company_Profile.pdf</span></span>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-3 justify-end">
-                                    <div className="bg-primary text-primary-foreground p-3 rounded-2xl rounded-br-none max-w-sm shadow-md">
-                                        <p>A customer asks: "Who is the CEO of Super Seller Suite?"</p>
-                                    </div>
-                                    <Avatar className="w-10 h-10"><AvatarFallback>C</AvatarFallback></Avatar>
-                                </div>
-                                <div className="flex items-start gap-3">
-                                    <Avatar className="w-10 h-10"><AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-6 w-6"/></AvatarFallback></Avatar>
-                                    <div className="bg-muted border p-3 rounded-2xl rounded-bl-none max-w-sm shadow-sm">
-                                        <p className="font-semibold text-primary">Accessing Private Knowledge...</p>
-                                        <p>Based on the 'Company_Profile.pdf' you provided, the CEO of Super Seller Suite is a highly advanced language model from Google.</p>
-                                    </div>
-                                </div>
-                             </CardContent>
-                        </Card>
+                        <TrainingScenarioTabs />
                     </div>
                 </div>
             </div>
