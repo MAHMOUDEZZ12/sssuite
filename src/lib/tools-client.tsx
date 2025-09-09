@@ -795,10 +795,10 @@ export const tools: Feature[] = [
     id: 'rebranding',
     title: 'Automated Rebranding',
     dashboardTitle: 'Rebranding',
-    description: 'Swap logos, colors, contacts in one click.',
+    description: 'Upload any brochure and apply your brand identity with text-based commands in the Creative Canvas.',
     icon: <Palette />,
     color: '#f97316', // orange-600
-    cta: 'Generate Rebranded Brochure',
+    cta: 'Rebrand a Document',
     categories: ['Creative', 'Editing'],
     mindMapCategory: 'Creative Suite',
     badge: 'NEW',
@@ -832,7 +832,7 @@ export const tools: Feature[] = [
     id: 'pdf-editor',
     title: 'Visual PDF Editor',
     dashboardTitle: 'PDF Editor',
-    description: 'Edit text, images, and layout visually.',
+    description: 'This tool is deprecated. Use the new Rebranding tool instead.',
     icon: <Edit />,
     color: '#eab308', // yellow-500
     cta: 'Edit a PDF',
