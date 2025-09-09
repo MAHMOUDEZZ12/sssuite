@@ -720,7 +720,7 @@ export const tools: Feature[] = [
   // --- CREATIVE SUITE ---
   {
     id: 'youtube-video-editor',
-    title: 'YouTube Video Editor',
+    title: 'AI YouTube Video Editor',
     dashboardTitle: 'YouTube Video Editor',
     description: 'Edit any video to be YouTube-ready.',
     icon: <Youtube />,
