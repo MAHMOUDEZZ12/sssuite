@@ -103,3 +103,28 @@ export const CreateMetaCampaignOutputSchema = z.object({
 
 export type CreateMetaCampaignInput = z.infer<typeof CreateMetaCampaignInputSchema>;
 export type CreateMetaCampaignOutput = z.infer<typeof CreateMetaCampaignOutputSchema>;
+
+
+// Schemas for Lead Investigator AI
+export const InvestigateLeadInputSchema = z.object({
+  name: z.string().describe('The full name of the lead.'),
+  company: z.string().optional().describe('The company the lead works for.'),
+  email: z.string().optional().describe('The email address of the lead.'),
+  location: z.string().optional().describe('The city or country of the lead.'),
+  role: z.string().optional().describe('The job title or role of the lead.'),
+});
+export type InvestigateLeadInput = z.infer<typeof InvestigateLeadInputSchema>;
+
+const LeadMatchSchema = z.object({
+  name: z.string().describe('The name of the matched person.'),
+  source: z.string().describe('The platform where the match was found (e.g., LinkedIn, Facebook, Company Website).'),
+  profileUrl: z.string().url().describe('The URL to the profile or source page.'),
+  summary: z.string().describe('A brief summary of why this might be the lead (e.g., "CEO at ACME Inc, based in Dubai").'),
+  matchConfidence: z.number().min(0).max(1).describe('The AI\'s confidence that this is the correct person (0 to 1).'),
+});
+
+export const InvestigateLeadOutputSchema = z.object({
+  matches: z.array(LeadMatchSchema).describe('A list of potential matches found for the lead.'),
+  overallSummary: z.string().describe('A high-level summary of the investigation findings.'),
+});
+export type InvestigateLeadOutput = z.infer<typeof InvestigateLeadOutputSchema>;

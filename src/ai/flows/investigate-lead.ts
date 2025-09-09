@@ -10,44 +10,16 @@
  * @module AI/Flows/InvestigateLead
  *
  * @export {function} investigateLead - The main function to investigate a lead.
- * @export {type} InvestigateLeadInput - The Zod schema for the input.
- * @export {type} InvestigateLeadOutput - The Zod schema for the output.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-
-/**
- * Defines the schema for the input of the lead investigation flow.
- */
-export const InvestigateLeadInputSchema = z.object({
-  name: z.string().describe('The full name of the lead.'),
-  company: z.string().optional().describe('The company the lead works for.'),
-  email: z.string().optional().describe('The email address of the lead.'),
-  location: z.string().optional().describe('The city or country of the lead.'),
-  role: z.string().optional().describe('The job title or role of the lead.'),
-});
-export type InvestigateLeadInput = z.infer<typeof InvestigateLeadInputSchema>;
-
-/**
- * Defines the schema for a single potential match found by the investigator.
- */
-const LeadMatchSchema = z.object({
-  name: z.string().describe('The name of the matched person.'),
-  source: z.string().describe('The platform where the match was found (e.g., LinkedIn, Facebook, Company Website).'),
-  profileUrl: z.string().url().describe('The URL to the profile or source page.'),
-  summary: z.string().describe('A brief summary of why this might be the lead (e.g., "CEO at ACME Inc, based in Dubai").'),
-  matchConfidence: z.number().min(0).max(1).describe('The AI\'s confidence that this is the correct person (0 to 1).'),
-});
-
-/**
- * Defines the schema for the output of the lead investigation flow.
- */
-export const InvestigateLeadOutputSchema = z.object({
-  matches: z.array(LeadMatchSchema).describe('A list of potential matches found for the lead.'),
-  overallSummary: z.string().describe('A high-level summary of the investigation findings.'),
-});
-export type InvestigateLeadOutput = z.infer<typeof InvestigateLeadOutputSchema>;
+import {
+  InvestigateLeadInputSchema,
+  InvestigateLeadOutputSchema,
+  InvestigateLeadInput,
+  InvestigateLeadOutput,
+} from '@/types';
 
 
 const investigateLeadPrompt = ai.definePrompt({
