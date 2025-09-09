@@ -73,6 +73,7 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { CodeBlock } from '@/components/code-block';
 
 
 export const fileToDataUri = (file: File): Promise<string> => {
@@ -142,6 +143,43 @@ export type Feature = {
 };
 
 export const tools: Feature[] = [
+  // --- CHATBOT ---
+  {
+    id: 'chatbot-creator',
+    title: 'Embeddable Site Assistant',
+    dashboardTitle: 'Embeddable Assistant',
+    description: 'Add a market-aware AI chatbot to any website.',
+    icon: <Bot />,
+    color: '#6366f1', // a mix of others
+    cta: 'Get Embed Code',
+    categories: ['Web', 'Lead Gen', 'Sales Tools', 'Utilities'],
+    mindMapCategory: 'Utilities',
+    badge: 'NEW',
+    isPage: true,
+    href: '/dashboard/tool/chatbot-creator',
+    details: {
+        steps: [
+            { text: 'The AI is pre-trained on real estate market data', icon: <Database /> },
+            { text: 'Copy the provided JavaScript snippet', icon: <Copy /> },
+            { text: 'Paste it into your website\'s HTML (e.g., WordPress)', icon: <Share2 /> },
+        ],
+        aiVsManual: [
+            { metric: 'Availability', manual: 'You, during business hours', ai: '24/7 instant answers for your visitors', icon: <Clock2 /> },
+            { metric: 'Lead Capture', manual: 'Hoping visitors use a contact form', ai: 'Engages users and can prompt for contact info', icon: <UserPlus /> },
+            { metric: 'Knowledge', manual: 'Your personal expertise', ai: 'Broad market data combined with your specific info', icon: <BrainCircuit /> },
+        ],
+        synergy: [
+            { tool: "Landing Page Builder", benefit: "Embed the chatbot onto your AI-generated landing pages to answer visitor questions instantly." },
+            { tool: "Knowledge Base", benefit: "Upload your own brochures and price lists to the Brand & Assets page to give the chatbot even deeper knowledge about your specific projects." },
+        ],
+        faqs: [
+            { question: "How do I add this to my WordPress site?", answer: "It's easy! Most WordPress page builders like Elementor or the standard block editor have a 'Custom HTML' widget. Just drag that onto your page and paste the code snippet." },
+            { question: "Can I customize the chatbot's appearance?", answer: "The initial version has a clean, standard design. We are working on features to allow you to customize the colors and logo to match your brand perfectly." },
+            { question: "Where does the 'market knowledge' come from?", answer: "The AI is prompted to act as a real estate market expert for the UAE region, using its vast training data. For even better results, upload your own project documents to the 'Brand & Assets' page, and the chatbot can reference that specific knowledge as well." }
+        ],
+    },
+    creationFields: [], // This tool has a custom page
+  },
   // --- GOOGLE AI SUITE ---
   {
     id: 'keyword-planner',

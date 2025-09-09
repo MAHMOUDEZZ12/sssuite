@@ -3,6 +3,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { ai } from '@/ai/genkit';
 
 // Import all flow functions directly here
 import { generateAdFromBrochure } from '@/ai/flows/generate-ad-from-brochure';
@@ -37,6 +38,15 @@ const runToolSchema = z.object({
   payload: z.any(),
 });
 
+// A specific flow for the market chatbot
+const marketChatAssistantFlow = async (payload: { message: string }) => {
+    const { output } = await ai.generate({
+        prompt: `You are a friendly and knowledgeable real estate market expert for the Dubai/UAE area. A user on a website is asking a question. Answer it concisely and helpfully. User's question: "${payload.message}"`,
+    });
+    return { reply: output?.text! };
+};
+
+
 const flowRunnerMap: { [key: string]: (payload: any) => Promise<any> } = {
     'insta-ads-designer': generateAdFromBrochure,
     'audience-creator': suggestTargetingOptions,
@@ -65,6 +75,7 @@ const flowRunnerMap: { [key: string]: (payload: any) => Promise<any> } = {
     'commission-calculator': (payload) => Promise.resolve(payload),
     'lead-investigator': investigateLead,
     'keyword-planner': generateKeywordPlan,
+    'market-chat-assistant': marketChatAssistantFlow,
 };
 
 export async function POST(req: NextRequest) {
