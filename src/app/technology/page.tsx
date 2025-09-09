@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { BrainCircuit, Check, Cpu, Globe, Instagram, MessageCircle, Network, Bot, Send, Loader2, Sparkles, Upload, ArrowRight } from 'lucide-react';
+import { BrainCircuit, Check, Cpu, Globe, Instagram, MessageCircle, Network, Bot, Send, Loader2, Sparkles, Upload, ArrowRight, Share2, FileText, Link as LinkIcon } from 'lucide-react';
 import { PageHeader } from '@/components/ui/page-header';
 import { Button } from '@/components/ui/button';
 import { ShinyButton } from '@/components/ui/shiny-button';
@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 
 type ChatMessage = {
     from: 'user' | 'ai';
-    text: string;
+    text: string | React.ReactNode;
 };
 
 const LiveChatbotDemo = () => {
@@ -36,26 +36,39 @@ const LiveChatbotDemo = () => {
         e.preventDefault();
         if (!input.trim() || isLoading) return;
 
-        setMessages(prev => [...prev, { from: 'user', text: input }]);
-        const userMessage = input;
+        const userMessageText = input;
+        setMessages(prev => [...prev, { from: 'user', text: userMessageText }]);
         setInput('');
         setIsLoading(true);
 
         try {
-            const response = await fetch('/api/run', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    toolId: 'market-chat-assistant',
-                    payload: { message: userMessage }
-                })
-            });
-            const data = await response.json();
-            if (data.error) throw new Error(data.error);
-            setMessages(prev => [...prev, { from: 'ai', text: data.reply }]);
+            // Simulate a query that requires private data
+            if (userMessageText.toLowerCase().includes('emaar beachfront') && userMessageText.toLowerCase().includes('service charges')) {
+                 setTimeout(() => {
+                    setMessages(prev => [...prev, { from: 'ai', text: (
+                        <div>
+                            <p className="font-semibold text-primary mb-1">Accessing Private Knowledge...</p>
+                            <p>Based on the 'Emaar_Beachfront_Brochure.pdf' you provided, the annual service charge is approximately AED 22 per sq. ft. The building has a pet-friendly policy, with a dedicated pet park nearby.</p>
+                        </div>
+                    )}]);
+                    setIsLoading(false);
+                }, 1500);
+            } else {
+                 const response = await fetch('/api/run', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        toolId: 'market-chat-assistant',
+                        payload: { message: userMessageText }
+                    })
+                });
+                const data = await response.json();
+                if (data.error) throw new Error(data.error);
+                setMessages(prev => [...prev, { from: 'ai', text: data.reply }]);
+                setIsLoading(false);
+            }
         } catch (error: any) {
             setMessages(prev => [...prev, { from: 'ai', text: `Sorry, I encountered an error: ${error.message}` }]);
-        } finally {
             setIsLoading(false);
         }
     };
@@ -97,7 +110,7 @@ const LiveChatbotDemo = () => {
             </ScrollArea>
             <form onSubmit={handleSendMessage} className="p-3 border-t bg-background rounded-b-xl">
                 <div className="flex items-center gap-2">
-                    <Input placeholder="Ask a question..." value={input} onChange={e => setInput(e.target.value)} disabled={isLoading} />
+                    <Input placeholder="Ask about the market or my project..." value={input} onChange={e => setInput(e.target.value)} disabled={isLoading} />
                     <Button type="submit" size="icon" disabled={isLoading || !input.trim()}><Send className="h-4 w-4" /></Button>
                 </div>
             </form>
@@ -107,6 +120,15 @@ const LiveChatbotDemo = () => {
 
 
 export default function ChatbotProductPage() {
+  const deploymentChannels = [
+      { icon: <Globe />, title: "Your Website", description: "Embed a chat widget on any page." },
+      { icon: <FileText />, title: "Ad Landing Pages", description: "Convert ad clicks into conversations." },
+      { icon: <Instagram />, title: "Instagram DMs", description: "Let the AI handle initial inquiries in your inbox." },
+      { icon: <MessageCircle />, title: "Standalone Chat Page", description: "Share a direct link to your AI agent." },
+      { icon: <LinkIcon />, title: "Insta Bio Link", description: "Make your 'link in bio' an interactive agent." },
+      { icon: <Share2 />, title: "Realtor Portfolios", description: "Add a chatbot to agent profile pages on your brokerage site." },
+  ];
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
@@ -118,7 +140,7 @@ export default function ChatbotProductPage() {
                         <PageHeader 
                             icon={<Bot className="h-12 w-12" />}
                             title="Meet Your New Best Agent"
-                            description="Give your business a 24/7 AI expert trained on the real estate market and your private company data. Deploy it on your website, Instagram DMs, or a dedicated page to engage clients, answer questions, and capture leads while you sleep."
+                            description="Give your business a 24/7 AI expert trained on the real estate market and your private company data. It answers questions, captures leads, and works everywhere your clients are."
                         />
                          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                              <Link href="/signup">
@@ -138,36 +160,20 @@ export default function ChatbotProductPage() {
 
         <section className="py-20 md:py-32 bg-muted/50">
             <div className="container mx-auto px-4 md:px-6 text-center">
-                 <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">One Brain, Many Platforms</h2>
-                 <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">Train your AI agent once in our central dashboard, then deploy it anywhere your clients are.</p>
-                 <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <Card>
-                        <CardHeader className="items-center">
-                            <div className="p-4 bg-primary/10 text-primary rounded-full w-fit"><Globe className="h-8 w-8" /></div>
-                            <CardTitle>Your Website</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p>Embed the chatbot on any website with a simple copy-paste code snippet. Perfect for WordPress and Elementor.</p>
-                        </CardContent>
-                    </Card>
-                     <Card>
-                        <CardHeader className="items-center">
-                             <div className="p-4 bg-primary/10 text-primary rounded-full w-fit"><Instagram className="h-8 w-8" /></div>
-                            <CardTitle>Instagram DMs</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p>Connect your Instagram account to let the AI handle common questions and qualify leads in your Direct Messages.</p>
-                        </CardContent>
-                    </Card>
-                     <Card>
-                        <CardHeader className="items-center">
-                             <div className="p-4 bg-primary/10 text-primary rounded-full w-fit"><MessageCircle className="h-8 w-8" /></div>
-                            <CardTitle>Standalone Chat Page</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p>Share a direct link to a focused, full-page chatbot your clients can use for detailed inquiries and information.</p>
-                        </CardContent>
-                    </Card>
+                 <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Train Once, Deploy Anywhere</h2>
+                 <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">Your AI agent is a versatile tool. After training it with your knowledge in our central dashboard, you can add it to any digital touchpoint.</p>
+                 <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {deploymentChannels.map(channel => (
+                        <Card key={channel.title}>
+                            <CardHeader className="items-center">
+                                <div className="p-4 bg-primary/10 text-primary rounded-full w-fit">{channel.icon}</div>
+                                <CardTitle>{channel.title}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground text-sm">{channel.description}</p>
+                            </CardContent>
+                        </Card>
+                    ))}
                  </div>
             </div>
         </section>
@@ -179,8 +185,8 @@ export default function ChatbotProductPage() {
                         <div className="p-3 bg-primary/10 text-primary rounded-full w-fit mb-4">
                             <BrainCircuit className="h-8 w-8" />
                         </div>
-                        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">A Smarter Conversation</h2>
-                        <p className="mt-4 text-lg text-muted-foreground">Our AI isn't just a generic chatbot. It's powered by a unique dual-knowledge system that gives it an unparalleled understanding of your business.</p>
+                        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Your AI, Your Knowledge</h2>
+                        <p className="mt-4 text-lg text-muted-foreground">Our assistant is built on a unique dual-knowledge system. It combines broad market intelligence with your specific, private company data for unparalleled expertise.</p>
                         <div className="mt-8 space-y-6">
                             <div className="flex items-start gap-4">
                                 <div className="p-3 bg-primary/10 text-primary rounded-lg mt-1"><Sparkles className="h-6 w-6" /></div>
@@ -192,23 +198,33 @@ export default function ChatbotProductPage() {
                              <div className="flex items-start gap-4">
                                 <div className="p-3 bg-primary/10 text-primary rounded-lg mt-1"><Upload className="h-6 w-6" /></div>
                                 <div>
-                                    <h4 className="font-semibold text-lg">Your Private Knowledge Base</h4>
+                                    <h4 className="font-semibold text-lg">Your Private Training Center</h4>
                                     <p className="text-md text-foreground/70">
-                                        This is the game-changer. Use our simple interface to upload your own private documents—brochures, price lists, FAQs. The AI uses this data to answer specific questions about <span className="font-bold text-primary">your</span> projects, making it a true expert on your business.
+                                        This is the game-changer. Use our simple dashboard to upload your own private documents—brochures, price lists, FAQs. The AI uses this data to answer specific questions about <span className="font-bold text-primary">your</span> projects, making it a true expert on your business.
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <Link href="/dashboard/brand" className="mt-8 inline-block">
-                             <Button variant="outline">Learn About the Training Center</Button>
+                             <Button variant="outline">Go to the Training Center</Button>
                         </Link>
                     </div>
                      <div className="hidden lg:block">
                         <Card className="bg-card/50">
-                            <CardContent className="p-6 space-y-4">
+                            <CardHeader>
+                                <CardTitle>Training Scenario</CardTitle>
+                                <CardDescription>See how your private data empowers the AI.</CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="flex items-start gap-3 justify-start">
+                                     <div className="p-2 bg-muted rounded-md border text-muted-foreground flex items-center gap-2 text-sm">
+                                        <Upload className="h-4 w-4" />
+                                        <span>You upload <span className="font-semibold text-foreground">Emaar_Beachfront_Brochure.pdf</span></span>
+                                    </div>
+                                </div>
                                 <div className="flex items-start gap-3 justify-end">
                                     <div className="bg-primary text-primary-foreground p-3 rounded-2xl rounded-br-none max-w-sm shadow-md">
-                                        <p>What are the service charges for Emaar Beachfront, and is it pet-friendly?</p>
+                                        <p>A customer asks: "What are the service charges for Emaar Beachfront, and is it pet-friendly?"</p>
                                     </div>
                                     <Avatar className="w-10 h-10"><AvatarFallback>C</AvatarFallback></Avatar>
                                 </div>
