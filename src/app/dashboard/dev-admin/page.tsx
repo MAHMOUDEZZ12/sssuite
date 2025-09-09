@@ -12,7 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from '@/components/ui/badge';
-import { PlusCircle, Bot, GitCommit, AlertTriangle, GanttChartSquare, RotateCw, Loader2, Sparkles, CheckCircle, MessageSquare, Undo, Copy, Database, BrainCircuit, Activity, BarChart2 } from 'lucide-react';
+import { PlusCircle, Bot, GitCommit, AlertTriangle, GanttChartSquare, RotateCw, Loader2, Sparkles, CheckCircle, MessageSquare, Undo, Copy, Database, BrainCircuit, Activity, BarChart2, Users, MoreHorizontal } from 'lucide-react';
 import { PageHeader } from '@/components/ui/page-header';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
@@ -21,6 +21,7 @@ import { cn } from '@/lib/utils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from '@/components/ui/select';
 import { tools } from '@/lib/tools-client';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 
 type TaskStatus = 'New' | 'Planned' | 'Coded' | 'Implemented' | 'Assured' | 'Issue Reported';
@@ -54,6 +55,13 @@ const initialLog: ChangeLogEntry[] = [
         status: 'Assured',
         comment: "This task has been implemented. The Meta Auto Pilot page now allows selection of different workflows."
     }
+];
+
+const mockUsers = [
+    { id: 'usr_1', name: 'John Doe', email: 'john.doe@example.com', plan: 'Seller', status: 'Active', joined: '2024-07-20' },
+    { id: 'usr_2', name: 'Jane Smith', email: 'jane.smith@example.com', plan: 'Marketer', status: 'Active', joined: '2024-07-18' },
+    { id: 'usr_3', name: 'Bob Johnson', email: 'bob.j@example.com', plan: 'Student', status: 'Suspended', joined: '2024-07-15' },
+    { id: 'usr_4', name: 'Alice Williams', email: 'alice.w@example.com', plan: 'CEO', status: 'Active', joined: '2024-07-12' },
 ];
 
 const statusConfig: { [key in TaskStatus]: { color: string, icon: React.ReactNode } } = {
@@ -224,6 +232,10 @@ export default function DevAdminPage() {
             setScrapingStates(prev => ({ ...prev, [source]: false }));
         }
     };
+    
+    const handleUserAction = (userId: string, action: string) => {
+        toast({ title: 'Action Initiated', description: `Performing action "${action}" for user ${userId}.` });
+    }
 
   return (
     <main className="p-4 md:p-10 space-y-8">
@@ -235,9 +247,10 @@ export default function DevAdminPage() {
       </PageHeader>
       
         <Tabs defaultValue="tasks" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="tasks"><GanttChartSquare className="mr-2 h-4 w-4" /> Task Management</TabsTrigger>
               <TabsTrigger value="data"><Database className="mr-2 h-4 w-4" /> Data & Knowledge</TabsTrigger>
+              <TabsTrigger value="users"><Users className="mr-2 h-4 w-4" /> User Management</TabsTrigger>
               <TabsTrigger value="usage"><BarChart2 className="mr-2 h-4 w-4" /> System & Usage</TabsTrigger>
             </TabsList>
 
@@ -401,6 +414,62 @@ export default function DevAdminPage() {
                     </CardContent>
                 </Card>
             </TabsContent>
+            
+             <TabsContent value="users" className="mt-6 space-y-6">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>User Management</CardTitle>
+                        <CardDescription>View and manage all registered users.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                         <div className="border rounded-lg w-full">
+                             <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>User</TableHead>
+                                        <TableHead>Plan</TableHead>
+                                        <TableHead>Status</TableHead>
+                                        <TableHead>Joined</TableHead>
+                                        <TableHead className="text-right">Actions</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {mockUsers.map(user => (
+                                        <TableRow key={user.id}>
+                                            <TableCell>
+                                                <div className="font-medium">{user.name}</div>
+                                                <div className="text-sm text-muted-foreground">{user.email}</div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Badge variant={user.plan === 'Marketer' || user.plan === 'CEO' ? 'default' : 'secondary'}>{user.plan}</Badge>
+                                            </TableCell>
+                                            <TableCell>
+                                                 <Badge variant={user.status === 'Active' ? 'default' : 'destructive'}>{user.status}</Badge>
+                                            </TableCell>
+                                            <TableCell>{user.joined}</TableCell>
+                                            <TableCell className="text-right">
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger asChild>
+                                                        <Button size="icon" variant="ghost">
+                                                            <MoreHorizontal className="h-4 w-4" />
+                                                        </Button>
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent align="end">
+                                                        <DropdownMenuItem onClick={() => handleUserAction(user.id, 'edit')}>Edit User</DropdownMenuItem>
+                                                        <DropdownMenuItem onClick={() => handleUserAction(user.id, 'suspend')}>Suspend</DropdownMenuItem>
+                                                        <DropdownMenuItem onClick={() => handleUserAction(user.id, 'plan')}>Change Plan</DropdownMenuItem>
+                                                        <DropdownMenuItem className="text-destructive" onClick={() => handleUserAction(user.id, 'delete')}>Delete User</DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                         </div>
+                    </CardContent>
+                </Card>
+            </TabsContent>
 
              <TabsContent value="usage" className="mt-6 space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -440,3 +509,4 @@ export default function DevAdminPage() {
     </main>
   );
 }
+
