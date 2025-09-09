@@ -48,10 +48,12 @@ export const AIBrandCreatorOutputSchema = z.object({
   brandInfo: z
     .object({
       companyName: z.string().optional().describe('The name of the company.'),
-      contactInfo: z
-        .string()
-        .optional()
-        .describe('The contact information (name, phone, email).'),
+      companyDescription: z.string().optional().describe('A short, compelling description of the company.'),
+      contact: z.object({
+        name: z.string().optional().describe('The primary contact person\'s name.'),
+        phone: z.string().optional().describe('The contact phone number.'),
+        email: z.string().optional().describe('The contact email address.'),
+      }).optional().describe('The extracted contact information.'),
       primaryColor: z
         .string()
         .optional()
@@ -116,7 +118,11 @@ const aiBrandCreatorPrompt = ai.definePrompt({
   {{/each}}
 
   Analyze the documents and the command carefully. Extract the following information:
-  1.  **Brand Information**: Look for company name, contact details (name, phone, email), and brand colors (provide as hex codes if possible).
+  1.  **Brand Information**: 
+      - Look for company name.
+      - Extract a short (1-2 sentence) description of the company.
+      - Find contact details (a primary person's name, phone, email).
+      - Identify brand colors (provide as hex codes if possible).
   2.  **Projects**: Identify a list of current or past projects, including their name, location, and status if available.
 
   Once you have extracted the information, provide a brief, human-readable summary of what you have done. For example: "I've updated your brand with the details from 'CompanyProfile.pdf' and created 5 new projects from 'ProjectList.csv'."
@@ -140,5 +146,3 @@ const aiBrandCreatorFlow = ai.defineFlow(
     return output;
   }
 );
-
-    
