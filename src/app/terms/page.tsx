@@ -47,7 +47,7 @@ export default function TermsPage() {
               
               <section>
                 <h2>6. Contact Information</h2>
-                <p>If you have any questions about these Terms, please contact us at <a href="mailto:support@superseller.ai">support@superseller.ai</a>.</p>
+                <p>If you have any questions about these Terms, please contact us at <a href="mailto:support@supersellersuite.ai">support@supersellersuite.ai</a>.</p>
               </section>
             </CardContent>
         </Card>

@@ -29,7 +29,7 @@ export default function PricingPage() {
             'AI Reels Lite',
             'PDF Rebrand Lite',
             'AI Copilot Daily (1/day)',
-            'Free *.s3.pages subdomain',
+            'Free *.sx3.site subdomain',
             '1 custom domain credit',
         ],
         cta: 'Start Learning',

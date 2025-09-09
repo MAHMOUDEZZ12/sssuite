@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { tools } from '@/lib/tools-client';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = 'https://your-domain.com'; // Replace with your actual domain
+  const siteUrl = 'https://supersellersuite.ai'; // Replace with your actual domain
 
   const staticRoutes = [
     '/',

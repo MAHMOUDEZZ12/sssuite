@@ -18,7 +18,7 @@ const fontHeading = Poppins({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://superseller.ai'),
+  metadataBase: new URL('https://supersellersuite.ai'),
   title: 'Super Seller Suite — AI tools for ads, creatives, and sales',
   description: 'Use AI tools for ads, rebranding, pages, posts, CRM, and reports—all in one sales suite.',
   openGraph: {
