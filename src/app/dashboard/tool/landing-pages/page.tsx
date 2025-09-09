@@ -203,6 +203,7 @@ export default function LandingPageBuilderPage() {
             <div className="space-y-2">
                 <Label htmlFor="projectName">Project Name</Label>
                 <Input id="projectName" value={formData.projectName} onChange={e => setFormData({...formData, projectName: e.target.value})} placeholder="e.g., Emaar Beachfront" autoFocus/>
+                 <p className="text-xs text-muted-foreground">This name will be used as the main title for the landing page.</p>
             </div>
           );
         case 'details':
@@ -210,13 +211,15 @@ export default function LandingPageBuilderPage() {
              <div className="space-y-2">
                 <Label htmlFor="projectDetails">Offer Details</Label>
                 <Textarea id="projectDetails" value={formData.projectDetails} onChange={e => setFormData({...formData, projectDetails: e.target.value})} placeholder="Describe the main offer or message for this page. e.g., 'Luxury 1-3 bedroom apartments with stunning sea views and a 2-year post-handover payment plan...'" rows={4} autoFocus/>
+                <p className="text-xs text-muted-foreground">Provide the core message or offer you want to communicate on the page.</p>
             </div>
           );
         case 'style':
            return (
                 <div className="space-y-2">
                     <Label>Visual Style(s)</Label>
-                    <div className="grid grid-cols-2 gap-4">
+                    <p className="text-xs text-muted-foreground">Choose one or more styles. The AI will blend them together.</p>
+                    <div className="grid grid-cols-2 gap-4 pt-2">
                         {visualStyles.map(item => (
                             <div key={item.id} className="flex items-center space-x-2">
                                 <Checkbox 
@@ -260,7 +263,8 @@ export default function LandingPageBuilderPage() {
                 <div className="space-y-2">
                     <Label htmlFor="projectBrochure">Brochure (Optional)</Label>
                     <Input id="projectBrochure" type="file" onChange={e => setFormData({...formData, projectBrochure: e.target.files?.[0] || null})} />
-                     {formData.projectBrochure && <p className="text-sm text-green-600 flex items-center gap-1"><CheckCircle className="h-3 w-3" /> {formData.projectBrochure.name} selected.</p>}
+                     <p className="text-xs text-muted-foreground">Provide a brochure to give the AI more context about the project's features and visuals.</p>
+                     {formData.projectBrochure && <p className="text-sm text-green-600 flex items-center gap-1 mt-2"><CheckCircle className="h-3 w-3" /> {formData.projectBrochure.name} selected.</p>}
                 </div>
             );
         case 'review':
@@ -272,7 +276,7 @@ export default function LandingPageBuilderPage() {
                         {headlineOptions.map(opt => (
                             <div key={opt.id}>
                                 <RadioGroupItem value={opt.id} id={opt.id} className="peer sr-only"/>
-                                <Label htmlFor={opt.id} className="flex flex-col p-3 rounded-lg border-2 peer-data-[state=checked]:border-primary hover:border-primary/50 cursor-pointer">
+                                <Label htmlFor={opt.id} className="flex flex-col p-3 rounded-lg border-2 peer-data-[state=checked]:border-primary hover:border-primary/50 cursor-pointer transition-colors">
                                     <span className="font-semibold text-primary">{opt.strategy}</span>
                                     <span className="text-sm text-foreground">Headline: "{opt.headline}"</span>
                                     <span className="text-xs text-muted-foreground mt-1">CTA: "{opt.cta}"</span>

@@ -34,6 +34,7 @@ type CampaignStep = 'project' | 'workflow' | 'media' | 'budget' | 'review';
 
 
 const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (field: string, value: string) => void }) => {
+    const { toast } = useToast();
     const [isEditingBody, setIsEditingBody] = React.useState(false);
     const [isEditingHeadline, setIsEditingHeadline] = React.useState(false);
     const [imagePreview, setImagePreview] = React.useState<string | null>(null);
@@ -45,13 +46,13 @@ const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (fi
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImagePreview(reader.result as string);
+                toast({ title: "Image Updated", description: "The ad creative visual has been updated." });
             };
             reader.readAsDataURL(file);
         }
     };
     
     const handleBrainstorm = () => {
-        // In a real app, this would trigger a call to an AI flow.
         const suggestions = [
             { headline: "Your Dream Home Awaits", bodyText: "Experience unparalleled luxury and breathtaking views. Tap 'Learn More' to discover your new life at Emaar Beachfront." },
             { headline: "Exclusive Waterfront Living", bodyText: "Discover a new standard of coastal luxury. Limited residences available. Inquire now for exclusive access." },
@@ -61,10 +62,11 @@ const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (fi
         const nextIndex = (currentIndex + 1) % suggestions.length;
         onUpdate('headline', suggestions[nextIndex].headline);
         onUpdate('bodyText', suggestions[nextIndex].bodyText);
+        toast({ title: "AI Suggestion Applied!", description: "The ad copy has been updated with a new creative angle." });
     };
 
     return (
-        <Card className="w-full max-w-[340px] mx-auto overflow-hidden font-sans text-sm">
+        <Card className="w-full max-w-[380px] mx-auto overflow-hidden font-sans text-sm">
             <CardContent className="p-0">
                 <div className="p-3 bg-card">
                     <div className="flex items-center gap-2">
@@ -73,58 +75,60 @@ const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (fi
                             <AvatarFallback>PN</AvatarFallback>
                         </Avatar>
                         <div>
-                            <p className="font-bold">Page Name</p>
+                            <p className="font-bold">Your Page Name</p>
                             <p className="text-xs text-muted-foreground">Sponsored</p>
                         </div>
                     </div>
-                    {isEditingBody ? (
-                        <Textarea
-                            value={creative.bodyText}
-                            onChange={(e) => onUpdate('bodyText', e.target.value)}
-                            onBlur={() => setIsEditingBody(false)}
-                            autoFocus
-                            className="mt-2 text-sm"
-                        />
-                    ) : (
-                        <p className="mt-2" onClick={() => setIsEditingBody(true)}>
-                            {creative.bodyText}
-                        </p>
-                    )}
+                     <div className="mt-2" onClick={() => setIsEditingBody(true)}>
+                        {isEditingBody ? (
+                            <Textarea
+                                value={creative.bodyText}
+                                onChange={(e) => onUpdate('bodyText', e.target.value)}
+                                onBlur={() => setIsEditingBody(false)}
+                                autoFocus
+                                className="mt-2 text-sm"
+                            />
+                        ) : (
+                            <p className="cursor-text hover:bg-muted/50 p-1 rounded-md">{creative.bodyText}</p>
+                        )}
+                    </div>
                 </div>
                 <div className="aspect-square bg-muted flex items-center justify-center relative group">
                     <Input type="file" ref={fileInputRef} className="hidden" onChange={handleImageUpload} accept="image/*" />
-                    {imagePreview ? (
-                        <Image src={imagePreview} alt="Ad preview" fill={true} objectFit="cover" />
-                    ) : (
-                        <ImageIcon className="h-16 w-16 text-muted-foreground/30" />
-                    )}
-                    <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <Image 
+                        src={imagePreview || 'https://picsum.photos/seed/ad-placeholder/400/400'} 
+                        alt="Ad preview" 
+                        fill={true} 
+                        className="object-cover" 
+                        data-ai-hint="lifestyle property"
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                         <Button variant="secondary" onClick={() => fileInputRef.current?.click()}><Upload className="mr-2 h-4 w-4"/> Upload</Button>
-                        <Button variant="secondary" onClick={handleBrainstorm}><Sparkles className="mr-2 h-4 w-4"/> AI</Button>
+                        <Button variant="secondary" onClick={handleBrainstorm}><Sparkles className="mr-2 h-4 w-4"/> Brainstorm</Button>
                     </div>
-                    <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
+                </div>
+                 <div className="p-3 bg-card flex justify-between items-center">
+                    <div>
+                        <p className="text-xs uppercase text-muted-foreground">yourwebsite.com</p>
+                        <div onClick={() => setIsEditingHeadline(true)}>
                         {isEditingHeadline ? (
                              <Input 
                                 value={creative.headline}
                                 onChange={(e) => onUpdate('headline', e.target.value)}
                                 onBlur={() => setIsEditingHeadline(false)}
                                 autoFocus
-                                className="bg-transparent border-white/50 text-white placeholder:text-white/70"
+                                className="text-base font-bold"
                              />
                         ) : (
-                             <h3 className="font-bold text-white text-lg" onClick={() => setIsEditingHeadline(true)}>
+                             <h3 className="font-bold text-base cursor-text hover:bg-muted/50 p-1 rounded-md">
                                 {creative.headline}
                             </h3>
                         )}
+                        </div>
                     </div>
+                    <Button variant="secondary" size="sm" className="px-6 h-9 shrink-0">{creative.callToAction}</Button>
                 </div>
-                 <div className="p-3 bg-card flex justify-between items-center">
-                    <div>
-                        <p className="text-xs uppercase text-muted-foreground">yourwebsite.com</p>
-                    </div>
-                    <Button variant="secondary" size="sm" className="px-4 h-8">{creative.callToAction}</Button>
-                </div>
-                <div className="p-3 border-t flex justify-around text-muted-foreground">
+                <div className="p-2 border-t flex justify-around text-muted-foreground">
                     <Button variant="ghost" size="sm" className="flex items-center gap-2"><ThumbsUp className="h-4 w-4"/> Like</Button>
                     <Button variant="ghost" size="sm" className="flex items-center gap-2"><MessageSquare className="h-4 w-4"/> Comment</Button>
                     <Button variant="ghost" size="sm" className="flex items-center gap-2"><Share2 className="h-4 w-4"/> Share</Button>
@@ -461,5 +465,3 @@ export default function CampaignBuilderPage() {
         </main>
     );
 }
-
-    
