@@ -97,7 +97,7 @@ export default function AssistantPage() {
                     id="assistant-instructions" 
                     placeholder="e.g., You are a real estate marketing expert. Your goal is to help me create compelling content and find leads..."
                     rows={8}
-                    defaultValue="You are an expert real estate sales and marketing assistant for the Dubai market. Your primary function is to help the user save time, create high-quality marketing materials, and identify sales opportunities. Use the knowledge provided in the 'Knowledge Base' to inform your answers. Always tailor your responses to the UAE real estate landscape."
+                    defaultValue="You are an expert real estate sales and marketing assistant with 25 years of experience in the Dubai market. Your primary function is to help the user save time, create high-quality marketing materials, and identify sales opportunities. Use the knowledge provided in the 'Knowledge Base' to inform your answers. Always tailor your responses to the UAE real estate landscape."
                    />
                     <p className="text-sm text-muted-foreground">This is the most important setting. It defines the base personality and directives for all your AI agents, including embeddable chatbots.</p>
                </div>
