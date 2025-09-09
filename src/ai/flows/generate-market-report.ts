@@ -20,7 +20,7 @@ import {z} from 'genkit';
 /**
  * Defines the schema for the input of the market report flow.
  */
-const GenerateMarketReportInputSchema = z.object({
+export const GenerateMarketReportInputSchema = z.object({
   location: z.string().describe('The city or neighborhood for the report.'),
   propertyType: z.string().describe('The specific property type to focus on (e.g., "luxury condos").'),
   reportType: z.enum(['Investor', 'Home Buyer', 'Seller']).describe('The target audience for the report.'),
@@ -30,7 +30,7 @@ export type GenerateMarketReportInput = z.infer<typeof GenerateMarketReportInput
 /**
  * Defines the schema for the output of the market report flow.
  */
-const GenerateMarketReportOutputSchema = z.object({
+export const GenerateMarketReportOutputSchema = z.object({
   reportTitle: z.string().describe('A compelling title for the report.'),
   executiveSummary: z.string().describe('A brief, high-level summary of the key findings.'),
   marketTrends: z.array(z.object({
@@ -72,7 +72,10 @@ const prompt = ai.definePrompt({
   4.  **Provide Pricing Analysis:** Discuss the current state of pricing for the specified property type. Include average price points, recent appreciation/depreciation, and the general pricing sentiment (e.g., "competitive," "buyer's market").
   5.  **Offer a Future Outlook:** Based on the data, provide a brief forecast of what to expect in the next 3-6 months.
 
-  Tailor the language and focus to be most valuable for the specified **Target Audience**. For example, an investor report should focus on ROI and cap rates, while a home buyer report should focus on lifestyle and value.
+  Tailor the language and focus to be most valuable for the specified **Target Audience**. 
+  - For an 'Investor' report, focus on ROI, cap rates, rental demand, and yield.
+  - For a 'Home Buyer' report, focus on lifestyle, amenities, value, and long-term appreciation.
+  - For a 'Seller' report, focus on optimal listing price, time on market, and what features are currently selling best.
   `,
 });
 
@@ -84,6 +87,9 @@ const generateMarketReportFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
+    if (!output) {
+        throw new Error('The AI failed to generate a market report.');
+    }
+    return output;
   }
 );
