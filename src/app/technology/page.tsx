@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingFooter } from '@/components/landing-footer';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { BrainCircuit, Check, Cpu, Globe, Instagram, MessageCircle, Network, Bot, Send, Loader2, Sparkles, Upload, ArrowRight, Share2, FileText, Link as LinkIcon, File, Plus, Video, Phone, Users2 } from 'lucide-react';
+import { BrainCircuit, Check, Cpu, Globe, Instagram, MessageCircle, Network, Bot, Send, Loader2, Sparkles, Upload, ArrowRight, Share2, FileText, Link as LinkIcon, File, Plus, Video, Phone, Users2, Facebook, ClipboardList, PenTool } from 'lucide-react';
 import { PageHeader } from '@/components/ui/page-header';
 import { Button } from '@/components/ui/button';
 import { ShinyButton } from '@/components/ui/shiny-button';
@@ -21,9 +21,11 @@ const deploymentChannels = [
     { icon: <Globe />, title: "Your Website" },
     { icon: <FileText />, title: "Advertising Landing Page" },
     { icon: <Instagram />, title: "Instagram DM" },
+    { icon: <Facebook />, title: "Facebook Page" },
     { icon: <MessageCircle />, title: "Standalone Agent Site" },
     { icon: <LinkIcon />, title: "Insta Bio Link" },
     { icon: <Share2 />, title: "Realtor Listing Portfolio" },
+    { icon: <FileText />, title: "Company Listing Portfolio" },
 ];
 
 const TrainingScenarioTabs = () => {
@@ -70,7 +72,6 @@ const TrainingScenarioTabs = () => {
                     <div className="text-center">
                          <p className="text-sm text-center text-muted-foreground mb-2">RESPONSE</p>
                         <div className="h-16 flex items-center justify-center">
-                             <p className="font-semibold text-primary">Accessing Real-time Knowledge...</p>
                              <div className="relative h-12 flex items-center justify-center">
                                  <AnimatePresence>
                                      <motion.span
@@ -163,7 +164,7 @@ export default function ChatbotProductPage() {
                                 <p className="mt-2 text-md text-muted-foreground mb-6">After training me in your dashboard, you can add me to any digital touchpoint in seconds.</p>
                                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                                     {deploymentChannels.map(channel => (
-                                        <div key={channel.title} className="p-3 bg-muted/10 rounded-lg flex items-center gap-3">
+                                        <div key={channel.title} className="p-3 bg-muted/50 rounded-lg flex items-center gap-3">
                                             <div className="p-2 text-primary">{channel.icon}</div>
                                             <span className="font-semibold text-sm text-foreground/80">{channel.title}</span>
                                         </div>
@@ -221,3 +222,5 @@ export default function ChatbotProductPage() {
     </div>
   );
 }
+
+    
