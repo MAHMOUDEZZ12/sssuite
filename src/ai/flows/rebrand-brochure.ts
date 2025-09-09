@@ -139,33 +139,27 @@ Output the rebranded brochure as a data URI.
 `,
 });
 
-const generateLogo = ai.defineFlow(
+const generateLogoFlow = ai.defineFlow(
   {
     name: 'generateLogo',
     inputSchema: z.object({
       companyName: z.string().describe('The name of the company.'),
-      toneOfVoice: z
-        .string()
-        .describe('The desired tone of voice for the brochure.'),
       colors: z.string().describe('The desired colors for the brochure.'),
     }),
     outputSchema: z.object({
       logoDataUri: z.string().describe(
-        "The generated logo, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+        "The generated logo, as a data URI."
       ),
     }),
   },
   async input => {
-    // This is a placeholder for a real text-to-image model call.
-    // In a real implementation, you would use a service like Imagen.
     console.log(`Simulating logo generation for: ${input.companyName}`);
-    // Returning a placeholder image URI
-    const placeholderLogo = `https://placehold.co/200x100/png?text=${encodeURIComponent(input.companyName)}&font=raleway`;
-    
-    // In a real scenario, you'd fetch the image and convert to data URI
-    // For this example, we will just return a mocked data URI.
-    // This part is complex to implement fully without a live service.
-    return {logoDataUri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='};
+    // In a real implementation, you would use a text-to-image model.
+    // For now, we return a placeholder data URI to demonstrate the feature.
+    const response = await fetch(`https://placehold.co/400x200/png?text=${encodeURIComponent(input.companyName)}`);
+    const buffer = await response.arrayBuffer();
+    const b64 = Buffer.from(buffer).toString('base64');
+    return { logoDataUri: `data:image/png;base64,${b64}` };
   }
 );
 
@@ -183,10 +177,9 @@ const rebrandBrochureFlow = ai.defineFlow(
     console.log("Simulating brochure rebranding with instructions:", input.deepEditInstructions);
     
     let generatedLogoUri: string | undefined;
-    if (!input.companyLogoDataUri) {
-      const logoResult = await generateLogo({
+    if (!input.companyLogoDataUri && input.deepEditInstructions?.includes("logo")) {
+      const logoResult = await generateLogoFlow({
           companyName: input.companyName,
-          toneOfVoice: input.toneOfVoice,
           colors: input.colors,
       });
       generatedLogoUri = logoResult.logoDataUri;

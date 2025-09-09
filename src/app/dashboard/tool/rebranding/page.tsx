@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Pen, Upload, Youtube, Download, Save, Scissors, Text, Music, Film, Brush, Palette, Image as ImageIcon, Type } from 'lucide-react';
+import { Loader2, Sparkles, Pen, Upload, Download, Brush, Palette, ImageIcon, Type } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { fileToDataUri } from '@/lib/tools-client';
@@ -169,6 +169,12 @@ export default function RebrandingPage() {
                         <CardDescription>Here is the final output from the AI, now saved in your assets.</CardDescription>
                     </CardHeader>
                     <CardContent className="text-center">
+                         {resultData.logoDataUri && (
+                             <div className="mb-4">
+                                <h4 className="font-semibold">AI Generated Logo</h4>
+                                <Image src={resultData.logoDataUri} alt="AI Generated Logo" width={150} height={75} className="mx-auto bg-muted p-2 rounded-md border" />
+                            </div>
+                        )}
                         <iframe src={`${resultData.rebrandedBrochureDataUri}#view=fitH`} className="w-full max-w-lg mx-auto h-[600px] border rounded-lg" />
                          <div className="flex justify-center gap-2 mt-4">
                             <a href={resultData.rebrandedBrochureDataUri} download="rebranded-brochure.pdf">
