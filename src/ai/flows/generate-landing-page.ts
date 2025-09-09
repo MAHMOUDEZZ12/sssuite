@@ -53,16 +53,6 @@ const GenerateLandingPageInputSchema = z.object({
     .describe(
       "A project brochure, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
-  /**
-   * An optional inspiration image, encoded as a Base64 data URI.
-   * @example "data:image/png;base64,..."
-   */
-  inspirationImageDataUri: z
-    .string()
-    .optional()
-    .describe(
-      "An optional inspiration image, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
-    ),
 });
 export type GenerateLandingPageInput = z.infer<
   typeof GenerateLandingPageInputSchema
@@ -96,46 +86,9 @@ export async function generateLandingPage(
   return generateLandingPageFlow(input);
 }
 
-
-const HeroImageInputSchema = z.object({
-  projectName: z.string(),
-  projectDetails: z.string(),
-  brandingStyle: z.string(),
-});
-
-const generateHeroImage = ai.defineFlow(
-  {
-    name: 'generateHeroImage',
-    inputSchema: HeroImageInputSchema,
-    outputSchema: z.string(),
-  },
-  async ({projectName, projectDetails, brandingStyle}) => {
-    const prompt = `Generate a beautiful, high-resolution hero image for a real estate landing page. The project is called "${projectName}".
-    
-    Details: ${projectDetails}
-    The desired style is "${brandingStyle}".
-    
-    The image should be professional, visually stunning, and suitable for a website header.`;
-    
-    const {media} = await ai.generate({
-      model: 'googleai/imagen-4.0-fast-generate-001',
-      prompt,
-      config: {
-        aspectRatio: "16:9"
-      }
-    });
-
-    if (!media) {
-      throw new Error('Failed to generate hero image.');
-    }
-    return media.url!;
-  }
-);
-
-
 const landingPagePrompt = ai.definePrompt({
   name: 'landingPagePrompt',
-  input: {schema: GenerateLandingPageInputSchema.extend({ heroImageDataUri: z.string() }) },
+  input: {schema: GenerateLandingPageInputSchema },
   output: {schema: GenerateLandingPageOutputSchema},
   prompt: `You are an expert web developer specializing in high-converting real estate landing pages. Your task is to generate a complete, single-file HTML document using Tailwind CSS for styling.
 
@@ -144,25 +97,21 @@ const landingPagePrompt = ai.definePrompt({
   - Project Details: {{{projectDetails}}}
   - Branding Style(s): {{{brandingStyle}}}
   - Desired Page Structure: Create a page with {{{numberOfSections}}} main sections.
-  - Hero Image: {{media url=heroImageDataUri}}
   {{#if projectBrochureDataUri}}
   - Project Brochure: {{media url=projectBrochureDataUri}}
-  {{/if}}
-  {{#if inspirationImageDataUri}}
-  - Inspiration Image: {{media url=inspirationImageDataUri}}
   {{/if}}
 
   **Instructions:**
 
   1.  **HTML Structure:** Create a full HTML5 document structure (\`<!DOCTYPE html>\`, \`<html>\`, \`<head>\`, \`<body>\`).
   2.  **Tailwind CSS:** Use the Tailwind CSS CDN script in the \`<head>\` for styling. Do not use any other CSS frameworks or custom CSS. \`<script src="https://cdn.tailwindcss.com"></script>\`
-  3.  **Hero Section:** Create a visually impressive hero section using the provided hero image as the background. It should feature the project name and a compelling call-to-action.
+  3.  **Hero Section:** Create a visually impressive hero section using a high-quality placeholder image from picsum.photos as the background. It should feature the project name and a compelling call-to-action.
   4.  **Content Sections:** Based on the 'numberOfSections' parameter, build out the page.
       - If 2 sections: Hero + Lead Capture Form.
       - If 3 sections: Hero + Key Features + Lead Capture Form.
       - If 4 sections: Hero + Key Features + Gallery + Lead Capture Form.
       - If 5 sections: Hero + Key Features + Gallery + Location/Map + Lead Capture Form.
-      - Use placeholder images from picsum.photos for the gallery.
+      - Use placeholder images from picsum.photos for the gallery and other sections.
   5.  **Lead Capture Form:** This is critical. Include a prominent lead capture form with fields for Name, Email, and Phone Number, and a clear "Register Your Interest" button.
   6.  **Branding:** Ensure the overall design (colors, fonts) reflects the specified 'Branding Style(s)'. If multiple styles are provided, blend them intelligently (e.g., Modern structure with Luxury accents).
   7.  **Output:** Return ONLY the complete, raw HTML code for the landing page. Do not include any explanations, markdown, or other text outside of the HTML itself.
@@ -176,18 +125,7 @@ const generateLandingPageFlow = ai.defineFlow(
     outputSchema: GenerateLandingPageOutputSchema,
   },
   async input => {
-    // Step 1: Generate the hero image
-    const heroImageDataUri = await generateHeroImage({
-      projectName: input.projectName,
-      projectDetails: input.projectDetails,
-      brandingStyle: input.brandingStyle,
-    });
-
-    // Step 2: Generate the HTML with the hero image
-    const {output} = await landingPagePrompt({
-      ...input,
-      heroImageDataUri,
-    });
+    const {output} = await landingPagePrompt(input);
 
     if (!output) {
       throw new Error('Failed to generate landing page HTML.');

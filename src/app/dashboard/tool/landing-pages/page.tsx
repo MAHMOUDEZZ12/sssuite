@@ -16,7 +16,6 @@ import { track } from '@/lib/events';
 import { useCanvas } from '@/context/CanvasContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 
 const visualStyles = [
@@ -286,7 +285,7 @@ export default function LandingPageBuilderPage() {
                             <div className="text-center text-muted-foreground">
                                 <Loader2 className="h-12 w-12 animate-spin mx-auto text-primary mb-4" />
                                 <p className="font-semibold">Your AI Co-Pilot is building your page...</p>
-                                <p className="text-sm">This may take up to a minute, especially with image generation.</p>
+                                <p className="text-sm">This may take a moment.</p>
                             </div>
                         </Card>
                     ) : resultHtml ? (
@@ -324,5 +323,3 @@ export default function LandingPageBuilderPage() {
         </main>
     );
 }
-
-    
