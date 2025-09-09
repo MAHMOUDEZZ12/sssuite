@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Loader2, Sparkles, Upload, FileText, Plus, Trash2, Edit, Move, Save, PenLine, Type, Image as ImageIcon, Palette, Brush, Link } from 'lucide-react';
