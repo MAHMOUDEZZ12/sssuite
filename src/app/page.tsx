@@ -293,87 +293,15 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
       <main className="flex-1 w-full max-w-full px-4 md:px-6 lg:px-8 py-12 md:py-20">
-        <div className="text-center mb-12 max-w-5xl mx-auto">
+        <div className="text-center mb-24 max-w-5xl mx-auto">
           <h1 className="text-4xl md:text-7xl font-bold font-heading tracking-tighter mb-4 text-foreground">
             From Agent to Super Agent.
           </h1>
           <p className="text-lg md:text-xl text-foreground/60">
             Explore the tools. Train your assistant. Close faster.
           </p>
-          <div className='mt-8'>
-            <Link href="/signup">
-                <ShinyButton>
-                    Start Free • Free domain for students*
-                </ShinyButton>
-            </Link>
-          </div>
         </div>
 
-        <section className="my-24 max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-5xl font-bold font-heading tracking-tight mb-4">Our Products</h2>
-                <p className="text-lg text-foreground/60">
-                    A suite of powerful, interconnected applications designed to work together.
-                </p>
-            </div>
-            <Card className="bg-card/50 backdrop-blur-lg border-border shadow-xl shadow-primary/10 overflow-hidden">
-                <div className="grid grid-cols-1 md:grid-cols-2 items-center">
-                    <div className="p-8 md:p-12">
-                         <div className="p-3 bg-primary/10 text-primary rounded-full w-fit mb-4">
-                            <Bot className="h-8 w-8" />
-                        </div>
-                        <h3 className="text-3xl font-bold font-heading tracking-tight mb-3">The AI Sales Agent</h3>
-                        <p className="text-lg text-foreground/70 mb-6">
-                           Your 24/7 expert assistant, trained on your data. Deploy it to your website, Instagram DMs, or a standalone page to answer questions, capture leads, and close deals while you sleep.
-                        </p>
-                        <Link href="/technology">
-                             <Button size="lg" variant="default">
-                                Learn More about the AI Agent
-                            </Button>
-                        </Link>
-                    </div>
-                     <div className="bg-muted/50 p-8 h-full flex items-center justify-center">
-                        <div className="w-full max-w-sm h-[400px] bg-background rounded-xl border shadow-2xl flex flex-col">
-                            <header className="p-3 border-b flex items-center gap-3">
-                                <Bot className="h-6 w-6 text-primary" />
-                                <div>
-                                    <h3 className="font-semibold">Real Estate Assistant</h3>
-                                    <p className="text-xs text-green-500">● Online</p>
-                                </div>
-                            </header>
-                             <div className="flex-1 p-4 space-y-4">
-                                <div className="flex items-end gap-2 justify-start">
-                                    <Avatar className="h-8 w-8"><AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-4 w-4" /></AvatarFallback></Avatar>
-                                    <div className="max-w-[75%] rounded-2xl p-3 text-sm bg-muted rounded-bl-none">
-                                        Hello! How can I help you today?
-                                    </div>
-                                </div>
-                                <div className="flex items-end gap-2 justify-end">
-                                    <div className="max-w-[75%] rounded-2xl p-3 text-sm bg-primary text-primary-foreground rounded-br-none">
-                                        Tell me about the 2-bedroom units at Emaar Beachfront.
-                                    </div>
-                                     <Avatar className="h-8 w-8"><AvatarFallback>U</AvatarFallback></Avatar>
-                                </div>
-                             </div>
-                            <div className="p-3 border-t">
-                                <div className="flex items-center gap-2">
-                                    <Input placeholder="Ask a question..." disabled />
-                                    <Button size="icon" disabled><ArrowRight className="h-4 w-4" /></Button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Card>
-        </section>
-
-        <div className="text-center my-24">
-            <h2 className="text-4xl md:text-5xl font-bold font-heading tracking-tight mb-4">The ToolKit</h2>
-            <p className="text-lg text-foreground/60">
-                Explore the individual AI tools that power the suite.
-            </p>
-        </div>
-        
         <div className="sticky top-16 z-10 bg-background/80 backdrop-blur-lg py-4 mb-8">
             <div className="flex justify-center overflow-x-auto pb-4 no-scrollbar">
                 <div className="flex gap-2 md:gap-4 flex-nowrap">

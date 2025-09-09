@@ -15,7 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Card, CardDescription, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Tooltip, TooltipProvider, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-
+import { motion } from 'framer-motion';
 
 const MindMapNode = ({
   title,
@@ -38,26 +38,10 @@ const MindMapNode = ({
             : "border-border bg-card/80 backdrop-blur-sm min-h-20"
         )}
       >
-        {!isRoot && (
-           <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="absolute top-3 right-3 flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>System Success</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        )}
         <h3 className={cn(isRoot ? 'text-primary text-2xl font-bold' : 'text-foreground font-semibold text-lg')}>{title}</h3>
       </div>
       {children && (
         <div className="relative pt-8 w-full flex flex-col items-center">
-           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-full bg-border" />
            <div className="relative z-10 flex flex-col items-center gap-4 w-full">
             {children}
            </div>
@@ -246,6 +230,16 @@ const FeatureModal = ({ feature, onClose }: { feature: Feature | null, onClose: 
 
 export default function SX3MindmapPage() {
     const [selectedFeature, setSelectedFeature] = React.useState<Feature | null>(null);
+    const languages = ['مرحبا', 'Hello', 'Hola', 'こんにちは', '你好', 'Bonjour'];
+    const [currentLang, setCurrentLang] = React.useState(0);
+
+     React.useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentLang(prev => (prev + 1) % languages.length);
+        }, 2000);
+        return () => clearInterval(interval);
+    }, [languages.length]);
+
 
     const toolCategories = [
         { name: "Meta Ads AI Suite", tools: tools.filter(t => t.mindMapCategory === 'Meta Ads AI Suite') },
@@ -258,7 +252,28 @@ export default function SX3MindmapPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <LandingHeader />
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20 flex flex-col items-center justify-start">
-        <div className="text-center mb-16 mt-8">
+         <div className="relative text-center mb-16 mt-8">
+            <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className="absolute inset-0 flex items-center justify-center -z-10"
+            >
+                 <div className="relative h-24 w-full flex items-center justify-center">
+                    <AnimatePresence>
+                         <motion.span
+                            key={currentLang}
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 20 }}
+                            transition={{ duration: 0.5 }}
+                            className="absolute text-7xl font-bold text-foreground/5"
+                        >
+                            {languages[currentLang]}
+                        </motion.span>
+                    </AnimatePresence>
+                </div>
+            </motion.div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
             SX3 Services Mind Map
           </h1>
@@ -268,26 +283,11 @@ export default function SX3MindmapPage() {
         </div>
         
         <div className="relative flex w-full flex-col justify-center items-center">
-            <div className="w-full max-w-xs mb-8 z-10">
+            <div className="w-full max-w-xs mb-16 z-10">
                  <MindMapNode title="Super Seller Suite" isRoot />
             </div>
 
-             <div className="absolute top-[6.5rem] hidden h-32 w-full max-w-5xl lg:block">
-                {/* Central vertical line */}
-                <div className="absolute left-1/2 top-0 h-16 w-0.5 -translate-x-1/2 bg-border" />
-
-                {/* Horizontal line */}
-                <div className="absolute left-[12.5%] right-[12.5%] top-16 h-0.5 bg-border" />
-                
-                {/* Down lines to categories */}
-                <div className="absolute left-[12.5%] top-16 h-16 w-0.5 -translate-x-1/2 bg-border" />
-                <div className="absolute left-[37.5%] top-16 h-16 w-0.5 -translate-x-1/2 bg-border" />
-                <div className="absolute right-[37.5%] top-16 h-16 w-0.5 translate-x-1/2 bg-border" />
-                <div className="absolute right-[12.5%] top-16 h-16 w-0.5 translate-x-1/2 bg-border" />
-            </div>
-
-
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-y-32 lg:mt-16">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
                 {toolCategories.map((category) => (
                     <MindMapNode 
                       key={category.name} 
