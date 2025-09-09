@@ -108,7 +108,7 @@ export type Field = {
   hidden?: boolean;
 };
 
-export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing' | 'Market Library' | 'Utilities' | 'Listing Intelligence AI';
+export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing' | 'Market Library' | 'Utilities' | 'Listing Intelligence AI' | 'TikTok AI Suite';
 
 export type Feature = {
   id: string;
@@ -119,7 +119,7 @@ export type Feature = {
   color: string;
   cta: string;
   categories: FilterCategory[];
-  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal' | 'Meta Ads AI Suite' | 'Utilities' | 'Listing Intelligence AI';
+  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal' | 'Meta Ads AI Suite' | 'Utilities' | 'Listing Intelligence AI' | 'TikTok AI Suite';
   badge?: 'NEW' | 'BETA' | 'SOON' | 'Pilot*';
   isPage?: boolean;
   href: string;
@@ -140,6 +140,47 @@ export type Feature = {
 };
 
 export const tools: Feature[] = [
+  // --- TIKTOK AI SUITE ---
+  {
+    id: 'tiktok-editor',
+    title: 'TikTok Video Editor',
+    dashboardTitle: 'TikTok Video Editor',
+    description: 'Create on-trend, engaging videos for TikTok.',
+    icon: <Video />,
+    color: '#000000',
+    cta: 'Generate TikTok',
+    categories: ['TikTok AI Suite', 'Ads', 'Creative', 'Social & Comms'],
+    mindMapCategory: 'TikTok AI Suite',
+    badge: 'NEW',
+    href: '/dashboard/tool/tiktok-editor',
+    guideHref: '/blog/tiktok-editor',
+    details: {
+      steps: [
+        { text: 'Provide your project assets (images, videos)', icon: <Upload /> },
+        { text: 'AI suggests trending sounds and text styles', icon: <Sparkles /> },
+        { text: 'Generate a ready-to-post TikTok video', icon: <CheckCircle /> },
+      ],
+      aiVsManual: [
+        { metric: 'Time to Create', manual: 'Hours editing in CapCut', ai: 'Seconds to generate a draft', icon: <Clock2 /> },
+        { metric: 'Trend Analysis', manual: 'Manually scrolling the For You Page', ai: 'Data-driven insights on what\'s currently working', icon: <TrendingUp /> },
+        { metric: 'Engagement', manual: 'Hit-or-miss engagement', ai: 'Optimized for the TikTok algorithm', icon: <LineChart /> },
+      ],
+      synergy: [
+        { tool: "Reel Ads", benefit: "Easily reformat your best-performing Instagram Reels for a native TikTok experience." },
+        { tool: "Audience Creator", benefit: "Use the insights from TikTok to refine your target audience on other social platforms." },
+      ],
+      faqs: [
+        { question: "Can I use my own sounds?", answer: "While the AI suggests commercially licensed trending audio, you can upload your own audio files to be used in the video." },
+        { question: "Does it add those TikTok text-to-speech voices?", answer: "Yes, you can choose from a variety of popular text-to-speech voices to narrate your video for a native TikTok feel." },
+        { question: "How does it know what's 'trending'?", answer: "Our AI analyzes data from the TikTok Commercial Content API to identify sounds, visual styles, and topics that are currently performing well in your market." }
+      ],
+    },
+    creationFields: [
+      { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose the project to source visual assets from.' },
+      { id: 'sound', name: 'Sound or Vibe', type: 'text', placeholder: 'e.g., "upbeat corporate" or paste a TikTok sound link', description: 'Describe the audio vibe or provide a link to a specific sound.' },
+      { id: 'textOverlays', name: 'Text Overlays', type: 'textarea', placeholder: 'e.g., "You won\'t believe this view...\nWait for the end!"', description: 'Key text to display on screen. One idea per line.' },
+    ],
+  },
   // --- META ADS AI SUITE ---
    {
     id: 'meta-auto-pilot',
