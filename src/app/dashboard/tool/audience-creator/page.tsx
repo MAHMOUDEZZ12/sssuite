@@ -17,6 +17,7 @@ import * as z from 'zod';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Link from 'next/link';
 
 
 const ProFeatureLock = ({ children, title }: { children: React.ReactNode, title: string }) => (
@@ -246,6 +247,8 @@ export default function AudienceCreatorPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [result, setResult] = useState<SuggestTargetingOptionsOutput | null>(null);
     const [projectId, setProjectId] = useState('');
+    const [showCampaignNotice, setShowCampaignNotice] = React.useState(true);
+
 
     const handleGeneration = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -277,6 +280,28 @@ export default function AudienceCreatorPage() {
 
     return (
         <main className="p-4 md:p-10 space-y-8">
+             {showCampaignNotice && (
+                 <Card data-state={showCampaignNotice ? 'open' : 'closed'} className="max-w-full mx-auto animate-in fade-in-0 slide-in-from-top-5 duration-500 bg-primary/10 border-primary/20">
+                     <CardContent className='p-4'>
+                        <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2'>
+                           <div className="flex-grow flex items-center gap-3">
+                               <Info className="h-5 w-5 text-primary" />
+                               <div>
+                                  <p className="font-semibold text-primary">You're in Discovery Mode</p>
+                                  <p className="text-sm text-primary/80">You can generate audience ideas, but to use them, you must first create a campaign.</p>
+                               </div>
+                           </div>
+                           <div className='flex gap-2 flex-shrink-0 mt-2 sm:mt-0'>
+                                <Link href="/dashboard/tool/meta-ads-copilot">
+                                    <Button size="sm">Start a Campaign</Button>
+                                </Link>
+                                <Button size="sm" variant="ghost" onClick={() => setShowCampaignNotice(false)}>I'm just exploring</Button>
+                           </div>
+                        </div>
+                     </CardContent>
+                 </Card>
+            )}
+
             <PageHeader
                 title="Audience Creator AI"
                 description="Define your ideal buyer persona and find high-intent customers for any project."
@@ -338,3 +363,5 @@ export default function AudienceCreatorPage() {
         </main>
     );
 }
+
+    
