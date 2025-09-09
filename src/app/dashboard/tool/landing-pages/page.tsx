@@ -27,8 +27,8 @@ const visualStyles = [
 ];
 
 const pageSections = [
-    { label: "Hero + Form", sections: 2 },
-    { label: "Hero + Features + Form", sections: 3 },
+    { label: "Hero + Lead Capture Form", sections: 2 },
+    { label: "Hero + Key Features + Form", sections: 3 },
     { label: "Hero + Gallery + Form", sections: 4 },
     { label: "Hero + Features + Gallery + Map + Form", sections: 5 },
 ];
