@@ -28,12 +28,12 @@ const mainNav = [
   { href: '/dashboard', label: 'Home', icon: Home },
   { href: '/dashboard/marketing', label: 'Apps', icon: Puzzle },
   { href: '/dashboard/tool/projects-finder', label: 'Projects Library', icon: Building },
+  { href: '/dashboard/assistant', label: 'AI Assistant', icon: Bot },
 ];
 
 const settingsNav = [
   { href: '/dashboard/brand', label: 'Brand & Assets', icon: Palette },
   { href: '/dashboard/clients', label: 'Clients', icon: Users },
-  { href: '/dashboard/assistant', label: 'AI Assistant', icon: Bot },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 
