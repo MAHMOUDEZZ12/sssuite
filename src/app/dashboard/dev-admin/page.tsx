@@ -18,7 +18,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from '@/components/ui/select';
 import { tools } from '@/lib/tools-client';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -64,6 +64,20 @@ const statusConfig: { [key in TaskStatus]: { color: string, icon: React.ReactNod
     'Assured': { color: 'bg-emerald-500', icon: <Sparkles className="h-3 w-3" /> },
     'Issue Reported': { color: 'bg-red-500', icon: <AlertTriangle className="h-3 w-3" /> },
 }
+
+const sitePages = [
+    { id: 'page-home', title: 'Home Page' },
+    { id: 'page-pricing', title: 'Pricing Page' },
+    { id: 'page-about', title: 'About Page' },
+    { id: 'page-blog', title: 'Blog Page' },
+    { id: 'page-dashboard', title: 'Main Dashboard' },
+    { id: 'page-onboarding', title: 'Onboarding Flow' },
+];
+
+const newConcepts = [
+    { id: 'concept-new-app', title: 'New App Idea' },
+    { id: 'concept-new-idea', title: 'General Suggestion' },
+];
 
 export default function DevAdminPage() {
     const { toast } = useToast();
@@ -114,28 +128,30 @@ export default function DevAdminPage() {
 
     const handleAssignTask = () => {
         if (!currentTask || !selectedToolId) {
-            toast({ title: "Task or Tool is empty", description: "Please select a tool and enter a task before assigning.", variant: "destructive" });
+            toast({ title: "Task or Target is empty", description: "Please select a target and enter a task before assigning.", variant: "destructive" });
             return;
         }
         
-        const selectedTool = tools.find(t => t.id === selectedToolId);
-        if (!selectedTool) {
-             toast({ title: "Tool not found", description: "The selected tool could not be found.", variant: "destructive" });
+        const allItems = [...tools, ...sitePages, ...newConcepts];
+        const selectedItem = allItems.find(t => t.id === selectedToolId);
+
+        if (!selectedItem) {
+             toast({ title: "Target not found", description: "The selected target could not be found.", variant: "destructive" });
             return;
         }
 
         const newLogEntry: ChangeLogEntry = {
             id: `cl-${Date.now()}`,
             timestamp: new Date(),
-            toolId: selectedTool.id,
-            toolTitle: selectedTool.title,
+            toolId: selectedItem.id,
+            toolTitle: selectedItem.title,
             description: currentTask,
             status: 'New',
         };
 
         setChangeLog(prev => [newLogEntry, ...prev]);
         
-        const promptText = `Task Assigned (ID: ${newLogEntry.id}): For the "${selectedTool.title}" app, please start work on the following task: "${currentTask}". Please update the status to 'Planned' once you begin and 'Implemented' when you are done.`;
+        const promptText = `Task Assigned (ID: ${newLogEntry.id}): For the target "${selectedItem.title}", please start work on the following task: "${currentTask}". Please update the status to 'Planned' once you begin and 'Implemented' when you are done.`;
         copyToClipboard(promptText, "The prompt to assign this new task has been copied to your clipboard. Paste it in our chat to have me start.");
 
         setCurrentTask('');
@@ -235,12 +251,27 @@ export default function DevAdminPage() {
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Select value={selectedToolId} onValueChange={setSelectedToolId}>
                                 <SelectTrigger className="w-full sm:w-[280px]">
-                                    <SelectValue placeholder="Select an app to task..." />
+                                    <SelectValue placeholder="Select an app or page..." />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    {tools.filter(t => t.id !== 'superfreetime').map(tool => (
-                                        <SelectItem key={tool.id} value={tool.id}>{tool.title}</SelectItem>
-                                    ))}
+                                    <SelectGroup>
+                                        <SelectLabel>Apps & Tools</SelectLabel>
+                                        {tools.filter(t => t.id !== 'superfreetime').map(tool => (
+                                            <SelectItem key={tool.id} value={tool.id}>{tool.title}</SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                    <SelectGroup>
+                                        <SelectLabel>Site Pages</SelectLabel>
+                                        {sitePages.map(page => (
+                                            <SelectItem key={page.id} value={page.id}>{page.title}</SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                    <SelectGroup>
+                                        <SelectLabel>New Concepts</SelectLabel>
+                                         {newConcepts.map(concept => (
+                                            <SelectItem key={concept.id} value={concept.id}>{concept.title}</SelectItem>
+                                        ))}
+                                    </SelectGroup>
                                 </SelectContent>
                             </Select>
                             <Textarea 
