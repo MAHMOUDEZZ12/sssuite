@@ -17,6 +17,7 @@ import { useCanvas } from '@/context/CanvasContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 const visualStyles = [
     { id: "Modern & Minimalist", label: "Modern & Minimalist" },
@@ -34,7 +35,7 @@ const pageSections = [
 
 const StructureMockup = ({ label, sections, isSelected, onClick }: { label: string, sections: number, isSelected: boolean, onClick: () => void }) => {
     return (
-        <button onClick={onClick} className={cn("block w-full text-left p-2 rounded-lg border-2 transition-all", isSelected ? "border-primary bg-primary/10" : "border-border bg-card hover:border-muted-foreground/50")}>
+        <button type="button" onClick={onClick} className={cn("block w-full text-left p-2 rounded-lg border-2 transition-all", isSelected ? "border-primary bg-primary/10" : "border-border bg-card hover:border-muted-foreground/50")}>
             <div className="w-full h-40 bg-muted/50 rounded-md p-3 flex flex-col gap-2">
                 <div className="h-1/3 bg-primary/20 rounded-sm"></div>
                 {sections > 2 && <div className="h-1/3 bg-primary/20 rounded-sm"></div>}
@@ -46,7 +47,6 @@ const StructureMockup = ({ label, sections, isSelected, onClick }: { label: stri
         </button>
     )
 }
-
 
 const EditInCanvas = ({ pageHtml, onSave, onCancel }: { pageHtml: string; onSave: (instructions: string) => void; onCancel: () => void }) => {
     const [instructions, setInstructions] = useState('');
@@ -68,8 +68,8 @@ const EditInCanvas = ({ pageHtml, onSave, onCancel }: { pageHtml: string; onSave
     )
 }
 
-type Step = 'project' | 'details' | 'style' | 'structure' | 'brochure';
-const steps: Step[] = ['project', 'details', 'style', 'structure', 'brochure'];
+type Step = 'project' | 'details' | 'style' | 'structure' | 'brochure' | 'review';
+const steps: Step[] = ['project', 'details', 'style', 'structure', 'brochure', 'review'];
 
 
 export default function LandingPageBuilderPage() {
@@ -85,26 +85,60 @@ export default function LandingPageBuilderPage() {
         brandingStyle: [] as string[],
         numberOfSections: 3,
         projectBrochure: null as File | null,
+        headlineStrategy: '',
     });
+    
+    const [headlineOptions, setHeadlineOptions] = useState<any[]>([]);
 
-    const handleNextStep = () => {
-        const currentIndex = steps.indexOf(currentStep);
-        if (currentIndex < steps.length - 1) {
-            setCurrentStep(steps[currentIndex + 1]);
+    const handleNextStep = async () => {
+        if (currentStep === 'brochure') {
+            await handleReviewStep();
+        } else {
+            const currentIndex = steps.indexOf(currentStep);
+            if (currentIndex < steps.length - 1) {
+                setCurrentStep(steps[currentIndex + 1]);
+            }
         }
     };
+
      const handlePrevStep = () => {
         const currentIndex = steps.indexOf(currentStep);
         if (currentIndex > 0) {
             setCurrentStep(steps[currentIndex - 1]);
         }
     };
+    
+    const handleReviewStep = async () => {
+        const { projectName, projectDetails } = formData;
+        if (!projectName || !projectDetails ) {
+            toast({ title: 'Missing Information', description: 'Please complete all previous steps.', variant: 'destructive' });
+            return;
+        }
+        setIsLoading(true);
+        setCurrentStep('review');
+        try {
+            const payload = {
+                projectName: formData.projectName,
+                projectDetails: formData.projectDetails,
+                generateHeadlinesOnly: true
+            };
+            // @ts-ignore
+            const responseData = await generateLandingPage(payload);
+            setHeadlineOptions(responseData.headlineOptions);
+        } catch(e) {
+            console.error(e);
+            toast({ title: 'Error generating strategies', description: 'Could not generate headline strategies.', variant: 'destructive'});
+            setCurrentStep('brochure'); // Go back a step on error
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     const handleGeneration = async (e: React.FormEvent) => {
         e.preventDefault();
-        const { projectName, projectDetails, brandingStyle } = formData;
-        if (!projectName || !projectDetails || brandingStyle.length === 0) {
-            toast({ title: 'Missing Information', description: 'Please complete all steps before generating.', variant: 'destructive' });
+        const { projectName, projectDetails, brandingStyle, headlineStrategy } = formData;
+        if (!projectName || !projectDetails || brandingStyle.length === 0 || !headlineStrategy) {
+            toast({ title: 'Missing Information', description: 'Please complete all steps and select a strategy.', variant: 'destructive' });
             return;
         }
 
@@ -114,12 +148,16 @@ export default function LandingPageBuilderPage() {
 
         try {
             const brochureUri = formData.projectBrochure ? await fileToDataUri(formData.projectBrochure) : undefined;
+            const selectedHeadline = headlineOptions.find(opt => opt.id === headlineStrategy);
+
             const payload = {
                 projectName: formData.projectName,
                 projectDetails: formData.projectDetails,
                 brandingStyle: formData.brandingStyle.join(', '),
                 numberOfSections: formData.numberOfSections,
                 projectBrochureDataUri: brochureUri,
+                selectedHeadline: selectedHeadline?.headline,
+                selectedCta: selectedHeadline?.cta,
             };
             const responseData = await generateLandingPage(payload);
             setResultHtml(responseData.landingPageHtml);
@@ -149,7 +187,6 @@ export default function LandingPageBuilderPage() {
                         title: 'Page Update Queued...',
                         description: 'The AI is rebuilding your page with the new instructions.',
                     });
-                     // In a real app, this would re-run the generation flow with the new instructions
                     console.log('Re-generating with instructions:', instructions);
                     closeCanvas();
                 }}
@@ -226,6 +263,25 @@ export default function LandingPageBuilderPage() {
                      {formData.projectBrochure && <p className="text-sm text-green-600 flex items-center gap-1"><CheckCircle className="h-3 w-3" /> {formData.projectBrochure.name} selected.</p>}
                 </div>
             );
+        case 'review':
+             return (
+                <div className="space-y-2">
+                    <Label>AI Strategy Suggestions</Label>
+                    <p className="text-sm text-muted-foreground">The AI has analyzed your offer. Choose a strategic direction for your page's main headline.</p>
+                     <RadioGroup onValueChange={(val) => setFormData({...formData, headlineStrategy: val})} className="mt-2 space-y-2">
+                        {headlineOptions.map(opt => (
+                            <div key={opt.id}>
+                                <RadioGroupItem value={opt.id} id={opt.id} className="peer sr-only"/>
+                                <Label htmlFor={opt.id} className="flex flex-col p-3 rounded-lg border-2 peer-data-[state=checked]:border-primary hover:border-primary/50 cursor-pointer">
+                                    <span className="font-semibold text-primary">{opt.strategy}</span>
+                                    <span className="text-sm text-foreground">Headline: "{opt.headline}"</span>
+                                    <span className="text-xs text-muted-foreground mt-1">CTA: "{opt.cta}"</span>
+                                </Label>
+                            </div>
+                        ))}
+                     </RadioGroup>
+                </div>
+            );
         default:
           return null;
       }
@@ -256,8 +312,14 @@ export default function LandingPageBuilderPage() {
                                         <CardTitle className="capitalize">{currentStep} Setup</CardTitle>
                                         <CardDescription>Step {steps.indexOf(currentStep) + 1} of {steps.length}</CardDescription>
                                     </CardHeader>
-                                    <CardContent className="min-h-[180px]">
-                                        {renderStepContent()}
+                                    <CardContent className="min-h-[220px]">
+                                        {isLoading && currentStep === 'review' ? (
+                                            <div className="flex items-center justify-center h-full text-muted-foreground">
+                                                <Loader2 className="h-6 w-6 animate-spin mr-2"/> Generating strategies...
+                                            </div>
+                                        ) : (
+                                            renderStepContent()
+                                        )}
                                     </CardContent>
                                 </motion.div>
                             </AnimatePresence>
@@ -265,13 +327,13 @@ export default function LandingPageBuilderPage() {
                                 <Button type="button" variant="ghost" onClick={handlePrevStep} disabled={currentStep === 'project'}>
                                     <ArrowLeft className="mr-2 h-4 w-4" /> Back
                                 </Button>
-                                {currentStep === 'brochure' ? (
-                                    <Button type="submit" size="lg" disabled={isLoading}>
+                                {currentStep === 'review' ? (
+                                    <Button type="submit" size="lg" disabled={isLoading || !formData.headlineStrategy}>
                                         {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Building...</> : <><Wand2 className="mr-2 h-5 w-5" />Generate Page</>}
                                     </Button>
                                 ) : (
                                     <Button type="button" onClick={handleNextStep}>
-                                        Next <ArrowRight className="ml-2 h-4 w-4" />
+                                        {currentStep === 'brochure' ? 'Review & Generate' : 'Next'} <ArrowRight className="ml-2 h-4 w-4" />
                                     </Button>
                                 )}
                             </CardFooter>
@@ -280,7 +342,7 @@ export default function LandingPageBuilderPage() {
                 </div>
 
                 <div className="lg:col-span-2">
-                    {isLoading ? (
+                    {isLoading && currentStep !== 'review' ? (
                         <Card className="flex items-center justify-center h-96">
                             <div className="text-center text-muted-foreground">
                                 <Loader2 className="h-12 w-12 animate-spin mx-auto text-primary mb-4" />
