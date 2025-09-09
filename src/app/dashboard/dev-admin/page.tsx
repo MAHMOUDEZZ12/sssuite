@@ -12,7 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from '@/components/ui/badge';
-import { PlusCircle, Bot, GitCommit, AlertTriangle, GanttChartSquare, RotateCw, Loader2, Sparkles, CheckCircle, MessageSquare, Undo, Copy } from 'lucide-react';
+import { PlusCircle, Bot, GitCommit, AlertTriangle, GanttChartSquare, RotateCw, Loader2, Sparkles, CheckCircle, MessageSquare, Undo, Copy, Database } from 'lucide-react';
 import { PageHeader } from '@/components/ui/page-header';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
@@ -68,6 +68,9 @@ export default function DevAdminPage() {
     const [currentTask, setCurrentTask] = useState('');
     const [selectedToolId, setSelectedToolId] = useState('');
     const [changeLog, setChangeLog] = useState<ChangeLogEntry[]>([]);
+    
+    const [isScraping, setIsScraping] = useState(false);
+    const [scrapeStatus, setScrapeStatus] = useState('');
 
     useEffect(() => {
         // Load changelog from localStorage on mount
@@ -167,57 +170,96 @@ export default function DevAdminPage() {
         }
         copyToClipboard(promptText, toastMessage);
     }
+    
+    const handleScrape = async () => {
+        setIsScraping(true);
+        setScrapeStatus('Starting scraping job...');
+        toast({ title: 'Data Ingestion Started', description: 'Request sent to scraper API.'});
+        try {
+            const response = await fetch('/api/admin/scrape');
+            const data = await response.json();
+            if (!data.ok) throw new Error(data.error);
+
+            setScrapeStatus(`Scraping complete! Found and updated ${data.data.projectsAdded} projects.`);
+            toast({ title: 'Scraping Complete!', description: `Added/updated ${data.data.projectsAdded} projects in the Market Library.`});
+        } catch (e: any) {
+            setScrapeStatus(`Error during scraping: ${e.message}`);
+             toast({ title: 'Scraping Failed', description: e.message, variant: 'destructive'});
+        } finally {
+            setIsScraping(false);
+        }
+    };
 
   return (
     <main className="p-4 md:p-10 space-y-8">
        <PageHeader
         title="Development Admin Dashboard"
-        description="Our shared workspace. Assign tasks and monitor the Change Log of all implementations."
+        description="Our shared workspace. Assign tasks, monitor the Change Log, and manage data ingestion."
         icon={<GanttChartSquare className="h-8 w-8" />}
       >
       </PageHeader>
       
-        <Card>
-            <CardHeader>
-                <CardTitle>Task Pipeline</CardTitle>
-                <CardDescription>Assign a new development task. This will add it to the Change Log and copy a prompt for you to send to me.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                 <div className="flex flex-col sm:flex-row gap-4">
-                     <Select value={selectedToolId} onValueChange={setSelectedToolId}>
-                        <SelectTrigger className="w-full sm:w-[280px]">
-                            <SelectValue placeholder="Select an app to task..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {tools.filter(t => t.id !== 'superfreetime').map(tool => (
-                                <SelectItem key={tool.id} value={tool.id}>{tool.title}</SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <Textarea 
-                        placeholder="Enter your next task for me here..."
-                        value={currentTask}
-                        onChange={(e) => setCurrentTask(e.target.value)}
-                        rows={2}
-                        className="flex-grow"
-                    />
-                    <Button 
-                        size="lg" 
-                        onClick={handleAssignTask}
-                        disabled={!currentTask || !selectedToolId}
-                        className="w-full sm:w-auto"
-                    >
-                        <Copy className="mr-2 h-4 w-4"/>
-                        Assign & Copy Prompt
-                    </Button>
-                 </div>
-            </CardContent>
-        </Card>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+             <Card>
+                <CardHeader>
+                    <CardTitle>Task Pipeline</CardTitle>
+                    <CardDescription>Assign a new development task for the AI.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                     <div className="flex flex-col sm:flex-row gap-4">
+                         <Select value={selectedToolId} onValueChange={setSelectedToolId}>
+                            <SelectTrigger className="w-full sm:w-[280px]">
+                                <SelectValue placeholder="Select an app to task..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {tools.filter(t => t.id !== 'superfreetime').map(tool => (
+                                    <SelectItem key={tool.id} value={tool.id}>{tool.title}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <Textarea 
+                            placeholder="Enter your next task for me here..."
+                            value={currentTask}
+                            onChange={(e) => setCurrentTask(e.target.value)}
+                            rows={2}
+                            className="flex-grow"
+                        />
+                        <Button 
+                            size="lg" 
+                            onClick={handleAssignTask}
+                            disabled={!currentTask || !selectedToolId}
+                            className="w-full sm:w-auto"
+                        >
+                            <Copy className="mr-2 h-4 w-4"/>
+                            Assign & Copy
+                        </Button>
+                     </div>
+                </CardContent>
+            </Card>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Data Ingestion</CardTitle>
+                    <CardDescription>Update the Market Library by scraping dxboffplan.com.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="flex items-center gap-4">
+                        <Button onClick={handleScrape} disabled={isScraping}>
+                           {isScraping ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Database className="mr-2 h-4 w-4" />}
+                           {isScraping ? 'Scraping...' : 'Run Scraper Now'}
+                        </Button>
+                        {scrapeStatus && (
+                            <p className="text-sm text-muted-foreground">{scrapeStatus}</p>
+                        )}
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
+
 
         <Card>
             <CardHeader>
                 <CardTitle>Change Log</CardTitle>
-                <CardDescription>A chronological record of all tasks and their real-time implementation status. Records are permanent and cannot be deleted.</CardDescription>
+                <CardDescription>A chronological record of all tasks and their real-time implementation status.</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="border rounded-lg w-full max-h-[60vh] overflow-y-auto">
