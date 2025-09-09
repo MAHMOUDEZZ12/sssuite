@@ -69,7 +69,7 @@ export default function DevAdminPage() {
     const [selectedToolId, setSelectedToolId] = useState('');
     const [changeLog, setChangeLog] = useState<ChangeLogEntry[]>([]);
     
-    const [isScraping, setIsScraping] = useState(false);
+    const [scrapingStates, setScrapingStates] = useState<{ [key: string]: boolean }>({});
     const [scrapeStatus, setScrapeStatus] = useState('');
 
     useEffect(() => {
@@ -171,22 +171,22 @@ export default function DevAdminPage() {
         copyToClipboard(promptText, toastMessage);
     }
     
-    const handleScrape = async () => {
-        setIsScraping(true);
-        setScrapeStatus('Starting scraping job...');
-        toast({ title: 'Data Ingestion Started', description: 'Request sent to scraper API.'});
+    const handleScrape = async (source: string) => {
+        setScrapingStates(prev => ({ ...prev, [source]: true }));
+        setScrapeStatus(`Starting scraping job for ${source}...`);
+        toast({ title: 'Data Ingestion Started', description: `Request sent to scraper API for ${source}.`});
         try {
-            const response = await fetch('/api/admin/scrape');
+            const response = await fetch(`/api/admin/scrape?source=${source}`);
             const data = await response.json();
             if (!data.ok) throw new Error(data.error);
 
-            setScrapeStatus(`Scraping complete! Found and updated ${data.data.projectsAdded} projects.`);
-            toast({ title: 'Scraping Complete!', description: `Added/updated ${data.data.projectsAdded} projects in the Market Library.`});
+            setScrapeStatus(`Scraping from ${source} complete! Found and updated ${data.data.projectsAdded} projects.`);
+            toast({ title: 'Scraping Complete!', description: `Added/updated ${data.data.projectsAdded} projects from ${source} in the Market Library.`});
         } catch (e: any) {
-            setScrapeStatus(`Error during scraping: ${e.message}`);
+            setScrapeStatus(`Error during scraping from ${source}: ${e.message}`);
              toast({ title: 'Scraping Failed', description: e.message, variant: 'destructive'});
         } finally {
-            setIsScraping(false);
+            setScrapingStates(prev => ({ ...prev, [source]: false }));
         }
     };
 
@@ -239,18 +239,22 @@ export default function DevAdminPage() {
             <Card>
                 <CardHeader>
                     <CardTitle>Data Ingestion</CardTitle>
-                    <CardDescription>Update the Market Library by scraping dxboffplan.com.</CardDescription>
+                    <CardDescription>Update the Market Library by scraping various sources.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="flex items-center gap-4">
-                        <Button onClick={handleScrape} disabled={isScraping}>
-                           {isScraping ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Database className="mr-2 h-4 w-4" />}
-                           {isScraping ? 'Scraping...' : 'Run Scraper Now'}
+                    <div className="flex items-center gap-4 flex-wrap">
+                        <Button onClick={() => handleScrape('dxboffplan')} disabled={scrapingStates['dxboffplan']}>
+                           {scrapingStates['dxboffplan'] ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Database className="mr-2 h-4 w-4" />}
+                           {scrapingStates['dxboffplan'] ? 'Scraping...' : 'Scrape DXBOffPlan'}
                         </Button>
-                        {scrapeStatus && (
-                            <p className="text-sm text-muted-foreground">{scrapeStatus}</p>
-                        )}
+                        <Button onClick={() => handleScrape('propertyfinder')} disabled={scrapingStates['propertyfinder']}>
+                           {scrapingStates['propertyfinder'] ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Database className="mr-2 h-4 w-4" />}
+                           {scrapingStates['propertyfinder'] ? 'Scraping...' : 'Scrape Property Finder'}
+                        </Button>
                     </div>
+                    {scrapeStatus && (
+                        <p className="text-sm text-muted-foreground mt-3">{scrapeStatus}</p>
+                    )}
                 </CardContent>
             </Card>
         </div>
