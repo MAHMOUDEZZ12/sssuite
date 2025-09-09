@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Loader2, Sparkles, Facebook, Upload, ArrowRight, CheckCircle, Lightbulb, Copy, LayoutDashboard, BarChart2, GalleryVertical, PlusCircle, Send, Link as LinkIcon, MessageCircle, ArrowLeft, Building, Wallet, Calendar, Image as ImageIcon, ThumbsUp, MessageSquare, Share2, FileSignature } from 'lucide-react';
@@ -133,9 +133,9 @@ const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaig
 
 
 const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (field: string, value: string) => void }) => {
-    const [isEditingBody, setIsEditingBody] = useState(false);
-    const [isEditingHeadline, setIsEditingHeadline] = useState(false);
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [isEditingBody, setIsEditingBody] = React.useState(false);
+    const [isEditingHeadline, setIsEditingHeadline] = React.useState(false);
+    const [imagePreview, setImagePreview] = React.useState<string | null>(null);
     const fileInputRef = React.useRef<HTMLInputElement>(null);
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -236,12 +236,12 @@ const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (fi
 
 export default function CampaignBuilderPage() {
     const { toast } = useToast();
-    const [isLoading, setIsLoading] = useState(false);
-    const [result, setResult] = useState<CreateMetaCampaignOutput | null>(null);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [result, setResult] = React.useState<CreateMetaCampaignOutput | null>(null);
     const { openCanvas } = useCanvas();
 
-    const [currentStep, setCurrentStep] = useState<CampaignStep>('project');
-    const [campaignData, setCampaignData] = useState<Partial<CreateMetaCampaignInput & { projectId: string, projectBrochureFile: File | null }>>({});
+    const [currentStep, setCurrentStep] = React.useState<CampaignStep>('project');
+    const [campaignData, setCampaignData] = React.useState<Partial<CreateMetaCampaignInput & { projectId: string, projectBrochureFile: File | null }>>({});
 
     const handleNextStep = (step: CampaignStep) => {
         // Validation could be added here for each step
