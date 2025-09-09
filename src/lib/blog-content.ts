@@ -12,6 +12,16 @@ export type BlogContent = {
 };
 
 export const blogContent: { [key: string]: BlogContent[string] } = {
+    'ai-video-presenter': {
+        title: 'Your Digital Twin: Creating an AI Video Presenter',
+        intro: "Step into the future of marketing by creating a lifelike AI presenter. This guide shows you how to generate a digital version of a real estate agent who can deliver your pitches, market updates, and property tours 24/7.",
+        sections: [
+            { heading: "The Problem: The Camera is Intimidating", body: "Creating video content is powerful, but being on camera isn't for everyone. It takes time to get comfortable, requires expensive equipment, and multiple takes to get it right. This friction prevents many agents from leveraging the power of video." },
+            { heading: "The Hack: Generate Your Perfect Presenter", body: "Our AI Video Presenter tool removes this barrier entirely. You can select from a gallery of pre-rendered, professional AI characters or create a custom one from a simple text description (e.g., 'a friendly female agent in her 30s'). You provide the script, and the AI handles the performance, creating a high-quality video without you ever needing to step in front of a camera." },
+            { heading: "How to Use It: The Ultimate Scalability", body: "Use your AI presenter to create hyper-personalized videos at scale. Generate a unique video for each of your top 10 leads, addressing them by name. Create weekly market update videos for your social media channels. Record property tours without leaving your desk. It's like having a dedicated media team on standby, ready to create content on your command." }
+        ],
+        cta: 'AI Presenter'
+    },
     'ai-brand-creator': {
         title: 'The AI Brand Creator: Configure Your Entire Suite in 5 Minutes',
         intro: "Don't waste time with manual entry. This power-user hack shows you how to use your AI Assistant to configure your brand, projects, and contacts from a few simple file uploads. Get up and running in minutes, not hours.",
