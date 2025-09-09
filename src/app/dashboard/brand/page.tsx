@@ -161,10 +161,7 @@ export default function BrandPage() {
         const fileDataUris = await Promise.all(
           filesToTrain.map(f => fileToDataUri(f.file!))
         );
-
-        // NOTE: This call to an AI flow function will not work on the client.
-        // It must be called from a server-side context (e.g., an API route).
-        // For this prototype, we simulate the happy path.
+        
         const result = await aiBrandCreator({
           command: "Analyze the provided documents and extract the company name, primary and secondary brand colors, and contact information. Use this to set up my brand kit.",
           documents: fileDataUris,
@@ -200,7 +197,7 @@ export default function BrandPage() {
             variant: "destructive"
          });
       } finally {
-        setIsTraining(false);
+        setIsLoading(false);
         setSelectedFiles([]);
       }
   }
@@ -438,6 +435,12 @@ export default function BrandPage() {
                     </CardFooter>
                 </Card>
                 ))}
+                 {files.length === 0 && (
+                    <div className="col-span-full text-center py-12 text-muted-foreground">
+                        <p>Your asset library is empty.</p>
+                        <Button variant="link" onClick={() => fileInputRef.current?.click()}>Upload your first file</Button>
+                    </div>
+                )}
             </div>
         </CardContent>
       </Card>
