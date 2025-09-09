@@ -15,8 +15,9 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {z} from 'zod';
 import { SuggestTargetingOptionsInputSchema, SuggestTargetingOptionsOutputSchema, SuggestTargetingOptionsInput, SuggestTargetingOptionsOutput } from '@/types';
+import { adminDb } from '@/lib/firebaseAdmin';
 
 
 /**
@@ -39,13 +40,11 @@ const prompt = ai.definePrompt({
   prompt: `You are an expert in digital marketing and advertising, specializing in real estate.
   Based on the provided project details, suggest 2-3 distinct targeting strategies for an ad campaign on platforms like Meta (Facebook/Instagram) and Google.
 
-  **TODO: The project data should be fetched from a database using the projectId.**
-  For now, use this placeholder data for Project ID: {{projectId}}
-  
-  **Property Details:**
-  - Location: "Downtown Dubai"
+  **Project Details:**
+  - Name: {{projectName}}
+  - Location: {{area}}, {{city}}
   - Property Type: "Luxury High-rise Condo"
-  - Price Range: $1,000,000 - $2,500,000
+  - Price Range: {{priceFrom}}
   - Key Amenities: "Rooftop infinity pool, 24/7 concierge, state-of-the-art gym, valet parking"
   - Past Buyers Profile: High-net-worth individuals, tech executives, international investors.
 
@@ -70,12 +69,27 @@ const suggestTargetingOptionsFlow = ai.defineFlow(
     inputSchema: SuggestTargetingOptionsInputSchema,
     outputSchema: SuggestTargetingOptionsOutputSchema,
   },
-  async input => {
-    // In a future step, we would use input.projectId to fetch real data from Firestore.
-    // For now, the prompt contains placeholder data.
-    const {output} = await prompt(input);
-    return output!;
+  async (input) => {
+    // Fetch real project data from Firestore
+    const projectDoc = await adminDb.collection('projects_catalog').doc(input.projectId).get();
+    if (!projectDoc.exists) {
+        throw new Error(`Project with ID "${input.projectId}" not found in the Market Library.`);
+    }
+    const projectData = projectDoc.data();
+
+    // Pass the real data to the prompt
+    const { output } = await prompt({
+        ...input,
+        ...projectData, // Spread the fetched project data into the prompt input
+        projectName: projectData?.name || 'N/A',
+        area: projectData?.area || 'N/A',
+        city: projectData?.city || 'N/A',
+        priceFrom: projectData?.priceFrom || 'N/A',
+    });
+    
+    if (!output) {
+        throw new Error('Failed to generate targeting options.');
+    }
+    return output;
   }
 );
-
-    
