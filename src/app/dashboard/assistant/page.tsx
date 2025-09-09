@@ -63,8 +63,8 @@ export default function AssistantPage() {
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
-        title="AI Assistant"
-        description="Your command center. Train your AI by managing its knowledge base and define its personality and core instructions."
+        title="AI Command Center"
+        description="Your mission control for all AI agents. Train them, define their personality, and manage their knowledge."
         icon={<BrainCircuit className="h-8 w-8" />}
       />
 
@@ -78,7 +78,7 @@ export default function AssistantPage() {
           <Card>
             <CardHeader>
               <CardTitle>Assistant Configuration</CardTitle>
-              <CardDescription>Define how your assistant interacts and what its core purpose is. The more specific you are, the better it will perform.</CardDescription>
+              <CardDescription>Define how your AI agents interact and what their core purpose is. The more specific you are, the better they will perform.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -88,7 +88,7 @@ export default function AssistantPage() {
                       id="assistant-name" 
                       defaultValue="My Assistant"
                     />
-                    <p className="text-sm text-muted-foreground">Give your assistant a name to make it feel more personal.</p>
+                    <p className="text-sm text-muted-foreground">Give your AI a name to make it feel more personal.</p>
                  </div>
                </div>
                <div className="space-y-2">
@@ -97,16 +97,16 @@ export default function AssistantPage() {
                     id="assistant-instructions" 
                     placeholder="e.g., You are a real estate marketing expert. Your goal is to help me create compelling content and find leads..."
                     rows={8}
-                    defaultValue="You are an expert real estate sales and marketing assistant for the Dubai market. Your primary function is to help the user save time, create high-quality marketing materials, and identify sales opportunities. You should be professional, insightful, and proactive. Use the knowledge provided in the 'Knowledge Base' to inform your answers. Always tailor your responses to the UAE real estate landscape."
+                    defaultValue="You are an expert real estate sales and marketing assistant for the Dubai market. Your primary function is to help the user save time, create high-quality marketing materials, and identify sales opportunities. Use the knowledge provided in the 'Knowledge Base' to inform your answers. Always tailor your responses to the UAE real estate landscape."
                    />
-                    <p className="text-sm text-muted-foreground">This is the most important setting. It defines the base personality and directives for your AI.</p>
+                    <p className="text-sm text-muted-foreground">This is the most important setting. It defines the base personality and directives for all your AI agents, including embeddable chatbots.</p>
                </div>
                <div className="space-y-2">
-                 <Label>Knowledge Base</Label>
+                 <Label>AI Knowledge Base</Label>
                  <Card className="bg-muted/50 p-4">
                     <div className="flex flex-col md:flex-row md:items-center gap-4">
                         <div className="flex-grow">
-                             <p className="text-sm text-foreground">The AI's knowledge comes from the files you upload in the <Link href="/dashboard/brand" className="underline font-semibold hover:text-primary">'Asset Storage & Knowledge Base'</Link> section on the Brand & Assets page. The assistant has access to all uploaded brochures, reports, and data to provide more relevant and accurate responses. You are in full control of its knowledge.</p>
+                             <p className="text-sm text-foreground">The AI's private knowledge comes from the files you upload. Go to the Brand & Assets page to manage your AI's brain. The more documents you provide, the smarter your assistants will become.</p>
                         </div>
                         <Link href="/dashboard/brand">
                            <Button variant="outline">

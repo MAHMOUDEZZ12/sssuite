@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Bot, Copy, MessageCircle, Send, Loader2 } from 'lucide-react';
+import { Bot, Copy, MessageCircle, Send, Loader2, Sparkles, BookOpen } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { CodeBlock } from '@/components/code-block';
@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import Link from 'next/link';
 
 const embedCode = `
 <div id="s3-chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;"></div>
@@ -158,14 +159,28 @@ export default function ChatbotCreatorPage() {
         <main className="p-4 md:p-10 space-y-8">
             <PageHeader
                 title="Embeddable Site Assistant"
-                description="Add an AI chatbot that knows the real estate market to your website."
+                description="Add an AI chatbot to your website. Train it on your private data for company-specific knowledge."
                 icon={<Bot className="h-8 w-8" />}
             />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 <Card>
                     <CardHeader>
-                        <CardTitle>1. Copy Your Embed Code</CardTitle>
+                        <CardTitle>1. Train Your Assistant</CardTitle>
+                        <CardDescription>
+                            The chatbot's intelligence comes from your AI Command Center. Upload documents to its knowledge base to give it specific knowledge about your projects and company.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Link href="/dashboard/assistant">
+                           <Button variant="outline">
+                               <BookOpen className="mr-2 h-4 w-4" />
+                               Go to AI Command Center
+                           </Button>
+                        </Link>
+                    </CardContent>
+                    <CardHeader>
+                        <CardTitle>2. Copy Your Embed Code</CardTitle>
                         <CardDescription>
                             This snippet contains everything needed to add the chat widget to your site.
                         </CardDescription>
@@ -185,7 +200,7 @@ export default function ChatbotCreatorPage() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle>2. Test Your Assistant</CardTitle>
+                        <CardTitle>3. Test Your Assistant</CardTitle>
                         <CardDescription>
                             Here is a live preview of how the chatbot will behave on your site.
                         </CardDescription>

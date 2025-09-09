@@ -171,11 +171,14 @@ export default function BrandPage() {
         });
 
         if (result.brandInfo) {
-          const { companyName, primaryColor, secondaryColor, contactInfo } = result.brandInfo;
+          const { companyName, primaryColor, secondaryColor, contact } = result.brandInfo;
           if (companyName) setValue('companyName', companyName);
           if (primaryColor) setValue('primaryColor', primaryColor);
           if (secondaryColor) setValue('secondaryColor', secondaryColor);
-          if (contactInfo) setValue('contactInfo', contactInfo);
+          if (contact) {
+            const contactString = [contact.name, contact.phone, contact.email].filter(Boolean).join('\n');
+            setValue('contactInfo', contactString);
+          }
 
            toast({
               title: "AI Extraction Complete!",
@@ -206,7 +209,7 @@ export default function BrandPage() {
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
         title="Brand & Assets"
-        description="Manage your brand and all your creative files. This is the Knowledge Base for your AI assistant."
+        description="Manage your brand identity and the files that form the Knowledge Base for your AI assistant."
         icon={<Palette className="h-8 w-8" />}
       />
 
