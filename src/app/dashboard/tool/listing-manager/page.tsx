@@ -86,7 +86,7 @@ export default function ListingManagerPage() {
             const plan = {
                 listingReferenceNo: `PF-${Date.now().toString().slice(-6)}`,
                 propertyTitle: `Stunning 3BR Villa in ${selectedProject.replace(/-/g, ' ')}`,
-                propertyDescription: `Experience luxury living in this magnificent 3-bedroom villa located in the prestigious ${selectedProject.replace(/-/g, ' ')} community. This home boasts spacious interiors, modern finishes, and access to world-class amenities. Perfect for families seeking a premium lifestyle.`,
+                propertyDescription: `Experience luxury living in this magnificent 3-bedroom villa in the prestigious ${selectedProject.replace(/-/g, ' ')} community. This home boasts spacious interiors, modern finishes, and access to world-class amenities. Perfect for families seeking a premium lifestyle.`,
                 price: 3500000,
                 imageUrls: [
                     "https://picsum.photos/seed/prop1/800/600",
