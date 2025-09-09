@@ -17,6 +17,7 @@ import { useCanvas } from '@/context/CanvasContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
+import { cn } from '@/lib/utils';
 
 const visualStyles = [
     { id: "Modern & Minimalist", label: "Modern & Minimalist" },
@@ -26,11 +27,26 @@ const visualStyles = [
 ];
 
 const pageSections = [
-    { label: "Hero + Form" },
-    { label: "Hero + Features + Form" },
-    { label: "Hero + Features + Gallery + Form" },
-    { label: "Hero + Features + Gallery + Map + Form" },
+    { label: "Hero + Form", sections: 2 },
+    { label: "Hero + Features + Form", sections: 3 },
+    { label: "Hero + Gallery + Form", sections: 4 },
+    { label: "Hero + Features + Gallery + Map + Form", sections: 5 },
 ];
+
+const StructureMockup = ({ label, sections, isSelected, onClick }: { label: string, sections: number, isSelected: boolean, onClick: () => void }) => {
+    return (
+        <button onClick={onClick} className={cn("block w-full text-left p-2 rounded-lg border-2 transition-all", isSelected ? "border-primary bg-primary/10" : "border-border bg-card hover:border-muted-foreground/50")}>
+            <div className="w-full h-40 bg-muted/50 rounded-md p-3 flex flex-col gap-2">
+                <div className="h-1/3 bg-primary/20 rounded-sm"></div>
+                {sections > 2 && <div className="h-1/3 bg-primary/20 rounded-sm"></div>}
+                {sections > 3 && <div className="h-1/6 bg-primary/20 rounded-sm"></div>}
+                {sections > 4 && <div className="h-1/6 bg-primary/20 rounded-sm"></div>}
+                <div className="flex-grow bg-secondary/50 rounded-sm"></div>
+            </div>
+            <p className="text-sm font-medium text-center mt-2">{label}</p>
+        </button>
+    )
+}
 
 
 const EditInCanvas = ({ pageHtml, onSave, onCancel }: { pageHtml: string; onSave: (instructions: string) => void; onCancel: () => void }) => {
@@ -156,8 +172,8 @@ export default function LandingPageBuilderPage() {
         case 'details':
           return (
              <div className="space-y-2">
-                <Label htmlFor="projectDetails">Project Details</Label>
-                <Textarea id="projectDetails" value={formData.projectDetails} onChange={e => setFormData({...formData, projectDetails: e.target.value})} placeholder="e.g., Luxury 1-3 bedroom apartments with stunning sea views..." rows={4} autoFocus/>
+                <Label htmlFor="projectDetails">Offer Details</Label>
+                <Textarea id="projectDetails" value={formData.projectDetails} onChange={e => setFormData({...formData, projectDetails: e.target.value})} placeholder="Describe the main offer or message for this page. e.g., 'Luxury 1-3 bedroom apartments with stunning sea views and a 2-year post-handover payment plan...'" rows={4} autoFocus/>
             </div>
           );
         case 'style':
@@ -189,15 +205,18 @@ export default function LandingPageBuilderPage() {
             return (
                  <div className="space-y-2">
                     <Label>Page Structure</Label>
-                    <p className="text-sm text-muted-foreground">{pageSections[formData.numberOfSections - 2].label}</p>
-                     <Slider
-                        defaultValue={[formData.numberOfSections]}
-                        value={[formData.numberOfSections]}
-                        onValueChange={(value) => setFormData({...formData, numberOfSections: value[0]})}
-                        min={2}
-                        max={5}
-                        step={1}
-                     />
+                    <p className="text-sm text-muted-foreground">Visually select the layout for your page.</p>
+                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
+                        {pageSections.map(s => (
+                            <StructureMockup 
+                                key={s.sections}
+                                label={s.label}
+                                sections={s.sections}
+                                isSelected={formData.numberOfSections === s.sections}
+                                onClick={() => setFormData({...formData, numberOfSections: s.sections})}
+                            />
+                        ))}
+                     </div>
                  </div>
             );
         case 'brochure':
@@ -238,7 +257,7 @@ export default function LandingPageBuilderPage() {
                                         <CardTitle className="capitalize">{currentStep} Setup</CardTitle>
                                         <CardDescription>Step {steps.indexOf(currentStep) + 1} of {steps.length}</CardDescription>
                                     </CardHeader>
-                                    <CardContent className="min-h-[160px]">
+                                    <CardContent className="min-h-[180px]">
                                         {renderStepContent()}
                                     </CardContent>
                                 </motion.div>
