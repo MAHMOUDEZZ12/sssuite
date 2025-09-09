@@ -130,7 +130,10 @@ export default function AiVideoPresenterPage() {
                     <Card className="max-w-4xl mx-auto">
                         <form onSubmit={handleGeneration}>
                             <CardHeader>
-                                <CardTitle className="capitalize">{currentStep} Setup</CardTitle>
+                                <CardTitle className="capitalize flex items-center gap-2">
+                                    {currentStep === 'character' ? <User className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+                                    {currentStep} Setup
+                                </CardTitle>
                                 <CardDescription>Step {currentStep === 'character' ? 1 : 2} of 2</CardDescription>
                             </CardHeader>
                             <CardContent className="min-h-[300px]">

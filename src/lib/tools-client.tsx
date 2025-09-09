@@ -63,7 +63,7 @@ import {
   Edit,
   Server,
   Globe,
-  UserVoice,
+  UserCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -149,7 +149,7 @@ export const tools: Feature[] = [
     title: 'AI Video Presenter',
     dashboardTitle: 'AI Video Presenter',
     description: 'Create a lifelike AI presenter to deliver your project pitch.',
-    icon: <UserVoice />,
+    icon: <UserCheck />,
     color: '#f43f5e', // rose-500
     cta: 'Generate Video',
     categories: ['Creative', 'Video', 'Marketing', 'Ads'],
