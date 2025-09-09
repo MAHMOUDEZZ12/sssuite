@@ -274,7 +274,9 @@ const CreativeLibraryTab = ({ creatives: initialCreatives, toast }: { creatives:
                     creative={creative} 
                     onUpdate={(field, value) => handleUpdateCreative(index, field, value)}
                  />
-            </div>
+            </div>,
+            `Editing: ${creative.headline}`,
+            "Click on any text to edit it, or use the buttons to upload a new image or brainstorm with AI."
         );
     };
 
@@ -585,5 +587,3 @@ export default function CampaignBuilderPage() {
         </main>
     );
 }
-
-    
