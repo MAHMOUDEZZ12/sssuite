@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Wand2, Palette, Pen, Upload, Download, MonitorPlay, LayoutTemplate, Building, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Loader2, Sparkles, Wand2, Palette, Pen, Upload, Download, MonitorPlay, LayoutTemplate, Building, CheckCircle, AlertTriangle, PlusCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -20,7 +20,7 @@ import Link from 'next/link';
 const addIssueToChangeLog = (description: string) => {
     try {
         const savedLog = localStorage.getItem('changeLog');
-        const changeLog = savedLog ? JSON.parse(savedLog) : [];
+        const changeLog = savedLog ? JSON.parse(savedLog).map((log: any) => ({...log, timestamp: new Date(log.timestamp)})) : [];
         const newLogEntry = {
             id: `cl-${Date.now()}`,
             timestamp: new Date().toISOString(),
@@ -48,6 +48,9 @@ export default function ListingManagerPage() {
 
     const [listingPlan, setListingPlan] = useState<any>(null);
 
+    const [portalName, setPortalName] = useState('');
+    const [portalScreenshot, setPortalScreenshot] = useState<File | null>(null);
+
     const handleProjectSelect = (projectId: string) => {
         setSelectedProject(projectId);
         setIsLoading(true);
@@ -66,6 +69,7 @@ export default function ListingManagerPage() {
                     title: "Asset Request Sent",
                     description: `The selected project is missing HQ images. An admin request has been sent to source them. Check the Dev Admin log for details.`,
                     duration: 10000,
+                    action: <Link href="/dashboard/dev-admin"><Button size="sm">View Log</Button></Link>
                 });
             } else {
                 setAssetsOk(true);
@@ -81,8 +85,8 @@ export default function ListingManagerPage() {
          setTimeout(() => {
             const plan = {
                 listingReferenceNo: `PF-${Date.now().toString().slice(-6)}`,
-                propertyTitle: `Stunning 3BR Villa in ${selectedProject.replace('-', ' ')}`,
-                propertyDescription: `Experience luxury living in this magnificent 3-bedroom villa located in the prestigious ${selectedProject.replace('-', ' ')} community. This home boasts spacious interiors, modern finishes, and access to world-class amenities. Perfect for families seeking a premium lifestyle.`,
+                propertyTitle: `Stunning 3BR Villa in ${selectedProject.replace(/-/g, ' ')}`,
+                propertyDescription: `Experience luxury living in this magnificent 3-bedroom villa located in the prestigious ${selectedProject.replace(/-/g, ' ')} community. This home boasts spacious interiors, modern finishes, and access to world-class amenities. Perfect for families seeking a premium lifestyle.`,
                 price: 3500000,
                 imageUrls: [
                     "https://picsum.photos/seed/prop1/800/600",
@@ -99,6 +103,22 @@ export default function ListingManagerPage() {
     const copyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text);
         toast({ title: 'Plan Copied!', description: 'The JSON plan has been copied to your clipboard.' });
+    };
+
+    const handlePortalSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!portalName || !portalScreenshot) {
+            toast({ title: "Missing Information", description: "Please provide a portal name and a screenshot.", variant: 'destructive'});
+            return;
+        }
+        addIssueToChangeLog(`New portal submission: "${portalName}". User has uploaded a screenshot of the form. Please review and add support.`);
+        toast({
+            title: "Portal Submitted for Review",
+            description: `Thank you! "${portalName}" has been added to our queue. An admin will review it shortly.`,
+            action: <Link href="/dashboard/dev-admin"><Button size="sm">View Log</Button></Link>
+        });
+        setPortalName('');
+        setPortalScreenshot(null);
     };
 
     return (
@@ -166,7 +186,7 @@ export default function ListingManagerPage() {
                     )}
                 </div>
 
-                <div className="lg:col-span-2">
+                <div className="lg:col-span-2 space-y-8">
                    <Card>
                        <CardHeader>
                            <CardTitle>3. Send to a Pilot</CardTitle>
@@ -202,6 +222,31 @@ export default function ListingManagerPage() {
                            )}
                        </CardContent>
                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Add a New Portal</CardTitle>
+                            <CardDescription>Don't see your portal? Add it here. Our team will review it and add official support.</CardDescription>
+                        </CardHeader>
+                        <form onSubmit={handlePortalSubmit}>
+                            <CardContent className="space-y-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="portalName">Portal Name</Label>
+                                    <Input id="portalName" value={portalName} onChange={e => setPortalName(e.target.value)} placeholder="e.g., Zillow, Rightmove" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="portalScreenshot">Submission Form Screenshot</Label>
+                                    <Input id="portalScreenshot" type="file" accept="image/*" onChange={e => setPortalScreenshot(e.target.files?.[0] || null)} />
+                                    <p className="text-xs text-muted-foreground">Upload a screenshot of the portal's property submission form.</p>
+                                </div>
+                            </CardContent>
+                            <CardFooter>
+                                <Button type="submit" disabled={!portalName || !portalScreenshot}>
+                                    <PlusCircle className="mr-2 h-4 w-4" />
+                                    Submit Portal for Review
+                                </Button>
+                            </CardFooter>
+                        </form>
+                    </Card>
                 </div>
             </div>
         </main>
