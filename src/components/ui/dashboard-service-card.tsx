@@ -88,7 +88,7 @@ export function DashboardServiceCard({
 
   const MainAction = () => {
     if (isAdded) {
-        const destination = tool.isPage ? `/dashboard/tool/${tool.id}` : `/dashboard/tool/${tool.id}`;
+        const destination = href;
         return (
              <Link href={destination} onClick={() => track('app_opened', { toolId: tool.id })}>
                 <Button size="sm">
@@ -191,5 +191,3 @@ export function DashboardServiceCard({
     </Card>
   );
 }
-
-    
