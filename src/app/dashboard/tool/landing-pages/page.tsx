@@ -18,6 +18,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Slider } from '@/components/ui/slider';
 
 const visualStyles = [
     { id: "Modern & Minimalist", label: "Modern & Minimalist" },
@@ -26,27 +27,15 @@ const visualStyles = [
     { id: "Bold & Colorful", label: "Bold & Colorful" },
 ];
 
-const pageSections = [
-    { label: "Hero + Lead Capture Form", sections: 2 },
-    { label: "Hero + Key Features + Form", sections: 3 },
-    { label: "Hero + Gallery + Form", sections: 4 },
-    { label: "Hero + Features + Gallery + Map + Form", sections: 5 },
-];
-
-const StructureMockup = ({ label, sections, isSelected, onClick }: { label: string, sections: number, isSelected: boolean, onClick: () => void }) => {
-    return (
-        <button type="button" onClick={onClick} className={cn("block w-full text-left p-2 rounded-lg border-2 transition-all", isSelected ? "border-primary bg-primary/10" : "border-border bg-card hover:border-muted-foreground/50")}>
-            <div className="w-full h-40 bg-muted/50 rounded-md p-3 flex flex-col gap-2">
-                <div className="h-1/3 bg-primary/20 rounded-sm"></div>
-                {sections > 2 && <div className="h-1/3 bg-primary/20 rounded-sm"></div>}
-                {sections > 3 && <div className="h-1/6 bg-primary/20 rounded-sm"></div>}
-                {sections > 4 && <div className="h-1/6 bg-primary/20 rounded-sm"></div>}
-                <div className="flex-grow bg-secondary/50 rounded-sm"></div>
-            </div>
-            <p className="text-sm font-medium text-center mt-2">{label}</p>
-        </button>
-    )
-}
+const getStructureLabel = (sections: number): string => {
+    switch (sections) {
+        case 2: return "Hero + Lead Capture Form";
+        case 3: return "Hero + Key Features + Form";
+        case 4: return "Hero + Features + Gallery + Form";
+        case 5: return "Hero + Features + Gallery + Map + Form";
+        default: return "";
+    }
+};
 
 const EditInCanvas = ({ pageHtml, onSave, onCancel }: { pageHtml: string; onSave: (instructions: string) => void; onCancel: () => void }) => {
     const [instructions, setInstructions] = useState('');
@@ -244,17 +233,18 @@ export default function LandingPageBuilderPage() {
             return (
                  <div className="space-y-2">
                     <Label>Page Structure</Label>
-                    <p className="text-sm text-muted-foreground">Visually select the layout for your page.</p>
-                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
-                        {pageSections.map(s => (
-                            <StructureMockup 
-                                key={s.sections}
-                                label={s.label}
-                                sections={s.sections}
-                                isSelected={formData.numberOfSections === s.sections}
-                                onClick={() => setFormData({...formData, numberOfSections: s.sections})}
-                            />
-                        ))}
+                    <p className="text-sm text-muted-foreground">Choose the number of content sections for your page.</p>
+                     <div className="pt-4 space-y-4">
+                        <Slider 
+                            defaultValue={[formData.numberOfSections]} 
+                            min={2} 
+                            max={5} 
+                            step={1} 
+                            onValueChange={(value) => setFormData({...formData, numberOfSections: value[0]})}
+                        />
+                        <div className="text-center font-medium text-primary p-2 bg-primary/10 rounded-md">
+                           {getStructureLabel(formData.numberOfSections)}
+                        </div>
                      </div>
                  </div>
             );
