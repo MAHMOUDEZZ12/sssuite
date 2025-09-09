@@ -93,7 +93,7 @@ const syncPropertyFinderListingFlow = ai.defineFlow(
     };
 
     const builder = new Builder({ rootName: 'list' });
-    const xml = builder.buildObject(listingObject);
+    const xml = builder.buildObject({ property: [listingObject.property] }); // Wrap in property array for correct list format
 
     // Make the API call to Property Finder
     try {
