@@ -30,6 +30,7 @@ import { generatePaymentPlan } from '@/ai/flows/generate-payment-plan';
 import { translateBrochure } from '@/ai/flows/translate-brochure';
 import { editYoutubeVideo } from '@/ai/flows/edit-youtube-video';
 import { investigateLead } from '@/ai/flows/investigate-lead';
+import { generateKeywordPlan } from '@/ai/flows/generate-keyword-plan';
 
 const runToolSchema = z.object({
   toolId: z.string(),
@@ -63,6 +64,7 @@ const flowRunnerMap: { [key: string]: (payload: any) => Promise<any> } = {
     'youtube-video-editor': editYoutubeVideo,
     'commission-calculator': (payload) => Promise.resolve(payload),
     'lead-investigator': investigateLead,
+    'keyword-planner': generateKeywordPlan,
 };
 
 export async function POST(req: NextRequest) {

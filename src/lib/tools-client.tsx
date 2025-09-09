@@ -62,6 +62,7 @@ import {
   Terminal,
   Edit,
   Server,
+  Globe,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -71,6 +72,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 
 export const fileToDataUri = (file: File): Promise<string> => {
@@ -108,7 +110,7 @@ export type Field = {
   hidden?: boolean;
 };
 
-export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing' | 'Market Library' | 'Utilities' | 'Listing Intelligence AI' | 'TikTok AI Suite';
+export type FilterCategory = 'All' | 'Lead Gen' | 'Creative' | 'Sales Tools' | 'Social & Comms' | 'Web' | 'Editing' | 'Ads' | 'Marketing' | 'Market Library' | 'Utilities' | 'Listing Intelligence AI' | 'TikTok AI Suite' | 'Google AI Suite';
 
 export type Feature = {
   id: string;
@@ -119,7 +121,7 @@ export type Feature = {
   color: string;
   cta: string;
   categories: FilterCategory[];
-  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal' | 'Meta Ads AI Suite' | 'Utilities' | 'Listing Intelligence AI' | 'TikTok AI Suite';
+  mindMapCategory: 'Marketing' | 'Creative Suite' | 'Sales Enablement' | 'Core Intelligence' | 'Internal' | 'Meta Ads AI Suite' | 'Utilities' | 'Listing Intelligence AI' | 'TikTok AI Suite' | 'Google AI Suite';
   badge?: 'NEW' | 'BETA' | 'SOON' | 'Pilot*';
   isPage?: boolean;
   href: string;
@@ -140,6 +142,95 @@ export type Feature = {
 };
 
 export const tools: Feature[] = [
+  // --- GOOGLE AI SUITE ---
+  {
+    id: 'keyword-planner',
+    title: 'AI Keyword Planner',
+    dashboardTitle: 'AI Keyword Planner',
+    description: 'Generate a strategic keyword plan for Google Ads.',
+    icon: <Search />,
+    color: '#34A853', // Google Green
+    cta: 'Generate Keyword Plan',
+    categories: ['Google AI Suite', 'Ads', 'Marketing'],
+    mindMapCategory: 'Google AI Suite',
+    badge: 'NEW',
+    href: '/dashboard/tool/keyword-planner',
+    details: {
+      steps: [
+        { text: 'Provide a topic and target location', icon: <PenTool /> },
+        { text: 'AI generates ad groups and keywords', icon: <Sparkles /> },
+        { text: 'Get a full plan with match types and negative keywords', icon: <ClipboardList /> },
+      ],
+      aiVsManual: [
+        { metric: 'Research Time', manual: 'Hours in Google Keyword Planner', ai: 'Seconds to generate a full strategy', icon: <Clock2 /> },
+        { metric: 'Strategy', manual: 'A flat list of keywords', ai: 'Logically structured ad groups and match types', icon: <BrainCircuit /> },
+        { metric: 'Completeness', manual: 'Often overlooks negative keywords', ai: 'Includes a list of negative keywords to save budget', icon: <BadgeCheck /> },
+      ],
+      synergy: [
+        { tool: "Google Search Ads Tool", benefit: "Use the generated plan as the direct input to create a new search campaign instantly." },
+        { tool: "AI SEO Planner", benefit: "Adapt the keyword strategy for on-page SEO to improve organic rankings." },
+      ],
+      faqs: [
+        { question: "How accurate are the search volume estimates?", answer: "The search volumes are AI-driven estimates designed to show relative popularity. They provide a strong directional guide but are not a substitute for live Google Ads data." },
+        { question: "What are negative keywords?", answer: "Negative keywords are terms you tell Google *not* to show your ads for. For example, if you sell luxury properties, you would add 'cheap' and 'rent' as negative keywords to avoid wasting money on irrelevant clicks." },
+        { question: "Can I use this for any industry?", answer: "Yes, while the suite is real estate-focused, this tool is versatile. Just provide any topic (e.g., 'handmade leather bags') and it will generate a relevant keyword plan." }
+      ],
+    },
+    creationFields: [
+       { id: 'topic', name: 'Topic or Product', type: 'text', placeholder: 'e.g., "Luxury villas in Dubai Hills"', description: 'The central theme for your keyword plan.' },
+       { id: 'targetLocation', name: 'Target Location', type: 'text', placeholder: 'e.g., "Dubai, UAE"', description: 'The geographical area you want to target.' },
+    ],
+    renderResult: (result, toast) => (
+      <div className="space-y-6">
+        <h3 className="text-2xl font-bold font-heading">{result.planTitle}</h3>
+        <Card>
+          <CardHeader>
+            <CardTitle>Negative Keywords</CardTitle>
+            <CardDescription>Add these to your campaign to avoid wasted ad spend.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="p-3 bg-muted rounded-md text-sm text-muted-foreground">
+              {result.negativeKeywords.join(', ')}
+            </div>
+          </CardContent>
+        </Card>
+        {result.adGroups.map((group: any) => (
+          <Card key={group.adGroupName}>
+            <CardHeader>
+              <CardTitle>{group.adGroupName}</CardTitle>
+            </CardHeader>
+            <CardContent>
+               <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Keyword</TableHead>
+                    <TableHead>Match Type</TableHead>
+                    <TableHead className="text-right">Est. Searches</TableHead>
+                    <TableHead className="text-right">Competition</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {group.keywords.map((kw: any, index: number) => (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">{kw.keyword}</TableCell>
+                      <TableCell>{kw.matchType}</TableCell>
+                      <TableCell className="text-right">{kw.monthlySearches.toLocaleString()}</TableCell>
+                      <TableCell className="text-right">
+                        <Badge variant={kw.competition === 'High' ? 'destructive' : kw.competition === 'Medium' ? 'secondary' : 'default'}>
+                          {kw.competition}
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    ),
+  },
+
   // --- TIKTOK AI SUITE ---
   {
     id: 'tiktok-editor',
@@ -1003,7 +1094,7 @@ export const tools: Feature[] = [
       ],
       synergy: [
         { tool: "Offer Generator", benefit: "Include the AI-generated payment plan directly in your offer package to the client." },
-        { tool: "CRM Memory", benefit: "Save the final payment plan to the client's record for future reference and follow-ups." },
+        { tool: "CRM Memory", benefit: "Save the final payment plan to the client's record for future reference and follow-ups." }
       ],
       faqs: [
         { question: "Can it handle different payment structures?", answer: "Yes, you can specify different structures, such as post-handover plans, 50/50, or construction-linked plans, and the AI will adapt." },
