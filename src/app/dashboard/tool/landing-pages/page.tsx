@@ -4,10 +4,9 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Wand2, Palette, Pen, Upload, Download, MonitorPlay, LayoutTemplate } from 'lucide-react';
+import { Loader2, Sparkles, Wand2, Palette, Pen, Upload, Download, MonitorPlay, LayoutTemplate, ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { generateLandingPage } from '@/ai/flows/generate-landing-page';
 import { fileToDataUri } from '@/lib/tools-client';
 import { Label } from '@/components/ui/label';
@@ -15,6 +14,24 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { track } from '@/lib/events';
 import { useCanvas } from '@/context/CanvasContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Slider } from '@/components/ui/slider';
+
+const visualStyles = [
+    { id: "Modern & Minimalist", label: "Modern & Minimalist" },
+    { id: "Luxury & Elegant", label: "Luxury & Elegant" },
+    { id: "Cozy & Welcoming", label: "Cozy & Welcoming" },
+    { id: "Bold & Colorful", label: "Bold & Colorful" },
+];
+
+const pageSections = [
+    { label: "Hero + Form" },
+    { label: "Hero + Features + Form" },
+    { label: "Hero + Features + Gallery + Form" },
+    { label: "Hero + Features + Gallery + Map + Form" },
+];
+
 
 const EditInCanvas = ({ pageHtml, onSave, onCancel }: { pageHtml: string; onSave: (instructions: string) => void; onCancel: () => void }) => {
     const [instructions, setInstructions] = useState('');
@@ -36,33 +53,57 @@ const EditInCanvas = ({ pageHtml, onSave, onCancel }: { pageHtml: string; onSave
     )
 }
 
+type Step = 'project' | 'details' | 'style' | 'structure' | 'brochure';
+const steps: Step[] = ['project', 'details', 'style', 'structure', 'brochure'];
+
+
 export default function LandingPageBuilderPage() {
     const { toast } = useToast();
     const { openCanvas, closeCanvas } = useCanvas();
     const [isLoading, setIsLoading] = useState(false);
     const [resultHtml, setResultHtml] = useState<string | null>(null);
-    const [projectName, setProjectName] = useState('');
-    const [projectDetails, setProjectDetails] = useState('');
-    const [brandingStyle, setBrandingStyle] = useState('');
-    const [projectBrochure, setProjectBrochure] = useState<File | null>(null);
+
+    const [currentStep, setCurrentStep] = useState<Step>('project');
+    const [formData, setFormData] = useState({
+        projectName: '',
+        projectDetails: '',
+        brandingStyle: [] as string[],
+        numberOfSections: 3,
+        projectBrochure: null as File | null,
+    });
+
+    const handleNextStep = () => {
+        const currentIndex = steps.indexOf(currentStep);
+        if (currentIndex < steps.length - 1) {
+            setCurrentStep(steps[currentIndex + 1]);
+        }
+    };
+     const handlePrevStep = () => {
+        const currentIndex = steps.indexOf(currentStep);
+        if (currentIndex > 0) {
+            setCurrentStep(steps[currentIndex - 1]);
+        }
+    };
 
     const handleGeneration = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!projectName || !projectDetails || !brandingStyle) {
-            toast({ title: 'Missing Information', description: 'Please fill out all project fields before generating.', variant: 'destructive' });
+        const { projectName, projectDetails, brandingStyle } = formData;
+        if (!projectName || !projectDetails || brandingStyle.length === 0) {
+            toast({ title: 'Missing Information', description: 'Please complete all steps before generating.', variant: 'destructive' });
             return;
         }
 
         setIsLoading(true);
         setResultHtml(null);
-        track('landing_page_generation_started', { brandingStyle });
+        track('landing_page_generation_started', { brandingStyle: brandingStyle.join(', ') });
 
         try {
-            const brochureUri = projectBrochure ? await fileToDataUri(projectBrochure) : undefined;
+            const brochureUri = formData.projectBrochure ? await fileToDataUri(formData.projectBrochure) : undefined;
             const payload = {
-                projectName,
-                projectDetails,
-                brandingStyle,
+                projectName: formData.projectName,
+                projectDetails: formData.projectDetails,
+                brandingStyle: formData.brandingStyle.join(', '),
+                numberOfSections: formData.numberOfSections,
                 projectBrochureDataUri: brochureUri,
             };
             const responseData = await generateLandingPage(payload);
@@ -98,10 +139,80 @@ export default function LandingPageBuilderPage() {
                     closeCanvas();
                 }}
             />,
-            `Editing: ${projectName} Landing Page`,
+            `Editing: ${formData.projectName} Landing Page`,
             "Provide instructions to modify your generated page."
         );
     }
+    
+    const renderStepContent = () => {
+      switch(currentStep) {
+        case 'project':
+          return (
+            <div className="space-y-2">
+                <Label htmlFor="projectName">Project Name</Label>
+                <Input id="projectName" value={formData.projectName} onChange={e => setFormData({...formData, projectName: e.target.value})} placeholder="e.g., Emaar Beachfront" autoFocus/>
+            </div>
+          );
+        case 'details':
+          return (
+             <div className="space-y-2">
+                <Label htmlFor="projectDetails">Project Details</Label>
+                <Textarea id="projectDetails" value={formData.projectDetails} onChange={e => setFormData({...formData, projectDetails: e.target.value})} placeholder="e.g., Luxury 1-3 bedroom apartments with stunning sea views..." rows={4} autoFocus/>
+            </div>
+          );
+        case 'style':
+           return (
+                <div className="space-y-2">
+                    <Label>Visual Style(s)</Label>
+                    <div className="grid grid-cols-2 gap-4">
+                        {visualStyles.map(item => (
+                            <div key={item.id} className="flex items-center space-x-2">
+                                <Checkbox 
+                                    id={item.id} 
+                                    checked={formData.brandingStyle.includes(item.id)}
+                                    onCheckedChange={(checked) => {
+                                        setFormData(prev => ({
+                                            ...prev,
+                                            brandingStyle: checked ? [...prev.brandingStyle, item.id] : prev.brandingStyle.filter(s => s !== item.id)
+                                        }));
+                                    }}
+                                />
+                                <label htmlFor={item.id} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    {item.label}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        case 'structure':
+            return (
+                 <div className="space-y-2">
+                    <Label>Page Structure</Label>
+                    <p className="text-sm text-muted-foreground">{pageSections[formData.numberOfSections - 2].label}</p>
+                     <Slider
+                        defaultValue={[formData.numberOfSections]}
+                        value={[formData.numberOfSections]}
+                        onValueChange={(value) => setFormData({...formData, numberOfSections: value[0]})}
+                        min={2}
+                        max={5}
+                        step={1}
+                     />
+                 </div>
+            );
+        case 'brochure':
+            return (
+                <div className="space-y-2">
+                    <Label htmlFor="projectBrochure">Brochure (Optional)</Label>
+                    <Input id="projectBrochure" type="file" onChange={e => setFormData({...formData, projectBrochure: e.target.files?.[0] || null})} />
+                     {formData.projectBrochure && <p className="text-sm text-green-600 flex items-center gap-1"><CheckCircle className="h-3 w-3" /> {formData.projectBrochure.name} selected.</p>}
+                </div>
+            );
+        default:
+          return null;
+      }
+    };
+
 
     return (
         <main className="p-4 md:p-10 space-y-8">
@@ -114,43 +225,37 @@ export default function LandingPageBuilderPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
                 <div className="lg:col-span-1 space-y-6 sticky top-24">
                     <Card>
-                        <CardHeader>
-                            <CardTitle>1. Project Setup</CardTitle>
-                            <CardDescription>Provide the core details for your page.</CardDescription>
-                        </CardHeader>
                         <form onSubmit={handleGeneration}>
-                            <CardContent className="space-y-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="projectName">Project Name</Label>
-                                    <Input id="projectName" value={projectName} onChange={e => setProjectName(e.target.value)} placeholder="e.g., Emaar Beachfront" />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="projectDetails">Project Details</Label>
-                                    <Textarea id="projectDetails" value={projectDetails} onChange={e => setProjectDetails(e.target.value)} placeholder="e.g., Luxury 1-3 bedroom apartments..." rows={4} />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="brandingStyle">Visual Style</Label>
-                                    <Select value={brandingStyle} onValueChange={setBrandingStyle}>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Select a style" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="Modern & Minimalist">Modern & Minimalist</SelectItem>
-                                            <SelectItem value="Luxury & Elegant">Luxury & Elegant</SelectItem>
-                                            <SelectItem value="Cozy & Welcoming">Cozy & Welcoming</SelectItem>
-                                            <SelectItem value="Bold & Colorful">Bold & Colorful</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="projectBrochure">Brochure (Optional)</Label>
-                                    <Input id="projectBrochure" type="file" onChange={e => setProjectBrochure(e.target.files?.[0] || null)} />
-                                </div>
-                            </CardContent>
-                            <CardFooter>
-                                <Button type="submit" size="lg" disabled={isLoading} className="w-full">
-                                    {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Building Page...</> : <><Wand2 className="mr-2 h-5 w-5" />Generate Page with AI</>}
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={currentStep}
+                                    initial={{ opacity: 0, x: 50 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -50 }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                     <CardHeader>
+                                        <CardTitle className="capitalize">{currentStep} Setup</CardTitle>
+                                        <CardDescription>Step {steps.indexOf(currentStep) + 1} of {steps.length}</CardDescription>
+                                    </CardHeader>
+                                    <CardContent className="min-h-[160px]">
+                                        {renderStepContent()}
+                                    </CardContent>
+                                </motion.div>
+                            </AnimatePresence>
+                             <CardFooter className="flex justify-between">
+                                <Button type="button" variant="ghost" onClick={handlePrevStep} disabled={currentStep === 'project'}>
+                                    <ArrowLeft className="mr-2 h-4 w-4" /> Back
                                 </Button>
+                                {currentStep === 'brochure' ? (
+                                    <Button type="submit" size="lg" disabled={isLoading}>
+                                        {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Building...</> : <><Wand2 className="mr-2 h-5 w-5" />Generate Page</>}
+                                    </Button>
+                                ) : (
+                                    <Button type="button" onClick={handleNextStep}>
+                                        Next <ArrowRight className="ml-2 h-4 w-4" />
+                                    </Button>
+                                )}
                             </CardFooter>
                         </form>
                     </Card>
@@ -180,7 +285,7 @@ export default function LandingPageBuilderPage() {
                                 <Button onClick={openInCanvas}>
                                     <Pen className="mr-2" /> Edit in Canvas
                                 </Button>
-                                <a href={`data:text/html;charset=UTF-8,${encodeURIComponent(resultHtml)}`} download={`${projectName}-landing-page.html`}>
+                                <a href={`data:text/html;charset=UTF-8,${encodeURIComponent(resultHtml)}`} download={`${formData.projectName}-landing-page.html`}>
                                    <Button variant="outline"><Download className="mr-2" /> Download HTML</Button>
                                 </a>
                                 <Button onClick={() => toast({title: "Published!", description: "Your landing page is now live."})}>
@@ -192,7 +297,7 @@ export default function LandingPageBuilderPage() {
                         <Card className="flex flex-col items-center justify-center h-96 border-dashed text-center p-6">
                             <Palette className="h-16 w-16 mx-auto mb-4 opacity-10" />
                             <h3 className="text-lg font-semibold text-foreground">Your Landing Page Canvas</h3>
-                            <p className="text-muted-foreground">Fill out the project setup and let the AI architect your high-converting page.</p>
+                            <p className="text-muted-foreground">Complete the setup steps to let the AI architect your high-converting page.</p>
                         </Card>
                     )}
                 </div>

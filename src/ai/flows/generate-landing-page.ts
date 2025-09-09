@@ -37,8 +37,12 @@ const GenerateLandingPageInputSchema = z.object({
   brandingStyle: z
     .string()
     .describe(
-      'The chosen visual style or template for the landing page (e.g., "Modern & Minimalist", "Luxury & Elegant").'
+      'A comma-separated string of chosen visual styles for the landing page (e.g., "Modern & Minimalist, Luxury & Elegant").'
     ),
+  /**
+   * The number of content sections to include in the page.
+   */
+  numberOfSections: z.number().min(2).max(5).describe('The number of content sections to generate (2-5).'),
   /**
    * An optional project brochure, encoded as a Base64 data URI.
    * @example "data:application/pdf;base64,..."
@@ -138,7 +142,8 @@ const landingPagePrompt = ai.definePrompt({
   **Project Details:**
   - Project Name: {{{projectName}}}
   - Project Details: {{{projectDetails}}}
-  - Branding Style: {{{brandingStyle}}}
+  - Branding Style(s): {{{brandingStyle}}}
+  - Desired Page Structure: Create a page with {{{numberOfSections}}} main sections.
   - Hero Image: {{media url=heroImageDataUri}}
   {{#if projectBrochureDataUri}}
   - Project Brochure: {{media url=projectBrochureDataUri}}
@@ -152,9 +157,14 @@ const landingPagePrompt = ai.definePrompt({
   1.  **HTML Structure:** Create a full HTML5 document structure (\`<!DOCTYPE html>\`, \`<html>\`, \`<head>\`, \`<body>\`).
   2.  **Tailwind CSS:** Use the Tailwind CSS CDN script in the \`<head>\` for styling. Do not use any other CSS frameworks or custom CSS. \`<script src="https://cdn.tailwindcss.com"></script>\`
   3.  **Hero Section:** Create a visually impressive hero section using the provided hero image as the background. It should feature the project name and a compelling call-to-action.
-  4.  **Content Sections:** Add sections for project details, amenities, a photo gallery (use placeholder images from picsum.photos), and location/map.
+  4.  **Content Sections:** Based on the 'numberOfSections' parameter, build out the page.
+      - If 2 sections: Hero + Lead Capture Form.
+      - If 3 sections: Hero + Key Features + Lead Capture Form.
+      - If 4 sections: Hero + Key Features + Gallery + Lead Capture Form.
+      - If 5 sections: Hero + Key Features + Gallery + Location/Map + Lead Capture Form.
+      - Use placeholder images from picsum.photos for the gallery.
   5.  **Lead Capture Form:** This is critical. Include a prominent lead capture form with fields for Name, Email, and Phone Number, and a clear "Register Your Interest" button.
-  6.  **Branding:** Ensure the overall design (colors, fonts) reflects the specified 'Branding Style'.
+  6.  **Branding:** Ensure the overall design (colors, fonts) reflects the specified 'Branding Style(s)'. If multiple styles are provided, blend them intelligently (e.g., Modern structure with Luxury accents).
   7.  **Output:** Return ONLY the complete, raw HTML code for the landing page. Do not include any explanations, markdown, or other text outside of the HTML itself.
   `,
 });
