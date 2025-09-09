@@ -4,10 +4,10 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Facebook, Upload, ArrowRight, CheckCircle, Lightbulb, Copy, LayoutDashboard, BarChart2, GalleryVertical, PlusCircle, Send, Link as LinkIcon, MessageCircle, ArrowLeft, Building, Wallet, Calendar, Image as ImageIcon, ThumbsUp, MessageSquare, Share2 } from 'lucide-react';
+import { Loader2, Sparkles, Facebook, Upload, ArrowRight, CheckCircle, Lightbulb, Copy, LayoutDashboard, BarChart2, GalleryVertical, PlusCircle, Send, Link as LinkIcon, MessageCircle, ArrowLeft, Building, Wallet, Calendar, Image as ImageIcon, ThumbsUp, MessageSquare, Share2, FileSignature } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
-import { fileToDataUri } from '@/lib/tools-client';
+import { fileToDataUri } from '@/components/../lib/tools-client';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -36,9 +36,10 @@ type Campaign = {
 };
 
 const campaignWorkflows = [
-    { id: 'Lead Generation to Landing Page', title: 'Leads to Landing Page', description: 'Drive traffic to a webpage to capture leads via a form.', icon: <LinkIcon className="h-5 w-5"/> },
-    { id: 'Lead Generation to WhatsApp', title: 'Leads to WhatsApp', description: 'Start direct conversations with potential buyers on WhatsApp.', icon: <MessageCircle className="h-5 w-5"/> },
-    { id: 'Lead Generation to Instagram', title: 'Leads to Instagram DMs', description: 'Engage with users directly in their Instagram Direct Messages.', icon: <Facebook className="h-5 w-5"/> },
+    { id: 'Lead Generation to Landing Page', title: 'Leads to Landing Page', description: 'Drive traffic to a webpage to capture leads. Requires a live landing page.', icon: <LinkIcon className="h-5 w-5"/> },
+    { id: 'Lead Generation to WhatsApp', title: 'Leads to WhatsApp', description: 'Start direct conversations with potential buyers. Requires a registered WhatsApp Business number.', icon: <MessageCircle className="h-5 w-5"/> },
+    { id: 'Lead Generation to Instagram', title: 'Leads to Instagram DMs', description: 'Engage with users directly in their DMs. Works best with the Instagram Admin tool.', icon: <Facebook className="h-5 w-5"/> },
+    { id: 'Lead Generation to Meta Form', title: 'Leads to Meta Form', description: 'Capture leads with an instant, on-platform form. The simplest way to start.', icon: <FileSignature className="h-5 w-5"/> },
 ];
 
 type CampaignStep = 'project' | 'workflow' | 'media' | 'budget' | 'review';
@@ -323,15 +324,24 @@ export default function CampaignBuilderPage() {
                         <Label>What is the primary goal of this campaign?</Label>
                         <div className="grid grid-cols-1 gap-2">
                             {campaignWorkflows.map(wf => (
-                                <button key={wf.id} type="button" onClick={() => updateCampaignData({ campaignGoal: wf.id })}
-                                    className={cn('flex items-start text-left gap-3 p-3 rounded-lg border transition-colors',
-                                        campaignData.campaignGoal === wf.id ? 'bg-primary/10 border-primary' : 'bg-muted/50 hover:bg-muted')}>
-                                    {wf.icon}
-                                    <div>
-                                        <p className="font-semibold">{wf.title}</p>
-                                        <p className="text-xs text-muted-foreground">{wf.description}</p>
-                                    </div>
-                                </button>
+                                <div key={wf.id}>
+                                    <button type="button" onClick={() => updateCampaignData({ campaignGoal: wf.id })}
+                                        className={cn('w-full flex items-start text-left gap-3 p-3 rounded-lg border transition-colors',
+                                            campaignData.campaignGoal === wf.id ? 'bg-primary/10 border-primary' : 'bg-muted/50 hover:bg-muted')}>
+                                        {React.cloneElement(wf.icon, { className: 'h-5 w-5 mt-1' })}
+                                        <div>
+                                            <p className="font-semibold">{wf.title}</p>
+                                            <p className="text-xs text-muted-foreground">{wf.description}</p>
+                                        </div>
+                                    </button>
+                                     {wf.id === 'Lead Generation to Landing Page' && campaignData.campaignGoal === wf.id && (
+                                        <div className="p-2 text-center">
+                                             <Link href="/dashboard/tool/landing-pages">
+                                                <Button variant="link" size="sm">Need a page? Build one with AI</Button>
+                                             </Link>
+                                        </div>
+                                    )}
+                                </div>
                             ))}
                         </div>
                     </div>
