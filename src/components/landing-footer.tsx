@@ -32,26 +32,7 @@ export function LandingFooter() {
     <footer className="relative w-full overflow-hidden mt-32 border-t border-border/40">
       <div className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-[150%] h-[150%] bg-gradient-to-t from-primary/10 to-transparent rounded-t-full" />
       <div className="container relative z-10 py-16">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-card/80 backdrop-blur-lg rounded-3xl p-8 md:p-16 border shadow-2xl shadow-primary/10">
-            <div className="text-center">
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-foreground/90 to-foreground/60">
-                Ready to Build Your Future?
-              </h2>
-              <p className="text-lg md:text-xl text-foreground/60 mb-10 max-w-2xl mx-auto">
-                Join thousands of top-performing agents who are closing more
-                deals with the power of AI. Your next chapter starts here.
-              </p>
-               <Link href="/signup">
-                  <ShinyButton>
-                    Start Your Free Trial
-                  </ShinyButton>
-                </Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-24">
+        <div className="mt-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div className="md:col-span-1">
                     <Logo />

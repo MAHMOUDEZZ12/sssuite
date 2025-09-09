@@ -282,7 +282,7 @@ export default function Home() {
       <main className="flex-1 w-full max-w-full px-4 md:px-6 lg:px-8 py-12 md:py-20">
         <div className="text-center mb-12 max-w-5xl mx-auto">
           <h1 className="text-4xl md:text-7xl font-bold font-heading tracking-tighter mb-4 text-foreground">
-            A salesperson with tools is a Super Seller.
+            From Agent to Super Agent.
           </h1>
           <p className="text-lg md:text-xl text-foreground/60">
             Explore the tools. Train your assistant. Close faster.
