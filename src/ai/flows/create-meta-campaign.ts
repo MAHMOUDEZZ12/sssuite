@@ -13,18 +13,14 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import {config} from 'dotenv';
 import { CreateMetaCampaignInputSchema, CreateMetaCampaignOutputSchema, CreateMetaCampaignInput, CreateMetaCampaignOutput } from '@/types';
 
-
-// Load environment variables from .env file
-config();
 
 const createMetaCampaignPrompt = ai.definePrompt({
   name: 'createMetaCampaignPrompt',
   input: {schema: CreateMetaCampaignInputSchema}, 
   output: {schema: CreateMetaCampaignOutputSchema},
-  prompt: `You are an expert Meta Ads strategist specializing in real estate. Your task is to take a user's goal and project brochure and create a complete, ready-to-launch campaign structure.
+  prompt: `You are an expert Meta Ads strategist specializing in real estate. Your task is to take a user\'s goal and project brochure and create a complete, ready-to-launch campaign structure.
 
   **User Inputs:**
   - Campaign Goal: {{{campaignGoal}}}
@@ -37,7 +33,7 @@ const createMetaCampaignPrompt = ai.definePrompt({
   **Instructions:**
 
   1.  **Infer Audience:** Based *only* on the project brochure, infer the ideal target audience. Who is this property for? (e.g., "Young professionals," "High-net-worth families," "First-time international investors").
-  2.  **Campaign Name & Objective:** Based on the user's goal and the project, create a clear campaign name and choose the most appropriate Meta Ads objective (e.g., LEAD_GENERATION, AWARENESS, TRAFFIC).
+  2.  **Campaign Name & Objective:** Based on the user\'s goal and the project, create a clear campaign name and choose the most appropriate Meta Ads objective (e.g., LEAD_GENERATION, AWARENESS, TRAFFIC).
   3.  **Ad Sets:**
       - Create at least two ad sets. One for a broad audience based on your inferred persona, and one for a more niche, targeted audience (e.g., a specific interest group or lookalike audience).
       - For each ad set, provide a name and a summary of the recommended targeting strategy (demographics, interests, location).
