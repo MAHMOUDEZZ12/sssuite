@@ -64,6 +64,7 @@ import {
   Server,
   Globe,
   UserCheck,
+  User,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -344,7 +345,7 @@ export const tools: Feature[] = [
     creationFields: [
       { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose the project to source visual assets from.' },
       { id: 'sound', name: 'Sound or Vibe', type: 'text', placeholder: 'e.g., "upbeat corporate" or paste a TikTok sound link', description: 'Describe the audio vibe or provide a link to a specific sound.' },
-      { id: 'textOverlays', name: 'Text Overlays', type: 'textarea', placeholder: 'e.g., "You won\'t believe this view...\nWait for the end!"', description: 'Key text to display on screen. One idea per line.' },
+      { id: 'textOverlays', name: 'Text Overlays', type: 'textarea', placeholder: 'e.g., "You won\'t believe this view...\\nWait for the end!"', description: 'Key text to display on screen. One idea per line.' },
     ],
   },
   // --- META ADS AI SUITE ---
@@ -579,7 +580,7 @@ export const tools: Feature[] = [
     },
     creationFields: [
       { id: 'projectId', name: 'Project', type: 'select', options: ['Emaar Beachfront', 'Damac Hills 2', 'Sobha Hartland', 'Add New Project...'], placeholder: 'Select a project', description: 'Choose the project to source visual assets from.' },
-      { id: 'sellingPoints', name: 'Selling Points', type: 'textarea', placeholder: 'e.g., Stunning ocean views\nFloor-to-ceiling windows\n5-star amenities', description: 'One key point per line for captions.' },
+      { id: 'sellingPoints', name: 'Selling Points', type: 'textarea', placeholder: 'e.g., Stunning ocean views\\nFloor-to-ceiling windows\\n5-star amenities', description: 'One key point per line for captions.' },
       { id: 'vibe', name: 'Vibe', type: 'select', options: ['Modern & Fast-Paced', 'Luxurious & Cinematic', 'Upbeat & Fun', 'Calm & Relaxing'], placeholder: 'Select a vibe', description: 'This influences the music and editing style.' },
     ]
   },
