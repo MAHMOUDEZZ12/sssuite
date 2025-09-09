@@ -272,7 +272,7 @@ export const tools: Feature[] = [
   // --- TIKTOK AI SUITE ---
   {
     id: 'tiktok-editor',
-    title: 'TikTok Video Editor',
+    title: 'AI TikTok Video Editor',
     dashboardTitle: 'TikTok Video Editor',
     description: 'Create on-trend, engaging videos for TikTok.',
     icon: <Video />,
@@ -556,9 +556,18 @@ export const tools: Feature[] = [
     cta: 'Run Admin Task',
     categories: ['Sales Tools', 'Social & Comms'],
     mindMapCategory: 'Meta Ads AI Suite',
-    badge: 'SOON',
+    badge: 'NEW',
     href: '/dashboard/tool/instagram-admin-ai',
     guideHref: '/blog/instagram-admin-ai',
+    renderResult: (result, toast) => (
+      <div className="space-y-4">
+        <h3 className="font-semibold text-lg">{result.status}</h3>
+        <div className="p-4 bg-muted rounded-md relative group">
+          <p className="whitespace-pre-wrap">{result.result}</p>
+          <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.result, toast)}><Copy className="h-4 w-4" /></Button>
+        </div>
+      </div>
+    ),
     details: {
       steps: [
         { text: 'Connect your Instagram account securely', icon: <Network /> },
@@ -784,7 +793,7 @@ export const tools: Feature[] = [
   },
   {
     id: 'rebranding',
-    title: 'Rebranding',
+    title: 'Automated Rebranding',
     dashboardTitle: 'Rebranding',
     description: 'Swap logos, colors, contacts in one click.',
     icon: <Palette />,
@@ -1467,7 +1476,7 @@ export const tools: Feature[] = [
   },
    {
     id: 'projects-finder',
-    title: 'Projects Finder',
+    title: 'Market Library',
     dashboardTitle: 'Projects Finder',
     description: "Continuously scans public records and news to find off-market deals and development opportunities, feeding the central library.",
     icon: <Search />,
