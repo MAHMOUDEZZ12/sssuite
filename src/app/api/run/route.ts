@@ -33,6 +33,7 @@ import { translateBrochure } from '@/ai/flows/translate-brochure';
 import { editYoutubeVideo } from '@/ai/flows/edit-youtube-video';
 import { investigateLead } from '@/ai/flows/investigate-lead';
 import { generateKeywordPlan } from '@/ai/flows/generate-keyword-plan';
+import { generateVideoPresenter } from '@/ai/flows/generate-video-presenter';
 
 const runToolSchema = z.object({
   toolId: z.string(),
@@ -78,6 +79,7 @@ const flowRunnerMap: { [key: string]: (payload: any) => Promise<any> } = {
     'lead-investigator': investigateLead,
     'keyword-planner': generateKeywordPlan,
     'market-chat-assistant': marketChatAssistantFlow,
+    'ai-video-presenter': generateVideoPresenter,
 };
 
 export async function POST(req: NextRequest) {

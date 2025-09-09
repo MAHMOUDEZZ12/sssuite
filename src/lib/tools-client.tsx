@@ -63,6 +63,7 @@ import {
   Edit,
   Server,
   Globe,
+  UserVoice,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -143,6 +144,42 @@ export type Feature = {
 };
 
 export const tools: Feature[] = [
+    {
+    id: 'ai-video-presenter',
+    title: 'AI Video Presenter',
+    dashboardTitle: 'AI Video Presenter',
+    description: 'Create a lifelike AI presenter to deliver your project pitch.',
+    icon: <UserVoice />,
+    color: '#f43f5e', // rose-500
+    cta: 'Generate Video',
+    categories: ['Creative', 'Video', 'Marketing', 'Ads'],
+    mindMapCategory: 'Creative Suite',
+    badge: 'NEW',
+    isPage: true,
+    href: '/dashboard/tool/ai-video-presenter',
+    details: {
+      steps: [
+        { text: 'Select or create a character', icon: <User /> },
+        { text: 'Provide a script for them to speak', icon: <PenTool /> },
+        { text: 'Generate a high-quality video of the presenter', icon: <Video /> },
+      ],
+      aiVsManual: [
+        { metric: 'Production Time', manual: 'Days of filming and editing', ai: 'Minutes to generate', icon: <Clock2 /> },
+        { metric: 'Cost', manual: 'Thousands of dollars for actors and crew', ai: 'Included in your subscription', icon: <Wallet /> },
+        { metric: 'Revisions', manual: 'Expensive and time-consuming reshoots', ai: 'Simply edit the script and regenerate', icon: <Sparkles /> },
+      ],
+      synergy: [
+        { tool: 'Landing Page Builder', benefit: 'Embed your video presenter directly into your AI-generated landing pages for a highly engaging experience.' },
+        { tool: 'Listing Generator', benefit: 'Use the generated property description as the script for your AI video presenter.' },
+      ],
+      faqs: [
+        { question: 'How realistic is the video?', answer: 'We use state-of-the-art video generation models (Veo) to create presenters with natural expressions and movements. The quality is designed to be highly professional.' },
+        { question: 'Can I use my own face?', answer: 'For privacy and security reasons, the current version does not support uploading personal faces. You can use our pre-rendered samples or generate a new, unique AI character from a description.' },
+        { question: 'Are the videos commercially licensed?', answer: 'Yes, all generated video presenters are fully licensed for you to use in your commercial marketing materials.' },
+      ],
+    },
+    creationFields: [],
+  },
   // --- CHATBOT ---
   {
     id: 'chatbot-creator',
