@@ -106,7 +106,3 @@ export default function BlogIndexPage() {
         </div>
     );
 }
-
-    
-
-    
