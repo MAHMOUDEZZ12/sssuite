@@ -549,7 +549,8 @@ export const tools: Feature[] = [
     cta: 'Edit YouTube Video',
     categories: ['Creative', 'Editing', 'Social & Comms'],
     mindMapCategory: 'Creative Suite',
-    badge: 'SOON',
+    badge: 'NEW',
+    isPage: true,
     href: '/dashboard/tool/youtube-video-editor',
     guideHref: '/blog/youtube-video-editor',
     details: {
@@ -573,11 +574,7 @@ export const tools: Feature[] = [
         { question: "What is the maximum video length I can upload?", answer: "The maximum upload size and length depend on your subscription plan, but the tool is optimized for typical real estate video lengths (up to 10-15 minutes)." }
       ],
     },
-    creationFields: [
-      { id: 'sourceVideo', name: 'Source Video', type: 'file', description: 'Upload the video file you want to edit.' },
-      { id: 'editingInstructions', name: 'General Instructions', type: 'textarea', placeholder: 'e.g., "Create a 2-minute highlight reel. Add my company logo at the start and end. Use upbeat background music."', description: 'Tell the AI what you want to achieve with the video.' },
-      { id: 'deepEditInstructions', name: 'Deep Edit Instructions (Optional)', type: 'textarea', placeholder: 'e.g., "At 0:45, add a text overlay: \'Stunning Marina Views\'. Replace the music from 1:30 to the end."', description: 'Provide specific, time-stamped instructions for fine-tuning.' },
-    ],
+    creationFields: [],
   },
   {
     id: 'landing-pages',
@@ -592,15 +589,6 @@ export const tools: Feature[] = [
     isPage: true,
     href: '/dashboard/tool/landing-pages',
     guideHref: '/blog/landing-pages',
-    renderResult: (result, toast) => (
-      <div>
-          <h3 className="font-semibold text-lg mb-2">Landing Page HTML</h3>
-          <div className="p-4 bg-muted rounded-md relative group">
-            <pre className="whitespace-pre-wrap text-sm">{result.landingPageHtml}</pre>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(result.landingPageHtml, toast)}><Copy className="h-4 w-4" /></Button>
-          </div>
-      </div>
-    ),
     details: {
       steps: [
         { text: 'Provide project details', icon: <PenTool className="h-6 w-6" /> },
@@ -622,13 +610,7 @@ export const tools: Feature[] = [
         { question: "Is it optimized for SEO?", answer: "Yes. The AI automatically generates SEO-friendly titles, meta descriptions, and image alt-tags to help your page rank better on search engines." }
       ],
     },
-    creationFields: [
-      { id: 'projectName', name: 'Project Name', type: 'text', placeholder: 'e.g., "Emaar Beachfront"', description: 'The name of the project or listing.' },
-      { id: 'projectDetails', name: 'Project Details', type: 'textarea', placeholder: 'e.g., "Luxury beachfront apartments in Dubai..."', description: 'A detailed description of the property.' },
-      { id: 'brandingStyle', name: 'Branding Style', type: 'select', options: ["Modern & Minimalist", "Luxury & Elegant", "Cozy & Welcoming", "Bold & Colorful"], placeholder: 'Select a branding style', description: 'Describe the desired look and feel.' },
-      { id: 'projectBrochureDataUri', name: 'Project Brochure (Optional)', type: 'file', description: 'Upload a brochure to provide more context.' },
-      { id: 'inspirationImageDataUri', name: 'Inspiration Image (Optional)', type: 'file', description: 'Upload a screenshot of a website you like to guide the style.' },
-    ],
+    creationFields: [],
   },
   {
     id: 'rebranding',
@@ -640,41 +622,10 @@ export const tools: Feature[] = [
     cta: 'Generate Rebranded Brochure',
     categories: ['Creative', 'Editing'],
     mindMapCategory: 'Creative Suite',
-    badge: 'SOON',
+    badge: 'NEW',
+    isPage: true,
     href: '/dashboard/tool/rebranding',
     guideHref: '/blog/rebranding',
-    renderResult: (result, toast) => (
-      <div className="space-y-6">
-        <Card>
-            <CardHeader>
-                <CardTitle>Rebranded Brochure</CardTitle>
-                <CardDescription>The AI has applied your branding to the document.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <div className="border rounded-lg overflow-hidden">
-                    <iframe src={`${result.rebrandedBrochureDataUri}#view=fitH`} className="w-full h-[600px]"/>
-                </div>
-                <a href={result.rebrandedBrochureDataUri} download="rebranded-brochure.pdf" className="mt-4 inline-block">
-                    <Button variant="outline"><Download className="mr-2"/> Download PDF</Button>
-                </a>
-            </CardContent>
-        </Card>
-        {result.logoDataUri && (
-           <Card>
-              <CardHeader>
-                <CardTitle>Generated Logo</CardTitle>
-                <CardDescription>The AI created this logo based on your company name and color choices.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Image src={result.logoDataUri} alt="Generated logo" width={200} height={200} className="rounded-lg border bg-white p-2" />
-                <a href={result.logoDataUri} download="logo.png" className="mt-4 inline-block">
-                    <Button variant="outline"><Download className="mr-2"/> Download Logo</Button>
-                </a>
-              </CardContent>
-           </Card>
-        )}
-      </div>
-    ),
     details: {
       steps: [
         { text: 'Upload any developer\'s brochure (PDF)', icon: <Upload className="h-6 w-6" /> },
@@ -696,15 +647,7 @@ export const tools: Feature[] = [
         { question: "Can it change the text to match my 'brand voice'?", answer: "Yes, you can specify a tone (e.g., 'professional,' 'friendly,' 'luxurious'), and the AI can subtly adjust headings and key phrases to align with your brand's voice." }
       ],
     },
-    creationFields: [
-      { id: 'brochureDataUri', name: 'Developer Brochure', type: 'file', description: 'Upload the original PDF.' },
-      { id: 'companyLogoDataUri', name: 'Your Logo', type: 'file', description: 'Upload your personal or company logo (PNG, JPG). Optional.' },
-      { id: 'companyName', name: 'Company Name', type: 'text', placeholder: 'Your company name', description: 'Used for branding and generating a logo if needed.' },
-      { id: 'contactDetails', name: 'Contact Details', type: 'textarea', placeholder: 'Your Name\nYour Phone\nYour Email', description: 'The contact info to place in the brochure.' },
-      { id: 'toneOfVoice', name: 'Tone of Voice', type: 'select', options: ['Professional', 'Friendly', 'Luxury', 'Modern'], placeholder: 'Select a tone', description: 'The tone to use for any generated text.' },
-      { id: 'colors', name: 'Colors', type: 'text', placeholder: 'e.g., "Blue and Gold"', description: 'The color scheme to use for rebranding.' },
-      { id: 'deepEditInstructions', name: 'Deep Edit Instructions (Optional)', type: 'textarea', placeholder: 'e.g., "Change the main contact name to \'Jane Smith\'. Replace the hero image with the one I uploaded. Update the completion date to \'Fall 2025\'."', description: 'Provide specific instructions for fine-tuning the rebranded document.' },
-    ],
+    creationFields: [],
   },
   {
     id: 'pdf-editor',

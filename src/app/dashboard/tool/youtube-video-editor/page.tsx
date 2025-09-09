@@ -118,7 +118,7 @@ export default function YoutubeVideoEditorPage() {
                 icon={<Youtube className="h-8 w-8" />}
             />
 
-            {!sourceVideoUri && !isLoading && !resultData &&(
+            {!sourceVideoUri && !isLoading && !resultData && (
                 <Card className="max-w-xl mx-auto">
                     <CardContent className="p-6">
                         <label

@@ -45,7 +45,21 @@ export default function MetaAutoPilotPage() {
   const [isAutomating, setIsAutomating] = useState(false);
   const [workflow, setWorkflow] = useState<Step[]>([]);
   const [pastedPayload, setPastedPayload] = useState('');
-  const [selectedWorkflow, setSelectedWorkflow] = useState<string>('');
+  const [selectedWorkflow, setSelectedWorkflow] = useState<string>('landing-page');
+
+
+  useEffect(() => {
+    try {
+        const payload = localStorage.getItem('autopilot_payload');
+        if (payload) {
+            setPastedPayload(payload);
+            localStorage.removeItem('autopilot_payload'); // Clear it after use
+            toast({title: "Campaign Plan Loaded!", description: "The plan from the builder has been loaded. Ready to run."});
+        }
+    } catch(e) {
+        console.error("Could not load autopilot payload from localStorage", e);
+    }
+  }, [toast]);
 
 
   const handleStartAutomation = () => {
@@ -95,94 +109,64 @@ export default function MetaAutoPilotPage() {
   return (
     <main className="p-4 md:p-10 space-y-8">
       <PageHeader
-        title="Meta Auto Pilot (Manager)"
-        description="The orchestrator for your entire Meta advertising suite. Automate complex workflows with a single click."
+        title="Meta Auto Pilot"
+        description="The execution terminal for your Meta Ads. Paste a plan from the Campaign Builder and the pilot will launch it."
         icon={<Star className="h-8 w-8" />}
       />
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        <div className="lg:col-span-1 space-y-6">
-            <Card>
-                <CardHeader>
-                    <CardTitle>Connected Tools</CardTitle>
-                    <CardDescription>The Pilot uses these services to run automations.</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                    {metaTools.map(tool => (
-                        <div key={tool.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-md">
-                            <div className="flex items-center gap-3">
-                                {React.cloneElement(tool.icon, { className: 'h-5 w-5', style: { color: tool.color }})}
-                                <span className="font-medium text-sm">{tool.title}</span>
-                            </div>
-                            <Badge variant="default">Connected</Badge>
-                        </div>
-                    ))}
-                </CardContent>
-            </Card>
-        </div>
-        <div className="lg:col-span-2">
-            <Card>
-                <CardHeader>
-                    <CardTitle>Launch Campaign Workflow</CardTitle>
-                    <CardDescription>Select a workflow, paste your generated campaign plan, and the pilot will handle the rest.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="p-4 border rounded-lg space-y-4">
-                         <div className="space-y-2">
-                             <h4 className="font-semibold text-sm">1. Select Workflow Type</h4>
-                              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                                {workflowOptions.map(wf => (
-                                    <button key={wf.id} onClick={() => setSelectedWorkflow(wf.id)}
-                                        className={cn(
-                                            'flex flex-col items-center justify-center text-center gap-2 p-4 rounded-lg border-2 transition-colors h-28',
-                                            selectedWorkflow === wf.id ? 'border-primary bg-primary/10' : 'bg-card hover:bg-muted/50'
-                                        )}>
-                                        {wf.icon}
-                                        <span className="text-xs font-medium">{wf.title}</span>
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="space-y-2">
-                             <h4 className="font-semibold text-sm">2. Paste Campaign Plan</h4>
-                             <Textarea 
-                                placeholder="Paste your 'Roll-In' campaign plan from the Campaign Builder here..."
-                                value={pastedPayload}
-                                onChange={(e) => setPastedPayload(e.target.value)}
-                                rows={6}
-                                disabled={isAutomating}
-                                className="font-mono text-xs"
-                             />
-                        </div>
-                        <Button onClick={handleStartAutomation} disabled={isAutomating || !pastedPayload || !selectedWorkflow} className="w-full md:w-auto">
-                            {isAutomating ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Play className="mr-2 h-4 w-4"/>}
-                            {isAutomating ? 'Running Workflow...' : 'Run Workflow'}
-                        </Button>
-                        
-                        {workflow.length > 0 && (
-                            <div className="mt-4 pt-4 border-t">
-                                <h4 className="font-semibold mb-3">3. Execution Progress:</h4>
-                                <div className="space-y-4">
-                                    {workflow.map((step) => (
-                                        <div key={step.id} className="flex items-start gap-4">
-                                            <div>{getStatusIcon(step.status)}</div>
-                                            <div className="flex-1">
-                                                <p className={cn("font-medium", step.status !== 'pending' && "text-foreground")}>{step.title}</p>
-                                                <p className="text-sm text-muted-foreground">{step.description}</p>
-                                            </div>
-                                        </div>
-                                    ))}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <Card>
+            <CardHeader>
+                <CardTitle>Launch Campaign</CardTitle>
+                <CardDescription>Paste your generated campaign plan and the pilot will handle the rest.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="p-4 border rounded-lg space-y-4">
+                    <div className="space-y-2">
+                        <h4 className="font-semibold text-sm">1. Campaign Plan</h4>
+                        <Textarea 
+                           placeholder="Paste your 'Roll-In' campaign plan from the Campaign Builder here..."
+                           value={pastedPayload}
+                           onChange={(e) => setPastedPayload(e.target.value)}
+                           rows={6}
+                           disabled={isAutomating}
+                           className="font-mono text-xs"
+                        />
+                    </div>
+                    <Button onClick={handleStartAutomation} disabled={isAutomating || !pastedPayload} className="w-full md:w-auto">
+                        {isAutomating ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Play className="mr-2 h-4 w-4"/>}
+                        {isAutomating ? 'Running Workflow...' : 'Run Workflow'}
+                    </Button>
+                </div>
+            </CardContent>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle>Execution Progress</CardTitle>
+                <CardDescription>Follow the pilot as it launches your campaign on Meta.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                 {workflow.length > 0 ? (
+                    <div className="space-y-4">
+                        {workflow.map((step) => (
+                            <div key={step.id} className="flex items-start gap-4">
+                                <div>{getStatusIcon(step.status)}</div>
+                                <div className="flex-1">
+                                    <p className={cn("font-medium", step.status !== 'pending' && "text-foreground")}>{step.title}</p>
+                                    <p className="text-sm text-muted-foreground">{step.description}</p>
                                 </div>
                             </div>
-                        )}
+                        ))}
                     </div>
-                </CardContent>
-            </Card>
-        </div>
+                ) : (
+                    <div className="flex items-center justify-center h-48 border-dashed border-2 rounded-lg text-center p-6 text-muted-foreground">
+                        <p>Waiting for a campaign plan...</p>
+                    </div>
+                )}
+            </CardContent>
+        </Card>
       </div>
     </main>
   );
 }
 
-    

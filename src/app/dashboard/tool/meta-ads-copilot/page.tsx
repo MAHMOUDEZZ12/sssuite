@@ -24,10 +24,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 
 const campaignWorkflows = [
+    { id: 'Lead Generation to Meta Form', title: 'Leads to Meta Form', description: 'Capture leads with an instant, on-platform form. The simplest way to start.', icon: <FileSignature className="h-5 w-5"/> },
     { id: 'Lead Generation to Landing Page', title: 'Leads to Landing Page', description: 'Drive traffic to a webpage to capture leads. Requires a live landing page.', icon: <LinkIcon className="h-5 w-5"/> },
     { id: 'Lead Generation to WhatsApp', title: 'Leads to WhatsApp', description: 'Start direct conversations with potential buyers. Requires a registered WhatsApp Business number.', icon: <MessageCircle className="h-5 w-5"/> },
     { id: 'Lead Generation to Instagram', title: 'Leads to Instagram DMs', description: 'Engage with users directly in their DMs. Works best with the Instagram Admin tool.', icon: <Facebook className="h-5 w-5"/> },
-    { id: 'Lead Generation to Meta Form', title: 'Leads to Meta Form', description: 'Capture leads with an instant, on-platform form. The simplest way to start.', icon: <FileSignature className="h-5 w-5"/> },
 ];
 
 type CampaignStep = 'project' | 'workflow' | 'media' | 'budget' | 'review';
