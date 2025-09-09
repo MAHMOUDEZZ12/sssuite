@@ -10,12 +10,12 @@ export function CreativeCanvas() {
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => { if(!open) closeCanvas() }}>
-      <SheetContent className="w-full sm:max-w-md p-0">
+      <SheetContent className="w-full sm:max-w-2xl p-0">
         <SheetHeader className="p-6 border-b">
           <SheetTitle>{canvasTitle || 'Creative Canvas'}</SheetTitle>
           {canvasDescription && <SheetDescription>{canvasDescription}</SheetDescription>}
         </SheetHeader>
-        <div className="p-6 overflow-y-auto">
+        <div className="p-6 overflow-y-auto max-h-[calc(100vh-80px)]">
           {canvasContent}
         </div>
       </SheetContent>

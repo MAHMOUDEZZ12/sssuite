@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Sparkles, Pen, Upload, Youtube, Download, Save, Scissors, Text, Music, Film } from 'lucide-react';
+import { Loader2, Sparkles, Pen, Upload, Youtube, Download, Save, Scissors, Text, Music, Film, Brush } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { editYoutubeVideo } from '@/ai/flows/edit-youtube-video';
@@ -118,7 +118,7 @@ export default function YoutubeVideoEditorPage() {
                 icon={<Youtube className="h-8 w-8" />}
             />
 
-            {!sourceVideoUri && !isLoading && (
+            {!sourceVideoUri && !isLoading && !resultData &&(
                 <Card className="max-w-xl mx-auto">
                     <CardContent className="p-6">
                         <label

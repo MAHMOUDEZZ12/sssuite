@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Loader2, Sparkles, Facebook, Upload, ArrowRight, CheckCircle, Lightbulb, Copy, LayoutDashboard, BarChart2, GalleryVertical, PlusCircle, Send, Link as LinkIcon, MessageCircle, ArrowLeft, Building, Wallet, Calendar, Image as ImageIcon, ThumbsUp, MessageSquare, Share2, FileSignature } from 'lucide-react';
@@ -10,11 +10,6 @@ import { PageHeader } from '@/components/ui/page-header';
 import { fileToDataUri } from '@/components/../lib/tools-client';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Link from 'next/link';
 import { createMetaCampaign } from '@/ai/flows/create-meta-campaign';
 import { CreateMetaCampaignInput, CreateMetaCampaignOutput } from '@/types';
@@ -25,15 +20,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Textarea } from '@/components/ui/textarea';
 import { useCanvas } from '@/context/CanvasContext';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-
-type Campaign = {
-    id: number | string;
-    name: string;
-    objective: string;
-    budget: number;
-    status: string;
-};
 
 const campaignWorkflows = [
     { id: 'Lead Generation to Landing Page', title: 'Leads to Landing Page', description: 'Drive traffic to a webpage to capture leads. Requires a live landing page.', icon: <LinkIcon className="h-5 w-5"/> },
@@ -43,93 +31,6 @@ const campaignWorkflows = [
 ];
 
 type CampaignStep = 'project' | 'workflow' | 'media' | 'budget' | 'review';
-
-const ResultDisplay = ({ result, toast, onPublish }: { result: CreateMetaCampaignOutput, toast: any, onPublish: (campaign: CreateMetaCampaignOutput) => void }) => {
-    
-    const handlePublish = () => {
-        onPublish(result);
-        toast({ title: 'Campaign Sent!', description: `The "${result.campaignName}" campaign plan has been sent to the Meta Auto Pilot for execution.` });
-    };
-
-    return (
-        <div className="space-y-8">
-            <Card>
-                <CardHeader>
-                    <div className="flex justify-between items-start">
-                        <div>
-                            <CardTitle>Campaign Strategy: {result.campaignName}</CardTitle>
-                            <CardDescription>
-                                Meta Objective: <Badge>{result.campaignObjective}</Badge>
-                            </CardDescription>
-                        </div>
-                         <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                                 <Button>
-                                    <Send className="mr-2 h-4 w-4"/>
-                                    Send to Auto-Pilot
-                                </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle>Send campaign to the Auto-Pilot?</AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                        This will send the campaign plan for "{result.campaignName}" to the Meta Auto-Pilot tool for execution and publishing.
-                                    </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction onClick={handlePublish}>Yes, Send to Pilot</AlertDialogAction>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
-                    </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div>
-                        <h3 className="font-semibold text-lg mb-2">Ad Sets</h3>
-                        <div className="grid md:grid-cols-2 gap-4">
-                            {result.adSets.map((adSet, index) => (
-                                <Card key={index}>
-                                    <CardHeader>
-                                        <CardTitle className="text-base">{adSet.name}</CardTitle>
-                                        <CardDescription>Daily Budget: ${adSet.dailyBudget.toFixed(2)}</CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <p className="text-sm">{adSet.targetingSummary}</p>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </div>
-                    </div>
-                     <div>
-                        <h3 className="font-semibold text-lg mb-2">Ad Creatives to Test</h3>
-                        <div className="space-y-4">
-                             {result.adCreatives.map((creative, index) => (
-                                <Card key={index} className="bg-muted/50">
-                                    <CardContent className="p-4">
-                                        <p className="font-semibold">Headline: "{creative.headline}"</p>
-                                        <p className="text-sm my-2">Body: "{creative.bodyText}"</p>
-                                        <p className="text-sm"><span className="font-semibold">Suggested CTA:</span> <Badge variant="secondary">{creative.callToAction}</Badge></p>
-                                        <p className="text-sm mt-2 italic text-muted-foreground"><span className="font-semibold not-italic">Image Idea:</span> {creative.imageSuggestion}</p>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
-             <Card className="bg-primary/10 border-primary/20">
-                <CardHeader className="flex-row items-center gap-4">
-                    <Lightbulb className="h-6 w-6 text-primary" />
-                    <CardTitle>Optimization Advice</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p>{result.optimizationAdvice}</p>
-                </CardContent>
-            </Card>
-        </div>
-    );
-};
 
 
 const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (field: string, value: string) => void }) => {
@@ -151,7 +52,6 @@ const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (fi
     
     const handleBrainstorm = () => {
         // In a real app, this would trigger a call to an AI flow.
-        // For this demo, we'll cycle through some mock suggestions.
         const suggestions = [
             { headline: "Your Dream Home Awaits", bodyText: "Experience unparalleled luxury and breathtaking views. Tap 'Learn More' to discover your new life at Emaar Beachfront." },
             { headline: "Exclusive Waterfront Living", bodyText: "Discover a new standard of coastal luxury. Limited residences available. Inquire now for exclusive access." },
@@ -234,6 +134,95 @@ const EditableAdMockup = ({ creative, onUpdate }: { creative: any, onUpdate: (fi
     )
 }
 
+const ResultDisplay = ({ result: initialResult, toast, onPublish }: { result: CreateMetaCampaignOutput, toast: any, onPublish: (campaign: CreateMetaCampaignOutput) => void }) => {
+    const { openCanvas, closeCanvas } = useCanvas();
+    const [result, setResult] = useState(initialResult);
+
+    const handlePublish = () => {
+        onPublish(result);
+    };
+
+    const openCreativeInCanvas = (creativeIndex: number) => {
+        const creative = result.adCreatives[creativeIndex];
+        openCanvas(
+            <EditableAdMockup
+                creative={creative}
+                onUpdate={(field, value) => {
+                    const updatedCreatives = [...result.adCreatives];
+                    updatedCreatives[creativeIndex] = { ...updatedCreatives[creativeIndex], [field]: value };
+                    setResult(prev => ({...prev!, adCreatives: updatedCreatives}));
+                }}
+            />,
+            "Edit Ad Creative",
+            "Make live edits to your ad creative before publishing."
+        );
+    };
+
+    return (
+        <div className="space-y-8">
+            <Card>
+                <CardHeader>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <CardTitle>Campaign Strategy: {result.campaignName}</CardTitle>
+                            <CardDescription>
+                                Meta Objective: <Badge>{result.campaignObjective}</Badge>
+                            </CardDescription>
+                        </div>
+                        <Button onClick={handlePublish}>
+                            <Send className="mr-2 h-4 w-4"/>
+                            Send to Auto-Pilot
+                        </Button>
+                    </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div>
+                        <h3 className="font-semibold text-lg mb-2">Ad Sets</h3>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            {result.adSets.map((adSet, index) => (
+                                <Card key={index}>
+                                    <CardHeader>
+                                        <CardTitle className="text-base">{adSet.name}</CardTitle>
+                                        <CardDescription>Daily Budget: ${adSet.dailyBudget.toFixed(2)}</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <p className="text-sm">{adSet.targetingSummary}</p>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    </div>
+                     <div>
+                        <h3 className="font-semibold text-lg mb-2">Ad Creatives to Test</h3>
+                        <div className="space-y-4">
+                             {result.adCreatives.map((creative, index) => (
+                                <Card key={index} className="bg-muted/50 hover:bg-muted cursor-pointer" onClick={() => openCreativeInCanvas(index)}>
+                                    <CardContent className="p-4">
+                                        <p className="font-semibold">Headline: "{creative.headline}"</p>
+                                        <p className="text-sm my-2">Body: "{creative.bodyText}"</p>
+                                        <p className="text-sm"><span className="font-semibold">Suggested CTA:</span> <Badge variant="secondary">{creative.callToAction}</Badge></p>
+                                        <p className="text-sm mt-2 italic text-muted-foreground"><span className="font-semibold not-italic">Image Idea:</span> {creative.imageSuggestion}</p>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+             <Card className="bg-primary/10 border-primary/20">
+                <CardHeader className="flex-row items-center gap-4">
+                    <Lightbulb className="h-6 w-6 text-primary" />
+                    <CardTitle>Optimization Advice</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <p>{result.optimizationAdvice}</p>
+                </CardContent>
+            </Card>
+        </div>
+    );
+};
+
+
 export default function CampaignBuilderPage() {
     const { toast } = useToast();
     const [isLoading, setIsLoading] = React.useState(false);
@@ -244,7 +233,6 @@ export default function CampaignBuilderPage() {
     const [campaignData, setCampaignData] = React.useState<Partial<CreateMetaCampaignInput & { projectId: string, projectBrochureFile: File | null }>>({});
 
     const handleNextStep = (step: CampaignStep) => {
-        // Validation could be added here for each step
         setCurrentStep(step);
     };
 
@@ -288,7 +276,6 @@ export default function CampaignBuilderPage() {
 
     const handleSendToPilot = (campaignResult: CreateMetaCampaignOutput) => {
         try {
-            // In a real app, this might be an API call. Here, we use localStorage to pass the plan.
             localStorage.setItem('autopilot_payload', JSON.stringify(campaignResult));
             toast({ 
                 title: 'Plan Sent to Auto-Pilot!', 
@@ -386,24 +373,36 @@ export default function CampaignBuilderPage() {
     };
 
     const getStepButton = () => {
-        switch (currentStep) {
-            case 'project': return <Button onClick={() => handleNextStep('workflow')} disabled={!campaignData.projectId}>Next <ArrowRight /></Button>;
-            case 'workflow': return <Button onClick={() => handleNextStep('media')} disabled={!campaignData.campaignGoal}>Next <ArrowRight /></Button>;
-            case 'media': return <Button onClick={() => handleNextStep('budget')} disabled={!campaignData.projectBrochureFile}>Next <ArrowRight /></Button>;
-            case 'budget': return <Button onClick={() => handleNextStep('review')} disabled={!campaignData.budget || !campaignData.durationDays}>Review Campaign <ArrowRight /></Button>;
-            case 'review': return (
-                <Button size="lg" onClick={handleGeneration} disabled={isLoading}>
-                    {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Building Campaign...</> : <><Sparkles className="mr-2 h-5 w-5" />Generate Campaign Structure</>}
-                </Button>
-            );
+        const steps: CampaignStep[] = ['project', 'workflow', 'media', 'budget', 'review'];
+        const currentStepIndex = steps.indexOf(currentStep);
+
+        const isNextDisabled = () => {
+            switch(currentStep) {
+                case 'project': return !campaignData.projectId;
+                case 'workflow': return !campaignData.campaignGoal;
+                case 'media': return !campaignData.projectBrochureFile;
+                case 'budget': return !campaignData.budget || !campaignData.durationDays;
+                default: return false;
+            }
+        };
+
+        const nextStep = steps[currentStepIndex + 1];
+        if (nextStep) {
+            return <Button onClick={() => handleNextStep(nextStep)} disabled={isNextDisabled()}>Next <ArrowRight /></Button>;
         }
+
+        return (
+            <Button size="lg" onClick={handleGeneration} disabled={isLoading || isNextDisabled()}>
+                {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Building Campaign...</> : <><Sparkles className="mr-2 h-5 w-5" />Generate Campaign Structure</>}
+            </Button>
+        );
     };
     
     return (
         <main className="p-4 md:p-10 space-y-8">
             <PageHeader
                 title="Campaign Builder AI"
-                description="Your dedicated suite for Facebook & Instagram advertising. Define, generate, monitor, and optimize your campaigns."
+                description="Your dedicated suite for Facebook & Instagram advertising. Define, generate, and review your campaign strategy."
                 icon={<Facebook className="h-8 w-8" />}
             />
 

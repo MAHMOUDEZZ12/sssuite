@@ -17,7 +17,7 @@ export function ProjectCard({
 }) {
   const CardBody = (
      <div className={cn(
-        "rounded-2xl border bg-card text-card-foreground p-4 h-full flex flex-col justify-between hover:border-primary/50 transition-colors",
+        "rounded-lg border bg-card text-card-foreground p-4 h-full flex flex-col justify-between hover:border-primary/50 transition-colors",
         selected && "border-primary ring-2 ring-primary/50"
       )}>
       <div>

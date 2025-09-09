@@ -7,7 +7,6 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Loader2, Sparkles, Pen, Upload, Youtube, Download, Save, Scissors, Text, Music, Film, Brush, Palette, Image as ImageIcon, Type } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
-import { editYoutubeVideo } from '@/ai/flows/edit-youtube-video';
 import { fileToDataUri } from '@/lib/tools-client';
 import { useCanvas } from '@/context/CanvasContext';
 import { Textarea } from '@/components/ui/textarea';
