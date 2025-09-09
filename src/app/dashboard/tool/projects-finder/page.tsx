@@ -13,9 +13,11 @@ import { ProjectCard } from '@/components/ui/project-card';
 import { useToast } from '@/hooks/use-toast';
 import { track } from '@/lib/events';
 import { Separator } from '@/components/ui/separator';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function ProjectsFinderPage() {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,13 +27,26 @@ export default function ProjectsFinderPage() {
   const [newProjectDeveloper, setNewProjectDeveloper] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [myProjects, setMyProjects] = useState<string[]>([]);
-
+  const [myProjectIds, setMyProjectIds] = useState<string[]>([]);
+  
   useEffect(() => {
-    // Load projects from localStorage on mount
-    const savedProjects = JSON.parse(localStorage.getItem('myProjects') || '[]').map((p: Project) => p.id);
-    setMyProjects(savedProjects);
-  }, []);
+    const fetchUserProjects = async () => {
+        if (!user) return;
+        try {
+            const idToken = await user.getIdToken();
+            const response = await fetch('/api/user/projects', {
+                headers: { 'Authorization': `Bearer ${idToken}` }
+            });
+            const data = await response.json();
+            if (data.ok) {
+                setMyProjectIds(data.data.map((p: Project) => p.id));
+            }
+        } catch (error) {
+            console.error("Failed to fetch user projects:", error);
+        }
+    };
+    fetchUserProjects();
+  }, [user]);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,16 +92,35 @@ export default function ProjectsFinderPage() {
 
   }
 
-  const handleAddToLibrary = (project: Project) => {
+  const handleAddToLibrary = async (project: Project) => {
+    if (!user) {
+        toast({ title: "Not Authenticated", description: "You must be logged in to add projects.", variant: "destructive" });
+        return;
+    }
     track('project_added_to_library', { projectId: project.id, projectName: project.name });
-    const currentProjects = JSON.parse(localStorage.getItem('myProjects') || '[]');
-    const newProjects = [...currentProjects, project];
-    localStorage.setItem('myProjects', JSON.stringify(newProjects));
-    setMyProjects(prev => [...prev, project.id]);
-    toast({
-        title: `${project.name} Added!`,
-        description: "The project has been added to your personal library and is now available across the suite.",
-    });
+    
+    try {
+        const idToken = await user.getIdToken();
+        const response = await fetch('/api/user/projects', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${idToken}`
+            },
+            body: JSON.stringify(project)
+        });
+        
+        const data = await response.json();
+        if (!data.ok) throw new Error(data.error);
+
+        setMyProjectIds(prev => [...prev, project.id]);
+        toast({
+            title: `${project.name} Added!`,
+            description: "The project has been added to your personal library and is now available across the suite.",
+        });
+    } catch (error: any) {
+        toast({ title: "Error", description: `Could not add project: ${error.message}`, variant: "destructive"});
+    }
   }
   
   const handleAddCustomProject = (e: React.FormEvent) => {
@@ -175,9 +209,9 @@ export default function ProjectsFinderPage() {
                                         key={project.id}
                                         project={project}
                                         actions={
-                                            <Button size="sm" onClick={() => handleAddToLibrary(project)} disabled={myProjects.includes(project.id)}>
+                                            <Button size="sm" onClick={() => handleAddToLibrary(project)} disabled={myProjectIds.includes(project.id)}>
                                                 <PlusCircle className="mr-2 h-4 w-4" />
-                                                {myProjects.includes(project.id) ? 'Added' : 'Add to Library'}
+                                                {myProjectIds.includes(project.id) ? 'Added' : 'Add to Library'}
                                             </Button>
                                         }
                                     />
@@ -207,7 +241,7 @@ export default function ProjectsFinderPage() {
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <Button type="submit" className="w-full">
+                        <Button type="submit" className="w-full" disabled={!user}>
                             <PlusCircle className="mr-2 h-4 w-4" /> Add to My Library
                         </Button>
                     </CardFooter>

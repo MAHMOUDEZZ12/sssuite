@@ -33,6 +33,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { Project } from '@/types';
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/use-toast';
 
 
 const topTools = tools.filter(t => ['meta-ads-copilot', 'audience-creator', 'rebranding', 'instagram-content-creator'].includes(t.id));
@@ -46,40 +48,60 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 
 
 const MyProjectsWidget = () => {
+    const { toast } = useToast();
+    const { user } = useAuth();
     const [userProjects, setUserProjects] = useState<Project[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        // In a real app, this would be a fetch call to your backend
-        // For this prototype, we simulate a fetch from localStorage
-        const fetchProjects = () => {
-            setIsLoading(true);
-            try {
-                const savedProjects = JSON.parse(localStorage.getItem('myProjects') || '[]');
-                setUserProjects(savedProjects);
-            } catch (e) {
-                console.error("Failed to load projects", e);
-                setUserProjects([]);
-            } finally {
-                setIsLoading(false);
+    const fetchProjects = async () => {
+        if (!user) {
+            setIsLoading(false);
+            return;
+        };
+        setIsLoading(true);
+        try {
+            const idToken = await user.getIdToken();
+            const response = await fetch('/api/user/projects', {
+                headers: { 'Authorization': `Bearer ${idToken}` }
+            });
+            const data = await response.json();
+            if (data.ok) {
+                setUserProjects(data.data);
+            } else {
+                throw new Error(data.error);
             }
-        };
+        } catch (e: any) {
+            console.error("Failed to load projects", e);
+            toast({ title: "Error", description: `Could not load projects: ${e.message}`, variant: "destructive" });
+            setUserProjects([]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+    
+    useEffect(() => {
         fetchProjects();
+    }, [user]);
 
-        const handleStorageChange = () => {
-            fetchProjects();
-        };
-
-        window.addEventListener('storage', handleStorageChange);
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-        };
-    }, []);
-
-    const handleDeleteProject = (projectId: string) => {
+    const handleDeleteProject = async (projectId: string) => {
+        if (!user) return;
+        const originalProjects = [...userProjects];
         const updatedProjects = userProjects.filter(p => p.id !== projectId);
         setUserProjects(updatedProjects);
-        localStorage.setItem('myProjects', JSON.stringify(updatedProjects));
+
+        try {
+            const idToken = await user.getIdToken();
+            const response = await fetch(`/api/user/projects?projectId=${projectId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${idToken}` }
+            });
+            const data = await response.json();
+            if (!data.ok) throw new Error(data.error);
+            toast({ title: "Project Deleted", description: "The project has been removed from your library." });
+        } catch (error: any) {
+            toast({ title: "Error", description: `Could not delete project: ${error.message}`, variant: "destructive" });
+            setUserProjects(originalProjects); // Revert on error
+        }
     };
 
     return (
@@ -293,5 +315,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-    
