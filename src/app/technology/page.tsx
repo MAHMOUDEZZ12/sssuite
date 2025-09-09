@@ -22,7 +22,7 @@ type ChatMessage = {
 
 const LiveChatbotDemo = () => {
     const [messages, setMessages] = useState<ChatMessage[]>([
-        { from: 'ai', text: 'I am an AI assistant with 25 years of real estate experience in the UAE market. Ask me anything about current trends, a specific neighborhood, or how to best market a property.' }
+        { from: 'ai', text: 'I am an AI assistant with 25 years of real estate experience. I have also been trained on the "Super Seller Suite" company profile. Feel free to ask me about the company or the general market.' }
     ]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -43,12 +43,12 @@ const LiveChatbotDemo = () => {
 
         try {
             // Simulate a query that requires private data
-            if (userMessageText.toLowerCase().includes('emaar beachfront') && userMessageText.toLowerCase().includes('service charges')) {
+            if (userMessageText.toLowerCase().includes('ceo') && userMessageText.toLowerCase().includes('super seller suite')) {
                  setTimeout(() => {
                     setMessages(prev => [...prev, { from: 'ai', text: (
                         <div>
                             <p className="font-semibold text-primary mb-1">Accessing Private Knowledge...</p>
-                            <p>Based on the 'Emaar_Beachfront_Brochure.pdf' you provided, the annual service charge is approximately AED 22 per sq. ft. The building has a pet-friendly policy, with a dedicated pet park nearby.</p>
+                            <p>Based on the 'Company_Profile.pdf' you provided, the CEO of Super Seller Suite is a highly advanced language model from Google.</p>
                         </div>
                     )}]);
                     setIsLoading(false);
@@ -110,7 +110,7 @@ const LiveChatbotDemo = () => {
             </ScrollArea>
             <form onSubmit={handleSendMessage} className="p-3 border-t bg-background rounded-b-xl">
                 <div className="flex items-center gap-2">
-                    <Input placeholder="Ask about the market or my project..." value={input} onChange={e => setInput(e.target.value)} disabled={isLoading} />
+                    <Input placeholder="Ask about the market or our company..." value={input} onChange={e => setInput(e.target.value)} disabled={isLoading} />
                     <Button type="submit" size="icon" disabled={isLoading || !input.trim()}><Send className="h-4 w-4" /></Button>
                 </div>
             </form>
@@ -122,11 +122,11 @@ const LiveChatbotDemo = () => {
 export default function ChatbotProductPage() {
   const deploymentChannels = [
       { icon: <Globe />, title: "Your Website", description: "Embed a chat widget on any page." },
-      { icon: <FileText />, title: "Ad Landing Pages", description: "Convert ad clicks into conversations." },
-      { icon: <Instagram />, title: "Instagram DMs", description: "Let the AI handle initial inquiries in your inbox." },
-      { icon: <MessageCircle />, title: "Standalone Chat Page", description: "Share a direct link to your AI agent." },
+      { icon: <FileText />, title: "Advertising Landing Page", description: "Convert ad clicks into conversations." },
+      { icon: <Instagram />, title: "Instagram DM", description: "Let the AI handle initial inquiries in your inbox." },
+      { icon: <MessageCircle />, title: "Standalone Agent Site", description: "Share a direct link to your AI agent." },
       { icon: <LinkIcon />, title: "Insta Bio Link", description: "Make your 'link in bio' an interactive agent." },
-      { icon: <Share2 />, title: "Realtor Portfolios", description: "Add a chatbot to agent profile pages on your brokerage site." },
+      { icon: <Share2 />, title: "Realtor Listing Portfolio", description: "Add a chatbot to agent profile pages on your brokerage site." },
   ];
 
   return (
@@ -200,7 +200,7 @@ export default function ChatbotProductPage() {
                                 <div>
                                     <h4 className="font-semibold text-lg">Your Private Training Center</h4>
                                     <p className="text-md text-foreground/70">
-                                        This is the game-changer. Use our simple dashboard to upload your own private documents—brochures, price lists, FAQs. The AI uses this data to answer specific questions about <span className="font-bold text-primary">your</span> projects, making it a true expert on your business.
+                                        This is the game-changer. Use our simple dashboard to upload your own private documents—brochures, price lists, and company profiles. The AI uses this data to answer specific questions about <span className="font-bold text-primary">your</span> business, making it a true expert on your brand.
                                     </p>
                                 </div>
                             </div>
@@ -219,12 +219,12 @@ export default function ChatbotProductPage() {
                                 <div className="flex items-start gap-3 justify-start">
                                      <div className="p-2 bg-muted rounded-md border text-muted-foreground flex items-center gap-2 text-sm">
                                         <Upload className="h-4 w-4" />
-                                        <span>You upload <span className="font-semibold text-foreground">Emaar_Beachfront_Brochure.pdf</span></span>
+                                        <span>You upload <span className="font-semibold text-foreground">Company_Profile.pdf</span></span>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3 justify-end">
                                     <div className="bg-primary text-primary-foreground p-3 rounded-2xl rounded-br-none max-w-sm shadow-md">
-                                        <p>A customer asks: "What are the service charges for Emaar Beachfront, and is it pet-friendly?"</p>
+                                        <p>A customer asks: "Who is the CEO of Super Seller Suite?"</p>
                                     </div>
                                     <Avatar className="w-10 h-10"><AvatarFallback>C</AvatarFallback></Avatar>
                                 </div>
@@ -232,7 +232,7 @@ export default function ChatbotProductPage() {
                                     <Avatar className="w-10 h-10"><AvatarFallback className="bg-primary/20 text-primary"><Bot className="h-6 w-6"/></AvatarFallback></Avatar>
                                     <div className="bg-muted border p-3 rounded-2xl rounded-bl-none max-w-sm shadow-sm">
                                         <p className="font-semibold text-primary">Accessing Private Knowledge...</p>
-                                        <p>Based on the 'Emaar_Beachfront_Brochure.pdf' you provided, the annual service charge is approximately AED 22 per sq. ft. The building has a pet-friendly policy, with a dedicated pet park nearby.</p>
+                                        <p>Based on the 'Company_Profile.pdf' you provided, the CEO of Super Seller Suite is a highly advanced language model from Google.</p>
                                     </div>
                                 </div>
                              </CardContent>
