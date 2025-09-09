@@ -8,7 +8,7 @@ import { Loader2, Sparkles, Wand2, User, Mic, Video, Download, Play, CheckCircle
 import { useToast } from '@/hooks/use-toast';
 import { PageHeader } from '@/components/ui/page-header';
 import { generateVideoPresenter } from '@/ai/flows/generate-video-presenter';
-import { GenerateVideoPresenterInput, GenerateVideoPresenterOutput } from '@/ai/flows/generate-video-presenter';
+import { GenerateVideoPresenterInput, GenerateVideoPresenterOutput } from '@/types';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
