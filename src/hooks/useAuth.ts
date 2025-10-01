@@ -22,12 +22,16 @@ export function useAuth() {
       setUser(user);
       setLoading(false);
 
-      const isAuthPage = pathname === '/login' || pathname === '/signup' || pathname.startsWith('/onboarding');
-      const isPublicPage = ['/', '/pricing', '/about', '/blog', '/cookies', '/documentation', '/privacy', '/status', '/superfreetime', '/sx3-mindmap', '/technology', '/terms'].includes(pathname) || pathname.startsWith('/blog/');
+      const isAuthPage = pathname === '/login' || pathname === '/signup';
+      const isPublicPage = ['/', '/pricing', '/about', '/blog', '/cookies', '/documentation', '/privacy', '/status', '/superfreetime', '/sx3-mindmap', '/technology', '/terms', '/onboarding'].includes(pathname) || pathname.startsWith('/blog/');
+      const isDashboardPage = pathname.startsWith('/dashboard');
       
-      if (!user && !isAuthPage && !isPublicPage) {
-        // If user is not logged in and not on a public/auth page, redirect to login
+      if (!user && isDashboardPage) {
+        // If user is not logged in and is trying to access a dashboard page
         router.push('/login');
+      } else if (user && isAuthPage) {
+        // If user is logged in and on an auth page, redirect to dashboard
+        router.push('/dashboard');
       }
     });
 
@@ -36,5 +40,3 @@ export function useAuth() {
 
   return { user, loading };
 }
-
-    

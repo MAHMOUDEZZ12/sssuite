@@ -133,5 +133,3 @@ const generateAdFromBrochureFlow = ai.defineFlow(
     return output!;
   }
 );
-
-    

@@ -115,9 +115,9 @@ export default function AboutPage() {
         <section className="text-center max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold mb-4">A Note From The Creator</h2>
             <div className="flex justify-center mb-6">
-                <div className="p-3 bg-primary/10 text-primary rounded-full w-fit">
+                <Button variant="ghost" onClick={() => setShowCode(true)} className="p-3 h-auto bg-primary/10 text-primary rounded-full w-fit hover:bg-primary/20">
                     <BrainCircuit className="h-8 w-8" />
-                </div>
+                </Button>
             </div>
             <div className="prose prose-lg dark:prose-invert mx-auto text-foreground/80">
                 <p>
