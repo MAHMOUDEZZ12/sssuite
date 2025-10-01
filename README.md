@@ -48,6 +48,8 @@ The system is built on a **modular architecture**: each feature is an AI-driven 
 ```ts
 users/{uid}
   profile: { name, city, email }
+  plan: 'student'|'seller'|'marketer'|'ceo'
+  flags: { canAdWrite, maxGenerationsPerDay, maxStorageGb, watermark }
   brandKit: { logoUrl, colors:{primary,accent}, contact:{phone,email} }
   projects: [projectId]
   storageRefs: [fileId]
@@ -59,6 +61,11 @@ projects/{projectId}
 
 storage/{fileId}
   fileUrl, ownerUid, type, tags[], linkedProjectId?
+
+referrals/{uid}
+  invites: string[]
+  accepted: string[]
+  benefitsIssued: string[]
 ```
 
 ## Flows
