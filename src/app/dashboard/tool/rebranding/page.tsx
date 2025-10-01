@@ -180,10 +180,9 @@ export default function RebrandingPage() {
                             <a href={resultData.rebrandedBrochureDataUri} download="rebranded-brochure.pdf">
                                 <Button variant="outline"><Download className="mr-2"/> Download PDF</Button>
                             </a>
-                            <Button onClick={() => handleFileChange({ target: { files: [sourceBrochure] } } as any)} className="mt-0">
-                                <Pen className="mr-2 h-4 w-4" />
-                                Continue Editing
-                             </Button>
+                            <Button onClick={() => handleFileChange({ target: { files: [sourceBrochure] } } as any)}>
+                                <Pen className="mr-2 h-4 w-4" /> Continue Editing
+                            </Button>
                          </div>
                     </CardContent>
                 </Card>

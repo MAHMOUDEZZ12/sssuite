@@ -102,7 +102,7 @@ function OnboardingComponent() {
         track('onboarding_project_rated', { project: projectName, rating: status });
     };
 
-    const isStep1Complete = draft.devFocus.length > 0 && (suggestedProjects.length === 0 || Object.keys(draft.firstPass).length === suggestedProjects.length);
+    const isStep1Complete = draft.devFocus.length > 0;
 
     const nextStep = () => {
         track('onboarding_step_completed', { step });

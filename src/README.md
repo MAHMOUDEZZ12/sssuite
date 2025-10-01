@@ -108,5 +108,3 @@ referrals/{uid}
 
 S3 turns every salesperson into a Super-Seller by giving them tools, not just tasks.
 With projects, brand, and storage unified, S3 becomes the AI co-pilot for real estate sales.
-
-    
