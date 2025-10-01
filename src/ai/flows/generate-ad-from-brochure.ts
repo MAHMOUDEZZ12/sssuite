@@ -110,7 +110,7 @@ Additional Information: {{{additionalInformation}}}
 {{#if brochureDataUri}}
 Brochure: {{media url=brochureDataUri}}
 {{else}}
-Instruction: If no brochure is provided, create a high-quality, professional one-page brochure for the project name given. Use placeholder text and images that match the focus area.
+Instruction: If no brochure is provided, you MUST create a high-quality, professional one-page brochure for the project name given. Use placeholder text and images that are relevant to the specified focus area. Ensure the design is modern and visually appealing.
 {{/if}}
 
 Here are the branding guidelines:
@@ -133,3 +133,5 @@ const generateAdFromBrochureFlow = ai.defineFlow(
     return output!;
   }
 );
+
+    

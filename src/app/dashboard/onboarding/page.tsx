@@ -102,15 +102,15 @@ function OnboardingComponent() {
         track('onboarding_project_rated', { project: projectName, rating: status });
     };
 
-    const isStep1Complete = draft.devFocus.length > 0 && Object.keys(draft.firstPass).length === suggestedProjects.length && suggestedProjects.length > 0;
+    const isStep1Complete = draft.devFocus.length > 0 && (suggestedProjects.length === 0 || Object.keys(draft.firstPass).length === suggestedProjects.length);
 
     const nextStep = () => {
         track('onboarding_step_completed', { step });
-        router.push(`/onboarding?step=${step + 1}`);
+        router.push(`/dashboard/onboarding?step=${step + 1}`);
     };
     const prevStep = () => {
         track('onboarding_step_navigated_back', { fromStep: step, toStep: step - 1 });
-        router.push(`/onboarding?step=${step - 1}`);
+        router.push(`/dashboard/onboarding?step=${step - 1}`);
     };
     
     const finishOnboarding = () => {
@@ -487,3 +487,5 @@ export default function OnboardingPage() {
         </div>
     )
 }
+
+    
