@@ -2,18 +2,51 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import type { User } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useRouter, usePathname } from 'next/navigation';
 
+// Mock user object
+const mockUser: User = {
+  uid: 'mock-user-123',
+  email: 'dev@superseller.ai',
+  displayName: 'Dev User',
+  photoURL: 'https://picsum.photos/seed/dev/40/40',
+  emailVerified: true,
+  isAnonymous: false,
+  metadata: {},
+  providerData: [],
+  providerId: 'password',
+  tenantId: null,
+  delete: async () => {},
+  getIdToken: async () => 'mock-token',
+  getIdTokenResult: async () => ({
+    token: 'mock-token',
+    authTime: '',
+    issuedAtTime: '',
+    signInProvider: null,
+    signInSecondFactor: null,
+    expirationTime: '',
+    claims: {},
+  }),
+  reload: async () => {},
+  toJSON: () => ({}),
+};
+
+
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(mockUser);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    // If firebase is not configured, don't do anything.
+    // Authentication is currently disabled for development.
+    // The hook will always return a mock user and will not perform any redirects.
+    // To re-enable authentication, uncomment the original code below and remove the mock implementation.
+    
+    // Original code:
+    /*
     if (!auth) {
         setLoading(false);
         return;
@@ -23,19 +56,17 @@ export function useAuth() {
       setLoading(false);
 
       const isAuthPage = pathname === '/login' || pathname === '/signup';
-      const isPublicPage = ['/', '/pricing', '/about', '/blog', '/cookies', '/documentation', '/privacy', '/status', '/superfreetime', '/sx3-mindmap', '/technology', '/terms', '/onboarding'].includes(pathname) || pathname.startsWith('/blog/');
       const isDashboardPage = pathname.startsWith('/dashboard');
       
       if (!user && isDashboardPage) {
-        // If user is not logged in and is trying to access a dashboard page
         router.push('/login');
       } else if (user && isAuthPage) {
-        // If user is logged in and on an auth page, redirect to dashboard
         router.push('/dashboard');
       }
     });
 
     return () => unsubscribe();
+    */
   }, [router, pathname]);
 
   return { user, loading };
