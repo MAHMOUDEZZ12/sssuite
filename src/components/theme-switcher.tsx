@@ -17,15 +17,17 @@ export function useTheme() {
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme && themes.some(t => t.value === savedTheme)) {
-        setThemeState(savedTheme);
+        setTheme(savedTheme);
+    } else {
+        setTheme('system'); // Set default if no valid theme is saved
     }
   }, []);
 
   const setTheme = (newTheme: string) => {
     const root = document.documentElement;
     
-    // Clear existing theme classes from both globals.css and the html element
-    themes.forEach(t => root.classList.remove(t.value));
+    // Clear existing theme classes
+    root.classList.remove('light', 'dark', 'theme-pinkpurple');
     
     let activeTheme = newTheme;
     if (newTheme === 'system') {
@@ -45,14 +47,14 @@ export function useTheme() {
         activeTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
      }
      const root = document.documentElement;
-     themes.forEach(t => root.classList.remove(t.value));
+     root.classList.remove('light', 'dark', 'theme-pinkpurple');
      root.classList.add(activeTheme);
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
         if (localStorage.getItem('theme') === 'system') {
             const newActiveTheme = mediaQuery.matches ? 'dark' : 'light';
-            themes.forEach(t => root.classList.remove(t.value));
+            root.classList.remove('light', 'dark', 'theme-pinkpurple');
             root.classList.add(newActiveTheme);
         }
     };

@@ -162,7 +162,7 @@ export function DashboardHeader() {
                     </DropdownMenu>
                 </div>
             </header>
-            <GlobalSearch isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
+            <GlobalSearch isOpen={isSearchOpen} setIsOpen={setIsOpen} />
         </>
     );
 }

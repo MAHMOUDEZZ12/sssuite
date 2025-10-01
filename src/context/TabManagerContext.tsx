@@ -28,6 +28,7 @@ const navMap: {[key: string]: string} = {
     '/dashboard/leads': 'Leads (CRM)',
     '/dashboard/assistant': 'AI Assistant',
     '/dashboard/settings': 'Settings',
+    '/dashboard/dev-admin': 'Dev Admin',
 };
 
 const getLabelForPath = (path: string): string => {
@@ -102,5 +103,3 @@ export const useTabManager = () => {
   }
   return context;
 };
-
-    

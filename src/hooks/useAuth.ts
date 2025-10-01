@@ -24,7 +24,7 @@ export function useAuth() {
 
       const isAuthPage = pathname === '/login' || pathname === '/signup' || pathname === '/onboarding';
       
-      if (!user && !isAuthPage) {
+      if (!user && !isAuthPage && !pathname.startsWith('/dashboard/tool/')) {
         // If user is not logged in and not on an auth page, redirect to login
         router.push('/login');
       }
