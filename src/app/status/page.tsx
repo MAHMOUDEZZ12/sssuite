@@ -19,7 +19,7 @@ const services: { name: string; status: Status; description: string }[] = [
   { name: 'AI PDF Editing Services', status: 'Operational', description: 'PDF manipulation and rebranding flows are online.' },
   { name: 'Database Services', status: 'Operational', description: 'User data and asset storage are accessible.' },
   { name: 'Authentication', status: 'Operational', description: 'Login and user session management are working correctly.' },
-  { name: 'Third-Party Integrations', status: 'Degraded Performance', description: 'Connections to external social media APIs are experiencing slight delays.' },
+  { name: 'Third-Party Integrations', status: 'Operational', description: 'Connections to external social media APIs are running smoothly.' },
 ];
 
 const statusConfig: { [key in Status]: { icon: React.ReactNode; color: string; badgeVariant: "default" | "destructive" | "secondary" } } = {
