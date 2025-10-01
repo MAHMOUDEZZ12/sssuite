@@ -392,11 +392,11 @@ export default function CampaignBuilderPage() {
 
         const nextStep = steps[currentStepIndex + 1];
         if (nextStep) {
-            return <Button onClick={() => handleNextStep(nextStep)} disabled={isNextDisabled()}>Next <ArrowRight /></Button>;
+            return <Button type="button" onClick={() => handleNextStep(nextStep)} disabled={isNextDisabled()}>Next <ArrowRight /></Button>;
         }
 
         return (
-            <Button size="lg" onClick={handleGeneration} disabled={isLoading || isNextDisabled()}>
+            <Button size="lg" type="button" onClick={handleGeneration} disabled={isLoading || isNextDisabled()}>
                 {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Building Campaign...</> : <><Sparkles className="mr-2 h-5 w-5" />Generate Campaign Structure</>}
             </Button>
         );
@@ -429,7 +429,7 @@ export default function CampaignBuilderPage() {
                                     {renderStepContent()}
                                 </CardContent>
                                 <CardFooter className="flex justify-between">
-                                    {currentStep !== 'project' && <Button variant="ghost" onClick={() => handleNextStep(['project', 'workflow', 'media', 'budget', 'review'][['project', 'workflow', 'media', 'budget', 'review'].indexOf(currentStep) - 1])}><ArrowLeft /> Back</Button>}
+                                    {currentStep !== 'project' && <Button type="button" variant="ghost" onClick={() => handleNextStep(['project', 'workflow', 'media', 'budget', 'review'][['project', 'workflow', 'media', 'budget', 'review'].indexOf(currentStep) - 1])}><ArrowLeft /> Back</Button>}
                                     <div className="ml-auto">
                                         {getStepButton()}
                                     </div>
